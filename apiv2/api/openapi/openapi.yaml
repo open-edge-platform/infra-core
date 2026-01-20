@@ -380,698 +380,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteOSUpdateRunResponse'
-  /edge-infra.orchestrator.apis/v2/telemetry/groups/logs:
-    get:
-      tags:
-        - TelemetryLogsGroupService
-      summary: ListTelemetryLogsGroups
-      description: Get a list of telemetry_logs_groups.
-      operationId: TelemetryLogsGroupService_ListTelemetryLogsGroups
-      parameters:
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListTelemetryLogsGroupsResponse'
-    post:
-      tags:
-        - TelemetryLogsGroupService
-      summary: CreateTelemetryLogsGroup
-      description: Create a telemetry_logs_group.
-      operationId: TelemetryLogsGroupService_CreateTelemetryLogsGroup
-      requestBody:
-        description: The telemetry_logs_group to create.
-        content:
-          application/json:
-            schema:
-              title: telemetry_logs_group
-              description: The telemetry_logs_group to create.
-              $ref: '#/components/schemas/TelemetryLogsGroupResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryLogsGroupResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}:
-    get:
-      tags:
-        - TelemetryLogsGroupService
-      summary: GetTelemetryLogsGroup
-      description: Get a specific telemetry_logs_group.
-      operationId: TelemetryLogsGroupService_GetTelemetryLogsGroup
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested telemetry_logs_group.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested telemetry_logs_group.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryLogsGroupResource'
-    delete:
-      tags:
-        - TelemetryLogsGroupService
-      summary: DeleteTelemetryLogsGroup
-      description: Delete a telemetry_logs_group.
-      operationId: TelemetryLogsGroupService_DeleteTelemetryLogsGroup
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteTelemetryLogsGroupResponse'
-  /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics:
-    get:
-      tags:
-        - TelemetryMetricsGroupService
-      summary: ListTelemetryMetricsGroups
-      description: Get a list of telemetryMetricsGroups.
-      operationId: TelemetryMetricsGroupService_ListTelemetryMetricsGroups
-      parameters:
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListTelemetryMetricsGroupsResponse'
-    post:
-      tags:
-        - TelemetryMetricsGroupService
-      summary: CreateTelemetryMetricsGroup
-      description: Create a telemetry_metrics_group.
-      operationId: TelemetryMetricsGroupService_CreateTelemetryMetricsGroup
-      requestBody:
-        description: The telemetry_metrics_group to create.
-        content:
-          application/json:
-            schema:
-              title: telemetry_metrics_group
-              description: The telemetry_metrics_group to create.
-              $ref: '#/components/schemas/TelemetryMetricsGroupResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryMetricsGroupResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}:
-    get:
-      tags:
-        - TelemetryMetricsGroupService
-      summary: GetTelemetryMetricsGroup
-      description: Get a specific telemetry_metrics_group.
-      operationId: TelemetryMetricsGroupService_GetTelemetryMetricsGroup
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested telemetry_metrics_group.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested telemetry_metrics_group.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryMetricsGroupResource'
-    delete:
-      tags:
-        - TelemetryMetricsGroupService
-      summary: DeleteTelemetryMetricsGroup
-      description: Delete a telemetry_metrics_group.
-      operationId: TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteTelemetryMetricsGroupResponse'
-  /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs:
-    get:
-      tags:
-        - TelemetryLogsProfileService
-      summary: ListTelemetryLogsProfiles
-      description: Get a list of telemetryLogsProfiles.
-      operationId: TelemetryLogsProfileService_ListTelemetryLogsProfiles
-      parameters:
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: instanceId
-          in: query
-          description: Returns only the telemetry profiles that are assigned with the given instance identifier.
-          schema:
-            type: string
-            title: instance_id
-            pattern: ^inst-[0-9a-f]{8}$
-            description: |
-              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
-              string.max_bytes = 13
-        - name: siteId
-          in: query
-          description: Returns only the telemetry profiles that are assigned with the given siteID.
-          schema:
-            type: string
-            title: site_id
-            pattern: ^site-[0-9a-f]{8}$
-            description: |
-              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
-              string.max_bytes = 13
-        - name: regionId
-          in: query
-          description: Returns only the telemetry profiles that are assigned with the given regionID.
-          schema:
-            type: string
-            title: region_id
-            pattern: ^region-[0-9a-f]{8}$
-            description: |
-              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
-              string.max_bytes = 15
-        - name: showInherited
-          in: query
-          description: |-
-            Indicates if listed telemetry profiles should be extended with telemetry
-             profiles rendered from hierarchy. This flag is only used along with one
-             of siteId, regionId or instanceId. If siteId, regionId or instanceId are
-             not set, this flag is ignored.
-          schema:
-            type: boolean
-            title: show_inherited
-            description: |-
-              (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
-               profiles rendered from hierarchy. This flag is only used along with one
-               of siteId, regionId or instanceId. If siteId, regionId or instanceId are
-               not set, this flag is ignored.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListTelemetryLogsProfilesResponse'
-    post:
-      tags:
-        - TelemetryLogsProfileService
-      summary: CreateTelemetryLogsProfile
-      description: Create a telemetry_logs_profile.
-      operationId: TelemetryLogsProfileService_CreateTelemetryLogsProfile
-      requestBody:
-        description: The telemetry_logs_profile to create.
-        content:
-          application/json:
-            schema:
-              title: telemetry_logs_profile
-              description: The telemetry_logs_profile to create.
-              $ref: '#/components/schemas/TelemetryLogsProfileResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryLogsProfileResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}:
-    get:
-      tags:
-        - TelemetryLogsProfileService
-      summary: GetTelemetryLogsProfile
-      description: Get a specific telemetry_logs_profile.
-      operationId: TelemetryLogsProfileService_GetTelemetryLogsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested telemetry_logs_profile.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested telemetry_logs_profile.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryLogsProfileResource'
-    put:
-      tags:
-        - TelemetryLogsProfileService
-      summary: UpdateTelemetryLogsProfile
-      description: Update a telemetry_logs_profile.
-      operationId: TelemetryLogsProfileService_UpdateTelemetryLogsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
-      requestBody:
-        description: Updated values for the telemetry_logs_profile.
-        content:
-          application/json:
-            schema:
-              title: telemetry_logs_profile
-              description: Updated values for the telemetry_logs_profile.
-              $ref: '#/components/schemas/TelemetryLogsProfileResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryLogsProfileResource'
-    delete:
-      tags:
-        - TelemetryLogsProfileService
-      summary: DeleteTelemetryLogsProfile
-      description: Delete a telemetry_logs_profile.
-      operationId: TelemetryLogsProfileService_DeleteTelemetryLogsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteTelemetryLogsProfileResponse'
-    patch:
-      tags:
-        - TelemetryLogsProfileService
-      summary: PatchTelemetryLogsProfile
-      description: Patch a telemetry_logs_profile.
-      operationId: TelemetryLogsProfileService_PatchTelemetryLogsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: ID of the resource to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: ID of the resource to be updated.
-        - name: fieldMask.paths
-          in: query
-          description: The set of field mask paths.
-          schema:
-            type: array
-            items:
-              type: string
-            title: paths
-            description: The set of field mask paths.
-      requestBody:
-        description: Updated values for the telemetry_logs_profile.
-        content:
-          application/json:
-            schema:
-              title: telemetry_logs_profile
-              description: Updated values for the telemetry_logs_profile.
-              $ref: '#/components/schemas/TelemetryLogsProfileResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryLogsProfileResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics:
-    get:
-      tags:
-        - TelemetryMetricsProfileService
-      summary: ListTelemetryMetricsProfiles
-      description: Get a list of telemetryMetricsProfiles.
-      operationId: TelemetryMetricsProfileService_ListTelemetryMetricsProfiles
-      parameters:
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: instanceId
-          in: query
-          description: Returns only the telemetry profiles that are assigned with the given instance identifier.
-          schema:
-            type: string
-            title: instance_id
-            pattern: ^inst-[0-9a-f]{8}$
-            description: |
-              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
-              string.max_bytes = 13
-        - name: siteId
-          in: query
-          description: Returns only the telemetry profiles that are assigned with the given siteID.
-          schema:
-            type: string
-            title: site_id
-            pattern: ^site-[0-9a-f]{8}$
-            description: |
-              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
-              string.max_bytes = 13
-        - name: regionId
-          in: query
-          description: Returns only the telemetry profiles that are assigned with the given regionID.
-          schema:
-            type: string
-            title: region_id
-            pattern: ^region-[0-9a-f]{8}$
-            description: |
-              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
-              string.max_bytes = 15
-        - name: showInherited
-          in: query
-          description: |-
-            Indicates if listed telemetry profiles should be extended with telemetry
-             profiles rendered from hierarchy. This flag is only used along with one
-             of siteId, regionId or instanceId. If siteId, regionId or instanceId are
-             not set, this flag is ignored.
-          schema:
-            type: boolean
-            title: show_inherited
-            description: |-
-              (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
-               profiles rendered from hierarchy. This flag is only used along with one
-               of siteId, regionId or instanceId. If siteId, regionId or instanceId are
-               not set, this flag is ignored.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListTelemetryMetricsProfilesResponse'
-    post:
-      tags:
-        - TelemetryMetricsProfileService
-      summary: CreateTelemetryMetricsProfile
-      description: Create a telemetry_metrics_profile.
-      operationId: TelemetryMetricsProfileService_CreateTelemetryMetricsProfile
-      requestBody:
-        description: The telemetry_metrics_profile to create.
-        content:
-          application/json:
-            schema:
-              title: telemetry_metrics_profile
-              description: The telemetry_metrics_profile to create.
-              $ref: '#/components/schemas/TelemetryMetricsProfileResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
-  /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}:
-    get:
-      tags:
-        - TelemetryMetricsProfileService
-      summary: GetTelemetryMetricsProfile
-      description: Get a specific telemetry_metrics_profile.
-      operationId: TelemetryMetricsProfileService_GetTelemetryMetricsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the requested telemetry_metrics_profile.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested telemetry_metrics_profile.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
-    put:
-      tags:
-        - TelemetryMetricsProfileService
-      summary: UpdateTelemetryMetricsProfile
-      description: Update a telemetry_metrics_profile.
-      operationId: TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
-      requestBody:
-        description: Updated values for the telemetry_metrics_profile.
-        content:
-          application/json:
-            schema:
-              title: telemetry_metrics_profile
-              description: Updated values for the telemetry_metrics_profile.
-              $ref: '#/components/schemas/TelemetryMetricsProfileResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
-    delete:
-      tags:
-        - TelemetryMetricsProfileService
-      summary: DeleteTelemetryMetricsProfile
-      description: Delete a telemetry_metrics_profile.
-      operationId: TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteTelemetryMetricsProfileResponse'
-    patch:
-      tags:
-        - TelemetryMetricsProfileService
-      summary: PatchTelemetryMetricsProfile
-      description: Patch a telemetry_metrics_profile.
-      operationId: TelemetryMetricsProfileService_PatchTelemetryMetricsProfile
-      parameters:
-        - name: resourceId
-          in: path
-          description: ID of the resource to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: ID of the resource to be updated.
-        - name: fieldMask.paths
-          in: query
-          description: The set of field mask paths.
-          schema:
-            type: array
-            items:
-              type: string
-            title: paths
-            description: The set of field mask paths.
-      requestBody:
-        description: Updated values for the telemetry_metrics_profile.
-        content:
-          application/json:
-            schema:
-              title: telemetry_metrics_profile
-              description: Updated values for the telemetry_metrics_profile.
-              $ref: '#/components/schemas/TelemetryMetricsProfileResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
   /v1/projects/{projectName}/compute/hosts:
     get:
       tags:
@@ -3613,6 +2921,862 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleScheduleResource'
+  /v1/projects/{projectName}/telemetry/groups/logs:
+    get:
+      tags:
+        - TelemetryLogsGroupService
+      summary: ListTelemetryLogsGroups
+      description: Get a list of telemetry_logs_groups.
+      operationId: TelemetryLogsGroupService_ListTelemetryLogsGroups
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryLogsGroupsResponse'
+    post:
+      tags:
+        - TelemetryLogsGroupService
+      summary: CreateTelemetryLogsGroup
+      description: Create a telemetry_logs_group.
+      operationId: TelemetryLogsGroupService_CreateTelemetryLogsGroup
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The telemetry_logs_group to create.
+        content:
+          application/json:
+            schema:
+              title: telemetry_logs_group
+              description: The telemetry_logs_group to create.
+              $ref: '#/components/schemas/TelemetryLogsGroupResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsGroupResource'
+  /v1/projects/{projectName}/telemetry/groups/logs/{resourceId}:
+    get:
+      tags:
+        - TelemetryLogsGroupService
+      summary: GetTelemetryLogsGroup
+      description: Get a specific telemetry_logs_group.
+      operationId: TelemetryLogsGroupService_GetTelemetryLogsGroup
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested telemetry_logs_group.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested telemetry_logs_group.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsGroupResource'
+    delete:
+      tags:
+        - TelemetryLogsGroupService
+      summary: DeleteTelemetryLogsGroup
+      description: Delete a telemetry_logs_group.
+      operationId: TelemetryLogsGroupService_DeleteTelemetryLogsGroup
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTelemetryLogsGroupResponse'
+  /v1/projects/{projectName}/telemetry/groups/metrics:
+    get:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: ListTelemetryMetricsGroups
+      description: Get a list of telemetryMetricsGroups.
+      operationId: TelemetryMetricsGroupService_ListTelemetryMetricsGroups
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryMetricsGroupsResponse'
+    post:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: CreateTelemetryMetricsGroup
+      description: Create a telemetry_metrics_group.
+      operationId: TelemetryMetricsGroupService_CreateTelemetryMetricsGroup
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The telemetry_metrics_group to create.
+        content:
+          application/json:
+            schema:
+              title: telemetry_metrics_group
+              description: The telemetry_metrics_group to create.
+              $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+  /v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}:
+    get:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: GetTelemetryMetricsGroup
+      description: Get a specific telemetry_metrics_group.
+      operationId: TelemetryMetricsGroupService_GetTelemetryMetricsGroup
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested telemetry_metrics_group.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested telemetry_metrics_group.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+    delete:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: DeleteTelemetryMetricsGroup
+      description: Delete a telemetry_metrics_group.
+      operationId: TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTelemetryMetricsGroupResponse'
+  /v1/projects/{projectName}/telemetry/profiles/logs:
+    get:
+      tags:
+        - TelemetryLogsProfileService
+      summary: ListTelemetryLogsProfiles
+      description: Get a list of telemetryLogsProfiles.
+      operationId: TelemetryLogsProfileService_ListTelemetryLogsProfiles
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: instanceId
+          in: query
+          description: Returns only the telemetry profiles that are assigned with the given instance identifier.
+          schema:
+            type: string
+            title: instance_id
+            pattern: ^inst-[0-9a-f]{8}$
+            description: |
+              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
+              string.max_bytes = 13
+        - name: siteId
+          in: query
+          description: Returns only the telemetry profiles that are assigned with the given siteID.
+          schema:
+            type: string
+            title: site_id
+            pattern: ^site-[0-9a-f]{8}$
+            description: |
+              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
+              string.max_bytes = 13
+        - name: regionId
+          in: query
+          description: Returns only the telemetry profiles that are assigned with the given regionID.
+          schema:
+            type: string
+            title: region_id
+            pattern: ^region-[0-9a-f]{8}$
+            description: |
+              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
+              string.max_bytes = 15
+        - name: showInherited
+          in: query
+          description: |-
+            Indicates if listed telemetry profiles should be extended with telemetry
+             profiles rendered from hierarchy. This flag is only used along with one
+             of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+             not set, this flag is ignored.
+          schema:
+            type: boolean
+            title: show_inherited
+            description: |-
+              (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
+               profiles rendered from hierarchy. This flag is only used along with one
+               of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+               not set, this flag is ignored.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryLogsProfilesResponse'
+    post:
+      tags:
+        - TelemetryLogsProfileService
+      summary: CreateTelemetryLogsProfile
+      description: Create a telemetry_logs_profile.
+      operationId: TelemetryLogsProfileService_CreateTelemetryLogsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The telemetry_logs_profile to create.
+        content:
+          application/json:
+            schema:
+              title: telemetry_logs_profile
+              description: The telemetry_logs_profile to create.
+              $ref: '#/components/schemas/TelemetryLogsProfileResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsProfileResource'
+  /v1/projects/{projectName}/telemetry/profiles/logs/{resourceId}:
+    get:
+      tags:
+        - TelemetryLogsProfileService
+      summary: GetTelemetryLogsProfile
+      description: Get a specific telemetry_logs_profile.
+      operationId: TelemetryLogsProfileService_GetTelemetryLogsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested telemetry_logs_profile.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested telemetry_logs_profile.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsProfileResource'
+    put:
+      tags:
+        - TelemetryLogsProfileService
+      summary: UpdateTelemetryLogsProfile
+      description: Update a telemetry_logs_profile.
+      operationId: TelemetryLogsProfileService_UpdateTelemetryLogsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
+      requestBody:
+        description: Updated values for the telemetry_logs_profile.
+        content:
+          application/json:
+            schema:
+              title: telemetry_logs_profile
+              description: Updated values for the telemetry_logs_profile.
+              $ref: '#/components/schemas/TelemetryLogsProfileResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsProfileResource'
+    delete:
+      tags:
+        - TelemetryLogsProfileService
+      summary: DeleteTelemetryLogsProfile
+      description: Delete a telemetry_logs_profile.
+      operationId: TelemetryLogsProfileService_DeleteTelemetryLogsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTelemetryLogsProfileResponse'
+    patch:
+      tags:
+        - TelemetryLogsProfileService
+      summary: PatchTelemetryLogsProfile
+      description: Patch a telemetry_logs_profile.
+      operationId: TelemetryLogsProfileService_PatchTelemetryLogsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the telemetry_logs_profile.
+        content:
+          application/json:
+            schema:
+              title: telemetry_logs_profile
+              description: Updated values for the telemetry_logs_profile.
+              $ref: '#/components/schemas/TelemetryLogsProfileResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsProfileResource'
+  /v1/projects/{projectName}/telemetry/profiles/metrics:
+    get:
+      tags:
+        - TelemetryMetricsProfileService
+      summary: ListTelemetryMetricsProfiles
+      description: Get a list of telemetryMetricsProfiles.
+      operationId: TelemetryMetricsProfileService_ListTelemetryMetricsProfiles
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: instanceId
+          in: query
+          description: Returns only the telemetry profiles that are assigned with the given instance identifier.
+          schema:
+            type: string
+            title: instance_id
+            pattern: ^inst-[0-9a-f]{8}$
+            description: |
+              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given instance identifier.
+              string.max_bytes = 13
+        - name: siteId
+          in: query
+          description: Returns only the telemetry profiles that are assigned with the given siteID.
+          schema:
+            type: string
+            title: site_id
+            pattern: ^site-[0-9a-f]{8}$
+            description: |
+              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given siteID.
+              string.max_bytes = 13
+        - name: regionId
+          in: query
+          description: Returns only the telemetry profiles that are assigned with the given regionID.
+          schema:
+            type: string
+            title: region_id
+            pattern: ^region-[0-9a-f]{8}$
+            description: |
+              (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
+              string.max_bytes = 15
+        - name: showInherited
+          in: query
+          description: |-
+            Indicates if listed telemetry profiles should be extended with telemetry
+             profiles rendered from hierarchy. This flag is only used along with one
+             of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+             not set, this flag is ignored.
+          schema:
+            type: boolean
+            title: show_inherited
+            description: |-
+              (OPTIONAL) Indicates if listed telemetry profiles should be extended with telemetry
+               profiles rendered from hierarchy. This flag is only used along with one
+               of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+               not set, this flag is ignored.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryMetricsProfilesResponse'
+    post:
+      tags:
+        - TelemetryMetricsProfileService
+      summary: CreateTelemetryMetricsProfile
+      description: Create a telemetry_metrics_profile.
+      operationId: TelemetryMetricsProfileService_CreateTelemetryMetricsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The telemetry_metrics_profile to create.
+        content:
+          application/json:
+            schema:
+              title: telemetry_metrics_profile
+              description: The telemetry_metrics_profile to create.
+              $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+  /v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId}:
+    get:
+      tags:
+        - TelemetryMetricsProfileService
+      summary: GetTelemetryMetricsProfile
+      description: Get a specific telemetry_metrics_profile.
+      operationId: TelemetryMetricsProfileService_GetTelemetryMetricsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested telemetry_metrics_profile.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested telemetry_metrics_profile.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+    put:
+      tags:
+        - TelemetryMetricsProfileService
+      summary: UpdateTelemetryMetricsProfile
+      description: Update a telemetry_metrics_profile.
+      operationId: TelemetryMetricsProfileService_UpdateTelemetryMetricsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
+      requestBody:
+        description: Updated values for the telemetry_metrics_profile.
+        content:
+          application/json:
+            schema:
+              title: telemetry_metrics_profile
+              description: Updated values for the telemetry_metrics_profile.
+              $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+    delete:
+      tags:
+        - TelemetryMetricsProfileService
+      summary: DeleteTelemetryMetricsProfile
+      description: Delete a telemetry_metrics_profile.
+      operationId: TelemetryMetricsProfileService_DeleteTelemetryMetricsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTelemetryMetricsProfileResponse'
+    patch:
+      tags:
+        - TelemetryMetricsProfileService
+      summary: PatchTelemetryMetricsProfile
+      description: Patch a telemetry_metrics_profile.
+      operationId: TelemetryMetricsProfileService_PatchTelemetryMetricsProfile
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the telemetry_metrics_profile.
+        content:
+          application/json:
+            schema:
+              title: telemetry_metrics_profile
+              description: Updated values for the telemetry_metrics_profile.
+              $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsProfileResource'
   /v1/projects/{projectName}/workload_members:
     get:
       tags:
@@ -6896,12 +7060,17 @@ components:
     CreateTelemetryLogsGroupRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         telemetryLogsGroup:
           title: telemetry_logs_group
           description: The telemetry_logs_group to create.
           $ref: '#/components/schemas/TelemetryLogsGroupResource'
       title: CreateTelemetryLogsGroupRequest
       required:
+        - projectName
         - telemetryLogsGroup
       additionalProperties: false
       description: Request message for the CreateTelemetryLogsGroup method.
@@ -6920,12 +7089,17 @@ components:
     CreateTelemetryLogsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         telemetryLogsProfile:
           title: telemetry_logs_profile
           description: The telemetry_logs_profile to create.
           $ref: '#/components/schemas/TelemetryLogsProfileResource'
       title: CreateTelemetryLogsProfileRequest
       required:
+        - projectName
         - telemetryLogsProfile
       additionalProperties: false
       description: Request message for the CreateTelemetryLogsProfile method.
@@ -6944,12 +7118,17 @@ components:
     CreateTelemetryMetricsGroupRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         telemetryMetricsGroup:
           title: telemetry_metrics_group
           description: The telemetry_metrics_group to create.
           $ref: '#/components/schemas/TelemetryMetricsGroupResource'
       title: CreateTelemetryMetricsGroupRequest
       required:
+        - projectName
         - telemetryMetricsGroup
       additionalProperties: false
       description: Request message for the CreateTelemetryMetricsGroup method.
@@ -6968,12 +7147,17 @@ components:
     CreateTelemetryMetricsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         telemetryMetricsProfile:
           title: telemetry_metrics_profile
           description: The telemetry_metrics_profile to create.
           $ref: '#/components/schemas/TelemetryMetricsProfileResource'
       title: CreateTelemetryMetricsProfileRequest
       required:
+        - projectName
         - telemetryMetricsProfile
       additionalProperties: false
       description: Request message for the CreateTelemetryMetricsProfile method.
@@ -7303,12 +7487,17 @@ components:
     DeleteTelemetryLogsGroupRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
       title: DeleteTelemetryLogsGroupRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteTelemetryLogsGroup.
@@ -7320,12 +7509,17 @@ components:
     DeleteTelemetryLogsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
       title: DeleteTelemetryLogsProfileRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteTelemetryLogsProfile.
@@ -7337,12 +7531,17 @@ components:
     DeleteTelemetryMetricsGroupRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
       title: DeleteTelemetryMetricsGroupRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteTelemetryMetricsGroup.
@@ -7354,12 +7553,17 @@ components:
     DeleteTelemetryMetricsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
       title: DeleteTelemetryMetricsProfileRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for DeleteTelemetryMetricsProfile.
@@ -7800,12 +8004,17 @@ components:
     GetTelemetryLogsGroupRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_logs_group.
       title: GetTelemetryLogsGroupRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetTelemetryLogsGroup method.
@@ -7824,12 +8033,17 @@ components:
     GetTelemetryLogsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_logs_profile.
       title: GetTelemetryLogsProfileRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetTelemetryLogsProfile method.
@@ -7848,12 +8062,17 @@ components:
     GetTelemetryMetricsGroupRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_metrics_group.
       title: GetTelemetryMetricsGroupRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetTelemetryMetricsGroup method.
@@ -7872,12 +8091,17 @@ components:
     GetTelemetryMetricsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_metrics_profile.
       title: GetTelemetryMetricsProfileRequest
       required:
+        - projectName
         - resourceId
       additionalProperties: false
       description: Request message for the GetTelemetryMetricsProfile method.
@@ -9063,6 +9287,10 @@ components:
     ListTelemetryLogsGroupsRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -9086,6 +9314,8 @@ components:
             (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
       title: ListTelemetryLogsGroupsRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListTelemetryLogsGroups method.
     ListTelemetryLogsGroupsResponse:
@@ -9116,6 +9346,10 @@ components:
     ListTelemetryLogsProfilesRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -9168,6 +9402,8 @@ components:
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
       title: ListTelemetryLogsProfilesRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListTelemetryLogsProfiles method.
     ListTelemetryLogsProfilesResponse:
@@ -9198,6 +9434,10 @@ components:
     ListTelemetryMetricsGroupsRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -9221,6 +9461,8 @@ components:
             (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
       title: ListTelemetryMetricsGroupsRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListTelemetryMetricsGroups method.
     ListTelemetryMetricsGroupsResponse:
@@ -9251,6 +9493,10 @@ components:
     ListTelemetryMetricsProfilesRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -9303,6 +9549,8 @@ components:
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
       title: ListTelemetryMetricsProfilesRequest
+      required:
+        - projectName
       additionalProperties: false
       description: Request message for the ListTelemetryMetricsProfiles method.
     ListTelemetryMetricsProfilesResponse:
@@ -9679,6 +9927,10 @@ components:
     PatchTelemetryLogsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9693,6 +9945,7 @@ components:
           $ref: '#/components/schemas/google.protobuf.FieldMask'
       title: PatchTelemetryLogsProfileRequest
       required:
+        - projectName
         - resourceId
         - telemetryLogsProfile
       additionalProperties: false
@@ -9700,6 +9953,10 @@ components:
     PatchTelemetryMetricsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9714,6 +9971,7 @@ components:
           $ref: '#/components/schemas/google.protobuf.FieldMask'
       title: PatchTelemetryMetricsProfileRequest
       required:
+        - projectName
         - resourceId
         - telemetryMetricsProfile
       additionalProperties: false
@@ -9929,6 +10187,10 @@ components:
     UpdateTelemetryLogsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9939,6 +10201,7 @@ components:
           $ref: '#/components/schemas/TelemetryLogsProfileResource'
       title: UpdateTelemetryLogsProfileRequest
       required:
+        - projectName
         - resourceId
         - telemetryLogsProfile
       additionalProperties: false
@@ -9946,6 +10209,10 @@ components:
     UpdateTelemetryMetricsProfileRequest:
       type: object
       properties:
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -9956,6 +10223,7 @@ components:
           $ref: '#/components/schemas/TelemetryMetricsProfileResource'
       title: UpdateTelemetryMetricsProfileRequest
       required:
+        - projectName
         - resourceId
         - telemetryMetricsProfile
       additionalProperties: false

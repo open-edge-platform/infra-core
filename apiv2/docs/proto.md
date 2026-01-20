@@ -1894,6 +1894,7 @@ Request message for the CreateTelemetryLogsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | telemetry_logs_group | [resources.telemetry.v1.TelemetryLogsGroupResource](#resources-telemetry-v1-TelemetryLogsGroupResource) |  | The telemetry_logs_group to create. |
 
 
@@ -1924,6 +1925,7 @@ Request message for the CreateTelemetryLogsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | The telemetry_logs_profile to create. |
 
 
@@ -1954,6 +1956,7 @@ Request message for the CreateTelemetryMetricsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | telemetry_metrics_group | [resources.telemetry.v1.TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource) |  | The telemetry_metrics_group to create. |
 
 
@@ -1984,6 +1987,7 @@ Request message for the CreateTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | The telemetry_metrics_profile to create. |
 
 
@@ -2385,6 +2389,7 @@ Request message for DeleteTelemetryLogsGroup.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the telemetry_logs_group telemetry_logs_group to be deleted. |
 
 
@@ -2410,6 +2415,7 @@ Request message for DeleteTelemetryLogsProfile.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be deleted. |
 
 
@@ -2435,6 +2441,7 @@ Request message for DeleteTelemetryMetricsGroup.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the telemetry_metrics_group telemetry_metrics_group to be deleted. |
 
 
@@ -2460,6 +2467,7 @@ Request message for DeleteTelemetryMetricsProfile.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted. |
 
 
@@ -2940,6 +2948,7 @@ Request message for the GetTelemetryLogsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested telemetry_logs_group. |
 
 
@@ -2970,6 +2979,7 @@ Request message for the GetTelemetryLogsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested telemetry_logs_profile. |
 
 
@@ -3000,6 +3010,7 @@ Request message for the GetTelemetryMetricsGroup method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested telemetry_metrics_group. |
 
 
@@ -3030,6 +3041,7 @@ Request message for the GetTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested telemetry_metrics_profile. |
 
 
@@ -3721,6 +3733,7 @@ Request message for the ListTelemetryLogsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
@@ -3755,6 +3768,7 @@ Request message for the ListTelemetryLogsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
@@ -3793,6 +3807,7 @@ Request message for the ListTelemetryMetricsGroups method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
@@ -3827,6 +3842,7 @@ Request message for the ListTelemetryMetricsProfiles method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
@@ -4089,6 +4105,7 @@ Request message for the PatchTelemetryLogs method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_logs_profile. |
@@ -4106,6 +4123,7 @@ Request message for the PatchTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_metrics_profile. |
@@ -4277,6 +4295,7 @@ Request message for the UpdateTelemetryLogsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
 
@@ -4293,6 +4312,7 @@ Request message for the UpdateTelemetryMetricsProfile method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
 

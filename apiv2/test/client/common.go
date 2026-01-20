@@ -629,8 +629,10 @@ func CreateTelemetryLogsGroup(
 ) *api.TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	created, err := apiClient.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryLogsGroup creation returned nil JSON200")
@@ -647,8 +649,10 @@ func DeleteTelemetryLogsGroup(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
@@ -661,8 +665,10 @@ func CreateTelemetryMetricsGroup(
 ) *api.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+	
 	created, err := apiClient.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryMetricsGroup creation returned nil JSON200")
@@ -679,8 +685,10 @@ func DeleteTelemetryMetricsGroup(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
@@ -693,8 +701,10 @@ func CreateTelemetryLogsProfile(
 ) *api.TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	created, err := apiClient.TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryLogsProfile creation returned nil JSON200")
@@ -711,8 +721,10 @@ func DeleteTelemetryLogsProfile(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
@@ -725,8 +737,10 @@ func CreateTelemetryMetricsProfile(
 ) *api.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	created, err := apiClient.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryMetricsProfile creation returned nil JSON200")
@@ -743,8 +757,10 @@ func DeleteTelemetryMetricsProfile(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }

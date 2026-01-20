@@ -77,7 +77,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	assert.NoError(t, err)
 
 	telemetrylogsPostRequest, err := api.NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(
-		"", utils.TelemetryLogsGroup1Request)
+		"", projectName, utils.TelemetryLogsGroup1Request)
 	assert.NoError(t, err)
 
 	tests := []struct {

@@ -126,82 +126,6 @@ type ClientInterface interface {
 	// OSUpdateRunGetOSUpdateRun request
 	OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryLogsGroupServiceListTelemetryLogsGroups request
-	TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody request with any body
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx context.Context, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup request
-	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsGroupServiceGetTelemetryLogsGroup request
-	TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups request
-	TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody request with any body
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx context.Context, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup request
-	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup request
-	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsProfileServiceListTelemetryLogsProfiles request
-	TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody request with any body
-	TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx context.Context, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsProfileServiceDeleteTelemetryLogsProfile request
-	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsProfileServiceGetTelemetryLogsProfile request
-	TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody request with any body
-	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody request with any body
-	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx context.Context, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsProfileServiceListTelemetryMetricsProfiles request
-	TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody request with any body
-	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx context.Context, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile request
-	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsProfileServiceGetTelemetryMetricsProfile request
-	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody request with any body
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody request with any body
-	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx context.Context, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// HostServiceListHosts request
 	HostServiceListHosts(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -426,6 +350,82 @@ type ClientInterface interface {
 
 	ScheduleServiceUpdateSingleSchedule(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// TelemetryLogsGroupServiceListTelemetryLogsGroups request
+	TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroup request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceListTelemetryLogsProfiles request
+	TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx context.Context, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody request with any body
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx context.Context, projectName string, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceDeleteTelemetryLogsProfile request
+	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceGetTelemetryLogsProfile request
+	TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody request with any body
+	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody request with any body
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceListTelemetryMetricsProfiles request
+	TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx context.Context, projectName string, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody request with any body
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx context.Context, projectName string, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile request
+	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceGetTelemetryMetricsProfile request
+	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody request with any body
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody request with any body
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// WorkloadMemberServiceListWorkloadMembers request
 	WorkloadMemberServiceListWorkloadMembers(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -611,342 +611,6 @@ func (c *Client) OSUpdateRunDeleteOSUpdateRun(ctx context.Context, resourceId st
 
 func (c *Client) OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewOSUpdateRunGetOSUpdateRunRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceListTelemetryLogsGroupsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx context.Context, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceListTelemetryMetricsGroupsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx context.Context, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx context.Context, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(c.Server, resourceId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(c.Server, resourceId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(c.Server, resourceId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx context.Context, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequest(c.Server, resourceId, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServiceListTelemetryMetricsProfilesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx context.Context, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(c.Server, resourceId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(c.Server, resourceId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody(c.Server, resourceId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx context.Context, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1953,6 +1617,342 @@ func (c *Client) ScheduleServiceUpdateSingleSchedule(ctx context.Context, projec
 	return c.Client.Do(req)
 }
 
+func (c *Client) TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceListTelemetryLogsGroupsRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceListTelemetryMetricsGroupsRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx context.Context, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx context.Context, projectName string, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(c.Server, projectName, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(c.Server, projectName, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx context.Context, projectName string, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequest(c.Server, projectName, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx context.Context, projectName string, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceListTelemetryMetricsProfilesRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx context.Context, projectName string, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(c.Server, projectName, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody(c.Server, projectName, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx context.Context, projectName string, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequest(c.Server, projectName, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) WorkloadMemberServiceListWorkloadMembers(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewWorkloadMemberServiceListWorkloadMembersRequest(c.Server, projectName, params)
 	if err != nil {
@@ -2692,1122 +2692,6 @@ func NewOSUpdateRunGetOSUpdateRunRequest(server string, resourceId string) (*htt
 	if err != nil {
 		return nil, err
 	}
-
-	return req, nil
-}
-
-// NewTelemetryLogsGroupServiceListTelemetryLogsGroupsRequest generates requests for TelemetryLogsGroupServiceListTelemetryLogsGroups
-func NewTelemetryLogsGroupServiceListTelemetryLogsGroupsRequest(server string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest calls the generic TelemetryLogsGroupServiceCreateTelemetryLogsGroup builder with application/json body
-func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(server string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody generates requests for TelemetryLogsGroupServiceCreateTelemetryLogsGroup with any type of body
-func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest generates requests for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup
-func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest generates requests for TelemetryLogsGroupServiceGetTelemetryLogsGroup
-func NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryMetricsGroupServiceListTelemetryMetricsGroupsRequest generates requests for TelemetryMetricsGroupServiceListTelemetryMetricsGroups
-func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroupsRequest(server string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequest calls the generic TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup builder with application/json body
-func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequest(server string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody generates requests for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup with any type of body
-func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest generates requests for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup
-func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest generates requests for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup
-func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest generates requests for TelemetryLogsProfileServiceListTelemetryLogsProfiles
-func NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest(server string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.InstanceId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "instanceId", runtime.ParamLocationQuery, *params.InstanceId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.SiteId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.RegionId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.ShowInherited != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showInherited", runtime.ParamLocationQuery, *params.ShowInherited); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequest calls the generic TelemetryLogsProfileServiceCreateTelemetryLogsProfile builder with application/json body
-func NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequest(server string, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody generates requests for TelemetryLogsProfileServiceCreateTelemetryLogsProfile with any type of body
-func NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest generates requests for TelemetryLogsProfileServiceDeleteTelemetryLogsProfile
-func NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest generates requests for TelemetryLogsProfileServiceGetTelemetryLogsProfile
-func NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest calls the generic TelemetryLogsProfileServicePatchTelemetryLogsProfile builder with application/json body
-func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(server string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server, resourceId, params, "application/json", bodyReader)
-}
-
-// NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody generates requests for TelemetryLogsProfileServicePatchTelemetryLogsProfile with any type of body
-func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMaskPaths != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("PATCH", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequest calls the generic TelemetryLogsProfileServiceUpdateTelemetryLogsProfile builder with application/json body
-func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequest(server string, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(server, resourceId, "application/json", bodyReader)
-}
-
-// NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody generates requests for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile with any type of body
-func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("PUT", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewTelemetryMetricsProfileServiceListTelemetryMetricsProfilesRequest generates requests for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles
-func NewTelemetryMetricsProfileServiceListTelemetryMetricsProfilesRequest(server string, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.InstanceId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "instanceId", runtime.ParamLocationQuery, *params.InstanceId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.SiteId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.RegionId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.ShowInherited != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showInherited", runtime.ParamLocationQuery, *params.ShowInherited); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequest calls the generic TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile builder with application/json body
-func NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequest(server string, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody generates requests for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile with any type of body
-func NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest generates requests for TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile
-func NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest generates requests for TelemetryMetricsProfileServiceGetTelemetryMetricsProfile
-func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest calls the generic TelemetryMetricsProfileServicePatchTelemetryMetricsProfile builder with application/json body
-func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(server string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server, resourceId, params, "application/json", bodyReader)
-}
-
-// NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody generates requests for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile with any type of body
-func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMaskPaths != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("PATCH", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequest calls the generic TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile builder with application/json body
-func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequest(server string, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody(server, resourceId, "application/json", bodyReader)
-}
-
-// NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody generates requests for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile with any type of body
-func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("PUT", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7447,6 +6331,1262 @@ func NewScheduleServiceUpdateSingleScheduleRequestWithBody(server string, projec
 	return req, nil
 }
 
+// NewTelemetryLogsGroupServiceListTelemetryLogsGroupsRequest generates requests for TelemetryLogsGroupServiceListTelemetryLogsGroups
+func NewTelemetryLogsGroupServiceListTelemetryLogsGroupsRequest(server string, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/logs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest calls the generic TelemetryLogsGroupServiceCreateTelemetryLogsGroup builder with application/json body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(server string, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody generates requests for TelemetryLogsGroupServiceCreateTelemetryLogsGroup with any type of body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/logs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest generates requests for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup
+func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroupRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/logs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest generates requests for TelemetryLogsGroupServiceGetTelemetryLogsGroup
+func NewTelemetryLogsGroupServiceGetTelemetryLogsGroupRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/logs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceListTelemetryMetricsGroupsRequest generates requests for TelemetryMetricsGroupServiceListTelemetryMetricsGroups
+func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroupsRequest(server string, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/metrics", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequest calls the generic TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup builder with application/json body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequest(server string, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody generates requests for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup with any type of body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/metrics", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest generates requests for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup
+func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/metrics/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest generates requests for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup
+func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/groups/metrics/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest generates requests for TelemetryLogsProfileServiceListTelemetryLogsProfiles
+func NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest(server string, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/logs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.InstanceId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "instanceId", runtime.ParamLocationQuery, *params.InstanceId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowInherited != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showInherited", runtime.ParamLocationQuery, *params.ShowInherited); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequest calls the generic TelemetryLogsProfileServiceCreateTelemetryLogsProfile builder with application/json body
+func NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequest(server string, projectName string, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody generates requests for TelemetryLogsProfileServiceCreateTelemetryLogsProfile with any type of body
+func NewTelemetryLogsProfileServiceCreateTelemetryLogsProfileRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/logs", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest generates requests for TelemetryLogsProfileServiceDeleteTelemetryLogsProfile
+func NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfileRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/logs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest generates requests for TelemetryLogsProfileServiceGetTelemetryLogsProfile
+func NewTelemetryLogsProfileServiceGetTelemetryLogsProfileRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/logs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest calls the generic TelemetryLogsProfileServicePatchTelemetryLogsProfile builder with application/json body
+func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequest(server string, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody generates requests for TelemetryLogsProfileServicePatchTelemetryLogsProfile with any type of body
+func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(server string, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/logs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequest calls the generic TelemetryLogsProfileServiceUpdateTelemetryLogsProfile builder with application/json body
+func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequest(server string, projectName string, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody generates requests for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile with any type of body
+func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfileRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/logs/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceListTelemetryMetricsProfilesRequest generates requests for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles
+func NewTelemetryMetricsProfileServiceListTelemetryMetricsProfilesRequest(server string, projectName string, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/metrics", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.InstanceId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "instanceId", runtime.ParamLocationQuery, *params.InstanceId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowInherited != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showInherited", runtime.ParamLocationQuery, *params.ShowInherited); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequest calls the generic TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile builder with application/json body
+func NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequest(server string, projectName string, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody generates requests for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile with any type of body
+func NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/metrics", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest generates requests for TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile
+func NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/metrics/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest generates requests for TelemetryMetricsProfileServiceGetTelemetryMetricsProfile
+func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfileRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/metrics/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest calls the generic TelemetryMetricsProfileServicePatchTelemetryMetricsProfile builder with application/json body
+func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequest(server string, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody generates requests for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile with any type of body
+func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBody(server string, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/metrics/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequest calls the generic TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile builder with application/json body
+func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequest(server string, projectName string, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody generates requests for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile with any type of body
+func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/profiles/metrics/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewWorkloadMemberServiceListWorkloadMembersRequest generates requests for WorkloadMemberServiceListWorkloadMembers
 func NewWorkloadMemberServiceListWorkloadMembersRequest(server string, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams) (*http.Request, error) {
 	var err error
@@ -8123,82 +8263,6 @@ type ClientWithResponsesInterface interface {
 	// OSUpdateRunGetOSUpdateRunWithResponse request
 	OSUpdateRunGetOSUpdateRunWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRunResponse, error)
 
-	// TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request
-	TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error)
-
-	// TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse request with any body
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error)
-
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(ctx context.Context, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error)
-
-	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse request
-	TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse, error)
-
-	// TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse request
-	TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse, error)
-
-	// TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse request
-	TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse, error)
-
-	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse request with any body
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error)
-
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(ctx context.Context, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error)
-
-	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse request
-	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse, error)
-
-	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse request
-	TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse, error)
-
-	// TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse request
-	TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse, error)
-
-	// TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse request with any body
-	TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error)
-
-	TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(ctx context.Context, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error)
-
-	// TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse request
-	TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse, error)
-
-	// TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse request
-	TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse, error)
-
-	// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse request with any body
-	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
-
-	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
-
-	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse request with any body
-	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error)
-
-	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error)
-
-	// TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse request
-	TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse, error)
-
-	// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse request with any body
-	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error)
-
-	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(ctx context.Context, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error)
-
-	// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse request
-	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse, error)
-
-	// TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse request
-	TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse, error)
-
-	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse request with any body
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
-
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
-
-	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse request with any body
-	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error)
-
-	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error)
-
 	// HostServiceListHostsWithResponse request
 	HostServiceListHostsWithResponse(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error)
 
@@ -8422,6 +8486,82 @@ type ClientWithResponsesInterface interface {
 	ScheduleServiceUpdateSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
 
 	ScheduleServiceUpdateSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
+
+	// TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request
+	TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error)
+
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error)
+
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error)
+
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse, error)
+
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse, error)
+
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse, error)
+
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error)
+
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error)
+
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse, error)
+
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse, error)
+
+	// TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse request
+	TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(ctx context.Context, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse, error)
+
+	// TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse request with any body
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error)
+
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error)
+
+	// TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse request
+	TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse, error)
+
+	// TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse request
+	TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse, error)
+
+	// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse request with any body
+	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
+
+	TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error)
+
+	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse request with any body
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error)
+
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error)
+
+	// TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse request
+	TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(ctx context.Context, projectName string, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse, error)
+
+	// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse request with any body
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error)
+
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error)
+
+	// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse request
+	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse, error)
+
+	// TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse request
+	TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse, error)
+
+	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse request with any body
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
+
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error)
+
+	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse request with any body
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error)
+
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error)
 
 	// WorkloadMemberServiceListWorkloadMembersWithResponse request
 	WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error)
@@ -8698,446 +8838,6 @@ func (r OSUpdateRunGetOSUpdateRunResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r OSUpdateRunGetOSUpdateRunResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListTelemetryLogsGroupsResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryLogsGroupResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteTelemetryLogsGroupResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryLogsGroupResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListTelemetryMetricsGroupsResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryMetricsGroupResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteTelemetryMetricsGroupResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryMetricsGroupResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListTelemetryLogsProfilesResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryLogsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteTelemetryLogsProfileResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryLogsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryLogsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryLogsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListTelemetryMetricsProfilesResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryMetricsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteTelemetryMetricsProfileResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryMetricsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryMetricsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *TelemetryMetricsProfileResource
-}
-
-// Status returns HTTPResponse.Status
-func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10420,6 +10120,446 @@ func (r ScheduleServiceUpdateSingleScheduleResponse) StatusCode() int {
 	return 0
 }
 
+type TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryLogsGroupsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryLogsGroupResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryMetricsGroupsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryMetricsGroupResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryLogsProfilesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryLogsProfileResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryMetricsProfilesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryMetricsProfileResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type WorkloadMemberServiceListWorkloadMembersResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -10753,250 +10893,6 @@ func (c *ClientWithResponses) OSUpdateRunGetOSUpdateRunWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseOSUpdateRunGetOSUpdateRunResponse(rsp)
-}
-
-// TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse
-func (c *ClientWithResponses) TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error) {
-	rsp, err := c.TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsGroupServiceListTelemetryLogsGroupsResponse(rsp)
-}
-
-// TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse request with arbitrary body returning *TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse
-func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error) {
-	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(ctx context.Context, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error) {
-	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse(rsp)
-}
-
-// TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse request returning *TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse
-func (c *ClientWithResponses) TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse, error) {
-	rsp, err := c.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse(rsp)
-}
-
-// TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse request returning *TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse
-func (c *ClientWithResponses) TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse, error) {
-	rsp, err := c.TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsGroupServiceGetTelemetryLogsGroupResponse(rsp)
-}
-
-// TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse request returning *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse(rsp)
-}
-
-// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(ctx context.Context, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse(rsp)
-}
-
-// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse request returning *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse(rsp)
-}
-
-// TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse request returning *TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse(rsp)
-}
-
-// TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse request returning *TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse
-func (c *ClientWithResponses) TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServiceListTelemetryLogsProfilesResponse(rsp)
-}
-
-// TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse
-func (c *ClientWithResponses) TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(ctx context.Context, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse(rsp)
-}
-
-// TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse request returning *TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse
-func (c *ClientWithResponses) TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse(rsp)
-}
-
-// TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse request returning *TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse
-func (c *ClientWithResponses) TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServiceGetTelemetryLogsProfileResponse(rsp)
-}
-
-// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse
-func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, resourceId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp)
-}
-
-// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse
-func (c *ClientWithResponses) TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody(ctx, resourceId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error) {
-	rsp, err := c.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx, resourceId, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse(rsp)
-}
-
-// TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse request returning *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse
-func (c *ClientWithResponses) TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse(rsp)
-}
-
-// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse
-func (c *ClientWithResponses) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(ctx context.Context, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse(rsp)
-}
-
-// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse request returning *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse
-func (c *ClientWithResponses) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse(rsp)
-}
-
-// TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse request returning *TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse
-func (c *ClientWithResponses) TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse(rsp)
-}
-
-// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse
-func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, resourceId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp)
-}
-
-// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse
-func (c *ClientWithResponses) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody(ctx, resourceId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rsp)
-}
-
-func (c *ClientWithResponses) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error) {
-	rsp, err := c.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx, resourceId, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rsp)
 }
 
 // HostServiceListHostsWithResponse request returning *HostServiceListHostsResponse
@@ -11721,6 +11617,250 @@ func (c *ClientWithResponses) ScheduleServiceUpdateSingleScheduleWithResponse(ct
 	return ParseScheduleServiceUpdateSingleScheduleResponse(rsp)
 }
 
+// TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse
+func (c *ClientWithResponses) TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error) {
+	rsp, err := c.TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceListTelemetryLogsGroupsResponse(rsp)
+}
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse request with arbitrary body returning *TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse(rsp)
+}
+
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse request returning *TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse
+func (c *ClientWithResponses) TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse, error) {
+	rsp, err := c.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse(rsp)
+}
+
+// TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse request returning *TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse
+func (c *ClientWithResponses) TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse, error) {
+	rsp, err := c.TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceGetTelemetryLogsGroupResponse(rsp)
+}
+
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse request returning *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse(rsp)
+}
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse(rsp)
+}
+
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse request returning *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse(rsp)
+}
+
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse request returning *TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse(rsp)
+}
+
+// TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse request returning *TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse
+func (c *ClientWithResponses) TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(ctx context.Context, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceListTelemetryLogsProfilesResponse(rsp)
+}
+
+// TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse
+func (c *ClientWithResponses) TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, body TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse(rsp)
+}
+
+// TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse request returning *TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse
+func (c *ClientWithResponses) TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse(rsp)
+}
+
+// TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse request returning *TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse
+func (c *ClientWithResponses) TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceGetTelemetryLogsProfileResponse(rsp)
+}
+
+// TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse
+func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfileWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfileParams, body TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, projectName, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp)
+}
+
+// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse
+func (c *ClientWithResponses) TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithResponse(ctx context.Context, projectName string, resourceId string, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error) {
+	rsp, err := c.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx, projectName, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse(rsp)
+}
+
+// TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse request returning *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse(ctx context.Context, projectName string, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse(rsp)
+}
+
+// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse(rsp)
+}
+
+// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse request returning *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse(rsp)
+}
+
+// TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse request returning *TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse(rsp)
+}
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse
+func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, projectName, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp)
+}
+
+// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse(ctx context.Context, projectName string, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx, projectName, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rsp)
+}
+
 // WorkloadMemberServiceListWorkloadMembersWithResponse request returning *WorkloadMemberServiceListWorkloadMembersResponse
 func (c *ClientWithResponses) WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error) {
 	rsp, err := c.WorkloadMemberServiceListWorkloadMembers(ctx, projectName, params, reqEditors...)
@@ -12119,526 +12259,6 @@ func ParseOSUpdateRunGetOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunGet
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest OSUpdateRun
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsGroupServiceListTelemetryLogsGroupsResponse parses an HTTP response from a TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse call
-func ParseTelemetryLogsGroupServiceListTelemetryLogsGroupsResponse(rsp *http.Response) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListTelemetryLogsGroupsResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse parses an HTTP response from a TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse call
-func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse(rsp *http.Response) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryLogsGroupResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse parses an HTTP response from a TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse call
-func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse(rsp *http.Response) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteTelemetryLogsGroupResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsGroupServiceGetTelemetryLogsGroupResponse parses an HTTP response from a TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse call
-func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroupResponse(rsp *http.Response) (*TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryLogsGroupResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse parses an HTTP response from a TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse call
-func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListTelemetryMetricsGroupsResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse parses an HTTP response from a TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse call
-func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryMetricsGroupResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse parses an HTTP response from a TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse call
-func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteTelemetryMetricsGroupResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse parses an HTTP response from a TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse call
-func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryMetricsGroupResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsProfileServiceListTelemetryLogsProfilesResponse parses an HTTP response from a TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse call
-func ParseTelemetryLogsProfileServiceListTelemetryLogsProfilesResponse(rsp *http.Response) (*TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListTelemetryLogsProfilesResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse call
-func ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryLogsProfileResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse call
-func ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteTelemetryLogsProfileResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsProfileServiceGetTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse call
-func ParseTelemetryLogsProfileServiceGetTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryLogsProfileResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse call
-func ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryLogsProfileResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithResponse call
-func ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryLogsProfileResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse parses an HTTP response from a TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse call
-func ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListTelemetryMetricsProfilesResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse call
-func ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryMetricsProfileResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse call
-func ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteTelemetryMetricsProfileResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse call
-func ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryMetricsProfileResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse call
-func ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryMetricsProfileResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse call
-func ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest TelemetryMetricsProfileResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -14147,6 +13767,526 @@ func ParseScheduleServiceUpdateSingleScheduleResponse(rsp *http.Response) (*Sche
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceListTelemetryLogsGroupsResponse parses an HTTP response from a TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse call
+func ParseTelemetryLogsGroupServiceListTelemetryLogsGroupsResponse(rsp *http.Response) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryLogsGroupsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse parses an HTTP response from a TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse call
+func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse(rsp *http.Response) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse parses an HTTP response from a TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse call
+func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse(rsp *http.Response) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceDeleteTelemetryLogsGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryLogsGroupResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceGetTelemetryLogsGroupResponse parses an HTTP response from a TelemetryLogsGroupServiceGetTelemetryLogsGroupWithResponse call
+func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroupResponse(rsp *http.Response) (*TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceGetTelemetryLogsGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse parses an HTTP response from a TelemetryMetricsGroupServiceListTelemetryMetricsGroupsWithResponse call
+func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceListTelemetryMetricsGroupsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryMetricsGroupsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse parses an HTTP response from a TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse call
+func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse parses an HTTP response from a TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse call
+func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryMetricsGroupResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse parses an HTTP response from a TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse call
+func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse(rsp *http.Response) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceListTelemetryLogsProfilesResponse parses an HTTP response from a TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse call
+func ParseTelemetryLogsProfileServiceListTelemetryLogsProfilesResponse(rsp *http.Response) (*TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryLogsProfilesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse call
+func ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse call
+func ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceDeleteTelemetryLogsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryLogsProfileResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceGetTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceGetTelemetryLogsProfileWithResponse call
+func ParseTelemetryLogsProfileServiceGetTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceGetTelemetryLogsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServicePatchTelemetryLogsProfileWithResponse call
+func ParseTelemetryLogsProfileServicePatchTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServicePatchTelemetryLogsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse parses an HTTP response from a TelemetryLogsProfileServiceUpdateTelemetryLogsProfileWithResponse call
+func ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse(rsp *http.Response) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceUpdateTelemetryLogsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse parses an HTTP response from a TelemetryMetricsProfileServiceListTelemetryMetricsProfilesWithResponse call
+func ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceListTelemetryMetricsProfilesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryMetricsProfilesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse call
+func ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse call
+func ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryMetricsProfileResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceGetTelemetryMetricsProfileWithResponse call
+func ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceGetTelemetryMetricsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServicePatchTelemetryMetricsProfileWithResponse call
+func ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServicePatchTelemetryMetricsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse parses an HTTP response from a TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse call
+func ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rsp *http.Response) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

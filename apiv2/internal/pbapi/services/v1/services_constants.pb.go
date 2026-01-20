@@ -487,21 +487,24 @@ const (
 	// Fields and Edges constants for "DeleteRepeatedScheduleResponse"
 
 	// Fields and Edges constants for "CreateTelemetryLogsGroupRequest"
+	CreateTelemetryLogsGroupRequestFieldProjectName       = "projectName"
 	CreateTelemetryLogsGroupRequestEdgeTelemetryLogsGroup = "telemetry_logs_group"
 
 	// Fields and Edges constants for "CreateTelemetryLogsGroupResponse"
 	CreateTelemetryLogsGroupResponseEdgeTelemetryLogsGroup = "telemetry_logs_group"
 
 	// Fields and Edges constants for "GetTelemetryLogsGroupRequest"
-	GetTelemetryLogsGroupRequestFieldResourceId = "resourceId"
+	GetTelemetryLogsGroupRequestFieldProjectName = "projectName"
+	GetTelemetryLogsGroupRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryLogsGroupResponse"
 	GetTelemetryLogsGroupResponseEdgeTelemetryLogsGroup = "telemetry_logs_group"
 
 	// Fields and Edges constants for "ListTelemetryLogsGroupsRequest"
-	ListTelemetryLogsGroupsRequestFieldPageSize = "page_size"
-	ListTelemetryLogsGroupsRequestFieldOffset   = "offset"
-	ListTelemetryLogsGroupsRequestFieldOrderBy  = "order_by"
+	ListTelemetryLogsGroupsRequestFieldProjectName = "projectName"
+	ListTelemetryLogsGroupsRequestFieldPageSize    = "page_size"
+	ListTelemetryLogsGroupsRequestFieldOffset      = "offset"
+	ListTelemetryLogsGroupsRequestFieldOrderBy     = "order_by"
 
 	// Fields and Edges constants for "ListTelemetryLogsGroupsResponse"
 	ListTelemetryLogsGroupsResponseEdgeTelemetryLogsGroups = "telemetry_logs_groups"
@@ -509,26 +512,30 @@ const (
 	ListTelemetryLogsGroupsResponseFieldHasNext            = "has_next"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsGroupRequest"
-	DeleteTelemetryLogsGroupRequestFieldResourceId = "resourceId"
+	DeleteTelemetryLogsGroupRequestFieldProjectName = "projectName"
+	DeleteTelemetryLogsGroupRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsGroupResponse"
 
 	// Fields and Edges constants for "CreateTelemetryMetricsGroupRequest"
+	CreateTelemetryMetricsGroupRequestFieldProjectName          = "projectName"
 	CreateTelemetryMetricsGroupRequestEdgeTelemetryMetricsGroup = "telemetry_metrics_group"
 
 	// Fields and Edges constants for "CreateTelemetryMetricsGroupResponse"
 	CreateTelemetryMetricsGroupResponseEdgeTelemetryMetricsGroup = "telemetry_metrics_group"
 
 	// Fields and Edges constants for "GetTelemetryMetricsGroupRequest"
-	GetTelemetryMetricsGroupRequestFieldResourceId = "resourceId"
+	GetTelemetryMetricsGroupRequestFieldProjectName = "projectName"
+	GetTelemetryMetricsGroupRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryMetricsGroupResponse"
 	GetTelemetryMetricsGroupResponseEdgeTelemetryMetricsGroup = "telemetry_metrics_group"
 
 	// Fields and Edges constants for "ListTelemetryMetricsGroupsRequest"
-	ListTelemetryMetricsGroupsRequestFieldPageSize = "page_size"
-	ListTelemetryMetricsGroupsRequestFieldOffset   = "offset"
-	ListTelemetryMetricsGroupsRequestFieldOrderBy  = "order_by"
+	ListTelemetryMetricsGroupsRequestFieldProjectName = "projectName"
+	ListTelemetryMetricsGroupsRequestFieldPageSize    = "page_size"
+	ListTelemetryMetricsGroupsRequestFieldOffset      = "offset"
+	ListTelemetryMetricsGroupsRequestFieldOrderBy     = "order_by"
 
 	// Fields and Edges constants for "ListTelemetryMetricsGroupsResponse"
 	ListTelemetryMetricsGroupsResponseEdgeTelemetryMetricsGroups = "telemetry_metrics_groups"
@@ -536,23 +543,27 @@ const (
 	ListTelemetryMetricsGroupsResponseFieldHasNext               = "has_next"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsGroupRequest"
-	DeleteTelemetryMetricsGroupRequestFieldResourceId = "resourceId"
+	DeleteTelemetryMetricsGroupRequestFieldProjectName = "projectName"
+	DeleteTelemetryMetricsGroupRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsGroupResponse"
 
 	// Fields and Edges constants for "CreateTelemetryLogsProfileRequest"
+	CreateTelemetryLogsProfileRequestFieldProjectName         = "projectName"
 	CreateTelemetryLogsProfileRequestEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 
 	// Fields and Edges constants for "CreateTelemetryLogsProfileResponse"
 	CreateTelemetryLogsProfileResponseEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 
 	// Fields and Edges constants for "GetTelemetryLogsProfileRequest"
-	GetTelemetryLogsProfileRequestFieldResourceId = "resourceId"
+	GetTelemetryLogsProfileRequestFieldProjectName = "projectName"
+	GetTelemetryLogsProfileRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryLogsProfileResponse"
 	GetTelemetryLogsProfileResponseEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 
 	// Fields and Edges constants for "ListTelemetryLogsProfilesRequest"
+	ListTelemetryLogsProfilesRequestFieldProjectName   = "projectName"
 	ListTelemetryLogsProfilesRequestFieldPageSize      = "page_size"
 	ListTelemetryLogsProfilesRequestFieldOffset        = "offset"
 	ListTelemetryLogsProfilesRequestFieldOrderBy       = "order_by"
@@ -567,32 +578,38 @@ const (
 	ListTelemetryLogsProfilesResponseFieldHasNext              = "has_next"
 
 	// Fields and Edges constants for "UpdateTelemetryLogsProfileRequest"
+	UpdateTelemetryLogsProfileRequestFieldProjectName         = "projectName"
 	UpdateTelemetryLogsProfileRequestFieldResourceId          = "resourceId"
 	UpdateTelemetryLogsProfileRequestEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 
 	// Fields and Edges constants for "PatchTelemetryLogsProfileRequest"
+	PatchTelemetryLogsProfileRequestFieldProjectName         = "projectName"
 	PatchTelemetryLogsProfileRequestFieldResourceId          = "resourceId"
 	PatchTelemetryLogsProfileRequestEdgeTelemetryLogsProfile = "telemetry_logs_profile"
 	PatchTelemetryLogsProfileRequestEdgeFieldMask            = "field_mask"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsProfileRequest"
-	DeleteTelemetryLogsProfileRequestFieldResourceId = "resourceId"
+	DeleteTelemetryLogsProfileRequestFieldProjectName = "projectName"
+	DeleteTelemetryLogsProfileRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryLogsProfileResponse"
 
 	// Fields and Edges constants for "CreateTelemetryMetricsProfileRequest"
+	CreateTelemetryMetricsProfileRequestFieldProjectName            = "projectName"
 	CreateTelemetryMetricsProfileRequestEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 
 	// Fields and Edges constants for "CreateTelemetryMetricsProfileResponse"
 	CreateTelemetryMetricsProfileResponseEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 
 	// Fields and Edges constants for "GetTelemetryMetricsProfileRequest"
-	GetTelemetryMetricsProfileRequestFieldResourceId = "resourceId"
+	GetTelemetryMetricsProfileRequestFieldProjectName = "projectName"
+	GetTelemetryMetricsProfileRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetTelemetryMetricsProfileResponse"
 	GetTelemetryMetricsProfileResponseEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 
 	// Fields and Edges constants for "ListTelemetryMetricsProfilesRequest"
+	ListTelemetryMetricsProfilesRequestFieldProjectName   = "projectName"
 	ListTelemetryMetricsProfilesRequestFieldPageSize      = "page_size"
 	ListTelemetryMetricsProfilesRequestFieldOffset        = "offset"
 	ListTelemetryMetricsProfilesRequestFieldOrderBy       = "order_by"
@@ -607,16 +624,19 @@ const (
 	ListTelemetryMetricsProfilesResponseFieldHasNext                 = "has_next"
 
 	// Fields and Edges constants for "UpdateTelemetryMetricsProfileRequest"
+	UpdateTelemetryMetricsProfileRequestFieldProjectName            = "projectName"
 	UpdateTelemetryMetricsProfileRequestFieldResourceId             = "resourceId"
 	UpdateTelemetryMetricsProfileRequestEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 
 	// Fields and Edges constants for "PatchTelemetryMetricsProfileRequest"
+	PatchTelemetryMetricsProfileRequestFieldProjectName            = "projectName"
 	PatchTelemetryMetricsProfileRequestFieldResourceId             = "resourceId"
 	PatchTelemetryMetricsProfileRequestEdgeTelemetryMetricsProfile = "telemetry_metrics_profile"
 	PatchTelemetryMetricsProfileRequestEdgeFieldMask               = "field_mask"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsProfileRequest"
-	DeleteTelemetryMetricsProfileRequestFieldResourceId = "resourceId"
+	DeleteTelemetryMetricsProfileRequestFieldProjectName = "projectName"
+	DeleteTelemetryMetricsProfileRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteTelemetryMetricsProfileResponse"
 

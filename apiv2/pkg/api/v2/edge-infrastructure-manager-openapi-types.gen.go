@@ -400,6 +400,9 @@ type CreateSiteResponse struct {
 
 // CreateTelemetryLogsGroupRequest Request message for the CreateTelemetryLogsGroup method.
 type CreateTelemetryLogsGroupRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// TelemetryLogsGroup TelemetryLogsGroupResource.
 	TelemetryLogsGroup TelemetryLogsGroupResource `json:"telemetryLogsGroup"`
 }
@@ -412,6 +415,9 @@ type CreateTelemetryLogsGroupResponse struct {
 
 // CreateTelemetryLogsProfileRequest Request message for the CreateTelemetryLogsProfile method.
 type CreateTelemetryLogsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// TelemetryLogsProfile A telemetry log profile for a hierarchy object.
 	TelemetryLogsProfile TelemetryLogsProfileResource `json:"telemetryLogsProfile"`
 }
@@ -424,6 +430,9 @@ type CreateTelemetryLogsProfileResponse struct {
 
 // CreateTelemetryMetricsGroupRequest Request message for the CreateTelemetryMetricsGroup method.
 type CreateTelemetryMetricsGroupRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// TelemetryMetricsGroup TelemetryMetricsGroupResource.
 	TelemetryMetricsGroup TelemetryMetricsGroupResource `json:"telemetryMetricsGroup"`
 }
@@ -436,6 +445,9 @@ type CreateTelemetryMetricsGroupResponse struct {
 
 // CreateTelemetryMetricsProfileRequest Request message for the CreateTelemetryMetricsProfile method.
 type CreateTelemetryMetricsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// TelemetryMetricsProfile A telemetry metric profile for a hierarchy object.
 	TelemetryMetricsProfile TelemetryMetricsProfileResource `json:"telemetryMetricsProfile"`
 }
@@ -629,6 +641,9 @@ type DeleteSiteResponse = map[string]interface{}
 
 // DeleteTelemetryLogsGroupRequest Request message for DeleteTelemetryLogsGroup.
 type DeleteTelemetryLogsGroupRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the telemetry_logs_group telemetry_logs_group to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -638,6 +653,9 @@ type DeleteTelemetryLogsGroupResponse = map[string]interface{}
 
 // DeleteTelemetryLogsProfileRequest Request message for DeleteTelemetryLogsProfile.
 type DeleteTelemetryLogsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -647,6 +665,9 @@ type DeleteTelemetryLogsProfileResponse = map[string]interface{}
 
 // DeleteTelemetryMetricsGroupRequest Request message for DeleteTelemetryMetricsGroup.
 type DeleteTelemetryMetricsGroupRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -656,6 +677,9 @@ type DeleteTelemetryMetricsGroupResponse = map[string]interface{}
 
 // DeleteTelemetryMetricsProfileRequest Request message for DeleteTelemetryMetricsProfile.
 type DeleteTelemetryMetricsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -882,6 +906,9 @@ type GetSiteResponse struct {
 
 // GetTelemetryLogsGroupRequest Request message for the GetTelemetryLogsGroup method.
 type GetTelemetryLogsGroupRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested telemetry_logs_group.
 	ResourceId string `json:"resourceId"`
 }
@@ -894,6 +921,9 @@ type GetTelemetryLogsGroupResponse struct {
 
 // GetTelemetryLogsProfileRequest Request message for the GetTelemetryLogsProfile method.
 type GetTelemetryLogsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested telemetry_logs_profile.
 	ResourceId string `json:"resourceId"`
 }
@@ -906,6 +936,9 @@ type GetTelemetryLogsProfileResponse struct {
 
 // GetTelemetryMetricsGroupRequest Request message for the GetTelemetryMetricsGroup method.
 type GetTelemetryMetricsGroupRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested telemetry_metrics_group.
 	ResourceId string `json:"resourceId"`
 }
@@ -918,6 +951,9 @@ type GetTelemetryMetricsGroupResponse struct {
 
 // GetTelemetryMetricsProfileRequest Request message for the GetTelemetryMetricsProfile method.
 type GetTelemetryMetricsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested telemetry_metrics_profile.
 	ResourceId string `json:"resourceId"`
 }
@@ -1953,6 +1989,9 @@ type ListTelemetryLogsGroupsRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListTelemetryLogsGroupsResponse Response message for the ListTelemetryLogsGroups method.
@@ -1983,6 +2022,9 @@ type ListTelemetryLogsProfilesRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
 	// string.max_bytes = 15
@@ -2023,6 +2065,9 @@ type ListTelemetryMetricsGroupsRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListTelemetryMetricsGroupsResponse Response message for the ListTelemetryMetricsGroups method.
@@ -2053,6 +2098,9 @@ type ListTelemetryMetricsProfilesRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// RegionId (OPTIONAL) Returns only the telemetry profiles that are assigned with the given regionID.
 	// string.max_bytes = 15
@@ -4042,6 +4090,9 @@ type PatchTelemetryLogsProfileRequest struct {
 	//  `INVALID_ARGUMENT` error if any path is unmappable.
 	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -4251,6 +4302,9 @@ type PatchTelemetryMetricsProfileRequest struct {
 	//  request should verify the included field paths, and return an
 	//  `INVALID_ARGUMENT` error if any path is unmappable.
 	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
@@ -5103,6 +5157,9 @@ type UpdateSiteRequest struct {
 
 // UpdateTelemetryLogsProfileRequest Request message for the UpdateTelemetryLogsProfile method.
 type UpdateTelemetryLogsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -5112,6 +5169,9 @@ type UpdateTelemetryLogsProfileRequest struct {
 
 // UpdateTelemetryMetricsProfileRequest Request message for the UpdateTelemetryMetricsProfile method.
 type UpdateTelemetryMetricsProfileRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -5542,104 +5602,6 @@ type OSUpdateRunListOSUpdateRunParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// TelemetryLogsGroupServiceListTelemetryLogsGroupsParams defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups.
-type TelemetryLogsGroupServiceListTelemetryLogsGroupsParams struct {
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-}
-
-// TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups.
-type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams struct {
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-}
-
-// TelemetryLogsProfileServiceListTelemetryLogsProfilesParams defines parameters for TelemetryLogsProfileServiceListTelemetryLogsProfiles.
-type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
-	InstanceId *string `form:"instanceId,omitempty" json:"instanceId,omitempty"`
-
-	// SiteId Returns only the telemetry profiles that are assigned with the given siteID.
-	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
-
-	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
-	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
-
-	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
-	//  profiles rendered from hierarchy. This flag is only used along with one
-	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
-	//  not set, this flag is ignored.
-	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
-}
-
-// TelemetryLogsProfileServicePatchTelemetryLogsProfileParams defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile.
-type TelemetryLogsProfileServicePatchTelemetryLogsProfileParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
-// TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles.
-type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
-	InstanceId *string `form:"instanceId,omitempty" json:"instanceId,omitempty"`
-
-	// SiteId Returns only the telemetry profiles that are assigned with the given siteID.
-	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
-
-	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
-	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
-
-	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
-	//  profiles rendered from hierarchy. This flag is only used along with one
-	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
-	//  not set, this flag is ignored.
-	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
-}
-
-// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile.
-type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5937,6 +5899,104 @@ type ScheduleServicePatchSingleScheduleParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
+// TelemetryLogsGroupServiceListTelemetryLogsGroupsParams defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups.
+type TelemetryLogsGroupServiceListTelemetryLogsGroupsParams struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+}
+
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups.
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+}
+
+// TelemetryLogsProfileServiceListTelemetryLogsProfilesParams defines parameters for TelemetryLogsProfileServiceListTelemetryLogsProfiles.
+type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
+	InstanceId *string `form:"instanceId,omitempty" json:"instanceId,omitempty"`
+
+	// SiteId Returns only the telemetry profiles that are assigned with the given siteID.
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
+	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
+}
+
+// TelemetryLogsProfileServicePatchTelemetryLogsProfileParams defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile.
+type TelemetryLogsProfileServicePatchTelemetryLogsProfileParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles.
+type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
+	InstanceId *string `form:"instanceId,omitempty" json:"instanceId,omitempty"`
+
+	// SiteId Returns only the telemetry profiles that are assigned with the given siteID.
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
+	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
+}
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile.
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
 type WorkloadMemberServiceListWorkloadMembersParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5984,30 +6044,6 @@ type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
-
-// TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup for application/json ContentType.
-type TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody = TelemetryLogsGroupResource
-
-// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody defines body for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup for application/json ContentType.
-type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody = TelemetryMetricsGroupResource
-
-// TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServiceCreateTelemetryLogsProfile for application/json ContentType.
-type TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
-
-// TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServicePatchTelemetryLogsProfile for application/json ContentType.
-type TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
-
-// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile for application/json ContentType.
-type TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
-
-// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile for application/json ContentType.
-type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
-
-// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile for application/json ContentType.
-type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
-
-// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile for application/json ContentType.
-type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
 
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource
@@ -6083,6 +6119,30 @@ type ScheduleServicePatchSingleScheduleJSONRequestBody = SingleScheduleResource
 
 // ScheduleServiceUpdateSingleScheduleJSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule for application/json ContentType.
 type ScheduleServiceUpdateSingleScheduleJSONRequestBody = SingleScheduleResource
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup for application/json ContentType.
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody = TelemetryLogsGroupResource
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody defines body for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup for application/json ContentType.
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody = TelemetryMetricsGroupResource
+
+// TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServiceCreateTelemetryLogsProfile for application/json ContentType.
+type TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
+
+// TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServicePatchTelemetryLogsProfile for application/json ContentType.
+type TelemetryLogsProfileServicePatchTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
+
+// TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile for application/json ContentType.
+type TelemetryLogsProfileServiceUpdateTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
+
+// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile for application/json ContentType.
+type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile for application/json ContentType.
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
+
+// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile for application/json ContentType.
+type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
 
 // WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
 type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember

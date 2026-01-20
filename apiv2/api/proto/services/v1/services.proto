@@ -424,22 +424,22 @@ service TelemetryLogsGroupService {
   // Create a telemetry_logs_group.
   rpc CreateTelemetryLogsGroup(CreateTelemetryLogsGroupRequest) returns (resources.telemetry.v1.TelemetryLogsGroupResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"
+      post: "/v1/projects/{projectName}/telemetry/groups/logs"
       body: "telemetry_logs_group"
     };
   }
   // Get a list of telemetry_logs_groups.
   rpc ListTelemetryLogsGroups(ListTelemetryLogsGroupsRequest) returns (ListTelemetryLogsGroupsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/groups/logs"};
   }
   // Get a specific telemetry_logs_group.
   rpc GetTelemetryLogsGroup(GetTelemetryLogsGroupRequest) returns (resources.telemetry.v1.TelemetryLogsGroupResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"};
   }
 
   // Delete a telemetry_logs_group.
   rpc DeleteTelemetryLogsGroup(DeleteTelemetryLogsGroupRequest) returns (DeleteTelemetryLogsGroupResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"};
   }
 }
 
@@ -448,22 +448,22 @@ service TelemetryMetricsGroupService {
   // Create a telemetry_metrics_group.
   rpc CreateTelemetryMetricsGroup(CreateTelemetryMetricsGroupRequest) returns (resources.telemetry.v1.TelemetryMetricsGroupResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"
+      post: "/v1/projects/{projectName}/telemetry/groups/metrics"
       body: "telemetry_metrics_group"
     };
   }
   // Get a list of telemetryMetricsGroups.
   rpc ListTelemetryMetricsGroups(ListTelemetryMetricsGroupsRequest) returns (ListTelemetryMetricsGroupsResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/groups/metrics"};
   }
   // Get a specific telemetry_metrics_group.
   rpc GetTelemetryMetricsGroup(GetTelemetryMetricsGroupRequest) returns (resources.telemetry.v1.TelemetryMetricsGroupResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"};
   }
 
   // Delete a telemetry_metrics_group.
   rpc DeleteTelemetryMetricsGroup(DeleteTelemetryMetricsGroupRequest) returns (DeleteTelemetryMetricsGroupResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"};
   }
 }
 
@@ -472,35 +472,35 @@ service TelemetryLogsProfileService {
   // Create a telemetry_logs_profile.
   rpc CreateTelemetryLogsProfile(CreateTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs"
+      post: "/v1/projects/{projectName}/telemetry/profiles/logs"
       body: "telemetry_logs_profile"
     };
   }
   // Get a list of telemetryLogsProfiles.
   rpc ListTelemetryLogsProfiles(ListTelemetryLogsProfilesRequest) returns (ListTelemetryLogsProfilesResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/profiles/logs"};
   }
   // Get a specific telemetry_logs_profile.
   rpc GetTelemetryLogsProfile(GetTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/profiles/logs/{resourceId}"};
   }
   // Update a telemetry_logs_profile.
   rpc UpdateTelemetryLogsProfile(UpdateTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"
+      put: "/v1/projects/{projectName}/telemetry/profiles/logs/{resourceId}"
       body: "telemetry_logs_profile"
     };
   }
   // Patch a telemetry_logs_profile.
   rpc PatchTelemetryLogsProfile(PatchTelemetryLogsProfileRequest) returns (resources.telemetry.v1.TelemetryLogsProfileResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"
+      patch: "/v1/projects/{projectName}/telemetry/profiles/logs/{resourceId}"
       body: "telemetry_logs_profile"
     };
   }
   // Delete a telemetry_logs_profile.
   rpc DeleteTelemetryLogsProfile(DeleteTelemetryLogsProfileRequest) returns (DeleteTelemetryLogsProfileResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/telemetry/profiles/logs/{resourceId}"};
   }
 }
 
@@ -509,35 +509,35 @@ service TelemetryMetricsProfileService {
   // Create a telemetry_metrics_profile.
   rpc CreateTelemetryMetricsProfile(CreateTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics"
+      post: "/v1/projects/{projectName}/telemetry/profiles/metrics"
       body: "telemetry_metrics_profile"
     };
   }
   // Get a list of telemetryMetricsProfiles.
   rpc ListTelemetryMetricsProfiles(ListTelemetryMetricsProfilesRequest) returns (ListTelemetryMetricsProfilesResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/profiles/metrics"};
   }
   // Get a specific telemetry_metrics_profile.
   rpc GetTelemetryMetricsProfile(GetTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId}"};
   }
   // Update a telemetry_metrics_profile.
   rpc UpdateTelemetryMetricsProfile(UpdateTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
     option (google.api.http) = {
-      put: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"
+      put: "/v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId}"
       body: "telemetry_metrics_profile"
     };
   }
   // Patch a telemetry_metrics_profile.
   rpc PatchTelemetryMetricsProfile(PatchTelemetryMetricsProfileRequest) returns (resources.telemetry.v1.TelemetryMetricsProfileResource) {
     option (google.api.http) = {
-      patch: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"
+      patch: "/v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId}"
       body: "telemetry_metrics_profile"
     };
   }
   // Delete a telemetry_metrics_profile.
   rpc DeleteTelemetryMetricsProfile(DeleteTelemetryMetricsProfileRequest) returns (DeleteTelemetryMetricsProfileResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId}"};
   }
 }
 
@@ -2123,8 +2123,10 @@ message DeleteRepeatedScheduleResponse {}
 
 // Request message for the CreateTelemetryLogsGroup method.
 message CreateTelemetryLogsGroupRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_logs_group to create.
-  resources.telemetry.v1.TelemetryLogsGroupResource telemetry_logs_group = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsGroupResource telemetry_logs_group = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryLogsGroup method.
@@ -2135,8 +2137,10 @@ message CreateTelemetryLogsGroupResponse {
 
 // Request message for the GetTelemetryLogsGroup method.
 message GetTelemetryLogsGroupRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_logs_group.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryLogsGroup method.
@@ -2147,9 +2151,11 @@ message GetTelemetryLogsGroupResponse {
 
 // Request message for the ListTelemetryLogsGroups method.
 message ListTelemetryLogsGroupsRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  uint32 page_size = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2157,7 +2163,7 @@ message ListTelemetryLogsGroupsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  uint32 offset = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2166,7 +2172,7 @@ message ListTelemetryLogsGroupsRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 3 [
+  string order_by = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2187,8 +2193,10 @@ message ListTelemetryLogsGroupsResponse {
 
 // Request message for DeleteTelemetryLogsGroup.
 message DeleteTelemetryLogsGroupRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_logs_group telemetry_logs_group to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryLogsGroup.
@@ -2202,8 +2210,10 @@ message DeleteTelemetryLogsGroupResponse {}
 
 // Request message for the CreateTelemetryMetricsGroup method.
 message CreateTelemetryMetricsGroupRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_metrics_group to create.
-  resources.telemetry.v1.TelemetryMetricsGroupResource telemetry_metrics_group = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsGroupResource telemetry_metrics_group = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryMetricsGroup method.
@@ -2214,8 +2224,10 @@ message CreateTelemetryMetricsGroupResponse {
 
 // Request message for the GetTelemetryMetricsGroup method.
 message GetTelemetryMetricsGroupRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_metrics_group.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryMetricsGroup method.
@@ -2226,9 +2238,11 @@ message GetTelemetryMetricsGroupResponse {
 
 // Request message for the ListTelemetryMetricsGroups method.
 message ListTelemetryMetricsGroupsRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  uint32 page_size = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2236,7 +2250,7 @@ message ListTelemetryMetricsGroupsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  uint32 offset = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2245,7 +2259,7 @@ message ListTelemetryMetricsGroupsRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 3 [
+  string order_by = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2266,8 +2280,10 @@ message ListTelemetryMetricsGroupsResponse {
 
 // Request message for DeleteTelemetryMetricsGroup.
 message DeleteTelemetryMetricsGroupRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryMetricsGroup.
@@ -2281,8 +2297,10 @@ message DeleteTelemetryMetricsGroupResponse {}
 
 // Request message for the CreateTelemetryLogsProfile method.
 message CreateTelemetryLogsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_logs_profile to create.
-  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryLogsProfile method.
@@ -2293,8 +2311,10 @@ message CreateTelemetryLogsProfileResponse {
 
 // Request message for the GetTelemetryLogsProfile method.
 message GetTelemetryLogsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_logs_profile.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryLogsProfile method.
@@ -2305,9 +2325,11 @@ message GetTelemetryLogsProfileResponse {
 
 // Request message for the ListTelemetryLogsProfiles method.
 message ListTelemetryLogsProfilesRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  uint32 page_size = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2315,7 +2337,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  uint32 offset = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2324,7 +2346,7 @@ message ListTelemetryLogsProfilesRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 3 [
+  string order_by = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2332,7 +2354,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given instance identifier.
-  string instance_id = 4 [
+  string instance_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
@@ -2340,7 +2362,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given siteID.
-  string site_id = 5 [
+  string site_id = 6 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
@@ -2348,7 +2370,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given regionID.
-  string region_id = 6 [
+  string region_id = 7 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -2359,7 +2381,7 @@ message ListTelemetryLogsProfilesRequest {
   // profiles rendered from hierarchy. This flag is only used along with one
   // of siteId, regionId or instanceId. If siteId, regionId or instanceId are
   // not set, this flag is ignored.
-  bool show_inherited = 7 [(google.api.field_behavior) = OPTIONAL];
+  bool show_inherited = 8 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for the ListTelemetryLogsProfiles method.
@@ -2374,26 +2396,32 @@ message ListTelemetryLogsProfilesResponse {
 
 // Request message for the UpdateTelemetryLogsProfile method.
 message UpdateTelemetryLogsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_logs_profile.
-  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchTelemetryLogs method.
 message PatchTelemetryLogsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_logs_profile.
-  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 3 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of telemetry_logs_profile.
-  google.protobuf.FieldMask field_mask = 3;
+  google.protobuf.FieldMask field_mask = 4;
 }
 
 // Request message for DeleteTelemetryLogsProfile.
 message DeleteTelemetryLogsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryLogsProfile.
@@ -2407,8 +2435,10 @@ message DeleteTelemetryLogsProfileResponse {}
 
 // Request message for the CreateTelemetryMetricsProfile method.
 message CreateTelemetryMetricsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_metrics_profile to create.
-  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryMetricsProfile method.
@@ -2419,8 +2449,10 @@ message CreateTelemetryMetricsProfileResponse {
 
 // Request message for the GetTelemetryMetricsProfile method.
 message GetTelemetryMetricsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_metrics_profile.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryMetricsProfile method.
@@ -2431,9 +2463,11 @@ message GetTelemetryMetricsProfileResponse {
 
 // Request message for the ListTelemetryMetricsProfiles method.
 message ListTelemetryMetricsProfilesRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 1 [
+  uint32 page_size = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2441,7 +2475,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 2 [
+  uint32 offset = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2450,7 +2484,7 @@ message ListTelemetryMetricsProfilesRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 3 [
+  string order_by = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2458,7 +2492,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given instance identifier.
-  string instance_id = 4 [
+  string instance_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
@@ -2466,7 +2500,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given siteID.
-  string site_id = 5 [
+  string site_id = 6 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
@@ -2474,7 +2508,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given regionID.
-  string region_id = 6 [
+  string region_id = 7 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -2485,7 +2519,7 @@ message ListTelemetryMetricsProfilesRequest {
   // profiles rendered from hierarchy. This flag is only used along with one
   // of siteId, regionId or instanceId. If siteId, regionId or instanceId are
   // not set, this flag is ignored.
-  bool show_inherited = 7 [(google.api.field_behavior) = OPTIONAL];
+  bool show_inherited = 8 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for the ListTelemetryMetricsProfiles method.
@@ -2500,26 +2534,32 @@ message ListTelemetryMetricsProfilesResponse {
 
 // Request message for the UpdateTelemetryMetricsProfile method.
 message UpdateTelemetryMetricsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_metrics_profile.
-  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchTelemetryMetricsProfile method.
 message PatchTelemetryMetricsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_metrics_profile.
-  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 3 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of telemetry_metrics_profile.
-  google.protobuf.FieldMask field_mask = 3;
+  google.protobuf.FieldMask field_mask = 4;
 }
 
 // Request message for DeleteTelemetryMetricsProfile.
 message DeleteTelemetryMetricsProfileRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryMetricsProfile.
