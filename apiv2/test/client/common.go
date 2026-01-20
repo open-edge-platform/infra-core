@@ -175,8 +175,11 @@ func CreateSchedSingle(
 ) *api.ScheduleServiceCreateSingleScheduleResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	sched, err := apiClient.ScheduleServiceCreateSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		reqSched,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -197,8 +200,11 @@ func DeleteSchedSingle(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	schedDel, err := apiClient.ScheduleServiceDeleteSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		schedID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -214,8 +220,11 @@ func CreateSchedRepeated(
 ) *api.ScheduleServiceCreateRepeatedScheduleResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	sched, err := apiClient.ScheduleServiceCreateRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		reqSched,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -237,8 +246,11 @@ func DeleteSchedRepeated(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	schedDel, err := apiClient.ScheduleServiceDeleteRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		schedID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -401,9 +413,12 @@ func AssertInMaintenance(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	timestampString := fmt.Sprint(timestamp.UTC().Unix())
 	sReply, err := apiClient.ScheduleServiceListSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSchedulesParams{
 			HostId:    hostID,
 			SiteId:    siteID,

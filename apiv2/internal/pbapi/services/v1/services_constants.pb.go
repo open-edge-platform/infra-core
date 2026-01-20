@@ -382,12 +382,13 @@ const (
 	// Fields and Edges constants for "DeleteWorkloadMemberResponse"
 
 	// Fields and Edges constants for "ListSchedulesRequest"
-	ListSchedulesRequestFieldPageSize  = "page_size"
-	ListSchedulesRequestFieldOffset    = "offset"
-	ListSchedulesRequestFieldHostId    = "host_id"
-	ListSchedulesRequestFieldSiteId    = "site_id"
-	ListSchedulesRequestFieldRegionId  = "region_id"
-	ListSchedulesRequestFieldUnixEpoch = "unix_epoch"
+	ListSchedulesRequestFieldProjectName = "projectName"
+	ListSchedulesRequestFieldPageSize    = "page_size"
+	ListSchedulesRequestFieldOffset      = "offset"
+	ListSchedulesRequestFieldHostId      = "host_id"
+	ListSchedulesRequestFieldSiteId      = "site_id"
+	ListSchedulesRequestFieldRegionId    = "region_id"
+	ListSchedulesRequestFieldUnixEpoch   = "unix_epoch"
 
 	// Fields and Edges constants for "ListSchedulesResponse"
 	ListSchedulesResponseEdgeSingleSchedules   = "single_schedules"
@@ -396,24 +397,27 @@ const (
 	ListSchedulesResponseFieldHasNext          = "has_next"
 
 	// Fields and Edges constants for "CreateSingleScheduleRequest"
+	CreateSingleScheduleRequestFieldProjectName   = "projectName"
 	CreateSingleScheduleRequestEdgeSingleSchedule = "single_schedule"
 
 	// Fields and Edges constants for "CreateSingleScheduleResponse"
 	CreateSingleScheduleResponseEdgeSingleSchedule = "single_schedule"
 
 	// Fields and Edges constants for "GetSingleScheduleRequest"
-	GetSingleScheduleRequestFieldResourceId = "resourceId"
+	GetSingleScheduleRequestFieldProjectName = "projectName"
+	GetSingleScheduleRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetSingleScheduleResponse"
 	GetSingleScheduleResponseEdgeSingleSchedule = "single_schedule"
 
 	// Fields and Edges constants for "ListSingleSchedulesRequest"
-	ListSingleSchedulesRequestFieldPageSize  = "page_size"
-	ListSingleSchedulesRequestFieldOffset    = "offset"
-	ListSingleSchedulesRequestFieldHostId    = "host_id"
-	ListSingleSchedulesRequestFieldSiteId    = "site_id"
-	ListSingleSchedulesRequestFieldRegionId  = "region_id"
-	ListSingleSchedulesRequestFieldUnixEpoch = "unix_epoch"
+	ListSingleSchedulesRequestFieldProjectName = "projectName"
+	ListSingleSchedulesRequestFieldPageSize    = "page_size"
+	ListSingleSchedulesRequestFieldOffset      = "offset"
+	ListSingleSchedulesRequestFieldHostId      = "host_id"
+	ListSingleSchedulesRequestFieldSiteId      = "site_id"
+	ListSingleSchedulesRequestFieldRegionId    = "region_id"
+	ListSingleSchedulesRequestFieldUnixEpoch   = "unix_epoch"
 
 	// Fields and Edges constants for "ListSingleSchedulesResponse"
 	ListSingleSchedulesResponseEdgeSingleSchedules = "single_schedules"
@@ -421,38 +425,44 @@ const (
 	ListSingleSchedulesResponseFieldHasNext        = "has_next"
 
 	// Fields and Edges constants for "UpdateSingleScheduleRequest"
+	UpdateSingleScheduleRequestFieldProjectName   = "projectName"
 	UpdateSingleScheduleRequestFieldResourceId    = "resourceId"
 	UpdateSingleScheduleRequestEdgeSingleSchedule = "single_schedule"
 
 	// Fields and Edges constants for "PatchSingleScheduleRequest"
+	PatchSingleScheduleRequestFieldProjectName   = "projectName"
 	PatchSingleScheduleRequestFieldResourceId    = "resourceId"
 	PatchSingleScheduleRequestEdgeSingleSchedule = "single_schedule"
 	PatchSingleScheduleRequestEdgeFieldMask      = "field_mask"
 
 	// Fields and Edges constants for "DeleteSingleScheduleRequest"
-	DeleteSingleScheduleRequestFieldResourceId = "resourceId"
+	DeleteSingleScheduleRequestFieldProjectName = "projectName"
+	DeleteSingleScheduleRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteSingleScheduleResponse"
 
 	// Fields and Edges constants for "CreateRepeatedScheduleRequest"
+	CreateRepeatedScheduleRequestFieldProjectName     = "projectName"
 	CreateRepeatedScheduleRequestEdgeRepeatedSchedule = "repeated_schedule"
 
 	// Fields and Edges constants for "CreateRepeatedScheduleResponse"
 	CreateRepeatedScheduleResponseEdgeRepeatedSchedule = "repeated_schedule"
 
 	// Fields and Edges constants for "GetRepeatedScheduleRequest"
-	GetRepeatedScheduleRequestFieldResourceId = "resourceId"
+	GetRepeatedScheduleRequestFieldProjectName = "projectName"
+	GetRepeatedScheduleRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetRepeatedScheduleResponse"
 	GetRepeatedScheduleResponseEdgeRepeatedSchedule = "repeated_schedule"
 
 	// Fields and Edges constants for "ListRepeatedSchedulesRequest"
-	ListRepeatedSchedulesRequestFieldPageSize  = "page_size"
-	ListRepeatedSchedulesRequestFieldOffset    = "offset"
-	ListRepeatedSchedulesRequestFieldHostId    = "host_id"
-	ListRepeatedSchedulesRequestFieldSiteId    = "site_id"
-	ListRepeatedSchedulesRequestFieldRegionId  = "region_id"
-	ListRepeatedSchedulesRequestFieldUnixEpoch = "unix_epoch"
+	ListRepeatedSchedulesRequestFieldProjectName = "projectName"
+	ListRepeatedSchedulesRequestFieldPageSize    = "page_size"
+	ListRepeatedSchedulesRequestFieldOffset      = "offset"
+	ListRepeatedSchedulesRequestFieldHostId      = "host_id"
+	ListRepeatedSchedulesRequestFieldSiteId      = "site_id"
+	ListRepeatedSchedulesRequestFieldRegionId    = "region_id"
+	ListRepeatedSchedulesRequestFieldUnixEpoch   = "unix_epoch"
 
 	// Fields and Edges constants for "ListRepeatedSchedulesResponse"
 	ListRepeatedSchedulesResponseEdgeRepeatedSchedules = "repeated_schedules"
@@ -460,16 +470,19 @@ const (
 	ListRepeatedSchedulesResponseFieldHasNext          = "has_next"
 
 	// Fields and Edges constants for "UpdateRepeatedScheduleRequest"
+	UpdateRepeatedScheduleRequestFieldProjectName     = "projectName"
 	UpdateRepeatedScheduleRequestFieldResourceId      = "resourceId"
 	UpdateRepeatedScheduleRequestEdgeRepeatedSchedule = "repeated_schedule"
 
 	// Fields and Edges constants for "PatchRepeatedScheduleRequest"
+	PatchRepeatedScheduleRequestFieldProjectName     = "projectName"
 	PatchRepeatedScheduleRequestFieldResourceId      = "resourceId"
 	PatchRepeatedScheduleRequestEdgeRepeatedSchedule = "repeated_schedule"
 	PatchRepeatedScheduleRequestEdgeFieldMask        = "field_mask"
 
 	// Fields and Edges constants for "DeleteRepeatedScheduleRequest"
-	DeleteRepeatedScheduleRequestFieldResourceId = "resourceId"
+	DeleteRepeatedScheduleRequestFieldProjectName = "projectName"
+	DeleteRepeatedScheduleRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteRepeatedScheduleResponse"
 

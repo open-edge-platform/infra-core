@@ -355,6 +355,9 @@ type CreateRegionResponse struct {
 
 // CreateRepeatedScheduleRequest Request message for the CreateRepeatedSchedule method.
 type CreateRepeatedScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// RepeatedSchedule A repeated-schedule resource.
 	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
 }
@@ -367,6 +370,9 @@ type CreateRepeatedScheduleResponse struct {
 
 // CreateSingleScheduleRequest Request message for the CreateSingleSchedule method.
 type CreateSingleScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// SingleSchedule A single schedule resource.
 	SingleSchedule SingleScheduleResource `json:"singleSchedule"`
 }
@@ -587,6 +593,9 @@ type DeleteRegionResponse = map[string]interface{}
 
 // DeleteRepeatedScheduleRequest Request message for DeleteRepeatedSchedule.
 type DeleteRepeatedScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the repeated_schedule repeated_schedule to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -596,6 +605,9 @@ type DeleteRepeatedScheduleResponse = map[string]interface{}
 
 // DeleteSingleScheduleRequest Request message for DeleteSingleSchedule.
 type DeleteSingleScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the single_schedule single_schedule to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -825,6 +837,9 @@ type GetRegionResponse struct {
 
 // GetRepeatedScheduleRequest Request message for the GetRepeatedSchedule method.
 type GetRepeatedScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested repeated_schedule.
 	ResourceId string `json:"resourceId"`
 }
@@ -837,6 +852,9 @@ type GetRepeatedScheduleResponse struct {
 
 // GetSingleScheduleRequest Request message for the GetSingleSchedule method.
 type GetSingleScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested single_schedule.
 	ResourceId string `json:"resourceId"`
 }
@@ -1753,6 +1771,9 @@ type ListRepeatedSchedulesRequest struct {
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
 	//  returns all schedules (given the other query params).
 	//  If specified, returns the schedules that have the specified region ID applied to them,
@@ -1799,6 +1820,9 @@ type ListSchedulesRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
 	//  returns all schedules (given the other query params).
@@ -1849,6 +1873,9 @@ type ListSingleSchedulesRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// RegionId (OPTIONAL) The region ID target of the schedules. If not specified,
 	//  returns all schedules (given the other query params).
@@ -3376,6 +3403,9 @@ type PatchRepeatedScheduleRequest struct {
 	//  `INVALID_ARGUMENT` error if any path is unmappable.
 	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// RepeatedSchedule A repeated-schedule resource.
 	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
 
@@ -3585,6 +3615,9 @@ type PatchSingleScheduleRequest struct {
 	//  request should verify the included field paths, and return an
 	//  `INVALID_ARGUMENT` error if any path is unmappable.
 	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
@@ -5034,6 +5067,9 @@ type UpdateRegionRequest struct {
 
 // UpdateRepeatedScheduleRequest Request message for the UpdateRepeatedSchedule method.
 type UpdateRepeatedScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// RepeatedSchedule A repeated-schedule resource.
 	RepeatedSchedule RepeatedScheduleResource `json:"repeatedSchedule"`
 
@@ -5043,6 +5079,9 @@ type UpdateRepeatedScheduleRequest struct {
 
 // UpdateSingleScheduleRequest Request message for the UpdateSingleSchedule method.
 type UpdateSingleScheduleRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the single_schedule single_schedule to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -5503,114 +5542,6 @@ type OSUpdateRunListOSUpdateRunParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
-type ScheduleServiceListSchedulesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// HostId The host ID target of the schedules. If not specified, returns all schedules
-	//  (given the other query params). If specified, returns the schedules that have
-	//  the specified host ID applied to them, i.e., target including the inherited ones
-	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
-	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
-
-	// SiteId The site ID target of the schedules. If not specified, returns all schedules
-	//  (given the other query params). If specified, returns the schedules that have
-	//  the specified site ID applied to them, i.e., target including the inherited ones.
-	//  If null, returns all the schedules without a site ID as target
-	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
-
-	// RegionId The region ID target of the schedules. If not specified,
-	//  returns all schedules (given the other query params).
-	//  If specified, returns the schedules that have the specified region ID applied to them,
-	//  i.e., target including the inherited ones (parent region if not null).
-	//  If null, returns all the schedules without a region ID as target.
-	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
-
-	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
-	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
-}
-
-// ScheduleServiceListRepeatedSchedulesParams defines parameters for ScheduleServiceListRepeatedSchedules.
-type ScheduleServiceListRepeatedSchedulesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// HostId The host ID target of the schedules. If not specified, returns all schedules
-	//  (given the other query params). If specified, returns the schedules that have
-	//  the specified host ID applied to them, i.e., target including the inherited ones
-	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
-	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
-
-	// SiteId The site ID target of the schedules. If not specified, returns all schedules
-	//  (given the other query params). If specified, returns the schedules that have
-	//  the specified site ID applied to them, i.e., target including the inherited ones.
-	//  If null, returns all the schedules without a site ID as target
-	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
-
-	// RegionId The region ID target of the schedules. If not specified,
-	//  returns all schedules (given the other query params).
-	//  If specified, returns the schedules that have the specified region ID applied to them,
-	//  i.e., target including the inherited ones (parent region if not null).
-	//  If null, returns all the schedules without a region ID as target.
-	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
-
-	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
-	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
-}
-
-// ScheduleServicePatchRepeatedScheduleParams defines parameters for ScheduleServicePatchRepeatedSchedule.
-type ScheduleServicePatchRepeatedScheduleParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
-// ScheduleServiceListSingleSchedulesParams defines parameters for ScheduleServiceListSingleSchedules.
-type ScheduleServiceListSingleSchedulesParams struct {
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// HostId The host ID target of the schedules. If not specified, returns all schedules
-	//  (given the other query params). If specified, returns the schedules that have
-	//  the specified host ID applied to them, i.e., target including the inherited ones
-	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
-	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
-
-	// SiteId The site ID target of the schedules. If not specified, returns all schedules
-	//  (given the other query params). If specified, returns the schedules that have
-	//  the specified site ID applied to them, i.e., target including the inherited ones.
-	//  If null, returns all the schedules without a site ID as target
-	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
-
-	// RegionId The region ID target of the schedules. If not specified,
-	//  returns all schedules (given the other query params).
-	//  If specified, returns the schedules that have the specified region ID applied to them,
-	//  i.e., target including the inherited ones (parent region if not null).
-	//  If null, returns all the schedules without a region ID as target.
-	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
-
-	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
-	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
-}
-
-// ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
-type ScheduleServicePatchSingleScheduleParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
 // TelemetryLogsGroupServiceListTelemetryLogsGroupsParams defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups.
 type TelemetryLogsGroupServiceListTelemetryLogsGroupsParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
@@ -5898,6 +5829,114 @@ type ProviderServiceListProvidersParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
+type ScheduleServiceListSchedulesParams struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServiceListRepeatedSchedulesParams defines parameters for ScheduleServiceListRepeatedSchedules.
+type ScheduleServiceListRepeatedSchedulesParams struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServicePatchRepeatedScheduleParams defines parameters for ScheduleServicePatchRepeatedSchedule.
+type ScheduleServicePatchRepeatedScheduleParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// ScheduleServiceListSingleSchedulesParams defines parameters for ScheduleServiceListSingleSchedules.
+type ScheduleServiceListSingleSchedulesParams struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
+type ScheduleServicePatchSingleScheduleParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
 type WorkloadMemberServiceListWorkloadMembersParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5945,24 +5984,6 @@ type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
-
-// ScheduleServiceCreateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule for application/json ContentType.
-type ScheduleServiceCreateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
-
-// ScheduleServicePatchRepeatedScheduleJSONRequestBody defines body for ScheduleServicePatchRepeatedSchedule for application/json ContentType.
-type ScheduleServicePatchRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
-
-// ScheduleServiceUpdateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceUpdateRepeatedSchedule for application/json ContentType.
-type ScheduleServiceUpdateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
-
-// ScheduleServiceCreateSingleScheduleJSONRequestBody defines body for ScheduleServiceCreateSingleSchedule for application/json ContentType.
-type ScheduleServiceCreateSingleScheduleJSONRequestBody = SingleScheduleResource
-
-// ScheduleServicePatchSingleScheduleJSONRequestBody defines body for ScheduleServicePatchSingleSchedule for application/json ContentType.
-type ScheduleServicePatchSingleScheduleJSONRequestBody = SingleScheduleResource
-
-// ScheduleServiceUpdateSingleScheduleJSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule for application/json ContentType.
-type ScheduleServiceUpdateSingleScheduleJSONRequestBody = SingleScheduleResource
 
 // TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup for application/json ContentType.
 type TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody = TelemetryLogsGroupResource
@@ -6044,6 +6065,24 @@ type SiteServiceUpdateSiteJSONRequestBody = SiteResource
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
+
+// ScheduleServiceCreateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule for application/json ContentType.
+type ScheduleServiceCreateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServicePatchRepeatedScheduleJSONRequestBody defines body for ScheduleServicePatchRepeatedSchedule for application/json ContentType.
+type ScheduleServicePatchRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServiceUpdateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceUpdateRepeatedSchedule for application/json ContentType.
+type ScheduleServiceUpdateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServiceCreateSingleScheduleJSONRequestBody defines body for ScheduleServiceCreateSingleSchedule for application/json ContentType.
+type ScheduleServiceCreateSingleScheduleJSONRequestBody = SingleScheduleResource
+
+// ScheduleServicePatchSingleScheduleJSONRequestBody defines body for ScheduleServicePatchSingleSchedule for application/json ContentType.
+type ScheduleServicePatchSingleScheduleJSONRequestBody = SingleScheduleResource
+
+// ScheduleServiceUpdateSingleScheduleJSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule for application/json ContentType.
+type ScheduleServiceUpdateSingleScheduleJSONRequestBody = SingleScheduleResource
 
 // WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
 type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember

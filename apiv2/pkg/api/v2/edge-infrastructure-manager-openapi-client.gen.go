@@ -126,57 +126,6 @@ type ClientInterface interface {
 	// OSUpdateRunGetOSUpdateRun request
 	OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ScheduleServiceListSchedules request
-	ScheduleServiceListSchedules(ctx context.Context, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceListRepeatedSchedules request
-	ScheduleServiceListRepeatedSchedules(ctx context.Context, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceCreateRepeatedScheduleWithBody request with any body
-	ScheduleServiceCreateRepeatedScheduleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ScheduleServiceCreateRepeatedSchedule(ctx context.Context, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceDeleteRepeatedSchedule request
-	ScheduleServiceDeleteRepeatedSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceGetRepeatedSchedule request
-	ScheduleServiceGetRepeatedSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServicePatchRepeatedScheduleWithBody request with any body
-	ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ScheduleServicePatchRepeatedSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceUpdateRepeatedScheduleWithBody request with any body
-	ScheduleServiceUpdateRepeatedScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ScheduleServiceUpdateRepeatedSchedule(ctx context.Context, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceListSingleSchedules request
-	ScheduleServiceListSingleSchedules(ctx context.Context, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceCreateSingleScheduleWithBody request with any body
-	ScheduleServiceCreateSingleScheduleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ScheduleServiceCreateSingleSchedule(ctx context.Context, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceDeleteSingleSchedule request
-	ScheduleServiceDeleteSingleSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceGetSingleSchedule request
-	ScheduleServiceGetSingleSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServicePatchSingleScheduleWithBody request with any body
-	ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ScheduleServicePatchSingleSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ScheduleServiceUpdateSingleScheduleWithBody request with any body
-	ScheduleServiceUpdateSingleScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	ScheduleServiceUpdateSingleSchedule(ctx context.Context, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// TelemetryLogsGroupServiceListTelemetryLogsGroups request
 	TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -426,6 +375,57 @@ type ClientInterface interface {
 	// ProviderServiceGetProvider request
 	ProviderServiceGetProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ScheduleServiceListSchedules request
+	ScheduleServiceListSchedules(ctx context.Context, projectName string, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceListRepeatedSchedules request
+	ScheduleServiceListRepeatedSchedules(ctx context.Context, projectName string, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceCreateRepeatedScheduleWithBody request with any body
+	ScheduleServiceCreateRepeatedScheduleWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceCreateRepeatedSchedule(ctx context.Context, projectName string, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceDeleteRepeatedSchedule request
+	ScheduleServiceDeleteRepeatedSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceGetRepeatedSchedule request
+	ScheduleServiceGetRepeatedSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServicePatchRepeatedScheduleWithBody request with any body
+	ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServicePatchRepeatedSchedule(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceUpdateRepeatedScheduleWithBody request with any body
+	ScheduleServiceUpdateRepeatedScheduleWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceUpdateRepeatedSchedule(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceListSingleSchedules request
+	ScheduleServiceListSingleSchedules(ctx context.Context, projectName string, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceCreateSingleScheduleWithBody request with any body
+	ScheduleServiceCreateSingleScheduleWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceCreateSingleSchedule(ctx context.Context, projectName string, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceDeleteSingleSchedule request
+	ScheduleServiceDeleteSingleSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceGetSingleSchedule request
+	ScheduleServiceGetSingleSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServicePatchSingleScheduleWithBody request with any body
+	ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServicePatchSingleSchedule(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceUpdateSingleScheduleWithBody request with any body
+	ScheduleServiceUpdateSingleScheduleWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceUpdateSingleSchedule(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// WorkloadMemberServiceListWorkloadMembers request
 	WorkloadMemberServiceListWorkloadMembers(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -611,234 +611,6 @@ func (c *Client) OSUpdateRunDeleteOSUpdateRun(ctx context.Context, resourceId st
 
 func (c *Client) OSUpdateRunGetOSUpdateRun(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewOSUpdateRunGetOSUpdateRunRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceListSchedules(ctx context.Context, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceListSchedulesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceListRepeatedSchedules(ctx context.Context, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceListRepeatedSchedulesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceCreateRepeatedScheduleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceCreateRepeatedScheduleRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceCreateRepeatedSchedule(ctx context.Context, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceCreateRepeatedScheduleRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceDeleteRepeatedSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceDeleteRepeatedScheduleRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceGetRepeatedSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceGetRepeatedScheduleRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchRepeatedScheduleRequestWithBody(c.Server, resourceId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServicePatchRepeatedSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchRepeatedScheduleRequest(c.Server, resourceId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceUpdateRepeatedScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(c.Server, resourceId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceUpdateRepeatedSchedule(ctx context.Context, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceUpdateRepeatedScheduleRequest(c.Server, resourceId, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceListSingleSchedules(ctx context.Context, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceListSingleSchedulesRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceCreateSingleScheduleWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceCreateSingleScheduleRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceCreateSingleSchedule(ctx context.Context, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceCreateSingleScheduleRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceDeleteSingleSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceDeleteSingleScheduleRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceGetSingleSchedule(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceGetSingleScheduleRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchSingleScheduleRequestWithBody(c.Server, resourceId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServicePatchSingleSchedule(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServicePatchSingleScheduleRequest(c.Server, resourceId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceUpdateSingleScheduleWithBody(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceUpdateSingleScheduleRequestWithBody(c.Server, resourceId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ScheduleServiceUpdateSingleSchedule(ctx context.Context, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewScheduleServiceUpdateSingleScheduleRequest(c.Server, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1953,6 +1725,234 @@ func (c *Client) ProviderServiceGetProvider(ctx context.Context, projectName str
 	return c.Client.Do(req)
 }
 
+func (c *Client) ScheduleServiceListSchedules(ctx context.Context, projectName string, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceListSchedulesRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceListRepeatedSchedules(ctx context.Context, projectName string, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceListRepeatedSchedulesRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateRepeatedScheduleWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateRepeatedScheduleRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateRepeatedSchedule(ctx context.Context, projectName string, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateRepeatedScheduleRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceDeleteRepeatedSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceDeleteRepeatedScheduleRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceGetRepeatedSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceGetRepeatedScheduleRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchRepeatedScheduleWithBody(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchRepeatedScheduleRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchRepeatedSchedule(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchRepeatedScheduleRequest(c.Server, projectName, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateRepeatedScheduleWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(c.Server, projectName, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateRepeatedSchedule(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateRepeatedScheduleRequest(c.Server, projectName, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceListSingleSchedules(ctx context.Context, projectName string, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceListSingleSchedulesRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateSingleScheduleWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateSingleScheduleRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateSingleSchedule(ctx context.Context, projectName string, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateSingleScheduleRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceDeleteSingleSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceDeleteSingleScheduleRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceGetSingleSchedule(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceGetSingleScheduleRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchSingleScheduleWithBody(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchSingleScheduleRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchSingleSchedule(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchSingleScheduleRequest(c.Server, projectName, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateSingleScheduleWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateSingleScheduleRequestWithBody(c.Server, projectName, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateSingleSchedule(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateSingleScheduleRequest(c.Server, projectName, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) WorkloadMemberServiceListWorkloadMembers(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewWorkloadMemberServiceListWorkloadMembersRequest(c.Server, projectName, params)
 	if err != nil {
@@ -2692,841 +2692,6 @@ func NewOSUpdateRunGetOSUpdateRunRequest(server string, resourceId string) (*htt
 	if err != nil {
 		return nil, err
 	}
-
-	return req, nil
-}
-
-// NewScheduleServiceListSchedulesRequest generates requests for ScheduleServiceListSchedules
-func NewScheduleServiceListSchedulesRequest(server string, params *ScheduleServiceListSchedulesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.HostId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.SiteId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.RegionId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.UnixEpoch != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewScheduleServiceListRepeatedSchedulesRequest generates requests for ScheduleServiceListRepeatedSchedules
-func NewScheduleServiceListRepeatedSchedulesRequest(server string, params *ScheduleServiceListRepeatedSchedulesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.HostId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.SiteId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.RegionId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.UnixEpoch != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewScheduleServiceCreateRepeatedScheduleRequest calls the generic ScheduleServiceCreateRepeatedSchedule builder with application/json body
-func NewScheduleServiceCreateRepeatedScheduleRequest(server string, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServiceCreateRepeatedScheduleRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewScheduleServiceCreateRepeatedScheduleRequestWithBody generates requests for ScheduleServiceCreateRepeatedSchedule with any type of body
-func NewScheduleServiceCreateRepeatedScheduleRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewScheduleServiceDeleteRepeatedScheduleRequest generates requests for ScheduleServiceDeleteRepeatedSchedule
-func NewScheduleServiceDeleteRepeatedScheduleRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewScheduleServiceGetRepeatedScheduleRequest generates requests for ScheduleServiceGetRepeatedSchedule
-func NewScheduleServiceGetRepeatedScheduleRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewScheduleServicePatchRepeatedScheduleRequest calls the generic ScheduleServicePatchRepeatedSchedule builder with application/json body
-func NewScheduleServicePatchRepeatedScheduleRequest(server string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServicePatchRepeatedScheduleRequestWithBody(server, resourceId, params, "application/json", bodyReader)
-}
-
-// NewScheduleServicePatchRepeatedScheduleRequestWithBody generates requests for ScheduleServicePatchRepeatedSchedule with any type of body
-func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMaskPaths != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("PATCH", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewScheduleServiceUpdateRepeatedScheduleRequest calls the generic ScheduleServiceUpdateRepeatedSchedule builder with application/json body
-func NewScheduleServiceUpdateRepeatedScheduleRequest(server string, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(server, resourceId, "application/json", bodyReader)
-}
-
-// NewScheduleServiceUpdateRepeatedScheduleRequestWithBody generates requests for ScheduleServiceUpdateRepeatedSchedule with any type of body
-func NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("PUT", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewScheduleServiceListSingleSchedulesRequest generates requests for ScheduleServiceListSingleSchedules
-func NewScheduleServiceListSingleSchedulesRequest(server string, params *ScheduleServiceListSingleSchedulesParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.HostId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.SiteId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.RegionId != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.UnixEpoch != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewScheduleServiceCreateSingleScheduleRequest calls the generic ScheduleServiceCreateSingleSchedule builder with application/json body
-func NewScheduleServiceCreateSingleScheduleRequest(server string, body ScheduleServiceCreateSingleScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServiceCreateSingleScheduleRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewScheduleServiceCreateSingleScheduleRequestWithBody generates requests for ScheduleServiceCreateSingleSchedule with any type of body
-func NewScheduleServiceCreateSingleScheduleRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewScheduleServiceDeleteSingleScheduleRequest generates requests for ScheduleServiceDeleteSingleSchedule
-func NewScheduleServiceDeleteSingleScheduleRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewScheduleServiceGetSingleScheduleRequest generates requests for ScheduleServiceGetSingleSchedule
-func NewScheduleServiceGetSingleScheduleRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewScheduleServicePatchSingleScheduleRequest calls the generic ScheduleServicePatchSingleSchedule builder with application/json body
-func NewScheduleServicePatchSingleScheduleRequest(server string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServicePatchSingleScheduleRequestWithBody(server, resourceId, params, "application/json", bodyReader)
-}
-
-// NewScheduleServicePatchSingleScheduleRequestWithBody generates requests for ScheduleServicePatchSingleSchedule with any type of body
-func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMaskPaths != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("PATCH", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewScheduleServiceUpdateSingleScheduleRequest calls the generic ScheduleServiceUpdateSingleSchedule builder with application/json body
-func NewScheduleServiceUpdateSingleScheduleRequest(server string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewScheduleServiceUpdateSingleScheduleRequestWithBody(server, resourceId, "application/json", bodyReader)
-}
-
-// NewScheduleServiceUpdateSingleScheduleRequestWithBody generates requests for ScheduleServiceUpdateSingleSchedule with any type of body
-func NewScheduleServiceUpdateSingleScheduleRequestWithBody(server string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("PUT", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7356,6 +6521,932 @@ func NewProviderServiceGetProviderRequest(server string, projectName string, res
 	return req, nil
 }
 
+// NewScheduleServiceListSchedulesRequest generates requests for ScheduleServiceListSchedules
+func NewScheduleServiceListSchedulesRequest(server string, projectName string, params *ScheduleServiceListSchedulesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.HostId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.UnixEpoch != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceListRepeatedSchedulesRequest generates requests for ScheduleServiceListRepeatedSchedules
+func NewScheduleServiceListRepeatedSchedulesRequest(server string, projectName string, params *ScheduleServiceListRepeatedSchedulesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/repeated", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.HostId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.UnixEpoch != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceCreateRepeatedScheduleRequest calls the generic ScheduleServiceCreateRepeatedSchedule builder with application/json body
+func NewScheduleServiceCreateRepeatedScheduleRequest(server string, projectName string, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceCreateRepeatedScheduleRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewScheduleServiceCreateRepeatedScheduleRequestWithBody generates requests for ScheduleServiceCreateRepeatedSchedule with any type of body
+func NewScheduleServiceCreateRepeatedScheduleRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/repeated", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceDeleteRepeatedScheduleRequest generates requests for ScheduleServiceDeleteRepeatedSchedule
+func NewScheduleServiceDeleteRepeatedScheduleRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/repeated/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceGetRepeatedScheduleRequest generates requests for ScheduleServiceGetRepeatedSchedule
+func NewScheduleServiceGetRepeatedScheduleRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/repeated/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServicePatchRepeatedScheduleRequest calls the generic ScheduleServicePatchRepeatedSchedule builder with application/json body
+func NewScheduleServicePatchRepeatedScheduleRequest(server string, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServicePatchRepeatedScheduleRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
+}
+
+// NewScheduleServicePatchRepeatedScheduleRequestWithBody generates requests for ScheduleServicePatchRepeatedSchedule with any type of body
+func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/repeated/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceUpdateRepeatedScheduleRequest calls the generic ScheduleServiceUpdateRepeatedSchedule builder with application/json body
+func NewScheduleServiceUpdateRepeatedScheduleRequest(server string, projectName string, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+}
+
+// NewScheduleServiceUpdateRepeatedScheduleRequestWithBody generates requests for ScheduleServiceUpdateRepeatedSchedule with any type of body
+func NewScheduleServiceUpdateRepeatedScheduleRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/repeated/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceListSingleSchedulesRequest generates requests for ScheduleServiceListSingleSchedules
+func NewScheduleServiceListSingleSchedulesRequest(server string, projectName string, params *ScheduleServiceListSingleSchedulesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/single", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.HostId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.UnixEpoch != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceCreateSingleScheduleRequest calls the generic ScheduleServiceCreateSingleSchedule builder with application/json body
+func NewScheduleServiceCreateSingleScheduleRequest(server string, projectName string, body ScheduleServiceCreateSingleScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceCreateSingleScheduleRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewScheduleServiceCreateSingleScheduleRequestWithBody generates requests for ScheduleServiceCreateSingleSchedule with any type of body
+func NewScheduleServiceCreateSingleScheduleRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/single", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceDeleteSingleScheduleRequest generates requests for ScheduleServiceDeleteSingleSchedule
+func NewScheduleServiceDeleteSingleScheduleRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/single/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceGetSingleScheduleRequest generates requests for ScheduleServiceGetSingleSchedule
+func NewScheduleServiceGetSingleScheduleRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/single/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServicePatchSingleScheduleRequest calls the generic ScheduleServicePatchSingleSchedule builder with application/json body
+func NewScheduleServicePatchSingleScheduleRequest(server string, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServicePatchSingleScheduleRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
+}
+
+// NewScheduleServicePatchSingleScheduleRequestWithBody generates requests for ScheduleServicePatchSingleSchedule with any type of body
+func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/single/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceUpdateSingleScheduleRequest calls the generic ScheduleServiceUpdateSingleSchedule builder with application/json body
+func NewScheduleServiceUpdateSingleScheduleRequest(server string, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceUpdateSingleScheduleRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+}
+
+// NewScheduleServiceUpdateSingleScheduleRequestWithBody generates requests for ScheduleServiceUpdateSingleSchedule with any type of body
+func NewScheduleServiceUpdateSingleScheduleRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/single/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewWorkloadMemberServiceListWorkloadMembersRequest generates requests for WorkloadMemberServiceListWorkloadMembers
 func NewWorkloadMemberServiceListWorkloadMembersRequest(server string, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams) (*http.Request, error) {
 	var err error
@@ -8032,57 +8123,6 @@ type ClientWithResponsesInterface interface {
 	// OSUpdateRunGetOSUpdateRunWithResponse request
 	OSUpdateRunGetOSUpdateRunWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRunResponse, error)
 
-	// ScheduleServiceListSchedulesWithResponse request
-	ScheduleServiceListSchedulesWithResponse(ctx context.Context, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedulesResponse, error)
-
-	// ScheduleServiceListRepeatedSchedulesWithResponse request
-	ScheduleServiceListRepeatedSchedulesWithResponse(ctx context.Context, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListRepeatedSchedulesResponse, error)
-
-	// ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse request with any body
-	ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error)
-
-	ScheduleServiceCreateRepeatedScheduleWithResponse(ctx context.Context, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error)
-
-	// ScheduleServiceDeleteRepeatedScheduleWithResponse request
-	ScheduleServiceDeleteRepeatedScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteRepeatedScheduleResponse, error)
-
-	// ScheduleServiceGetRepeatedScheduleWithResponse request
-	ScheduleServiceGetRepeatedScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetRepeatedScheduleResponse, error)
-
-	// ScheduleServicePatchRepeatedScheduleWithBodyWithResponse request with any body
-	ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
-
-	ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
-
-	// ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse request with any body
-	ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error)
-
-	ScheduleServiceUpdateRepeatedScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error)
-
-	// ScheduleServiceListSingleSchedulesWithResponse request
-	ScheduleServiceListSingleSchedulesWithResponse(ctx context.Context, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSingleSchedulesResponse, error)
-
-	// ScheduleServiceCreateSingleScheduleWithBodyWithResponse request with any body
-	ScheduleServiceCreateSingleScheduleWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error)
-
-	ScheduleServiceCreateSingleScheduleWithResponse(ctx context.Context, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error)
-
-	// ScheduleServiceDeleteSingleScheduleWithResponse request
-	ScheduleServiceDeleteSingleScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteSingleScheduleResponse, error)
-
-	// ScheduleServiceGetSingleScheduleWithResponse request
-	ScheduleServiceGetSingleScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetSingleScheduleResponse, error)
-
-	// ScheduleServicePatchSingleScheduleWithBodyWithResponse request with any body
-	ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
-
-	ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
-
-	// ScheduleServiceUpdateSingleScheduleWithBodyWithResponse request with any body
-	ScheduleServiceUpdateSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
-
-	ScheduleServiceUpdateSingleScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
-
 	// TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request
 	TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error)
 
@@ -8331,6 +8371,57 @@ type ClientWithResponsesInterface interface {
 
 	// ProviderServiceGetProviderWithResponse request
 	ProviderServiceGetProviderWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceGetProviderResponse, error)
+
+	// ScheduleServiceListSchedulesWithResponse request
+	ScheduleServiceListSchedulesWithResponse(ctx context.Context, projectName string, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedulesResponse, error)
+
+	// ScheduleServiceListRepeatedSchedulesWithResponse request
+	ScheduleServiceListRepeatedSchedulesWithResponse(ctx context.Context, projectName string, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListRepeatedSchedulesResponse, error)
+
+	// ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse request with any body
+	ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error)
+
+	ScheduleServiceCreateRepeatedScheduleWithResponse(ctx context.Context, projectName string, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error)
+
+	// ScheduleServiceDeleteRepeatedScheduleWithResponse request
+	ScheduleServiceDeleteRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteRepeatedScheduleResponse, error)
+
+	// ScheduleServiceGetRepeatedScheduleWithResponse request
+	ScheduleServiceGetRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetRepeatedScheduleResponse, error)
+
+	// ScheduleServicePatchRepeatedScheduleWithBodyWithResponse request with any body
+	ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
+
+	ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error)
+
+	// ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse request with any body
+	ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error)
+
+	ScheduleServiceUpdateRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error)
+
+	// ScheduleServiceListSingleSchedulesWithResponse request
+	ScheduleServiceListSingleSchedulesWithResponse(ctx context.Context, projectName string, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSingleSchedulesResponse, error)
+
+	// ScheduleServiceCreateSingleScheduleWithBodyWithResponse request with any body
+	ScheduleServiceCreateSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error)
+
+	ScheduleServiceCreateSingleScheduleWithResponse(ctx context.Context, projectName string, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error)
+
+	// ScheduleServiceDeleteSingleScheduleWithResponse request
+	ScheduleServiceDeleteSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteSingleScheduleResponse, error)
+
+	// ScheduleServiceGetSingleScheduleWithResponse request
+	ScheduleServiceGetSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetSingleScheduleResponse, error)
+
+	// ScheduleServicePatchSingleScheduleWithBodyWithResponse request with any body
+	ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
+
+	ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error)
+
+	// ScheduleServiceUpdateSingleScheduleWithBodyWithResponse request with any body
+	ScheduleServiceUpdateSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
+
+	ScheduleServiceUpdateSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
 
 	// WorkloadMemberServiceListWorkloadMembersWithResponse request
 	WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error)
@@ -8607,292 +8698,6 @@ func (r OSUpdateRunGetOSUpdateRunResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r OSUpdateRunGetOSUpdateRunResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceListSchedulesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListSchedulesResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceListSchedulesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceListSchedulesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceListRepeatedSchedulesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListRepeatedSchedulesResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceListRepeatedSchedulesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceListRepeatedSchedulesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceCreateRepeatedScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RepeatedScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceCreateRepeatedScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceCreateRepeatedScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceDeleteRepeatedScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteRepeatedScheduleResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceDeleteRepeatedScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceDeleteRepeatedScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceGetRepeatedScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RepeatedScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceGetRepeatedScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceGetRepeatedScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServicePatchRepeatedScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RepeatedScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServicePatchRepeatedScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServicePatchRepeatedScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceUpdateRepeatedScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RepeatedScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceUpdateRepeatedScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceUpdateRepeatedScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceListSingleSchedulesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListSingleSchedulesResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceListSingleSchedulesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceListSingleSchedulesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceCreateSingleScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SingleScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceCreateSingleScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceCreateSingleScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceDeleteSingleScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteSingleScheduleResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceDeleteSingleScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceDeleteSingleScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceGetSingleScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SingleScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceGetSingleScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceGetSingleScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServicePatchSingleScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SingleScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServicePatchSingleScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServicePatchSingleScheduleResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type ScheduleServiceUpdateSingleScheduleResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SingleScheduleResource
-}
-
-// Status returns HTTPResponse.Status
-func (r ScheduleServiceUpdateSingleScheduleResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ScheduleServiceUpdateSingleScheduleResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10329,6 +10134,292 @@ func (r ProviderServiceGetProviderResponse) StatusCode() int {
 	return 0
 }
 
+type ScheduleServiceListSchedulesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListSchedulesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceListSchedulesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceListSchedulesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceListRepeatedSchedulesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListRepeatedSchedulesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceListRepeatedSchedulesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceListRepeatedSchedulesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceCreateRepeatedScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceCreateRepeatedScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceCreateRepeatedScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceDeleteRepeatedScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteRepeatedScheduleResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceDeleteRepeatedScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceDeleteRepeatedScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceGetRepeatedScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceGetRepeatedScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceGetRepeatedScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServicePatchRepeatedScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServicePatchRepeatedScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServicePatchRepeatedScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceUpdateRepeatedScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceUpdateRepeatedScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceUpdateRepeatedScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceListSingleSchedulesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListSingleSchedulesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceListSingleSchedulesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceListSingleSchedulesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceCreateSingleScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceCreateSingleScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceCreateSingleScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceDeleteSingleScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteSingleScheduleResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceDeleteSingleScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceDeleteSingleScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceGetSingleScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceGetSingleScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceGetSingleScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServicePatchSingleScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServicePatchSingleScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServicePatchSingleScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceUpdateSingleScheduleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceUpdateSingleScheduleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceUpdateSingleScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type WorkloadMemberServiceListWorkloadMembersResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -10662,171 +10753,6 @@ func (c *ClientWithResponses) OSUpdateRunGetOSUpdateRunWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseOSUpdateRunGetOSUpdateRunResponse(rsp)
-}
-
-// ScheduleServiceListSchedulesWithResponse request returning *ScheduleServiceListSchedulesResponse
-func (c *ClientWithResponses) ScheduleServiceListSchedulesWithResponse(ctx context.Context, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedulesResponse, error) {
-	rsp, err := c.ScheduleServiceListSchedules(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceListSchedulesResponse(rsp)
-}
-
-// ScheduleServiceListRepeatedSchedulesWithResponse request returning *ScheduleServiceListRepeatedSchedulesResponse
-func (c *ClientWithResponses) ScheduleServiceListRepeatedSchedulesWithResponse(ctx context.Context, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListRepeatedSchedulesResponse, error) {
-	rsp, err := c.ScheduleServiceListRepeatedSchedules(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceListRepeatedSchedulesResponse(rsp)
-}
-
-// ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceCreateRepeatedScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceCreateRepeatedScheduleWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceCreateRepeatedScheduleResponse(rsp)
-}
-
-func (c *ClientWithResponses) ScheduleServiceCreateRepeatedScheduleWithResponse(ctx context.Context, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceCreateRepeatedSchedule(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceCreateRepeatedScheduleResponse(rsp)
-}
-
-// ScheduleServiceDeleteRepeatedScheduleWithResponse request returning *ScheduleServiceDeleteRepeatedScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceDeleteRepeatedScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceDeleteRepeatedSchedule(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceDeleteRepeatedScheduleResponse(rsp)
-}
-
-// ScheduleServiceGetRepeatedScheduleWithResponse request returning *ScheduleServiceGetRepeatedScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceGetRepeatedScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceGetRepeatedSchedule(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceGetRepeatedScheduleResponse(rsp)
-}
-
-// ScheduleServicePatchRepeatedScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchRepeatedScheduleResponse
-func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchRepeatedScheduleWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServicePatchRepeatedScheduleResponse(rsp)
-}
-
-func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchRepeatedSchedule(ctx, resourceId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServicePatchRepeatedScheduleResponse(rsp)
-}
-
-// ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceUpdateRepeatedScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceUpdateRepeatedScheduleWithBody(ctx, resourceId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceUpdateRepeatedScheduleResponse(rsp)
-}
-
-func (c *ClientWithResponses) ScheduleServiceUpdateRepeatedScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceUpdateRepeatedSchedule(ctx, resourceId, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceUpdateRepeatedScheduleResponse(rsp)
-}
-
-// ScheduleServiceListSingleSchedulesWithResponse request returning *ScheduleServiceListSingleSchedulesResponse
-func (c *ClientWithResponses) ScheduleServiceListSingleSchedulesWithResponse(ctx context.Context, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSingleSchedulesResponse, error) {
-	rsp, err := c.ScheduleServiceListSingleSchedules(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceListSingleSchedulesResponse(rsp)
-}
-
-// ScheduleServiceCreateSingleScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceCreateSingleScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceCreateSingleScheduleWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceCreateSingleScheduleWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceCreateSingleScheduleResponse(rsp)
-}
-
-func (c *ClientWithResponses) ScheduleServiceCreateSingleScheduleWithResponse(ctx context.Context, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceCreateSingleSchedule(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceCreateSingleScheduleResponse(rsp)
-}
-
-// ScheduleServiceDeleteSingleScheduleWithResponse request returning *ScheduleServiceDeleteSingleScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceDeleteSingleScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceDeleteSingleSchedule(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceDeleteSingleScheduleResponse(rsp)
-}
-
-// ScheduleServiceGetSingleScheduleWithResponse request returning *ScheduleServiceGetSingleScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceGetSingleScheduleWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceGetSingleSchedule(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceGetSingleScheduleResponse(rsp)
-}
-
-// ScheduleServicePatchSingleScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchSingleScheduleResponse
-func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchSingleScheduleWithBody(ctx, resourceId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServicePatchSingleScheduleResponse(rsp)
-}
-
-func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServicePatchSingleSchedule(ctx, resourceId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServicePatchSingleScheduleResponse(rsp)
-}
-
-// ScheduleServiceUpdateSingleScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceUpdateSingleScheduleResponse
-func (c *ClientWithResponses) ScheduleServiceUpdateSingleScheduleWithBodyWithResponse(ctx context.Context, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceUpdateSingleScheduleWithBody(ctx, resourceId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceUpdateSingleScheduleResponse(rsp)
-}
-
-func (c *ClientWithResponses) ScheduleServiceUpdateSingleScheduleWithResponse(ctx context.Context, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error) {
-	rsp, err := c.ScheduleServiceUpdateSingleSchedule(ctx, resourceId, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseScheduleServiceUpdateSingleScheduleResponse(rsp)
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse
@@ -11630,6 +11556,171 @@ func (c *ClientWithResponses) ProviderServiceGetProviderWithResponse(ctx context
 	return ParseProviderServiceGetProviderResponse(rsp)
 }
 
+// ScheduleServiceListSchedulesWithResponse request returning *ScheduleServiceListSchedulesResponse
+func (c *ClientWithResponses) ScheduleServiceListSchedulesWithResponse(ctx context.Context, projectName string, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedulesResponse, error) {
+	rsp, err := c.ScheduleServiceListSchedules(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceListSchedulesResponse(rsp)
+}
+
+// ScheduleServiceListRepeatedSchedulesWithResponse request returning *ScheduleServiceListRepeatedSchedulesResponse
+func (c *ClientWithResponses) ScheduleServiceListRepeatedSchedulesWithResponse(ctx context.Context, projectName string, params *ScheduleServiceListRepeatedSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListRepeatedSchedulesResponse, error) {
+	rsp, err := c.ScheduleServiceListRepeatedSchedules(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceListRepeatedSchedulesResponse(rsp)
+}
+
+// ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceCreateRepeatedScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceCreateRepeatedScheduleWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceCreateRepeatedScheduleWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateRepeatedScheduleResponse(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceCreateRepeatedScheduleWithResponse(ctx context.Context, projectName string, body ScheduleServiceCreateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceCreateRepeatedSchedule(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateRepeatedScheduleResponse(rsp)
+}
+
+// ScheduleServiceDeleteRepeatedScheduleWithResponse request returning *ScheduleServiceDeleteRepeatedScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceDeleteRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceDeleteRepeatedSchedule(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceDeleteRepeatedScheduleResponse(rsp)
+}
+
+// ScheduleServiceGetRepeatedScheduleWithResponse request returning *ScheduleServiceGetRepeatedScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceGetRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceGetRepeatedSchedule(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceGetRepeatedScheduleResponse(rsp)
+}
+
+// ScheduleServicePatchRepeatedScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchRepeatedScheduleResponse
+func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchRepeatedScheduleWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchRepeatedScheduleResponse(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServicePatchRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchRepeatedScheduleParams, body ScheduleServicePatchRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchRepeatedSchedule(ctx, projectName, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchRepeatedScheduleResponse(rsp)
+}
+
+// ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceUpdateRepeatedScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceUpdateRepeatedScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceUpdateRepeatedScheduleWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateRepeatedScheduleResponse(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceUpdateRepeatedScheduleWithResponse(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateRepeatedScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceUpdateRepeatedSchedule(ctx, projectName, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateRepeatedScheduleResponse(rsp)
+}
+
+// ScheduleServiceListSingleSchedulesWithResponse request returning *ScheduleServiceListSingleSchedulesResponse
+func (c *ClientWithResponses) ScheduleServiceListSingleSchedulesWithResponse(ctx context.Context, projectName string, params *ScheduleServiceListSingleSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSingleSchedulesResponse, error) {
+	rsp, err := c.ScheduleServiceListSingleSchedules(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceListSingleSchedulesResponse(rsp)
+}
+
+// ScheduleServiceCreateSingleScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceCreateSingleScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceCreateSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceCreateSingleScheduleWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateSingleScheduleResponse(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceCreateSingleScheduleWithResponse(ctx context.Context, projectName string, body ScheduleServiceCreateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceCreateSingleSchedule(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateSingleScheduleResponse(rsp)
+}
+
+// ScheduleServiceDeleteSingleScheduleWithResponse request returning *ScheduleServiceDeleteSingleScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceDeleteSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceDeleteSingleSchedule(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceDeleteSingleScheduleResponse(rsp)
+}
+
+// ScheduleServiceGetSingleScheduleWithResponse request returning *ScheduleServiceGetSingleScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceGetSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ScheduleServiceGetSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceGetSingleSchedule(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceGetSingleScheduleResponse(rsp)
+}
+
+// ScheduleServicePatchSingleScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchSingleScheduleResponse
+func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchSingleScheduleWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchSingleScheduleResponse(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServicePatchSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, params *ScheduleServicePatchSingleScheduleParams, body ScheduleServicePatchSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServicePatchSingleSchedule(ctx, projectName, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchSingleScheduleResponse(rsp)
+}
+
+// ScheduleServiceUpdateSingleScheduleWithBodyWithResponse request with arbitrary body returning *ScheduleServiceUpdateSingleScheduleResponse
+func (c *ClientWithResponses) ScheduleServiceUpdateSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceUpdateSingleScheduleWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateSingleScheduleResponse(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceUpdateSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error) {
+	rsp, err := c.ScheduleServiceUpdateSingleSchedule(ctx, projectName, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateSingleScheduleResponse(rsp)
+}
+
 // WorkloadMemberServiceListWorkloadMembersWithResponse request returning *WorkloadMemberServiceListWorkloadMembersResponse
 func (c *ClientWithResponses) WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error) {
 	rsp, err := c.WorkloadMemberServiceListWorkloadMembers(ctx, projectName, params, reqEditors...)
@@ -12028,344 +12119,6 @@ func ParseOSUpdateRunGetOSUpdateRunResponse(rsp *http.Response) (*OSUpdateRunGet
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest OSUpdateRun
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceListSchedulesResponse parses an HTTP response from a ScheduleServiceListSchedulesWithResponse call
-func ParseScheduleServiceListSchedulesResponse(rsp *http.Response) (*ScheduleServiceListSchedulesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceListSchedulesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListSchedulesResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceListRepeatedSchedulesResponse parses an HTTP response from a ScheduleServiceListRepeatedSchedulesWithResponse call
-func ParseScheduleServiceListRepeatedSchedulesResponse(rsp *http.Response) (*ScheduleServiceListRepeatedSchedulesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceListRepeatedSchedulesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListRepeatedSchedulesResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceCreateRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceCreateRepeatedScheduleWithResponse call
-func ParseScheduleServiceCreateRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceCreateRepeatedScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceCreateRepeatedScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RepeatedScheduleResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceDeleteRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceDeleteRepeatedScheduleWithResponse call
-func ParseScheduleServiceDeleteRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceDeleteRepeatedScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceDeleteRepeatedScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteRepeatedScheduleResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceGetRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceGetRepeatedScheduleWithResponse call
-func ParseScheduleServiceGetRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceGetRepeatedScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceGetRepeatedScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RepeatedScheduleResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServicePatchRepeatedScheduleResponse parses an HTTP response from a ScheduleServicePatchRepeatedScheduleWithResponse call
-func ParseScheduleServicePatchRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServicePatchRepeatedScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RepeatedScheduleResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceUpdateRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceUpdateRepeatedScheduleWithResponse call
-func ParseScheduleServiceUpdateRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceUpdateRepeatedScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceUpdateRepeatedScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RepeatedScheduleResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceListSingleSchedulesResponse parses an HTTP response from a ScheduleServiceListSingleSchedulesWithResponse call
-func ParseScheduleServiceListSingleSchedulesResponse(rsp *http.Response) (*ScheduleServiceListSingleSchedulesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceListSingleSchedulesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListSingleSchedulesResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceCreateSingleScheduleResponse parses an HTTP response from a ScheduleServiceCreateSingleScheduleWithResponse call
-func ParseScheduleServiceCreateSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceCreateSingleScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceCreateSingleScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SingleScheduleResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceDeleteSingleScheduleResponse parses an HTTP response from a ScheduleServiceDeleteSingleScheduleWithResponse call
-func ParseScheduleServiceDeleteSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceDeleteSingleScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceDeleteSingleScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteSingleScheduleResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceGetSingleScheduleResponse parses an HTTP response from a ScheduleServiceGetSingleScheduleWithResponse call
-func ParseScheduleServiceGetSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceGetSingleScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceGetSingleScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SingleScheduleResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServicePatchSingleScheduleResponse parses an HTTP response from a ScheduleServicePatchSingleScheduleWithResponse call
-func ParseScheduleServicePatchSingleScheduleResponse(rsp *http.Response) (*ScheduleServicePatchSingleScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServicePatchSingleScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SingleScheduleResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseScheduleServiceUpdateSingleScheduleResponse parses an HTTP response from a ScheduleServiceUpdateSingleScheduleWithResponse call
-func ParseScheduleServiceUpdateSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceUpdateSingleScheduleResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ScheduleServiceUpdateSingleScheduleResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SingleScheduleResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -14056,6 +13809,344 @@ func ParseProviderServiceGetProviderResponse(rsp *http.Response) (*ProviderServi
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ProviderResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceListSchedulesResponse parses an HTTP response from a ScheduleServiceListSchedulesWithResponse call
+func ParseScheduleServiceListSchedulesResponse(rsp *http.Response) (*ScheduleServiceListSchedulesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceListSchedulesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListSchedulesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceListRepeatedSchedulesResponse parses an HTTP response from a ScheduleServiceListRepeatedSchedulesWithResponse call
+func ParseScheduleServiceListRepeatedSchedulesResponse(rsp *http.Response) (*ScheduleServiceListRepeatedSchedulesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceListRepeatedSchedulesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListRepeatedSchedulesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceCreateRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceCreateRepeatedScheduleWithResponse call
+func ParseScheduleServiceCreateRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceCreateRepeatedScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceCreateRepeatedScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceDeleteRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceDeleteRepeatedScheduleWithResponse call
+func ParseScheduleServiceDeleteRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceDeleteRepeatedScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceDeleteRepeatedScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteRepeatedScheduleResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceGetRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceGetRepeatedScheduleWithResponse call
+func ParseScheduleServiceGetRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceGetRepeatedScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceGetRepeatedScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServicePatchRepeatedScheduleResponse parses an HTTP response from a ScheduleServicePatchRepeatedScheduleWithResponse call
+func ParseScheduleServicePatchRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServicePatchRepeatedScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServicePatchRepeatedScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceUpdateRepeatedScheduleResponse parses an HTTP response from a ScheduleServiceUpdateRepeatedScheduleWithResponse call
+func ParseScheduleServiceUpdateRepeatedScheduleResponse(rsp *http.Response) (*ScheduleServiceUpdateRepeatedScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceUpdateRepeatedScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceListSingleSchedulesResponse parses an HTTP response from a ScheduleServiceListSingleSchedulesWithResponse call
+func ParseScheduleServiceListSingleSchedulesResponse(rsp *http.Response) (*ScheduleServiceListSingleSchedulesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceListSingleSchedulesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListSingleSchedulesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceCreateSingleScheduleResponse parses an HTTP response from a ScheduleServiceCreateSingleScheduleWithResponse call
+func ParseScheduleServiceCreateSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceCreateSingleScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceCreateSingleScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceDeleteSingleScheduleResponse parses an HTTP response from a ScheduleServiceDeleteSingleScheduleWithResponse call
+func ParseScheduleServiceDeleteSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceDeleteSingleScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceDeleteSingleScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteSingleScheduleResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceGetSingleScheduleResponse parses an HTTP response from a ScheduleServiceGetSingleScheduleWithResponse call
+func ParseScheduleServiceGetSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceGetSingleScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceGetSingleScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServicePatchSingleScheduleResponse parses an HTTP response from a ScheduleServicePatchSingleScheduleWithResponse call
+func ParseScheduleServicePatchSingleScheduleResponse(rsp *http.Response) (*ScheduleServicePatchSingleScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServicePatchSingleScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceUpdateSingleScheduleResponse parses an HTTP response from a ScheduleServiceUpdateSingleScheduleWithResponse call
+func ParseScheduleServiceUpdateSingleScheduleResponse(rsp *http.Response) (*ScheduleServiceUpdateSingleScheduleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceUpdateSingleScheduleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
