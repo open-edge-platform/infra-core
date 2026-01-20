@@ -129,6 +129,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	// Assert presence of workload members with expected instance and workload
 	getm1w1, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 		ctx,
+		projectName,
 		*m1w1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -139,6 +140,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 
 	getm2w1, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 		ctx,
+		projectName,
 		*m2w1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -149,6 +151,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 
 	getm1w2, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 		ctx,
+		projectName,
 		*m1w2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -300,6 +303,8 @@ func TestWorkloadMember_Errors(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
@@ -313,6 +318,7 @@ func TestWorkloadMember_Errors(t *testing.T) {
 	t.Run("Post_NoKind_BadRequest", func(t *testing.T) {
 		mUp, err := apiClient.WorkloadMemberServiceCreateWorkloadMemberWithResponse(
 			ctx,
+			projectName,
 			api.WorkloadMember{
 				WorkloadId: &w1ID,
 				InstanceId: &h1ID,
@@ -326,6 +332,7 @@ func TestWorkloadMember_Errors(t *testing.T) {
 	t.Run("Post_NoWorkloadID_BadRequest", func(t *testing.T) {
 		mUp, err := apiClient.WorkloadMemberServiceCreateWorkloadMemberWithResponse(
 			ctx,
+			projectName,
 			api.WorkloadMember{
 				Kind:       wmKind,
 				InstanceId: &h1ID,
@@ -339,6 +346,7 @@ func TestWorkloadMember_Errors(t *testing.T) {
 	t.Run("Post_NoHostID_BadRequest", func(t *testing.T) {
 		mUp, err := apiClient.WorkloadMemberServiceCreateWorkloadMemberWithResponse(
 			ctx,
+			projectName,
 			api.WorkloadMember{
 				WorkloadId: &w1ID,
 				Kind:       wmKind,
@@ -352,6 +360,7 @@ func TestWorkloadMember_Errors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		mRes, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadMemberUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -362,6 +371,7 @@ func TestWorkloadMember_Errors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resDelM, err := apiClient.WorkloadMemberServiceDeleteWorkloadMemberWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadMemberUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -372,6 +382,7 @@ func TestWorkloadMember_Errors(t *testing.T) {
 	t.Run("Get_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		mRes, err := apiClient.WorkloadMemberServiceGetWorkloadMemberWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadMemberWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -382,6 +393,7 @@ func TestWorkloadMember_Errors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		resDelM, err := apiClient.WorkloadMemberServiceDeleteWorkloadMemberWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadMemberWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -454,6 +466,8 @@ func TestWorkloadMemberList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	totalItems := 10
 	pageID := 1
 	pageSize := 4
@@ -463,6 +477,7 @@ func TestWorkloadMemberList(t *testing.T) {
 
 	resList, err := apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
 		ctx,
+		projectName,
 		&api.WorkloadMemberServiceListWorkloadMembersParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -491,6 +506,7 @@ func TestWorkloadMemberList(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err = apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
 		ctx,
+		projectName,
 		&api.WorkloadMemberServiceListWorkloadMembersParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -505,6 +521,7 @@ func TestWorkloadMemberList(t *testing.T) {
 
 	resList, err = apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
 		ctx,
+		projectName,
 		&api.WorkloadMemberServiceListWorkloadMembersParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -543,8 +560,11 @@ func TestWorkloadMemberList_ListEmpty(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	resList, err := apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
 		ctx,
+		projectName,
 		&api.WorkloadMemberServiceListWorkloadMembersParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

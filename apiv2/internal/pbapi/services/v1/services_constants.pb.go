@@ -350,22 +350,25 @@ const (
 	// Fields and Edges constants for "DeleteWorkloadResponse"
 
 	// Fields and Edges constants for "CreateWorkloadMemberRequest"
+	CreateWorkloadMemberRequestFieldProjectName   = "projectName"
 	CreateWorkloadMemberRequestEdgeWorkloadMember = "workload_member"
 
 	// Fields and Edges constants for "CreateWorkloadMemberResponse"
 	CreateWorkloadMemberResponseEdgeWorkloadMember = "workload_member"
 
 	// Fields and Edges constants for "GetWorkloadMemberRequest"
-	GetWorkloadMemberRequestFieldResourceId = "resourceId"
+	GetWorkloadMemberRequestFieldProjectName = "projectName"
+	GetWorkloadMemberRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetWorkloadMemberResponse"
 	GetWorkloadMemberResponseEdgeWorkloadMember = "workload_member"
 
 	// Fields and Edges constants for "ListWorkloadMembersRequest"
-	ListWorkloadMembersRequestFieldOrderBy  = "order_by"
-	ListWorkloadMembersRequestFieldFilter   = "filter"
-	ListWorkloadMembersRequestFieldPageSize = "page_size"
-	ListWorkloadMembersRequestFieldOffset   = "offset"
+	ListWorkloadMembersRequestFieldProjectName = "projectName"
+	ListWorkloadMembersRequestFieldOrderBy     = "order_by"
+	ListWorkloadMembersRequestFieldFilter      = "filter"
+	ListWorkloadMembersRequestFieldPageSize    = "page_size"
+	ListWorkloadMembersRequestFieldOffset      = "offset"
 
 	// Fields and Edges constants for "ListWorkloadMembersResponse"
 	ListWorkloadMembersResponseEdgeWorkloadMembers = "workload_members"
@@ -373,7 +376,8 @@ const (
 	ListWorkloadMembersResponseFieldHasNext        = "has_next"
 
 	// Fields and Edges constants for "DeleteWorkloadMemberRequest"
-	DeleteWorkloadMemberRequestFieldResourceId = "resourceId"
+	DeleteWorkloadMemberRequestFieldProjectName = "projectName"
+	DeleteWorkloadMemberRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteWorkloadMemberResponse"
 

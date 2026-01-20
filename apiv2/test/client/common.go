@@ -537,8 +537,11 @@ func CreateWorkloadMember(
 ) *api.WorkloadMemberServiceCreateWorkloadMemberResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	mCreated, err := apiClient.WorkloadMemberServiceCreateWorkloadMemberWithResponse(
 		ctx,
+		projectName,
 		reqMember,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -559,8 +562,11 @@ func DeleteWorkloadMember(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	mDel, err := apiClient.WorkloadMemberServiceDeleteWorkloadMemberWithResponse(
 		ctx,
+		projectName,
 		memberID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

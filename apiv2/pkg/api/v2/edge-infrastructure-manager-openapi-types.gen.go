@@ -442,6 +442,9 @@ type CreateTelemetryMetricsProfileResponse struct {
 
 // CreateWorkloadMemberRequest Request message for the CreateWorkloadMember method.
 type CreateWorkloadMemberRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// WorkloadMember Intermediate resource to represent a relation between a workload and a compute resource (i.e., instance).
 	WorkloadMember WorkloadMember `json:"workloadMember"`
 }
@@ -650,6 +653,9 @@ type DeleteTelemetryMetricsProfileResponse = map[string]interface{}
 
 // DeleteWorkloadMemberRequest Request message for DeleteWorkloadMember.
 type DeleteWorkloadMemberRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the workload_member workload_member to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -906,6 +912,9 @@ type GetTelemetryMetricsProfileResponse struct {
 
 // GetWorkloadMemberRequest Request message for the GetWorkloadMember method.
 type GetWorkloadMemberRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested workload_member.
 	ResourceId string `json:"resourceId"`
 }
@@ -2061,6 +2070,9 @@ type ListWorkloadMembersRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListWorkloadMembersResponse Response message for the ListWorkloadMembers method.
@@ -5697,24 +5709,6 @@ type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
-// WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
-type WorkloadMemberServiceListWorkloadMembersParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5904,6 +5898,24 @@ type ProviderServiceListProvidersParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
+type WorkloadMemberServiceListWorkloadMembersParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
 // WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
 type WorkloadServiceListWorkloadsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5976,9 +5988,6 @@ type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileJSONRequestBody =
 // TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody defines body for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile for application/json ContentType.
 type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody = TelemetryMetricsProfileResource
 
-// WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
-type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember
-
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource
 
@@ -6035,6 +6044,9 @@ type SiteServiceUpdateSiteJSONRequestBody = SiteResource
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
+
+// WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
+type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember
 
 // WorkloadServiceCreateWorkloadJSONRequestBody defines body for WorkloadServiceCreateWorkload for application/json ContentType.
 type WorkloadServiceCreateWorkloadJSONRequestBody = WorkloadResource

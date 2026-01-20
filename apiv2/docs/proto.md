@@ -2012,6 +2012,7 @@ Request message for the CreateWorkloadMember method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | The workload_member to create. |
 
 
@@ -2480,6 +2481,7 @@ Request message for DeleteWorkloadMember.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the workload_member workload_member to be deleted. |
 
 
@@ -3052,6 +3054,7 @@ Request message for the GetWorkloadMember method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | resourceId | [string](#string) |  | Name of the requested workload_member. |
 
 
@@ -3853,6 +3856,7 @@ Request message for the ListWorkloadMembers method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| projectName | [string](#string) |  | Project name |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |

@@ -253,20 +253,6 @@ type ClientInterface interface {
 
 	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx context.Context, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// WorkloadMemberServiceListWorkloadMembers request
-	WorkloadMemberServiceListWorkloadMembers(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// WorkloadMemberServiceCreateWorkloadMemberWithBody request with any body
-	WorkloadMemberServiceCreateWorkloadMemberWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	WorkloadMemberServiceCreateWorkloadMember(ctx context.Context, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// WorkloadMemberServiceDeleteWorkloadMember request
-	WorkloadMemberServiceDeleteWorkloadMember(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// WorkloadMemberServiceGetWorkloadMember request
-	WorkloadMemberServiceGetWorkloadMember(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// HostServiceListHosts request
 	HostServiceListHosts(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -439,6 +425,20 @@ type ClientInterface interface {
 
 	// ProviderServiceGetProvider request
 	ProviderServiceGetProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceListWorkloadMembers request
+	WorkloadMemberServiceListWorkloadMembers(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceCreateWorkloadMemberWithBody request with any body
+	WorkloadMemberServiceCreateWorkloadMemberWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	WorkloadMemberServiceCreateWorkloadMember(ctx context.Context, projectName string, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceDeleteWorkloadMember request
+	WorkloadMemberServiceDeleteWorkloadMember(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceGetWorkloadMember request
+	WorkloadMemberServiceGetWorkloadMember(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// WorkloadServiceListWorkloads request
 	WorkloadServiceListWorkloads(ctx context.Context, projectName string, params *WorkloadServiceListWorkloadsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1175,66 +1175,6 @@ func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWith
 
 func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx context.Context, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequest(c.Server, resourceId, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) WorkloadMemberServiceListWorkloadMembers(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewWorkloadMemberServiceListWorkloadMembersRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) WorkloadMemberServiceCreateWorkloadMemberWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) WorkloadMemberServiceCreateWorkloadMember(ctx context.Context, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewWorkloadMemberServiceCreateWorkloadMemberRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) WorkloadMemberServiceDeleteWorkloadMember(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewWorkloadMemberServiceDeleteWorkloadMemberRequest(c.Server, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) WorkloadMemberServiceGetWorkloadMember(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewWorkloadMemberServiceGetWorkloadMemberRequest(c.Server, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -2003,6 +1943,66 @@ func (c *Client) ProviderServiceDeleteProvider(ctx context.Context, projectName 
 
 func (c *Client) ProviderServiceGetProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewProviderServiceGetProviderRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceListWorkloadMembers(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceListWorkloadMembersRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceCreateWorkloadMemberWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceCreateWorkloadMember(ctx context.Context, projectName string, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceCreateWorkloadMemberRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceDeleteWorkloadMember(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceDeleteWorkloadMemberRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceGetWorkloadMember(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceGetWorkloadMemberRequest(c.Server, projectName, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -4643,211 +4643,6 @@ func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileRequestWithBo
 	}
 
 	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewWorkloadMemberServiceListWorkloadMembersRequest generates requests for WorkloadMemberServiceListWorkloadMembers
-func NewWorkloadMemberServiceListWorkloadMembersRequest(server string, params *WorkloadMemberServiceListWorkloadMembersParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewWorkloadMemberServiceCreateWorkloadMemberRequest calls the generic WorkloadMemberServiceCreateWorkloadMember builder with application/json body
-func NewWorkloadMemberServiceCreateWorkloadMemberRequest(server string, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody generates requests for WorkloadMemberServiceCreateWorkloadMember with any type of body
-func NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewWorkloadMemberServiceDeleteWorkloadMemberRequest generates requests for WorkloadMemberServiceDeleteWorkloadMember
-func NewWorkloadMemberServiceDeleteWorkloadMemberRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewWorkloadMemberServiceGetWorkloadMemberRequest generates requests for WorkloadMemberServiceGetWorkloadMember
-func NewWorkloadMemberServiceGetWorkloadMemberRequest(server string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
 
 	return req, nil
 }
@@ -7561,6 +7356,239 @@ func NewProviderServiceGetProviderRequest(server string, projectName string, res
 	return req, nil
 }
 
+// NewWorkloadMemberServiceListWorkloadMembersRequest generates requests for WorkloadMemberServiceListWorkloadMembers
+func NewWorkloadMemberServiceListWorkloadMembersRequest(server string, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/workload_members", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadMemberServiceCreateWorkloadMemberRequest calls the generic WorkloadMemberServiceCreateWorkloadMember builder with application/json body
+func NewWorkloadMemberServiceCreateWorkloadMemberRequest(server string, projectName string, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody generates requests for WorkloadMemberServiceCreateWorkloadMember with any type of body
+func NewWorkloadMemberServiceCreateWorkloadMemberRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/workload_members", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewWorkloadMemberServiceDeleteWorkloadMemberRequest generates requests for WorkloadMemberServiceDeleteWorkloadMember
+func NewWorkloadMemberServiceDeleteWorkloadMemberRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/workload_members/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadMemberServiceGetWorkloadMemberRequest generates requests for WorkloadMemberServiceGetWorkloadMember
+func NewWorkloadMemberServiceGetWorkloadMemberRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/workload_members/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewWorkloadServiceListWorkloadsRequest generates requests for WorkloadServiceListWorkloads
 func NewWorkloadServiceListWorkloadsRequest(server string, projectName string, params *WorkloadServiceListWorkloadsParams) (*http.Request, error) {
 	var err error
@@ -8131,20 +8159,6 @@ type ClientWithResponsesInterface interface {
 
 	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileWithResponse(ctx context.Context, resourceId string, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse, error)
 
-	// WorkloadMemberServiceListWorkloadMembersWithResponse request
-	WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error)
-
-	// WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse request with any body
-	WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error)
-
-	WorkloadMemberServiceCreateWorkloadMemberWithResponse(ctx context.Context, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error)
-
-	// WorkloadMemberServiceDeleteWorkloadMemberWithResponse request
-	WorkloadMemberServiceDeleteWorkloadMemberWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceDeleteWorkloadMemberResponse, error)
-
-	// WorkloadMemberServiceGetWorkloadMemberWithResponse request
-	WorkloadMemberServiceGetWorkloadMemberWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceGetWorkloadMemberResponse, error)
-
 	// HostServiceListHostsWithResponse request
 	HostServiceListHostsWithResponse(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error)
 
@@ -8317,6 +8331,20 @@ type ClientWithResponsesInterface interface {
 
 	// ProviderServiceGetProviderWithResponse request
 	ProviderServiceGetProviderWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceGetProviderResponse, error)
+
+	// WorkloadMemberServiceListWorkloadMembersWithResponse request
+	WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error)
+
+	// WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse request with any body
+	WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error)
+
+	WorkloadMemberServiceCreateWorkloadMemberWithResponse(ctx context.Context, projectName string, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error)
+
+	// WorkloadMemberServiceDeleteWorkloadMemberWithResponse request
+	WorkloadMemberServiceDeleteWorkloadMemberWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceDeleteWorkloadMemberResponse, error)
+
+	// WorkloadMemberServiceGetWorkloadMemberWithResponse request
+	WorkloadMemberServiceGetWorkloadMemberWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceGetWorkloadMemberResponse, error)
 
 	// WorkloadServiceListWorkloadsWithResponse request
 	WorkloadServiceListWorkloadsWithResponse(ctx context.Context, projectName string, params *WorkloadServiceListWorkloadsParams, reqEditors ...RequestEditorFn) (*WorkloadServiceListWorkloadsResponse, error)
@@ -9305,94 +9333,6 @@ func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse) Sta
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type WorkloadMemberServiceListWorkloadMembersResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListWorkloadMembersResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r WorkloadMemberServiceListWorkloadMembersResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r WorkloadMemberServiceListWorkloadMembersResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type WorkloadMemberServiceCreateWorkloadMemberResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *WorkloadMember
-}
-
-// Status returns HTTPResponse.Status
-func (r WorkloadMemberServiceCreateWorkloadMemberResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r WorkloadMemberServiceCreateWorkloadMemberResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type WorkloadMemberServiceDeleteWorkloadMemberResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteWorkloadMemberResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r WorkloadMemberServiceDeleteWorkloadMemberResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r WorkloadMemberServiceDeleteWorkloadMemberResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type WorkloadMemberServiceGetWorkloadMemberResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *WorkloadMember
-}
-
-// Status returns HTTPResponse.Status
-func (r WorkloadMemberServiceGetWorkloadMemberResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r WorkloadMemberServiceGetWorkloadMemberResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10389,6 +10329,94 @@ func (r ProviderServiceGetProviderResponse) StatusCode() int {
 	return 0
 }
 
+type WorkloadMemberServiceListWorkloadMembersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListWorkloadMembersResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceListWorkloadMembersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceListWorkloadMembersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadMemberServiceCreateWorkloadMemberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadMember
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceCreateWorkloadMemberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceCreateWorkloadMemberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadMemberServiceDeleteWorkloadMemberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteWorkloadMemberResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceDeleteWorkloadMemberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceDeleteWorkloadMemberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadMemberServiceGetWorkloadMemberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadMember
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceGetWorkloadMemberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceGetWorkloadMemberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type WorkloadServiceListWorkloadsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -11045,50 +11073,6 @@ func (c *ClientWithResponses) TelemetryMetricsProfileServiceUpdateTelemetryMetri
 	return ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rsp)
 }
 
-// WorkloadMemberServiceListWorkloadMembersWithResponse request returning *WorkloadMemberServiceListWorkloadMembersResponse
-func (c *ClientWithResponses) WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error) {
-	rsp, err := c.WorkloadMemberServiceListWorkloadMembers(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseWorkloadMemberServiceListWorkloadMembersResponse(rsp)
-}
-
-// WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse request with arbitrary body returning *WorkloadMemberServiceCreateWorkloadMemberResponse
-func (c *ClientWithResponses) WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error) {
-	rsp, err := c.WorkloadMemberServiceCreateWorkloadMemberWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseWorkloadMemberServiceCreateWorkloadMemberResponse(rsp)
-}
-
-func (c *ClientWithResponses) WorkloadMemberServiceCreateWorkloadMemberWithResponse(ctx context.Context, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error) {
-	rsp, err := c.WorkloadMemberServiceCreateWorkloadMember(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseWorkloadMemberServiceCreateWorkloadMemberResponse(rsp)
-}
-
-// WorkloadMemberServiceDeleteWorkloadMemberWithResponse request returning *WorkloadMemberServiceDeleteWorkloadMemberResponse
-func (c *ClientWithResponses) WorkloadMemberServiceDeleteWorkloadMemberWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceDeleteWorkloadMemberResponse, error) {
-	rsp, err := c.WorkloadMemberServiceDeleteWorkloadMember(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseWorkloadMemberServiceDeleteWorkloadMemberResponse(rsp)
-}
-
-// WorkloadMemberServiceGetWorkloadMemberWithResponse request returning *WorkloadMemberServiceGetWorkloadMemberResponse
-func (c *ClientWithResponses) WorkloadMemberServiceGetWorkloadMemberWithResponse(ctx context.Context, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceGetWorkloadMemberResponse, error) {
-	rsp, err := c.WorkloadMemberServiceGetWorkloadMember(ctx, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseWorkloadMemberServiceGetWorkloadMemberResponse(rsp)
-}
-
 // HostServiceListHostsWithResponse request returning *HostServiceListHostsResponse
 func (c *ClientWithResponses) HostServiceListHostsWithResponse(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error) {
 	rsp, err := c.HostServiceListHosts(ctx, projectName, params, reqEditors...)
@@ -11644,6 +11628,50 @@ func (c *ClientWithResponses) ProviderServiceGetProviderWithResponse(ctx context
 		return nil, err
 	}
 	return ParseProviderServiceGetProviderResponse(rsp)
+}
+
+// WorkloadMemberServiceListWorkloadMembersWithResponse request returning *WorkloadMemberServiceListWorkloadMembersResponse
+func (c *ClientWithResponses) WorkloadMemberServiceListWorkloadMembersWithResponse(ctx context.Context, projectName string, params *WorkloadMemberServiceListWorkloadMembersParams, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembersResponse, error) {
+	rsp, err := c.WorkloadMemberServiceListWorkloadMembers(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceListWorkloadMembersResponse(rsp)
+}
+
+// WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse request with arbitrary body returning *WorkloadMemberServiceCreateWorkloadMemberResponse
+func (c *ClientWithResponses) WorkloadMemberServiceCreateWorkloadMemberWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error) {
+	rsp, err := c.WorkloadMemberServiceCreateWorkloadMemberWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceCreateWorkloadMemberResponse(rsp)
+}
+
+func (c *ClientWithResponses) WorkloadMemberServiceCreateWorkloadMemberWithResponse(ctx context.Context, projectName string, body WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error) {
+	rsp, err := c.WorkloadMemberServiceCreateWorkloadMember(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceCreateWorkloadMemberResponse(rsp)
+}
+
+// WorkloadMemberServiceDeleteWorkloadMemberWithResponse request returning *WorkloadMemberServiceDeleteWorkloadMemberResponse
+func (c *ClientWithResponses) WorkloadMemberServiceDeleteWorkloadMemberWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceDeleteWorkloadMemberResponse, error) {
+	rsp, err := c.WorkloadMemberServiceDeleteWorkloadMember(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceDeleteWorkloadMemberResponse(rsp)
+}
+
+// WorkloadMemberServiceGetWorkloadMemberWithResponse request returning *WorkloadMemberServiceGetWorkloadMemberResponse
+func (c *ClientWithResponses) WorkloadMemberServiceGetWorkloadMemberWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceGetWorkloadMemberResponse, error) {
+	rsp, err := c.WorkloadMemberServiceGetWorkloadMember(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceGetWorkloadMemberResponse(rsp)
 }
 
 // WorkloadServiceListWorkloadsWithResponse request returning *WorkloadServiceListWorkloadsResponse
@@ -12868,110 +12896,6 @@ func ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileResponse(rs
 	return response, nil
 }
 
-// ParseWorkloadMemberServiceListWorkloadMembersResponse parses an HTTP response from a WorkloadMemberServiceListWorkloadMembersWithResponse call
-func ParseWorkloadMemberServiceListWorkloadMembersResponse(rsp *http.Response) (*WorkloadMemberServiceListWorkloadMembersResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &WorkloadMemberServiceListWorkloadMembersResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListWorkloadMembersResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseWorkloadMemberServiceCreateWorkloadMemberResponse parses an HTTP response from a WorkloadMemberServiceCreateWorkloadMemberWithResponse call
-func ParseWorkloadMemberServiceCreateWorkloadMemberResponse(rsp *http.Response) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &WorkloadMemberServiceCreateWorkloadMemberResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest WorkloadMember
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseWorkloadMemberServiceDeleteWorkloadMemberResponse parses an HTTP response from a WorkloadMemberServiceDeleteWorkloadMemberWithResponse call
-func ParseWorkloadMemberServiceDeleteWorkloadMemberResponse(rsp *http.Response) (*WorkloadMemberServiceDeleteWorkloadMemberResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &WorkloadMemberServiceDeleteWorkloadMemberResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteWorkloadMemberResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseWorkloadMemberServiceGetWorkloadMemberResponse parses an HTTP response from a WorkloadMemberServiceGetWorkloadMemberWithResponse call
-func ParseWorkloadMemberServiceGetWorkloadMemberResponse(rsp *http.Response) (*WorkloadMemberServiceGetWorkloadMemberResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &WorkloadMemberServiceGetWorkloadMemberResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest WorkloadMember
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
 // ParseHostServiceListHostsResponse parses an HTTP response from a HostServiceListHostsWithResponse call
 func ParseHostServiceListHostsResponse(rsp *http.Response) (*HostServiceListHostsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -14132,6 +14056,110 @@ func ParseProviderServiceGetProviderResponse(rsp *http.Response) (*ProviderServi
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ProviderResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceListWorkloadMembersResponse parses an HTTP response from a WorkloadMemberServiceListWorkloadMembersWithResponse call
+func ParseWorkloadMemberServiceListWorkloadMembersResponse(rsp *http.Response) (*WorkloadMemberServiceListWorkloadMembersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceListWorkloadMembersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListWorkloadMembersResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceCreateWorkloadMemberResponse parses an HTTP response from a WorkloadMemberServiceCreateWorkloadMemberWithResponse call
+func ParseWorkloadMemberServiceCreateWorkloadMemberResponse(rsp *http.Response) (*WorkloadMemberServiceCreateWorkloadMemberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceCreateWorkloadMemberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadMember
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceDeleteWorkloadMemberResponse parses an HTTP response from a WorkloadMemberServiceDeleteWorkloadMemberWithResponse call
+func ParseWorkloadMemberServiceDeleteWorkloadMemberResponse(rsp *http.Response) (*WorkloadMemberServiceDeleteWorkloadMemberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceDeleteWorkloadMemberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteWorkloadMemberResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceGetWorkloadMemberResponse parses an HTTP response from a WorkloadMemberServiceGetWorkloadMemberWithResponse call
+func ParseWorkloadMemberServiceGetWorkloadMemberResponse(rsp *http.Response) (*WorkloadMemberServiceGetWorkloadMemberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceGetWorkloadMemberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadMember
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

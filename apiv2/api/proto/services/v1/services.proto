@@ -325,21 +325,21 @@ service WorkloadMemberService {
   // Create a workload_member.
   rpc CreateWorkloadMember(CreateWorkloadMemberRequest) returns (resources.compute.v1.WorkloadMember) {
     option (google.api.http) = {
-      post: "/edge-infra.orchestrator.apis/v2/workload_members"
+      post: "/v1/projects/{projectName}/workload_members"
       body: "workload_member"
     };
   }
   // Get a list of workload_members.
   rpc ListWorkloadMembers(ListWorkloadMembersRequest) returns (ListWorkloadMembersResponse) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/workload_members"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/workload_members"};
   }
   // Get a specific workload_member.
   rpc GetWorkloadMember(GetWorkloadMemberRequest) returns (resources.compute.v1.WorkloadMember) {
-    option (google.api.http) = {get: "/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/workload_members/{resourceId}"};
   }
   // Delete a workload_member.
   rpc DeleteWorkloadMember(DeleteWorkloadMemberRequest) returns (DeleteWorkloadMemberResponse) {
-    option (google.api.http) = {delete: "/edge-infra.orchestrator.apis/v2/workload_members/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/workload_members/{resourceId}"};
   }
 }
 
@@ -1669,8 +1669,10 @@ message DeleteWorkloadResponse {}
 
 // Request message for the CreateWorkloadMember method.
 message CreateWorkloadMemberRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The workload_member to create.
-  resources.compute.v1.WorkloadMember workload_member = 1 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.WorkloadMember workload_member = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateWorkloadMember method.
@@ -1681,8 +1683,10 @@ message CreateWorkloadMemberResponse {
 
 // Request message for the GetWorkloadMember method.
 message GetWorkloadMemberRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested workload_member.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetWorkloadMember method.
@@ -1693,9 +1697,11 @@ message GetWorkloadMemberResponse {
 
 // Request message for the ListWorkloadMembers method.
 message ListWorkloadMembersRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 1 [
+  string order_by = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1704,7 +1710,7 @@ message ListWorkloadMembersRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1713,7 +1719,7 @@ message ListWorkloadMembersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 3 [
+  uint32 page_size = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1721,7 +1727,7 @@ message ListWorkloadMembersRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 4 [
+  uint32 offset = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -1742,8 +1748,10 @@ message ListWorkloadMembersResponse {
 
 // Request message for DeleteWorkloadMember.
 message DeleteWorkloadMemberRequest {
+  // Project name
+  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the workload_member workload_member to be deleted.
-  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteWorkloadMember.

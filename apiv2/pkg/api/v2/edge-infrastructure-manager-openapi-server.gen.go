@@ -152,18 +152,6 @@ type ServerInterface interface {
 	// UpdateTelemetryMetricsProfile
 	// (PUT /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
 	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
-	// ListWorkloadMembers
-	// (GET /edge-infra.orchestrator.apis/v2/workload_members)
-	WorkloadMemberServiceListWorkloadMembers(ctx echo.Context, params WorkloadMemberServiceListWorkloadMembersParams) error
-	// CreateWorkloadMember
-	// (POST /edge-infra.orchestrator.apis/v2/workload_members)
-	WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context) error
-	// DeleteWorkloadMember
-	// (DELETE /edge-infra.orchestrator.apis/v2/workload_members/{resourceId})
-	WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context, resourceId string) error
-	// GetWorkloadMember
-	// (GET /edge-infra.orchestrator.apis/v2/workload_members/{resourceId})
-	WorkloadMemberServiceGetWorkloadMember(ctx echo.Context, resourceId string) error
 	// ListHosts
 	// (GET /v1/projects/{projectName}/compute/hosts)
 	HostServiceListHosts(ctx echo.Context, projectName string, params HostServiceListHostsParams) error
@@ -299,6 +287,18 @@ type ServerInterface interface {
 	// GetProvider
 	// (GET /v1/projects/{projectName}/providers/{resourceId})
 	ProviderServiceGetProvider(ctx echo.Context, projectName string, resourceId string) error
+	// ListWorkloadMembers
+	// (GET /v1/projects/{projectName}/workload_members)
+	WorkloadMemberServiceListWorkloadMembers(ctx echo.Context, projectName string, params WorkloadMemberServiceListWorkloadMembersParams) error
+	// CreateWorkloadMember
+	// (POST /v1/projects/{projectName}/workload_members)
+	WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context, projectName string) error
+	// DeleteWorkloadMember
+	// (DELETE /v1/projects/{projectName}/workload_members/{resourceId})
+	WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context, projectName string, resourceId string) error
+	// GetWorkloadMember
+	// (GET /v1/projects/{projectName}/workload_members/{resourceId})
+	WorkloadMemberServiceGetWorkloadMember(ctx echo.Context, projectName string, resourceId string) error
 	// ListWorkloads
 	// (GET /v1/projects/{projectName}/workloads)
 	WorkloadServiceListWorkloads(ctx echo.Context, projectName string, params WorkloadServiceListWorkloadsParams) error
@@ -1305,86 +1305,6 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceUpdateTelemetryMe
 
 	// Invoke the callback with all the unmarshaled arguments
 	err = w.Handler.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx, resourceId)
-	return err
-}
-
-// WorkloadMemberServiceListWorkloadMembers converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadMemberServiceListWorkloadMembers(ctx echo.Context) error {
-	var err error
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params WorkloadMemberServiceListWorkloadMembersParams
-	// ------------- Optional query parameter "orderBy" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
-	}
-
-	// ------------- Optional query parameter "filter" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
-	}
-
-	// ------------- Optional query parameter "pageSize" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
-	}
-
-	// ------------- Optional query parameter "offset" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceListWorkloadMembers(ctx, params)
-	return err
-}
-
-// WorkloadMemberServiceCreateWorkloadMember converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceCreateWorkloadMember(ctx)
-	return err
-}
-
-// WorkloadMemberServiceDeleteWorkloadMember converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceDeleteWorkloadMember(ctx, resourceId)
-	return err
-}
-
-// WorkloadMemberServiceGetWorkloadMember converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadMemberServiceGetWorkloadMember(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceGetWorkloadMember(ctx, resourceId)
 	return err
 }
 
@@ -2644,6 +2564,116 @@ func (w *ServerInterfaceWrapper) ProviderServiceGetProvider(ctx echo.Context) er
 	return err
 }
 
+// WorkloadMemberServiceListWorkloadMembers converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceListWorkloadMembers(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadMemberServiceListWorkloadMembersParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceListWorkloadMembers(ctx, projectName, params)
+	return err
+}
+
+// WorkloadMemberServiceCreateWorkloadMember converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceCreateWorkloadMember(ctx, projectName)
+	return err
+}
+
+// WorkloadMemberServiceDeleteWorkloadMember converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceDeleteWorkloadMember(ctx, projectName, resourceId)
+	return err
+}
+
+// WorkloadMemberServiceGetWorkloadMember converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceGetWorkloadMember(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceGetWorkloadMember(ctx, projectName, resourceId)
+	return err
+}
+
 // WorkloadServiceListWorkloads converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadServiceListWorkloads(ctx echo.Context) error {
 	var err error
@@ -2883,10 +2913,6 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile)
 	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile)
 	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceListWorkloadMembers)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceCreateWorkloadMember)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceDeleteWorkloadMember)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceGetWorkloadMember)
 	router.GET(baseURL+"/v1/projects/:projectName/compute/hosts", wrapper.HostServiceListHosts)
 	router.POST(baseURL+"/v1/projects/:projectName/compute/hosts", wrapper.HostServiceCreateHost)
 	router.POST(baseURL+"/v1/projects/:projectName/compute/hosts/register", wrapper.HostServiceRegisterHost)
@@ -2932,6 +2958,10 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.POST(baseURL+"/v1/projects/:projectName/providers", wrapper.ProviderServiceCreateProvider)
 	router.DELETE(baseURL+"/v1/projects/:projectName/providers/:resourceId", wrapper.ProviderServiceDeleteProvider)
 	router.GET(baseURL+"/v1/projects/:projectName/providers/:resourceId", wrapper.ProviderServiceGetProvider)
+	router.GET(baseURL+"/v1/projects/:projectName/workload_members", wrapper.WorkloadMemberServiceListWorkloadMembers)
+	router.POST(baseURL+"/v1/projects/:projectName/workload_members", wrapper.WorkloadMemberServiceCreateWorkloadMember)
+	router.DELETE(baseURL+"/v1/projects/:projectName/workload_members/:resourceId", wrapper.WorkloadMemberServiceDeleteWorkloadMember)
+	router.GET(baseURL+"/v1/projects/:projectName/workload_members/:resourceId", wrapper.WorkloadMemberServiceGetWorkloadMember)
 	router.GET(baseURL+"/v1/projects/:projectName/workloads", wrapper.WorkloadServiceListWorkloads)
 	router.POST(baseURL+"/v1/projects/:projectName/workloads", wrapper.WorkloadServiceCreateWorkload)
 	router.DELETE(baseURL+"/v1/projects/:projectName/workloads/:resourceId", wrapper.WorkloadServiceDeleteWorkload)
@@ -3203,51 +3233,51 @@ var swaggerSpec = []string{
 	"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",
-	"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",
+	"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",
+	"x4f/GwAA//9GcQuLK78CAA==",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
