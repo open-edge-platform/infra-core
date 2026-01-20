@@ -31,11 +31,6 @@ type serviceClientsSignature func(
 	opts []grpc.DialOption) (err error)
 
 // servicesClients maps gRPC service names to their grpc-gateway registration functions.
-// Each function registers HTTP handlers for the corresponding service,
-// enabling REST → gRPC proxying through the gateway.
-// Keys must match the protobuf service names; registration funcs are generated in
-// apiv2/v2/internal/pbapi/services/v1 by grpc-gateway.
-// setupClients() filters and registers only the services allowed for the active SCENARIO.
 var servicesClients = map[string]serviceClientsSignature{
 	"RegionService":                  restv1.RegisterRegionServiceHandlerFromEndpoint,
 	"SiteService":                    restv1.RegisterSiteServiceHandlerFromEndpoint,

@@ -33,9 +33,6 @@ var zlog = logging.GetLogger("nbi")
 type serviceServersSignature func(*grpc.Server, *InventorygRPCServer)
 
 // servicesServers maps gRPC service names to their registration functions.
-// Each function registers the service implementation with the gRPC server.
-// Keys must match the protobuf service names.
-// setupServices() filters and registers only the services allowed for the active SCENARIO.
 var servicesServers = map[string]serviceServersSignature{
 	"RegionService":             func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterRegionServiceServer(s, is) },
 	"SiteService":               func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterSiteServiceServer(s, is) },
