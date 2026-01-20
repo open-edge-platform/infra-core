@@ -489,12 +489,18 @@ func CreateWorkload(
 ) *api.WorkloadServiceCreateWorkloadResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	wCreated, err := apiClient.WorkloadServiceCreateWorkloadWithResponse(
 		ctx,
+		projectName,
 		reqWorkload,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if wCreated.StatusCode() != http.StatusOK {
+		tb.Logf("Workload create failed: status=%d body=%s", wCreated.StatusCode(), string(wCreated.Body))
+	}
 	assert.Equal(tb, http.StatusOK, wCreated.StatusCode())
 
 	if wCreated.JSON200 != nil && wCreated.JSON200.ResourceId != nil {
@@ -511,8 +517,11 @@ func DeleteWorkload(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	wDel, err := apiClient.WorkloadServiceDeleteWorkloadWithResponse(
 		ctx,
+		projectName,
 		workloadID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

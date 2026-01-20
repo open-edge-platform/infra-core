@@ -454,6 +454,9 @@ type CreateWorkloadMemberResponse struct {
 
 // CreateWorkloadRequest Request message for the CreateWorkload method.
 type CreateWorkloadRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// Workload A generic way to group compute resources to obtain a workload.
 	Workload WorkloadResource `json:"workload"`
 }
@@ -656,6 +659,9 @@ type DeleteWorkloadMemberResponse = map[string]interface{}
 
 // DeleteWorkloadRequest Request message for DeleteWorkload.
 type DeleteWorkloadRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the workload workload to be deleted.
 	ResourceId string `json:"resourceId"`
 }
@@ -912,6 +918,9 @@ type GetWorkloadMemberResponse struct {
 
 // GetWorkloadRequest Request message for the GetWorkload method.
 type GetWorkloadRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the requested workload.
 	ResourceId string `json:"resourceId"`
 }
@@ -2082,6 +2091,9 @@ type ListWorkloadsRequest struct {
 	// PageSize (OPTIONAL) Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `json:"pageSize,omitempty"`
+
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
 }
 
 // ListWorkloadsResponse Response message for the ListWorkloads method.
@@ -4405,6 +4417,9 @@ type PatchWorkloadRequest struct {
 	//  `INVALID_ARGUMENT` error if any path is unmappable.
 	FieldMask *GoogleProtobufFieldMask `json:"fieldMask,omitempty"`
 
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -5055,6 +5070,9 @@ type UpdateTelemetryMetricsProfileRequest struct {
 
 // UpdateWorkloadRequest Request message for the UpdateWorkload method.
 type UpdateWorkloadRequest struct {
+	// ProjectName Project name
+	ProjectName string `json:"projectName"`
+
 	// ResourceId Name of the workload workload to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -5697,30 +5715,6 @@ type WorkloadMemberServiceListWorkloadMembersParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
-type WorkloadServiceListWorkloadsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// WorkloadServicePatchWorkloadParams defines parameters for WorkloadServicePatchWorkload.
-type WorkloadServicePatchWorkloadParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -5910,6 +5904,30 @@ type ProviderServiceListProvidersParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
+// WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
+type WorkloadServiceListWorkloadsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// WorkloadServicePatchWorkloadParams defines parameters for WorkloadServicePatchWorkload.
+type WorkloadServicePatchWorkloadParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
 type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
@@ -5960,15 +5978,6 @@ type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfileJSONRequestBody 
 
 // WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember for application/json ContentType.
 type WorkloadMemberServiceCreateWorkloadMemberJSONRequestBody = WorkloadMember
-
-// WorkloadServiceCreateWorkloadJSONRequestBody defines body for WorkloadServiceCreateWorkload for application/json ContentType.
-type WorkloadServiceCreateWorkloadJSONRequestBody = WorkloadResource
-
-// WorkloadServicePatchWorkloadJSONRequestBody defines body for WorkloadServicePatchWorkload for application/json ContentType.
-type WorkloadServicePatchWorkloadJSONRequestBody = WorkloadResource
-
-// WorkloadServiceUpdateWorkloadJSONRequestBody defines body for WorkloadServiceUpdateWorkload for application/json ContentType.
-type WorkloadServiceUpdateWorkloadJSONRequestBody = WorkloadResource
 
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource
@@ -6026,3 +6035,12 @@ type SiteServiceUpdateSiteJSONRequestBody = SiteResource
 
 // ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
 type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
+
+// WorkloadServiceCreateWorkloadJSONRequestBody defines body for WorkloadServiceCreateWorkload for application/json ContentType.
+type WorkloadServiceCreateWorkloadJSONRequestBody = WorkloadResource
+
+// WorkloadServicePatchWorkloadJSONRequestBody defines body for WorkloadServicePatchWorkload for application/json ContentType.
+type WorkloadServicePatchWorkloadJSONRequestBody = WorkloadResource
+
+// WorkloadServiceUpdateWorkloadJSONRequestBody defines body for WorkloadServiceUpdateWorkload for application/json ContentType.
+type WorkloadServiceUpdateWorkloadJSONRequestBody = WorkloadResource

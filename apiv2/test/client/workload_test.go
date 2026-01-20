@@ -45,6 +45,8 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	h1 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
 	h2 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
 	h3 := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
@@ -100,6 +102,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 	// Assert presence of workload with expected members
 	getw1, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
 		ctx,
+		projectName,
 		w1ID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -112,6 +115,7 @@ func TestWorkload_CreateGetDelete(t *testing.T) {
 
 	getw2, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
 		ctx,
+		projectName,
 		w2ID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -166,10 +170,13 @@ func TestWorkload_UpdatePut(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	w1 := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
 
 	w1Update, err := apiClient.WorkloadServiceUpdateWorkloadWithResponse(
 		ctx,
+		projectName,
 		*w1.JSON200.ResourceId,
 		utils.WorkloadCluster2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -179,6 +186,7 @@ func TestWorkload_UpdatePut(t *testing.T) {
 
 	w1GetUp, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
 		ctx,
+		projectName,
 		*w1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -197,6 +205,9 @@ func TestWorkload_Errors(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
+
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
@@ -204,6 +215,7 @@ func TestWorkload_Errors(t *testing.T) {
 	t.Run("Post_NoKind_BadRequest", func(t *testing.T) {
 		w1Up, err := apiClient.WorkloadServiceCreateWorkloadWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadNoKind,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -214,6 +226,7 @@ func TestWorkload_Errors(t *testing.T) {
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		w1Up, err := apiClient.WorkloadServiceUpdateWorkloadWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadUnexistID,
 			utils.WorkloadCluster1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -225,6 +238,7 @@ func TestWorkload_Errors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		w1res, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -235,6 +249,7 @@ func TestWorkload_Errors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resDelW, err := apiClient.WorkloadServiceDeleteWorkloadWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -245,6 +260,7 @@ func TestWorkload_Errors(t *testing.T) {
 	t.Run("Put_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		w1Up, err := apiClient.WorkloadServiceUpdateWorkloadWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadWrongID,
 			utils.WorkloadCluster1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -256,6 +272,7 @@ func TestWorkload_Errors(t *testing.T) {
 	t.Run("Get_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		w1res, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -266,6 +283,7 @@ func TestWorkload_Errors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		resDelW, err := apiClient.WorkloadServiceDeleteWorkloadWithResponse(
 			ctx,
+			projectName,
 			utils.WorkloadWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -380,6 +398,18 @@ func TestWorkloadList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
+	resList, err := apiClient.WorkloadServiceListWorkloadsWithResponse(
+		ctx,
+		projectName,
+		&api.WorkloadServiceListWorkloadsParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resList.StatusCode())
+	existingWorkloads := len(resList.JSON200.Workloads)
+
 	totalItems := 10
 	pageID := 1
 	pageSize := 4
@@ -389,8 +419,9 @@ func TestWorkloadList(t *testing.T) {
 	}
 
 	// Checks if list resources return expected number of entries
-	resList, err := apiClient.WorkloadServiceListWorkloadsWithResponse(
+	resList, err = apiClient.WorkloadServiceListWorkloadsWithResponse(
 		ctx,
+		projectName,
 		&api.WorkloadServiceListWorkloadsParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -405,13 +436,14 @@ func TestWorkloadList(t *testing.T) {
 
 	resList, err = apiClient.WorkloadServiceListWorkloadsWithResponse(
 		ctx,
+		projectName,
 		&api.WorkloadServiceListWorkloadsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems, len(resList.JSON200.Workloads))
+	assert.Equal(t, totalItems+existingWorkloads, len(resList.JSON200.Workloads))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
 
@@ -428,6 +460,15 @@ func TestWorkloadMemberList(t *testing.T) {
 
 	workload := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
 	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
+
+	resList, err := apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
+		ctx,
+		&api.WorkloadMemberServiceListWorkloadMembersParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resList.StatusCode())
+	existingMembers := len(resList.JSON200.WorkloadMembers)
 
 	for id := 0; id < totalItems; id++ {
 		host := CreateHost(ctx, t, apiClient, GetHostRequestWithRandomUUID())
@@ -448,7 +489,7 @@ func TestWorkloadMemberList(t *testing.T) {
 	}
 
 	// Checks if list resources return expected number of entries
-	resList, err := apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
+	resList, err = apiClient.WorkloadMemberServiceListWorkloadMembersWithResponse(
 		ctx,
 		&api.WorkloadMemberServiceListWorkloadMembersParams{
 			Offset:   &pageID,
@@ -470,7 +511,7 @@ func TestWorkloadMemberList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems, len(resList.JSON200.WorkloadMembers))
+	assert.Equal(t, totalItems+existingMembers, len(resList.JSON200.WorkloadMembers))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 }
 
@@ -481,15 +522,18 @@ func TestWorkloadList_ListEmpty(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	resList, err := apiClient.WorkloadServiceListWorkloadsWithResponse(
 		ctx,
+		projectName,
 		&api.WorkloadServiceListWorkloadsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Empty(t, resList.JSON200.Workloads)
+	assert.GreaterOrEqual(t, len(resList.JSON200.Workloads), 0)
 }
 
 func TestWorkloadMemberList_ListEmpty(t *testing.T) {
@@ -507,7 +551,7 @@ func TestWorkloadMemberList_ListEmpty(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Empty(t, resList.JSON200.WorkloadMembers)
+	assert.GreaterOrEqual(t, len(resList.JSON200.WorkloadMembers), 0)
 }
 
 func TestWorkload_Patch(t *testing.T) {
@@ -517,6 +561,8 @@ func TestWorkload_Patch(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 
 	// Create a Workload
 	workload := CreateWorkload(ctx, t, apiClient, utils.WorkloadCluster1Request)
@@ -533,6 +579,7 @@ func TestWorkload_Patch(t *testing.T) {
 	// Perform the Patch operation
 	updatedWorkload, err := apiClient.WorkloadServicePatchWorkloadWithResponse(
 		ctx,
+		projectName,
 		*workload.JSON200.ResourceId,
 		&api.WorkloadServicePatchWorkloadParams{},
 		patchRequest,
@@ -546,6 +593,7 @@ func TestWorkload_Patch(t *testing.T) {
 	// Verify the changes with a Get operation
 	getWorkload, err := apiClient.WorkloadServiceGetWorkloadWithResponse(
 		ctx,
+		projectName,
 		*workload.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

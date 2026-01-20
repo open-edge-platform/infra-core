@@ -307,22 +307,25 @@ const (
 	// Fields and Edges constants for "DeleteProviderResponse"
 
 	// Fields and Edges constants for "CreateWorkloadRequest"
-	CreateWorkloadRequestEdgeWorkload = "workload"
+	CreateWorkloadRequestFieldProjectName = "projectName"
+	CreateWorkloadRequestEdgeWorkload     = "workload"
 
 	// Fields and Edges constants for "CreateWorkloadResponse"
 	CreateWorkloadResponseEdgeWorkload = "workload"
 
 	// Fields and Edges constants for "GetWorkloadRequest"
-	GetWorkloadRequestFieldResourceId = "resourceId"
+	GetWorkloadRequestFieldProjectName = "projectName"
+	GetWorkloadRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "GetWorkloadResponse"
 	GetWorkloadResponseEdgeWorkload = "workload"
 
 	// Fields and Edges constants for "ListWorkloadsRequest"
-	ListWorkloadsRequestFieldOrderBy  = "order_by"
-	ListWorkloadsRequestFieldFilter   = "filter"
-	ListWorkloadsRequestFieldPageSize = "page_size"
-	ListWorkloadsRequestFieldOffset   = "offset"
+	ListWorkloadsRequestFieldProjectName = "projectName"
+	ListWorkloadsRequestFieldOrderBy     = "order_by"
+	ListWorkloadsRequestFieldFilter      = "filter"
+	ListWorkloadsRequestFieldPageSize    = "page_size"
+	ListWorkloadsRequestFieldOffset      = "offset"
 
 	// Fields and Edges constants for "ListWorkloadsResponse"
 	ListWorkloadsResponseEdgeWorkloads      = "workloads"
@@ -330,16 +333,19 @@ const (
 	ListWorkloadsResponseFieldHasNext       = "has_next"
 
 	// Fields and Edges constants for "UpdateWorkloadRequest"
-	UpdateWorkloadRequestFieldResourceId = "resourceId"
-	UpdateWorkloadRequestEdgeWorkload    = "workload"
+	UpdateWorkloadRequestFieldProjectName = "projectName"
+	UpdateWorkloadRequestFieldResourceId  = "resourceId"
+	UpdateWorkloadRequestEdgeWorkload     = "workload"
 
 	// Fields and Edges constants for "PatchWorkloadRequest"
-	PatchWorkloadRequestFieldResourceId = "resourceId"
-	PatchWorkloadRequestEdgeWorkload    = "workload"
-	PatchWorkloadRequestEdgeFieldMask   = "field_mask"
+	PatchWorkloadRequestFieldProjectName = "projectName"
+	PatchWorkloadRequestFieldResourceId  = "resourceId"
+	PatchWorkloadRequestEdgeWorkload     = "workload"
+	PatchWorkloadRequestEdgeFieldMask    = "field_mask"
 
 	// Fields and Edges constants for "DeleteWorkloadRequest"
-	DeleteWorkloadRequestFieldResourceId = "resourceId"
+	DeleteWorkloadRequestFieldProjectName = "projectName"
+	DeleteWorkloadRequestFieldResourceId  = "resourceId"
 
 	// Fields and Edges constants for "DeleteWorkloadResponse"
 

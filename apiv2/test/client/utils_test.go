@@ -175,13 +175,13 @@ func ListAllSites(ctx context.Context, client *api.ClientWithResponses, projectN
 }
 
 // ListAllWorkloads retrieves all WorkloadResource objects by iterating over paginated responses.
-func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, pageSize int) ([]api.WorkloadResource, error) {
+func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, projectName string, pageSize int) ([]api.WorkloadResource, error) {
 	var allWorkloads []api.WorkloadResource
 	offset := 0
 
 	for {
 		// Call the API to get a paginated list of workloads
-		response, err := client.WorkloadServiceListWorkloadsWithResponse(ctx, &api.WorkloadServiceListWorkloadsParams{
+		response, err := client.WorkloadServiceListWorkloadsWithResponse(ctx, projectName, &api.WorkloadServiceListWorkloadsParams{
 			PageSize: &pageSize,
 			Offset:   &offset,
 		},
@@ -287,8 +287,10 @@ func TestDeleteAllWorkloads(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	pageSize := 10
-	workloads, err := ListAllWorkloads(ctx, apiClient, pageSize)
+	workloads, err := ListAllWorkloads(ctx, apiClient, projectName, pageSize)
 	if err != nil {
 		t.Fatalf("failed to list all workloads: %v", err)
 	}

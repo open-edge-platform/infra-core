@@ -73,7 +73,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		// Kind: api.WORKLOADKINDCLUSTER,
 	}
 	workloadPostRequestInvalidNoName, err := api.NewWorkloadServiceCreateWorkloadRequest(
-		"", workloadInvalidBodyRequest)
+		"", projectName, workloadInvalidBodyRequest)
 	assert.NoError(t, err)
 
 	telemetrylogsPostRequest, err := api.NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(
