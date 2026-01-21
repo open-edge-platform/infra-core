@@ -163,7 +163,6 @@ func TestBuildAllowedServiceList_UnregisteredService(t *testing.T) {
 	}
 
 	list, err := server.BuildAllowedServiceList("test-scenario-unregistered", allowlist)
-
 	if err != nil {
 		t.Errorf("BuildAllowedServiceList() unexpected error: %v", err)
 	}

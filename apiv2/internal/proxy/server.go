@@ -100,7 +100,8 @@ func (m *Manager) setupClients(mux *runtime.ServeMux) error {
 
 	for serviceName, serviceClient := range servicesClients {
 		if _, isAllowed := allowed[serviceName]; !isAllowed {
-			zlog.Debug().Str("service", serviceName).Str("scenario", scenarioName).Msg("skipping service client not allowed for scenario")
+			zlog.Debug().Str("service", serviceName).Str("scenario", scenarioName).
+				Msg("skipping service client not allowed for scenario")
 			continue
 		}
 
@@ -114,7 +115,8 @@ func (m *Manager) setupClients(mux *runtime.ServeMux) error {
 				grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(inv_client.MaxMessageSize)),
 			},
 		); err != nil {
-			zlog.InfraErr(err).Str("service", serviceName).Str("scenario", scenarioName).Msg("failed to set service client")
+			zlog.InfraErr(err).Str("service", serviceName).Str("scenario", scenarioName).
+				Msg("failed to set service client")
 			return err
 		}
 

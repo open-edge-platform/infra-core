@@ -34,28 +34,36 @@ type serviceServersSignature func(*grpc.Server, *InventorygRPCServer)
 
 // servicesServers maps gRPC service names to their registration functions.
 var servicesServers = map[string]serviceServersSignature{
-	"RegionService":             func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterRegionServiceServer(s, is) },
-	"SiteService":               func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterSiteServiceServer(s, is) },
-	"LocationService":           func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocationServiceServer(s, is) },
-	"HostService":               func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterHostServiceServer(s, is) },
-	"OperatingSystemService":    func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOperatingSystemServiceServer(s, is) },
-	"InstanceService":           func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterInstanceServiceServer(s, is) },
-	"ScheduleService":           func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterScheduleServiceServer(s, is) },
-	"WorkloadService":           func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterWorkloadServiceServer(s, is) },
-	"WorkloadMemberService":     func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterWorkloadMemberServiceServer(s, is) },
-	"ProviderService":           func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterProviderServiceServer(s, is) },
-	"TelemetryLogsGroupService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterTelemetryLogsGroupServiceServer(s, is) },
+	"RegionService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterRegionServiceServer(s, is) },
+	"SiteService":     func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterSiteServiceServer(s, is) },
+	"LocationService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocationServiceServer(s, is) },
+	"HostService":     func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterHostServiceServer(s, is) },
+	"OperatingSystemService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterOperatingSystemServiceServer(s, is)
+	},
+	"InstanceService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterInstanceServiceServer(s, is) },
+	"ScheduleService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterScheduleServiceServer(s, is) },
+	"WorkloadService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterWorkloadServiceServer(s, is) },
+	"WorkloadMemberService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterWorkloadMemberServiceServer(s, is)
+	},
+	"ProviderService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterProviderServiceServer(s, is) },
+	"TelemetryLogsGroupService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterTelemetryLogsGroupServiceServer(s, is)
+	},
 	"TelemetryMetricsGroupService": func(s *grpc.Server, is *InventorygRPCServer) {
 		restv1.RegisterTelemetryMetricsGroupServiceServer(s, is)
 	},
 	"TelemetryMetricsProfileService": func(s *grpc.Server, is *InventorygRPCServer) {
 		restv1.RegisterTelemetryMetricsProfileServiceServer(s, is)
 	},
-	"TelemetryLogsProfileService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterTelemetryLogsProfileServiceServer(s, is) },
-	"LocalAccountService":         func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocalAccountServiceServer(s, is) },
-	"CustomConfigService":         func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterCustomConfigServiceServer(s, is) },
-	"OSUpdatePolicyService":       func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdatePolicyServer(s, is) },
-	"OSUpdateRunService":          func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdateRunServer(s, is) },
+	"TelemetryLogsProfileService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterTelemetryLogsProfileServiceServer(s, is)
+	},
+	"LocalAccountService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocalAccountServiceServer(s, is) },
+	"CustomConfigService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterCustomConfigServiceServer(s, is) },
+	"OSUpdatePolicyService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdatePolicyServer(s, is) },
+	"OSUpdateRunService":    func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdateRunServer(s, is) },
 }
 
 type InventorygRPCServer struct {
@@ -159,12 +167,14 @@ func (is *InventorygRPCServer) setupServices(gsrv *grpc.Server, scenarioName str
 
 	for serviceName, registerFunc := range servicesServers {
 		if _, isAllowed := allowed[serviceName]; !isAllowed {
-			zlog.Debug().Str("service", serviceName).Str("scenario", scenarioName).Msg("skipping service not allowed for scenario")
+			zlog.Debug().Str("service", serviceName).Str("scenario", scenarioName).
+				Msg("skipping service not allowed for scenario")
 			continue
 		}
 
 		registerFunc(gsrv, is)
-		zlog.Info().Str("service", serviceName).Str("scenario", scenarioName).Msg("registered gRPC service")
+		zlog.Info().Str("service", serviceName).Str("scenario", scenarioName).
+			Msg("registered gRPC service")
 	}
 
 	return nil

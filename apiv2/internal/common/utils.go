@@ -8,16 +8,18 @@ import (
 	"strings"
 )
 
-// BuildAllowedHandlersList builds a map of allowed services based on the scenario
-func BuildAllowedHandlersList(scenarioName string, allowlist map[string][]string, knownServices map[string]interface{}) (map[string]struct{}, []string, error) {
+// BuildAllowedHandlersList builds a map of allowed services based on the scenario.
+func BuildAllowedHandlersList(scenarioName string, allowlist map[string][]string,
+	knownServices map[string]interface{},
+) (allowed map[string]struct{}, unknown []string, err error) {
 	allowedServices, ok := allowlist[scenarioName]
 	if !ok {
 		err := fmt.Errorf("unknown scenario %q", scenarioName)
 		return nil, nil, err
 	}
 
-	allowed := make(map[string]struct{}, len(allowedServices))
-	unknown := []string{}
+	allowed = make(map[string]struct{}, len(allowedServices))
+	unknown = []string{}
 	for _, serviceName := range allowedServices {
 		serviceName = strings.TrimSpace(serviceName)
 		if serviceName == "" {

@@ -123,7 +123,6 @@ func TestBuildAllowedHandlersList_UnregisteredService(t *testing.T) {
 	}
 
 	list, _, err := common.BuildAllowedHandlersList("test-scenario-unregistered", allowlist, knownServices)
-
 	if err != nil {
 		t.Errorf("BuildAllowedHandlersList() unexpected error: %v", err)
 	}

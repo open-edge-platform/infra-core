@@ -53,7 +53,6 @@ func loadAllManifests(dir string) (map[string][]string, error) {
 		}
 		return processManifestFile(path, d, out)
 	})
-
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +118,7 @@ func clean(in []string) []string {
 		out = append(out, s)
 	}
 
-	//sort.Strings(out)
+	// sort.Strings(out)
 	return out
 }
 

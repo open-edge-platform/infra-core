@@ -10,7 +10,6 @@ import (
 )
 
 func TestBuildAllowedClientList(t *testing.T) {
-
 	tests := []struct {
 		name         string
 		scenarioName string
@@ -101,7 +100,6 @@ func TestBuildAllowedClientList_UnregisteredService(t *testing.T) {
 	}
 
 	list, err := proxy.BuildAllowedClientList("test-scenario-unregistered", allowlist)
-
 	if err != nil {
 		t.Errorf("BuildAllowedClientList() unexpected error: %v", err)
 	}
