@@ -1,14 +1,11 @@
-// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package proxy
 
 import (
 	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 )
-
-var zlog = logging.GetLogger("proxy")
 
 func BuildAllowedClientList(scenarioName string, allowlist map[string][]string) (map[string]struct{}, error) {
 	// Convert servicesClients map to map[string]interface{} to be used by the common function

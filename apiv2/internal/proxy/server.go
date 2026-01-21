@@ -20,8 +20,11 @@ import (
 	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/scenario"
 	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	inv_client "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 	ginutils "github.com/open-edge-platform/orch-library/go/pkg/middleware/gin"
 )
+
+var zlog = logging.GetLogger("proxy")
 
 // serviceClientsSignature defines a signature for a gRPC client registration function.
 type serviceClientsSignature func(

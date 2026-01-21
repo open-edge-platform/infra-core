@@ -74,8 +74,6 @@ GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(
 
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
 
-BUF_TEMPLATE ?= buf.gen.yaml
-
 # Target variables
 TYPES  := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-types.gen.go"
 SERVER := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-server.gen.go"
@@ -90,7 +88,7 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: gen-allowed-services buf-gen generate-api ## generate protos, types, server and client
-	
+
 lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
 test: $(OUT_DIR) go-test ## Run all tests

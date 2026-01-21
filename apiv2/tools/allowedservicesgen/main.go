@@ -118,7 +118,6 @@ func clean(in []string) []string {
 		out = append(out, s)
 	}
 
-	// sort.Strings(out)
 	return out
 }
 
