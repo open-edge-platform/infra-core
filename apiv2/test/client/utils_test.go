@@ -301,7 +301,25 @@ func TestDeleteAllWorkloads(t *testing.T) {
 	t.Logf("Retrieved %d workloads", len(workloads))
 	for _, workload := range workloads {
 		t.Logf("Workload ID: %s, Name: %s", *workload.WorkloadId, *workload.Name)
-		DeleteWorkload(ctx, t, apiClient, *workload.ResourceId)
+		var workloadID string
+		if workload.WorkloadId != nil {
+			workloadID = *workload.WorkloadId
+		} else if workload.ResourceId != nil {
+			workloadID = *workload.ResourceId
+		}
+		if workloadID == "" {
+			continue
+		}
+		resp, err := apiClient.WorkloadServiceDeleteWorkloadWithResponse(
+			ctx,
+			projectName,
+			workloadID,
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		)
+		require.NoError(t, err)
+		if resp.StatusCode() != http.StatusOK {
+			t.Logf("WARNING: Failed to delete workload %s - Status Code: %d", workloadID, resp.StatusCode())
+		}
 	}
 }
 

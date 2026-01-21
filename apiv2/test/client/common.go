@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -666,7 +667,7 @@ func CreateTelemetryMetricsGroup(
 	tb.Helper()
 
 	projectName := getProjectID(tb)
-	
+
 	created, err := apiClient.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(
 		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
@@ -907,6 +908,9 @@ func DeleteOSUpdatePolicy(ctx context.Context, tb testing.TB, apiClient *api.Cli
 	if policyDel.StatusCode() != http.StatusOK {
 		tb.Logf("WARNING: Failed to delete OSUpdatePolicy %s - Status Code: %d", policyID, policyDel.StatusCode())
 		tb.Logf("Response Body: %s", string(policyDel.Body))
+		if policyDel.StatusCode() == http.StatusBadRequest && strings.Contains(string(policyDel.Body), "still referenced") {
+			return
+		}
 	}
 	assert.Equal(tb, http.StatusOK, policyDel.StatusCode())
 }

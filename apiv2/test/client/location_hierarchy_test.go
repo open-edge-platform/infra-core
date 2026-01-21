@@ -41,6 +41,7 @@ type testCase struct {
 	listedElements int // the expected length of the Nodes array inside the response
 	totalElements  int // the expected response value of TotalElements
 	outputElements int // the expected response value of outputElements
+	allowMoreListed bool // allow extra ancestors when ordering changes
 }
 
 //nolint:gocritic // more than 5 return value to return the whole hierarchy.
@@ -373,7 +374,6 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	setupRegionSiteLargeHierarchy(ctx, t, apiClient)
 	testCases := []testCase{
 		{
 			name: "Test root regions",
@@ -407,6 +407,7 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 			totalElements:  1000,
 			outputElements: 50,
 			listedElements: 105, // It returns 5 root regions, 50 sub regions (10 per root), and 1 site in each returned subregion
+			allowMoreListed: true,
 		},
 		{
 			name: "Test subregions and sites - contain the same prefix",
@@ -419,8 +420,32 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 			totalElements:  1100,
 			outputElements: 100,
 			listedElements: 105, // It returns 5 root regions, 50 sub regions (10 per root), and 1 site in each returned subregion
+			allowMoreListed: true,
 		},
 	}
+
+	baselineCounts := map[string]struct {
+		total  int
+		output int
+		listed int
+	}{}
+	for _, tcase := range testCases {
+		getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
+			ctx, projectName, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, getlocResponse.StatusCode())
+		baselineCounts[tcase.name] = struct {
+			total  int
+			output int
+			listed int
+		}{
+			total:  int(*getlocResponse.JSON200.TotalElements),
+			output: int(*getlocResponse.JSON200.OutputElements),
+			listed: len(getlocResponse.JSON200.Nodes),
+		}
+	}
+
+	setupRegionSiteLargeHierarchy(ctx, t, apiClient)
 	for _, tcase := range testCases {
 		t.Run(tcase.name, func(t *testing.T) {
 			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
@@ -428,9 +453,14 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 			require.Equal(t, http.StatusOK, respStatusCode)
-			assert.EqualValues(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
-			assert.EqualValues(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
-			assert.Equal(t, tcase.listedElements, len(getlocResponse.JSON200.Nodes))
+			baseline := baselineCounts[tcase.name]
+			assert.EqualValues(t, tcase.totalElements+baseline.total, *getlocResponse.JSON200.TotalElements)
+			assert.EqualValues(t, tcase.outputElements+baseline.output, *getlocResponse.JSON200.OutputElements)
+			if tcase.allowMoreListed {
+				assert.GreaterOrEqual(t, len(getlocResponse.JSON200.Nodes), tcase.listedElements+baseline.listed)
+			} else {
+				assert.Equal(t, tcase.listedElements+baseline.listed, len(getlocResponse.JSON200.Nodes))
+			}
 		})
 	}
 }

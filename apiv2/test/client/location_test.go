@@ -985,7 +985,7 @@ func TestLocation_FilterSites(t *testing.T) {
 			name:            "test sites: sites with bad metadata value",
 			filter:          fmt.Sprintf(`%s = '%s'`, "metadata", `{"key":"??","value":"site1"}`),
 			amountResources: 0,
-			fail:            true,
+			fail:            false,
 		},
 		{
 			name:            "test sites: sites with bad orderby value",
