@@ -5590,6 +5590,985 @@ type GoogleProtobufFieldMask = string
 //	) to obtain a formatter capable of generating timestamps in this format.
 type GoogleProtobufTimestamp = time.Time
 
+// CustomConfigServiceListCustomConfigs2Params defines parameters for CustomConfigServiceListCustomConfigs2.
+type CustomConfigServiceListCustomConfigs2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// CustomConfigServiceCreateCustomConfig2Params defines parameters for CustomConfigServiceCreateCustomConfig2.
+type CustomConfigServiceCreateCustomConfig2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// CustomConfigServiceDeleteCustomConfig2Params defines parameters for CustomConfigServiceDeleteCustomConfig2.
+type CustomConfigServiceDeleteCustomConfig2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// CustomConfigServiceGetCustomConfig2Params defines parameters for CustomConfigServiceGetCustomConfig2.
+type CustomConfigServiceGetCustomConfig2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// HostServiceListHosts2Params defines parameters for HostServiceListHosts2.
+type HostServiceListHosts2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// HostServiceCreateHost2Params defines parameters for HostServiceCreateHost2.
+type HostServiceCreateHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// HostServiceRegisterHost2Params defines parameters for HostServiceRegisterHost2.
+type HostServiceRegisterHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string  `form:"projectName" json:"projectName"`
+	ResourceId  *string `form:"resourceId,omitempty" json:"resourceId,omitempty"`
+}
+
+// HostServiceDeleteHost2Params defines parameters for HostServiceDeleteHost2.
+type HostServiceDeleteHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// HostServiceGetHost2Params defines parameters for HostServiceGetHost2.
+type HostServiceGetHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// HostServicePatchHost2Params defines parameters for HostServicePatchHost2.
+type HostServicePatchHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// HostServiceUpdateHost2Params defines parameters for HostServiceUpdateHost2.
+type HostServiceUpdateHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// HostServiceInvalidateHost2Params defines parameters for HostServiceInvalidateHost2.
+type HostServiceInvalidateHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// Note user-provided reason for change or a freeform field
+	Note *string `form:"note,omitempty" json:"note,omitempty"`
+}
+
+// HostServiceOnboardHost2Params defines parameters for HostServiceOnboardHost2.
+type HostServiceOnboardHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// HostServicePatchRegisterHost2Params defines parameters for HostServicePatchRegisterHost2.
+type HostServicePatchRegisterHost2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// HostServiceGetHostsSummary2Params defines parameters for HostServiceGetHostsSummary2.
+type HostServiceGetHostsSummary2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+}
+
+// InstanceServiceListInstances2Params defines parameters for InstanceServiceListInstances2.
+type InstanceServiceListInstances2Params struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// InstanceServiceCreateInstance2Params defines parameters for InstanceServiceCreateInstance2.
+type InstanceServiceCreateInstance2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// InstanceServiceDeleteInstance2Params defines parameters for InstanceServiceDeleteInstance2.
+type InstanceServiceDeleteInstance2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// InstanceServiceGetInstance2Params defines parameters for InstanceServiceGetInstance2.
+type InstanceServiceGetInstance2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// InstanceServicePatchInstance2Params defines parameters for InstanceServicePatchInstance2.
+type InstanceServicePatchInstance2Params struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// InstanceServiceUpdateInstance2Params defines parameters for InstanceServiceUpdateInstance2.
+type InstanceServiceUpdateInstance2Params struct {
+	// ProjectName The project name from the URL path.
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// LocalAccountServiceListLocalAccounts2Params defines parameters for LocalAccountServiceListLocalAccounts2.
+type LocalAccountServiceListLocalAccounts2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// LocalAccountServiceCreateLocalAccount2Params defines parameters for LocalAccountServiceCreateLocalAccount2.
+type LocalAccountServiceCreateLocalAccount2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// LocalAccountServiceDeleteLocalAccount2Params defines parameters for LocalAccountServiceDeleteLocalAccount2.
+type LocalAccountServiceDeleteLocalAccount2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// LocalAccountServiceGetLocalAccount2Params defines parameters for LocalAccountServiceGetLocalAccount2.
+type LocalAccountServiceGetLocalAccount2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// LocationServiceListLocations2Params defines parameters for LocationServiceListLocations2.
+type LocationServiceListLocations2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// Name Filter locations by name
+	Name *string `form:"name,omitempty" json:"name,omitempty"`
+
+	// ShowSites Return site locations
+	ShowSites *bool `form:"showSites,omitempty" json:"showSites,omitempty"`
+
+	// ShowRegions Return region locations
+	ShowRegions *bool `form:"showRegions,omitempty" json:"showRegions,omitempty"`
+}
+
+// OperatingSystemServiceListOperatingSystems2Params defines parameters for OperatingSystemServiceListOperatingSystems2.
+type OperatingSystemServiceListOperatingSystems2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OperatingSystemServiceCreateOperatingSystem2Params defines parameters for OperatingSystemServiceCreateOperatingSystem2.
+type OperatingSystemServiceCreateOperatingSystem2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OperatingSystemServiceDeleteOperatingSystem2Params defines parameters for OperatingSystemServiceDeleteOperatingSystem2.
+type OperatingSystemServiceDeleteOperatingSystem2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OperatingSystemServiceGetOperatingSystem2Params defines parameters for OperatingSystemServiceGetOperatingSystem2.
+type OperatingSystemServiceGetOperatingSystem2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OperatingSystemServicePatchOperatingSystem2Params defines parameters for OperatingSystemServicePatchOperatingSystem2.
+type OperatingSystemServicePatchOperatingSystem2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// OperatingSystemServiceUpdateOperatingSystem2Params defines parameters for OperatingSystemServiceUpdateOperatingSystem2.
+type OperatingSystemServiceUpdateOperatingSystem2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OSUpdatePolicyListOSUpdatePolicy2Params defines parameters for OSUpdatePolicyListOSUpdatePolicy2.
+type OSUpdatePolicyListOSUpdatePolicy2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OSUpdatePolicyCreateOSUpdatePolicy2Params defines parameters for OSUpdatePolicyCreateOSUpdatePolicy2.
+type OSUpdatePolicyCreateOSUpdatePolicy2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OSUpdatePolicyDeleteOSUpdatePolicy2Params defines parameters for OSUpdatePolicyDeleteOSUpdatePolicy2.
+type OSUpdatePolicyDeleteOSUpdatePolicy2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OSUpdatePolicyGetOSUpdatePolicy2Params defines parameters for OSUpdatePolicyGetOSUpdatePolicy2.
+type OSUpdatePolicyGetOSUpdatePolicy2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OSUpdateRunListOSUpdateRun2Params defines parameters for OSUpdateRunListOSUpdateRun2.
+type OSUpdateRunListOSUpdateRun2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OSUpdateRunDeleteOSUpdateRun2Params defines parameters for OSUpdateRunDeleteOSUpdateRun2.
+type OSUpdateRunDeleteOSUpdateRun2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// OSUpdateRunGetOSUpdateRun2Params defines parameters for OSUpdateRunGetOSUpdateRun2.
+type OSUpdateRunGetOSUpdateRun2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ProviderServiceListProviders2Params defines parameters for ProviderServiceListProviders2.
+type ProviderServiceListProviders2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// ProviderServiceCreateProvider2Params defines parameters for ProviderServiceCreateProvider2.
+type ProviderServiceCreateProvider2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ProviderServiceDeleteProvider2Params defines parameters for ProviderServiceDeleteProvider2.
+type ProviderServiceDeleteProvider2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ProviderServiceGetProvider2Params defines parameters for ProviderServiceGetProvider2.
+type ProviderServiceGetProvider2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// RegionServiceListRegions2Params defines parameters for RegionServiceListRegions2.
+type RegionServiceListRegions2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// ShowTotalSites Flag to signal if the total amount of site in a region should be returned.
+	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
+}
+
+// RegionServiceCreateRegion2Params defines parameters for RegionServiceCreateRegion2.
+type RegionServiceCreateRegion2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// RegionServiceDeleteRegion2Params defines parameters for RegionServiceDeleteRegion2.
+type RegionServiceDeleteRegion2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// RegionServiceGetRegion2Params defines parameters for RegionServiceGetRegion2.
+type RegionServiceGetRegion2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// RegionServicePatchRegion2Params defines parameters for RegionServicePatchRegion2.
+type RegionServicePatchRegion2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// RegionServiceUpdateRegion2Params defines parameters for RegionServiceUpdateRegion2.
+type RegionServiceUpdateRegion2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServiceListSchedules2Params defines parameters for ScheduleServiceListSchedules2.
+type ScheduleServiceListSchedules2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServiceListRepeatedSchedules2Params defines parameters for ScheduleServiceListRepeatedSchedules2.
+type ScheduleServiceListRepeatedSchedules2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServiceCreateRepeatedSchedule2Params defines parameters for ScheduleServiceCreateRepeatedSchedule2.
+type ScheduleServiceCreateRepeatedSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServiceDeleteRepeatedSchedule2Params defines parameters for ScheduleServiceDeleteRepeatedSchedule2.
+type ScheduleServiceDeleteRepeatedSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServiceGetRepeatedSchedule2Params defines parameters for ScheduleServiceGetRepeatedSchedule2.
+type ScheduleServiceGetRepeatedSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServicePatchRepeatedSchedule2Params defines parameters for ScheduleServicePatchRepeatedSchedule2.
+type ScheduleServicePatchRepeatedSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// ScheduleServiceUpdateRepeatedSchedule2Params defines parameters for ScheduleServiceUpdateRepeatedSchedule2.
+type ScheduleServiceUpdateRepeatedSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServiceListSingleSchedules2Params defines parameters for ScheduleServiceListSingleSchedules2.
+type ScheduleServiceListSingleSchedules2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServiceCreateSingleSchedule2Params defines parameters for ScheduleServiceCreateSingleSchedule2.
+type ScheduleServiceCreateSingleSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServiceDeleteSingleSchedule2Params defines parameters for ScheduleServiceDeleteSingleSchedule2.
+type ScheduleServiceDeleteSingleSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServiceGetSingleSchedule2Params defines parameters for ScheduleServiceGetSingleSchedule2.
+type ScheduleServiceGetSingleSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// ScheduleServicePatchSingleSchedule2Params defines parameters for ScheduleServicePatchSingleSchedule2.
+type ScheduleServicePatchSingleSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// ScheduleServiceUpdateSingleSchedule2Params defines parameters for ScheduleServiceUpdateSingleSchedule2.
+type ScheduleServiceUpdateSingleSchedule2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// SiteServiceListSites2Params defines parameters for SiteServiceListSites2.
+type SiteServiceListSites2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// SiteServiceCreateSite2Params defines parameters for SiteServiceCreateSite2.
+type SiteServiceCreateSite2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// SiteServiceDeleteSite2Params defines parameters for SiteServiceDeleteSite2.
+type SiteServiceDeleteSite2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// SiteServiceGetSite2Params defines parameters for SiteServiceGetSite2.
+type SiteServiceGetSite2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// SiteServicePatchSite2Params defines parameters for SiteServicePatchSite2.
+type SiteServicePatchSite2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// SiteServiceUpdateSite2Params defines parameters for SiteServiceUpdateSite2.
+type SiteServiceUpdateSite2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryLogsGroupServiceListTelemetryLogsGroups2Params defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups2.
+type TelemetryLogsGroupServiceListTelemetryLogsGroups2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+}
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2.
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2.
+type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceGetTelemetryLogsGroup2.
+type TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups2.
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+}
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2.
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2.
+type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2.
+type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params defines parameters for TelemetryLogsProfileServiceListTelemetryLogsProfiles2.
+type TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
+	InstanceId *string `form:"instanceId,omitempty" json:"instanceId,omitempty"`
+
+	// SiteId Returns only the telemetry profiles that are assigned with the given siteID.
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
+	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
+}
+
+// TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceCreateTelemetryLogsProfile2.
+type TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2.
+type TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceGetTelemetryLogsProfile2.
+type TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile2.
+type TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2.
+type TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2.
+type TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// InstanceId Returns only the telemetry profiles that are assigned with the given instance identifier.
+	InstanceId *string `form:"instanceId,omitempty" json:"instanceId,omitempty"`
+
+	// SiteId Returns only the telemetry profiles that are assigned with the given siteID.
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId Returns only the telemetry profiles that are assigned with the given regionID.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// ShowInherited Indicates if listed telemetry profiles should be extended with telemetry
+	//  profiles rendered from hierarchy. This flag is only used along with one
+	//  of siteId, regionId or instanceId. If siteId, regionId or instanceId are
+	//  not set, this flag is ignored.
+	ShowInherited *bool `form:"showInherited,omitempty" json:"showInherited,omitempty"`
+}
+
+// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2.
+type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2.
+type TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2.
+type TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2.
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2.
+type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// WorkloadMemberServiceListWorkloadMembers2Params defines parameters for WorkloadMemberServiceListWorkloadMembers2.
+type WorkloadMemberServiceListWorkloadMembers2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// WorkloadMemberServiceCreateWorkloadMember2Params defines parameters for WorkloadMemberServiceCreateWorkloadMember2.
+type WorkloadMemberServiceCreateWorkloadMember2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// WorkloadMemberServiceDeleteWorkloadMember2Params defines parameters for WorkloadMemberServiceDeleteWorkloadMember2.
+type WorkloadMemberServiceDeleteWorkloadMember2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// WorkloadMemberServiceGetWorkloadMember2Params defines parameters for WorkloadMemberServiceGetWorkloadMember2.
+type WorkloadMemberServiceGetWorkloadMember2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// WorkloadServiceListWorkloads2Params defines parameters for WorkloadServiceListWorkloads2.
+type WorkloadServiceListWorkloads2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// WorkloadServiceCreateWorkload2Params defines parameters for WorkloadServiceCreateWorkload2.
+type WorkloadServiceCreateWorkload2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// WorkloadServiceDeleteWorkload2Params defines parameters for WorkloadServiceDeleteWorkload2.
+type WorkloadServiceDeleteWorkload2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// WorkloadServiceGetWorkload2Params defines parameters for WorkloadServiceGetWorkload2.
+type WorkloadServiceGetWorkload2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
+// WorkloadServicePatchWorkload2Params defines parameters for WorkloadServicePatchWorkload2.
+type WorkloadServicePatchWorkload2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// WorkloadServiceUpdateWorkload2Params defines parameters for WorkloadServiceUpdateWorkload2.
+type WorkloadServiceUpdateWorkload2Params struct {
+	// ProjectName Project name
+	ProjectName string `form:"projectName" json:"projectName"`
+}
+
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.
 type HostServiceListHostsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -6080,6 +7059,123 @@ type WorkloadServicePatchWorkloadParams struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
+
+// CustomConfigServiceCreateCustomConfig2JSONRequestBody defines body for CustomConfigServiceCreateCustomConfig2 for application/json ContentType.
+type CustomConfigServiceCreateCustomConfig2JSONRequestBody = CustomConfigResource
+
+// HostServiceCreateHost2JSONRequestBody defines body for HostServiceCreateHost2 for application/json ContentType.
+type HostServiceCreateHost2JSONRequestBody = HostResource
+
+// HostServiceRegisterHost2JSONRequestBody defines body for HostServiceRegisterHost2 for application/json ContentType.
+type HostServiceRegisterHost2JSONRequestBody = HostRegister
+
+// HostServicePatchHost2JSONRequestBody defines body for HostServicePatchHost2 for application/json ContentType.
+type HostServicePatchHost2JSONRequestBody = HostResource
+
+// HostServiceUpdateHost2JSONRequestBody defines body for HostServiceUpdateHost2 for application/json ContentType.
+type HostServiceUpdateHost2JSONRequestBody = HostResource
+
+// HostServicePatchRegisterHost2JSONRequestBody defines body for HostServicePatchRegisterHost2 for application/json ContentType.
+type HostServicePatchRegisterHost2JSONRequestBody = HostRegister
+
+// InstanceServiceCreateInstance2JSONRequestBody defines body for InstanceServiceCreateInstance2 for application/json ContentType.
+type InstanceServiceCreateInstance2JSONRequestBody = InstanceResource
+
+// InstanceServicePatchInstance2JSONRequestBody defines body for InstanceServicePatchInstance2 for application/json ContentType.
+type InstanceServicePatchInstance2JSONRequestBody = InstanceResource
+
+// InstanceServiceUpdateInstance2JSONRequestBody defines body for InstanceServiceUpdateInstance2 for application/json ContentType.
+type InstanceServiceUpdateInstance2JSONRequestBody = InstanceResource
+
+// LocalAccountServiceCreateLocalAccount2JSONRequestBody defines body for LocalAccountServiceCreateLocalAccount2 for application/json ContentType.
+type LocalAccountServiceCreateLocalAccount2JSONRequestBody = LocalAccountResource
+
+// OperatingSystemServiceCreateOperatingSystem2JSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem2 for application/json ContentType.
+type OperatingSystemServiceCreateOperatingSystem2JSONRequestBody = OperatingSystemResource
+
+// OperatingSystemServicePatchOperatingSystem2JSONRequestBody defines body for OperatingSystemServicePatchOperatingSystem2 for application/json ContentType.
+type OperatingSystemServicePatchOperatingSystem2JSONRequestBody = OperatingSystemResource
+
+// OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem2 for application/json ContentType.
+type OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody = OperatingSystemResource
+
+// OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy2 for application/json ContentType.
+type OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody = OSUpdatePolicy
+
+// ProviderServiceCreateProvider2JSONRequestBody defines body for ProviderServiceCreateProvider2 for application/json ContentType.
+type ProviderServiceCreateProvider2JSONRequestBody = ProviderResource
+
+// RegionServiceCreateRegion2JSONRequestBody defines body for RegionServiceCreateRegion2 for application/json ContentType.
+type RegionServiceCreateRegion2JSONRequestBody = RegionResource
+
+// RegionServicePatchRegion2JSONRequestBody defines body for RegionServicePatchRegion2 for application/json ContentType.
+type RegionServicePatchRegion2JSONRequestBody = RegionResource
+
+// RegionServiceUpdateRegion2JSONRequestBody defines body for RegionServiceUpdateRegion2 for application/json ContentType.
+type RegionServiceUpdateRegion2JSONRequestBody = RegionResource
+
+// ScheduleServiceCreateRepeatedSchedule2JSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule2 for application/json ContentType.
+type ScheduleServiceCreateRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServicePatchRepeatedSchedule2JSONRequestBody defines body for ScheduleServicePatchRepeatedSchedule2 for application/json ContentType.
+type ScheduleServicePatchRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody defines body for ScheduleServiceUpdateRepeatedSchedule2 for application/json ContentType.
+type ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServiceCreateSingleSchedule2JSONRequestBody defines body for ScheduleServiceCreateSingleSchedule2 for application/json ContentType.
+type ScheduleServiceCreateSingleSchedule2JSONRequestBody = SingleScheduleResource
+
+// ScheduleServicePatchSingleSchedule2JSONRequestBody defines body for ScheduleServicePatchSingleSchedule2 for application/json ContentType.
+type ScheduleServicePatchSingleSchedule2JSONRequestBody = SingleScheduleResource
+
+// ScheduleServiceUpdateSingleSchedule2JSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule2 for application/json ContentType.
+type ScheduleServiceUpdateSingleSchedule2JSONRequestBody = SingleScheduleResource
+
+// SiteServiceCreateSite2JSONRequestBody defines body for SiteServiceCreateSite2 for application/json ContentType.
+type SiteServiceCreateSite2JSONRequestBody = SiteResource
+
+// SiteServicePatchSite2JSONRequestBody defines body for SiteServicePatchSite2 for application/json ContentType.
+type SiteServicePatchSite2JSONRequestBody = SiteResource
+
+// SiteServiceUpdateSite2JSONRequestBody defines body for SiteServiceUpdateSite2 for application/json ContentType.
+type SiteServiceUpdateSite2JSONRequestBody = SiteResource
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 for application/json ContentType.
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody = TelemetryLogsGroupResource
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody defines body for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 for application/json ContentType.
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody = TelemetryMetricsGroupResource
+
+// TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody defines body for TelemetryLogsProfileServiceCreateTelemetryLogsProfile2 for application/json ContentType.
+type TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody = TelemetryLogsProfileResource
+
+// TelemetryLogsProfileServicePatchTelemetryLogsProfile2JSONRequestBody defines body for TelemetryLogsProfileServicePatchTelemetryLogsProfile2 for application/json ContentType.
+type TelemetryLogsProfileServicePatchTelemetryLogsProfile2JSONRequestBody = TelemetryLogsProfileResource
+
+// TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2JSONRequestBody defines body for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2 for application/json ContentType.
+type TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2JSONRequestBody = TelemetryLogsProfileResource
+
+// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2JSONRequestBody defines body for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2 for application/json ContentType.
+type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2JSONRequestBody = TelemetryMetricsProfileResource
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2JSONRequestBody defines body for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2 for application/json ContentType.
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2JSONRequestBody = TelemetryMetricsProfileResource
+
+// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2JSONRequestBody defines body for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2 for application/json ContentType.
+type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2JSONRequestBody = TelemetryMetricsProfileResource
+
+// WorkloadMemberServiceCreateWorkloadMember2JSONRequestBody defines body for WorkloadMemberServiceCreateWorkloadMember2 for application/json ContentType.
+type WorkloadMemberServiceCreateWorkloadMember2JSONRequestBody = WorkloadMember
+
+// WorkloadServiceCreateWorkload2JSONRequestBody defines body for WorkloadServiceCreateWorkload2 for application/json ContentType.
+type WorkloadServiceCreateWorkload2JSONRequestBody = WorkloadResource
+
+// WorkloadServicePatchWorkload2JSONRequestBody defines body for WorkloadServicePatchWorkload2 for application/json ContentType.
+type WorkloadServicePatchWorkload2JSONRequestBody = WorkloadResource
+
+// WorkloadServiceUpdateWorkload2JSONRequestBody defines body for WorkloadServiceUpdateWorkload2 for application/json ContentType.
+type WorkloadServiceUpdateWorkload2JSONRequestBody = WorkloadResource
 
 // HostServiceCreateHostJSONRequestBody defines body for HostServiceCreateHost for application/json ContentType.
 type HostServiceCreateHostJSONRequestBody = HostResource

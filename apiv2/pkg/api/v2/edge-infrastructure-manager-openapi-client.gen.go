@@ -89,6 +89,378 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// CustomConfigServiceListCustomConfigs2 request
+	CustomConfigServiceListCustomConfigs2(ctx context.Context, params *CustomConfigServiceListCustomConfigs2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CustomConfigServiceCreateCustomConfig2WithBody request with any body
+	CustomConfigServiceCreateCustomConfig2WithBody(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CustomConfigServiceCreateCustomConfig2(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, body CustomConfigServiceCreateCustomConfig2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CustomConfigServiceDeleteCustomConfig2 request
+	CustomConfigServiceDeleteCustomConfig2(ctx context.Context, resourceId string, params *CustomConfigServiceDeleteCustomConfig2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CustomConfigServiceGetCustomConfig2 request
+	CustomConfigServiceGetCustomConfig2(ctx context.Context, resourceId string, params *CustomConfigServiceGetCustomConfig2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceListHosts2 request
+	HostServiceListHosts2(ctx context.Context, params *HostServiceListHosts2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceCreateHost2WithBody request with any body
+	HostServiceCreateHost2WithBody(ctx context.Context, params *HostServiceCreateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	HostServiceCreateHost2(ctx context.Context, params *HostServiceCreateHost2Params, body HostServiceCreateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceRegisterHost2WithBody request with any body
+	HostServiceRegisterHost2WithBody(ctx context.Context, params *HostServiceRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	HostServiceRegisterHost2(ctx context.Context, params *HostServiceRegisterHost2Params, body HostServiceRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceDeleteHost2 request
+	HostServiceDeleteHost2(ctx context.Context, resourceId string, params *HostServiceDeleteHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceGetHost2 request
+	HostServiceGetHost2(ctx context.Context, resourceId string, params *HostServiceGetHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServicePatchHost2WithBody request with any body
+	HostServicePatchHost2WithBody(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	HostServicePatchHost2(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, body HostServicePatchHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceUpdateHost2WithBody request with any body
+	HostServiceUpdateHost2WithBody(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	HostServiceUpdateHost2(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, body HostServiceUpdateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceInvalidateHost2 request
+	HostServiceInvalidateHost2(ctx context.Context, resourceId string, params *HostServiceInvalidateHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceOnboardHost2 request
+	HostServiceOnboardHost2(ctx context.Context, resourceId string, params *HostServiceOnboardHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServicePatchRegisterHost2WithBody request with any body
+	HostServicePatchRegisterHost2WithBody(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	HostServicePatchRegisterHost2(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, body HostServicePatchRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// HostServiceGetHostsSummary2 request
+	HostServiceGetHostsSummary2(ctx context.Context, params *HostServiceGetHostsSummary2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// InstanceServiceListInstances2 request
+	InstanceServiceListInstances2(ctx context.Context, params *InstanceServiceListInstances2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// InstanceServiceCreateInstance2WithBody request with any body
+	InstanceServiceCreateInstance2WithBody(ctx context.Context, params *InstanceServiceCreateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	InstanceServiceCreateInstance2(ctx context.Context, params *InstanceServiceCreateInstance2Params, body InstanceServiceCreateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// InstanceServiceDeleteInstance2 request
+	InstanceServiceDeleteInstance2(ctx context.Context, resourceId string, params *InstanceServiceDeleteInstance2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// InstanceServiceGetInstance2 request
+	InstanceServiceGetInstance2(ctx context.Context, resourceId string, params *InstanceServiceGetInstance2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// InstanceServicePatchInstance2WithBody request with any body
+	InstanceServicePatchInstance2WithBody(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	InstanceServicePatchInstance2(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, body InstanceServicePatchInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// InstanceServiceUpdateInstance2WithBody request with any body
+	InstanceServiceUpdateInstance2WithBody(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	InstanceServiceUpdateInstance2(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, body InstanceServiceUpdateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocalAccountServiceListLocalAccounts2 request
+	LocalAccountServiceListLocalAccounts2(ctx context.Context, params *LocalAccountServiceListLocalAccounts2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocalAccountServiceCreateLocalAccount2WithBody request with any body
+	LocalAccountServiceCreateLocalAccount2WithBody(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	LocalAccountServiceCreateLocalAccount2(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, body LocalAccountServiceCreateLocalAccount2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocalAccountServiceDeleteLocalAccount2 request
+	LocalAccountServiceDeleteLocalAccount2(ctx context.Context, resourceId string, params *LocalAccountServiceDeleteLocalAccount2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocalAccountServiceGetLocalAccount2 request
+	LocalAccountServiceGetLocalAccount2(ctx context.Context, resourceId string, params *LocalAccountServiceGetLocalAccount2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LocationServiceListLocations2 request
+	LocationServiceListLocations2(ctx context.Context, params *LocationServiceListLocations2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceListOperatingSystems2 request
+	OperatingSystemServiceListOperatingSystems2(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceCreateOperatingSystem2WithBody request with any body
+	OperatingSystemServiceCreateOperatingSystem2WithBody(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OperatingSystemServiceCreateOperatingSystem2(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceDeleteOperatingSystem2 request
+	OperatingSystemServiceDeleteOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceGetOperatingSystem2 request
+	OperatingSystemServiceGetOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServicePatchOperatingSystem2WithBody request with any body
+	OperatingSystemServicePatchOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OperatingSystemServicePatchOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceUpdateOperatingSystem2WithBody request with any body
+	OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OperatingSystemServiceUpdateOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyListOSUpdatePolicy2 request
+	OSUpdatePolicyListOSUpdatePolicy2(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyCreateOSUpdatePolicy2WithBody request with any body
+	OSUpdatePolicyCreateOSUpdatePolicy2WithBody(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OSUpdatePolicyCreateOSUpdatePolicy2(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, body OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyDeleteOSUpdatePolicy2 request
+	OSUpdatePolicyDeleteOSUpdatePolicy2(ctx context.Context, resourceId string, params *OSUpdatePolicyDeleteOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdatePolicyGetOSUpdatePolicy2 request
+	OSUpdatePolicyGetOSUpdatePolicy2(ctx context.Context, resourceId string, params *OSUpdatePolicyGetOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdateRunListOSUpdateRun2 request
+	OSUpdateRunListOSUpdateRun2(ctx context.Context, params *OSUpdateRunListOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdateRunDeleteOSUpdateRun2 request
+	OSUpdateRunDeleteOSUpdateRun2(ctx context.Context, resourceId string, params *OSUpdateRunDeleteOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OSUpdateRunGetOSUpdateRun2 request
+	OSUpdateRunGetOSUpdateRun2(ctx context.Context, resourceId string, params *OSUpdateRunGetOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceListProviders2 request
+	ProviderServiceListProviders2(ctx context.Context, params *ProviderServiceListProviders2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceCreateProvider2WithBody request with any body
+	ProviderServiceCreateProvider2WithBody(ctx context.Context, params *ProviderServiceCreateProvider2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ProviderServiceCreateProvider2(ctx context.Context, params *ProviderServiceCreateProvider2Params, body ProviderServiceCreateProvider2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceDeleteProvider2 request
+	ProviderServiceDeleteProvider2(ctx context.Context, resourceId string, params *ProviderServiceDeleteProvider2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ProviderServiceGetProvider2 request
+	ProviderServiceGetProvider2(ctx context.Context, resourceId string, params *ProviderServiceGetProvider2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceListRegions2 request
+	RegionServiceListRegions2(ctx context.Context, params *RegionServiceListRegions2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceCreateRegion2WithBody request with any body
+	RegionServiceCreateRegion2WithBody(ctx context.Context, params *RegionServiceCreateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RegionServiceCreateRegion2(ctx context.Context, params *RegionServiceCreateRegion2Params, body RegionServiceCreateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceDeleteRegion2 request
+	RegionServiceDeleteRegion2(ctx context.Context, resourceId string, params *RegionServiceDeleteRegion2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceGetRegion2 request
+	RegionServiceGetRegion2(ctx context.Context, resourceId string, params *RegionServiceGetRegion2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServicePatchRegion2WithBody request with any body
+	RegionServicePatchRegion2WithBody(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RegionServicePatchRegion2(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, body RegionServicePatchRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceUpdateRegion2WithBody request with any body
+	RegionServiceUpdateRegion2WithBody(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RegionServiceUpdateRegion2(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, body RegionServiceUpdateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceListSchedules2 request
+	ScheduleServiceListSchedules2(ctx context.Context, params *ScheduleServiceListSchedules2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceListRepeatedSchedules2 request
+	ScheduleServiceListRepeatedSchedules2(ctx context.Context, params *ScheduleServiceListRepeatedSchedules2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceCreateRepeatedSchedule2WithBody request with any body
+	ScheduleServiceCreateRepeatedSchedule2WithBody(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceCreateRepeatedSchedule2(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, body ScheduleServiceCreateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceDeleteRepeatedSchedule2 request
+	ScheduleServiceDeleteRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceDeleteRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceGetRepeatedSchedule2 request
+	ScheduleServiceGetRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceGetRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServicePatchRepeatedSchedule2WithBody request with any body
+	ScheduleServicePatchRepeatedSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServicePatchRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, body ScheduleServicePatchRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceUpdateRepeatedSchedule2WithBody request with any body
+	ScheduleServiceUpdateRepeatedSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceUpdateRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, body ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceListSingleSchedules2 request
+	ScheduleServiceListSingleSchedules2(ctx context.Context, params *ScheduleServiceListSingleSchedules2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceCreateSingleSchedule2WithBody request with any body
+	ScheduleServiceCreateSingleSchedule2WithBody(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceCreateSingleSchedule2(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, body ScheduleServiceCreateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceDeleteSingleSchedule2 request
+	ScheduleServiceDeleteSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceDeleteSingleSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceGetSingleSchedule2 request
+	ScheduleServiceGetSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceGetSingleSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServicePatchSingleSchedule2WithBody request with any body
+	ScheduleServicePatchSingleSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServicePatchSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, body ScheduleServicePatchSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ScheduleServiceUpdateSingleSchedule2WithBody request with any body
+	ScheduleServiceUpdateSingleSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ScheduleServiceUpdateSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, body ScheduleServiceUpdateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceListSites2 request
+	SiteServiceListSites2(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceCreateSite2WithBody request with any body
+	SiteServiceCreateSite2WithBody(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServiceCreateSite2(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceDeleteSite2 request
+	SiteServiceDeleteSite2(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceGetSite2 request
+	SiteServiceGetSite2(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServicePatchSite2WithBody request with any body
+	SiteServicePatchSite2WithBody(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServicePatchSite2(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceUpdateSite2WithBody request with any body
+	SiteServiceUpdateSite2WithBody(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServiceUpdateSite2(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceListTelemetryLogsGroups2 request
+	TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2 request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroup2 request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2 request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2 request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2 request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceListTelemetryLogsProfiles2 request
+	TelemetryLogsProfileServiceListTelemetryLogsProfiles2(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBody request with any body
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBody(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfile2(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2 request
+	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceGetTelemetryLogsProfile2 request
+	TelemetryLogsProfileServiceGetTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBody request with any body
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, body TelemetryLogsProfileServicePatchTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBody request with any body
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2 request
+	TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBody request with any body
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBody(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2 request
+	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2 request
+	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBody request with any body
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBody request with any body
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceListWorkloadMembers2 request
+	WorkloadMemberServiceListWorkloadMembers2(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembers2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceCreateWorkloadMember2WithBody request with any body
+	WorkloadMemberServiceCreateWorkloadMember2WithBody(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	WorkloadMemberServiceCreateWorkloadMember2(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, body WorkloadMemberServiceCreateWorkloadMember2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceDeleteWorkloadMember2 request
+	WorkloadMemberServiceDeleteWorkloadMember2(ctx context.Context, resourceId string, params *WorkloadMemberServiceDeleteWorkloadMember2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadMemberServiceGetWorkloadMember2 request
+	WorkloadMemberServiceGetWorkloadMember2(ctx context.Context, resourceId string, params *WorkloadMemberServiceGetWorkloadMember2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadServiceListWorkloads2 request
+	WorkloadServiceListWorkloads2(ctx context.Context, params *WorkloadServiceListWorkloads2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadServiceCreateWorkload2WithBody request with any body
+	WorkloadServiceCreateWorkload2WithBody(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	WorkloadServiceCreateWorkload2(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, body WorkloadServiceCreateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadServiceDeleteWorkload2 request
+	WorkloadServiceDeleteWorkload2(ctx context.Context, resourceId string, params *WorkloadServiceDeleteWorkload2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadServiceGetWorkload2 request
+	WorkloadServiceGetWorkload2(ctx context.Context, resourceId string, params *WorkloadServiceGetWorkload2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadServicePatchWorkload2WithBody request with any body
+	WorkloadServicePatchWorkload2WithBody(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	WorkloadServicePatchWorkload2(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, body WorkloadServicePatchWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// WorkloadServiceUpdateWorkload2WithBody request with any body
+	WorkloadServiceUpdateWorkload2WithBody(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	WorkloadServiceUpdateWorkload2(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, body WorkloadServiceUpdateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// HostServiceListHosts request
 	HostServiceListHosts(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -463,6 +835,1650 @@ type ClientInterface interface {
 	WorkloadServiceUpdateWorkloadWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	WorkloadServiceUpdateWorkload(ctx context.Context, projectName string, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) CustomConfigServiceListCustomConfigs2(ctx context.Context, params *CustomConfigServiceListCustomConfigs2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceListCustomConfigs2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceCreateCustomConfig2WithBody(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceCreateCustomConfig2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceCreateCustomConfig2(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, body CustomConfigServiceCreateCustomConfig2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceCreateCustomConfig2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceDeleteCustomConfig2(ctx context.Context, resourceId string, params *CustomConfigServiceDeleteCustomConfig2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceDeleteCustomConfig2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CustomConfigServiceGetCustomConfig2(ctx context.Context, resourceId string, params *CustomConfigServiceGetCustomConfig2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCustomConfigServiceGetCustomConfig2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceListHosts2(ctx context.Context, params *HostServiceListHosts2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceListHosts2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceCreateHost2WithBody(ctx context.Context, params *HostServiceCreateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceCreateHost2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceCreateHost2(ctx context.Context, params *HostServiceCreateHost2Params, body HostServiceCreateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceCreateHost2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceRegisterHost2WithBody(ctx context.Context, params *HostServiceRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceRegisterHost2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceRegisterHost2(ctx context.Context, params *HostServiceRegisterHost2Params, body HostServiceRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceRegisterHost2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceDeleteHost2(ctx context.Context, resourceId string, params *HostServiceDeleteHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceDeleteHost2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceGetHost2(ctx context.Context, resourceId string, params *HostServiceGetHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceGetHost2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServicePatchHost2WithBody(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchHost2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServicePatchHost2(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, body HostServicePatchHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchHost2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceUpdateHost2WithBody(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceUpdateHost2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceUpdateHost2(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, body HostServiceUpdateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceUpdateHost2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceInvalidateHost2(ctx context.Context, resourceId string, params *HostServiceInvalidateHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceInvalidateHost2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceOnboardHost2(ctx context.Context, resourceId string, params *HostServiceOnboardHost2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceOnboardHost2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServicePatchRegisterHost2WithBody(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchRegisterHost2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServicePatchRegisterHost2(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, body HostServicePatchRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServicePatchRegisterHost2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) HostServiceGetHostsSummary2(ctx context.Context, params *HostServiceGetHostsSummary2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewHostServiceGetHostsSummary2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServiceListInstances2(ctx context.Context, params *InstanceServiceListInstances2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServiceListInstances2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServiceCreateInstance2WithBody(ctx context.Context, params *InstanceServiceCreateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServiceCreateInstance2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServiceCreateInstance2(ctx context.Context, params *InstanceServiceCreateInstance2Params, body InstanceServiceCreateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServiceCreateInstance2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServiceDeleteInstance2(ctx context.Context, resourceId string, params *InstanceServiceDeleteInstance2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServiceDeleteInstance2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServiceGetInstance2(ctx context.Context, resourceId string, params *InstanceServiceGetInstance2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServiceGetInstance2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServicePatchInstance2WithBody(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServicePatchInstance2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServicePatchInstance2(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, body InstanceServicePatchInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServicePatchInstance2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServiceUpdateInstance2WithBody(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServiceUpdateInstance2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) InstanceServiceUpdateInstance2(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, body InstanceServiceUpdateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewInstanceServiceUpdateInstance2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceListLocalAccounts2(ctx context.Context, params *LocalAccountServiceListLocalAccounts2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceListLocalAccounts2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceCreateLocalAccount2WithBody(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceCreateLocalAccount2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceCreateLocalAccount2(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, body LocalAccountServiceCreateLocalAccount2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceCreateLocalAccount2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceDeleteLocalAccount2(ctx context.Context, resourceId string, params *LocalAccountServiceDeleteLocalAccount2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceDeleteLocalAccount2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocalAccountServiceGetLocalAccount2(ctx context.Context, resourceId string, params *LocalAccountServiceGetLocalAccount2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocalAccountServiceGetLocalAccount2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) LocationServiceListLocations2(ctx context.Context, params *LocationServiceListLocations2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLocationServiceListLocations2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceListOperatingSystems2(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceListOperatingSystems2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceCreateOperatingSystem2WithBody(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceCreateOperatingSystem2(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceCreateOperatingSystem2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceDeleteOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceDeleteOperatingSystem2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceGetOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceGetOperatingSystem2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServicePatchOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServicePatchOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystem2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceUpdateOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceUpdateOperatingSystem2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyListOSUpdatePolicy2(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyListOSUpdatePolicy2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyCreateOSUpdatePolicy2WithBody(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyCreateOSUpdatePolicy2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyCreateOSUpdatePolicy2(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, body OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyCreateOSUpdatePolicy2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyDeleteOSUpdatePolicy2(ctx context.Context, resourceId string, params *OSUpdatePolicyDeleteOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyDeleteOSUpdatePolicy2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdatePolicyGetOSUpdatePolicy2(ctx context.Context, resourceId string, params *OSUpdatePolicyGetOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdatePolicyGetOSUpdatePolicy2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdateRunListOSUpdateRun2(ctx context.Context, params *OSUpdateRunListOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdateRunListOSUpdateRun2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdateRunDeleteOSUpdateRun2(ctx context.Context, resourceId string, params *OSUpdateRunDeleteOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdateRunDeleteOSUpdateRun2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OSUpdateRunGetOSUpdateRun2(ctx context.Context, resourceId string, params *OSUpdateRunGetOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOSUpdateRunGetOSUpdateRun2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceListProviders2(ctx context.Context, params *ProviderServiceListProviders2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceListProviders2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceCreateProvider2WithBody(ctx context.Context, params *ProviderServiceCreateProvider2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceCreateProvider2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceCreateProvider2(ctx context.Context, params *ProviderServiceCreateProvider2Params, body ProviderServiceCreateProvider2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceCreateProvider2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceDeleteProvider2(ctx context.Context, resourceId string, params *ProviderServiceDeleteProvider2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceDeleteProvider2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ProviderServiceGetProvider2(ctx context.Context, resourceId string, params *ProviderServiceGetProvider2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewProviderServiceGetProvider2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceListRegions2(ctx context.Context, params *RegionServiceListRegions2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceListRegions2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceCreateRegion2WithBody(ctx context.Context, params *RegionServiceCreateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceCreateRegion2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceCreateRegion2(ctx context.Context, params *RegionServiceCreateRegion2Params, body RegionServiceCreateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceCreateRegion2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceDeleteRegion2(ctx context.Context, resourceId string, params *RegionServiceDeleteRegion2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceDeleteRegion2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceGetRegion2(ctx context.Context, resourceId string, params *RegionServiceGetRegion2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceGetRegion2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServicePatchRegion2WithBody(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServicePatchRegion2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServicePatchRegion2(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, body RegionServicePatchRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServicePatchRegion2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceUpdateRegion2WithBody(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceUpdateRegion2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceUpdateRegion2(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, body RegionServiceUpdateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceUpdateRegion2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceListSchedules2(ctx context.Context, params *ScheduleServiceListSchedules2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceListSchedules2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceListRepeatedSchedules2(ctx context.Context, params *ScheduleServiceListRepeatedSchedules2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceListRepeatedSchedules2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateRepeatedSchedule2WithBody(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateRepeatedSchedule2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateRepeatedSchedule2(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, body ScheduleServiceCreateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateRepeatedSchedule2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceDeleteRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceDeleteRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceDeleteRepeatedSchedule2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceGetRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceGetRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceGetRepeatedSchedule2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchRepeatedSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchRepeatedSchedule2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, body ScheduleServicePatchRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchRepeatedSchedule2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateRepeatedSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateRepeatedSchedule2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateRepeatedSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, body ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateRepeatedSchedule2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceListSingleSchedules2(ctx context.Context, params *ScheduleServiceListSingleSchedules2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceListSingleSchedules2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateSingleSchedule2WithBody(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateSingleSchedule2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceCreateSingleSchedule2(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, body ScheduleServiceCreateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceCreateSingleSchedule2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceDeleteSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceDeleteSingleSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceDeleteSingleSchedule2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceGetSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceGetSingleSchedule2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceGetSingleSchedule2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchSingleSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchSingleSchedule2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServicePatchSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, body ScheduleServicePatchSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServicePatchSingleSchedule2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateSingleSchedule2WithBody(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateSingleSchedule2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ScheduleServiceUpdateSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, body ScheduleServiceUpdateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewScheduleServiceUpdateSingleSchedule2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceListSites2(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceListSites2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceCreateSite2WithBody(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSite2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceCreateSite2(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSite2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceDeleteSite2(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceDeleteSite2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceGetSite2(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceGetSite2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServicePatchSite2WithBody(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSite2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServicePatchSite2(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSite2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceUpdateSite2WithBody(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSite2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceUpdateSite2(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSite2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceListTelemetryLogsProfiles2(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceListTelemetryLogsProfiles2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBody(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceCreateTelemetryLogsProfile2(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceGetTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceGetTelemetryLogsProfile2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServicePatchTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, body TelemetryLogsProfileServicePatchTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBody(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBody(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceListWorkloadMembers2(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembers2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceListWorkloadMembers2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceCreateWorkloadMember2WithBody(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceCreateWorkloadMember2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceCreateWorkloadMember2(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, body WorkloadMemberServiceCreateWorkloadMember2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceCreateWorkloadMember2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceDeleteWorkloadMember2(ctx context.Context, resourceId string, params *WorkloadMemberServiceDeleteWorkloadMember2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceDeleteWorkloadMember2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadMemberServiceGetWorkloadMember2(ctx context.Context, resourceId string, params *WorkloadMemberServiceGetWorkloadMember2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadMemberServiceGetWorkloadMember2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServiceListWorkloads2(ctx context.Context, params *WorkloadServiceListWorkloads2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServiceListWorkloads2Request(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServiceCreateWorkload2WithBody(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServiceCreateWorkload2RequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServiceCreateWorkload2(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, body WorkloadServiceCreateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServiceCreateWorkload2Request(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServiceDeleteWorkload2(ctx context.Context, resourceId string, params *WorkloadServiceDeleteWorkload2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServiceDeleteWorkload2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServiceGetWorkload2(ctx context.Context, resourceId string, params *WorkloadServiceGetWorkload2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServiceGetWorkload2Request(c.Server, resourceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServicePatchWorkload2WithBody(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServicePatchWorkload2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServicePatchWorkload2(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, body WorkloadServicePatchWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServicePatchWorkload2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServiceUpdateWorkload2WithBody(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServiceUpdateWorkload2RequestWithBody(c.Server, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) WorkloadServiceUpdateWorkload2(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, body WorkloadServiceUpdateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewWorkloadServiceUpdateWorkload2Request(c.Server, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) HostServiceListHosts(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -2119,6 +4135,6984 @@ func (c *Client) WorkloadServiceUpdateWorkload(ctx context.Context, projectName 
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewCustomConfigServiceListCustomConfigs2Request generates requests for CustomConfigServiceListCustomConfigs2
+func NewCustomConfigServiceListCustomConfigs2Request(server string, params *CustomConfigServiceListCustomConfigs2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCustomConfigServiceCreateCustomConfig2Request calls the generic CustomConfigServiceCreateCustomConfig2 builder with application/json body
+func NewCustomConfigServiceCreateCustomConfig2Request(server string, params *CustomConfigServiceCreateCustomConfig2Params, body CustomConfigServiceCreateCustomConfig2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCustomConfigServiceCreateCustomConfig2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCustomConfigServiceCreateCustomConfig2RequestWithBody generates requests for CustomConfigServiceCreateCustomConfig2 with any type of body
+func NewCustomConfigServiceCreateCustomConfig2RequestWithBody(server string, params *CustomConfigServiceCreateCustomConfig2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewCustomConfigServiceDeleteCustomConfig2Request generates requests for CustomConfigServiceDeleteCustomConfig2
+func NewCustomConfigServiceDeleteCustomConfig2Request(server string, resourceId string, params *CustomConfigServiceDeleteCustomConfig2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCustomConfigServiceGetCustomConfig2Request generates requests for CustomConfigServiceGetCustomConfig2
+func NewCustomConfigServiceGetCustomConfig2Request(server string, resourceId string, params *CustomConfigServiceGetCustomConfig2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/customConfigs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewHostServiceListHosts2Request generates requests for HostServiceListHosts2
+func NewHostServiceListHosts2Request(server string, params *HostServiceListHosts2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewHostServiceCreateHost2Request calls the generic HostServiceCreateHost2 builder with application/json body
+func NewHostServiceCreateHost2Request(server string, params *HostServiceCreateHost2Params, body HostServiceCreateHost2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewHostServiceCreateHost2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewHostServiceCreateHost2RequestWithBody generates requests for HostServiceCreateHost2 with any type of body
+func NewHostServiceCreateHost2RequestWithBody(server string, params *HostServiceCreateHost2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewHostServiceRegisterHost2Request calls the generic HostServiceRegisterHost2 builder with application/json body
+func NewHostServiceRegisterHost2Request(server string, params *HostServiceRegisterHost2Params, body HostServiceRegisterHost2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewHostServiceRegisterHost2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewHostServiceRegisterHost2RequestWithBody generates requests for HostServiceRegisterHost2 with any type of body
+func NewHostServiceRegisterHost2RequestWithBody(server string, params *HostServiceRegisterHost2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/register")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.ResourceId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "resourceId", runtime.ParamLocationQuery, *params.ResourceId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewHostServiceDeleteHost2Request generates requests for HostServiceDeleteHost2
+func NewHostServiceDeleteHost2Request(server string, resourceId string, params *HostServiceDeleteHost2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewHostServiceGetHost2Request generates requests for HostServiceGetHost2
+func NewHostServiceGetHost2Request(server string, resourceId string, params *HostServiceGetHost2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewHostServicePatchHost2Request calls the generic HostServicePatchHost2 builder with application/json body
+func NewHostServicePatchHost2Request(server string, resourceId string, params *HostServicePatchHost2Params, body HostServicePatchHost2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewHostServicePatchHost2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewHostServicePatchHost2RequestWithBody generates requests for HostServicePatchHost2 with any type of body
+func NewHostServicePatchHost2RequestWithBody(server string, resourceId string, params *HostServicePatchHost2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewHostServiceUpdateHost2Request calls the generic HostServiceUpdateHost2 builder with application/json body
+func NewHostServiceUpdateHost2Request(server string, resourceId string, params *HostServiceUpdateHost2Params, body HostServiceUpdateHost2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewHostServiceUpdateHost2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewHostServiceUpdateHost2RequestWithBody generates requests for HostServiceUpdateHost2 with any type of body
+func NewHostServiceUpdateHost2RequestWithBody(server string, resourceId string, params *HostServiceUpdateHost2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewHostServiceInvalidateHost2Request generates requests for HostServiceInvalidateHost2
+func NewHostServiceInvalidateHost2Request(server string, resourceId string, params *HostServiceInvalidateHost2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/%s/invalidate", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.Note != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "note", runtime.ParamLocationQuery, *params.Note); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewHostServiceOnboardHost2Request generates requests for HostServiceOnboardHost2
+func NewHostServiceOnboardHost2Request(server string, resourceId string, params *HostServiceOnboardHost2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/%s/onboard", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewHostServicePatchRegisterHost2Request calls the generic HostServicePatchRegisterHost2 builder with application/json body
+func NewHostServicePatchRegisterHost2Request(server string, resourceId string, params *HostServicePatchRegisterHost2Params, body HostServicePatchRegisterHost2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewHostServicePatchRegisterHost2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewHostServicePatchRegisterHost2RequestWithBody generates requests for HostServicePatchRegisterHost2 with any type of body
+func NewHostServicePatchRegisterHost2RequestWithBody(server string, resourceId string, params *HostServicePatchRegisterHost2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts/%s/register", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewHostServiceGetHostsSummary2Request generates requests for HostServiceGetHostsSummary2
+func NewHostServiceGetHostsSummary2Request(server string, params *HostServiceGetHostsSummary2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/hosts_summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewInstanceServiceListInstances2Request generates requests for InstanceServiceListInstances2
+func NewInstanceServiceListInstances2Request(server string, params *InstanceServiceListInstances2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/instances")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewInstanceServiceCreateInstance2Request calls the generic InstanceServiceCreateInstance2 builder with application/json body
+func NewInstanceServiceCreateInstance2Request(server string, params *InstanceServiceCreateInstance2Params, body InstanceServiceCreateInstance2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewInstanceServiceCreateInstance2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewInstanceServiceCreateInstance2RequestWithBody generates requests for InstanceServiceCreateInstance2 with any type of body
+func NewInstanceServiceCreateInstance2RequestWithBody(server string, params *InstanceServiceCreateInstance2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/instances")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewInstanceServiceDeleteInstance2Request generates requests for InstanceServiceDeleteInstance2
+func NewInstanceServiceDeleteInstance2Request(server string, resourceId string, params *InstanceServiceDeleteInstance2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/instances/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewInstanceServiceGetInstance2Request generates requests for InstanceServiceGetInstance2
+func NewInstanceServiceGetInstance2Request(server string, resourceId string, params *InstanceServiceGetInstance2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/instances/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewInstanceServicePatchInstance2Request calls the generic InstanceServicePatchInstance2 builder with application/json body
+func NewInstanceServicePatchInstance2Request(server string, resourceId string, params *InstanceServicePatchInstance2Params, body InstanceServicePatchInstance2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewInstanceServicePatchInstance2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewInstanceServicePatchInstance2RequestWithBody generates requests for InstanceServicePatchInstance2 with any type of body
+func NewInstanceServicePatchInstance2RequestWithBody(server string, resourceId string, params *InstanceServicePatchInstance2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/instances/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewInstanceServiceUpdateInstance2Request calls the generic InstanceServiceUpdateInstance2 builder with application/json body
+func NewInstanceServiceUpdateInstance2Request(server string, resourceId string, params *InstanceServiceUpdateInstance2Params, body InstanceServiceUpdateInstance2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewInstanceServiceUpdateInstance2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewInstanceServiceUpdateInstance2RequestWithBody generates requests for InstanceServiceUpdateInstance2 with any type of body
+func NewInstanceServiceUpdateInstance2RequestWithBody(server string, resourceId string, params *InstanceServiceUpdateInstance2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/instances/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewLocalAccountServiceListLocalAccounts2Request generates requests for LocalAccountServiceListLocalAccounts2
+func NewLocalAccountServiceListLocalAccounts2Request(server string, params *LocalAccountServiceListLocalAccounts2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewLocalAccountServiceCreateLocalAccount2Request calls the generic LocalAccountServiceCreateLocalAccount2 builder with application/json body
+func NewLocalAccountServiceCreateLocalAccount2Request(server string, params *LocalAccountServiceCreateLocalAccount2Params, body LocalAccountServiceCreateLocalAccount2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewLocalAccountServiceCreateLocalAccount2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewLocalAccountServiceCreateLocalAccount2RequestWithBody generates requests for LocalAccountServiceCreateLocalAccount2 with any type of body
+func NewLocalAccountServiceCreateLocalAccount2RequestWithBody(server string, params *LocalAccountServiceCreateLocalAccount2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewLocalAccountServiceDeleteLocalAccount2Request generates requests for LocalAccountServiceDeleteLocalAccount2
+func NewLocalAccountServiceDeleteLocalAccount2Request(server string, resourceId string, params *LocalAccountServiceDeleteLocalAccount2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewLocalAccountServiceGetLocalAccount2Request generates requests for LocalAccountServiceGetLocalAccount2
+func NewLocalAccountServiceGetLocalAccount2Request(server string, resourceId string, params *LocalAccountServiceGetLocalAccount2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/localAccounts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewLocationServiceListLocations2Request generates requests for LocationServiceListLocations2
+func NewLocationServiceListLocations2Request(server string, params *LocationServiceListLocations2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/locations")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "name", runtime.ParamLocationQuery, *params.Name); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowSites != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showSites", runtime.ParamLocationQuery, *params.ShowSites); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowRegions != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showRegions", runtime.ParamLocationQuery, *params.ShowRegions); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceListOperatingSystems2Request generates requests for OperatingSystemServiceListOperatingSystems2
+func NewOperatingSystemServiceListOperatingSystems2Request(server string, params *OperatingSystemServiceListOperatingSystems2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/operating_systems")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceCreateOperatingSystem2Request calls the generic OperatingSystemServiceCreateOperatingSystem2 builder with application/json body
+func NewOperatingSystemServiceCreateOperatingSystem2Request(server string, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody generates requests for OperatingSystemServiceCreateOperatingSystem2 with any type of body
+func NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server string, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/operating_systems")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceDeleteOperatingSystem2Request generates requests for OperatingSystemServiceDeleteOperatingSystem2
+func NewOperatingSystemServiceDeleteOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/operating_systems/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceGetOperatingSystem2Request generates requests for OperatingSystemServiceGetOperatingSystem2
+func NewOperatingSystemServiceGetOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/operating_systems/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOperatingSystemServicePatchOperatingSystem2Request calls the generic OperatingSystemServicePatchOperatingSystem2 builder with application/json body
+func NewOperatingSystemServicePatchOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewOperatingSystemServicePatchOperatingSystem2RequestWithBody generates requests for OperatingSystemServicePatchOperatingSystem2 with any type of body
+func NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/operating_systems/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceUpdateOperatingSystem2Request calls the generic OperatingSystemServiceUpdateOperatingSystem2 builder with application/json body
+func NewOperatingSystemServiceUpdateOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody generates requests for OperatingSystemServiceUpdateOperatingSystem2 with any type of body
+func NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(server string, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/operating_systems/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyListOSUpdatePolicy2Request generates requests for OSUpdatePolicyListOSUpdatePolicy2
+func NewOSUpdatePolicyListOSUpdatePolicy2Request(server string, params *OSUpdatePolicyListOSUpdatePolicy2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyCreateOSUpdatePolicy2Request calls the generic OSUpdatePolicyCreateOSUpdatePolicy2 builder with application/json body
+func NewOSUpdatePolicyCreateOSUpdatePolicy2Request(server string, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, body OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOSUpdatePolicyCreateOSUpdatePolicy2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewOSUpdatePolicyCreateOSUpdatePolicy2RequestWithBody generates requests for OSUpdatePolicyCreateOSUpdatePolicy2 with any type of body
+func NewOSUpdatePolicyCreateOSUpdatePolicy2RequestWithBody(server string, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyDeleteOSUpdatePolicy2Request generates requests for OSUpdatePolicyDeleteOSUpdatePolicy2
+func NewOSUpdatePolicyDeleteOSUpdatePolicy2Request(server string, resourceId string, params *OSUpdatePolicyDeleteOSUpdatePolicy2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdatePolicyGetOSUpdatePolicy2Request generates requests for OSUpdatePolicyGetOSUpdatePolicy2
+func NewOSUpdatePolicyGetOSUpdatePolicy2Request(server string, resourceId string, params *OSUpdatePolicyGetOSUpdatePolicy2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_policy/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdateRunListOSUpdateRun2Request generates requests for OSUpdateRunListOSUpdateRun2
+func NewOSUpdateRunListOSUpdateRun2Request(server string, params *OSUpdateRunListOSUpdateRun2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_run")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdateRunDeleteOSUpdateRun2Request generates requests for OSUpdateRunDeleteOSUpdateRun2
+func NewOSUpdateRunDeleteOSUpdateRun2Request(server string, resourceId string, params *OSUpdateRunDeleteOSUpdateRun2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_run/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOSUpdateRunGetOSUpdateRun2Request generates requests for OSUpdateRunGetOSUpdateRun2
+func NewOSUpdateRunGetOSUpdateRun2Request(server string, resourceId string, params *OSUpdateRunGetOSUpdateRun2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/os_update_run/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewProviderServiceListProviders2Request generates requests for ProviderServiceListProviders2
+func NewProviderServiceListProviders2Request(server string, params *ProviderServiceListProviders2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewProviderServiceCreateProvider2Request calls the generic ProviderServiceCreateProvider2 builder with application/json body
+func NewProviderServiceCreateProvider2Request(server string, params *ProviderServiceCreateProvider2Params, body ProviderServiceCreateProvider2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewProviderServiceCreateProvider2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewProviderServiceCreateProvider2RequestWithBody generates requests for ProviderServiceCreateProvider2 with any type of body
+func NewProviderServiceCreateProvider2RequestWithBody(server string, params *ProviderServiceCreateProvider2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewProviderServiceDeleteProvider2Request generates requests for ProviderServiceDeleteProvider2
+func NewProviderServiceDeleteProvider2Request(server string, resourceId string, params *ProviderServiceDeleteProvider2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewProviderServiceGetProvider2Request generates requests for ProviderServiceGetProvider2
+func NewProviderServiceGetProvider2Request(server string, resourceId string, params *ProviderServiceGetProvider2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/providers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegionServiceListRegions2Request generates requests for RegionServiceListRegions2
+func NewRegionServiceListRegions2Request(server string, params *RegionServiceListRegions2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/regions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowTotalSites != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showTotalSites", runtime.ParamLocationQuery, *params.ShowTotalSites); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegionServiceCreateRegion2Request calls the generic RegionServiceCreateRegion2 builder with application/json body
+func NewRegionServiceCreateRegion2Request(server string, params *RegionServiceCreateRegion2Params, body RegionServiceCreateRegion2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRegionServiceCreateRegion2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewRegionServiceCreateRegion2RequestWithBody generates requests for RegionServiceCreateRegion2 with any type of body
+func NewRegionServiceCreateRegion2RequestWithBody(server string, params *RegionServiceCreateRegion2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/regions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewRegionServiceDeleteRegion2Request generates requests for RegionServiceDeleteRegion2
+func NewRegionServiceDeleteRegion2Request(server string, resourceId string, params *RegionServiceDeleteRegion2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/regions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegionServiceGetRegion2Request generates requests for RegionServiceGetRegion2
+func NewRegionServiceGetRegion2Request(server string, resourceId string, params *RegionServiceGetRegion2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/regions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegionServicePatchRegion2Request calls the generic RegionServicePatchRegion2 builder with application/json body
+func NewRegionServicePatchRegion2Request(server string, resourceId string, params *RegionServicePatchRegion2Params, body RegionServicePatchRegion2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRegionServicePatchRegion2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewRegionServicePatchRegion2RequestWithBody generates requests for RegionServicePatchRegion2 with any type of body
+func NewRegionServicePatchRegion2RequestWithBody(server string, resourceId string, params *RegionServicePatchRegion2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/regions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewRegionServiceUpdateRegion2Request calls the generic RegionServiceUpdateRegion2 builder with application/json body
+func NewRegionServiceUpdateRegion2Request(server string, resourceId string, params *RegionServiceUpdateRegion2Params, body RegionServiceUpdateRegion2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRegionServiceUpdateRegion2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewRegionServiceUpdateRegion2RequestWithBody generates requests for RegionServiceUpdateRegion2 with any type of body
+func NewRegionServiceUpdateRegion2RequestWithBody(server string, resourceId string, params *RegionServiceUpdateRegion2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/regions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceListSchedules2Request generates requests for ScheduleServiceListSchedules2
+func NewScheduleServiceListSchedules2Request(server string, params *ScheduleServiceListSchedules2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.HostId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.UnixEpoch != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceListRepeatedSchedules2Request generates requests for ScheduleServiceListRepeatedSchedules2
+func NewScheduleServiceListRepeatedSchedules2Request(server string, params *ScheduleServiceListRepeatedSchedules2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.HostId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.UnixEpoch != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceCreateRepeatedSchedule2Request calls the generic ScheduleServiceCreateRepeatedSchedule2 builder with application/json body
+func NewScheduleServiceCreateRepeatedSchedule2Request(server string, params *ScheduleServiceCreateRepeatedSchedule2Params, body ScheduleServiceCreateRepeatedSchedule2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceCreateRepeatedSchedule2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewScheduleServiceCreateRepeatedSchedule2RequestWithBody generates requests for ScheduleServiceCreateRepeatedSchedule2 with any type of body
+func NewScheduleServiceCreateRepeatedSchedule2RequestWithBody(server string, params *ScheduleServiceCreateRepeatedSchedule2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceDeleteRepeatedSchedule2Request generates requests for ScheduleServiceDeleteRepeatedSchedule2
+func NewScheduleServiceDeleteRepeatedSchedule2Request(server string, resourceId string, params *ScheduleServiceDeleteRepeatedSchedule2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceGetRepeatedSchedule2Request generates requests for ScheduleServiceGetRepeatedSchedule2
+func NewScheduleServiceGetRepeatedSchedule2Request(server string, resourceId string, params *ScheduleServiceGetRepeatedSchedule2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServicePatchRepeatedSchedule2Request calls the generic ScheduleServicePatchRepeatedSchedule2 builder with application/json body
+func NewScheduleServicePatchRepeatedSchedule2Request(server string, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, body ScheduleServicePatchRepeatedSchedule2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServicePatchRepeatedSchedule2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewScheduleServicePatchRepeatedSchedule2RequestWithBody generates requests for ScheduleServicePatchRepeatedSchedule2 with any type of body
+func NewScheduleServicePatchRepeatedSchedule2RequestWithBody(server string, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceUpdateRepeatedSchedule2Request calls the generic ScheduleServiceUpdateRepeatedSchedule2 builder with application/json body
+func NewScheduleServiceUpdateRepeatedSchedule2Request(server string, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, body ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceUpdateRepeatedSchedule2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewScheduleServiceUpdateRepeatedSchedule2RequestWithBody generates requests for ScheduleServiceUpdateRepeatedSchedule2 with any type of body
+func NewScheduleServiceUpdateRepeatedSchedule2RequestWithBody(server string, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/repeated/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceListSingleSchedules2Request generates requests for ScheduleServiceListSingleSchedules2
+func NewScheduleServiceListSingleSchedules2Request(server string, params *ScheduleServiceListSingleSchedules2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.HostId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "hostId", runtime.ParamLocationQuery, *params.HostId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.UnixEpoch != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "unixEpoch", runtime.ParamLocationQuery, *params.UnixEpoch); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceCreateSingleSchedule2Request calls the generic ScheduleServiceCreateSingleSchedule2 builder with application/json body
+func NewScheduleServiceCreateSingleSchedule2Request(server string, params *ScheduleServiceCreateSingleSchedule2Params, body ScheduleServiceCreateSingleSchedule2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceCreateSingleSchedule2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewScheduleServiceCreateSingleSchedule2RequestWithBody generates requests for ScheduleServiceCreateSingleSchedule2 with any type of body
+func NewScheduleServiceCreateSingleSchedule2RequestWithBody(server string, params *ScheduleServiceCreateSingleSchedule2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceDeleteSingleSchedule2Request generates requests for ScheduleServiceDeleteSingleSchedule2
+func NewScheduleServiceDeleteSingleSchedule2Request(server string, resourceId string, params *ScheduleServiceDeleteSingleSchedule2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServiceGetSingleSchedule2Request generates requests for ScheduleServiceGetSingleSchedule2
+func NewScheduleServiceGetSingleSchedule2Request(server string, resourceId string, params *ScheduleServiceGetSingleSchedule2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewScheduleServicePatchSingleSchedule2Request calls the generic ScheduleServicePatchSingleSchedule2 builder with application/json body
+func NewScheduleServicePatchSingleSchedule2Request(server string, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, body ScheduleServicePatchSingleSchedule2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServicePatchSingleSchedule2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewScheduleServicePatchSingleSchedule2RequestWithBody generates requests for ScheduleServicePatchSingleSchedule2 with any type of body
+func NewScheduleServicePatchSingleSchedule2RequestWithBody(server string, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewScheduleServiceUpdateSingleSchedule2Request calls the generic ScheduleServiceUpdateSingleSchedule2 builder with application/json body
+func NewScheduleServiceUpdateSingleSchedule2Request(server string, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, body ScheduleServiceUpdateSingleSchedule2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewScheduleServiceUpdateSingleSchedule2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewScheduleServiceUpdateSingleSchedule2RequestWithBody generates requests for ScheduleServiceUpdateSingleSchedule2 with any type of body
+func NewScheduleServiceUpdateSingleSchedule2RequestWithBody(server string, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/schedules/single/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceListSites2Request generates requests for SiteServiceListSites2
+func NewSiteServiceListSites2Request(server string, params *SiteServiceListSites2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/sites")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServiceCreateSite2Request calls the generic SiteServiceCreateSite2 builder with application/json body
+func NewSiteServiceCreateSite2Request(server string, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServiceCreateSite2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewSiteServiceCreateSite2RequestWithBody generates requests for SiteServiceCreateSite2 with any type of body
+func NewSiteServiceCreateSite2RequestWithBody(server string, params *SiteServiceCreateSite2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/sites")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceDeleteSite2Request generates requests for SiteServiceDeleteSite2
+func NewSiteServiceDeleteSite2Request(server string, resourceId string, params *SiteServiceDeleteSite2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/sites/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServiceGetSite2Request generates requests for SiteServiceGetSite2
+func NewSiteServiceGetSite2Request(server string, resourceId string, params *SiteServiceGetSite2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/sites/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServicePatchSite2Request calls the generic SiteServicePatchSite2 builder with application/json body
+func NewSiteServicePatchSite2Request(server string, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServicePatchSite2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewSiteServicePatchSite2RequestWithBody generates requests for SiteServicePatchSite2 with any type of body
+func NewSiteServicePatchSite2RequestWithBody(server string, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/sites/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceUpdateSite2Request calls the generic SiteServiceUpdateSite2 builder with application/json body
+func NewSiteServiceUpdateSite2Request(server string, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServiceUpdateSite2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewSiteServiceUpdateSite2RequestWithBody generates requests for SiteServiceUpdateSite2 with any type of body
+func NewSiteServiceUpdateSite2RequestWithBody(server string, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/sites/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request generates requests for TelemetryLogsGroupServiceListTelemetryLogsGroups2
+func NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(server string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request calls the generic TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 builder with application/json body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request(server string, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody generates requests for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 with any type of body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server string, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request generates requests for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2
+func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(server string, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request generates requests for TelemetryLogsGroupServiceGetTelemetryLogsGroup2
+func NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(server string, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request generates requests for TelemetryMetricsGroupServiceListTelemetryMetricsGroups2
+func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(server string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request calls the generic TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 builder with application/json body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request(server string, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody generates requests for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 with any type of body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(server string, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request generates requests for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2
+func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(server string, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request generates requests for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2
+func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request(server string, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceListTelemetryLogsProfiles2Request generates requests for TelemetryLogsProfileServiceListTelemetryLogsProfiles2
+func NewTelemetryLogsProfileServiceListTelemetryLogsProfiles2Request(server string, params *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.InstanceId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "instanceId", runtime.ParamLocationQuery, *params.InstanceId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowInherited != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showInherited", runtime.ParamLocationQuery, *params.ShowInherited); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2Request calls the generic TelemetryLogsProfileServiceCreateTelemetryLogsProfile2 builder with application/json body
+func NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2Request(server string, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2RequestWithBody generates requests for TelemetryLogsProfileServiceCreateTelemetryLogsProfile2 with any type of body
+func NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2RequestWithBody(server string, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Request generates requests for TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2
+func NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Request(server string, resourceId string, params *TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceGetTelemetryLogsProfile2Request generates requests for TelemetryLogsProfileServiceGetTelemetryLogsProfile2
+func NewTelemetryLogsProfileServiceGetTelemetryLogsProfile2Request(server string, resourceId string, params *TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2Request calls the generic TelemetryLogsProfileServicePatchTelemetryLogsProfile2 builder with application/json body
+func NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2Request(server string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, body TelemetryLogsProfileServicePatchTelemetryLogsProfile2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2RequestWithBody generates requests for TelemetryLogsProfileServicePatchTelemetryLogsProfile2 with any type of body
+func NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2RequestWithBody(server string, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Request calls the generic TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2 builder with application/json body
+func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Request(server string, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2RequestWithBody generates requests for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2 with any type of body
+func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2RequestWithBody(server string, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Request generates requests for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2
+func NewTelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Request(server string, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.InstanceId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "instanceId", runtime.ParamLocationQuery, *params.InstanceId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.SiteId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "siteId", runtime.ParamLocationQuery, *params.SiteId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowInherited != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showInherited", runtime.ParamLocationQuery, *params.ShowInherited); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Request calls the generic TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2 builder with application/json body
+func NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Request(server string, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2RequestWithBody generates requests for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2 with any type of body
+func NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2RequestWithBody(server string, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Request generates requests for TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2
+func NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Request(server string, resourceId string, params *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Request generates requests for TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2
+func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Request(server string, resourceId string, params *TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Request calls the generic TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2 builder with application/json body
+func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Request(server string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2RequestWithBody generates requests for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2 with any type of body
+func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2RequestWithBody(server string, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Request calls the generic TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2 builder with application/json body
+func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Request(server string, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2RequestWithBody generates requests for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2 with any type of body
+func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2RequestWithBody(server string, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewWorkloadMemberServiceListWorkloadMembers2Request generates requests for WorkloadMemberServiceListWorkloadMembers2
+func NewWorkloadMemberServiceListWorkloadMembers2Request(server string, params *WorkloadMemberServiceListWorkloadMembers2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadMemberServiceCreateWorkloadMember2Request calls the generic WorkloadMemberServiceCreateWorkloadMember2 builder with application/json body
+func NewWorkloadMemberServiceCreateWorkloadMember2Request(server string, params *WorkloadMemberServiceCreateWorkloadMember2Params, body WorkloadMemberServiceCreateWorkloadMember2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewWorkloadMemberServiceCreateWorkloadMember2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewWorkloadMemberServiceCreateWorkloadMember2RequestWithBody generates requests for WorkloadMemberServiceCreateWorkloadMember2 with any type of body
+func NewWorkloadMemberServiceCreateWorkloadMember2RequestWithBody(server string, params *WorkloadMemberServiceCreateWorkloadMember2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewWorkloadMemberServiceDeleteWorkloadMember2Request generates requests for WorkloadMemberServiceDeleteWorkloadMember2
+func NewWorkloadMemberServiceDeleteWorkloadMember2Request(server string, resourceId string, params *WorkloadMemberServiceDeleteWorkloadMember2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadMemberServiceGetWorkloadMember2Request generates requests for WorkloadMemberServiceGetWorkloadMember2
+func NewWorkloadMemberServiceGetWorkloadMember2Request(server string, resourceId string, params *WorkloadMemberServiceGetWorkloadMember2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workload_members/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadServiceListWorkloads2Request generates requests for WorkloadServiceListWorkloads2
+func NewWorkloadServiceListWorkloads2Request(server string, params *WorkloadServiceListWorkloads2Params) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workloads")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadServiceCreateWorkload2Request calls the generic WorkloadServiceCreateWorkload2 builder with application/json body
+func NewWorkloadServiceCreateWorkload2Request(server string, params *WorkloadServiceCreateWorkload2Params, body WorkloadServiceCreateWorkload2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewWorkloadServiceCreateWorkload2RequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewWorkloadServiceCreateWorkload2RequestWithBody generates requests for WorkloadServiceCreateWorkload2 with any type of body
+func NewWorkloadServiceCreateWorkload2RequestWithBody(server string, params *WorkloadServiceCreateWorkload2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workloads")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewWorkloadServiceDeleteWorkload2Request generates requests for WorkloadServiceDeleteWorkload2
+func NewWorkloadServiceDeleteWorkload2Request(server string, resourceId string, params *WorkloadServiceDeleteWorkload2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workloads/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadServiceGetWorkload2Request generates requests for WorkloadServiceGetWorkload2
+func NewWorkloadServiceGetWorkload2Request(server string, resourceId string, params *WorkloadServiceGetWorkload2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workloads/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewWorkloadServicePatchWorkload2Request calls the generic WorkloadServicePatchWorkload2 builder with application/json body
+func NewWorkloadServicePatchWorkload2Request(server string, resourceId string, params *WorkloadServicePatchWorkload2Params, body WorkloadServicePatchWorkload2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewWorkloadServicePatchWorkload2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewWorkloadServicePatchWorkload2RequestWithBody generates requests for WorkloadServicePatchWorkload2 with any type of body
+func NewWorkloadServicePatchWorkload2RequestWithBody(server string, resourceId string, params *WorkloadServicePatchWorkload2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workloads/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewWorkloadServiceUpdateWorkload2Request calls the generic WorkloadServiceUpdateWorkload2 builder with application/json body
+func NewWorkloadServiceUpdateWorkload2Request(server string, resourceId string, params *WorkloadServiceUpdateWorkload2Params, body WorkloadServiceUpdateWorkload2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewWorkloadServiceUpdateWorkload2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+}
+
+// NewWorkloadServiceUpdateWorkload2RequestWithBody generates requests for WorkloadServiceUpdateWorkload2 with any type of body
+func NewWorkloadServiceUpdateWorkload2RequestWithBody(server string, resourceId string, params *WorkloadServiceUpdateWorkload2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/edge-infra.orchestrator.apis/v2/workloads/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
 }
 
 // NewHostServiceListHostsRequest generates requests for HostServiceListHosts
@@ -8303,6 +17297,378 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// CustomConfigServiceListCustomConfigs2WithResponse request
+	CustomConfigServiceListCustomConfigs2WithResponse(ctx context.Context, params *CustomConfigServiceListCustomConfigs2Params, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigs2Response, error)
+
+	// CustomConfigServiceCreateCustomConfig2WithBodyWithResponse request with any body
+	CustomConfigServiceCreateCustomConfig2WithBodyWithResponse(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfig2Response, error)
+
+	CustomConfigServiceCreateCustomConfig2WithResponse(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, body CustomConfigServiceCreateCustomConfig2JSONRequestBody, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfig2Response, error)
+
+	// CustomConfigServiceDeleteCustomConfig2WithResponse request
+	CustomConfigServiceDeleteCustomConfig2WithResponse(ctx context.Context, resourceId string, params *CustomConfigServiceDeleteCustomConfig2Params, reqEditors ...RequestEditorFn) (*CustomConfigServiceDeleteCustomConfig2Response, error)
+
+	// CustomConfigServiceGetCustomConfig2WithResponse request
+	CustomConfigServiceGetCustomConfig2WithResponse(ctx context.Context, resourceId string, params *CustomConfigServiceGetCustomConfig2Params, reqEditors ...RequestEditorFn) (*CustomConfigServiceGetCustomConfig2Response, error)
+
+	// HostServiceListHosts2WithResponse request
+	HostServiceListHosts2WithResponse(ctx context.Context, params *HostServiceListHosts2Params, reqEditors ...RequestEditorFn) (*HostServiceListHosts2Response, error)
+
+	// HostServiceCreateHost2WithBodyWithResponse request with any body
+	HostServiceCreateHost2WithBodyWithResponse(ctx context.Context, params *HostServiceCreateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceCreateHost2Response, error)
+
+	HostServiceCreateHost2WithResponse(ctx context.Context, params *HostServiceCreateHost2Params, body HostServiceCreateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceCreateHost2Response, error)
+
+	// HostServiceRegisterHost2WithBodyWithResponse request with any body
+	HostServiceRegisterHost2WithBodyWithResponse(ctx context.Context, params *HostServiceRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterHost2Response, error)
+
+	HostServiceRegisterHost2WithResponse(ctx context.Context, params *HostServiceRegisterHost2Params, body HostServiceRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterHost2Response, error)
+
+	// HostServiceDeleteHost2WithResponse request
+	HostServiceDeleteHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceDeleteHost2Params, reqEditors ...RequestEditorFn) (*HostServiceDeleteHost2Response, error)
+
+	// HostServiceGetHost2WithResponse request
+	HostServiceGetHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceGetHost2Params, reqEditors ...RequestEditorFn) (*HostServiceGetHost2Response, error)
+
+	// HostServicePatchHost2WithBodyWithResponse request with any body
+	HostServicePatchHost2WithBodyWithResponse(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchHost2Response, error)
+
+	HostServicePatchHost2WithResponse(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, body HostServicePatchHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchHost2Response, error)
+
+	// HostServiceUpdateHost2WithBodyWithResponse request with any body
+	HostServiceUpdateHost2WithBodyWithResponse(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceUpdateHost2Response, error)
+
+	HostServiceUpdateHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, body HostServiceUpdateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceUpdateHost2Response, error)
+
+	// HostServiceInvalidateHost2WithResponse request
+	HostServiceInvalidateHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceInvalidateHost2Params, reqEditors ...RequestEditorFn) (*HostServiceInvalidateHost2Response, error)
+
+	// HostServiceOnboardHost2WithResponse request
+	HostServiceOnboardHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceOnboardHost2Params, reqEditors ...RequestEditorFn) (*HostServiceOnboardHost2Response, error)
+
+	// HostServicePatchRegisterHost2WithBodyWithResponse request with any body
+	HostServicePatchRegisterHost2WithBodyWithResponse(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHost2Response, error)
+
+	HostServicePatchRegisterHost2WithResponse(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, body HostServicePatchRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHost2Response, error)
+
+	// HostServiceGetHostsSummary2WithResponse request
+	HostServiceGetHostsSummary2WithResponse(ctx context.Context, params *HostServiceGetHostsSummary2Params, reqEditors ...RequestEditorFn) (*HostServiceGetHostsSummary2Response, error)
+
+	// InstanceServiceListInstances2WithResponse request
+	InstanceServiceListInstances2WithResponse(ctx context.Context, params *InstanceServiceListInstances2Params, reqEditors ...RequestEditorFn) (*InstanceServiceListInstances2Response, error)
+
+	// InstanceServiceCreateInstance2WithBodyWithResponse request with any body
+	InstanceServiceCreateInstance2WithBodyWithResponse(ctx context.Context, params *InstanceServiceCreateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServiceCreateInstance2Response, error)
+
+	InstanceServiceCreateInstance2WithResponse(ctx context.Context, params *InstanceServiceCreateInstance2Params, body InstanceServiceCreateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServiceCreateInstance2Response, error)
+
+	// InstanceServiceDeleteInstance2WithResponse request
+	InstanceServiceDeleteInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServiceDeleteInstance2Params, reqEditors ...RequestEditorFn) (*InstanceServiceDeleteInstance2Response, error)
+
+	// InstanceServiceGetInstance2WithResponse request
+	InstanceServiceGetInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServiceGetInstance2Params, reqEditors ...RequestEditorFn) (*InstanceServiceGetInstance2Response, error)
+
+	// InstanceServicePatchInstance2WithBodyWithResponse request with any body
+	InstanceServicePatchInstance2WithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstance2Response, error)
+
+	InstanceServicePatchInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, body InstanceServicePatchInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstance2Response, error)
+
+	// InstanceServiceUpdateInstance2WithBodyWithResponse request with any body
+	InstanceServiceUpdateInstance2WithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServiceUpdateInstance2Response, error)
+
+	InstanceServiceUpdateInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, body InstanceServiceUpdateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServiceUpdateInstance2Response, error)
+
+	// LocalAccountServiceListLocalAccounts2WithResponse request
+	LocalAccountServiceListLocalAccounts2WithResponse(ctx context.Context, params *LocalAccountServiceListLocalAccounts2Params, reqEditors ...RequestEditorFn) (*LocalAccountServiceListLocalAccounts2Response, error)
+
+	// LocalAccountServiceCreateLocalAccount2WithBodyWithResponse request with any body
+	LocalAccountServiceCreateLocalAccount2WithBodyWithResponse(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccount2Response, error)
+
+	LocalAccountServiceCreateLocalAccount2WithResponse(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, body LocalAccountServiceCreateLocalAccount2JSONRequestBody, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccount2Response, error)
+
+	// LocalAccountServiceDeleteLocalAccount2WithResponse request
+	LocalAccountServiceDeleteLocalAccount2WithResponse(ctx context.Context, resourceId string, params *LocalAccountServiceDeleteLocalAccount2Params, reqEditors ...RequestEditorFn) (*LocalAccountServiceDeleteLocalAccount2Response, error)
+
+	// LocalAccountServiceGetLocalAccount2WithResponse request
+	LocalAccountServiceGetLocalAccount2WithResponse(ctx context.Context, resourceId string, params *LocalAccountServiceGetLocalAccount2Params, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccount2Response, error)
+
+	// LocationServiceListLocations2WithResponse request
+	LocationServiceListLocations2WithResponse(ctx context.Context, params *LocationServiceListLocations2Params, reqEditors ...RequestEditorFn) (*LocationServiceListLocations2Response, error)
+
+	// OperatingSystemServiceListOperatingSystems2WithResponse request
+	OperatingSystemServiceListOperatingSystems2WithResponse(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems2Response, error)
+
+	// OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse request with any body
+	OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error)
+
+	OperatingSystemServiceCreateOperatingSystem2WithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error)
+
+	// OperatingSystemServiceDeleteOperatingSystem2WithResponse request
+	OperatingSystemServiceDeleteOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem2Response, error)
+
+	// OperatingSystemServiceGetOperatingSystem2WithResponse request
+	OperatingSystemServiceGetOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem2Response, error)
+
+	// OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse request with any body
+	OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error)
+
+	OperatingSystemServicePatchOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error)
+
+	// OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse request with any body
+	OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error)
+
+	OperatingSystemServiceUpdateOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error)
+
+	// OSUpdatePolicyListOSUpdatePolicy2WithResponse request
+	OSUpdatePolicyListOSUpdatePolicy2WithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicy2Response, error)
+
+	// OSUpdatePolicyCreateOSUpdatePolicy2WithBodyWithResponse request with any body
+	OSUpdatePolicyCreateOSUpdatePolicy2WithBodyWithResponse(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicy2Response, error)
+
+	OSUpdatePolicyCreateOSUpdatePolicy2WithResponse(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, body OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicy2Response, error)
+
+	// OSUpdatePolicyDeleteOSUpdatePolicy2WithResponse request
+	OSUpdatePolicyDeleteOSUpdatePolicy2WithResponse(ctx context.Context, resourceId string, params *OSUpdatePolicyDeleteOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicy2Response, error)
+
+	// OSUpdatePolicyGetOSUpdatePolicy2WithResponse request
+	OSUpdatePolicyGetOSUpdatePolicy2WithResponse(ctx context.Context, resourceId string, params *OSUpdatePolicyGetOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicy2Response, error)
+
+	// OSUpdateRunListOSUpdateRun2WithResponse request
+	OSUpdateRunListOSUpdateRun2WithResponse(ctx context.Context, params *OSUpdateRunListOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*OSUpdateRunListOSUpdateRun2Response, error)
+
+	// OSUpdateRunDeleteOSUpdateRun2WithResponse request
+	OSUpdateRunDeleteOSUpdateRun2WithResponse(ctx context.Context, resourceId string, params *OSUpdateRunDeleteOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*OSUpdateRunDeleteOSUpdateRun2Response, error)
+
+	// OSUpdateRunGetOSUpdateRun2WithResponse request
+	OSUpdateRunGetOSUpdateRun2WithResponse(ctx context.Context, resourceId string, params *OSUpdateRunGetOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRun2Response, error)
+
+	// ProviderServiceListProviders2WithResponse request
+	ProviderServiceListProviders2WithResponse(ctx context.Context, params *ProviderServiceListProviders2Params, reqEditors ...RequestEditorFn) (*ProviderServiceListProviders2Response, error)
+
+	// ProviderServiceCreateProvider2WithBodyWithResponse request with any body
+	ProviderServiceCreateProvider2WithBodyWithResponse(ctx context.Context, params *ProviderServiceCreateProvider2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProvider2Response, error)
+
+	ProviderServiceCreateProvider2WithResponse(ctx context.Context, params *ProviderServiceCreateProvider2Params, body ProviderServiceCreateProvider2JSONRequestBody, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProvider2Response, error)
+
+	// ProviderServiceDeleteProvider2WithResponse request
+	ProviderServiceDeleteProvider2WithResponse(ctx context.Context, resourceId string, params *ProviderServiceDeleteProvider2Params, reqEditors ...RequestEditorFn) (*ProviderServiceDeleteProvider2Response, error)
+
+	// ProviderServiceGetProvider2WithResponse request
+	ProviderServiceGetProvider2WithResponse(ctx context.Context, resourceId string, params *ProviderServiceGetProvider2Params, reqEditors ...RequestEditorFn) (*ProviderServiceGetProvider2Response, error)
+
+	// RegionServiceListRegions2WithResponse request
+	RegionServiceListRegions2WithResponse(ctx context.Context, params *RegionServiceListRegions2Params, reqEditors ...RequestEditorFn) (*RegionServiceListRegions2Response, error)
+
+	// RegionServiceCreateRegion2WithBodyWithResponse request with any body
+	RegionServiceCreateRegion2WithBodyWithResponse(ctx context.Context, params *RegionServiceCreateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegion2Response, error)
+
+	RegionServiceCreateRegion2WithResponse(ctx context.Context, params *RegionServiceCreateRegion2Params, body RegionServiceCreateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegion2Response, error)
+
+	// RegionServiceDeleteRegion2WithResponse request
+	RegionServiceDeleteRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServiceDeleteRegion2Params, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegion2Response, error)
+
+	// RegionServiceGetRegion2WithResponse request
+	RegionServiceGetRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServiceGetRegion2Params, reqEditors ...RequestEditorFn) (*RegionServiceGetRegion2Response, error)
+
+	// RegionServicePatchRegion2WithBodyWithResponse request with any body
+	RegionServicePatchRegion2WithBodyWithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegion2Response, error)
+
+	RegionServicePatchRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, body RegionServicePatchRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegion2Response, error)
+
+	// RegionServiceUpdateRegion2WithBodyWithResponse request with any body
+	RegionServiceUpdateRegion2WithBodyWithResponse(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegion2Response, error)
+
+	RegionServiceUpdateRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, body RegionServiceUpdateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegion2Response, error)
+
+	// ScheduleServiceListSchedules2WithResponse request
+	ScheduleServiceListSchedules2WithResponse(ctx context.Context, params *ScheduleServiceListSchedules2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedules2Response, error)
+
+	// ScheduleServiceListRepeatedSchedules2WithResponse request
+	ScheduleServiceListRepeatedSchedules2WithResponse(ctx context.Context, params *ScheduleServiceListRepeatedSchedules2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceListRepeatedSchedules2Response, error)
+
+	// ScheduleServiceCreateRepeatedSchedule2WithBodyWithResponse request with any body
+	ScheduleServiceCreateRepeatedSchedule2WithBodyWithResponse(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedSchedule2Response, error)
+
+	ScheduleServiceCreateRepeatedSchedule2WithResponse(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, body ScheduleServiceCreateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedSchedule2Response, error)
+
+	// ScheduleServiceDeleteRepeatedSchedule2WithResponse request
+	ScheduleServiceDeleteRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceDeleteRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteRepeatedSchedule2Response, error)
+
+	// ScheduleServiceGetRepeatedSchedule2WithResponse request
+	ScheduleServiceGetRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceGetRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceGetRepeatedSchedule2Response, error)
+
+	// ScheduleServicePatchRepeatedSchedule2WithBodyWithResponse request with any body
+	ScheduleServicePatchRepeatedSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedSchedule2Response, error)
+
+	ScheduleServicePatchRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, body ScheduleServicePatchRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedSchedule2Response, error)
+
+	// ScheduleServiceUpdateRepeatedSchedule2WithBodyWithResponse request with any body
+	ScheduleServiceUpdateRepeatedSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedSchedule2Response, error)
+
+	ScheduleServiceUpdateRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, body ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedSchedule2Response, error)
+
+	// ScheduleServiceListSingleSchedules2WithResponse request
+	ScheduleServiceListSingleSchedules2WithResponse(ctx context.Context, params *ScheduleServiceListSingleSchedules2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceListSingleSchedules2Response, error)
+
+	// ScheduleServiceCreateSingleSchedule2WithBodyWithResponse request with any body
+	ScheduleServiceCreateSingleSchedule2WithBodyWithResponse(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleSchedule2Response, error)
+
+	ScheduleServiceCreateSingleSchedule2WithResponse(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, body ScheduleServiceCreateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleSchedule2Response, error)
+
+	// ScheduleServiceDeleteSingleSchedule2WithResponse request
+	ScheduleServiceDeleteSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceDeleteSingleSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteSingleSchedule2Response, error)
+
+	// ScheduleServiceGetSingleSchedule2WithResponse request
+	ScheduleServiceGetSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceGetSingleSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceGetSingleSchedule2Response, error)
+
+	// ScheduleServicePatchSingleSchedule2WithBodyWithResponse request with any body
+	ScheduleServicePatchSingleSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleSchedule2Response, error)
+
+	ScheduleServicePatchSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, body ScheduleServicePatchSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleSchedule2Response, error)
+
+	// ScheduleServiceUpdateSingleSchedule2WithBodyWithResponse request with any body
+	ScheduleServiceUpdateSingleSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleSchedule2Response, error)
+
+	ScheduleServiceUpdateSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, body ScheduleServiceUpdateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleSchedule2Response, error)
+
+	// SiteServiceListSites2WithResponse request
+	SiteServiceListSites2WithResponse(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites2Response, error)
+
+	// SiteServiceCreateSite2WithBodyWithResponse request with any body
+	SiteServiceCreateSite2WithBodyWithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error)
+
+	SiteServiceCreateSite2WithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error)
+
+	// SiteServiceDeleteSite2WithResponse request
+	SiteServiceDeleteSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite2Response, error)
+
+	// SiteServiceGetSite2WithResponse request
+	SiteServiceGetSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceGetSite2Response, error)
+
+	// SiteServicePatchSite2WithBodyWithResponse request with any body
+	SiteServicePatchSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error)
+
+	SiteServicePatchSite2WithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error)
+
+	// SiteServiceUpdateSite2WithBodyWithResponse request with any body
+	SiteServiceUpdateSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error)
+
+	SiteServiceUpdateSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error)
+
+	// TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request
+	TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error)
+
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error)
+
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error)
+
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error)
+
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error)
+
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error)
+
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error)
+
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error)
+
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error)
+
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error)
+
+	// TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse request
+	TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response, error)
+
+	// TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBodyWithResponse request with any body
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBodyWithResponse(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response, error)
+
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithResponse(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response, error)
+
+	// TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2WithResponse request
+	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response, error)
+
+	// TelemetryLogsProfileServiceGetTelemetryLogsProfile2WithResponse request
+	TelemetryLogsProfileServiceGetTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response, error)
+
+	// TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBodyWithResponse request with any body
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response, error)
+
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, body TelemetryLogsProfileServicePatchTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response, error)
+
+	// TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBodyWithResponse request with any body
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response, error)
+
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response, error)
+
+	// TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2WithResponse request
+	TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2WithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response, error)
+
+	// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBodyWithResponse request with any body
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response, error)
+
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response, error)
+
+	// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2WithResponse request
+	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response, error)
+
+	// TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2WithResponse request
+	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response, error)
+
+	// TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBodyWithResponse request with any body
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response, error)
+
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response, error)
+
+	// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBodyWithResponse request with any body
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response, error)
+
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response, error)
+
+	// WorkloadMemberServiceListWorkloadMembers2WithResponse request
+	WorkloadMemberServiceListWorkloadMembers2WithResponse(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembers2Params, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembers2Response, error)
+
+	// WorkloadMemberServiceCreateWorkloadMember2WithBodyWithResponse request with any body
+	WorkloadMemberServiceCreateWorkloadMember2WithBodyWithResponse(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMember2Response, error)
+
+	WorkloadMemberServiceCreateWorkloadMember2WithResponse(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, body WorkloadMemberServiceCreateWorkloadMember2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMember2Response, error)
+
+	// WorkloadMemberServiceDeleteWorkloadMember2WithResponse request
+	WorkloadMemberServiceDeleteWorkloadMember2WithResponse(ctx context.Context, resourceId string, params *WorkloadMemberServiceDeleteWorkloadMember2Params, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceDeleteWorkloadMember2Response, error)
+
+	// WorkloadMemberServiceGetWorkloadMember2WithResponse request
+	WorkloadMemberServiceGetWorkloadMember2WithResponse(ctx context.Context, resourceId string, params *WorkloadMemberServiceGetWorkloadMember2Params, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceGetWorkloadMember2Response, error)
+
+	// WorkloadServiceListWorkloads2WithResponse request
+	WorkloadServiceListWorkloads2WithResponse(ctx context.Context, params *WorkloadServiceListWorkloads2Params, reqEditors ...RequestEditorFn) (*WorkloadServiceListWorkloads2Response, error)
+
+	// WorkloadServiceCreateWorkload2WithBodyWithResponse request with any body
+	WorkloadServiceCreateWorkload2WithBodyWithResponse(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceCreateWorkload2Response, error)
+
+	WorkloadServiceCreateWorkload2WithResponse(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, body WorkloadServiceCreateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceCreateWorkload2Response, error)
+
+	// WorkloadServiceDeleteWorkload2WithResponse request
+	WorkloadServiceDeleteWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServiceDeleteWorkload2Params, reqEditors ...RequestEditorFn) (*WorkloadServiceDeleteWorkload2Response, error)
+
+	// WorkloadServiceGetWorkload2WithResponse request
+	WorkloadServiceGetWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServiceGetWorkload2Params, reqEditors ...RequestEditorFn) (*WorkloadServiceGetWorkload2Response, error)
+
+	// WorkloadServicePatchWorkload2WithBodyWithResponse request with any body
+	WorkloadServicePatchWorkload2WithBodyWithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkload2Response, error)
+
+	WorkloadServicePatchWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, body WorkloadServicePatchWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkload2Response, error)
+
+	// WorkloadServiceUpdateWorkload2WithBodyWithResponse request with any body
+	WorkloadServiceUpdateWorkload2WithBodyWithResponse(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkload2Response, error)
+
+	WorkloadServiceUpdateWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, body WorkloadServiceUpdateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkload2Response, error)
+
 	// HostServiceListHostsWithResponse request
 	HostServiceListHostsWithResponse(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error)
 
@@ -8677,6 +18043,2162 @@ type ClientWithResponsesInterface interface {
 	WorkloadServiceUpdateWorkloadWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
 
 	WorkloadServiceUpdateWorkloadWithResponse(ctx context.Context, projectName string, resourceId string, body WorkloadServiceUpdateWorkloadJSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkloadResponse, error)
+}
+
+type CustomConfigServiceListCustomConfigs2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListCustomConfigsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceListCustomConfigs2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceListCustomConfigs2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CustomConfigServiceCreateCustomConfig2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *CustomConfigResource
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceCreateCustomConfig2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceCreateCustomConfig2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CustomConfigServiceDeleteCustomConfig2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteCustomConfigResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceDeleteCustomConfig2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceDeleteCustomConfig2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type CustomConfigServiceGetCustomConfig2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *CustomConfigResource
+}
+
+// Status returns HTTPResponse.Status
+func (r CustomConfigServiceGetCustomConfig2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CustomConfigServiceGetCustomConfig2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceListHosts2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListHostsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceListHosts2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceListHosts2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceCreateHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *HostResource
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceCreateHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceCreateHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceRegisterHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *HostResource
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceRegisterHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceRegisterHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceDeleteHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteHostResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceDeleteHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceDeleteHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceGetHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *HostResource
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceGetHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceGetHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServicePatchHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *HostResource
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServicePatchHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServicePatchHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceUpdateHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *HostResource
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceUpdateHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceUpdateHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceInvalidateHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *InvalidateHostResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceInvalidateHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceInvalidateHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceOnboardHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OnboardHostResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceOnboardHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceOnboardHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServicePatchRegisterHost2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *HostResource
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServicePatchRegisterHost2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServicePatchRegisterHost2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type HostServiceGetHostsSummary2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *GetHostSummaryResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r HostServiceGetHostsSummary2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r HostServiceGetHostsSummary2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type InstanceServiceListInstances2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListInstancesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r InstanceServiceListInstances2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r InstanceServiceListInstances2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type InstanceServiceCreateInstance2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *InstanceResource
+}
+
+// Status returns HTTPResponse.Status
+func (r InstanceServiceCreateInstance2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r InstanceServiceCreateInstance2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type InstanceServiceDeleteInstance2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteInstanceResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r InstanceServiceDeleteInstance2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r InstanceServiceDeleteInstance2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type InstanceServiceGetInstance2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *InstanceResource
+}
+
+// Status returns HTTPResponse.Status
+func (r InstanceServiceGetInstance2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r InstanceServiceGetInstance2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type InstanceServicePatchInstance2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *InstanceResource
+}
+
+// Status returns HTTPResponse.Status
+func (r InstanceServicePatchInstance2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r InstanceServicePatchInstance2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type InstanceServiceUpdateInstance2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *InstanceResource
+}
+
+// Status returns HTTPResponse.Status
+func (r InstanceServiceUpdateInstance2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r InstanceServiceUpdateInstance2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocalAccountServiceListLocalAccounts2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListLocalAccountsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceListLocalAccounts2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceListLocalAccounts2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocalAccountServiceCreateLocalAccount2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *LocalAccountResource
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceCreateLocalAccount2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceCreateLocalAccount2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocalAccountServiceDeleteLocalAccount2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteLocalAccountResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceDeleteLocalAccount2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceDeleteLocalAccount2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocalAccountServiceGetLocalAccount2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *LocalAccountResource
+}
+
+// Status returns HTTPResponse.Status
+func (r LocalAccountServiceGetLocalAccount2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocalAccountServiceGetLocalAccount2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type LocationServiceListLocations2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListLocationsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r LocationServiceListLocations2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LocationServiceListLocations2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceListOperatingSystems2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListOperatingSystemsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceListOperatingSystems2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceListOperatingSystems2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceCreateOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceCreateOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceCreateOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceDeleteOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteOperatingSystemResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceDeleteOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceDeleteOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceGetOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceGetOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceGetOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServicePatchOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServicePatchOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServicePatchOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceUpdateOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceUpdateOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceUpdateOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyListOSUpdatePolicy2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListOSUpdatePolicyResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyListOSUpdatePolicy2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyListOSUpdatePolicy2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyCreateOSUpdatePolicy2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdatePolicy
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyCreateOSUpdatePolicy2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyCreateOSUpdatePolicy2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyDeleteOSUpdatePolicy2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteOSUpdatePolicyResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyDeleteOSUpdatePolicy2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyDeleteOSUpdatePolicy2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdatePolicyGetOSUpdatePolicy2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdatePolicy
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdatePolicyGetOSUpdatePolicy2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdatePolicyGetOSUpdatePolicy2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdateRunListOSUpdateRun2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListOSUpdateRunResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdateRunListOSUpdateRun2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdateRunListOSUpdateRun2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdateRunDeleteOSUpdateRun2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteOSUpdateRunResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdateRunDeleteOSUpdateRun2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdateRunDeleteOSUpdateRun2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OSUpdateRunGetOSUpdateRun2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OSUpdateRun
+}
+
+// Status returns HTTPResponse.Status
+func (r OSUpdateRunGetOSUpdateRun2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OSUpdateRunGetOSUpdateRun2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ProviderServiceListProviders2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListProvidersResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceListProviders2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceListProviders2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ProviderServiceCreateProvider2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ProviderResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceCreateProvider2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceCreateProvider2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ProviderServiceDeleteProvider2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteProviderResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceDeleteProvider2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceDeleteProvider2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ProviderServiceGetProvider2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ProviderResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ProviderServiceGetProvider2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ProviderServiceGetProvider2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceListRegions2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListRegionsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceListRegions2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceListRegions2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceCreateRegion2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceCreateRegion2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceCreateRegion2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceDeleteRegion2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteRegionResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceDeleteRegion2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceDeleteRegion2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceGetRegion2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceGetRegion2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceGetRegion2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServicePatchRegion2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServicePatchRegion2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServicePatchRegion2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceUpdateRegion2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceUpdateRegion2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceUpdateRegion2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceListSchedules2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListSchedulesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceListSchedules2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceListSchedules2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceListRepeatedSchedules2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListRepeatedSchedulesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceListRepeatedSchedules2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceListRepeatedSchedules2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceCreateRepeatedSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceCreateRepeatedSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceCreateRepeatedSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceDeleteRepeatedSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteRepeatedScheduleResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceDeleteRepeatedSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceDeleteRepeatedSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceGetRepeatedSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceGetRepeatedSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceGetRepeatedSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServicePatchRepeatedSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServicePatchRepeatedSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServicePatchRepeatedSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceUpdateRepeatedSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RepeatedScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceUpdateRepeatedSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceUpdateRepeatedSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceListSingleSchedules2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListSingleSchedulesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceListSingleSchedules2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceListSingleSchedules2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceCreateSingleSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceCreateSingleSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceCreateSingleSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceDeleteSingleSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteSingleScheduleResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceDeleteSingleSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceDeleteSingleSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceGetSingleSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceGetSingleSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceGetSingleSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServicePatchSingleSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServicePatchSingleSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServicePatchSingleSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ScheduleServiceUpdateSingleSchedule2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SingleScheduleResource
+}
+
+// Status returns HTTPResponse.Status
+func (r ScheduleServiceUpdateSingleSchedule2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ScheduleServiceUpdateSingleSchedule2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceListSites2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListSitesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceListSites2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceListSites2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceCreateSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceCreateSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceCreateSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceDeleteSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteSiteResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceDeleteSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceDeleteSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceGetSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceGetSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceGetSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServicePatchSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServicePatchSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServicePatchSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceUpdateSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceUpdateSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceUpdateSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceListTelemetryLogsGroups2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryLogsGroupsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroups2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroups2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryLogsGroupResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryMetricsGroupsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryMetricsGroupResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryLogsProfilesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryLogsProfileResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryMetricsProfilesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryMetricsProfileResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsProfileResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadMemberServiceListWorkloadMembers2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListWorkloadMembersResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceListWorkloadMembers2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceListWorkloadMembers2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadMemberServiceCreateWorkloadMember2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadMember
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceCreateWorkloadMember2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceCreateWorkloadMember2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadMemberServiceDeleteWorkloadMember2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteWorkloadMemberResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceDeleteWorkloadMember2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceDeleteWorkloadMember2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadMemberServiceGetWorkloadMember2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadMember
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadMemberServiceGetWorkloadMember2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadMemberServiceGetWorkloadMember2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadServiceListWorkloads2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListWorkloadsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadServiceListWorkloads2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadServiceListWorkloads2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadServiceCreateWorkload2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadResource
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadServiceCreateWorkload2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadServiceCreateWorkload2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadServiceDeleteWorkload2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteWorkloadResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadServiceDeleteWorkload2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadServiceDeleteWorkload2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadServiceGetWorkload2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadResource
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadServiceGetWorkload2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadServiceGetWorkload2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadServicePatchWorkload2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadResource
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadServicePatchWorkload2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadServicePatchWorkload2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type WorkloadServiceUpdateWorkload2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkloadResource
+}
+
+// Status returns HTTPResponse.Status
+func (r WorkloadServiceUpdateWorkload2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r WorkloadServiceUpdateWorkload2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
 }
 
 type HostServiceListHostsResponse struct {
@@ -10857,6 +22379,1200 @@ func (r WorkloadServiceUpdateWorkloadResponse) StatusCode() int {
 	return 0
 }
 
+// CustomConfigServiceListCustomConfigs2WithResponse request returning *CustomConfigServiceListCustomConfigs2Response
+func (c *ClientWithResponses) CustomConfigServiceListCustomConfigs2WithResponse(ctx context.Context, params *CustomConfigServiceListCustomConfigs2Params, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigs2Response, error) {
+	rsp, err := c.CustomConfigServiceListCustomConfigs2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceListCustomConfigs2Response(rsp)
+}
+
+// CustomConfigServiceCreateCustomConfig2WithBodyWithResponse request with arbitrary body returning *CustomConfigServiceCreateCustomConfig2Response
+func (c *ClientWithResponses) CustomConfigServiceCreateCustomConfig2WithBodyWithResponse(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfig2Response, error) {
+	rsp, err := c.CustomConfigServiceCreateCustomConfig2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceCreateCustomConfig2Response(rsp)
+}
+
+func (c *ClientWithResponses) CustomConfigServiceCreateCustomConfig2WithResponse(ctx context.Context, params *CustomConfigServiceCreateCustomConfig2Params, body CustomConfigServiceCreateCustomConfig2JSONRequestBody, reqEditors ...RequestEditorFn) (*CustomConfigServiceCreateCustomConfig2Response, error) {
+	rsp, err := c.CustomConfigServiceCreateCustomConfig2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceCreateCustomConfig2Response(rsp)
+}
+
+// CustomConfigServiceDeleteCustomConfig2WithResponse request returning *CustomConfigServiceDeleteCustomConfig2Response
+func (c *ClientWithResponses) CustomConfigServiceDeleteCustomConfig2WithResponse(ctx context.Context, resourceId string, params *CustomConfigServiceDeleteCustomConfig2Params, reqEditors ...RequestEditorFn) (*CustomConfigServiceDeleteCustomConfig2Response, error) {
+	rsp, err := c.CustomConfigServiceDeleteCustomConfig2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceDeleteCustomConfig2Response(rsp)
+}
+
+// CustomConfigServiceGetCustomConfig2WithResponse request returning *CustomConfigServiceGetCustomConfig2Response
+func (c *ClientWithResponses) CustomConfigServiceGetCustomConfig2WithResponse(ctx context.Context, resourceId string, params *CustomConfigServiceGetCustomConfig2Params, reqEditors ...RequestEditorFn) (*CustomConfigServiceGetCustomConfig2Response, error) {
+	rsp, err := c.CustomConfigServiceGetCustomConfig2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCustomConfigServiceGetCustomConfig2Response(rsp)
+}
+
+// HostServiceListHosts2WithResponse request returning *HostServiceListHosts2Response
+func (c *ClientWithResponses) HostServiceListHosts2WithResponse(ctx context.Context, params *HostServiceListHosts2Params, reqEditors ...RequestEditorFn) (*HostServiceListHosts2Response, error) {
+	rsp, err := c.HostServiceListHosts2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceListHosts2Response(rsp)
+}
+
+// HostServiceCreateHost2WithBodyWithResponse request with arbitrary body returning *HostServiceCreateHost2Response
+func (c *ClientWithResponses) HostServiceCreateHost2WithBodyWithResponse(ctx context.Context, params *HostServiceCreateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceCreateHost2Response, error) {
+	rsp, err := c.HostServiceCreateHost2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceCreateHost2Response(rsp)
+}
+
+func (c *ClientWithResponses) HostServiceCreateHost2WithResponse(ctx context.Context, params *HostServiceCreateHost2Params, body HostServiceCreateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceCreateHost2Response, error) {
+	rsp, err := c.HostServiceCreateHost2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceCreateHost2Response(rsp)
+}
+
+// HostServiceRegisterHost2WithBodyWithResponse request with arbitrary body returning *HostServiceRegisterHost2Response
+func (c *ClientWithResponses) HostServiceRegisterHost2WithBodyWithResponse(ctx context.Context, params *HostServiceRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceRegisterHost2Response, error) {
+	rsp, err := c.HostServiceRegisterHost2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceRegisterHost2Response(rsp)
+}
+
+func (c *ClientWithResponses) HostServiceRegisterHost2WithResponse(ctx context.Context, params *HostServiceRegisterHost2Params, body HostServiceRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceRegisterHost2Response, error) {
+	rsp, err := c.HostServiceRegisterHost2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceRegisterHost2Response(rsp)
+}
+
+// HostServiceDeleteHost2WithResponse request returning *HostServiceDeleteHost2Response
+func (c *ClientWithResponses) HostServiceDeleteHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceDeleteHost2Params, reqEditors ...RequestEditorFn) (*HostServiceDeleteHost2Response, error) {
+	rsp, err := c.HostServiceDeleteHost2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceDeleteHost2Response(rsp)
+}
+
+// HostServiceGetHost2WithResponse request returning *HostServiceGetHost2Response
+func (c *ClientWithResponses) HostServiceGetHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceGetHost2Params, reqEditors ...RequestEditorFn) (*HostServiceGetHost2Response, error) {
+	rsp, err := c.HostServiceGetHost2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceGetHost2Response(rsp)
+}
+
+// HostServicePatchHost2WithBodyWithResponse request with arbitrary body returning *HostServicePatchHost2Response
+func (c *ClientWithResponses) HostServicePatchHost2WithBodyWithResponse(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchHost2Response, error) {
+	rsp, err := c.HostServicePatchHost2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServicePatchHost2Response(rsp)
+}
+
+func (c *ClientWithResponses) HostServicePatchHost2WithResponse(ctx context.Context, resourceId string, params *HostServicePatchHost2Params, body HostServicePatchHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchHost2Response, error) {
+	rsp, err := c.HostServicePatchHost2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServicePatchHost2Response(rsp)
+}
+
+// HostServiceUpdateHost2WithBodyWithResponse request with arbitrary body returning *HostServiceUpdateHost2Response
+func (c *ClientWithResponses) HostServiceUpdateHost2WithBodyWithResponse(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServiceUpdateHost2Response, error) {
+	rsp, err := c.HostServiceUpdateHost2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceUpdateHost2Response(rsp)
+}
+
+func (c *ClientWithResponses) HostServiceUpdateHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceUpdateHost2Params, body HostServiceUpdateHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServiceUpdateHost2Response, error) {
+	rsp, err := c.HostServiceUpdateHost2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceUpdateHost2Response(rsp)
+}
+
+// HostServiceInvalidateHost2WithResponse request returning *HostServiceInvalidateHost2Response
+func (c *ClientWithResponses) HostServiceInvalidateHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceInvalidateHost2Params, reqEditors ...RequestEditorFn) (*HostServiceInvalidateHost2Response, error) {
+	rsp, err := c.HostServiceInvalidateHost2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceInvalidateHost2Response(rsp)
+}
+
+// HostServiceOnboardHost2WithResponse request returning *HostServiceOnboardHost2Response
+func (c *ClientWithResponses) HostServiceOnboardHost2WithResponse(ctx context.Context, resourceId string, params *HostServiceOnboardHost2Params, reqEditors ...RequestEditorFn) (*HostServiceOnboardHost2Response, error) {
+	rsp, err := c.HostServiceOnboardHost2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceOnboardHost2Response(rsp)
+}
+
+// HostServicePatchRegisterHost2WithBodyWithResponse request with arbitrary body returning *HostServicePatchRegisterHost2Response
+func (c *ClientWithResponses) HostServicePatchRegisterHost2WithBodyWithResponse(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHost2Response, error) {
+	rsp, err := c.HostServicePatchRegisterHost2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServicePatchRegisterHost2Response(rsp)
+}
+
+func (c *ClientWithResponses) HostServicePatchRegisterHost2WithResponse(ctx context.Context, resourceId string, params *HostServicePatchRegisterHost2Params, body HostServicePatchRegisterHost2JSONRequestBody, reqEditors ...RequestEditorFn) (*HostServicePatchRegisterHost2Response, error) {
+	rsp, err := c.HostServicePatchRegisterHost2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServicePatchRegisterHost2Response(rsp)
+}
+
+// HostServiceGetHostsSummary2WithResponse request returning *HostServiceGetHostsSummary2Response
+func (c *ClientWithResponses) HostServiceGetHostsSummary2WithResponse(ctx context.Context, params *HostServiceGetHostsSummary2Params, reqEditors ...RequestEditorFn) (*HostServiceGetHostsSummary2Response, error) {
+	rsp, err := c.HostServiceGetHostsSummary2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseHostServiceGetHostsSummary2Response(rsp)
+}
+
+// InstanceServiceListInstances2WithResponse request returning *InstanceServiceListInstances2Response
+func (c *ClientWithResponses) InstanceServiceListInstances2WithResponse(ctx context.Context, params *InstanceServiceListInstances2Params, reqEditors ...RequestEditorFn) (*InstanceServiceListInstances2Response, error) {
+	rsp, err := c.InstanceServiceListInstances2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServiceListInstances2Response(rsp)
+}
+
+// InstanceServiceCreateInstance2WithBodyWithResponse request with arbitrary body returning *InstanceServiceCreateInstance2Response
+func (c *ClientWithResponses) InstanceServiceCreateInstance2WithBodyWithResponse(ctx context.Context, params *InstanceServiceCreateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServiceCreateInstance2Response, error) {
+	rsp, err := c.InstanceServiceCreateInstance2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServiceCreateInstance2Response(rsp)
+}
+
+func (c *ClientWithResponses) InstanceServiceCreateInstance2WithResponse(ctx context.Context, params *InstanceServiceCreateInstance2Params, body InstanceServiceCreateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServiceCreateInstance2Response, error) {
+	rsp, err := c.InstanceServiceCreateInstance2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServiceCreateInstance2Response(rsp)
+}
+
+// InstanceServiceDeleteInstance2WithResponse request returning *InstanceServiceDeleteInstance2Response
+func (c *ClientWithResponses) InstanceServiceDeleteInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServiceDeleteInstance2Params, reqEditors ...RequestEditorFn) (*InstanceServiceDeleteInstance2Response, error) {
+	rsp, err := c.InstanceServiceDeleteInstance2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServiceDeleteInstance2Response(rsp)
+}
+
+// InstanceServiceGetInstance2WithResponse request returning *InstanceServiceGetInstance2Response
+func (c *ClientWithResponses) InstanceServiceGetInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServiceGetInstance2Params, reqEditors ...RequestEditorFn) (*InstanceServiceGetInstance2Response, error) {
+	rsp, err := c.InstanceServiceGetInstance2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServiceGetInstance2Response(rsp)
+}
+
+// InstanceServicePatchInstance2WithBodyWithResponse request with arbitrary body returning *InstanceServicePatchInstance2Response
+func (c *ClientWithResponses) InstanceServicePatchInstance2WithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstance2Response, error) {
+	rsp, err := c.InstanceServicePatchInstance2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServicePatchInstance2Response(rsp)
+}
+
+func (c *ClientWithResponses) InstanceServicePatchInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServicePatchInstance2Params, body InstanceServicePatchInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServicePatchInstance2Response, error) {
+	rsp, err := c.InstanceServicePatchInstance2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServicePatchInstance2Response(rsp)
+}
+
+// InstanceServiceUpdateInstance2WithBodyWithResponse request with arbitrary body returning *InstanceServiceUpdateInstance2Response
+func (c *ClientWithResponses) InstanceServiceUpdateInstance2WithBodyWithResponse(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*InstanceServiceUpdateInstance2Response, error) {
+	rsp, err := c.InstanceServiceUpdateInstance2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServiceUpdateInstance2Response(rsp)
+}
+
+func (c *ClientWithResponses) InstanceServiceUpdateInstance2WithResponse(ctx context.Context, resourceId string, params *InstanceServiceUpdateInstance2Params, body InstanceServiceUpdateInstance2JSONRequestBody, reqEditors ...RequestEditorFn) (*InstanceServiceUpdateInstance2Response, error) {
+	rsp, err := c.InstanceServiceUpdateInstance2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseInstanceServiceUpdateInstance2Response(rsp)
+}
+
+// LocalAccountServiceListLocalAccounts2WithResponse request returning *LocalAccountServiceListLocalAccounts2Response
+func (c *ClientWithResponses) LocalAccountServiceListLocalAccounts2WithResponse(ctx context.Context, params *LocalAccountServiceListLocalAccounts2Params, reqEditors ...RequestEditorFn) (*LocalAccountServiceListLocalAccounts2Response, error) {
+	rsp, err := c.LocalAccountServiceListLocalAccounts2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceListLocalAccounts2Response(rsp)
+}
+
+// LocalAccountServiceCreateLocalAccount2WithBodyWithResponse request with arbitrary body returning *LocalAccountServiceCreateLocalAccount2Response
+func (c *ClientWithResponses) LocalAccountServiceCreateLocalAccount2WithBodyWithResponse(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccount2Response, error) {
+	rsp, err := c.LocalAccountServiceCreateLocalAccount2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceCreateLocalAccount2Response(rsp)
+}
+
+func (c *ClientWithResponses) LocalAccountServiceCreateLocalAccount2WithResponse(ctx context.Context, params *LocalAccountServiceCreateLocalAccount2Params, body LocalAccountServiceCreateLocalAccount2JSONRequestBody, reqEditors ...RequestEditorFn) (*LocalAccountServiceCreateLocalAccount2Response, error) {
+	rsp, err := c.LocalAccountServiceCreateLocalAccount2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceCreateLocalAccount2Response(rsp)
+}
+
+// LocalAccountServiceDeleteLocalAccount2WithResponse request returning *LocalAccountServiceDeleteLocalAccount2Response
+func (c *ClientWithResponses) LocalAccountServiceDeleteLocalAccount2WithResponse(ctx context.Context, resourceId string, params *LocalAccountServiceDeleteLocalAccount2Params, reqEditors ...RequestEditorFn) (*LocalAccountServiceDeleteLocalAccount2Response, error) {
+	rsp, err := c.LocalAccountServiceDeleteLocalAccount2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceDeleteLocalAccount2Response(rsp)
+}
+
+// LocalAccountServiceGetLocalAccount2WithResponse request returning *LocalAccountServiceGetLocalAccount2Response
+func (c *ClientWithResponses) LocalAccountServiceGetLocalAccount2WithResponse(ctx context.Context, resourceId string, params *LocalAccountServiceGetLocalAccount2Params, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccount2Response, error) {
+	rsp, err := c.LocalAccountServiceGetLocalAccount2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocalAccountServiceGetLocalAccount2Response(rsp)
+}
+
+// LocationServiceListLocations2WithResponse request returning *LocationServiceListLocations2Response
+func (c *ClientWithResponses) LocationServiceListLocations2WithResponse(ctx context.Context, params *LocationServiceListLocations2Params, reqEditors ...RequestEditorFn) (*LocationServiceListLocations2Response, error) {
+	rsp, err := c.LocationServiceListLocations2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLocationServiceListLocations2Response(rsp)
+}
+
+// OperatingSystemServiceListOperatingSystems2WithResponse request returning *OperatingSystemServiceListOperatingSystems2Response
+func (c *ClientWithResponses) OperatingSystemServiceListOperatingSystems2WithResponse(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems2Response, error) {
+	rsp, err := c.OperatingSystemServiceListOperatingSystems2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceListOperatingSystems2Response(rsp)
+}
+
+// OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceCreateOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceCreateOperatingSystem2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp)
+}
+
+func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem2WithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceCreateOperatingSystem2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServiceDeleteOperatingSystem2WithResponse request returning *OperatingSystemServiceDeleteOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceDeleteOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceDeleteOperatingSystem2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceDeleteOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServiceGetOperatingSystem2WithResponse request returning *OperatingSystemServiceGetOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceGetOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceGetOperatingSystem2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceGetOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServicePatchOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystem2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServicePatchOperatingSystem2Response(rsp)
+}
+
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystem2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServicePatchOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceUpdateOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp)
+}
+
+func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp)
+}
+
+// OSUpdatePolicyListOSUpdatePolicy2WithResponse request returning *OSUpdatePolicyListOSUpdatePolicy2Response
+func (c *ClientWithResponses) OSUpdatePolicyListOSUpdatePolicy2WithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicy2Response, error) {
+	rsp, err := c.OSUpdatePolicyListOSUpdatePolicy2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyListOSUpdatePolicy2Response(rsp)
+}
+
+// OSUpdatePolicyCreateOSUpdatePolicy2WithBodyWithResponse request with arbitrary body returning *OSUpdatePolicyCreateOSUpdatePolicy2Response
+func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicy2WithBodyWithResponse(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicy2Response, error) {
+	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicy2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyCreateOSUpdatePolicy2Response(rsp)
+}
+
+func (c *ClientWithResponses) OSUpdatePolicyCreateOSUpdatePolicy2WithResponse(ctx context.Context, params *OSUpdatePolicyCreateOSUpdatePolicy2Params, body OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody, reqEditors ...RequestEditorFn) (*OSUpdatePolicyCreateOSUpdatePolicy2Response, error) {
+	rsp, err := c.OSUpdatePolicyCreateOSUpdatePolicy2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyCreateOSUpdatePolicy2Response(rsp)
+}
+
+// OSUpdatePolicyDeleteOSUpdatePolicy2WithResponse request returning *OSUpdatePolicyDeleteOSUpdatePolicy2Response
+func (c *ClientWithResponses) OSUpdatePolicyDeleteOSUpdatePolicy2WithResponse(ctx context.Context, resourceId string, params *OSUpdatePolicyDeleteOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*OSUpdatePolicyDeleteOSUpdatePolicy2Response, error) {
+	rsp, err := c.OSUpdatePolicyDeleteOSUpdatePolicy2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyDeleteOSUpdatePolicy2Response(rsp)
+}
+
+// OSUpdatePolicyGetOSUpdatePolicy2WithResponse request returning *OSUpdatePolicyGetOSUpdatePolicy2Response
+func (c *ClientWithResponses) OSUpdatePolicyGetOSUpdatePolicy2WithResponse(ctx context.Context, resourceId string, params *OSUpdatePolicyGetOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*OSUpdatePolicyGetOSUpdatePolicy2Response, error) {
+	rsp, err := c.OSUpdatePolicyGetOSUpdatePolicy2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdatePolicyGetOSUpdatePolicy2Response(rsp)
+}
+
+// OSUpdateRunListOSUpdateRun2WithResponse request returning *OSUpdateRunListOSUpdateRun2Response
+func (c *ClientWithResponses) OSUpdateRunListOSUpdateRun2WithResponse(ctx context.Context, params *OSUpdateRunListOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*OSUpdateRunListOSUpdateRun2Response, error) {
+	rsp, err := c.OSUpdateRunListOSUpdateRun2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdateRunListOSUpdateRun2Response(rsp)
+}
+
+// OSUpdateRunDeleteOSUpdateRun2WithResponse request returning *OSUpdateRunDeleteOSUpdateRun2Response
+func (c *ClientWithResponses) OSUpdateRunDeleteOSUpdateRun2WithResponse(ctx context.Context, resourceId string, params *OSUpdateRunDeleteOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*OSUpdateRunDeleteOSUpdateRun2Response, error) {
+	rsp, err := c.OSUpdateRunDeleteOSUpdateRun2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdateRunDeleteOSUpdateRun2Response(rsp)
+}
+
+// OSUpdateRunGetOSUpdateRun2WithResponse request returning *OSUpdateRunGetOSUpdateRun2Response
+func (c *ClientWithResponses) OSUpdateRunGetOSUpdateRun2WithResponse(ctx context.Context, resourceId string, params *OSUpdateRunGetOSUpdateRun2Params, reqEditors ...RequestEditorFn) (*OSUpdateRunGetOSUpdateRun2Response, error) {
+	rsp, err := c.OSUpdateRunGetOSUpdateRun2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOSUpdateRunGetOSUpdateRun2Response(rsp)
+}
+
+// ProviderServiceListProviders2WithResponse request returning *ProviderServiceListProviders2Response
+func (c *ClientWithResponses) ProviderServiceListProviders2WithResponse(ctx context.Context, params *ProviderServiceListProviders2Params, reqEditors ...RequestEditorFn) (*ProviderServiceListProviders2Response, error) {
+	rsp, err := c.ProviderServiceListProviders2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceListProviders2Response(rsp)
+}
+
+// ProviderServiceCreateProvider2WithBodyWithResponse request with arbitrary body returning *ProviderServiceCreateProvider2Response
+func (c *ClientWithResponses) ProviderServiceCreateProvider2WithBodyWithResponse(ctx context.Context, params *ProviderServiceCreateProvider2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProvider2Response, error) {
+	rsp, err := c.ProviderServiceCreateProvider2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceCreateProvider2Response(rsp)
+}
+
+func (c *ClientWithResponses) ProviderServiceCreateProvider2WithResponse(ctx context.Context, params *ProviderServiceCreateProvider2Params, body ProviderServiceCreateProvider2JSONRequestBody, reqEditors ...RequestEditorFn) (*ProviderServiceCreateProvider2Response, error) {
+	rsp, err := c.ProviderServiceCreateProvider2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceCreateProvider2Response(rsp)
+}
+
+// ProviderServiceDeleteProvider2WithResponse request returning *ProviderServiceDeleteProvider2Response
+func (c *ClientWithResponses) ProviderServiceDeleteProvider2WithResponse(ctx context.Context, resourceId string, params *ProviderServiceDeleteProvider2Params, reqEditors ...RequestEditorFn) (*ProviderServiceDeleteProvider2Response, error) {
+	rsp, err := c.ProviderServiceDeleteProvider2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceDeleteProvider2Response(rsp)
+}
+
+// ProviderServiceGetProvider2WithResponse request returning *ProviderServiceGetProvider2Response
+func (c *ClientWithResponses) ProviderServiceGetProvider2WithResponse(ctx context.Context, resourceId string, params *ProviderServiceGetProvider2Params, reqEditors ...RequestEditorFn) (*ProviderServiceGetProvider2Response, error) {
+	rsp, err := c.ProviderServiceGetProvider2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseProviderServiceGetProvider2Response(rsp)
+}
+
+// RegionServiceListRegions2WithResponse request returning *RegionServiceListRegions2Response
+func (c *ClientWithResponses) RegionServiceListRegions2WithResponse(ctx context.Context, params *RegionServiceListRegions2Params, reqEditors ...RequestEditorFn) (*RegionServiceListRegions2Response, error) {
+	rsp, err := c.RegionServiceListRegions2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceListRegions2Response(rsp)
+}
+
+// RegionServiceCreateRegion2WithBodyWithResponse request with arbitrary body returning *RegionServiceCreateRegion2Response
+func (c *ClientWithResponses) RegionServiceCreateRegion2WithBodyWithResponse(ctx context.Context, params *RegionServiceCreateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegion2Response, error) {
+	rsp, err := c.RegionServiceCreateRegion2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceCreateRegion2Response(rsp)
+}
+
+func (c *ClientWithResponses) RegionServiceCreateRegion2WithResponse(ctx context.Context, params *RegionServiceCreateRegion2Params, body RegionServiceCreateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegion2Response, error) {
+	rsp, err := c.RegionServiceCreateRegion2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceCreateRegion2Response(rsp)
+}
+
+// RegionServiceDeleteRegion2WithResponse request returning *RegionServiceDeleteRegion2Response
+func (c *ClientWithResponses) RegionServiceDeleteRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServiceDeleteRegion2Params, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegion2Response, error) {
+	rsp, err := c.RegionServiceDeleteRegion2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceDeleteRegion2Response(rsp)
+}
+
+// RegionServiceGetRegion2WithResponse request returning *RegionServiceGetRegion2Response
+func (c *ClientWithResponses) RegionServiceGetRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServiceGetRegion2Params, reqEditors ...RequestEditorFn) (*RegionServiceGetRegion2Response, error) {
+	rsp, err := c.RegionServiceGetRegion2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceGetRegion2Response(rsp)
+}
+
+// RegionServicePatchRegion2WithBodyWithResponse request with arbitrary body returning *RegionServicePatchRegion2Response
+func (c *ClientWithResponses) RegionServicePatchRegion2WithBodyWithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegion2Response, error) {
+	rsp, err := c.RegionServicePatchRegion2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServicePatchRegion2Response(rsp)
+}
+
+func (c *ClientWithResponses) RegionServicePatchRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServicePatchRegion2Params, body RegionServicePatchRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegion2Response, error) {
+	rsp, err := c.RegionServicePatchRegion2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServicePatchRegion2Response(rsp)
+}
+
+// RegionServiceUpdateRegion2WithBodyWithResponse request with arbitrary body returning *RegionServiceUpdateRegion2Response
+func (c *ClientWithResponses) RegionServiceUpdateRegion2WithBodyWithResponse(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegion2Response, error) {
+	rsp, err := c.RegionServiceUpdateRegion2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceUpdateRegion2Response(rsp)
+}
+
+func (c *ClientWithResponses) RegionServiceUpdateRegion2WithResponse(ctx context.Context, resourceId string, params *RegionServiceUpdateRegion2Params, body RegionServiceUpdateRegion2JSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegion2Response, error) {
+	rsp, err := c.RegionServiceUpdateRegion2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceUpdateRegion2Response(rsp)
+}
+
+// ScheduleServiceListSchedules2WithResponse request returning *ScheduleServiceListSchedules2Response
+func (c *ClientWithResponses) ScheduleServiceListSchedules2WithResponse(ctx context.Context, params *ScheduleServiceListSchedules2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedules2Response, error) {
+	rsp, err := c.ScheduleServiceListSchedules2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceListSchedules2Response(rsp)
+}
+
+// ScheduleServiceListRepeatedSchedules2WithResponse request returning *ScheduleServiceListRepeatedSchedules2Response
+func (c *ClientWithResponses) ScheduleServiceListRepeatedSchedules2WithResponse(ctx context.Context, params *ScheduleServiceListRepeatedSchedules2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceListRepeatedSchedules2Response, error) {
+	rsp, err := c.ScheduleServiceListRepeatedSchedules2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceListRepeatedSchedules2Response(rsp)
+}
+
+// ScheduleServiceCreateRepeatedSchedule2WithBodyWithResponse request with arbitrary body returning *ScheduleServiceCreateRepeatedSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceCreateRepeatedSchedule2WithBodyWithResponse(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceCreateRepeatedSchedule2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateRepeatedSchedule2Response(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceCreateRepeatedSchedule2WithResponse(ctx context.Context, params *ScheduleServiceCreateRepeatedSchedule2Params, body ScheduleServiceCreateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceCreateRepeatedSchedule2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateRepeatedSchedule2Response(rsp)
+}
+
+// ScheduleServiceDeleteRepeatedSchedule2WithResponse request returning *ScheduleServiceDeleteRepeatedSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceDeleteRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceDeleteRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceDeleteRepeatedSchedule2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceDeleteRepeatedSchedule2Response(rsp)
+}
+
+// ScheduleServiceGetRepeatedSchedule2WithResponse request returning *ScheduleServiceGetRepeatedSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceGetRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceGetRepeatedSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceGetRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceGetRepeatedSchedule2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceGetRepeatedSchedule2Response(rsp)
+}
+
+// ScheduleServicePatchRepeatedSchedule2WithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchRepeatedSchedule2Response
+func (c *ClientWithResponses) ScheduleServicePatchRepeatedSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServicePatchRepeatedSchedule2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchRepeatedSchedule2Response(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServicePatchRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchRepeatedSchedule2Params, body ScheduleServicePatchRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServicePatchRepeatedSchedule2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchRepeatedSchedule2Response(rsp)
+}
+
+// ScheduleServiceUpdateRepeatedSchedule2WithBodyWithResponse request with arbitrary body returning *ScheduleServiceUpdateRepeatedSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceUpdateRepeatedSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceUpdateRepeatedSchedule2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateRepeatedSchedule2Response(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceUpdateRepeatedSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateRepeatedSchedule2Params, body ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateRepeatedSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceUpdateRepeatedSchedule2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateRepeatedSchedule2Response(rsp)
+}
+
+// ScheduleServiceListSingleSchedules2WithResponse request returning *ScheduleServiceListSingleSchedules2Response
+func (c *ClientWithResponses) ScheduleServiceListSingleSchedules2WithResponse(ctx context.Context, params *ScheduleServiceListSingleSchedules2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceListSingleSchedules2Response, error) {
+	rsp, err := c.ScheduleServiceListSingleSchedules2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceListSingleSchedules2Response(rsp)
+}
+
+// ScheduleServiceCreateSingleSchedule2WithBodyWithResponse request with arbitrary body returning *ScheduleServiceCreateSingleSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceCreateSingleSchedule2WithBodyWithResponse(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceCreateSingleSchedule2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateSingleSchedule2Response(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceCreateSingleSchedule2WithResponse(ctx context.Context, params *ScheduleServiceCreateSingleSchedule2Params, body ScheduleServiceCreateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceCreateSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceCreateSingleSchedule2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceCreateSingleSchedule2Response(rsp)
+}
+
+// ScheduleServiceDeleteSingleSchedule2WithResponse request returning *ScheduleServiceDeleteSingleSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceDeleteSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceDeleteSingleSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceDeleteSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceDeleteSingleSchedule2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceDeleteSingleSchedule2Response(rsp)
+}
+
+// ScheduleServiceGetSingleSchedule2WithResponse request returning *ScheduleServiceGetSingleSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceGetSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceGetSingleSchedule2Params, reqEditors ...RequestEditorFn) (*ScheduleServiceGetSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceGetSingleSchedule2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceGetSingleSchedule2Response(rsp)
+}
+
+// ScheduleServicePatchSingleSchedule2WithBodyWithResponse request with arbitrary body returning *ScheduleServicePatchSingleSchedule2Response
+func (c *ClientWithResponses) ScheduleServicePatchSingleSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServicePatchSingleSchedule2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchSingleSchedule2Response(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServicePatchSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServicePatchSingleSchedule2Params, body ScheduleServicePatchSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServicePatchSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServicePatchSingleSchedule2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServicePatchSingleSchedule2Response(rsp)
+}
+
+// ScheduleServiceUpdateSingleSchedule2WithBodyWithResponse request with arbitrary body returning *ScheduleServiceUpdateSingleSchedule2Response
+func (c *ClientWithResponses) ScheduleServiceUpdateSingleSchedule2WithBodyWithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceUpdateSingleSchedule2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateSingleSchedule2Response(rsp)
+}
+
+func (c *ClientWithResponses) ScheduleServiceUpdateSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, body ScheduleServiceUpdateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleSchedule2Response, error) {
+	rsp, err := c.ScheduleServiceUpdateSingleSchedule2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseScheduleServiceUpdateSingleSchedule2Response(rsp)
+}
+
+// SiteServiceListSites2WithResponse request returning *SiteServiceListSites2Response
+func (c *ClientWithResponses) SiteServiceListSites2WithResponse(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites2Response, error) {
+	rsp, err := c.SiteServiceListSites2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceListSites2Response(rsp)
+}
+
+// SiteServiceCreateSite2WithBodyWithResponse request with arbitrary body returning *SiteServiceCreateSite2Response
+func (c *ClientWithResponses) SiteServiceCreateSite2WithBodyWithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error) {
+	rsp, err := c.SiteServiceCreateSite2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceCreateSite2Response(rsp)
+}
+
+func (c *ClientWithResponses) SiteServiceCreateSite2WithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error) {
+	rsp, err := c.SiteServiceCreateSite2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceCreateSite2Response(rsp)
+}
+
+// SiteServiceDeleteSite2WithResponse request returning *SiteServiceDeleteSite2Response
+func (c *ClientWithResponses) SiteServiceDeleteSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite2Response, error) {
+	rsp, err := c.SiteServiceDeleteSite2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceDeleteSite2Response(rsp)
+}
+
+// SiteServiceGetSite2WithResponse request returning *SiteServiceGetSite2Response
+func (c *ClientWithResponses) SiteServiceGetSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceGetSite2Response, error) {
+	rsp, err := c.SiteServiceGetSite2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceGetSite2Response(rsp)
+}
+
+// SiteServicePatchSite2WithBodyWithResponse request with arbitrary body returning *SiteServicePatchSite2Response
+func (c *ClientWithResponses) SiteServicePatchSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error) {
+	rsp, err := c.SiteServicePatchSite2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServicePatchSite2Response(rsp)
+}
+
+func (c *ClientWithResponses) SiteServicePatchSite2WithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error) {
+	rsp, err := c.SiteServicePatchSite2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServicePatchSite2Response(rsp)
+}
+
+// SiteServiceUpdateSite2WithBodyWithResponse request with arbitrary body returning *SiteServiceUpdateSite2Response
+func (c *ClientWithResponses) SiteServiceUpdateSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error) {
+	rsp, err := c.SiteServiceUpdateSite2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceUpdateSite2Response(rsp)
+}
+
+func (c *ClientWithResponses) SiteServiceUpdateSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error) {
+	rsp, err := c.SiteServiceUpdateSite2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceUpdateSite2Response(rsp)
+}
+
+// TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroups2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response(rsp)
+}
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse request with arbitrary body returning *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp)
+}
+
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse request returning *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response(rsp)
+}
+
+// TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse request returning *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse request returning *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse request with arbitrary body returning *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse request returning *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse request returning *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response(rsp)
+}
+
+// TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse request returning *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response
+func (c *ClientWithResponses) TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServiceListTelemetryLogsProfiles2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceListTelemetryLogsProfiles2Response(rsp)
+}
+
+// TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response
+func (c *ClientWithResponses) TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBodyWithResponse(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithResponse(ctx context.Context, params *TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServiceCreateTelemetryLogsProfile2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response(rsp)
+}
+
+// TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2WithResponse request returning *TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response
+func (c *ClientWithResponses) TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response(rsp)
+}
+
+// TelemetryLogsProfileServiceGetTelemetryLogsProfile2WithResponse request returning *TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response
+func (c *ClientWithResponses) TelemetryLogsProfileServiceGetTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServiceGetTelemetryLogsProfile2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceGetTelemetryLogsProfile2Response(rsp)
+}
+
+// TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response
+func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServicePatchTelemetryLogsProfile2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params, body TelemetryLogsProfileServicePatchTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServicePatchTelemetryLogsProfile2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServicePatchTelemetryLogsProfile2Response(rsp)
+}
+
+// TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBodyWithResponse request with arbitrary body returning *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response
+func (c *ClientWithResponses) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params, body TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response, error) {
+	rsp, err := c.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response(rsp)
+}
+
+// TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2WithResponse request returning *TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2WithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response(rsp)
+}
+
+// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithResponse(ctx context.Context, params *TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response(rsp)
+}
+
+// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2WithResponse request returning *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response(rsp)
+}
+
+// TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2WithResponse request returning *TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response(rsp)
+}
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response
+func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response(rsp)
+}
+
+// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBodyWithResponse request with arbitrary body returning *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBodyWithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params, body TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response, error) {
+	rsp, err := c.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response(rsp)
+}
+
+// WorkloadMemberServiceListWorkloadMembers2WithResponse request returning *WorkloadMemberServiceListWorkloadMembers2Response
+func (c *ClientWithResponses) WorkloadMemberServiceListWorkloadMembers2WithResponse(ctx context.Context, params *WorkloadMemberServiceListWorkloadMembers2Params, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceListWorkloadMembers2Response, error) {
+	rsp, err := c.WorkloadMemberServiceListWorkloadMembers2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceListWorkloadMembers2Response(rsp)
+}
+
+// WorkloadMemberServiceCreateWorkloadMember2WithBodyWithResponse request with arbitrary body returning *WorkloadMemberServiceCreateWorkloadMember2Response
+func (c *ClientWithResponses) WorkloadMemberServiceCreateWorkloadMember2WithBodyWithResponse(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMember2Response, error) {
+	rsp, err := c.WorkloadMemberServiceCreateWorkloadMember2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceCreateWorkloadMember2Response(rsp)
+}
+
+func (c *ClientWithResponses) WorkloadMemberServiceCreateWorkloadMember2WithResponse(ctx context.Context, params *WorkloadMemberServiceCreateWorkloadMember2Params, body WorkloadMemberServiceCreateWorkloadMember2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceCreateWorkloadMember2Response, error) {
+	rsp, err := c.WorkloadMemberServiceCreateWorkloadMember2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceCreateWorkloadMember2Response(rsp)
+}
+
+// WorkloadMemberServiceDeleteWorkloadMember2WithResponse request returning *WorkloadMemberServiceDeleteWorkloadMember2Response
+func (c *ClientWithResponses) WorkloadMemberServiceDeleteWorkloadMember2WithResponse(ctx context.Context, resourceId string, params *WorkloadMemberServiceDeleteWorkloadMember2Params, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceDeleteWorkloadMember2Response, error) {
+	rsp, err := c.WorkloadMemberServiceDeleteWorkloadMember2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceDeleteWorkloadMember2Response(rsp)
+}
+
+// WorkloadMemberServiceGetWorkloadMember2WithResponse request returning *WorkloadMemberServiceGetWorkloadMember2Response
+func (c *ClientWithResponses) WorkloadMemberServiceGetWorkloadMember2WithResponse(ctx context.Context, resourceId string, params *WorkloadMemberServiceGetWorkloadMember2Params, reqEditors ...RequestEditorFn) (*WorkloadMemberServiceGetWorkloadMember2Response, error) {
+	rsp, err := c.WorkloadMemberServiceGetWorkloadMember2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadMemberServiceGetWorkloadMember2Response(rsp)
+}
+
+// WorkloadServiceListWorkloads2WithResponse request returning *WorkloadServiceListWorkloads2Response
+func (c *ClientWithResponses) WorkloadServiceListWorkloads2WithResponse(ctx context.Context, params *WorkloadServiceListWorkloads2Params, reqEditors ...RequestEditorFn) (*WorkloadServiceListWorkloads2Response, error) {
+	rsp, err := c.WorkloadServiceListWorkloads2(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServiceListWorkloads2Response(rsp)
+}
+
+// WorkloadServiceCreateWorkload2WithBodyWithResponse request with arbitrary body returning *WorkloadServiceCreateWorkload2Response
+func (c *ClientWithResponses) WorkloadServiceCreateWorkload2WithBodyWithResponse(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceCreateWorkload2Response, error) {
+	rsp, err := c.WorkloadServiceCreateWorkload2WithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServiceCreateWorkload2Response(rsp)
+}
+
+func (c *ClientWithResponses) WorkloadServiceCreateWorkload2WithResponse(ctx context.Context, params *WorkloadServiceCreateWorkload2Params, body WorkloadServiceCreateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceCreateWorkload2Response, error) {
+	rsp, err := c.WorkloadServiceCreateWorkload2(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServiceCreateWorkload2Response(rsp)
+}
+
+// WorkloadServiceDeleteWorkload2WithResponse request returning *WorkloadServiceDeleteWorkload2Response
+func (c *ClientWithResponses) WorkloadServiceDeleteWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServiceDeleteWorkload2Params, reqEditors ...RequestEditorFn) (*WorkloadServiceDeleteWorkload2Response, error) {
+	rsp, err := c.WorkloadServiceDeleteWorkload2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServiceDeleteWorkload2Response(rsp)
+}
+
+// WorkloadServiceGetWorkload2WithResponse request returning *WorkloadServiceGetWorkload2Response
+func (c *ClientWithResponses) WorkloadServiceGetWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServiceGetWorkload2Params, reqEditors ...RequestEditorFn) (*WorkloadServiceGetWorkload2Response, error) {
+	rsp, err := c.WorkloadServiceGetWorkload2(ctx, resourceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServiceGetWorkload2Response(rsp)
+}
+
+// WorkloadServicePatchWorkload2WithBodyWithResponse request with arbitrary body returning *WorkloadServicePatchWorkload2Response
+func (c *ClientWithResponses) WorkloadServicePatchWorkload2WithBodyWithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkload2Response, error) {
+	rsp, err := c.WorkloadServicePatchWorkload2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServicePatchWorkload2Response(rsp)
+}
+
+func (c *ClientWithResponses) WorkloadServicePatchWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServicePatchWorkload2Params, body WorkloadServicePatchWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServicePatchWorkload2Response, error) {
+	rsp, err := c.WorkloadServicePatchWorkload2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServicePatchWorkload2Response(rsp)
+}
+
+// WorkloadServiceUpdateWorkload2WithBodyWithResponse request with arbitrary body returning *WorkloadServiceUpdateWorkload2Response
+func (c *ClientWithResponses) WorkloadServiceUpdateWorkload2WithBodyWithResponse(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkload2Response, error) {
+	rsp, err := c.WorkloadServiceUpdateWorkload2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServiceUpdateWorkload2Response(rsp)
+}
+
+func (c *ClientWithResponses) WorkloadServiceUpdateWorkload2WithResponse(ctx context.Context, resourceId string, params *WorkloadServiceUpdateWorkload2Params, body WorkloadServiceUpdateWorkload2JSONRequestBody, reqEditors ...RequestEditorFn) (*WorkloadServiceUpdateWorkload2Response, error) {
+	rsp, err := c.WorkloadServiceUpdateWorkload2(ctx, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseWorkloadServiceUpdateWorkload2Response(rsp)
+}
+
 // HostServiceListHostsWithResponse request returning *HostServiceListHostsResponse
 func (c *ClientWithResponses) HostServiceListHostsWithResponse(ctx context.Context, projectName string, params *HostServiceListHostsParams, reqEditors ...RequestEditorFn) (*HostServiceListHostsResponse, error) {
 	rsp, err := c.HostServiceListHosts(ctx, projectName, params, reqEditors...)
@@ -12058,6 +24774,2554 @@ func (c *ClientWithResponses) WorkloadServiceUpdateWorkloadWithResponse(ctx cont
 		return nil, err
 	}
 	return ParseWorkloadServiceUpdateWorkloadResponse(rsp)
+}
+
+// ParseCustomConfigServiceListCustomConfigs2Response parses an HTTP response from a CustomConfigServiceListCustomConfigs2WithResponse call
+func ParseCustomConfigServiceListCustomConfigs2Response(rsp *http.Response) (*CustomConfigServiceListCustomConfigs2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceListCustomConfigs2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListCustomConfigsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCustomConfigServiceCreateCustomConfig2Response parses an HTTP response from a CustomConfigServiceCreateCustomConfig2WithResponse call
+func ParseCustomConfigServiceCreateCustomConfig2Response(rsp *http.Response) (*CustomConfigServiceCreateCustomConfig2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceCreateCustomConfig2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest CustomConfigResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCustomConfigServiceDeleteCustomConfig2Response parses an HTTP response from a CustomConfigServiceDeleteCustomConfig2WithResponse call
+func ParseCustomConfigServiceDeleteCustomConfig2Response(rsp *http.Response) (*CustomConfigServiceDeleteCustomConfig2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceDeleteCustomConfig2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteCustomConfigResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCustomConfigServiceGetCustomConfig2Response parses an HTTP response from a CustomConfigServiceGetCustomConfig2WithResponse call
+func ParseCustomConfigServiceGetCustomConfig2Response(rsp *http.Response) (*CustomConfigServiceGetCustomConfig2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CustomConfigServiceGetCustomConfig2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest CustomConfigResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceListHosts2Response parses an HTTP response from a HostServiceListHosts2WithResponse call
+func ParseHostServiceListHosts2Response(rsp *http.Response) (*HostServiceListHosts2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceListHosts2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListHostsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceCreateHost2Response parses an HTTP response from a HostServiceCreateHost2WithResponse call
+func ParseHostServiceCreateHost2Response(rsp *http.Response) (*HostServiceCreateHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceCreateHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest HostResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceRegisterHost2Response parses an HTTP response from a HostServiceRegisterHost2WithResponse call
+func ParseHostServiceRegisterHost2Response(rsp *http.Response) (*HostServiceRegisterHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceRegisterHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest HostResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceDeleteHost2Response parses an HTTP response from a HostServiceDeleteHost2WithResponse call
+func ParseHostServiceDeleteHost2Response(rsp *http.Response) (*HostServiceDeleteHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceDeleteHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteHostResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceGetHost2Response parses an HTTP response from a HostServiceGetHost2WithResponse call
+func ParseHostServiceGetHost2Response(rsp *http.Response) (*HostServiceGetHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceGetHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest HostResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServicePatchHost2Response parses an HTTP response from a HostServicePatchHost2WithResponse call
+func ParseHostServicePatchHost2Response(rsp *http.Response) (*HostServicePatchHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServicePatchHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest HostResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceUpdateHost2Response parses an HTTP response from a HostServiceUpdateHost2WithResponse call
+func ParseHostServiceUpdateHost2Response(rsp *http.Response) (*HostServiceUpdateHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceUpdateHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest HostResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceInvalidateHost2Response parses an HTTP response from a HostServiceInvalidateHost2WithResponse call
+func ParseHostServiceInvalidateHost2Response(rsp *http.Response) (*HostServiceInvalidateHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceInvalidateHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest InvalidateHostResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceOnboardHost2Response parses an HTTP response from a HostServiceOnboardHost2WithResponse call
+func ParseHostServiceOnboardHost2Response(rsp *http.Response) (*HostServiceOnboardHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceOnboardHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OnboardHostResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServicePatchRegisterHost2Response parses an HTTP response from a HostServicePatchRegisterHost2WithResponse call
+func ParseHostServicePatchRegisterHost2Response(rsp *http.Response) (*HostServicePatchRegisterHost2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServicePatchRegisterHost2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest HostResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseHostServiceGetHostsSummary2Response parses an HTTP response from a HostServiceGetHostsSummary2WithResponse call
+func ParseHostServiceGetHostsSummary2Response(rsp *http.Response) (*HostServiceGetHostsSummary2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &HostServiceGetHostsSummary2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest GetHostSummaryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseInstanceServiceListInstances2Response parses an HTTP response from a InstanceServiceListInstances2WithResponse call
+func ParseInstanceServiceListInstances2Response(rsp *http.Response) (*InstanceServiceListInstances2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &InstanceServiceListInstances2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListInstancesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseInstanceServiceCreateInstance2Response parses an HTTP response from a InstanceServiceCreateInstance2WithResponse call
+func ParseInstanceServiceCreateInstance2Response(rsp *http.Response) (*InstanceServiceCreateInstance2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &InstanceServiceCreateInstance2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest InstanceResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseInstanceServiceDeleteInstance2Response parses an HTTP response from a InstanceServiceDeleteInstance2WithResponse call
+func ParseInstanceServiceDeleteInstance2Response(rsp *http.Response) (*InstanceServiceDeleteInstance2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &InstanceServiceDeleteInstance2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteInstanceResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseInstanceServiceGetInstance2Response parses an HTTP response from a InstanceServiceGetInstance2WithResponse call
+func ParseInstanceServiceGetInstance2Response(rsp *http.Response) (*InstanceServiceGetInstance2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &InstanceServiceGetInstance2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest InstanceResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseInstanceServicePatchInstance2Response parses an HTTP response from a InstanceServicePatchInstance2WithResponse call
+func ParseInstanceServicePatchInstance2Response(rsp *http.Response) (*InstanceServicePatchInstance2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &InstanceServicePatchInstance2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest InstanceResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseInstanceServiceUpdateInstance2Response parses an HTTP response from a InstanceServiceUpdateInstance2WithResponse call
+func ParseInstanceServiceUpdateInstance2Response(rsp *http.Response) (*InstanceServiceUpdateInstance2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &InstanceServiceUpdateInstance2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest InstanceResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceListLocalAccounts2Response parses an HTTP response from a LocalAccountServiceListLocalAccounts2WithResponse call
+func ParseLocalAccountServiceListLocalAccounts2Response(rsp *http.Response) (*LocalAccountServiceListLocalAccounts2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceListLocalAccounts2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListLocalAccountsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceCreateLocalAccount2Response parses an HTTP response from a LocalAccountServiceCreateLocalAccount2WithResponse call
+func ParseLocalAccountServiceCreateLocalAccount2Response(rsp *http.Response) (*LocalAccountServiceCreateLocalAccount2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceCreateLocalAccount2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest LocalAccountResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceDeleteLocalAccount2Response parses an HTTP response from a LocalAccountServiceDeleteLocalAccount2WithResponse call
+func ParseLocalAccountServiceDeleteLocalAccount2Response(rsp *http.Response) (*LocalAccountServiceDeleteLocalAccount2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceDeleteLocalAccount2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteLocalAccountResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocalAccountServiceGetLocalAccount2Response parses an HTTP response from a LocalAccountServiceGetLocalAccount2WithResponse call
+func ParseLocalAccountServiceGetLocalAccount2Response(rsp *http.Response) (*LocalAccountServiceGetLocalAccount2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocalAccountServiceGetLocalAccount2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest LocalAccountResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLocationServiceListLocations2Response parses an HTTP response from a LocationServiceListLocations2WithResponse call
+func ParseLocationServiceListLocations2Response(rsp *http.Response) (*LocationServiceListLocations2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LocationServiceListLocations2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListLocationsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceListOperatingSystems2Response parses an HTTP response from a OperatingSystemServiceListOperatingSystems2WithResponse call
+func ParseOperatingSystemServiceListOperatingSystems2Response(rsp *http.Response) (*OperatingSystemServiceListOperatingSystems2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceListOperatingSystems2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListOperatingSystemsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceCreateOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceCreateOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceCreateOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceDeleteOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceDeleteOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceDeleteOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceDeleteOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceDeleteOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteOperatingSystemResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceGetOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceGetOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceGetOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceGetOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceGetOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServicePatchOperatingSystem2Response parses an HTTP response from a OperatingSystemServicePatchOperatingSystem2WithResponse call
+func ParseOperatingSystemServicePatchOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServicePatchOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceUpdateOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceUpdateOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceUpdateOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyListOSUpdatePolicy2Response parses an HTTP response from a OSUpdatePolicyListOSUpdatePolicy2WithResponse call
+func ParseOSUpdatePolicyListOSUpdatePolicy2Response(rsp *http.Response) (*OSUpdatePolicyListOSUpdatePolicy2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyListOSUpdatePolicy2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListOSUpdatePolicyResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyCreateOSUpdatePolicy2Response parses an HTTP response from a OSUpdatePolicyCreateOSUpdatePolicy2WithResponse call
+func ParseOSUpdatePolicyCreateOSUpdatePolicy2Response(rsp *http.Response) (*OSUpdatePolicyCreateOSUpdatePolicy2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyCreateOSUpdatePolicy2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdatePolicy
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyDeleteOSUpdatePolicy2Response parses an HTTP response from a OSUpdatePolicyDeleteOSUpdatePolicy2WithResponse call
+func ParseOSUpdatePolicyDeleteOSUpdatePolicy2Response(rsp *http.Response) (*OSUpdatePolicyDeleteOSUpdatePolicy2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyDeleteOSUpdatePolicy2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteOSUpdatePolicyResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdatePolicyGetOSUpdatePolicy2Response parses an HTTP response from a OSUpdatePolicyGetOSUpdatePolicy2WithResponse call
+func ParseOSUpdatePolicyGetOSUpdatePolicy2Response(rsp *http.Response) (*OSUpdatePolicyGetOSUpdatePolicy2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdatePolicyGetOSUpdatePolicy2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdatePolicy
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdateRunListOSUpdateRun2Response parses an HTTP response from a OSUpdateRunListOSUpdateRun2WithResponse call
+func ParseOSUpdateRunListOSUpdateRun2Response(rsp *http.Response) (*OSUpdateRunListOSUpdateRun2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdateRunListOSUpdateRun2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListOSUpdateRunResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdateRunDeleteOSUpdateRun2Response parses an HTTP response from a OSUpdateRunDeleteOSUpdateRun2WithResponse call
+func ParseOSUpdateRunDeleteOSUpdateRun2Response(rsp *http.Response) (*OSUpdateRunDeleteOSUpdateRun2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdateRunDeleteOSUpdateRun2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteOSUpdateRunResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOSUpdateRunGetOSUpdateRun2Response parses an HTTP response from a OSUpdateRunGetOSUpdateRun2WithResponse call
+func ParseOSUpdateRunGetOSUpdateRun2Response(rsp *http.Response) (*OSUpdateRunGetOSUpdateRun2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OSUpdateRunGetOSUpdateRun2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OSUpdateRun
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceListProviders2Response parses an HTTP response from a ProviderServiceListProviders2WithResponse call
+func ParseProviderServiceListProviders2Response(rsp *http.Response) (*ProviderServiceListProviders2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceListProviders2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListProvidersResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceCreateProvider2Response parses an HTTP response from a ProviderServiceCreateProvider2WithResponse call
+func ParseProviderServiceCreateProvider2Response(rsp *http.Response) (*ProviderServiceCreateProvider2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceCreateProvider2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ProviderResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceDeleteProvider2Response parses an HTTP response from a ProviderServiceDeleteProvider2WithResponse call
+func ParseProviderServiceDeleteProvider2Response(rsp *http.Response) (*ProviderServiceDeleteProvider2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceDeleteProvider2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteProviderResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseProviderServiceGetProvider2Response parses an HTTP response from a ProviderServiceGetProvider2WithResponse call
+func ParseProviderServiceGetProvider2Response(rsp *http.Response) (*ProviderServiceGetProvider2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ProviderServiceGetProvider2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ProviderResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceListRegions2Response parses an HTTP response from a RegionServiceListRegions2WithResponse call
+func ParseRegionServiceListRegions2Response(rsp *http.Response) (*RegionServiceListRegions2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceListRegions2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListRegionsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceCreateRegion2Response parses an HTTP response from a RegionServiceCreateRegion2WithResponse call
+func ParseRegionServiceCreateRegion2Response(rsp *http.Response) (*RegionServiceCreateRegion2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceCreateRegion2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceDeleteRegion2Response parses an HTTP response from a RegionServiceDeleteRegion2WithResponse call
+func ParseRegionServiceDeleteRegion2Response(rsp *http.Response) (*RegionServiceDeleteRegion2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceDeleteRegion2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteRegionResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceGetRegion2Response parses an HTTP response from a RegionServiceGetRegion2WithResponse call
+func ParseRegionServiceGetRegion2Response(rsp *http.Response) (*RegionServiceGetRegion2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceGetRegion2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServicePatchRegion2Response parses an HTTP response from a RegionServicePatchRegion2WithResponse call
+func ParseRegionServicePatchRegion2Response(rsp *http.Response) (*RegionServicePatchRegion2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServicePatchRegion2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceUpdateRegion2Response parses an HTTP response from a RegionServiceUpdateRegion2WithResponse call
+func ParseRegionServiceUpdateRegion2Response(rsp *http.Response) (*RegionServiceUpdateRegion2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceUpdateRegion2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceListSchedules2Response parses an HTTP response from a ScheduleServiceListSchedules2WithResponse call
+func ParseScheduleServiceListSchedules2Response(rsp *http.Response) (*ScheduleServiceListSchedules2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceListSchedules2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListSchedulesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceListRepeatedSchedules2Response parses an HTTP response from a ScheduleServiceListRepeatedSchedules2WithResponse call
+func ParseScheduleServiceListRepeatedSchedules2Response(rsp *http.Response) (*ScheduleServiceListRepeatedSchedules2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceListRepeatedSchedules2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListRepeatedSchedulesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceCreateRepeatedSchedule2Response parses an HTTP response from a ScheduleServiceCreateRepeatedSchedule2WithResponse call
+func ParseScheduleServiceCreateRepeatedSchedule2Response(rsp *http.Response) (*ScheduleServiceCreateRepeatedSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceCreateRepeatedSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceDeleteRepeatedSchedule2Response parses an HTTP response from a ScheduleServiceDeleteRepeatedSchedule2WithResponse call
+func ParseScheduleServiceDeleteRepeatedSchedule2Response(rsp *http.Response) (*ScheduleServiceDeleteRepeatedSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceDeleteRepeatedSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteRepeatedScheduleResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceGetRepeatedSchedule2Response parses an HTTP response from a ScheduleServiceGetRepeatedSchedule2WithResponse call
+func ParseScheduleServiceGetRepeatedSchedule2Response(rsp *http.Response) (*ScheduleServiceGetRepeatedSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceGetRepeatedSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServicePatchRepeatedSchedule2Response parses an HTTP response from a ScheduleServicePatchRepeatedSchedule2WithResponse call
+func ParseScheduleServicePatchRepeatedSchedule2Response(rsp *http.Response) (*ScheduleServicePatchRepeatedSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServicePatchRepeatedSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceUpdateRepeatedSchedule2Response parses an HTTP response from a ScheduleServiceUpdateRepeatedSchedule2WithResponse call
+func ParseScheduleServiceUpdateRepeatedSchedule2Response(rsp *http.Response) (*ScheduleServiceUpdateRepeatedSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceUpdateRepeatedSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RepeatedScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceListSingleSchedules2Response parses an HTTP response from a ScheduleServiceListSingleSchedules2WithResponse call
+func ParseScheduleServiceListSingleSchedules2Response(rsp *http.Response) (*ScheduleServiceListSingleSchedules2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceListSingleSchedules2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListSingleSchedulesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceCreateSingleSchedule2Response parses an HTTP response from a ScheduleServiceCreateSingleSchedule2WithResponse call
+func ParseScheduleServiceCreateSingleSchedule2Response(rsp *http.Response) (*ScheduleServiceCreateSingleSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceCreateSingleSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceDeleteSingleSchedule2Response parses an HTTP response from a ScheduleServiceDeleteSingleSchedule2WithResponse call
+func ParseScheduleServiceDeleteSingleSchedule2Response(rsp *http.Response) (*ScheduleServiceDeleteSingleSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceDeleteSingleSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteSingleScheduleResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceGetSingleSchedule2Response parses an HTTP response from a ScheduleServiceGetSingleSchedule2WithResponse call
+func ParseScheduleServiceGetSingleSchedule2Response(rsp *http.Response) (*ScheduleServiceGetSingleSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceGetSingleSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServicePatchSingleSchedule2Response parses an HTTP response from a ScheduleServicePatchSingleSchedule2WithResponse call
+func ParseScheduleServicePatchSingleSchedule2Response(rsp *http.Response) (*ScheduleServicePatchSingleSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServicePatchSingleSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseScheduleServiceUpdateSingleSchedule2Response parses an HTTP response from a ScheduleServiceUpdateSingleSchedule2WithResponse call
+func ParseScheduleServiceUpdateSingleSchedule2Response(rsp *http.Response) (*ScheduleServiceUpdateSingleSchedule2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ScheduleServiceUpdateSingleSchedule2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceListSites2Response parses an HTTP response from a SiteServiceListSites2WithResponse call
+func ParseSiteServiceListSites2Response(rsp *http.Response) (*SiteServiceListSites2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceListSites2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListSitesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceCreateSite2Response parses an HTTP response from a SiteServiceCreateSite2WithResponse call
+func ParseSiteServiceCreateSite2Response(rsp *http.Response) (*SiteServiceCreateSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceCreateSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceDeleteSite2Response parses an HTTP response from a SiteServiceDeleteSite2WithResponse call
+func ParseSiteServiceDeleteSite2Response(rsp *http.Response) (*SiteServiceDeleteSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceDeleteSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteSiteResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceGetSite2Response parses an HTTP response from a SiteServiceGetSite2WithResponse call
+func ParseSiteServiceGetSite2Response(rsp *http.Response) (*SiteServiceGetSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceGetSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServicePatchSite2Response parses an HTTP response from a SiteServicePatchSite2WithResponse call
+func ParseSiteServicePatchSite2Response(rsp *http.Response) (*SiteServicePatchSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServicePatchSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceUpdateSite2Response parses an HTTP response from a SiteServiceUpdateSite2WithResponse call
+func ParseSiteServiceUpdateSite2Response(rsp *http.Response) (*SiteServiceUpdateSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceUpdateSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response parses an HTTP response from a TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse call
+func ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response(rsp *http.Response) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceListTelemetryLogsGroups2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryLogsGroupsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse call
+func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse call
+func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryLogsGroupResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse call
+func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response parses an HTTP response from a TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse call
+func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryMetricsGroupsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse call
+func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse call
+func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryMetricsGroupResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse call
+func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceListTelemetryLogsProfiles2Response parses an HTTP response from a TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse call
+func ParseTelemetryLogsProfileServiceListTelemetryLogsProfiles2Response(rsp *http.Response) (*TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryLogsProfilesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response parses an HTTP response from a TelemetryLogsProfileServiceCreateTelemetryLogsProfile2WithResponse call
+func ParseTelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response(rsp *http.Response) (*TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response parses an HTTP response from a TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2WithResponse call
+func ParseTelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response(rsp *http.Response) (*TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryLogsProfileResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceGetTelemetryLogsProfile2Response parses an HTTP response from a TelemetryLogsProfileServiceGetTelemetryLogsProfile2WithResponse call
+func ParseTelemetryLogsProfileServiceGetTelemetryLogsProfile2Response(rsp *http.Response) (*TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceGetTelemetryLogsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServicePatchTelemetryLogsProfile2Response parses an HTTP response from a TelemetryLogsProfileServicePatchTelemetryLogsProfile2WithResponse call
+func ParseTelemetryLogsProfileServicePatchTelemetryLogsProfile2Response(rsp *http.Response) (*TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServicePatchTelemetryLogsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response parses an HTTP response from a TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2WithResponse call
+func ParseTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response(rsp *http.Response) (*TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response parses an HTTP response from a TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2WithResponse call
+func ParseTelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response(rsp *http.Response) (*TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryMetricsProfilesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response parses an HTTP response from a TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2WithResponse call
+func ParseTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response(rsp *http.Response) (*TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response parses an HTTP response from a TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2WithResponse call
+func ParseTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response(rsp *http.Response) (*TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryMetricsProfileResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response parses an HTTP response from a TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2WithResponse call
+func ParseTelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response(rsp *http.Response) (*TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response parses an HTTP response from a TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2WithResponse call
+func ParseTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response(rsp *http.Response) (*TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response parses an HTTP response from a TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2WithResponse call
+func ParseTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response(rsp *http.Response) (*TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsProfileResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceListWorkloadMembers2Response parses an HTTP response from a WorkloadMemberServiceListWorkloadMembers2WithResponse call
+func ParseWorkloadMemberServiceListWorkloadMembers2Response(rsp *http.Response) (*WorkloadMemberServiceListWorkloadMembers2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceListWorkloadMembers2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListWorkloadMembersResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceCreateWorkloadMember2Response parses an HTTP response from a WorkloadMemberServiceCreateWorkloadMember2WithResponse call
+func ParseWorkloadMemberServiceCreateWorkloadMember2Response(rsp *http.Response) (*WorkloadMemberServiceCreateWorkloadMember2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceCreateWorkloadMember2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadMember
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceDeleteWorkloadMember2Response parses an HTTP response from a WorkloadMemberServiceDeleteWorkloadMember2WithResponse call
+func ParseWorkloadMemberServiceDeleteWorkloadMember2Response(rsp *http.Response) (*WorkloadMemberServiceDeleteWorkloadMember2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceDeleteWorkloadMember2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteWorkloadMemberResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadMemberServiceGetWorkloadMember2Response parses an HTTP response from a WorkloadMemberServiceGetWorkloadMember2WithResponse call
+func ParseWorkloadMemberServiceGetWorkloadMember2Response(rsp *http.Response) (*WorkloadMemberServiceGetWorkloadMember2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadMemberServiceGetWorkloadMember2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadMember
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadServiceListWorkloads2Response parses an HTTP response from a WorkloadServiceListWorkloads2WithResponse call
+func ParseWorkloadServiceListWorkloads2Response(rsp *http.Response) (*WorkloadServiceListWorkloads2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadServiceListWorkloads2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListWorkloadsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadServiceCreateWorkload2Response parses an HTTP response from a WorkloadServiceCreateWorkload2WithResponse call
+func ParseWorkloadServiceCreateWorkload2Response(rsp *http.Response) (*WorkloadServiceCreateWorkload2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadServiceCreateWorkload2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadServiceDeleteWorkload2Response parses an HTTP response from a WorkloadServiceDeleteWorkload2WithResponse call
+func ParseWorkloadServiceDeleteWorkload2Response(rsp *http.Response) (*WorkloadServiceDeleteWorkload2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadServiceDeleteWorkload2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteWorkloadResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadServiceGetWorkload2Response parses an HTTP response from a WorkloadServiceGetWorkload2WithResponse call
+func ParseWorkloadServiceGetWorkload2Response(rsp *http.Response) (*WorkloadServiceGetWorkload2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadServiceGetWorkload2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadServicePatchWorkload2Response parses an HTTP response from a WorkloadServicePatchWorkload2WithResponse call
+func ParseWorkloadServicePatchWorkload2Response(rsp *http.Response) (*WorkloadServicePatchWorkload2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadServicePatchWorkload2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseWorkloadServiceUpdateWorkload2Response parses an HTTP response from a WorkloadServiceUpdateWorkload2WithResponse call
+func ParseWorkloadServiceUpdateWorkload2Response(rsp *http.Response) (*WorkloadServiceUpdateWorkload2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &WorkloadServiceUpdateWorkload2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkloadResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseHostServiceListHostsResponse parses an HTTP response from a HostServiceListHostsWithResponse call
