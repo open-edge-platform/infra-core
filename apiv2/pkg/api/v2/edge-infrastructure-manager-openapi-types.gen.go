@@ -5716,57 +5716,6 @@ type LocalAccountServiceListLocalAccountsParams struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
-// RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
-type RegionServiceListRegionsParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-
-	// ShowTotalSites Flag to signal if the total amount of site in a region should be returned.
-	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
-}
-
-// RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
-type RegionServicePatchRegionParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
-// SiteServiceListSitesParams defines parameters for SiteServiceListSites.
-type SiteServiceListSitesParams struct {
-	// OrderBy Optional comma separated list of fields to specify a sorting order.
-	//  See https://google.aip.dev/132 for details.
-	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
-
-	// Filter Optional filter to return only item of interest.
-	//  See https://google.aip.dev/160 for details.
-	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
-
-	// PageSize Defines the amount of items to be contained in a single page.
-	//  Default of 20.
-	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
-
-	// Offset Index of the first item to return. This allows skipping items.
-	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
-}
-
-// SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
-type SiteServicePatchSiteParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
-}
-
 // LocationServiceListLocationsParams defines parameters for LocationServiceListLocations.
 type LocationServiceListLocationsParams struct {
 	// Name Filter locations by name
@@ -5831,6 +5780,33 @@ type ProviderServiceListProvidersParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// RegionServiceListRegionsParams defines parameters for RegionServiceListRegions.
+type RegionServiceListRegionsParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// ShowTotalSites Flag to signal if the total amount of site in a region should be returned.
+	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
+}
+
+// RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
+type RegionServicePatchRegionParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
 // ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
@@ -5937,6 +5913,30 @@ type ScheduleServiceListSingleSchedulesParams struct {
 
 // ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
 type ScheduleServicePatchSingleScheduleParams struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// SiteServiceListSitesParams defines parameters for SiteServiceListSites.
+type SiteServiceListSitesParams struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
+type SiteServicePatchSiteParams struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
@@ -6120,6 +6120,12 @@ type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 // LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
 type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
 
+// OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
+type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
+
+// ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
+type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
+
 // RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
 type RegionServiceCreateRegionJSONRequestBody = RegionResource
 
@@ -6128,21 +6134,6 @@ type RegionServicePatchRegionJSONRequestBody = RegionResource
 
 // RegionServiceUpdateRegionJSONRequestBody defines body for RegionServiceUpdateRegion for application/json ContentType.
 type RegionServiceUpdateRegionJSONRequestBody = RegionResource
-
-// SiteServiceCreateSiteJSONRequestBody defines body for SiteServiceCreateSite for application/json ContentType.
-type SiteServiceCreateSiteJSONRequestBody = SiteResource
-
-// SiteServicePatchSiteJSONRequestBody defines body for SiteServicePatchSite for application/json ContentType.
-type SiteServicePatchSiteJSONRequestBody = SiteResource
-
-// SiteServiceUpdateSiteJSONRequestBody defines body for SiteServiceUpdateSite for application/json ContentType.
-type SiteServiceUpdateSiteJSONRequestBody = SiteResource
-
-// OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
-type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
-
-// ProviderServiceCreateProviderJSONRequestBody defines body for ProviderServiceCreateProvider for application/json ContentType.
-type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
 
 // ScheduleServiceCreateRepeatedScheduleJSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule for application/json ContentType.
 type ScheduleServiceCreateRepeatedScheduleJSONRequestBody = RepeatedScheduleResource
@@ -6161,6 +6152,15 @@ type ScheduleServicePatchSingleScheduleJSONRequestBody = SingleScheduleResource
 
 // ScheduleServiceUpdateSingleScheduleJSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule for application/json ContentType.
 type ScheduleServiceUpdateSingleScheduleJSONRequestBody = SingleScheduleResource
+
+// SiteServiceCreateSiteJSONRequestBody defines body for SiteServiceCreateSite for application/json ContentType.
+type SiteServiceCreateSiteJSONRequestBody = SiteResource
+
+// SiteServicePatchSiteJSONRequestBody defines body for SiteServicePatchSite for application/json ContentType.
+type SiteServicePatchSiteJSONRequestBody = SiteResource
+
+// SiteServiceUpdateSiteJSONRequestBody defines body for SiteServiceUpdateSite for application/json ContentType.
+type SiteServiceUpdateSiteJSONRequestBody = SiteResource
 
 // TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup for application/json ContentType.
 type TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody = TelemetryLogsGroupResource

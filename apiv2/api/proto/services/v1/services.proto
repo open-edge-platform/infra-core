@@ -42,35 +42,35 @@ service RegionService {
   // Create a region.
   rpc CreateRegion(CreateRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/location/regions"
+      post: "/v1/projects/{projectName}/regions"
       body: "region"
     };
   }
   // Get a list of regions.
   rpc ListRegions(ListRegionsRequest) returns (ListRegionsResponse) {
-    option (google.api.http) = {get: "/v1/projects/{projectName}/location/regions"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/regions"};
   }
   // Get a specific region.
   rpc GetRegion(GetRegionRequest) returns (resources.location.v1.RegionResource) {
-    option (google.api.http) = {get: "/v1/projects/{projectName}/location/regions/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/regions/{resourceId}"};
   }
   // Update a region.
   rpc UpdateRegion(UpdateRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      put: "/v1/projects/{projectName}/location/regions/{resourceId}"
+      put: "/v1/projects/{projectName}/regions/{resourceId}"
       body: "region"
     };
   }
   // Patch a region.
   rpc PatchRegion(PatchRegionRequest) returns (resources.location.v1.RegionResource) {
     option (google.api.http) = {
-      patch: "/v1/projects/{projectName}/location/regions/{resourceId}"
+      patch: "/v1/projects/{projectName}/regions/{resourceId}"
       body: "region"
     };
   }  
   // Delete a region.
   rpc DeleteRegion(DeleteRegionRequest) returns (DeleteRegionResponse) {
-    option (google.api.http) = {delete: "/v1/projects/{projectName}/location/regions/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/regions/{resourceId}"};
   }
 }
 
@@ -79,35 +79,35 @@ service SiteService {
   // Create a site.
   rpc CreateSite(CreateSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/location/sites"
+      post: "/v1/projects/{projectName}/sites"
       body: "site"
     };
   }
   // Get a list of sites.
   rpc ListSites(ListSitesRequest) returns (ListSitesResponse) {
-    option (google.api.http) = {get: "/v1/projects/{projectName}/location/sites"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/sites"};
   }
   // Get a specific site.
   rpc GetSite(GetSiteRequest) returns (resources.location.v1.SiteResource) {
-    option (google.api.http) = {get: "/v1/projects/{projectName}/location/sites/{resourceId}"};
+    option (google.api.http) = {get: "/v1/projects/{projectName}/sites/{resourceId}"};
   }
   // Update a site.
   rpc UpdateSite(UpdateSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      put: "/v1/projects/{projectName}/location/sites/{resourceId}"
+      put: "/v1/projects/{projectName}/sites/{resourceId}"
       body: "site"
     };
   }
   // Patch a site.
   rpc PatchSite(PatchSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      patch: "/v1/projects/{projectName}/location/sites/{resourceId}"
+      patch: "/v1/projects/{projectName}/sites/{resourceId}"
       body: "site"
     };
   }  
   // Delete a site.
   rpc DeleteSite(DeleteSiteRequest) returns (DeleteSiteResponse) {
-    option (google.api.http) = {delete: "/v1/projects/{projectName}/location/sites/{resourceId}"};
+    option (google.api.http) = {delete: "/v1/projects/{projectName}/sites/{resourceId}"};
   }
 }
 

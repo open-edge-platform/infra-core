@@ -1338,507 +1338,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteLocalAccountResponse'
-  /v1/projects/{projectName}/location/regions:
-    get:
-      tags:
-        - RegionService
-      summary: ListRegions
-      description: Get a list of regions.
-      operationId: RegionService_ListRegions
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: filter
-          in: query
-          description: |-
-            Optional filter to return only item of interest.
-             See https://google.aip.dev/160 for details.
-          schema:
-            type: string
-            title: filter
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
-            description: |-
-              (OPTIONAL) Optional filter to return only item of interest.
-               See https://google.aip.dev/160 for details.
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-        - name: showTotalSites
-          in: query
-          description: Flag to signal if the total amount of site in a region should be returned.
-          schema:
-            type: boolean
-            title: show_total_sites
-            description: (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListRegionsResponse'
-    post:
-      tags:
-        - RegionService
-      summary: CreateRegion
-      description: Create a region.
-      operationId: RegionService_CreateRegion
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-      requestBody:
-        description: The region to create.
-        content:
-          application/json:
-            schema:
-              title: region
-              description: The region to create.
-              $ref: '#/components/schemas/RegionResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
-  /v1/projects/{projectName}/location/regions/{resourceId}:
-    get:
-      tags:
-        - RegionService
-      summary: GetRegion
-      description: Get a specific region.
-      operationId: RegionService_GetRegion
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: Name of the requested region.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested region.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
-    put:
-      tags:
-        - RegionService
-      summary: UpdateRegion
-      description: Update a region.
-      operationId: RegionService_UpdateRegion
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: Name of the region region to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the region region to be updated.
-      requestBody:
-        description: Updated values for the region.
-        content:
-          application/json:
-            schema:
-              title: region
-              description: Updated values for the region.
-              $ref: '#/components/schemas/RegionResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
-    delete:
-      tags:
-        - RegionService
-      summary: DeleteRegion
-      description: Delete a region.
-      operationId: RegionService_DeleteRegion
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: Name of the region region to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the region region to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteRegionResponse'
-    patch:
-      tags:
-        - RegionService
-      summary: PatchRegion
-      description: Patch a region.
-      operationId: RegionService_PatchRegion
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: ID of the resource to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: ID of the resource to be updated.
-        - name: fieldMask.paths
-          in: query
-          description: The set of field mask paths.
-          schema:
-            type: array
-            items:
-              type: string
-            title: paths
-            description: The set of field mask paths.
-      requestBody:
-        description: Updated values for the region.
-        content:
-          application/json:
-            schema:
-              title: region
-              description: Updated values for the region.
-              $ref: '#/components/schemas/RegionResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegionResource'
-  /v1/projects/{projectName}/location/sites:
-    get:
-      tags:
-        - SiteService
-      summary: ListSites
-      description: Get a list of sites.
-      operationId: SiteService_ListSites
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: orderBy
-          in: query
-          description: |-
-            Optional comma separated list of fields to specify a sorting order.
-             See https://google.aip.dev/132 for details.
-          schema:
-            type: string
-            title: order_by
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9., ]+$
-            description: |-
-              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
-               See https://google.aip.dev/132 for details.
-        - name: filter
-          in: query
-          description: |-
-            Optional filter to return only item of interest.
-             See https://google.aip.dev/160 for details.
-          schema:
-            type: string
-            title: filter
-            maxLength: 1000
-            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
-            description: |-
-              (OPTIONAL) Optional filter to return only item of interest.
-               See https://google.aip.dev/160 for details.
-        - name: pageSize
-          in: query
-          description: |-
-            Defines the amount of items to be contained in a single page.
-             Default of 20.
-          schema:
-            type: integer
-            title: page_size
-            maximum: 100
-            minimum: 1
-            description: |-
-              (OPTIONAL) Defines the amount of items to be contained in a single page.
-               Default of 20.
-        - name: offset
-          in: query
-          description: Index of the first item to return. This allows skipping items.
-          schema:
-            type: integer
-            title: offset
-            maximum: 10000
-            minimum: 0
-            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListSitesResponse'
-    post:
-      tags:
-        - SiteService
-      summary: CreateSite
-      description: Create a site.
-      operationId: SiteService_CreateSite
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-      requestBody:
-        description: The site to create.
-        content:
-          application/json:
-            schema:
-              title: site
-              description: The site to create.
-              $ref: '#/components/schemas/SiteResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
-  /v1/projects/{projectName}/location/sites/{resourceId}:
-    get:
-      tags:
-        - SiteService
-      summary: GetSite
-      description: Get a specific site.
-      operationId: SiteService_GetSite
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: Name of the requested site.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the requested site.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
-    put:
-      tags:
-        - SiteService
-      summary: UpdateSite
-      description: Update a site.
-      operationId: SiteService_UpdateSite
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: Name of the site site to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the site site to be updated.
-      requestBody:
-        description: Updated values for the site.
-        content:
-          application/json:
-            schema:
-              title: site
-              description: Updated values for the site.
-              $ref: '#/components/schemas/SiteResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
-    delete:
-      tags:
-        - SiteService
-      summary: DeleteSite
-      description: Delete a site.
-      operationId: SiteService_DeleteSite
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: Name of the site site to be deleted.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: Name of the site site to be deleted.
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteSiteResponse'
-    patch:
-      tags:
-        - SiteService
-      summary: PatchSite
-      description: Patch a site.
-      operationId: SiteService_PatchSite
-      parameters:
-        - name: projectName
-          in: path
-          description: Project name
-          required: true
-          schema:
-            type: string
-            title: projectName
-            description: Project name
-        - name: resourceId
-          in: path
-          description: ID of the resource to be updated.
-          required: true
-          schema:
-            type: string
-            title: resourceId
-            description: ID of the resource to be updated.
-        - name: fieldMask.paths
-          in: query
-          description: The set of field mask paths.
-          schema:
-            type: array
-            items:
-              type: string
-            title: paths
-            description: The set of field mask paths.
-      requestBody:
-        description: Updated values for the site.
-        content:
-          application/json:
-            schema:
-              title: site
-              description: Updated values for the site.
-              $ref: '#/components/schemas/SiteResource'
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SiteResource'
   /v1/projects/{projectName}/locations:
     get:
       tags:
@@ -2341,6 +1840,260 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteProviderResponse'
+  /v1/projects/{projectName}/regions:
+    get:
+      tags:
+        - RegionService
+      summary: ListRegions
+      description: Get a list of regions.
+      operationId: RegionService_ListRegions
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: showTotalSites
+          in: query
+          description: Flag to signal if the total amount of site in a region should be returned.
+          schema:
+            type: boolean
+            title: show_total_sites
+            description: (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRegionsResponse'
+    post:
+      tags:
+        - RegionService
+      summary: CreateRegion
+      description: Create a region.
+      operationId: RegionService_CreateRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The region to create.
+        content:
+          application/json:
+            schema:
+              title: region
+              description: The region to create.
+              $ref: '#/components/schemas/RegionResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
+  /v1/projects/{projectName}/regions/{resourceId}:
+    get:
+      tags:
+        - RegionService
+      summary: GetRegion
+      description: Get a specific region.
+      operationId: RegionService_GetRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested region.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested region.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
+    put:
+      tags:
+        - RegionService
+      summary: UpdateRegion
+      description: Update a region.
+      operationId: RegionService_UpdateRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the region region to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the region region to be updated.
+      requestBody:
+        description: Updated values for the region.
+        content:
+          application/json:
+            schema:
+              title: region
+              description: Updated values for the region.
+              $ref: '#/components/schemas/RegionResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
+    delete:
+      tags:
+        - RegionService
+      summary: DeleteRegion
+      description: Delete a region.
+      operationId: RegionService_DeleteRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the region region to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the region region to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteRegionResponse'
+    patch:
+      tags:
+        - RegionService
+      summary: PatchRegion
+      description: Patch a region.
+      operationId: RegionService_PatchRegion
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the region.
+        content:
+          application/json:
+            schema:
+              title: region
+              description: Updated values for the region.
+              $ref: '#/components/schemas/RegionResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResource'
   /v1/projects/{projectName}/schedules:
     get:
       tags:
@@ -3011,6 +2764,253 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleScheduleResource'
+  /v1/projects/{projectName}/sites:
+    get:
+      tags:
+        - SiteService
+      summary: ListSites
+      description: Get a list of sites.
+      operationId: SiteService_ListSites
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSitesResponse'
+    post:
+      tags:
+        - SiteService
+      summary: CreateSite
+      description: Create a site.
+      operationId: SiteService_CreateSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The site to create.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: The site to create.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+  /v1/projects/{projectName}/sites/{resourceId}:
+    get:
+      tags:
+        - SiteService
+      summary: GetSite
+      description: Get a specific site.
+      operationId: SiteService_GetSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested site.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested site.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+    put:
+      tags:
+        - SiteService
+      summary: UpdateSite
+      description: Update a site.
+      operationId: SiteService_UpdateSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the site site to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the site site to be updated.
+      requestBody:
+        description: Updated values for the site.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: Updated values for the site.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+    delete:
+      tags:
+        - SiteService
+      summary: DeleteSite
+      description: Delete a site.
+      operationId: SiteService_DeleteSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the site site to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the site site to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSiteResponse'
+    patch:
+      tags:
+        - SiteService
+      summary: PatchSite
+      description: Patch a site.
+      operationId: SiteService_PatchSite
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the site.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: Updated values for the site.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
   /v1/projects/{projectName}/telemetry/groups/logs:
     get:
       tags:

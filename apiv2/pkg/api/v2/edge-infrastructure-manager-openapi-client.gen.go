@@ -211,54 +211,6 @@ type ClientInterface interface {
 	// LocalAccountServiceGetLocalAccount request
 	LocalAccountServiceGetLocalAccount(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// RegionServiceListRegions request
-	RegionServiceListRegions(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// RegionServiceCreateRegionWithBody request with any body
-	RegionServiceCreateRegionWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	RegionServiceCreateRegion(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// RegionServiceDeleteRegion request
-	RegionServiceDeleteRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// RegionServiceGetRegion request
-	RegionServiceGetRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// RegionServicePatchRegionWithBody request with any body
-	RegionServicePatchRegionWithBody(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	RegionServicePatchRegion(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// RegionServiceUpdateRegionWithBody request with any body
-	RegionServiceUpdateRegionWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	RegionServiceUpdateRegion(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// SiteServiceListSites request
-	SiteServiceListSites(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// SiteServiceCreateSiteWithBody request with any body
-	SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	SiteServiceCreateSite(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// SiteServiceDeleteSite request
-	SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// SiteServiceGetSite request
-	SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// SiteServicePatchSiteWithBody request with any body
-	SiteServicePatchSiteWithBody(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	SiteServicePatchSite(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// SiteServiceUpdateSiteWithBody request with any body
-	SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// LocationServiceListLocations request
 	LocationServiceListLocations(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -298,6 +250,30 @@ type ClientInterface interface {
 
 	// ProviderServiceGetProvider request
 	ProviderServiceGetProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceListRegions request
+	RegionServiceListRegions(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceCreateRegionWithBody request with any body
+	RegionServiceCreateRegionWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RegionServiceCreateRegion(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceDeleteRegion request
+	RegionServiceDeleteRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceGetRegion request
+	RegionServiceGetRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServicePatchRegionWithBody request with any body
+	RegionServicePatchRegionWithBody(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RegionServicePatchRegion(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RegionServiceUpdateRegionWithBody request with any body
+	RegionServiceUpdateRegionWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RegionServiceUpdateRegion(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ScheduleServiceListSchedules request
 	ScheduleServiceListSchedules(ctx context.Context, projectName string, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -349,6 +325,30 @@ type ClientInterface interface {
 	ScheduleServiceUpdateSingleScheduleWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	ScheduleServiceUpdateSingleSchedule(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceListSites request
+	SiteServiceListSites(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceCreateSiteWithBody request with any body
+	SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServiceCreateSite(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceDeleteSite request
+	SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceGetSite request
+	SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServicePatchSiteWithBody request with any body
+	SiteServicePatchSiteWithBody(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServicePatchSite(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceUpdateSiteWithBody request with any body
+	SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryLogsGroupServiceListTelemetryLogsGroups request
 	TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1005,222 +1005,6 @@ func (c *Client) LocalAccountServiceGetLocalAccount(ctx context.Context, project
 	return c.Client.Do(req)
 }
 
-func (c *Client) RegionServiceListRegions(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServiceListRegionsRequest(c.Server, projectName, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServiceCreateRegionWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServiceCreateRegionRequestWithBody(c.Server, projectName, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServiceCreateRegion(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServiceCreateRegionRequest(c.Server, projectName, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServiceDeleteRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServiceDeleteRegionRequest(c.Server, projectName, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServiceGetRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServiceGetRegionRequest(c.Server, projectName, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServicePatchRegionWithBody(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServicePatchRegionRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServicePatchRegion(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServicePatchRegionRequest(c.Server, projectName, resourceId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServiceUpdateRegionWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServiceUpdateRegionRequestWithBody(c.Server, projectName, resourceId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) RegionServiceUpdateRegion(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewRegionServiceUpdateRegionRequest(c.Server, projectName, resourceId, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServiceListSites(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceListSitesRequest(c.Server, projectName, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceCreateSiteRequestWithBody(c.Server, projectName, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServiceCreateSite(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceCreateSiteRequest(c.Server, projectName, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceDeleteSiteRequest(c.Server, projectName, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceGetSiteRequest(c.Server, projectName, resourceId)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServicePatchSiteWithBody(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServicePatchSiteRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServicePatchSite(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServicePatchSiteRequest(c.Server, projectName, resourceId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceUpdateSiteRequestWithBody(c.Server, projectName, resourceId, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceUpdateSiteRequest(c.Server, projectName, resourceId, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
 func (c *Client) LocationServiceListLocations(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewLocationServiceListLocationsRequest(c.Server, projectName, params)
 	if err != nil {
@@ -1379,6 +1163,114 @@ func (c *Client) ProviderServiceDeleteProvider(ctx context.Context, projectName 
 
 func (c *Client) ProviderServiceGetProvider(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewProviderServiceGetProviderRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceListRegions(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceListRegionsRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceCreateRegionWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceCreateRegionRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceCreateRegion(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceCreateRegionRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceDeleteRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceDeleteRegionRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceGetRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceGetRegionRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServicePatchRegionWithBody(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServicePatchRegionRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServicePatchRegion(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServicePatchRegionRequest(c.Server, projectName, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceUpdateRegionWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceUpdateRegionRequestWithBody(c.Server, projectName, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RegionServiceUpdateRegion(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRegionServiceUpdateRegionRequest(c.Server, projectName, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1607,6 +1499,114 @@ func (c *Client) ScheduleServiceUpdateSingleScheduleWithBody(ctx context.Context
 
 func (c *Client) ScheduleServiceUpdateSingleSchedule(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewScheduleServiceUpdateSingleScheduleRequest(c.Server, projectName, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceListSites(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceListSitesRequest(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSiteRequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceCreateSite(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSiteRequest(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceDeleteSiteRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceGetSiteRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServicePatchSiteWithBody(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSiteRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServicePatchSite(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSiteRequest(c.Server, projectName, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSiteRequestWithBody(c.Server, projectName, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSiteRequest(c.Server, projectName, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -4000,748 +4000,6 @@ func NewLocalAccountServiceGetLocalAccountRequest(server string, projectName str
 	return req, nil
 }
 
-// NewRegionServiceListRegionsRequest generates requests for RegionServiceListRegions
-func NewRegionServiceListRegionsRequest(server string, projectName string, params *RegionServiceListRegionsParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/regions", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.ShowTotalSites != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showTotalSites", runtime.ParamLocationQuery, *params.ShowTotalSites); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewRegionServiceCreateRegionRequest calls the generic RegionServiceCreateRegion builder with application/json body
-func NewRegionServiceCreateRegionRequest(server string, projectName string, body RegionServiceCreateRegionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRegionServiceCreateRegionRequestWithBody(server, projectName, "application/json", bodyReader)
-}
-
-// NewRegionServiceCreateRegionRequestWithBody generates requests for RegionServiceCreateRegion with any type of body
-func NewRegionServiceCreateRegionRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/regions", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewRegionServiceDeleteRegionRequest generates requests for RegionServiceDeleteRegion
-func NewRegionServiceDeleteRegionRequest(server string, projectName string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/regions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewRegionServiceGetRegionRequest generates requests for RegionServiceGetRegion
-func NewRegionServiceGetRegionRequest(server string, projectName string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/regions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewRegionServicePatchRegionRequest calls the generic RegionServicePatchRegion builder with application/json body
-func NewRegionServicePatchRegionRequest(server string, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRegionServicePatchRegionRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
-}
-
-// NewRegionServicePatchRegionRequestWithBody generates requests for RegionServicePatchRegion with any type of body
-func NewRegionServicePatchRegionRequestWithBody(server string, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/regions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMaskPaths != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("PATCH", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewRegionServiceUpdateRegionRequest calls the generic RegionServiceUpdateRegion builder with application/json body
-func NewRegionServiceUpdateRegionRequest(server string, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewRegionServiceUpdateRegionRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
-}
-
-// NewRegionServiceUpdateRegionRequestWithBody generates requests for RegionServiceUpdateRegion with any type of body
-func NewRegionServiceUpdateRegionRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/regions/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("PUT", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewSiteServiceListSitesRequest generates requests for SiteServiceListSites
-func NewSiteServiceListSitesRequest(server string, projectName string, params *SiteServiceListSitesParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/sites", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.OrderBy != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Filter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.PageSize != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		if params.Offset != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewSiteServiceCreateSiteRequest calls the generic SiteServiceCreateSite builder with application/json body
-func NewSiteServiceCreateSiteRequest(server string, projectName string, body SiteServiceCreateSiteJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewSiteServiceCreateSiteRequestWithBody(server, projectName, "application/json", bodyReader)
-}
-
-// NewSiteServiceCreateSiteRequestWithBody generates requests for SiteServiceCreateSite with any type of body
-func NewSiteServiceCreateSiteRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/sites", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewSiteServiceDeleteSiteRequest generates requests for SiteServiceDeleteSite
-func NewSiteServiceDeleteSiteRequest(server string, projectName string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/sites/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewSiteServiceGetSiteRequest generates requests for SiteServiceGetSite
-func NewSiteServiceGetSiteRequest(server string, projectName string, resourceId string) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/sites/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewSiteServicePatchSiteRequest calls the generic SiteServicePatchSite builder with application/json body
-func NewSiteServicePatchSiteRequest(server string, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewSiteServicePatchSiteRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
-}
-
-// NewSiteServicePatchSiteRequestWithBody generates requests for SiteServicePatchSite with any type of body
-func NewSiteServicePatchSiteRequestWithBody(server string, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/sites/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.FieldMaskPaths != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("PATCH", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewSiteServiceUpdateSiteRequest calls the generic SiteServiceUpdateSite builder with application/json body
-func NewSiteServiceUpdateSiteRequest(server string, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewSiteServiceUpdateSiteRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
-}
-
-// NewSiteServiceUpdateSiteRequestWithBody generates requests for SiteServiceUpdateSite with any type of body
-func NewSiteServiceUpdateSiteRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/projects/%s/location/sites/%s", pathParam0, pathParam1)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("PUT", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
 // NewLocationServiceListLocationsRequest generates requests for LocationServiceListLocations
 func NewLocationServiceListLocationsRequest(server string, projectName string, params *LocationServiceListLocationsParams) (*http.Request, error) {
 	var err error
@@ -5478,6 +4736,385 @@ func NewProviderServiceGetProviderRequest(server string, projectName string, res
 	if err != nil {
 		return nil, err
 	}
+
+	return req, nil
+}
+
+// NewRegionServiceListRegionsRequest generates requests for RegionServiceListRegions
+func NewRegionServiceListRegionsRequest(server string, projectName string, params *RegionServiceListRegionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.ShowTotalSites != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "showTotalSites", runtime.ParamLocationQuery, *params.ShowTotalSites); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegionServiceCreateRegionRequest calls the generic RegionServiceCreateRegion builder with application/json body
+func NewRegionServiceCreateRegionRequest(server string, projectName string, body RegionServiceCreateRegionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRegionServiceCreateRegionRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewRegionServiceCreateRegionRequestWithBody generates requests for RegionServiceCreateRegion with any type of body
+func NewRegionServiceCreateRegionRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewRegionServiceDeleteRegionRequest generates requests for RegionServiceDeleteRegion
+func NewRegionServiceDeleteRegionRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegionServiceGetRegionRequest generates requests for RegionServiceGetRegion
+func NewRegionServiceGetRegionRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewRegionServicePatchRegionRequest calls the generic RegionServicePatchRegion builder with application/json body
+func NewRegionServicePatchRegionRequest(server string, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRegionServicePatchRegionRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
+}
+
+// NewRegionServicePatchRegionRequestWithBody generates requests for RegionServicePatchRegion with any type of body
+func NewRegionServicePatchRegionRequestWithBody(server string, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewRegionServiceUpdateRegionRequest calls the generic RegionServiceUpdateRegion builder with application/json body
+func NewRegionServiceUpdateRegionRequest(server string, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRegionServiceUpdateRegionRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+}
+
+// NewRegionServiceUpdateRegionRequestWithBody generates requests for RegionServiceUpdateRegion with any type of body
+func NewRegionServiceUpdateRegionRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -6389,6 +6026,369 @@ func NewScheduleServiceUpdateSingleScheduleRequestWithBody(server string, projec
 	}
 
 	operationPath := fmt.Sprintf("/v1/projects/%s/schedules/single/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceListSitesRequest generates requests for SiteServiceListSites
+func NewSiteServiceListSitesRequest(server string, projectName string, params *SiteServiceListSitesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/sites", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServiceCreateSiteRequest calls the generic SiteServiceCreateSite builder with application/json body
+func NewSiteServiceCreateSiteRequest(server string, projectName string, body SiteServiceCreateSiteJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServiceCreateSiteRequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewSiteServiceCreateSiteRequestWithBody generates requests for SiteServiceCreateSite with any type of body
+func NewSiteServiceCreateSiteRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/sites", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceDeleteSiteRequest generates requests for SiteServiceDeleteSite
+func NewSiteServiceDeleteSiteRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/sites/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServiceGetSiteRequest generates requests for SiteServiceGetSite
+func NewSiteServiceGetSiteRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/sites/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServicePatchSiteRequest calls the generic SiteServicePatchSite builder with application/json body
+func NewSiteServicePatchSiteRequest(server string, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServicePatchSiteRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
+}
+
+// NewSiteServicePatchSiteRequestWithBody generates requests for SiteServicePatchSite with any type of body
+func NewSiteServicePatchSiteRequestWithBody(server string, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/sites/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceUpdateSiteRequest calls the generic SiteServiceUpdateSite builder with application/json body
+func NewSiteServiceUpdateSiteRequest(server string, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServiceUpdateSiteRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+}
+
+// NewSiteServiceUpdateSiteRequestWithBody generates requests for SiteServiceUpdateSite with any type of body
+func NewSiteServiceUpdateSiteRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/sites/%s", pathParam0, pathParam1)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -8425,54 +8425,6 @@ type ClientWithResponsesInterface interface {
 	// LocalAccountServiceGetLocalAccountWithResponse request
 	LocalAccountServiceGetLocalAccountWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*LocalAccountServiceGetLocalAccountResponse, error)
 
-	// RegionServiceListRegionsWithResponse request
-	RegionServiceListRegionsWithResponse(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*RegionServiceListRegionsResponse, error)
-
-	// RegionServiceCreateRegionWithBodyWithResponse request with any body
-	RegionServiceCreateRegionWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error)
-
-	RegionServiceCreateRegionWithResponse(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error)
-
-	// RegionServiceDeleteRegionWithResponse request
-	RegionServiceDeleteRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegionResponse, error)
-
-	// RegionServiceGetRegionWithResponse request
-	RegionServiceGetRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceGetRegionResponse, error)
-
-	// RegionServicePatchRegionWithBodyWithResponse request with any body
-	RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
-
-	RegionServicePatchRegionWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
-
-	// RegionServiceUpdateRegionWithBodyWithResponse request with any body
-	RegionServiceUpdateRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error)
-
-	RegionServiceUpdateRegionWithResponse(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error)
-
-	// SiteServiceListSitesWithResponse request
-	SiteServiceListSitesWithResponse(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*SiteServiceListSitesResponse, error)
-
-	// SiteServiceCreateSiteWithBodyWithResponse request with any body
-	SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
-
-	SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
-
-	// SiteServiceDeleteSiteWithResponse request
-	SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error)
-
-	// SiteServiceGetSiteWithResponse request
-	SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error)
-
-	// SiteServicePatchSiteWithBodyWithResponse request with any body
-	SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
-
-	SiteServicePatchSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
-
-	// SiteServiceUpdateSiteWithBodyWithResponse request with any body
-	SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
-
-	SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
-
 	// LocationServiceListLocationsWithResponse request
 	LocationServiceListLocationsWithResponse(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error)
 
@@ -8512,6 +8464,30 @@ type ClientWithResponsesInterface interface {
 
 	// ProviderServiceGetProviderWithResponse request
 	ProviderServiceGetProviderWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*ProviderServiceGetProviderResponse, error)
+
+	// RegionServiceListRegionsWithResponse request
+	RegionServiceListRegionsWithResponse(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*RegionServiceListRegionsResponse, error)
+
+	// RegionServiceCreateRegionWithBodyWithResponse request with any body
+	RegionServiceCreateRegionWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error)
+
+	RegionServiceCreateRegionWithResponse(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error)
+
+	// RegionServiceDeleteRegionWithResponse request
+	RegionServiceDeleteRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegionResponse, error)
+
+	// RegionServiceGetRegionWithResponse request
+	RegionServiceGetRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceGetRegionResponse, error)
+
+	// RegionServicePatchRegionWithBodyWithResponse request with any body
+	RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
+
+	RegionServicePatchRegionWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error)
+
+	// RegionServiceUpdateRegionWithBodyWithResponse request with any body
+	RegionServiceUpdateRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error)
+
+	RegionServiceUpdateRegionWithResponse(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error)
 
 	// ScheduleServiceListSchedulesWithResponse request
 	ScheduleServiceListSchedulesWithResponse(ctx context.Context, projectName string, params *ScheduleServiceListSchedulesParams, reqEditors ...RequestEditorFn) (*ScheduleServiceListSchedulesResponse, error)
@@ -8563,6 +8539,30 @@ type ClientWithResponsesInterface interface {
 	ScheduleServiceUpdateSingleScheduleWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
 
 	ScheduleServiceUpdateSingleScheduleWithResponse(ctx context.Context, projectName string, resourceId string, body ScheduleServiceUpdateSingleScheduleJSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleScheduleResponse, error)
+
+	// SiteServiceListSitesWithResponse request
+	SiteServiceListSitesWithResponse(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*SiteServiceListSitesResponse, error)
+
+	// SiteServiceCreateSiteWithBodyWithResponse request with any body
+	SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
+
+	SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
+
+	// SiteServiceDeleteSiteWithResponse request
+	SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error)
+
+	// SiteServiceGetSiteWithResponse request
+	SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error)
+
+	// SiteServicePatchSiteWithBodyWithResponse request with any body
+	SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
+
+	SiteServicePatchSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
+
+	// SiteServiceUpdateSiteWithBodyWithResponse request with any body
+	SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
+
+	SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
 
 	// TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request
 	TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error)
@@ -9383,270 +9383,6 @@ func (r LocalAccountServiceGetLocalAccountResponse) StatusCode() int {
 	return 0
 }
 
-type RegionServiceListRegionsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListRegionsResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r RegionServiceListRegionsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RegionServiceListRegionsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type RegionServiceCreateRegionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RegionResource
-}
-
-// Status returns HTTPResponse.Status
-func (r RegionServiceCreateRegionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RegionServiceCreateRegionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type RegionServiceDeleteRegionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteRegionResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r RegionServiceDeleteRegionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RegionServiceDeleteRegionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type RegionServiceGetRegionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RegionResource
-}
-
-// Status returns HTTPResponse.Status
-func (r RegionServiceGetRegionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RegionServiceGetRegionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type RegionServicePatchRegionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RegionResource
-}
-
-// Status returns HTTPResponse.Status
-func (r RegionServicePatchRegionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RegionServicePatchRegionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type RegionServiceUpdateRegionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *RegionResource
-}
-
-// Status returns HTTPResponse.Status
-func (r RegionServiceUpdateRegionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r RegionServiceUpdateRegionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type SiteServiceListSitesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ListSitesResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r SiteServiceListSitesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceListSitesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type SiteServiceCreateSiteResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SiteResource
-}
-
-// Status returns HTTPResponse.Status
-func (r SiteServiceCreateSiteResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceCreateSiteResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type SiteServiceDeleteSiteResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *DeleteSiteResponse
-}
-
-// Status returns HTTPResponse.Status
-func (r SiteServiceDeleteSiteResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceDeleteSiteResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type SiteServiceGetSiteResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SiteResource
-}
-
-// Status returns HTTPResponse.Status
-func (r SiteServiceGetSiteResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceGetSiteResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type SiteServicePatchSiteResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SiteResource
-}
-
-// Status returns HTTPResponse.Status
-func (r SiteServicePatchSiteResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r SiteServicePatchSiteResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type SiteServiceUpdateSiteResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *SiteResource
-}
-
-// Status returns HTTPResponse.Status
-func (r SiteServiceUpdateSiteResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceUpdateSiteResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
 type LocationServiceListLocationsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -9905,6 +9641,138 @@ func (r ProviderServiceGetProviderResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r ProviderServiceGetProviderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceListRegionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListRegionsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceListRegionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceListRegionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceCreateRegionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceCreateRegionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceCreateRegionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceDeleteRegionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteRegionResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceDeleteRegionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceDeleteRegionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceGetRegionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceGetRegionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceGetRegionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServicePatchRegionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServicePatchRegionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServicePatchRegionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type RegionServiceUpdateRegionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RegionResource
+}
+
+// Status returns HTTPResponse.Status
+func (r RegionServiceUpdateRegionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RegionServiceUpdateRegionResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -10191,6 +10059,138 @@ func (r ScheduleServiceUpdateSingleScheduleResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r ScheduleServiceUpdateSingleScheduleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceListSitesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListSitesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceListSitesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceListSitesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceCreateSiteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceCreateSiteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceCreateSiteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceDeleteSiteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteSiteResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceDeleteSiteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceDeleteSiteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceGetSiteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceGetSiteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceGetSiteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServicePatchSiteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServicePatchSiteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServicePatchSiteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceUpdateSiteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceUpdateSiteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceUpdateSiteResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -11249,162 +11249,6 @@ func (c *ClientWithResponses) LocalAccountServiceGetLocalAccountWithResponse(ctx
 	return ParseLocalAccountServiceGetLocalAccountResponse(rsp)
 }
 
-// RegionServiceListRegionsWithResponse request returning *RegionServiceListRegionsResponse
-func (c *ClientWithResponses) RegionServiceListRegionsWithResponse(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*RegionServiceListRegionsResponse, error) {
-	rsp, err := c.RegionServiceListRegions(ctx, projectName, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServiceListRegionsResponse(rsp)
-}
-
-// RegionServiceCreateRegionWithBodyWithResponse request with arbitrary body returning *RegionServiceCreateRegionResponse
-func (c *ClientWithResponses) RegionServiceCreateRegionWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error) {
-	rsp, err := c.RegionServiceCreateRegionWithBody(ctx, projectName, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServiceCreateRegionResponse(rsp)
-}
-
-func (c *ClientWithResponses) RegionServiceCreateRegionWithResponse(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error) {
-	rsp, err := c.RegionServiceCreateRegion(ctx, projectName, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServiceCreateRegionResponse(rsp)
-}
-
-// RegionServiceDeleteRegionWithResponse request returning *RegionServiceDeleteRegionResponse
-func (c *ClientWithResponses) RegionServiceDeleteRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegionResponse, error) {
-	rsp, err := c.RegionServiceDeleteRegion(ctx, projectName, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServiceDeleteRegionResponse(rsp)
-}
-
-// RegionServiceGetRegionWithResponse request returning *RegionServiceGetRegionResponse
-func (c *ClientWithResponses) RegionServiceGetRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceGetRegionResponse, error) {
-	rsp, err := c.RegionServiceGetRegion(ctx, projectName, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServiceGetRegionResponse(rsp)
-}
-
-// RegionServicePatchRegionWithBodyWithResponse request with arbitrary body returning *RegionServicePatchRegionResponse
-func (c *ClientWithResponses) RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
-	rsp, err := c.RegionServicePatchRegionWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServicePatchRegionResponse(rsp)
-}
-
-func (c *ClientWithResponses) RegionServicePatchRegionWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
-	rsp, err := c.RegionServicePatchRegion(ctx, projectName, resourceId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServicePatchRegionResponse(rsp)
-}
-
-// RegionServiceUpdateRegionWithBodyWithResponse request with arbitrary body returning *RegionServiceUpdateRegionResponse
-func (c *ClientWithResponses) RegionServiceUpdateRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error) {
-	rsp, err := c.RegionServiceUpdateRegionWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServiceUpdateRegionResponse(rsp)
-}
-
-func (c *ClientWithResponses) RegionServiceUpdateRegionWithResponse(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error) {
-	rsp, err := c.RegionServiceUpdateRegion(ctx, projectName, resourceId, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseRegionServiceUpdateRegionResponse(rsp)
-}
-
-// SiteServiceListSitesWithResponse request returning *SiteServiceListSitesResponse
-func (c *ClientWithResponses) SiteServiceListSitesWithResponse(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*SiteServiceListSitesResponse, error) {
-	rsp, err := c.SiteServiceListSites(ctx, projectName, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServiceListSitesResponse(rsp)
-}
-
-// SiteServiceCreateSiteWithBodyWithResponse request with arbitrary body returning *SiteServiceCreateSiteResponse
-func (c *ClientWithResponses) SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
-	rsp, err := c.SiteServiceCreateSiteWithBody(ctx, projectName, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServiceCreateSiteResponse(rsp)
-}
-
-func (c *ClientWithResponses) SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
-	rsp, err := c.SiteServiceCreateSite(ctx, projectName, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServiceCreateSiteResponse(rsp)
-}
-
-// SiteServiceDeleteSiteWithResponse request returning *SiteServiceDeleteSiteResponse
-func (c *ClientWithResponses) SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error) {
-	rsp, err := c.SiteServiceDeleteSite(ctx, projectName, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServiceDeleteSiteResponse(rsp)
-}
-
-// SiteServiceGetSiteWithResponse request returning *SiteServiceGetSiteResponse
-func (c *ClientWithResponses) SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error) {
-	rsp, err := c.SiteServiceGetSite(ctx, projectName, resourceId, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServiceGetSiteResponse(rsp)
-}
-
-// SiteServicePatchSiteWithBodyWithResponse request with arbitrary body returning *SiteServicePatchSiteResponse
-func (c *ClientWithResponses) SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
-	rsp, err := c.SiteServicePatchSiteWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServicePatchSiteResponse(rsp)
-}
-
-func (c *ClientWithResponses) SiteServicePatchSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
-	rsp, err := c.SiteServicePatchSite(ctx, projectName, resourceId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServicePatchSiteResponse(rsp)
-}
-
-// SiteServiceUpdateSiteWithBodyWithResponse request with arbitrary body returning *SiteServiceUpdateSiteResponse
-func (c *ClientWithResponses) SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
-	rsp, err := c.SiteServiceUpdateSiteWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServiceUpdateSiteResponse(rsp)
-}
-
-func (c *ClientWithResponses) SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
-	rsp, err := c.SiteServiceUpdateSite(ctx, projectName, resourceId, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseSiteServiceUpdateSiteResponse(rsp)
-}
-
 // LocationServiceListLocationsWithResponse request returning *LocationServiceListLocationsResponse
 func (c *ClientWithResponses) LocationServiceListLocationsWithResponse(ctx context.Context, projectName string, params *LocationServiceListLocationsParams, reqEditors ...RequestEditorFn) (*LocationServiceListLocationsResponse, error) {
 	rsp, err := c.LocationServiceListLocations(ctx, projectName, params, reqEditors...)
@@ -11527,6 +11371,84 @@ func (c *ClientWithResponses) ProviderServiceGetProviderWithResponse(ctx context
 		return nil, err
 	}
 	return ParseProviderServiceGetProviderResponse(rsp)
+}
+
+// RegionServiceListRegionsWithResponse request returning *RegionServiceListRegionsResponse
+func (c *ClientWithResponses) RegionServiceListRegionsWithResponse(ctx context.Context, projectName string, params *RegionServiceListRegionsParams, reqEditors ...RequestEditorFn) (*RegionServiceListRegionsResponse, error) {
+	rsp, err := c.RegionServiceListRegions(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceListRegionsResponse(rsp)
+}
+
+// RegionServiceCreateRegionWithBodyWithResponse request with arbitrary body returning *RegionServiceCreateRegionResponse
+func (c *ClientWithResponses) RegionServiceCreateRegionWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error) {
+	rsp, err := c.RegionServiceCreateRegionWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceCreateRegionResponse(rsp)
+}
+
+func (c *ClientWithResponses) RegionServiceCreateRegionWithResponse(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error) {
+	rsp, err := c.RegionServiceCreateRegion(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceCreateRegionResponse(rsp)
+}
+
+// RegionServiceDeleteRegionWithResponse request returning *RegionServiceDeleteRegionResponse
+func (c *ClientWithResponses) RegionServiceDeleteRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegionResponse, error) {
+	rsp, err := c.RegionServiceDeleteRegion(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceDeleteRegionResponse(rsp)
+}
+
+// RegionServiceGetRegionWithResponse request returning *RegionServiceGetRegionResponse
+func (c *ClientWithResponses) RegionServiceGetRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceGetRegionResponse, error) {
+	rsp, err := c.RegionServiceGetRegion(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceGetRegionResponse(rsp)
+}
+
+// RegionServicePatchRegionWithBodyWithResponse request with arbitrary body returning *RegionServicePatchRegionResponse
+func (c *ClientWithResponses) RegionServicePatchRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
+	rsp, err := c.RegionServicePatchRegionWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServicePatchRegionResponse(rsp)
+}
+
+func (c *ClientWithResponses) RegionServicePatchRegionWithResponse(ctx context.Context, projectName string, resourceId string, params *RegionServicePatchRegionParams, body RegionServicePatchRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServicePatchRegionResponse, error) {
+	rsp, err := c.RegionServicePatchRegion(ctx, projectName, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServicePatchRegionResponse(rsp)
+}
+
+// RegionServiceUpdateRegionWithBodyWithResponse request with arbitrary body returning *RegionServiceUpdateRegionResponse
+func (c *ClientWithResponses) RegionServiceUpdateRegionWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error) {
+	rsp, err := c.RegionServiceUpdateRegionWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceUpdateRegionResponse(rsp)
+}
+
+func (c *ClientWithResponses) RegionServiceUpdateRegionWithResponse(ctx context.Context, projectName string, resourceId string, body RegionServiceUpdateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceUpdateRegionResponse, error) {
+	rsp, err := c.RegionServiceUpdateRegion(ctx, projectName, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRegionServiceUpdateRegionResponse(rsp)
 }
 
 // ScheduleServiceListSchedulesWithResponse request returning *ScheduleServiceListSchedulesResponse
@@ -11692,6 +11614,84 @@ func (c *ClientWithResponses) ScheduleServiceUpdateSingleScheduleWithResponse(ct
 		return nil, err
 	}
 	return ParseScheduleServiceUpdateSingleScheduleResponse(rsp)
+}
+
+// SiteServiceListSitesWithResponse request returning *SiteServiceListSitesResponse
+func (c *ClientWithResponses) SiteServiceListSitesWithResponse(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*SiteServiceListSitesResponse, error) {
+	rsp, err := c.SiteServiceListSites(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceListSitesResponse(rsp)
+}
+
+// SiteServiceCreateSiteWithBodyWithResponse request with arbitrary body returning *SiteServiceCreateSiteResponse
+func (c *ClientWithResponses) SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
+	rsp, err := c.SiteServiceCreateSiteWithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceCreateSiteResponse(rsp)
+}
+
+func (c *ClientWithResponses) SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
+	rsp, err := c.SiteServiceCreateSite(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceCreateSiteResponse(rsp)
+}
+
+// SiteServiceDeleteSiteWithResponse request returning *SiteServiceDeleteSiteResponse
+func (c *ClientWithResponses) SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error) {
+	rsp, err := c.SiteServiceDeleteSite(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceDeleteSiteResponse(rsp)
+}
+
+// SiteServiceGetSiteWithResponse request returning *SiteServiceGetSiteResponse
+func (c *ClientWithResponses) SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error) {
+	rsp, err := c.SiteServiceGetSite(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceGetSiteResponse(rsp)
+}
+
+// SiteServicePatchSiteWithBodyWithResponse request with arbitrary body returning *SiteServicePatchSiteResponse
+func (c *ClientWithResponses) SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
+	rsp, err := c.SiteServicePatchSiteWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServicePatchSiteResponse(rsp)
+}
+
+func (c *ClientWithResponses) SiteServicePatchSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error) {
+	rsp, err := c.SiteServicePatchSite(ctx, projectName, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServicePatchSiteResponse(rsp)
+}
+
+// SiteServiceUpdateSiteWithBodyWithResponse request with arbitrary body returning *SiteServiceUpdateSiteResponse
+func (c *ClientWithResponses) SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
+	rsp, err := c.SiteServiceUpdateSiteWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceUpdateSiteResponse(rsp)
+}
+
+func (c *ClientWithResponses) SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
+	rsp, err := c.SiteServiceUpdateSite(ctx, projectName, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceUpdateSiteResponse(rsp)
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse
@@ -12892,318 +12892,6 @@ func ParseLocalAccountServiceGetLocalAccountResponse(rsp *http.Response) (*Local
 	return response, nil
 }
 
-// ParseRegionServiceListRegionsResponse parses an HTTP response from a RegionServiceListRegionsWithResponse call
-func ParseRegionServiceListRegionsResponse(rsp *http.Response) (*RegionServiceListRegionsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RegionServiceListRegionsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListRegionsResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRegionServiceCreateRegionResponse parses an HTTP response from a RegionServiceCreateRegionWithResponse call
-func ParseRegionServiceCreateRegionResponse(rsp *http.Response) (*RegionServiceCreateRegionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RegionServiceCreateRegionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RegionResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRegionServiceDeleteRegionResponse parses an HTTP response from a RegionServiceDeleteRegionWithResponse call
-func ParseRegionServiceDeleteRegionResponse(rsp *http.Response) (*RegionServiceDeleteRegionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RegionServiceDeleteRegionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteRegionResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRegionServiceGetRegionResponse parses an HTTP response from a RegionServiceGetRegionWithResponse call
-func ParseRegionServiceGetRegionResponse(rsp *http.Response) (*RegionServiceGetRegionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RegionServiceGetRegionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RegionResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRegionServicePatchRegionResponse parses an HTTP response from a RegionServicePatchRegionWithResponse call
-func ParseRegionServicePatchRegionResponse(rsp *http.Response) (*RegionServicePatchRegionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RegionServicePatchRegionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RegionResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseRegionServiceUpdateRegionResponse parses an HTTP response from a RegionServiceUpdateRegionWithResponse call
-func ParseRegionServiceUpdateRegionResponse(rsp *http.Response) (*RegionServiceUpdateRegionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &RegionServiceUpdateRegionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest RegionResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSiteServiceListSitesResponse parses an HTTP response from a SiteServiceListSitesWithResponse call
-func ParseSiteServiceListSitesResponse(rsp *http.Response) (*SiteServiceListSitesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SiteServiceListSitesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ListSitesResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSiteServiceCreateSiteResponse parses an HTTP response from a SiteServiceCreateSiteWithResponse call
-func ParseSiteServiceCreateSiteResponse(rsp *http.Response) (*SiteServiceCreateSiteResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SiteServiceCreateSiteResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SiteResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSiteServiceDeleteSiteResponse parses an HTTP response from a SiteServiceDeleteSiteWithResponse call
-func ParseSiteServiceDeleteSiteResponse(rsp *http.Response) (*SiteServiceDeleteSiteResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SiteServiceDeleteSiteResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest DeleteSiteResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSiteServiceGetSiteResponse parses an HTTP response from a SiteServiceGetSiteWithResponse call
-func ParseSiteServiceGetSiteResponse(rsp *http.Response) (*SiteServiceGetSiteResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SiteServiceGetSiteResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SiteResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSiteServicePatchSiteResponse parses an HTTP response from a SiteServicePatchSiteWithResponse call
-func ParseSiteServicePatchSiteResponse(rsp *http.Response) (*SiteServicePatchSiteResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SiteServicePatchSiteResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SiteResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseSiteServiceUpdateSiteResponse parses an HTTP response from a SiteServiceUpdateSiteWithResponse call
-func ParseSiteServiceUpdateSiteResponse(rsp *http.Response) (*SiteServiceUpdateSiteResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &SiteServiceUpdateSiteResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest SiteResource
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
 // ParseLocationServiceListLocationsResponse parses an HTTP response from a LocationServiceListLocationsWithResponse call
 func ParseLocationServiceListLocationsResponse(rsp *http.Response) (*LocationServiceListLocationsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -13506,6 +13194,162 @@ func ParseProviderServiceGetProviderResponse(rsp *http.Response) (*ProviderServi
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest ProviderResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceListRegionsResponse parses an HTTP response from a RegionServiceListRegionsWithResponse call
+func ParseRegionServiceListRegionsResponse(rsp *http.Response) (*RegionServiceListRegionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceListRegionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListRegionsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceCreateRegionResponse parses an HTTP response from a RegionServiceCreateRegionWithResponse call
+func ParseRegionServiceCreateRegionResponse(rsp *http.Response) (*RegionServiceCreateRegionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceCreateRegionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceDeleteRegionResponse parses an HTTP response from a RegionServiceDeleteRegionWithResponse call
+func ParseRegionServiceDeleteRegionResponse(rsp *http.Response) (*RegionServiceDeleteRegionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceDeleteRegionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteRegionResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceGetRegionResponse parses an HTTP response from a RegionServiceGetRegionWithResponse call
+func ParseRegionServiceGetRegionResponse(rsp *http.Response) (*RegionServiceGetRegionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceGetRegionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServicePatchRegionResponse parses an HTTP response from a RegionServicePatchRegionWithResponse call
+func ParseRegionServicePatchRegionResponse(rsp *http.Response) (*RegionServicePatchRegionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServicePatchRegionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRegionServiceUpdateRegionResponse parses an HTTP response from a RegionServiceUpdateRegionWithResponse call
+func ParseRegionServiceUpdateRegionResponse(rsp *http.Response) (*RegionServiceUpdateRegionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RegionServiceUpdateRegionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RegionResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -13844,6 +13688,162 @@ func ParseScheduleServiceUpdateSingleScheduleResponse(rsp *http.Response) (*Sche
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SingleScheduleResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceListSitesResponse parses an HTTP response from a SiteServiceListSitesWithResponse call
+func ParseSiteServiceListSitesResponse(rsp *http.Response) (*SiteServiceListSitesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceListSitesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListSitesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceCreateSiteResponse parses an HTTP response from a SiteServiceCreateSiteWithResponse call
+func ParseSiteServiceCreateSiteResponse(rsp *http.Response) (*SiteServiceCreateSiteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceCreateSiteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceDeleteSiteResponse parses an HTTP response from a SiteServiceDeleteSiteWithResponse call
+func ParseSiteServiceDeleteSiteResponse(rsp *http.Response) (*SiteServiceDeleteSiteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceDeleteSiteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteSiteResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceGetSiteResponse parses an HTTP response from a SiteServiceGetSiteWithResponse call
+func ParseSiteServiceGetSiteResponse(rsp *http.Response) (*SiteServiceGetSiteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceGetSiteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServicePatchSiteResponse parses an HTTP response from a SiteServicePatchSiteWithResponse call
+func ParseSiteServicePatchSiteResponse(rsp *http.Response) (*SiteServicePatchSiteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServicePatchSiteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceUpdateSiteResponse parses an HTTP response from a SiteServiceUpdateSiteWithResponse call
+func ParseSiteServiceUpdateSiteResponse(rsp *http.Response) (*SiteServiceUpdateSiteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceUpdateSiteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
