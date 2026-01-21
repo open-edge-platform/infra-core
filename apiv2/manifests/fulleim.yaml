@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
+name: fulleim
+description: All EIM API services enabled
 services:
   - RegionService
   - SiteService

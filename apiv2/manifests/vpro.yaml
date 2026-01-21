@@ -2,5 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
+name: vpro
+description: EIM API services enabling only vPRO functionality
 services:
   - HostService
