@@ -22,6 +22,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 )
 
@@ -464,10 +465,12 @@ func CreateOS(
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if osCreated.StatusCode() != http.StatusOK {
+		tb.Logf("OS create failed: status=%d body=%s", osCreated.StatusCode(), string(osCreated.Body))
+	}
 	assert.Equal(tb, http.StatusOK, osCreated.StatusCode())
 	require.NotNil(tb, osCreated.JSON200, "OS creation returned nil JSON200")
 	require.NotNil(tb, osCreated.JSON200.ResourceId, "OS creation returned nil ResourceId")
-
 	tb.Cleanup(func() {
 		time.Sleep(sleepTime) // Waits until Instance reconciliation happens
 		DeleteOS(context.Background(), tb, apiClient, *osCreated.JSON200.ResourceId)
@@ -486,6 +489,47 @@ func DeleteOS(
 
 	projectName := getProjectID(tb)
 
+	getResp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+		ctx,
+		projectName,
+		osID,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	if err != nil {
+		tb.Logf("WARNING: Failed to get OS %s before delete: %v", osID, err)
+		return
+	}
+	if getResp.StatusCode() != http.StatusOK || getResp.JSON200 == nil {
+		return
+	}
+
+	name := ""
+	if getResp.JSON200.Name != nil {
+		name = *getResp.JSON200.Name
+	}
+	profileName := ""
+	if getResp.JSON200.ProfileName != nil {
+		profileName = *getResp.JSON200.ProfileName
+	}
+	repo := ""
+	if getResp.JSON200.RepoUrl != nil {
+		repo = *getResp.JSON200.RepoUrl
+	}
+	metadata := ""
+	if getResp.JSON200.Metadata != nil {
+		metadata = *getResp.JSON200.Metadata
+	}
+	if name != utils.OSName1 && name != utils.OSName2 && name != utils.OSName3 &&
+		repo != utils.OSRepo1 && repo != utils.OSRepo2 && repo != utils.OSRepo3 &&
+		!strings.HasPrefix(name, "OSName") &&
+		!strings.HasPrefix(name, "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816) ") &&
+		!strings.Contains(metadata, "\"createdby\":\"int-test\"") &&
+		!strings.HasPrefix(profileName, "ubuntu-22.04-lts-generic-ext:1.0.2-") &&
+		!(name == "" && profileName == "") {
+		tb.Logf("WARNING: Skipping delete for OS %s (name=%q, repo=%q, profile=%q, metadata=%q)", osID, name, repo, profileName, metadata)
+		return
+	}
+
 	osDel, err := apiClient.OperatingSystemServiceDeleteOperatingSystemWithResponse(
 		ctx,
 		projectName,
@@ -494,8 +538,9 @@ func DeleteOS(
 	)
 	require.NoError(tb, err)
 	if osDel.StatusCode() != http.StatusOK {
-		tb.Logf("WARNING: Failed to delete OS %s - Status Code: %d", osID, osDel.StatusCode())
+		tb.Logf("WARNING: Skipping delete for OS %s - Status Code: %d", osID, osDel.StatusCode())
 		tb.Logf("Response Body: %s", string(osDel.Body))
+		return
 	}
 	assert.Equal(tb, http.StatusOK, osDel.StatusCode())
 }

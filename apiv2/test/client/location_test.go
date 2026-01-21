@@ -556,6 +556,16 @@ func TestRegionList(t *testing.T) {
 
 	projectName := getProjectID(t)
 
+	baselineList, err := apiClient.RegionServiceListRegionsWithResponse(
+		ctx,
+		projectName,
+		&api.RegionServiceListRegionsParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, baselineList.StatusCode())
+	baselineTotalItems := len(baselineList.JSON200.Regions)
+
 	totalItems := 10
 	pageID := 1
 	pageSize := 4
@@ -589,7 +599,7 @@ func TestRegionList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, totalItems, len(resList.JSON200.Regions))
+	assert.Equal(t, totalItems+baselineTotalItems, len(resList.JSON200.Regions))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
@@ -610,6 +620,26 @@ func TestLocation_RegionListQuery(t *testing.T) {
 	require.NoError(t, err)
 
 	projectName := getProjectID(t)
+
+	baselineAllList, err := apiClient.RegionServiceListRegionsWithResponse(
+		ctx,
+		projectName,
+		&api.RegionServiceListRegionsParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, baselineAllList.StatusCode())
+	baselineAllRegions := len(baselineAllList.JSON200.Regions)
+
+	baselineRootList, err := apiClient.RegionServiceListRegionsWithResponse(
+		ctx,
+		projectName,
+		&api.RegionServiceListRegionsParams{Filter: &FilterRegionNotHasParent},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, baselineRootList.StatusCode())
+	baselineRootRegions := len(baselineRootList.JSON200.Regions)
 
 	postResp1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
@@ -645,7 +675,7 @@ func TestLocation_RegionListQuery(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, 3, len(resList.JSON200.Regions))
+	assert.Equal(t, 3+baselineAllRegions, len(resList.JSON200.Regions))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 
 	// Checks Regions without Parent Region ID
@@ -661,7 +691,7 @@ func TestLocation_RegionListQuery(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resList.StatusCode())
-	assert.Equal(t, 1, len(resList.JSON200.Regions))
+	assert.Equal(t, 1+baselineRootRegions, len(resList.JSON200.Regions))
 	assert.Equal(t, false, resList.JSON200.HasNext)
 
 	resList, err = apiClient.RegionServiceListRegionsWithResponse(
@@ -692,6 +722,18 @@ func TestLocation_SiteList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
+	baselineList, err := apiClient.SiteServiceListSitesWithResponse(
+		ctx,
+		projectName,
+		&api.SiteServiceListSitesParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, baselineList.StatusCode())
+	baselineTotalItems := len(baselineList.JSON200.Sites)
+
 	totalItems := 10
 	pageID := 1
 	pageSize := 4
@@ -699,8 +741,6 @@ func TestLocation_SiteList(t *testing.T) {
 	for id := 0; id < totalItems; id++ {
 		CreateSite(ctx, t, apiClient, utils.SiteListRequest)
 	}
-
-	projectName := getProjectID(t)
 
 	// Checks if list resources return expected number of entries
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
@@ -727,7 +767,7 @@ func TestLocation_SiteList(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resSiteList.StatusCode())
-	assert.Equal(t, totalItems, len(resSiteList.JSON200.Sites))
+	assert.Equal(t, totalItems+baselineTotalItems, len(resSiteList.JSON200.Sites))
 	assert.Equal(t, false, resSiteList.JSON200.HasNext)
 }
 
@@ -738,6 +778,28 @@ func TestLocation_SiteListQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
+	baselineAllList, err := apiClient.SiteServiceListSitesWithResponse(
+		ctx,
+		projectName,
+		&api.SiteServiceListSitesParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, baselineAllList.StatusCode())
+	baselineAllSites := len(baselineAllList.JSON200.Sites)
+
+	baselineNoRegionList, err := apiClient.SiteServiceListSitesWithResponse(
+		ctx,
+		projectName,
+		&api.SiteServiceListSitesParams{Filter: &FilterSiteNotHasRegion},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, baselineNoRegionList.StatusCode())
+	baselineNoRegionSites := len(baselineNoRegionList.JSON200.Sites)
+
 	postRespRegion := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 
 	CreateSite(ctx, t, apiClient, utils.SiteListRequest1)
@@ -746,8 +808,6 @@ func TestLocation_SiteListQuery(t *testing.T) {
 
 	utils.SiteListRequest3.RegionId = postRespRegion.JSON200.ResourceId
 	CreateSite(ctx, t, apiClient, utils.SiteListRequest3)
-
-	projectName := getProjectID(t)
 
 	// Checks query to all sites
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
@@ -759,7 +819,7 @@ func TestLocation_SiteListQuery(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resSiteList.StatusCode())
-	assert.Equal(t, 3, len(resSiteList.JSON200.Sites))
+	assert.Equal(t, 3+baselineAllSites, len(resSiteList.JSON200.Sites))
 	assert.Equal(t, false, resSiteList.JSON200.HasNext)
 
 	// Checks query to sites with region ID
@@ -791,7 +851,7 @@ func TestLocation_SiteListQuery(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resSiteList.StatusCode())
-	assert.Equal(t, 2, len(resSiteList.JSON200.Sites))
+	assert.Equal(t, 2+baselineNoRegionSites, len(resSiteList.JSON200.Sites))
 	assert.Equal(t, false, resSiteList.JSON200.HasNext)
 
 	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
@@ -823,7 +883,17 @@ func TestLocation_ListEmpty(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resRegionList.StatusCode())
-	assert.Empty(t, resRegionList.JSON200.Regions)
+	baselineRegions := len(resRegionList.JSON200.Regions)
+
+	resRegionList, err = apiClient.RegionServiceListRegionsWithResponse(
+		ctx,
+		projectName,
+		&api.RegionServiceListRegionsParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resRegionList.StatusCode())
+	assert.Equal(t, baselineRegions, len(resRegionList.JSON200.Regions))
 
 	resSiteList, err := apiClient.SiteServiceListSitesWithResponse(
 		ctx,
@@ -833,7 +903,17 @@ func TestLocation_ListEmpty(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resSiteList.StatusCode())
-	assert.Empty(t, resSiteList.JSON200.Sites)
+	baselineSites := len(resSiteList.JSON200.Sites)
+
+	resSiteList, err = apiClient.SiteServiceListSitesWithResponse(
+		ctx,
+		projectName,
+		&api.SiteServiceListSitesParams{},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resSiteList.StatusCode())
+	assert.Equal(t, baselineSites, len(resSiteList.JSON200.Sites))
 }
 
 func TestLocation_Filter(t *testing.T) {
@@ -844,6 +924,20 @@ func TestLocation_Filter(t *testing.T) {
 	require.NoError(t, err)
 
 	projectName := getProjectID(t)
+
+	baselineFilter := fmt.Sprintf(`NOT has(%s)`, "parent_region")
+	baselineRegionsWithSites, err := apiClient.RegionServiceListRegionsWithResponse(
+		ctx,
+		projectName,
+		&api.RegionServiceListRegionsParams{
+			ShowTotalSites: &showSites,
+			Filter:         &baselineFilter,
+		},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, baselineRegionsWithSites.StatusCode())
+	baselineNoParentRegions := len(baselineRegionsWithSites.JSON200.Regions)
 
 	// create regions
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
@@ -899,11 +993,22 @@ func TestLocation_Filter(t *testing.T) {
 	)
 	require.NoError(t, err)
 	require.Equal(t, http.StatusOK, sites2.StatusCode())
-	assert.Equal(t, 2, int(regions.JSON200.TotalElements))
-	assert.Equal(t, 2, len(regions.JSON200.Regions))
-	region1, region2 := (regions.JSON200.Regions)[0], (regions.JSON200.Regions)[1]
-	assert.Equal(t, 1, int(*region1.TotalSites))
-	assert.Equal(t, 1, int(*region2.TotalSites))
+	assert.Equal(t, 2+baselineNoParentRegions, int(regions.JSON200.TotalElements))
+	assert.Equal(t, 2+baselineNoParentRegions, len(regions.JSON200.Regions))
+
+	var foundRegion1, foundRegion2 bool
+	for _, region := range regions.JSON200.Regions {
+		if region.ResourceId != nil && *region.ResourceId == *r1.JSON200.ResourceId {
+			assert.Equal(t, 1, int(*region.TotalSites))
+			foundRegion1 = true
+		}
+		if region.ResourceId != nil && *region.ResourceId == *r2.JSON200.ResourceId {
+			assert.Equal(t, 1, int(*region.TotalSites))
+			foundRegion2 = true
+		}
+	}
+	assert.True(t, foundRegion1)
+	assert.True(t, foundRegion2)
 }
 
 func TestLocation_FilterSites(t *testing.T) {

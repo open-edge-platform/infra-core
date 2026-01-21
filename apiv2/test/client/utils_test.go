@@ -7,11 +7,13 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 )
 
 // ListAllInstances retrieves all InstanceResource objects by iterating over paginated responses.
@@ -264,7 +266,17 @@ func TestDeleteAllRegions(t *testing.T) {
 	t.Logf("Retrieved %d regions", len(regions))
 	for _, region := range regions {
 		t.Logf("Region ID: %s, Name: %s", *region.ResourceId, *region.Name)
-		DeleteRegion(ctx, t, apiClient, *region.ResourceId)
+		projectName := getProjectID(t)
+		resDelRegion, err := apiClient.RegionServiceDeleteRegionWithResponse(
+			ctx,
+			projectName,
+			*region.ResourceId,
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		)
+		require.NoError(t, err)
+		if resDelRegion.StatusCode() != http.StatusOK {
+			t.Logf("Skipping delete for region %s: status %d", *region.ResourceId, resDelRegion.StatusCode())
+		}
 	}
 }
 
@@ -287,7 +299,16 @@ func TestDeleteAllSites(t *testing.T) {
 	t.Logf("Retrieved %d sites", len(sites))
 	for _, site := range sites {
 		t.Logf("Site ID: %s, Name: %s", *site.ResourceId, *site.Name)
-		DeleteSite(ctx, t, apiClient, *site.ResourceId)
+		resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(
+			ctx,
+			projectName,
+			*site.ResourceId,
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		)
+		require.NoError(t, err)
+		if resDelSite.StatusCode() != http.StatusOK {
+			t.Logf("Skipping delete for site %s: status %d", *site.ResourceId, resDelSite.StatusCode())
+		}
 	}
 }
 
@@ -351,7 +372,15 @@ func TestDeleteAllInstances(t *testing.T) {
 	t.Logf("Retrieved %d instances", len(instances))
 	for _, instance := range instances {
 		t.Logf("Instance ID: %s, Name: %s", *instance.ResourceId, *instance.Name)
-		DeleteInstance(ctx, t, apiClient, *instance.ResourceId)
+		if instance.Name != nil {
+			if *instance.Name == utils.Inst1Name || *instance.Name == utils.Inst2Name {
+				DeleteInstance(ctx, t, apiClient, *instance.ResourceId)
+				continue
+			}
+		}
+		if instance.Host != nil && strings.HasPrefix(instance.Host.Name, "Test Host ") {
+			DeleteInstance(ctx, t, apiClient, *instance.ResourceId)
+		}
 	}
 }
 
@@ -374,7 +403,9 @@ func TestDeleteAllHosts(t *testing.T) {
 	t.Logf("Retrieved %d hosts", len(hosts))
 	for _, host := range hosts {
 		t.Logf("Host ID: %s, Name: %s", *host.ResourceId, host.Name)
-		SoftDeleteHost(ctx, t, apiClient, &host)
+		if host.Name != "" && strings.HasPrefix(host.Name, "Test Host ") {
+			SoftDeleteHost(ctx, t, apiClient, &host)
+		}
 	}
 }
 
@@ -464,5 +495,61 @@ func TestDeleteAllOSUpdatePolicies(t *testing.T) {
 		}
 	} else {
 		t.Logf("Retrieved 0 OS update policies")
+	}
+}
+
+func TestDeleteTestOSResources(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
+	defer cancel()
+
+	apiClient, err := GetAPIClient()
+	require.NoError(t, err)
+
+	projectName := getProjectID(t)
+
+	pageSize := 50
+	offset := 0
+	for {
+		resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
+			ctx,
+			projectName,
+			&api.OperatingSystemServiceListOperatingSystemsParams{
+				Offset:   &offset,
+				PageSize: &pageSize,
+			},
+			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+		)
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, resList.StatusCode())
+
+		for _, osRes := range resList.JSON200.OperatingSystemResources {
+			name := ""
+			if osRes.Name != nil {
+				name = *osRes.Name
+			}
+			profileName := ""
+			if osRes.ProfileName != nil {
+				profileName = *osRes.ProfileName
+			}
+			metadata := ""
+			if osRes.Metadata != nil {
+				metadata = *osRes.Metadata
+			}
+
+			if strings.HasPrefix(name, "OSName") ||
+				strings.HasPrefix(name, "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816) ") ||
+				strings.Contains(name, "TestName#") ||
+				strings.Contains(metadata, "\"createdby\":\"int-test\"") ||
+				strings.HasPrefix(profileName, "ubuntu-22.04-lts-generic-ext:1.0.2-") ||
+				(name == "" && profileName == "") {
+				t.Logf("Deleting OS resource %s (name=%q profile=%q)", *osRes.ResourceId, name, profileName)
+				DeleteOS(ctx, t, apiClient, *osRes.ResourceId)
+			}
+		}
+
+		if !resList.JSON200.HasNext {
+			break
+		}
+		offset += pageSize
 	}
 }

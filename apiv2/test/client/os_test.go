@@ -6,9 +6,12 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -20,6 +23,14 @@ import (
 const (
 	NumPreloadedOSResources = 4
 )
+
+func shortOSSuffix() string {
+	trimmed := strings.ReplaceAll(uuid.New().String(), "-", "")
+	if len(trimmed) > 8 {
+		return trimmed[:8]
+	}
+	return trimmed
+}
 
 func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin os tests")
@@ -352,10 +363,12 @@ func TestOS_CreatewithCustom(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	OSName1 := "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816)"
-	OSProfileName1 := "ubuntu-22.04-lts-generic-ext:1.0.2 TestName#724"
-	OSArch1 := "x86"
-	OSRepo1 := "http://test.com/test.raw.gz"
+	suffix := shortOSSuffix()
+	OSName1 := "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816) " + suffix
+	OSProfileName1 := "ubuntu-22.04-lts-generic-ext:1.0.2-" + suffix
+	OSArch1 := "x86_64"
+	OSRepo1 := "http://test.com/test-" + suffix + ".raw.gz"
+	metadata := fmt.Sprintf(`{"createdby":"int-test","testrun":"%s"}`, suffix)
 
 	OSSecFeat := api.SECURITYFEATURENONE
 	randSHA := inv_testing.GenerateRandomSha256()
@@ -368,6 +381,7 @@ func TestOS_CreatewithCustom(t *testing.T) {
 		SecurityFeature: &OSSecFeat,
 		OsType:          &utils.OsTypeMutable,
 		OsProvider:      &utils.OSProvider,
+		Metadata:        &metadata,
 	}
 
 	// Create OS without installedPackages (it's a read-only field)
