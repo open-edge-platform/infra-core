@@ -128,7 +128,7 @@ ifeq ($(GOJUNITREPORT), true)
 	${GOCMD} install github.com/jstemmer/go-junit-report/v2@v$(GOJUNITREPORTVERSION_REQ)
 endif
 ifeq ($(GOLINT), true)
-	${GOCMD} install github.com/golangci/golangci-lint/cmd/golangci-lint@v${GOLINTVERSION_REQ}
+	${GOCMD} install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v${GOLINTVERSION_REQ}
 endif
 ifeq ($(PROTOCGENENT), true)
 	$(GOCMD) install entgo.io/contrib/entproto/cmd/protoc-gen-ent@v$(PROTOCGENENTVERSION_REQ)
