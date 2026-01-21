@@ -42,7 +42,9 @@ func TestComputeSummary(t *testing.T) {
 		utils.MetadataHost2[0].Key, utils.MetadataHost2[0].Value)
 	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host2"}'`, filterMetaInherited)
 	resMetaInherited, err := apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filterMetaInherited}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaInherited},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resMetaInherited.StatusCode())
 	baselineMetaInheritedTotal := *resMetaInherited.JSON200.Total
@@ -54,7 +56,9 @@ func TestComputeSummary(t *testing.T) {
 		utils.MetadataHost2[0].Key, utils.MetadataHost1[0].Value)
 	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host1"}'`, filterMetaStandalone)
 	resMetaStandalone, err := apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filterMetaStandalone}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaStandalone},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resMetaStandalone.StatusCode())
 	baselineMetaStandaloneTotal := *resMetaStandalone.JSON200.Total
@@ -119,13 +123,16 @@ func TestComputeSummary(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 	t.Logf("DEBUG: expectedTotalHost=%d, actual Total=%d", expectedTotalHost+baselineTotalHost, *res.JSON200.Total)
-	t.Logf("DEBUG: expectedUnallocatedHost=%d, actual Unallocated=%d", expectedUnallocatedHost+baselineUnallocatedHost, *res.JSON200.Unallocated)
+	t.Logf("DEBUG: expectedUnallocatedHost=%d, actual Unallocated=%d",
+		expectedUnallocatedHost+baselineUnallocatedHost, *res.JSON200.Unallocated)
 	assert.Equal(t, expectedTotalHost+baselineTotalHost, *res.JSON200.Total)
 	assert.Equal(t, expectedUnallocatedHost+baselineUnallocatedHost, *res.JSON200.Unallocated)
 
 	// Filter by metadata (inherited) `metadata='{"key":"examplekey3","value":"host2"}'`
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filterMetaInherited}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaInherited},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 	assert.Equal(t, baselineMetaInheritedTotal+hostsWithSiteAndMetaFromSite2, *res.JSON200.Total)
@@ -135,7 +142,9 @@ func TestComputeSummary(t *testing.T) {
 
 	// Filter by metadata (standalone) `metadata='{"key":"examplekey3","value":"host2"}'`
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filterMetaStandalone}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaStandalone},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
 	assert.Equal(t, baselineMetaStandaloneTotal+hostsWithoutSiteWithMeta, *res.JSON200.Total)

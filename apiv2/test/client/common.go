@@ -269,7 +269,8 @@ func CreateRegion(
 
 	projectName := getProjectID(tb)
 
-	region, err := apiClient.RegionServiceCreateRegionWithResponse(ctx, projectName, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	region, err := apiClient.RegionServiceCreateRegionWithResponse(
+		ctx, projectName, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, region.StatusCode())
 	require.NotNil(tb, region.JSON200, "Region creation returned nil JSON200")
@@ -309,7 +310,8 @@ func CreateSite(
 
 	projectName := getProjectID(tb)
 
-	site, err := apiClient.SiteServiceCreateSiteWithResponse(ctx, projectName, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	site, err := apiClient.SiteServiceCreateSiteWithResponse(
+		ctx, projectName, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, site.StatusCode())
 	require.NotNil(tb, site.JSON200, "Site creation returned nil JSON200")
@@ -329,7 +331,8 @@ func DeleteSite(
 
 	projectName := getProjectID(tb)
 
-	resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(ctx, projectName, siteID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(
+		ctx, projectName, siteID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, resDelSite.StatusCode())
 }

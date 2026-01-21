@@ -36,7 +36,7 @@ func TestOSUpdatePolicy_CreateGetListDelete(t *testing.T) {
 	assert.Equal(t, utils.OsUpdatePolicyName1, getResp1.JSON200.Name)
 
 	getResp2, err := apiClient.OSUpdatePolicyGetOSUpdatePolicyWithResponse(
-		ctx, projectName,*policy2.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *policy2.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, getResp2.StatusCode())
 	assert.Equal(t, utils.OsUpdatePolicyName2, getResp2.JSON200.Name)

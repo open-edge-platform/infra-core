@@ -914,7 +914,7 @@ func TestLocation_FilterSites(t *testing.T) {
 	require.NoError(t, err)
 
 	projectName := getProjectID(t)
-	
+
 	// create regions
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Region2Request.ParentId = nil

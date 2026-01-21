@@ -35,12 +35,12 @@ var (
 )
 
 type testCase struct {
-	name           string
-	params         *api.LocationServiceListLocationsParams
-	expected       []api.ListLocationsResponseLocationNode
-	listedElements int // the expected length of the Nodes array inside the response
-	totalElements  int // the expected response value of TotalElements
-	outputElements int // the expected response value of outputElements
+	name            string
+	params          *api.LocationServiceListLocationsParams
+	expected        []api.ListLocationsResponseLocationNode
+	listedElements  int  // the expected length of the Nodes array inside the response
+	totalElements   int  // the expected response value of TotalElements
+	outputElements  int  // the expected response value of outputElements
 	allowMoreListed bool // allow extra ancestors when ordering changes
 }
 
@@ -404,9 +404,9 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 				ShowSites: &showSites,
 			},
 
-			totalElements:  1000,
-			outputElements: 50,
-			listedElements: 105, // It returns 5 root regions, 50 sub regions (10 per root), and 1 site in each returned subregion
+			totalElements:   1000,
+			outputElements:  50,
+			listedElements:  105, // 5 root regions, 50 sub regions (10/root), 1 site/subregion
 			allowMoreListed: true,
 		},
 		{
@@ -417,9 +417,9 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 				ShowRegions: &showRegions,
 			},
 
-			totalElements:  1100,
-			outputElements: 100,
-			listedElements: 105, // It returns 5 root regions, 50 sub regions (10 per root), and 1 site in each returned subregion
+			totalElements:   1100,
+			outputElements:  100,
+			listedElements:  105, // 5 root regions, 50 sub regions (10/root), 1 site/subregion
 			allowMoreListed: true,
 		},
 	}

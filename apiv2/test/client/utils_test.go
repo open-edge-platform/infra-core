@@ -101,7 +101,10 @@ func ListAllHosts(
 }
 
 // ListAllRegions retrieves all RegionResource objects by iterating over paginated responses.
-func ListAllRegions(ctx context.Context, t *testing.T, client *api.ClientWithResponses, pageSize int) ([]api.RegionResource, error) {
+func ListAllRegions(
+	ctx context.Context, t *testing.T, client *api.ClientWithResponses, pageSize int,
+) ([]api.RegionResource, error) {
+	t.Helper()
 	var allRegions []api.RegionResource
 	offset := 0
 
@@ -139,7 +142,9 @@ func ListAllRegions(ctx context.Context, t *testing.T, client *api.ClientWithRes
 }
 
 // ListAllSites retrieves all SiteResource objects by iterating over paginated responses.
-func ListAllSites(ctx context.Context, client *api.ClientWithResponses, projectName string, pageSize int) ([]api.SiteResource, error) {
+func ListAllSites(
+	ctx context.Context, client *api.ClientWithResponses, projectName string, pageSize int,
+) ([]api.SiteResource, error) {
 	var allSites []api.SiteResource
 	offset := 0
 
@@ -175,16 +180,20 @@ func ListAllSites(ctx context.Context, client *api.ClientWithResponses, projectN
 }
 
 // ListAllWorkloads retrieves all WorkloadResource objects by iterating over paginated responses.
-func ListAllWorkloads(ctx context.Context, client *api.ClientWithResponses, projectName string, pageSize int) ([]api.WorkloadResource, error) {
+func ListAllWorkloads(
+	ctx context.Context, client *api.ClientWithResponses, projectName string, pageSize int,
+) ([]api.WorkloadResource, error) {
 	var allWorkloads []api.WorkloadResource
 	offset := 0
 
 	for {
 		// Call the API to get a paginated list of workloads
-		response, err := client.WorkloadServiceListWorkloadsWithResponse(ctx, projectName, &api.WorkloadServiceListWorkloadsParams{
-			PageSize: &pageSize,
-			Offset:   &offset,
-		},
+		response, err := client.WorkloadServiceListWorkloadsWithResponse(
+			ctx, projectName,
+			&api.WorkloadServiceListWorkloadsParams{
+				PageSize: &pageSize,
+				Offset:   &offset,
+			},
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 		if err != nil {
 			return nil, fmt.Errorf("failed to list workloads: %w", err)
@@ -369,7 +378,9 @@ func TestDeleteAllHosts(t *testing.T) {
 	}
 }
 
-func ListAllLocalAccounts(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses, projectName string) []api.LocalAccountResource {
+func ListAllLocalAccounts(
+	ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses, projectName string,
+) []api.LocalAccountResource {
 	t.Helper()
 
 	var allAccounts []api.LocalAccountResource

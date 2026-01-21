@@ -40,7 +40,7 @@ func TestTelemetryGroup_CreateGetDelete(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
-		projectName := getProjectID(t)
+	projectName := getProjectID(t)
 
 	allLogsGroups, err := apiClient.TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(
 		ctx,
