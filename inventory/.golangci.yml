@@ -104,6 +104,13 @@ linters:
             - github.com/eko/gocache/lib/v4/cache
             - github.com/eko/gocache/lib/v4/store
             - github.com/golang/mock/mockgen/model
+            - google.golang.org/grpc
+            - google.golang.org/protobuf
+            - google.golang.org/genproto
+            - golang.org/x/exp
+            - go.opentelemetry.io/otel
+            - go.opentelemetry.io/contrib
+            - go.einride.tech/aip
         Test:
           files:
             - $test
@@ -127,6 +134,11 @@ linters:
             - github.com/Nerzal/gocloak
             - entgo.io/ent/dialect/sql
             - github.com/prometheus/client_golang/prometheus
+            - google.golang.org/grpc
+            - google.golang.org/protobuf
+            - golang.org/x/exp
+            - go.opentelemetry.io/otel
+            - go.opentelemetry.io/contrib
           deny:
             - pkg: github.com/stretchr/testify/mock
               desc: mocking with testify is prohibited, please use gomock
@@ -181,6 +193,9 @@ linters:
       - legacy
       - std-error-handling
     rules:
+      - linters:
+          - depguard
+        path: cmd/protoc-gen-ent-schema-extensions/main.go
       - linters:
           - cyclop
           - funlen

@@ -125,7 +125,8 @@ func initArtifactTestServer(ociImgManifest, enProfileManifest, enProfileRepo, pr
 	})
 	// return httptest.NewServer(mux)
 	// Listen on a specific port
-	listener, err := net.Listen("tcp", serverAddress)
+	lc := &net.ListenConfig{}
+	listener, err := lc.Listen(context.Background(), "tcp", serverAddress)
 	if err != nil {
 		zlog.Fatal().Msgf("Failed to listen on %s: %v", serverAddress, err)
 	}
@@ -147,7 +148,8 @@ func initTagsTestServer(tag, profileRepo, profileName string) *httptest.Server {
 	})
 
 	// Listen on a specific port
-	listener, err := net.Listen("tcp", serverAddress)
+	lc := &net.ListenConfig{}
+	listener, err := lc.Listen(context.Background(), "tcp", serverAddress)
 	if err != nil {
 		zlog.Fatal().Msgf("Failed to listen on %s: %v", serverAddress, err)
 	}

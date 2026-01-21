@@ -94,6 +94,9 @@ linters:
             - k8s.io/apimachinery/pkg/apis/meta/v1
             - k8s.io/apimachinery/pkg/types
             - github.com/prometheus/client_golang/prometheus
+            - google.golang.org/grpc
+            - google.golang.org/protobuf
+            - golang.org/x/exp
         Test:
           files:
             - $test
@@ -114,6 +117,9 @@ linters:
             - github.com/stretchr/testify/mock
             - k8s.io/apimachinery/pkg/apis/meta/v1
             - k8s.io/apimachinery/pkg/types
+            - google.golang.org/grpc
+            - google.golang.org/protobuf
+            - golang.org/x/exp
     errcheck:
       check-type-assertions: true
       check-blank: true
@@ -167,6 +173,10 @@ linters:
       - legacy
       - std-error-handling
     rules:
+      - linters:
+          - revive
+        path: internal/util/retry\.go
+        text: var-naming
       - path: (.+)\.go$
         text: Error return value of `.*Close` is not checked
       - path: (.+)\.go$
@@ -195,9 +205,3 @@ formatters:
         - standard
         - default
         - prefix(github.com/open-edge-platform)
-  exclusions:
-    generated: lax
-    paths:
-      - third_party$
-      - builtin$
-      - examples$
