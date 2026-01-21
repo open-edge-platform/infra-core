@@ -65,21 +65,22 @@ func TestOSUpdatePolicy_GetListNotFound(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	// Clean up any existing policies to ensure test isolation
+	DeleteAllOSUpdatePolicies(ctx, t, apiClient)
+
 	osUpdatePolicyNonexistResourceID := "osupdatepolicy-111111"
 
-	// Get OSUpdatePolicy
+	// Get OSUpdatePolicy - should return 404 for non-existent ID
 	getResp, err := apiClient.OSUpdatePolicyGetOSUpdatePolicyWithResponse(
 		ctx, osUpdatePolicyNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusNotFound, getResp.StatusCode())
 
-	// List OSUpdatePolicies should not be found
+	// List OSUpdatePolicies should return empty list
 	listResp, err := apiClient.OSUpdatePolicyListOSUpdatePolicyWithResponse(
 		ctx, &api.OSUpdatePolicyListOSUpdatePolicyParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, listResp.StatusCode())
-
-	// The returned list is empty
 	assert.NotNil(t, listResp.JSON200)
 	assert.Empty(t, listResp.JSON200.OsUpdatePolicies, "Expected OSUpdatePolicies list to be empty")
 }

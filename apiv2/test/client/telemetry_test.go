@@ -273,6 +273,7 @@ func TestTelemetryProfile_CreateGetDelete(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+	require.NotNil(t, apiClient)
 
 	r1 := CreateRegion(ctx, t, apiClient, utils.Region1Request)
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
@@ -282,6 +283,7 @@ func TestTelemetryProfile_CreateGetDelete(t *testing.T) {
 	osCreated1 := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 	utils.Instance1Request.HostID = hostCreated1.JSON200.ResourceId
 	utils.Instance1Request.OsID = osCreated1.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	inst1 := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	telemetryGroupMetrics1 := utils.TelemetryMetricsGroup1Request
@@ -810,6 +812,7 @@ func TestTelemetryLogsProfileList(t *testing.T) {
 	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	for id := 0; id < totalItems; id++ {
@@ -938,6 +941,7 @@ func TestTelemetryMetricsProfileList(t *testing.T) {
 	os := CreateOS(ctx, t, apiClient, utils.OSResource1Request)
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	for id := 0; id < totalItems; id++ {
@@ -1444,6 +1448,7 @@ func TestTelemetryMetricsProfileListInheritedNestingLimit(t *testing.T) {
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
@@ -1581,6 +1586,7 @@ func TestTelemetryMetricsProfileListInheritedNoParents(t *testing.T) {
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
@@ -2075,6 +2081,7 @@ func TestTelemetryMetricsLogsListInheritedNestingLimit(t *testing.T) {
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
@@ -2212,6 +2219,7 @@ func TestTelemetryLogsProfileListInheritedNoParents(t *testing.T) {
 
 	utils.Instance1Request.OsID = os.JSON200.ResourceId
 	utils.Instance1Request.HostID = host.JSON200.ResourceId
+	utils.Instance1Request.OsUpdatePolicyID = nil // Clear any OS update policy from previous tests
 	instance := CreateInstance(ctx, t, apiClient, utils.Instance1Request)
 
 	// profile per instance
