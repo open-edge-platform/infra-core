@@ -4159,16 +4159,20 @@ func NewCustomConfigServiceListCustomConfigs2Request(server string, params *Cust
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -4279,16 +4283,20 @@ func NewCustomConfigServiceCreateCustomConfig2RequestWithBody(server string, par
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4333,16 +4341,20 @@ func NewCustomConfigServiceDeleteCustomConfig2Request(server string, resourceId 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4385,16 +4397,20 @@ func NewCustomConfigServiceGetCustomConfig2Request(server string, resourceId str
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4430,16 +4446,20 @@ func NewHostServiceListHosts2Request(server string, params *HostServiceListHosts
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -4550,16 +4570,20 @@ func NewHostServiceCreateHost2RequestWithBody(server string, params *HostService
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4608,16 +4632,20 @@ func NewHostServiceRegisterHost2RequestWithBody(server string, params *HostServi
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.ResourceId != nil {
@@ -4678,16 +4706,20 @@ func NewHostServiceDeleteHost2Request(server string, resourceId string, params *
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4730,16 +4762,20 @@ func NewHostServiceGetHost2Request(server string, resourceId string, params *Hos
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4793,16 +4829,20 @@ func NewHostServicePatchHost2RequestWithBody(server string, resourceId string, p
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -4874,16 +4914,20 @@ func NewHostServiceUpdateHost2RequestWithBody(server string, resourceId string, 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4928,16 +4972,20 @@ func NewHostServiceInvalidateHost2Request(server string, resourceId string, para
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Note != nil {
@@ -4996,16 +5044,20 @@ func NewHostServiceOnboardHost2Request(server string, resourceId string, params 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5059,16 +5111,20 @@ func NewHostServicePatchRegisterHost2RequestWithBody(server string, resourceId s
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5106,16 +5162,20 @@ func NewHostServiceGetHostsSummary2Request(server string, params *HostServiceGet
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Filter != nil {
@@ -5231,16 +5291,20 @@ func NewInstanceServiceListInstances2Request(server string, params *InstanceServ
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5287,16 +5351,20 @@ func NewInstanceServiceCreateInstance2RequestWithBody(server string, params *Ins
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5341,16 +5409,20 @@ func NewInstanceServiceDeleteInstance2Request(server string, resourceId string, 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5393,16 +5465,20 @@ func NewInstanceServiceGetInstance2Request(server string, resourceId string, par
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5472,16 +5548,20 @@ func NewInstanceServicePatchInstance2RequestWithBody(server string, resourceId s
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5537,16 +5617,20 @@ func NewInstanceServiceUpdateInstance2RequestWithBody(server string, resourceId 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5584,16 +5668,20 @@ func NewLocalAccountServiceListLocalAccounts2Request(server string, params *Loca
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -5704,16 +5792,20 @@ func NewLocalAccountServiceCreateLocalAccount2RequestWithBody(server string, par
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5758,16 +5850,20 @@ func NewLocalAccountServiceDeleteLocalAccount2Request(server string, resourceId 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5810,16 +5906,20 @@ func NewLocalAccountServiceGetLocalAccount2Request(server string, resourceId str
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5855,16 +5955,20 @@ func NewLocationServiceListLocations2Request(server string, params *LocationServ
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Name != nil {
@@ -5948,16 +6052,20 @@ func NewOperatingSystemServiceListOperatingSystems2Request(server string, params
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -6068,16 +6176,20 @@ func NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server strin
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6122,16 +6234,20 @@ func NewOperatingSystemServiceDeleteOperatingSystem2Request(server string, resou
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6174,16 +6290,20 @@ func NewOperatingSystemServiceGetOperatingSystem2Request(server string, resource
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6237,16 +6357,20 @@ func NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server string
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -6318,16 +6442,20 @@ func NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(server strin
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6365,16 +6493,20 @@ func NewOSUpdatePolicyListOSUpdatePolicy2Request(server string, params *OSUpdate
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -6485,16 +6617,20 @@ func NewOSUpdatePolicyCreateOSUpdatePolicy2RequestWithBody(server string, params
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6539,16 +6675,20 @@ func NewOSUpdatePolicyDeleteOSUpdatePolicy2Request(server string, resourceId str
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6591,16 +6731,20 @@ func NewOSUpdatePolicyGetOSUpdatePolicy2Request(server string, resourceId string
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6636,16 +6780,20 @@ func NewOSUpdateRunListOSUpdateRun2Request(server string, params *OSUpdateRunLis
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -6752,16 +6900,20 @@ func NewOSUpdateRunDeleteOSUpdateRun2Request(server string, resourceId string, p
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6804,16 +6956,20 @@ func NewOSUpdateRunGetOSUpdateRun2Request(server string, resourceId string, para
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -6849,16 +7005,20 @@ func NewProviderServiceListProviders2Request(server string, params *ProviderServ
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -6969,16 +7129,20 @@ func NewProviderServiceCreateProvider2RequestWithBody(server string, params *Pro
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7023,16 +7187,20 @@ func NewProviderServiceDeleteProvider2Request(server string, resourceId string, 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7075,16 +7243,20 @@ func NewProviderServiceGetProvider2Request(server string, resourceId string, par
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7120,16 +7292,20 @@ func NewRegionServiceListRegions2Request(server string, params *RegionServiceLis
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -7256,16 +7432,20 @@ func NewRegionServiceCreateRegion2RequestWithBody(server string, params *RegionS
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7310,16 +7490,20 @@ func NewRegionServiceDeleteRegion2Request(server string, resourceId string, para
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7362,16 +7546,20 @@ func NewRegionServiceGetRegion2Request(server string, resourceId string, params 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7425,16 +7613,20 @@ func NewRegionServicePatchRegion2RequestWithBody(server string, resourceId strin
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -7506,16 +7698,20 @@ func NewRegionServiceUpdateRegion2RequestWithBody(server string, resourceId stri
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7553,16 +7749,20 @@ func NewScheduleServiceListSchedules2Request(server string, params *ScheduleServ
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.PageSize != nil {
@@ -7694,16 +7894,20 @@ func NewScheduleServiceListRepeatedSchedules2Request(server string, params *Sche
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.PageSize != nil {
@@ -7846,16 +8050,20 @@ func NewScheduleServiceCreateRepeatedSchedule2RequestWithBody(server string, par
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7900,16 +8108,20 @@ func NewScheduleServiceDeleteRepeatedSchedule2Request(server string, resourceId 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -7952,16 +8164,20 @@ func NewScheduleServiceGetRepeatedSchedule2Request(server string, resourceId str
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8015,16 +8231,20 @@ func NewScheduleServicePatchRepeatedSchedule2RequestWithBody(server string, reso
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -8096,16 +8316,20 @@ func NewScheduleServiceUpdateRepeatedSchedule2RequestWithBody(server string, res
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8143,16 +8367,20 @@ func NewScheduleServiceListSingleSchedules2Request(server string, params *Schedu
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.PageSize != nil {
@@ -8295,16 +8523,20 @@ func NewScheduleServiceCreateSingleSchedule2RequestWithBody(server string, param
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8349,16 +8581,20 @@ func NewScheduleServiceDeleteSingleSchedule2Request(server string, resourceId st
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8401,16 +8637,20 @@ func NewScheduleServiceGetSingleSchedule2Request(server string, resourceId strin
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8464,16 +8704,20 @@ func NewScheduleServicePatchSingleSchedule2RequestWithBody(server string, resour
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -8545,16 +8789,20 @@ func NewScheduleServiceUpdateSingleSchedule2RequestWithBody(server string, resou
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8592,16 +8840,20 @@ func NewSiteServiceListSites2Request(server string, params *SiteServiceListSites
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -8712,16 +8964,20 @@ func NewSiteServiceCreateSite2RequestWithBody(server string, params *SiteService
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8766,16 +9022,20 @@ func NewSiteServiceDeleteSite2Request(server string, resourceId string, params *
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8818,16 +9078,20 @@ func NewSiteServiceGetSite2Request(server string, resourceId string, params *Sit
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8881,16 +9145,20 @@ func NewSiteServicePatchSite2RequestWithBody(server string, resourceId string, p
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -8962,16 +9230,20 @@ func NewSiteServiceUpdateSite2RequestWithBody(server string, resourceId string, 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9009,16 +9281,20 @@ func NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(server string, 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.PageSize != nil {
@@ -9113,16 +9389,20 @@ func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9167,16 +9447,20 @@ func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(server string,
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9219,16 +9503,20 @@ func NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(server string, re
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9264,16 +9552,20 @@ func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(server st
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.PageSize != nil {
@@ -9368,16 +9660,20 @@ func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9422,16 +9718,20 @@ func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(server s
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9474,16 +9774,20 @@ func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request(server stri
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9519,16 +9823,20 @@ func NewTelemetryLogsProfileServiceListTelemetryLogsProfiles2Request(server stri
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.PageSize != nil {
@@ -9687,16 +9995,20 @@ func NewTelemetryLogsProfileServiceCreateTelemetryLogsProfile2RequestWithBody(se
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9741,16 +10053,20 @@ func NewTelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Request(server str
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9793,16 +10109,20 @@ func NewTelemetryLogsProfileServiceGetTelemetryLogsProfile2Request(server string
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9856,16 +10176,20 @@ func NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2RequestWithBody(ser
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -9937,16 +10261,20 @@ func NewTelemetryLogsProfileServiceUpdateTelemetryLogsProfile2RequestWithBody(se
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -9984,16 +10312,20 @@ func NewTelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Request(serve
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.PageSize != nil {
@@ -10152,16 +10484,20 @@ func NewTelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2RequestWithB
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10206,16 +10542,20 @@ func NewTelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Request(serv
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10258,16 +10598,20 @@ func NewTelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Request(server 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10321,16 +10665,20 @@ func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2RequestWithBo
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -10402,16 +10750,20 @@ func NewTelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2RequestWithB
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10449,16 +10801,20 @@ func NewWorkloadMemberServiceListWorkloadMembers2Request(server string, params *
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -10569,16 +10925,20 @@ func NewWorkloadMemberServiceCreateWorkloadMember2RequestWithBody(server string,
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10623,16 +10983,20 @@ func NewWorkloadMemberServiceDeleteWorkloadMember2Request(server string, resourc
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10675,16 +11039,20 @@ func NewWorkloadMemberServiceGetWorkloadMember2Request(server string, resourceId
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10720,16 +11088,20 @@ func NewWorkloadServiceListWorkloads2Request(server string, params *WorkloadServ
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.OrderBy != nil {
@@ -10840,16 +11212,20 @@ func NewWorkloadServiceCreateWorkload2RequestWithBody(server string, params *Wor
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10894,16 +11270,20 @@ func NewWorkloadServiceDeleteWorkload2Request(server string, resourceId string, 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -10946,16 +11326,20 @@ func NewWorkloadServiceGetWorkload2Request(server string, resourceId string, par
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -11009,16 +11393,20 @@ func NewWorkloadServicePatchWorkload2RequestWithBody(server string, resourceId s
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.FieldMaskPaths != nil {
@@ -11090,16 +11478,20 @@ func NewWorkloadServiceUpdateWorkload2RequestWithBody(server string, resourceId 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ProjectName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, *params.ProjectName); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()

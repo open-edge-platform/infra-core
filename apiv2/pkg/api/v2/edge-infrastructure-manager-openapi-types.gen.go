@@ -5593,7 +5593,7 @@ type GoogleProtobufTimestamp = time.Time
 // CustomConfigServiceListCustomConfigs2Params defines parameters for CustomConfigServiceListCustomConfigs2.
 type CustomConfigServiceListCustomConfigs2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -5614,25 +5614,25 @@ type CustomConfigServiceListCustomConfigs2Params struct {
 // CustomConfigServiceCreateCustomConfig2Params defines parameters for CustomConfigServiceCreateCustomConfig2.
 type CustomConfigServiceCreateCustomConfig2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // CustomConfigServiceDeleteCustomConfig2Params defines parameters for CustomConfigServiceDeleteCustomConfig2.
 type CustomConfigServiceDeleteCustomConfig2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // CustomConfigServiceGetCustomConfig2Params defines parameters for CustomConfigServiceGetCustomConfig2.
 type CustomConfigServiceGetCustomConfig2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServiceListHosts2Params defines parameters for HostServiceListHosts2.
 type HostServiceListHosts2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -5653,32 +5653,32 @@ type HostServiceListHosts2Params struct {
 // HostServiceCreateHost2Params defines parameters for HostServiceCreateHost2.
 type HostServiceCreateHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServiceRegisterHost2Params defines parameters for HostServiceRegisterHost2.
 type HostServiceRegisterHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string  `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 	ResourceId  *string `form:"resourceId,omitempty" json:"resourceId,omitempty"`
 }
 
 // HostServiceDeleteHost2Params defines parameters for HostServiceDeleteHost2.
 type HostServiceDeleteHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServiceGetHost2Params defines parameters for HostServiceGetHost2.
 type HostServiceGetHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServicePatchHost2Params defines parameters for HostServicePatchHost2.
 type HostServicePatchHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -5687,13 +5687,13 @@ type HostServicePatchHost2Params struct {
 // HostServiceUpdateHost2Params defines parameters for HostServiceUpdateHost2.
 type HostServiceUpdateHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServiceInvalidateHost2Params defines parameters for HostServiceInvalidateHost2.
 type HostServiceInvalidateHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// Note user-provided reason for change or a freeform field
 	Note *string `form:"note,omitempty" json:"note,omitempty"`
@@ -5702,19 +5702,19 @@ type HostServiceInvalidateHost2Params struct {
 // HostServiceOnboardHost2Params defines parameters for HostServiceOnboardHost2.
 type HostServiceOnboardHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServicePatchRegisterHost2Params defines parameters for HostServicePatchRegisterHost2.
 type HostServicePatchRegisterHost2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServiceGetHostsSummary2Params defines parameters for HostServiceGetHostsSummary2.
 type HostServiceGetHostsSummary2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// Filter Optional filter to return only item of interest.
 	//  See https://google.aip.dev/160 for details.
@@ -5739,25 +5739,25 @@ type InstanceServiceListInstances2Params struct {
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // InstanceServiceCreateInstance2Params defines parameters for InstanceServiceCreateInstance2.
 type InstanceServiceCreateInstance2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // InstanceServiceDeleteInstance2Params defines parameters for InstanceServiceDeleteInstance2.
 type InstanceServiceDeleteInstance2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // InstanceServiceGetInstance2Params defines parameters for InstanceServiceGetInstance2.
 type InstanceServiceGetInstance2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // InstanceServicePatchInstance2Params defines parameters for InstanceServicePatchInstance2.
@@ -5766,19 +5766,19 @@ type InstanceServicePatchInstance2Params struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // InstanceServiceUpdateInstance2Params defines parameters for InstanceServiceUpdateInstance2.
 type InstanceServiceUpdateInstance2Params struct {
 	// ProjectName The project name from the URL path.
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // LocalAccountServiceListLocalAccounts2Params defines parameters for LocalAccountServiceListLocalAccounts2.
 type LocalAccountServiceListLocalAccounts2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -5799,25 +5799,25 @@ type LocalAccountServiceListLocalAccounts2Params struct {
 // LocalAccountServiceCreateLocalAccount2Params defines parameters for LocalAccountServiceCreateLocalAccount2.
 type LocalAccountServiceCreateLocalAccount2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // LocalAccountServiceDeleteLocalAccount2Params defines parameters for LocalAccountServiceDeleteLocalAccount2.
 type LocalAccountServiceDeleteLocalAccount2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // LocalAccountServiceGetLocalAccount2Params defines parameters for LocalAccountServiceGetLocalAccount2.
 type LocalAccountServiceGetLocalAccount2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // LocationServiceListLocations2Params defines parameters for LocationServiceListLocations2.
 type LocationServiceListLocations2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// Name Filter locations by name
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
@@ -5832,7 +5832,7 @@ type LocationServiceListLocations2Params struct {
 // OperatingSystemServiceListOperatingSystems2Params defines parameters for OperatingSystemServiceListOperatingSystems2.
 type OperatingSystemServiceListOperatingSystems2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -5853,25 +5853,25 @@ type OperatingSystemServiceListOperatingSystems2Params struct {
 // OperatingSystemServiceCreateOperatingSystem2Params defines parameters for OperatingSystemServiceCreateOperatingSystem2.
 type OperatingSystemServiceCreateOperatingSystem2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OperatingSystemServiceDeleteOperatingSystem2Params defines parameters for OperatingSystemServiceDeleteOperatingSystem2.
 type OperatingSystemServiceDeleteOperatingSystem2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OperatingSystemServiceGetOperatingSystem2Params defines parameters for OperatingSystemServiceGetOperatingSystem2.
 type OperatingSystemServiceGetOperatingSystem2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OperatingSystemServicePatchOperatingSystem2Params defines parameters for OperatingSystemServicePatchOperatingSystem2.
 type OperatingSystemServicePatchOperatingSystem2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -5880,13 +5880,13 @@ type OperatingSystemServicePatchOperatingSystem2Params struct {
 // OperatingSystemServiceUpdateOperatingSystem2Params defines parameters for OperatingSystemServiceUpdateOperatingSystem2.
 type OperatingSystemServiceUpdateOperatingSystem2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OSUpdatePolicyListOSUpdatePolicy2Params defines parameters for OSUpdatePolicyListOSUpdatePolicy2.
 type OSUpdatePolicyListOSUpdatePolicy2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -5907,25 +5907,25 @@ type OSUpdatePolicyListOSUpdatePolicy2Params struct {
 // OSUpdatePolicyCreateOSUpdatePolicy2Params defines parameters for OSUpdatePolicyCreateOSUpdatePolicy2.
 type OSUpdatePolicyCreateOSUpdatePolicy2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OSUpdatePolicyDeleteOSUpdatePolicy2Params defines parameters for OSUpdatePolicyDeleteOSUpdatePolicy2.
 type OSUpdatePolicyDeleteOSUpdatePolicy2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OSUpdatePolicyGetOSUpdatePolicy2Params defines parameters for OSUpdatePolicyGetOSUpdatePolicy2.
 type OSUpdatePolicyGetOSUpdatePolicy2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OSUpdateRunListOSUpdateRun2Params defines parameters for OSUpdateRunListOSUpdateRun2.
 type OSUpdateRunListOSUpdateRun2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -5946,19 +5946,19 @@ type OSUpdateRunListOSUpdateRun2Params struct {
 // OSUpdateRunDeleteOSUpdateRun2Params defines parameters for OSUpdateRunDeleteOSUpdateRun2.
 type OSUpdateRunDeleteOSUpdateRun2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // OSUpdateRunGetOSUpdateRun2Params defines parameters for OSUpdateRunGetOSUpdateRun2.
 type OSUpdateRunGetOSUpdateRun2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ProviderServiceListProviders2Params defines parameters for ProviderServiceListProviders2.
 type ProviderServiceListProviders2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -5979,25 +5979,25 @@ type ProviderServiceListProviders2Params struct {
 // ProviderServiceCreateProvider2Params defines parameters for ProviderServiceCreateProvider2.
 type ProviderServiceCreateProvider2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ProviderServiceDeleteProvider2Params defines parameters for ProviderServiceDeleteProvider2.
 type ProviderServiceDeleteProvider2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ProviderServiceGetProvider2Params defines parameters for ProviderServiceGetProvider2.
 type ProviderServiceGetProvider2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // RegionServiceListRegions2Params defines parameters for RegionServiceListRegions2.
 type RegionServiceListRegions2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -6021,25 +6021,25 @@ type RegionServiceListRegions2Params struct {
 // RegionServiceCreateRegion2Params defines parameters for RegionServiceCreateRegion2.
 type RegionServiceCreateRegion2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // RegionServiceDeleteRegion2Params defines parameters for RegionServiceDeleteRegion2.
 type RegionServiceDeleteRegion2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // RegionServiceGetRegion2Params defines parameters for RegionServiceGetRegion2.
 type RegionServiceGetRegion2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // RegionServicePatchRegion2Params defines parameters for RegionServicePatchRegion2.
 type RegionServicePatchRegion2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -6048,13 +6048,13 @@ type RegionServicePatchRegion2Params struct {
 // RegionServiceUpdateRegion2Params defines parameters for RegionServiceUpdateRegion2.
 type RegionServiceUpdateRegion2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServiceListSchedules2Params defines parameters for ScheduleServiceListSchedules2.
 type ScheduleServiceListSchedules2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
@@ -6089,7 +6089,7 @@ type ScheduleServiceListSchedules2Params struct {
 // ScheduleServiceListRepeatedSchedules2Params defines parameters for ScheduleServiceListRepeatedSchedules2.
 type ScheduleServiceListRepeatedSchedules2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
@@ -6124,25 +6124,25 @@ type ScheduleServiceListRepeatedSchedules2Params struct {
 // ScheduleServiceCreateRepeatedSchedule2Params defines parameters for ScheduleServiceCreateRepeatedSchedule2.
 type ScheduleServiceCreateRepeatedSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServiceDeleteRepeatedSchedule2Params defines parameters for ScheduleServiceDeleteRepeatedSchedule2.
 type ScheduleServiceDeleteRepeatedSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServiceGetRepeatedSchedule2Params defines parameters for ScheduleServiceGetRepeatedSchedule2.
 type ScheduleServiceGetRepeatedSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServicePatchRepeatedSchedule2Params defines parameters for ScheduleServicePatchRepeatedSchedule2.
 type ScheduleServicePatchRepeatedSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -6151,13 +6151,13 @@ type ScheduleServicePatchRepeatedSchedule2Params struct {
 // ScheduleServiceUpdateRepeatedSchedule2Params defines parameters for ScheduleServiceUpdateRepeatedSchedule2.
 type ScheduleServiceUpdateRepeatedSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServiceListSingleSchedules2Params defines parameters for ScheduleServiceListSingleSchedules2.
 type ScheduleServiceListSingleSchedules2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
@@ -6192,25 +6192,25 @@ type ScheduleServiceListSingleSchedules2Params struct {
 // ScheduleServiceCreateSingleSchedule2Params defines parameters for ScheduleServiceCreateSingleSchedule2.
 type ScheduleServiceCreateSingleSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServiceDeleteSingleSchedule2Params defines parameters for ScheduleServiceDeleteSingleSchedule2.
 type ScheduleServiceDeleteSingleSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServiceGetSingleSchedule2Params defines parameters for ScheduleServiceGetSingleSchedule2.
 type ScheduleServiceGetSingleSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // ScheduleServicePatchSingleSchedule2Params defines parameters for ScheduleServicePatchSingleSchedule2.
 type ScheduleServicePatchSingleSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -6219,13 +6219,13 @@ type ScheduleServicePatchSingleSchedule2Params struct {
 // ScheduleServiceUpdateSingleSchedule2Params defines parameters for ScheduleServiceUpdateSingleSchedule2.
 type ScheduleServiceUpdateSingleSchedule2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // SiteServiceListSites2Params defines parameters for SiteServiceListSites2.
 type SiteServiceListSites2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -6246,25 +6246,25 @@ type SiteServiceListSites2Params struct {
 // SiteServiceCreateSite2Params defines parameters for SiteServiceCreateSite2.
 type SiteServiceCreateSite2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // SiteServiceDeleteSite2Params defines parameters for SiteServiceDeleteSite2.
 type SiteServiceDeleteSite2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // SiteServiceGetSite2Params defines parameters for SiteServiceGetSite2.
 type SiteServiceGetSite2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // SiteServicePatchSite2Params defines parameters for SiteServicePatchSite2.
 type SiteServicePatchSite2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -6273,13 +6273,13 @@ type SiteServicePatchSite2Params struct {
 // SiteServiceUpdateSite2Params defines parameters for SiteServiceUpdateSite2.
 type SiteServiceUpdateSite2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroups2Params defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups2.
 type TelemetryLogsGroupServiceListTelemetryLogsGroups2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
@@ -6296,25 +6296,25 @@ type TelemetryLogsGroupServiceListTelemetryLogsGroups2Params struct {
 // TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2.
 type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2.
 type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceGetTelemetryLogsGroup2.
 type TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups2.
 type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
@@ -6331,25 +6331,25 @@ type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params struct {
 // TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2.
 type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2.
 type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2.
 type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params defines parameters for TelemetryLogsProfileServiceListTelemetryLogsProfiles2.
 type TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
@@ -6381,25 +6381,25 @@ type TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params struct {
 // TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceCreateTelemetryLogsProfile2.
 type TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2.
 type TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceGetTelemetryLogsProfile2.
 type TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile2.
 type TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -6408,13 +6408,13 @@ type TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params struct {
 // TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2.
 type TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2.
 type TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
@@ -6446,25 +6446,25 @@ type TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params struct {
 // TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2.
 type TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2.
 type TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2.
 type TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2.
 type TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -6473,13 +6473,13 @@ type TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params struct {
 // TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2.
 type TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // WorkloadMemberServiceListWorkloadMembers2Params defines parameters for WorkloadMemberServiceListWorkloadMembers2.
 type WorkloadMemberServiceListWorkloadMembers2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -6500,25 +6500,25 @@ type WorkloadMemberServiceListWorkloadMembers2Params struct {
 // WorkloadMemberServiceCreateWorkloadMember2Params defines parameters for WorkloadMemberServiceCreateWorkloadMember2.
 type WorkloadMemberServiceCreateWorkloadMember2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // WorkloadMemberServiceDeleteWorkloadMember2Params defines parameters for WorkloadMemberServiceDeleteWorkloadMember2.
 type WorkloadMemberServiceDeleteWorkloadMember2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // WorkloadMemberServiceGetWorkloadMember2Params defines parameters for WorkloadMemberServiceGetWorkloadMember2.
 type WorkloadMemberServiceGetWorkloadMember2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // WorkloadServiceListWorkloads2Params defines parameters for WorkloadServiceListWorkloads2.
 type WorkloadServiceListWorkloads2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
@@ -6539,25 +6539,25 @@ type WorkloadServiceListWorkloads2Params struct {
 // WorkloadServiceCreateWorkload2Params defines parameters for WorkloadServiceCreateWorkload2.
 type WorkloadServiceCreateWorkload2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // WorkloadServiceDeleteWorkload2Params defines parameters for WorkloadServiceDeleteWorkload2.
 type WorkloadServiceDeleteWorkload2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // WorkloadServiceGetWorkload2Params defines parameters for WorkloadServiceGetWorkload2.
 type WorkloadServiceGetWorkload2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // WorkloadServicePatchWorkload2Params defines parameters for WorkloadServicePatchWorkload2.
 type WorkloadServicePatchWorkload2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
@@ -6566,7 +6566,7 @@ type WorkloadServicePatchWorkload2Params struct {
 // WorkloadServiceUpdateWorkload2Params defines parameters for WorkloadServiceUpdateWorkload2.
 type WorkloadServiceUpdateWorkload2Params struct {
 	// ProjectName Project name
-	ProjectName string `form:"projectName" json:"projectName"`
+	ProjectName *string `form:"projectName,omitempty" json:"projectName,omitempty"`
 }
 
 // HostServiceListHostsParams defines parameters for HostServiceListHosts.

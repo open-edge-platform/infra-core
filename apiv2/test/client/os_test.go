@@ -368,7 +368,7 @@ func TestOS_CreatewithCustom(t *testing.T) {
 	OSProfileName1 := "ubuntu-22.04-lts-generic-ext:1.0.2-" + suffix
 	OSArch1 := "x86_64"
 	OSRepo1 := "http://test.com/test-" + suffix + ".raw.gz"
-	metadata := fmt.Sprintf(`{"createdby":"int-test","testrun":"%s"}`, suffix)
+	metadata := fmt.Sprintf(`{"createdby":"int-test","testrun":%q}`, suffix)
 
 	OSSecFeat := api.SECURITYFEATURENONE
 	randSHA := inv_testing.GenerateRandomSha256()

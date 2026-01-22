@@ -526,7 +526,14 @@ func DeleteOS(
 		!strings.Contains(metadata, "\"createdby\":\"int-test\"") &&
 		!strings.HasPrefix(profileName, "ubuntu-22.04-lts-generic-ext:1.0.2-") &&
 		!(name == "" && profileName == "") {
-		tb.Logf("WARNING: Skipping delete for OS %s (name=%q, repo=%q, profile=%q, metadata=%q)", osID, name, repo, profileName, metadata)
+		tb.Logf(
+			"WARNING: Skipping delete for OS %s (name=%q, repo=%q, profile=%q, metadata=%q)",
+			osID,
+			name,
+			repo,
+			profileName,
+			metadata,
+		)
 		return
 	}
 
