@@ -1057,10 +1057,10 @@ service CustomConfigService {
 
 // Request message for the CreateRegion method.
 message CreateRegionRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The region to create.
-  resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.RegionResource region = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateRegion method.
@@ -1071,10 +1071,10 @@ message CreateRegionResponse {
 
 // Request message for the GetRegion method.
 message GetRegionRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested region.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetRegion method.
@@ -1085,11 +1085,9 @@ message GetRegionResponse {
 
 // Request message for the ListRegions method.
 message ListRegionsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1098,7 +1096,7 @@ message ListRegionsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1107,7 +1105,7 @@ message ListRegionsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1115,7 +1113,7 @@ message ListRegionsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -1124,7 +1122,9 @@ message ListRegionsRequest {
   ];
 
   // Flag to signal if the total amount of site in a region should be returned.
-  bool show_total_sites = 6 [(google.api.field_behavior) = OPTIONAL];
+  bool show_total_sites = 5 [(google.api.field_behavior) = OPTIONAL];
+  // Project name
+  string projectName = 7 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListRegions method.
@@ -1139,32 +1139,32 @@ message ListRegionsResponse {
 
 // Request message for the UpdateRegion method.
 message UpdateRegionRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the region region to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the region.
-  resources.location.v1.RegionResource region = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchRegion method.
 message PatchRegionRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the region.
-  resources.location.v1.RegionResource region = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.RegionResource region = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of region.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteRegion.
 message DeleteRegionRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the region region to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteRegion.
@@ -1178,10 +1178,10 @@ message DeleteRegionResponse {}
 
 // Request message for the CreateSite method.
 message CreateSiteRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The site to create.
-  resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.SiteResource site = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateSite method.
@@ -1192,10 +1192,10 @@ message CreateSiteResponse {
 
 // Request message for the GetSite method.
 message GetSiteRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested site.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetSite method.
@@ -1206,11 +1206,9 @@ message GetSiteResponse {
 
 // Request message for the ListSites method.
 message ListSitesRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1219,7 +1217,7 @@ message ListSitesRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1228,7 +1226,7 @@ message ListSitesRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1236,13 +1234,15 @@ message ListSitesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListSites method.
@@ -1257,32 +1257,32 @@ message ListSitesResponse {
 
 // Request message for the UpdateSite method.
 message UpdateSiteRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the site site to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the site.
-  resources.location.v1.SiteResource site = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchSite method.
 message PatchSiteRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the site.
-  resources.location.v1.SiteResource site = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of site.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteSite.
 message DeleteSiteRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the site site to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteSite.
@@ -1296,10 +1296,8 @@ message DeleteSiteResponse {}
 
 // Request message for the ListLocations method.
 message ListLocationsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Filter locations by name
-  string name = 2 [
+  string name = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^$|^[a-zA-Z-_0-9./: ]+$"
@@ -1307,9 +1305,11 @@ message ListLocationsRequest {
     }
   ];
   // Return site locations
-  bool show_sites = 3 [(google.api.field_behavior) = OPTIONAL];
+  bool show_sites = 2 [(google.api.field_behavior) = OPTIONAL];
   // Return region locations
-  bool show_regions = 4 [(google.api.field_behavior) = OPTIONAL];
+  bool show_regions = 3 [(google.api.field_behavior) = OPTIONAL];
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListLocations method.
@@ -1350,21 +1350,21 @@ message ListLocationsResponse {
 
 // Request the summary of Hosts resources.
 message GetHostSummaryRequest {
-  // The project name from the URL path.
-  string projectName = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (buf.validate.field).string = {
-      min_len: 1
-      max_len: 100
-    }
-  ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 2 [
+  string filter = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9.,:/=*(){}\"' ]+$"
+    }
+  ];
+  // The project name from the URL path.
+  string projectName = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
     }
   ];
 }
@@ -1383,16 +1383,16 @@ message GetHostSummaryResponse {
 
 // Request message for the CreateHost method.
 message CreateHostRequest {
+  // The host to create.
+  resources.compute.v1.HostResource host = 1 [(google.api.field_behavior) = REQUIRED];
   // The project name from the URL path.
-  string projectName = 1 [
+  string projectName = 2 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
       min_len: 1
       max_len: 100
     }
   ];
-  // The host to create.
-  resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateHost method.
@@ -1403,16 +1403,16 @@ message CreateHostResponse {
 
 // Request message for the GetHost method.
 message GetHostRequest {
+  // Name of the requested host.
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // The project name from the URL path.
-  string projectName = 1 [
+  string projectName = 3 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
       min_len: 1
       max_len: 100
     }
   ];
-  // Name of the requested host.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetHost method.
@@ -1423,17 +1423,9 @@ message GetHostResponse {
 
 // Request message for the ListHosts method.
 message ListHostsRequest {
-  // The project name from the URL path.
-  string projectName = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (buf.validate.field).string = {
-      min_len: 1
-      max_len: 100
-    }
-  ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1442,7 +1434,7 @@ message ListHostsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1451,7 +1443,7 @@ message ListHostsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1459,11 +1451,19 @@ message ListHostsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
+    }
+  ];
+  // The project name from the URL path.
+  string projectName = 6 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
     }
   ];
 }
@@ -1480,50 +1480,50 @@ message ListHostsResponse {
 
 // Request message for the UpdateHost method.
 message UpdateHostRequest {
+  // Name of the host host to be updated.
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the host.
+  resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
   // The project name from the URL path.
-  string projectName = 1 [
+  string projectName = 4 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
       min_len: 1
       max_len: 100
     }
   ];
-  // Name of the host host to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
-  // Updated values for the host.
-  resources.compute.v1.HostResource host = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchHost method.
 message PatchHostRequest {
+  // ID of the resource to be updated.
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Updated values for the host.
+  resources.compute.v1.HostResource host = 2 [(google.api.field_behavior) = REQUIRED];
+  // Field mask to be applied on the patch of host.
+  google.protobuf.FieldMask field_mask = 3;
   // The project name from the URL path.
-  string projectName = 1 [
+  string projectName = 5 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
       min_len: 1
       max_len: 100
     }
   ];
-  // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
-  // Updated values for the host.
-  resources.compute.v1.HostResource host = 3 [(google.api.field_behavior) = REQUIRED];
-  // Field mask to be applied on the patch of host.
-  google.protobuf.FieldMask field_mask = 4;
 }
 
 // Request message for DeleteHost.
 message DeleteHostRequest {
+  // Name of the host host to be deleted.
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // The project name from the URL path.
-  string projectName = 1 [
+  string projectName = 3 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
       min_len: 1
       max_len: 100
     }
   ];
-  // Name of the host host to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Reponse message for DeleteHost.
@@ -1531,24 +1531,24 @@ message DeleteHostResponse {}
 
 // Request to invalidate/untrust a Host.
 message InvalidateHostRequest {
+  string resourceId = 1 [(buf.validate.field).string = {
+    pattern: "^host-[0-9a-f]{8}$"
+    max_bytes: 13
+  }]; // Host resource ID
+
+  string note = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 512
+    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
+  }]; // user-provided reason for change or a freeform field
   // The project name from the URL path.
-  string projectName = 1 [
+  string projectName = 4 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
       min_len: 1
       max_len: 100
     }
   ];
-  string resourceId = 2 [(buf.validate.field).string = {
-    pattern: "^host-[0-9a-f]{8}$"
-    max_bytes: 13
-  }]; // Host resource ID
-
-  string note = 3 [(buf.validate.field).string = {
-    min_len: 1
-    max_len: 512
-    pattern: "^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()\" ]+$"
-  }]; // user-provided reason for change or a freeform field
 }
 
 // Response message for InvalidateHost.
@@ -1584,36 +1584,36 @@ message HostRegister {
 
 // Request to register a Host.
 message RegisterHostRequest {
-  // The project name from the URL path.
-  string projectName = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (buf.validate.field).string = {
-      min_len: 1
-      max_len: 100
-    }
-  ];
-  string resourceId = 2 [(buf.validate.field).string = {
+  string resourceId = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }];
 
-  HostRegister host = 3 [(google.api.field_behavior) = REQUIRED];
-}
-
-// Request to onboard a Host.
-message OnboardHostRequest {
+  HostRegister host = 2 [(google.api.field_behavior) = REQUIRED];
   // The project name from the URL path.
-  string projectName = 1 [
+  string projectName = 4 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
       min_len: 1
       max_len: 100
     }
   ];
-  string resourceId = 2 [(buf.validate.field).string = {
+}
+
+// Request to onboard a Host.
+message OnboardHostRequest {
+  string resourceId = 1 [(buf.validate.field).string = {
     pattern: "^host-[0-9a-f]{8}$"
     max_bytes: 13
   }]; // Host resource ID
+  // The project name from the URL path.
+  string projectName = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 100
+    }
+  ];
 }
 
 // Response of a Host Register request.
@@ -1800,10 +1800,10 @@ message InvalidateInstanceResponse {}
 
 // Request message for the CreateOperatingSystem method.
 message CreateOperatingSystemRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The os to create.
-  resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.os.v1.OperatingSystemResource os = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateOperatingSystem method.
@@ -1814,10 +1814,10 @@ message CreateOperatingSystemResponse {
 
 // Request message for the GetOperatingSystem method.
 message GetOperatingSystemRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested os.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOperatingSystem method.
@@ -1828,11 +1828,9 @@ message GetOperatingSystemResponse {
 
 // Request message for the ListOperatingSystems method.
 message ListOperatingSystemsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1841,7 +1839,7 @@ message ListOperatingSystemsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1850,7 +1848,7 @@ message ListOperatingSystemsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1858,13 +1856,15 @@ message ListOperatingSystemsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListOperatingSystems method.
@@ -1879,32 +1879,32 @@ message ListOperatingSystemsResponse {
 
 // Request message for the UpdateOperatingSystem method.
 message UpdateOperatingSystemRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the os os to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the os.
-  resources.os.v1.OperatingSystemResource os = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchOperatingSystem method.
 message PatchOperatingSystemRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the os.
-  resources.os.v1.OperatingSystemResource os = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.os.v1.OperatingSystemResource os = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of os.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteOperatingSystem.
 message DeleteOperatingSystemRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the os os to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
@@ -1918,10 +1918,10 @@ message DeleteOperatingSystemResponse {}
 
 // Request message for the CreateProvider method.
 message CreateProviderRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The provider to create.
-  resources.provider.v1.ProviderResource provider = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.provider.v1.ProviderResource provider = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateProvider method.
@@ -1932,10 +1932,10 @@ message CreateProviderResponse {
 
 // Request message for the GetProvider method.
 message GetProviderRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested provider.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetProvider method.
@@ -1946,11 +1946,9 @@ message GetProviderResponse {
 
 // Request message for the ListProviders method.
 message ListProvidersRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1959,7 +1957,7 @@ message ListProvidersRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -1968,7 +1966,7 @@ message ListProvidersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -1976,13 +1974,15 @@ message ListProvidersRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListProviders method.
@@ -1997,10 +1997,10 @@ message ListProvidersResponse {
 
 // Request message for DeleteProvider.
 message DeleteProviderRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the provider provider to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteProvider.
@@ -2014,10 +2014,10 @@ message DeleteProviderResponse {}
 
 // Request message for the CreateWorkload method.
 message CreateWorkloadRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The workload to create.
-  resources.compute.v1.WorkloadResource workload = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.WorkloadResource workload = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateWorkload method.
@@ -2028,10 +2028,10 @@ message CreateWorkloadResponse {
 
 // Request message for the GetWorkload method.
 message GetWorkloadRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested workload.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetWorkload method.
@@ -2042,11 +2042,9 @@ message GetWorkloadResponse {
 
 // Request message for the ListWorkloads method.
 message ListWorkloadsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2055,7 +2053,7 @@ message ListWorkloadsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2064,7 +2062,7 @@ message ListWorkloadsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2072,13 +2070,15 @@ message ListWorkloadsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListWorkloads method.
@@ -2093,32 +2093,32 @@ message ListWorkloadsResponse {
 
 // Request message for the UpdateWorkload method.
 message UpdateWorkloadRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the workload workload to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the workload.
-  resources.compute.v1.WorkloadResource workload = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.WorkloadResource workload = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchWorkload method.
 message PatchWorkloadRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the workload.
-  resources.compute.v1.WorkloadResource workload = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.WorkloadResource workload = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of workload.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteWorkload.
 message DeleteWorkloadRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the workload workload to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteWorkload.
@@ -2132,10 +2132,10 @@ message DeleteWorkloadResponse {}
 
 // Request message for the CreateWorkloadMember method.
 message CreateWorkloadMemberRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The workload_member to create.
-  resources.compute.v1.WorkloadMember workload_member = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.WorkloadMember workload_member = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateWorkloadMember method.
@@ -2146,10 +2146,10 @@ message CreateWorkloadMemberResponse {
 
 // Request message for the GetWorkloadMember method.
 message GetWorkloadMemberRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested workload_member.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetWorkloadMember method.
@@ -2160,11 +2160,9 @@ message GetWorkloadMemberResponse {
 
 // Request message for the ListWorkloadMembers method.
 message ListWorkloadMembersRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2173,7 +2171,7 @@ message ListWorkloadMembersRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2182,7 +2180,7 @@ message ListWorkloadMembersRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2190,13 +2188,15 @@ message ListWorkloadMembersRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListWorkloadMembers method.
@@ -2211,10 +2211,10 @@ message ListWorkloadMembersResponse {
 
 // Request message for DeleteWorkloadMember.
 message DeleteWorkloadMemberRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the workload_member workload_member to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteWorkloadMember.
@@ -2228,11 +2228,9 @@ message DeleteWorkloadMemberResponse {}
 
 // Request message for the ListSchedules method.
 message ListSchedulesRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 2 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2240,7 +2238,7 @@ message ListSchedulesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 3 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2251,7 +2249,7 @@ message ListSchedulesRequest {
   // (given the other query params). If specified, returns the schedules that have
   // the specified host ID applied to them, i.e., target including the inherited ones
   // (parent site if not null). If null, returns all the schedules without a host ID as target.
-  string host_id = 4 [
+  string host_id = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
@@ -2262,7 +2260,7 @@ message ListSchedulesRequest {
   // (given the other query params). If specified, returns the schedules that have
   // the specified site ID applied to them, i.e., target including the inherited ones.
   // If null, returns all the schedules without a site ID as target
-  string site_id = 5 [
+  string site_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
@@ -2274,7 +2272,7 @@ message ListSchedulesRequest {
   // If specified, returns the schedules that have the specified region ID applied to them,
   // i.e., target including the inherited ones (parent region if not null).
   // If null, returns all the schedules without a region ID as target.
-  string region_id = 6 [
+  string region_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -2282,10 +2280,12 @@ message ListSchedulesRequest {
     }
   ];
   // Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
-  string unix_epoch = 7 [
+  string unix_epoch = 6 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {pattern: "^[0-9]+$"}
   ];
+  // Project name
+  string projectName = 8 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListSchedulesResponse method.
@@ -2308,10 +2308,10 @@ message ListSchedulesResponse {
 
 // Request message for the CreateSingleSchedule method.
 message CreateSingleScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The single_schedule to create.
-  resources.schedule.v1.SingleScheduleResource single_schedule = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.schedule.v1.SingleScheduleResource single_schedule = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateSingleSchedule method.
@@ -2322,10 +2322,10 @@ message CreateSingleScheduleResponse {
 
 // Request message for the GetSingleSchedule method.
 message GetSingleScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested single_schedule.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetSingleSchedule method.
@@ -2336,11 +2336,9 @@ message GetSingleScheduleResponse {
 
 // Request message for the ListSingleSchedules method.
 message ListSingleSchedulesRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 2 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2348,7 +2346,7 @@ message ListSingleSchedulesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 3 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2359,7 +2357,7 @@ message ListSingleSchedulesRequest {
   // (given the other query params). If specified, returns the schedules that have
   // the specified host ID applied to them, i.e., target including the inherited ones
   // (parent site if not null). If null, returns all the schedules without a host ID as target.
-  string host_id = 4 [
+  string host_id = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
@@ -2370,7 +2368,7 @@ message ListSingleSchedulesRequest {
   // (given the other query params). If specified, returns the schedules that have
   // the specified site ID applied to them, i.e., target including the inherited ones.
   // If null, returns all the schedules without a site ID as target
-  string site_id = 5 [
+  string site_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
@@ -2382,7 +2380,7 @@ message ListSingleSchedulesRequest {
   // If specified, returns the schedules that have the specified region ID applied to them,
   // i.e., target including the inherited ones (parent region if not null).
   // If null, returns all the schedules without a region ID as target.
-  string region_id = 6 [
+  string region_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -2390,10 +2388,12 @@ message ListSingleSchedulesRequest {
     }
   ];
   // Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
-  string unix_epoch = 7 [
+  string unix_epoch = 6 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {pattern: "^[0-9]+$"}
   ];
+  // Project name
+  string projectName = 8 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListSingleSchedules method.
@@ -2408,32 +2408,32 @@ message ListSingleSchedulesResponse {
 
 // Request message for the UpdateSingleSchedule method.
 message UpdateSingleScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the single_schedule single_schedule to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the single_schedule.
-  resources.schedule.v1.SingleScheduleResource single_schedule = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.schedule.v1.SingleScheduleResource single_schedule = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchSingleSchedule method.
 message PatchSingleScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the single_schedule.
-  resources.schedule.v1.SingleScheduleResource single_schedule = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.schedule.v1.SingleScheduleResource single_schedule = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of single_schedule.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteSingleSchedule.
 message DeleteSingleScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the single_schedule single_schedule to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteSingleSchedule.
@@ -2447,10 +2447,10 @@ message DeleteSingleScheduleResponse {}
 
 // Request message for the CreateRepeatedSchedule method.
 message CreateRepeatedScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The repeated_schedule to create.
-  resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateRepeatedSchedule method.
@@ -2461,10 +2461,10 @@ message CreateRepeatedScheduleResponse {
 
 // Request message for the GetRepeatedSchedule method.
 message GetRepeatedScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested repeated_schedule.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetRepeatedSchedule method.
@@ -2475,11 +2475,9 @@ message GetRepeatedScheduleResponse {
 
 // Request message for the ListRepeatedSchedules method.
 message ListRepeatedSchedulesRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 2 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2487,7 +2485,7 @@ message ListRepeatedSchedulesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 3 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2498,7 +2496,7 @@ message ListRepeatedSchedulesRequest {
   // (given the other query params). If specified, returns the schedules that have
   // the specified host ID applied to them, i.e., target including the inherited ones
   // (parent site if not null). If null, returns all the schedules without a host ID as target.
-  string host_id = 4 [
+  string host_id = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^host-[0-9a-f]{8}$"
@@ -2509,7 +2507,7 @@ message ListRepeatedSchedulesRequest {
   // (given the other query params). If specified, returns the schedules that have
   // the specified site ID applied to them, i.e., target including the inherited ones.
   // If null, returns all the schedules without a site ID as target
-  string site_id = 5 [
+  string site_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
@@ -2521,7 +2519,7 @@ message ListRepeatedSchedulesRequest {
   // If specified, returns the schedules that have the specified region ID applied to them,
   // i.e., target including the inherited ones (parent region if not null).
   // If null, returns all the schedules without a region ID as target.
-  string region_id = 6 [
+  string region_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -2529,10 +2527,12 @@ message ListRepeatedSchedulesRequest {
     }
   ];
   // Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
-  string unix_epoch = 7 [
+  string unix_epoch = 6 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {pattern: "^[0-9]+$"}
   ];
+  // Project name
+  string projectName = 8 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListRepeatedSchedules method.
@@ -2547,32 +2547,32 @@ message ListRepeatedSchedulesResponse {
 
 // Request message for the UpdateRepeatedSchedule method.
 message UpdateRepeatedScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the repeated_schedule repeated_schedule to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the repeated_schedule.
-  resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchRepeatedSchedule method.
 message PatchRepeatedScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the repeated_schedule.
-  resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.schedule.v1.RepeatedScheduleResource repeated_schedule = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of repeated_schedule.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteRepeatedSchedule.
 message DeleteRepeatedScheduleRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the repeated_schedule repeated_schedule to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteRepeatedSchedule.
@@ -2586,10 +2586,10 @@ message DeleteRepeatedScheduleResponse {}
 
 // Request message for the CreateTelemetryLogsGroup method.
 message CreateTelemetryLogsGroupRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_logs_group to create.
-  resources.telemetry.v1.TelemetryLogsGroupResource telemetry_logs_group = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsGroupResource telemetry_logs_group = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryLogsGroup method.
@@ -2600,10 +2600,10 @@ message CreateTelemetryLogsGroupResponse {
 
 // Request message for the GetTelemetryLogsGroup method.
 message GetTelemetryLogsGroupRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_logs_group.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryLogsGroup method.
@@ -2614,11 +2614,9 @@ message GetTelemetryLogsGroupResponse {
 
 // Request message for the ListTelemetryLogsGroups method.
 message ListTelemetryLogsGroupsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 2 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2626,7 +2624,7 @@ message ListTelemetryLogsGroupsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 3 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2635,13 +2633,15 @@ message ListTelemetryLogsGroupsRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 4 [
+  string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
   ];
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListTelemetryLogsGroups method.
@@ -2656,10 +2656,10 @@ message ListTelemetryLogsGroupsResponse {
 
 // Request message for DeleteTelemetryLogsGroup.
 message DeleteTelemetryLogsGroupRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_logs_group telemetry_logs_group to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryLogsGroup.
@@ -2673,10 +2673,10 @@ message DeleteTelemetryLogsGroupResponse {}
 
 // Request message for the CreateTelemetryMetricsGroup method.
 message CreateTelemetryMetricsGroupRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_metrics_group to create.
-  resources.telemetry.v1.TelemetryMetricsGroupResource telemetry_metrics_group = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsGroupResource telemetry_metrics_group = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryMetricsGroup method.
@@ -2687,10 +2687,10 @@ message CreateTelemetryMetricsGroupResponse {
 
 // Request message for the GetTelemetryMetricsGroup method.
 message GetTelemetryMetricsGroupRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_metrics_group.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryMetricsGroup method.
@@ -2701,11 +2701,9 @@ message GetTelemetryMetricsGroupResponse {
 
 // Request message for the ListTelemetryMetricsGroups method.
 message ListTelemetryMetricsGroupsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 2 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2713,7 +2711,7 @@ message ListTelemetryMetricsGroupsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 3 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2722,13 +2720,15 @@ message ListTelemetryMetricsGroupsRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 4 [
+  string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
       pattern: "^$|^[a-zA-Z-_0-9., ]+$"
     }
   ];
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListTelemetryMetricsGroups method.
@@ -2743,10 +2743,10 @@ message ListTelemetryMetricsGroupsResponse {
 
 // Request message for DeleteTelemetryMetricsGroup.
 message DeleteTelemetryMetricsGroupRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryMetricsGroup.
@@ -2760,10 +2760,10 @@ message DeleteTelemetryMetricsGroupResponse {}
 
 // Request message for the CreateTelemetryLogsProfile method.
 message CreateTelemetryLogsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_logs_profile to create.
-  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryLogsProfile method.
@@ -2774,10 +2774,10 @@ message CreateTelemetryLogsProfileResponse {
 
 // Request message for the GetTelemetryLogsProfile method.
 message GetTelemetryLogsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_logs_profile.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryLogsProfile method.
@@ -2788,11 +2788,9 @@ message GetTelemetryLogsProfileResponse {
 
 // Request message for the ListTelemetryLogsProfiles method.
 message ListTelemetryLogsProfilesRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 2 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2800,7 +2798,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 3 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2809,7 +2807,7 @@ message ListTelemetryLogsProfilesRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 4 [
+  string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2817,7 +2815,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given instance identifier.
-  string instance_id = 5 [
+  string instance_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
@@ -2825,7 +2823,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given siteID.
-  string site_id = 6 [
+  string site_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
@@ -2833,7 +2831,7 @@ message ListTelemetryLogsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given regionID.
-  string region_id = 7 [
+  string region_id = 6 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -2844,7 +2842,9 @@ message ListTelemetryLogsProfilesRequest {
   // profiles rendered from hierarchy. This flag is only used along with one
   // of siteId, regionId or instanceId. If siteId, regionId or instanceId are
   // not set, this flag is ignored.
-  bool show_inherited = 8 [(google.api.field_behavior) = OPTIONAL];
+  bool show_inherited = 7 [(google.api.field_behavior) = OPTIONAL];
+  // Project name
+  string projectName = 9 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListTelemetryLogsProfiles method.
@@ -2859,32 +2859,32 @@ message ListTelemetryLogsProfilesResponse {
 
 // Request message for the UpdateTelemetryLogsProfile method.
 message UpdateTelemetryLogsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_logs_profile telemetry_logs_profile to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_logs_profile.
-  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchTelemetryLogs method.
 message PatchTelemetryLogsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_logs_profile.
-  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryLogsProfileResource telemetry_logs_profile = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of telemetry_logs_profile.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteTelemetryLogsProfile.
 message DeleteTelemetryLogsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryLogsProfile.
@@ -2898,10 +2898,10 @@ message DeleteTelemetryLogsProfileResponse {}
 
 // Request message for the CreateTelemetryMetricsProfile method.
 message CreateTelemetryMetricsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The telemetry_metrics_profile to create.
-  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateTelemetryMetricsProfile method.
@@ -2912,10 +2912,10 @@ message CreateTelemetryMetricsProfileResponse {
 
 // Request message for the GetTelemetryMetricsProfile method.
 message GetTelemetryMetricsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested telemetry_metrics_profile.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetTelemetryMetricsProfile method.
@@ -2926,11 +2926,9 @@ message GetTelemetryMetricsProfileResponse {
 
 // Request message for the ListTelemetryMetricsProfiles method.
 message ListTelemetryMetricsProfilesRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 2 [
+  uint32 page_size = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -2938,7 +2936,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 3 [
+  uint32 offset = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
@@ -2947,7 +2945,7 @@ message ListTelemetryMetricsProfilesRequest {
   ];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 4 [
+  string order_by = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -2955,7 +2953,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given instance identifier.
-  string instance_id = 5 [
+  string instance_id = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^inst-[0-9a-f]{8}$"
@@ -2963,7 +2961,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given siteID.
-  string site_id = 6 [
+  string site_id = 5 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^site-[0-9a-f]{8}$"
@@ -2971,7 +2969,7 @@ message ListTelemetryMetricsProfilesRequest {
     }
   ];
   // Returns only the telemetry profiles that are assigned with the given regionID.
-  string region_id = 7 [
+  string region_id = 6 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       pattern: "^region-[0-9a-f]{8}$"
@@ -2982,7 +2980,9 @@ message ListTelemetryMetricsProfilesRequest {
   // profiles rendered from hierarchy. This flag is only used along with one
   // of siteId, regionId or instanceId. If siteId, regionId or instanceId are
   // not set, this flag is ignored.
-  bool show_inherited = 8 [(google.api.field_behavior) = OPTIONAL];
+  bool show_inherited = 7 [(google.api.field_behavior) = OPTIONAL];
+  // Project name
+  string projectName = 9 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListTelemetryMetricsProfiles method.
@@ -2997,32 +2997,32 @@ message ListTelemetryMetricsProfilesResponse {
 
 // Request message for the UpdateTelemetryMetricsProfile method.
 message UpdateTelemetryMetricsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_metrics_profile.
-  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the PatchTelemetryMetricsProfile method.
 message PatchTelemetryMetricsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // ID of the resource to be updated.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Updated values for the telemetry_metrics_profile.
-  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 3 [(google.api.field_behavior) = REQUIRED];
+  resources.telemetry.v1.TelemetryMetricsProfileResource telemetry_metrics_profile = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of telemetry_metrics_profile.
-  google.protobuf.FieldMask field_mask = 4;
+  google.protobuf.FieldMask field_mask = 3;
+  // Project name
+  string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteTelemetryMetricsProfile.
 message DeleteTelemetryMetricsProfileRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteTelemetryMetricsProfile.
@@ -3036,10 +3036,10 @@ message DeleteTelemetryMetricsProfileResponse {}
 
 // Request message for the CreateLocalAccount method.
 message CreateLocalAccountRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The localaccount to create.
-  resources.localaccount.v1.LocalAccountResource local_account = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.localaccount.v1.LocalAccountResource local_account = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateLocalAccount method.
@@ -3050,10 +3050,10 @@ message CreateLocalAccountResponse {
 
 // Request message for the GetLocalAccount method.
 message GetLocalAccountRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested localaccount.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetLocalAccount method.
@@ -3064,11 +3064,9 @@ message GetLocalAccountResponse {
 
 // Request message for the ListLocalAccounts method.
 message ListLocalAccountsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3077,7 +3075,7 @@ message ListLocalAccountsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3086,7 +3084,7 @@ message ListLocalAccountsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -3094,13 +3092,15 @@ message ListLocalAccountsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListLocalAccounts method.
@@ -3115,10 +3115,10 @@ message ListLocalAccountsResponse {
 
 // Request message for DeleteLocalAccount.
 message DeleteLocalAccountRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the localaccount to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteLocalAccount.
@@ -3174,10 +3174,10 @@ service OSUpdatePolicy {
 
 // Request message for the CreateOSUpdatePolicy method.
 message CreateOSUpdatePolicyRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The OS Update policy to create.
-  resources.compute.v1.OSUpdatePolicy os_update_policy = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.OSUpdatePolicy os_update_policy = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateOSUpdatePolicy method.
@@ -3188,10 +3188,10 @@ message CreateOSUpdatePolicyResponse {
 
 // Request message for the GetOSUpdatePolicy method.
 message GetOSUpdatePolicyRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested os.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOSUpdatePolicy method.
@@ -3202,11 +3202,9 @@ message GetOSUpdatePolicyResponse {
 
 // Request message for the ListOSUpdatePolicy method.
 message ListOSUpdatePolicyRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3215,7 +3213,7 @@ message ListOSUpdatePolicyRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3224,7 +3222,7 @@ message ListOSUpdatePolicyRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -3232,33 +3230,33 @@ message ListOSUpdatePolicyRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListOSUpdatePolicy method.
 message ListOSUpdatePolicyResponse {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Sorted and filtered list of OS Update Policies.
-  repeated resources.compute.v1.OSUpdatePolicy os_update_policies = 2 [(google.api.field_behavior) = REQUIRED];
+  repeated resources.compute.v1.OSUpdatePolicy os_update_policies = 1 [(google.api.field_behavior) = REQUIRED];
   // Count of items in the entire list, regardless of pagination.
-  int32 total_elements = 3 [(google.api.field_behavior) = REQUIRED];
+  int32 total_elements = 2 [(google.api.field_behavior) = REQUIRED];
   // Inform if there are more elements
-  bool has_next = 4 [(google.api.field_behavior) = REQUIRED];
+  bool has_next = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for DeleteOperatingSystem.
 message DeleteOSUpdatePolicyRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the OS Update Policy to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
@@ -3303,10 +3301,10 @@ service OSUpdateRun {
 
 // Request message for the CreateOSUpdateRun method.
 message CreateOSUpdateRunRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The os update run to create.
-  resources.compute.v1.OSUpdateRun os_update_run = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.compute.v1.OSUpdateRun os_update_run = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateOSUpdateRun method.
@@ -3317,10 +3315,10 @@ message CreateOSUpdateRunResponse {
 
 // Request message for the GetOSUpdateRun method.
 message GetOSUpdateRunRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested os.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetOSUpdateRun method.
@@ -3331,11 +3329,9 @@ message GetOSUpdateRunResponse {
 
 // Request message for the ListOSUpdateRun method.
 message ListOSUpdateRunRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3344,7 +3340,7 @@ message ListOSUpdateRunRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3353,7 +3349,7 @@ message ListOSUpdateRunRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -3361,13 +3357,15 @@ message ListOSUpdateRunRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListOSUpdateRun method.
@@ -3382,10 +3380,10 @@ message ListOSUpdateRunResponse {
 
 // Request message for DeleteOperatingSystem.
 message DeleteOSUpdateRunRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the os update run to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteOperatingSystem.
@@ -3399,26 +3397,24 @@ message DeleteOSUpdateRunResponse {}
 
 // Request message for the CreateCustomConfig method.
 message CreateCustomConfigRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The custom configuration to create.
-  resources.customconfig.v1.CustomConfigResource custom_config = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.customconfig.v1.CustomConfigResource custom_config = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the CreateCustomConfig method.
 message CreateCustomConfigResponse {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // The created custom configuration.
-  resources.customconfig.v1.CustomConfigResource custom_config = 2 [(google.api.field_behavior) = REQUIRED];
+  resources.customconfig.v1.CustomConfigResource custom_config = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Request message for the GetCustomConfig method.
 message GetCustomConfigRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the requested custom configuration.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the GetCustomConfig method.
@@ -3429,11 +3425,9 @@ message GetCustomConfigResponse {
 
 // Request message for the ListCustomConfigs method.
 message ListCustomConfigsRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Optional comma separated list of fields to specify a sorting order.
   // See https://google.aip.dev/132 for details.
-  string order_by = 2 [
+  string order_by = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3442,7 +3436,7 @@ message ListCustomConfigsRequest {
   ];
   // Optional filter to return only item of interest.
   // See https://google.aip.dev/160 for details.
-  string filter = 3 [
+  string filter = 2 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {
       max_len: 1000
@@ -3451,7 +3445,7 @@ message ListCustomConfigsRequest {
   ];
   // Defines the amount of items to be contained in a single page.
   // Default of 20.
-  uint32 page_size = 4 [
+  uint32 page_size = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 1
@@ -3459,13 +3453,15 @@ message ListCustomConfigsRequest {
     }
   ];
   // Index of the first item to return. This allows skipping items.
-  uint32 offset = 5 [
+  uint32 offset = 4 [
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).uint32 = {
       gte: 0
       lte: 10000
     }
   ];
+  // Project name
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListCustomConfigs method.
@@ -3480,10 +3476,10 @@ message ListCustomConfigsResponse {
 
 // Request message for DeleteCustomConfig.
 message DeleteCustomConfigRequest {
-  // Project name
-  string projectName = 1 [(google.api.field_behavior) = REQUIRED];
   // Name of the customconfig to be deleted.
-  string resourceId = 2 [(google.api.field_behavior) = REQUIRED];
+  string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
+  // Project name
+  string projectName = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for DeleteCustomConfig.
