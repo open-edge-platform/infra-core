@@ -22,14 +22,6 @@ paths:
       description: Get a list of custom configurations.
       operationId: CustomConfigService_ListCustomConfigs2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -78,6 +70,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -95,7 +95,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -134,7 +134,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -164,7 +164,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -184,16 +184,6 @@ paths:
       description: Get a list of hosts.
       operationId: HostService_ListHosts2
       parameters:
-        - name: projectName
-          in: query
-          description: The project name from the URL path.
-          required: false
-          schema:
-            type: string
-            title: projectName
-            maxLength: 100
-            minLength: 1
-            description: The project name from the URL path.
         - name: orderBy
           in: query
           description: |-
@@ -242,6 +232,16 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: The project name from the URL path.
+          required: true
+          schema:
+            type: string
+            title: projectName
+            maxLength: 100
+            minLength: 1
+            description: The project name from the URL path.
       responses:
         "200":
           description: Success
@@ -259,7 +259,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -289,16 +289,6 @@ paths:
       description: Register a host.
       operationId: HostService_RegisterHost2
       parameters:
-        - name: projectName
-          in: query
-          description: The project name from the URL path.
-          required: false
-          schema:
-            type: string
-            title: projectName
-            maxLength: 100
-            minLength: 1
-            description: The project name from the URL path.
         - name: resourceId
           in: query
           schema:
@@ -307,6 +297,16 @@ paths:
             pattern: ^host-[0-9a-f]{8}$
             description: |
               string.max_bytes = 13
+        - name: projectName
+          in: query
+          description: The project name from the URL path.
+          required: true
+          schema:
+            type: string
+            title: projectName
+            maxLength: 100
+            minLength: 1
+            description: The project name from the URL path.
       requestBody:
         content:
           application/json:
@@ -339,7 +339,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -371,7 +371,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -411,7 +411,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -440,16 +440,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: The project name from the URL path.
-          required: false
-          schema:
-            type: string
-            title: projectName
-            maxLength: 100
-            minLength: 1
-            description: The project name from the URL path.
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -459,6 +449,16 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: The project name from the URL path.
+          required: true
+          schema:
+            type: string
+            title: projectName
+            maxLength: 100
+            minLength: 1
+            description: The project name from the URL path.
       requestBody:
         description: Updated values for the host.
         content:
@@ -493,16 +493,6 @@ paths:
             description: |
               Host resource ID
               string.max_bytes = 13
-        - name: projectName
-          in: query
-          description: The project name from the URL path.
-          required: false
-          schema:
-            type: string
-            title: projectName
-            maxLength: 100
-            minLength: 1
-            description: The project name from the URL path.
         - name: note
           in: query
           description: user-provided reason for change or a freeform field
@@ -513,6 +503,16 @@ paths:
             minLength: 1
             pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
             description: user-provided reason for change or a freeform field
+        - name: projectName
+          in: query
+          description: The project name from the URL path.
+          required: true
+          schema:
+            type: string
+            title: projectName
+            maxLength: 100
+            minLength: 1
+            description: The project name from the URL path.
       responses:
         "200":
           description: Success
@@ -542,7 +542,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -576,7 +576,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -604,16 +604,6 @@ paths:
       description: Get a summary of the hosts status.
       operationId: HostService_GetHostsSummary2
       parameters:
-        - name: projectName
-          in: query
-          description: The project name from the URL path.
-          required: false
-          schema:
-            type: string
-            title: projectName
-            maxLength: 100
-            minLength: 1
-            description: The project name from the URL path.
         - name: filter
           in: query
           description: |-
@@ -627,6 +617,16 @@ paths:
             description: |-
               (OPTIONAL) Optional filter to return only item of interest.
                See https://google.aip.dev/160 for details.
+        - name: projectName
+          in: query
+          description: The project name from the URL path.
+          required: true
+          schema:
+            type: string
+            title: projectName
+            maxLength: 100
+            minLength: 1
+            description: The project name from the URL path.
       responses:
         "200":
           description: Success
@@ -693,7 +693,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -717,7 +717,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -758,7 +758,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -790,7 +790,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -830,7 +830,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -871,7 +871,7 @@ paths:
         - name: projectName
           in: query
           description: The project name from the URL path.
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -901,14 +901,6 @@ paths:
       description: Get a list of providers.
       operationId: LocalAccountService_ListLocalAccounts2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -957,6 +949,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -974,7 +974,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1013,7 +1013,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1043,7 +1043,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1063,14 +1063,6 @@ paths:
       description: Get a list of locations.
       operationId: LocationService_ListLocations2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: name
           in: query
           description: Filter locations by name
@@ -1094,6 +1086,14 @@ paths:
             type: boolean
             title: show_regions
             description: (OPTIONAL) Return region locations
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -1109,14 +1109,6 @@ paths:
       description: Get a list of OSs.
       operationId: OperatingSystemService_ListOperatingSystems2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -1165,6 +1157,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -1182,7 +1182,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1221,7 +1221,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1251,7 +1251,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1289,7 +1289,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1316,14 +1316,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -1333,6 +1325,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the os.
         content:
@@ -1356,14 +1356,6 @@ paths:
       description: Get a list of OS Update Policies.
       operationId: OSUpdatePolicy_ListOSUpdatePolicy2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -1412,6 +1404,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -1429,7 +1429,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1468,7 +1468,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1498,7 +1498,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1518,14 +1518,6 @@ paths:
       description: Get a list of OS Update Policies.
       operationId: OSUpdateRun_ListOSUpdateRun2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -1574,6 +1566,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -1600,7 +1600,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1630,7 +1630,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1650,14 +1650,6 @@ paths:
       description: Get a list of providers.
       operationId: ProviderService_ListProviders2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -1706,6 +1698,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -1723,7 +1723,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1762,7 +1762,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1792,7 +1792,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1812,14 +1812,6 @@ paths:
       description: Get a list of regions.
       operationId: RegionService_ListRegions2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -1875,6 +1867,14 @@ paths:
             type: boolean
             title: show_total_sites
             description: (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -1892,7 +1892,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1931,7 +1931,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1961,7 +1961,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -1999,7 +1999,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2026,14 +2026,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -2043,6 +2035,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the region.
         content:
@@ -2066,14 +2066,6 @@ paths:
       description: Get a list of schedules (single/repeated).
       operationId: ScheduleService_ListSchedules2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: pageSize
           in: query
           description: |-
@@ -2157,6 +2149,14 @@ paths:
             title: unix_epoch
             pattern: ^[0-9]+$
             description: (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -2172,14 +2172,6 @@ paths:
       description: Get a list of repeatedSchedules.
       operationId: ScheduleService_ListRepeatedSchedules2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: pageSize
           in: query
           description: |-
@@ -2263,6 +2255,14 @@ paths:
             title: unix_epoch
             pattern: ^[0-9]+$
             description: (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -2280,7 +2280,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2319,7 +2319,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2349,7 +2349,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2387,7 +2387,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2414,14 +2414,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -2431,6 +2423,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the repeated_schedule.
         content:
@@ -2454,14 +2454,6 @@ paths:
       description: Get a list of singleSchedules.
       operationId: ScheduleService_ListSingleSchedules2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: pageSize
           in: query
           description: |-
@@ -2545,6 +2537,14 @@ paths:
             title: unix_epoch
             pattern: ^[0-9]+$
             description: (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -2562,7 +2562,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2601,7 +2601,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2631,7 +2631,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2669,7 +2669,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2696,14 +2696,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -2713,6 +2705,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the single_schedule.
         content:
@@ -2736,14 +2736,6 @@ paths:
       description: Get a list of sites.
       operationId: SiteService_ListSites2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -2792,6 +2784,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -2809,7 +2809,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2848,7 +2848,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2878,7 +2878,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2916,7 +2916,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -2943,14 +2943,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -2960,6 +2952,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the site.
         content:
@@ -2983,14 +2983,6 @@ paths:
       description: Get a list of telemetry_logs_groups.
       operationId: TelemetryLogsGroupService_ListTelemetryLogsGroups2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: pageSize
           in: query
           description: |-
@@ -3026,6 +3018,14 @@ paths:
             description: |-
               (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
                See https://google.aip.dev/132 for details.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -3043,7 +3043,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3082,7 +3082,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3112,7 +3112,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3132,14 +3132,6 @@ paths:
       description: Get a list of telemetryMetricsGroups.
       operationId: TelemetryMetricsGroupService_ListTelemetryMetricsGroups2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: pageSize
           in: query
           description: |-
@@ -3175,6 +3167,14 @@ paths:
             description: |-
               (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
                See https://google.aip.dev/132 for details.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -3192,7 +3192,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3231,7 +3231,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3261,7 +3261,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3281,14 +3281,6 @@ paths:
       description: Get a list of telemetryLogsProfiles.
       operationId: TelemetryLogsProfileService_ListTelemetryLogsProfiles2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: pageSize
           in: query
           description: |-
@@ -3369,6 +3361,14 @@ paths:
                profiles rendered from hierarchy. This flag is only used along with one
                of siteId, regionId or instanceId. If siteId, regionId or instanceId are
                not set, this flag is ignored.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -3386,7 +3386,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3425,7 +3425,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3455,7 +3455,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3493,7 +3493,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3520,14 +3520,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -3537,6 +3529,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the telemetry_logs_profile.
         content:
@@ -3560,14 +3560,6 @@ paths:
       description: Get a list of telemetryMetricsProfiles.
       operationId: TelemetryMetricsProfileService_ListTelemetryMetricsProfiles2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: pageSize
           in: query
           description: |-
@@ -3648,6 +3640,14 @@ paths:
                profiles rendered from hierarchy. This flag is only used along with one
                of siteId, regionId or instanceId. If siteId, regionId or instanceId are
                not set, this flag is ignored.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -3665,7 +3665,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3704,7 +3704,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3734,7 +3734,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3772,7 +3772,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3799,14 +3799,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -3816,6 +3808,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the telemetry_metrics_profile.
         content:
@@ -3839,14 +3839,6 @@ paths:
       description: Get a list of workload_members.
       operationId: WorkloadMemberService_ListWorkloadMembers2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -3895,6 +3887,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -3912,7 +3912,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3951,7 +3951,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -3981,7 +3981,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -4001,14 +4001,6 @@ paths:
       description: Get a list of workloads.
       operationId: WorkloadService_ListWorkloads2
       parameters:
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: orderBy
           in: query
           description: |-
@@ -4057,6 +4049,14 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       responses:
         "200":
           description: Success
@@ -4074,7 +4074,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -4113,7 +4113,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -4143,7 +4143,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -4181,7 +4181,7 @@ paths:
         - name: projectName
           in: query
           description: Project name
-          required: false
+          required: true
           schema:
             type: string
             title: projectName
@@ -4208,14 +4208,6 @@ paths:
             type: string
             title: resourceId
             description: ID of the resource to be updated.
-        - name: projectName
-          in: query
-          description: Project name
-          required: false
-          schema:
-            type: string
-            title: projectName
-            description: Project name
         - name: fieldMask.paths
           in: query
           description: The set of field mask paths.
@@ -4225,6 +4217,14 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: projectName
+          in: query
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
       requestBody:
         description: Updated values for the workload.
         content:
@@ -11039,54 +11039,49 @@ components:
     CreateCustomConfigRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         customConfig:
           title: custom_config
           description: The custom configuration to create.
           $ref: '#/components/schemas/CustomConfigResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateCustomConfigRequest
       required:
-        - projectName
         - customConfig
+        - projectName
       additionalProperties: false
       description: Request message for the CreateCustomConfig method.
     CreateCustomConfigResponse:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         customConfig:
           title: custom_config
           description: The created custom configuration.
           $ref: '#/components/schemas/CustomConfigResource'
       title: CreateCustomConfigResponse
       required:
-        - projectName
         - customConfig
       additionalProperties: false
       description: Response message for the CreateCustomConfig method.
     CreateHostRequest:
       type: object
       properties:
+        host:
+          title: host
+          description: The host to create.
+          $ref: '#/components/schemas/HostResource'
         projectName:
           type: string
           title: projectName
           maxLength: 100
           minLength: 1
           description: The project name from the URL path.
-        host:
-          title: host
-          description: The host to create.
-          $ref: '#/components/schemas/HostResource'
       title: CreateHostRequest
       required:
-        - projectName
         - host
+        - projectName
       additionalProperties: false
       description: Request message for the CreateHost method.
     CreateHostResponse:
@@ -11135,18 +11130,18 @@ components:
     CreateLocalAccountRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         localAccount:
           title: local_account
           description: The localaccount to create.
           $ref: '#/components/schemas/LocalAccountResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateLocalAccountRequest
       required:
-        - projectName
         - localAccount
+        - projectName
       additionalProperties: false
       description: Request message for the CreateLocalAccount method.
     CreateLocalAccountResponse:
@@ -11164,18 +11159,18 @@ components:
     CreateOSUpdatePolicyRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         osUpdatePolicy:
           title: os_update_policy
           description: The OS Update policy to create.
           $ref: '#/components/schemas/OSUpdatePolicy'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateOSUpdatePolicyRequest
       required:
-        - projectName
         - osUpdatePolicy
+        - projectName
       additionalProperties: false
       description: Request message for the CreateOSUpdatePolicy method.
     CreateOSUpdatePolicyResponse:
@@ -11193,18 +11188,18 @@ components:
     CreateOSUpdateRunRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         osUpdateRun:
           title: os_update_run
           description: The os update run to create.
           $ref: '#/components/schemas/OSUpdateRun'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateOSUpdateRunRequest
       required:
-        - projectName
         - osUpdateRun
+        - projectName
       additionalProperties: false
       description: Request message for the CreateOSUpdateRun method.
     CreateOSUpdateRunResponse:
@@ -11222,18 +11217,18 @@ components:
     CreateOperatingSystemRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         os:
           title: os
           description: The os to create.
           $ref: '#/components/schemas/OperatingSystemResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateOperatingSystemRequest
       required:
-        - projectName
         - os
+        - projectName
       additionalProperties: false
       description: Request message for the CreateOperatingSystem method.
     CreateOperatingSystemResponse:
@@ -11251,18 +11246,18 @@ components:
     CreateProviderRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         provider:
           title: provider
           description: The provider to create.
           $ref: '#/components/schemas/ProviderResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateProviderRequest
       required:
-        - projectName
         - provider
+        - projectName
       additionalProperties: false
       description: Request message for the CreateProvider method.
     CreateProviderResponse:
@@ -11280,18 +11275,18 @@ components:
     CreateRegionRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         region:
           title: region
           description: The region to create.
           $ref: '#/components/schemas/RegionResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateRegionRequest
       required:
-        - projectName
         - region
+        - projectName
       additionalProperties: false
       description: Request message for the CreateRegion method.
     CreateRegionResponse:
@@ -11309,18 +11304,18 @@ components:
     CreateRepeatedScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         repeatedSchedule:
           title: repeated_schedule
           description: The repeated_schedule to create.
           $ref: '#/components/schemas/RepeatedScheduleResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateRepeatedScheduleRequest
       required:
-        - projectName
         - repeatedSchedule
+        - projectName
       additionalProperties: false
       description: Request message for the CreateRepeatedSchedule method.
     CreateRepeatedScheduleResponse:
@@ -11338,18 +11333,18 @@ components:
     CreateSingleScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         singleSchedule:
           title: single_schedule
           description: The single_schedule to create.
           $ref: '#/components/schemas/SingleScheduleResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateSingleScheduleRequest
       required:
-        - projectName
         - singleSchedule
+        - projectName
       additionalProperties: false
       description: Request message for the CreateSingleSchedule method.
     CreateSingleScheduleResponse:
@@ -11367,18 +11362,18 @@ components:
     CreateSiteRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         site:
           title: site
           description: The site to create.
           $ref: '#/components/schemas/SiteResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateSiteRequest
       required:
-        - projectName
         - site
+        - projectName
       additionalProperties: false
       description: Request message for the CreateSite method.
     CreateSiteResponse:
@@ -11396,18 +11391,18 @@ components:
     CreateTelemetryLogsGroupRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         telemetryLogsGroup:
           title: telemetry_logs_group
           description: The telemetry_logs_group to create.
           $ref: '#/components/schemas/TelemetryLogsGroupResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateTelemetryLogsGroupRequest
       required:
-        - projectName
         - telemetryLogsGroup
+        - projectName
       additionalProperties: false
       description: Request message for the CreateTelemetryLogsGroup method.
     CreateTelemetryLogsGroupResponse:
@@ -11425,18 +11420,18 @@ components:
     CreateTelemetryLogsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         telemetryLogsProfile:
           title: telemetry_logs_profile
           description: The telemetry_logs_profile to create.
           $ref: '#/components/schemas/TelemetryLogsProfileResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateTelemetryLogsProfileRequest
       required:
-        - projectName
         - telemetryLogsProfile
+        - projectName
       additionalProperties: false
       description: Request message for the CreateTelemetryLogsProfile method.
     CreateTelemetryLogsProfileResponse:
@@ -11454,18 +11449,18 @@ components:
     CreateTelemetryMetricsGroupRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         telemetryMetricsGroup:
           title: telemetry_metrics_group
           description: The telemetry_metrics_group to create.
           $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateTelemetryMetricsGroupRequest
       required:
-        - projectName
         - telemetryMetricsGroup
+        - projectName
       additionalProperties: false
       description: Request message for the CreateTelemetryMetricsGroup method.
     CreateTelemetryMetricsGroupResponse:
@@ -11483,18 +11478,18 @@ components:
     CreateTelemetryMetricsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         telemetryMetricsProfile:
           title: telemetry_metrics_profile
           description: The telemetry_metrics_profile to create.
           $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateTelemetryMetricsProfileRequest
       required:
-        - projectName
         - telemetryMetricsProfile
+        - projectName
       additionalProperties: false
       description: Request message for the CreateTelemetryMetricsProfile method.
     CreateTelemetryMetricsProfileResponse:
@@ -11512,18 +11507,18 @@ components:
     CreateWorkloadMemberRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         workloadMember:
           title: workload_member
           description: The workload_member to create.
           $ref: '#/components/schemas/WorkloadMember'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateWorkloadMemberRequest
       required:
-        - projectName
         - workloadMember
+        - projectName
       additionalProperties: false
       description: Request message for the CreateWorkloadMember method.
     CreateWorkloadMemberResponse:
@@ -11541,18 +11536,18 @@ components:
     CreateWorkloadRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         workload:
           title: workload
           description: The workload to create.
           $ref: '#/components/schemas/WorkloadResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: CreateWorkloadRequest
       required:
-        - projectName
         - workload
+        - projectName
       additionalProperties: false
       description: Request message for the CreateWorkload method.
     CreateWorkloadResponse:
@@ -11570,18 +11565,18 @@ components:
     DeleteCustomConfigRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the customconfig to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteCustomConfigRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteCustomConfig.
     DeleteCustomConfigResponse:
@@ -11592,20 +11587,20 @@ components:
     DeleteHostRequest:
       type: object
       properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: Name of the host host to be deleted.
         projectName:
           type: string
           title: projectName
           maxLength: 100
           minLength: 1
           description: The project name from the URL path.
-        resourceId:
-          type: string
-          title: resourceId
-          description: Name of the host host to be deleted.
       title: DeleteHostRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteHost.
     DeleteHostResponse:
@@ -11640,18 +11635,18 @@ components:
     DeleteLocalAccountRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the localaccount to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteLocalAccountRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteLocalAccount.
     DeleteLocalAccountResponse:
@@ -11662,18 +11657,18 @@ components:
     DeleteOSUpdatePolicyRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the OS Update Policy to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteOSUpdatePolicyRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteOperatingSystem.
     DeleteOSUpdatePolicyResponse:
@@ -11684,18 +11679,18 @@ components:
     DeleteOSUpdateRunRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the os update run to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteOSUpdateRunRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteOperatingSystem.
     DeleteOSUpdateRunResponse:
@@ -11706,18 +11701,18 @@ components:
     DeleteOperatingSystemRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the os os to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteOperatingSystemRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteOperatingSystem.
     DeleteOperatingSystemResponse:
@@ -11728,18 +11723,18 @@ components:
     DeleteProviderRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the provider provider to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteProviderRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteProvider.
     DeleteProviderResponse:
@@ -11750,18 +11745,18 @@ components:
     DeleteRegionRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the region region to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteRegionRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteRegion.
     DeleteRegionResponse:
@@ -11772,18 +11767,18 @@ components:
     DeleteRepeatedScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the repeated_schedule repeated_schedule to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteRepeatedScheduleRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteRepeatedSchedule.
     DeleteRepeatedScheduleResponse:
@@ -11794,18 +11789,18 @@ components:
     DeleteSingleScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the single_schedule single_schedule to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteSingleScheduleRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteSingleSchedule.
     DeleteSingleScheduleResponse:
@@ -11816,18 +11811,18 @@ components:
     DeleteSiteRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the site site to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteSiteRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteSite.
     DeleteSiteResponse:
@@ -11838,18 +11833,18 @@ components:
     DeleteTelemetryLogsGroupRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteTelemetryLogsGroupRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteTelemetryLogsGroup.
     DeleteTelemetryLogsGroupResponse:
@@ -11860,18 +11855,18 @@ components:
     DeleteTelemetryLogsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_logs_profile telemetry_logs_profile to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteTelemetryLogsProfileRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteTelemetryLogsProfile.
     DeleteTelemetryLogsProfileResponse:
@@ -11882,18 +11877,18 @@ components:
     DeleteTelemetryMetricsGroupRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteTelemetryMetricsGroupRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteTelemetryMetricsGroup.
     DeleteTelemetryMetricsGroupResponse:
@@ -11904,18 +11899,18 @@ components:
     DeleteTelemetryMetricsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteTelemetryMetricsProfileRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteTelemetryMetricsProfile.
     DeleteTelemetryMetricsProfileResponse:
@@ -11926,18 +11921,18 @@ components:
     DeleteWorkloadMemberRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the workload_member workload_member to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteWorkloadMemberRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteWorkloadMember.
     DeleteWorkloadMemberResponse:
@@ -11948,18 +11943,18 @@ components:
     DeleteWorkloadRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the workload workload to be deleted.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: DeleteWorkloadRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for DeleteWorkload.
     DeleteWorkloadResponse:
@@ -11970,18 +11965,18 @@ components:
     GetCustomConfigRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested custom configuration.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetCustomConfigRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetCustomConfig method.
     GetCustomConfigResponse:
@@ -11999,20 +11994,20 @@ components:
     GetHostRequest:
       type: object
       properties:
+        resourceId:
+          type: string
+          title: resourceId
+          description: Name of the requested host.
         projectName:
           type: string
           title: projectName
           maxLength: 100
           minLength: 1
           description: The project name from the URL path.
-        resourceId:
-          type: string
-          title: resourceId
-          description: Name of the requested host.
       title: GetHostRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetHost method.
     GetHostResponse:
@@ -12030,12 +12025,6 @@ components:
     GetHostSummaryRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          maxLength: 100
-          minLength: 1
-          description: The project name from the URL path.
         filter:
           type: string
           title: filter
@@ -12044,6 +12033,12 @@ components:
           description: |-
             (OPTIONAL) Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+        projectName:
+          type: string
+          title: projectName
+          maxLength: 100
+          minLength: 1
+          description: The project name from the URL path.
       title: GetHostSummaryRequest
       required:
         - projectName
@@ -12109,18 +12104,18 @@ components:
     GetLocalAccountRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested localaccount.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetLocalAccountRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetLocalAccount method.
     GetLocalAccountResponse:
@@ -12138,18 +12133,18 @@ components:
     GetOSUpdatePolicyRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested os.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetOSUpdatePolicyRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetOSUpdatePolicy method.
     GetOSUpdatePolicyResponse:
@@ -12167,18 +12162,18 @@ components:
     GetOSUpdateRunRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested os.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetOSUpdateRunRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetOSUpdateRun method.
     GetOSUpdateRunResponse:
@@ -12196,18 +12191,18 @@ components:
     GetOperatingSystemRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested os.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetOperatingSystemRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetOperatingSystem method.
     GetOperatingSystemResponse:
@@ -12225,18 +12220,18 @@ components:
     GetProviderRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested provider.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetProviderRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetProvider method.
     GetProviderResponse:
@@ -12254,18 +12249,18 @@ components:
     GetRegionRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested region.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetRegionRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetRegion method.
     GetRegionResponse:
@@ -12283,18 +12278,18 @@ components:
     GetRepeatedScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested repeated_schedule.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetRepeatedScheduleRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetRepeatedSchedule method.
     GetRepeatedScheduleResponse:
@@ -12312,18 +12307,18 @@ components:
     GetSingleScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested single_schedule.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetSingleScheduleRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetSingleSchedule method.
     GetSingleScheduleResponse:
@@ -12341,18 +12336,18 @@ components:
     GetSiteRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested site.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetSiteRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetSite method.
     GetSiteResponse:
@@ -12370,18 +12365,18 @@ components:
     GetTelemetryLogsGroupRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_logs_group.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetTelemetryLogsGroupRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetTelemetryLogsGroup method.
     GetTelemetryLogsGroupResponse:
@@ -12399,18 +12394,18 @@ components:
     GetTelemetryLogsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_logs_profile.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetTelemetryLogsProfileRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetTelemetryLogsProfile method.
     GetTelemetryLogsProfileResponse:
@@ -12428,18 +12423,18 @@ components:
     GetTelemetryMetricsGroupRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_metrics_group.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetTelemetryMetricsGroupRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetTelemetryMetricsGroup method.
     GetTelemetryMetricsGroupResponse:
@@ -12457,18 +12452,18 @@ components:
     GetTelemetryMetricsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested telemetry_metrics_profile.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetTelemetryMetricsProfileRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetTelemetryMetricsProfile method.
     GetTelemetryMetricsProfileResponse:
@@ -12486,18 +12481,18 @@ components:
     GetWorkloadMemberRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested workload_member.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetWorkloadMemberRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetWorkloadMember method.
     GetWorkloadMemberResponse:
@@ -12515,18 +12510,18 @@ components:
     GetWorkloadRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
           description: Name of the requested workload.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: GetWorkloadRequest
       required:
-        - projectName
         - resourceId
+        - projectName
       additionalProperties: false
       description: Request message for the GetWorkload method.
     GetWorkloadResponse:
@@ -12579,12 +12574,6 @@ components:
     InvalidateHostRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          maxLength: 100
-          minLength: 1
-          description: The project name from the URL path.
         resourceId:
           type: string
           title: resourceId
@@ -12599,6 +12588,12 @@ components:
           minLength: 1
           pattern: ^$|^[a-zA-Z-_0-9./:;=@?!#,<>*()" ]+$
           description: user-provided reason for change or a freeform field
+        projectName:
+          type: string
+          title: projectName
+          maxLength: 100
+          minLength: 1
+          description: The project name from the URL path.
       title: InvalidateHostRequest
       required:
         - projectName
@@ -12638,10 +12633,6 @@ components:
     ListCustomConfigsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -12672,6 +12663,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListCustomConfigsRequest
       required:
         - projectName
@@ -12705,12 +12700,6 @@ components:
     ListHostsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          maxLength: 100
-          minLength: 1
-          description: The project name from the URL path.
         orderBy:
           type: string
           title: order_by
@@ -12741,6 +12730,12 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          maxLength: 100
+          minLength: 1
+          description: The project name from the URL path.
       title: ListHostsRequest
       required:
         - projectName
@@ -12843,10 +12838,6 @@ components:
     ListLocalAccountsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -12877,6 +12868,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListLocalAccountsRequest
       required:
         - projectName
@@ -12910,10 +12905,6 @@ components:
     ListLocationsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         name:
           type: string
           title: name
@@ -12928,6 +12919,10 @@ components:
           type: boolean
           title: show_regions
           description: (OPTIONAL) Return region locations
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListLocationsRequest
       required:
         - projectName
@@ -12997,10 +12992,6 @@ components:
     ListOSUpdatePolicyRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -13031,6 +13022,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListOSUpdatePolicyRequest
       required:
         - projectName
@@ -13039,10 +13034,6 @@ components:
     ListOSUpdatePolicyResponse:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         osUpdatePolicies:
           type: array
           items:
@@ -13060,7 +13051,6 @@ components:
           description: Inform if there are more elements
       title: ListOSUpdatePolicyResponse
       required:
-        - projectName
         - osUpdatePolicies
         - totalElements
         - hasNext
@@ -13069,10 +13059,6 @@ components:
     ListOSUpdateRunRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -13103,6 +13089,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListOSUpdateRunRequest
       required:
         - projectName
@@ -13136,10 +13126,6 @@ components:
     ListOperatingSystemsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -13170,6 +13156,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListOperatingSystemsRequest
       required:
         - projectName
@@ -13203,10 +13193,6 @@ components:
     ListProvidersRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -13237,6 +13223,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListProvidersRequest
       required:
         - projectName
@@ -13270,10 +13260,6 @@ components:
     ListRegionsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -13308,6 +13294,10 @@ components:
           type: boolean
           title: show_total_sites
           description: (OPTIONAL) Flag to signal if the total amount of site in a region should be returned.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListRegionsRequest
       required:
         - projectName
@@ -13341,10 +13331,6 @@ components:
     ListRepeatedSchedulesRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -13395,6 +13381,10 @@ components:
           title: unix_epoch
           pattern: ^[0-9]+$
           description: (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListRepeatedSchedulesRequest
       required:
         - projectName
@@ -13428,10 +13418,6 @@ components:
     ListSchedulesRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -13482,6 +13468,10 @@ components:
           title: unix_epoch
           pattern: ^[0-9]+$
           description: (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListSchedulesRequest
       required:
         - projectName
@@ -13522,10 +13512,6 @@ components:
     ListSingleSchedulesRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -13576,6 +13562,10 @@ components:
           title: unix_epoch
           pattern: ^[0-9]+$
           description: (OPTIONAL) Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListSingleSchedulesRequest
       required:
         - projectName
@@ -13609,10 +13599,6 @@ components:
     ListSitesRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -13643,6 +13629,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListSitesRequest
       required:
         - projectName
@@ -13676,10 +13666,6 @@ components:
     ListTelemetryLogsGroupsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -13702,6 +13688,10 @@ components:
           description: |-
             (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListTelemetryLogsGroupsRequest
       required:
         - projectName
@@ -13735,10 +13725,6 @@ components:
     ListTelemetryLogsProfilesRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -13790,6 +13776,10 @@ components:
              profiles rendered from hierarchy. This flag is only used along with one
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListTelemetryLogsProfilesRequest
       required:
         - projectName
@@ -13823,10 +13813,6 @@ components:
     ListTelemetryMetricsGroupsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -13849,6 +13835,10 @@ components:
           description: |-
             (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListTelemetryMetricsGroupsRequest
       required:
         - projectName
@@ -13882,10 +13872,6 @@ components:
     ListTelemetryMetricsProfilesRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         pageSize:
           type: integer
           title: page_size
@@ -13937,6 +13923,10 @@ components:
              profiles rendered from hierarchy. This flag is only used along with one
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListTelemetryMetricsProfilesRequest
       required:
         - projectName
@@ -13970,10 +13960,6 @@ components:
     ListWorkloadMembersRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -14004,6 +13990,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListWorkloadMembersRequest
       required:
         - projectName
@@ -14037,10 +14027,6 @@ components:
     ListWorkloadsRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         orderBy:
           type: string
           title: order_by
@@ -14071,6 +14057,10 @@ components:
           maximum: 10000
           minimum: 0
           description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: ListWorkloadsRequest
       required:
         - projectName
@@ -14104,12 +14094,6 @@ components:
     OnboardHostRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          maxLength: 100
-          minLength: 1
-          description: The project name from the URL path.
         resourceId:
           type: string
           title: resourceId
@@ -14117,6 +14101,12 @@ components:
           description: |
             Host resource ID
             string.max_bytes = 13
+        projectName:
+          type: string
+          title: projectName
+          maxLength: 100
+          minLength: 1
+          description: The project name from the URL path.
       title: OnboardHostRequest
       required:
         - projectName
@@ -14130,12 +14120,6 @@ components:
     PatchHostRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          maxLength: 100
-          minLength: 1
-          description: The project name from the URL path.
         resourceId:
           type: string
           title: resourceId
@@ -14148,11 +14132,17 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of host.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          maxLength: 100
+          minLength: 1
+          description: The project name from the URL path.
       title: PatchHostRequest
       required:
-        - projectName
         - resourceId
         - host
+        - projectName
       additionalProperties: false
       description: Request message for the PatchHost method.
     PatchInstanceRequest:
@@ -14186,10 +14176,6 @@ components:
     PatchOperatingSystemRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14202,20 +14188,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of os.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchOperatingSystemRequest
       required:
-        - projectName
         - resourceId
         - os
+        - projectName
       additionalProperties: false
       description: Request message for the PatchOperatingSystem method.
     PatchRegionRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14228,20 +14214,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of region.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchRegionRequest
       required:
-        - projectName
         - resourceId
         - region
+        - projectName
       additionalProperties: false
       description: Request message for the PatchRegion method.
     PatchRepeatedScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14254,20 +14240,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of repeated_schedule.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchRepeatedScheduleRequest
       required:
-        - projectName
         - resourceId
         - repeatedSchedule
+        - projectName
       additionalProperties: false
       description: Request message for the PatchRepeatedSchedule method.
     PatchSingleScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14280,20 +14266,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of single_schedule.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchSingleScheduleRequest
       required:
-        - projectName
         - resourceId
         - singleSchedule
+        - projectName
       additionalProperties: false
       description: Request message for the PatchSingleSchedule method.
     PatchSiteRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14306,20 +14292,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of site.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchSiteRequest
       required:
-        - projectName
         - resourceId
         - site
+        - projectName
       additionalProperties: false
       description: Request message for the PatchSite method.
     PatchTelemetryLogsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14332,20 +14318,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of telemetry_logs_profile.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchTelemetryLogsProfileRequest
       required:
-        - projectName
         - resourceId
         - telemetryLogsProfile
+        - projectName
       additionalProperties: false
       description: Request message for the PatchTelemetryLogs method.
     PatchTelemetryMetricsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14358,20 +14344,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of telemetry_metrics_profile.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchTelemetryMetricsProfileRequest
       required:
-        - projectName
         - resourceId
         - telemetryMetricsProfile
+        - projectName
       additionalProperties: false
       description: Request message for the PatchTelemetryMetricsProfile method.
     PatchWorkloadRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14384,22 +14370,20 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of workload.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: PatchWorkloadRequest
       required:
-        - projectName
         - resourceId
         - workload
+        - projectName
       additionalProperties: false
       description: Request message for the PatchWorkload method.
     RegisterHostRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          maxLength: 100
-          minLength: 1
-          description: The project name from the URL path.
         resourceId:
           type: string
           title: resourceId
@@ -14409,21 +14393,21 @@ components:
         host:
           title: host
           $ref: '#/components/schemas/HostRegister'
-      title: RegisterHostRequest
-      required:
-        - projectName
-        - host
-      additionalProperties: false
-      description: Request to register a Host.
-    UpdateHostRequest:
-      type: object
-      properties:
         projectName:
           type: string
           title: projectName
           maxLength: 100
           minLength: 1
           description: The project name from the URL path.
+      title: RegisterHostRequest
+      required:
+        - host
+        - projectName
+      additionalProperties: false
+      description: Request to register a Host.
+    UpdateHostRequest:
+      type: object
+      properties:
         resourceId:
           type: string
           title: resourceId
@@ -14432,11 +14416,17 @@ components:
           title: host
           description: Updated values for the host.
           $ref: '#/components/schemas/HostResource'
+        projectName:
+          type: string
+          title: projectName
+          maxLength: 100
+          minLength: 1
+          description: The project name from the URL path.
       title: UpdateHostRequest
       required:
-        - projectName
         - resourceId
         - host
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateHost method.
     UpdateInstanceRequest:
@@ -14466,10 +14456,6 @@ components:
     UpdateOperatingSystemRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14478,20 +14464,20 @@ components:
           title: os
           description: Updated values for the os.
           $ref: '#/components/schemas/OperatingSystemResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateOperatingSystemRequest
       required:
-        - projectName
         - resourceId
         - os
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateOperatingSystem method.
     UpdateRegionRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14500,20 +14486,20 @@ components:
           title: region
           description: Updated values for the region.
           $ref: '#/components/schemas/RegionResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateRegionRequest
       required:
-        - projectName
         - resourceId
         - region
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateRegion method.
     UpdateRepeatedScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14522,20 +14508,20 @@ components:
           title: repeated_schedule
           description: Updated values for the repeated_schedule.
           $ref: '#/components/schemas/RepeatedScheduleResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateRepeatedScheduleRequest
       required:
-        - projectName
         - resourceId
         - repeatedSchedule
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateRepeatedSchedule method.
     UpdateSingleScheduleRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14544,20 +14530,20 @@ components:
           title: single_schedule
           description: Updated values for the single_schedule.
           $ref: '#/components/schemas/SingleScheduleResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateSingleScheduleRequest
       required:
-        - projectName
         - resourceId
         - singleSchedule
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateSingleSchedule method.
     UpdateSiteRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14566,20 +14552,20 @@ components:
           title: site
           description: Updated values for the site.
           $ref: '#/components/schemas/SiteResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateSiteRequest
       required:
-        - projectName
         - resourceId
         - site
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateSite method.
     UpdateTelemetryLogsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14588,20 +14574,20 @@ components:
           title: telemetry_logs_profile
           description: Updated values for the telemetry_logs_profile.
           $ref: '#/components/schemas/TelemetryLogsProfileResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateTelemetryLogsProfileRequest
       required:
-        - projectName
         - resourceId
         - telemetryLogsProfile
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateTelemetryLogsProfile method.
     UpdateTelemetryMetricsProfileRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14610,20 +14596,20 @@ components:
           title: telemetry_metrics_profile
           description: Updated values for the telemetry_metrics_profile.
           $ref: '#/components/schemas/TelemetryMetricsProfileResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateTelemetryMetricsProfileRequest
       required:
-        - projectName
         - resourceId
         - telemetryMetricsProfile
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateTelemetryMetricsProfile method.
     UpdateWorkloadRequest:
       type: object
       properties:
-        projectName:
-          type: string
-          title: projectName
-          description: Project name
         resourceId:
           type: string
           title: resourceId
@@ -14632,11 +14618,15 @@ components:
           title: workload
           description: Updated values for the workload.
           $ref: '#/components/schemas/WorkloadResource'
+        projectName:
+          type: string
+          title: projectName
+          description: Project name
       title: UpdateWorkloadRequest
       required:
-        - projectName
         - resourceId
         - workload
+        - projectName
       additionalProperties: false
       description: Request message for the UpdateWorkload method.
 security: []

@@ -1124,7 +1124,7 @@ message ListRegionsRequest {
   // Flag to signal if the total amount of site in a region should be returned.
   bool show_total_sites = 5 [(google.api.field_behavior) = OPTIONAL];
   // Project name
-  string projectName = 7 [(google.api.field_behavior) = REQUIRED];
+  string projectName = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Response message for the ListRegions method.
