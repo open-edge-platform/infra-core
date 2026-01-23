@@ -18,6 +18,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 
+	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/auditing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
@@ -292,6 +293,21 @@ func (m *Manager) setUnicodeChecker(e *echo.Echo) {
 	e.Use(UnicodePrintableCharsChecker)
 }
 
+func (m *Manager) setOapiValidator(e *echo.Echo) {
+	zlog.InfraSec().Info().Msg("OpenAPI Validator is enabled")
+	openAPIDefinition, err := api.GetSwagger()
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msgf("OpenAPI Validator failed to load OpenAPI definition")
+	}
+
+	for _, s := range openAPIDefinition.Servers {
+		zlog.Info().Str("url", s.URL).Msgf("Servers")
+		s.URL = strings.ReplaceAll(s.URL, "{apiRoot}", "")
+	}
+
+	e.Use(OapiRequestValidator(openAPIDefinition))
+}
+
 // setOptions sets all options to echo.Echo defined in this file.
 func (m *Manager) setOptions(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("Setting web server options")
@@ -309,8 +325,7 @@ func (m *Manager) setOptions(e *echo.Echo) {
 	m.setLimits(e)
 	m.setTimeout(e)
 	m.setSecureConfig(e, []string{})
-	// Temporarily disable OpenAPI validator for multi-tenant PoC
-	// m.setOapiValidator(e)
+	m.setOapiValidator(e)
 	e.HideBanner = true
 	e.HidePort = true
 }

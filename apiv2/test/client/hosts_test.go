@@ -221,13 +221,6 @@ func TestHostSites(t *testing.T) {
 	utils.Site1Request.RegionId = r1.JSON200.ResourceId
 	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
-	utils.Host1Request.SiteId = s1.JSON200.ResourceId
-	utils.Host2Request.SiteId = nil
-
-	h1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
-	CreateHost(ctx, t, apiClient, utils.Host2Request)
-
-	// now check the filter
 	filterBySite := fmt.Sprintf(FilterSiteID, *s1.JSON200.ResourceId)
 	res, err := apiClient.HostServiceListHostsWithResponse(
 		ctx,
@@ -237,7 +230,7 @@ func TestHostSites(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
-	assert.Equal(t, 1, len(res.JSON200.Hosts))
+	baselineWithSite := len(res.JSON200.Hosts)
 
 	res, err = apiClient.HostServiceListHostsWithResponse(
 		ctx,
@@ -249,7 +242,36 @@ func TestHostSites(t *testing.T) {
 	)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
-	assert.Equal(t, 1, len(res.JSON200.Hosts))
+	baselineWithoutSite := len(res.JSON200.Hosts)
+
+	utils.Host1Request.SiteId = s1.JSON200.ResourceId
+	utils.Host2Request.SiteId = nil
+
+	h1 := CreateHost(ctx, t, apiClient, utils.Host1Request)
+	CreateHost(ctx, t, apiClient, utils.Host2Request)
+
+	// now check the filter
+	res, err = apiClient.HostServiceListHostsWithResponse(
+		ctx,
+		projectName,
+		&api.HostServiceListHostsParams{Filter: &filterBySite},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode())
+	assert.Equal(t, baselineWithSite+1, len(res.JSON200.Hosts))
+
+	res, err = apiClient.HostServiceListHostsWithResponse(
+		ctx,
+		projectName,
+		&api.HostServiceListHostsParams{
+			Filter: &FilterNotHasSite,
+		},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode())
+	assert.Equal(t, baselineWithoutSite+1, len(res.JSON200.Hosts))
 
 	resHostH1, err := apiClient.HostServiceGetHostWithResponse(
 		ctx,

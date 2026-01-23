@@ -24,6 +24,9 @@ OASDIFF         := true
 PROTOCGENOAPI   := true
 PROTOCGENGRPCGW := true
 
+# Tool paths - prefer Go bin path for oapi-codegen v2
+OAPI_CODEGEN_CMD ?= $(shell command -v ~/go/bin/oapi-codegen 2>/dev/null || command -v oapi-codegen)
+
 # Defining the shell, users and groups
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
@@ -89,7 +92,7 @@ GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
 generate: buf-gen generate-api ## generate protos, types, server and client
 
-lint: $(OUT_DIR) validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint (generation and buf-breaking skipped on mt-simplification - use committed generated files)
+lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
 test: $(OUT_DIR) go-test ## Run all tests
 
@@ -113,17 +116,17 @@ oapi-docs:  ## generates a single/complete documentation of the OpenAPI spec in 
 
 $(TYPES): $(OPENAPI_PATH) ## generate types API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	$(GOCMD) run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v$(OAPI_CODEGEN_VERSION_REQ) --config=api/openapi/types.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/types.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-types.gen.go $@
 
 $(SERVER): $(OPENAPI_PATH) ## generate server API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	$(GOCMD) run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v$(OAPI_CODEGEN_VERSION_REQ) --config=api/openapi/server.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/server.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-server.gen.go $@
 
 $(CLIENT): $(OPENAPI_PATH) ## generate client API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	$(GOCMD) run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v$(OAPI_CODEGEN_VERSION_REQ) --config=api/openapi/client.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/client.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-client.gen.go $@
 
 go-build: $(OUT_DIR) ## go build

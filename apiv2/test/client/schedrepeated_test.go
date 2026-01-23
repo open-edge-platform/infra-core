@@ -23,6 +23,8 @@ func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.RegionId = nil
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
@@ -34,6 +36,7 @@ func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 
 	get1, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -43,6 +46,7 @@ func TestSchedRepeated_CreateGetDelete(t *testing.T) {
 
 	get2, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -60,6 +64,8 @@ func TestSchedRepeated_CreateError(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.Region = nil
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Host1Request.SiteId = siteCreated1.JSON200.ResourceId
@@ -71,6 +77,7 @@ func TestSchedRepeated_CreateError(t *testing.T) {
 
 	sched, err := apiClient.ScheduleServiceCreateRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		utils.RepeatedScheduleError,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -86,6 +93,8 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.Region = nil
 
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
@@ -95,6 +104,7 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 
 	RepeatedSchedule1Get, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -109,6 +119,7 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 
 	RepeatedSched1Update, err := apiClient.ScheduleServiceUpdateRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.ResourceId,
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -119,6 +130,7 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 
 	RepeatedSchedule1GetUp, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -136,6 +148,7 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 	utils.RepeatedSchedule2Request.TargetSiteId = &emptyString
 	RepeatedSched1Update, err = apiClient.ScheduleServiceUpdateRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.ResourceId,
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -146,6 +159,7 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 
 	RepeatedSchedule1GetUp, err = apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -158,6 +172,7 @@ func TestSchedRepeated_UpdatePut(t *testing.T) {
 	utils.RepeatedSchedule2Request.TargetSiteId = &emptyStringWrong
 	RepeatedSched1Update, err = apiClient.ScheduleServiceUpdateRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.ResourceId,
 		utils.RepeatedSchedule2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -177,6 +192,8 @@ func TestSchedRepeated_Errors(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
@@ -188,6 +205,7 @@ func TestSchedRepeated_Errors(t *testing.T) {
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		RepeatedSched1Up, err := apiClient.ScheduleServiceUpdateRepeatedScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.RepeatedScheduleUnexistID,
 			utils.RepeatedSchedule1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -200,6 +218,7 @@ func TestSchedRepeated_Errors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		s1res, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.RepeatedScheduleUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -210,6 +229,7 @@ func TestSchedRepeated_Errors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resDelSite, err := apiClient.ScheduleServiceDeleteRepeatedScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.RepeatedScheduleUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -220,6 +240,7 @@ func TestSchedRepeated_Errors(t *testing.T) {
 	t.Run("Put_WrongID_Status_NotFoundError", func(t *testing.T) {
 		RepeatedSched1Up, err := apiClient.ScheduleServiceUpdateRepeatedScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.RepeatedScheduleWrongID,
 			utils.RepeatedSchedule1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -231,6 +252,7 @@ func TestSchedRepeated_Errors(t *testing.T) {
 	t.Run("Get_WrongID_Status_NotFoundError", func(t *testing.T) {
 		s1res, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.RepeatedScheduleWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -241,6 +263,7 @@ func TestSchedRepeated_Errors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_NotFoundError", func(t *testing.T) {
 		resDelSite, err := apiClient.ScheduleServiceDeleteRepeatedScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.RepeatedScheduleWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -255,6 +278,7 @@ func TestSchedRepeated_Errors(t *testing.T) {
 	t.Run("Put_WrongCron_StatusBadRequest", func(t *testing.T) {
 		RepeatedSched1Up, err := apiClient.ScheduleServiceUpdateRepeatedScheduleWithResponse(
 			ctx,
+			projectName,
 			*RepeatedSched1.JSON200.ResourceId,
 			utils.RepeatedMissingRequest,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -273,6 +297,8 @@ func TestSchedRepeatedList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.Region = nil
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.RepeatedSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
@@ -288,6 +314,7 @@ func TestSchedRepeatedList(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -303,6 +330,7 @@ func TestSchedRepeatedList(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err = apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -318,6 +346,7 @@ func TestSchedRepeatedList(t *testing.T) {
 
 	resList, err = apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{
 			SiteId: siteCreated1.JSON200.ResourceId,
 		},
@@ -337,6 +366,8 @@ func TestSchedRepeatedListQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.Region = nil
 	postRespSite1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
@@ -355,6 +386,7 @@ func TestSchedRepeatedListQuery(t *testing.T) {
 	// Checks list of RepeatedSchedules with siteID 1
 	resList, err := apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{
 			SiteId: postRespSite1.JSON200.ResourceId,
 		},
@@ -369,6 +401,7 @@ func TestSchedRepeatedListQuery(t *testing.T) {
 	// Checks list of all RepeatedSchedules
 	resList, err = apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -381,6 +414,7 @@ func TestSchedRepeatedListQuery(t *testing.T) {
 	// Checks list of RepeatedSchedules with SiteId 2
 	resList, err = apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{
 			SiteId: postRespSite2.JSON200.ResourceId,
 		},
@@ -394,6 +428,7 @@ func TestSchedRepeatedListQuery(t *testing.T) {
 
 	resList, err = apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -467,8 +502,11 @@ func TestSchedRepeatedList_ListEmpty(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	resList, err := apiClient.ScheduleServiceListRepeatedSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListRepeatedSchedulesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -486,6 +524,8 @@ func TestSchedRepeated_cronjobValidationError(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.Region = nil
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
@@ -493,6 +533,7 @@ func TestSchedRepeated_cronjobValidationError(t *testing.T) {
 
 	sched, err := apiClient.ScheduleServiceCreateRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		utils.RepeatedScheduleCronReqErr,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -507,6 +548,8 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.RegionId = nil
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
@@ -515,6 +558,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 
 	RepeatedSchedule1Get, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -529,6 +573,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	utils.RepeatedSchedule2Request.TargetSiteId = siteCreated2.JSON200.SiteID
 	RepeatedSched1Update, err := apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
 		&api.ScheduleServicePatchRepeatedScheduleParams{},
 		utils.RepeatedSchedule2Request,
@@ -541,6 +586,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 
 	RepeatedSchedule1GetUp, err := apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -559,6 +605,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	utils.RepeatedSchedule2Request.TargetSiteId = &emptyString
 	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
 		&api.ScheduleServicePatchRepeatedScheduleParams{},
 		utils.RepeatedSchedule2Request,
@@ -571,6 +618,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 
 	RepeatedSchedule1GetUp, err = apiClient.ScheduleServiceGetRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -589,6 +637,7 @@ func TestSchedRepeated_UpdatePatch(t *testing.T) {
 	utils.RepeatedSchedule2Request.TargetSiteId = &emptyStringWrong
 	RepeatedSched1Update, err = apiClient.ScheduleServicePatchRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		*RepeatedSched1.JSON200.RepeatedScheduleID,
 		&api.ScheduleServicePatchRepeatedScheduleParams{},
 		utils.RepeatedSchedule2Request,

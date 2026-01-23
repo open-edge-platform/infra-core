@@ -23,6 +23,8 @@ func TestSchedSingle_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
@@ -33,6 +35,7 @@ func TestSchedSingle_CreateGetDelete(t *testing.T) {
 
 	get1, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -42,6 +45,7 @@ func TestSchedSingle_CreateGetDelete(t *testing.T) {
 
 	get2, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -58,6 +62,8 @@ func TestSchedSingle_CreateError(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.Host1Request.SiteId = siteCreated1.JSON200.ResourceId
@@ -69,6 +75,7 @@ func TestSchedSingle_CreateError(t *testing.T) {
 
 	sched, err := apiClient.ScheduleServiceCreateSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		utils.SingleScheduleError,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -78,6 +85,7 @@ func TestSchedSingle_CreateError(t *testing.T) {
 	utils.SingleScheduleErrorSeconds.TargetSiteId = siteCreated1.JSON200.ResourceId
 	sched, err = apiClient.ScheduleServiceCreateSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		utils.SingleScheduleErrorSeconds,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -93,6 +101,8 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
@@ -100,6 +110,7 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 
 	SingleSchedule1Get, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -112,6 +123,7 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 	utils.SingleSchedule2Request.TargetSiteId = siteCreated2.JSON200.ResourceId
 	singleSched1Update, err := apiClient.ScheduleServiceUpdateSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.ResourceId,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -122,6 +134,7 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 
 	SingleSchedule1GetUp, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -135,6 +148,7 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 	utils.SingleSchedule2Request.TargetSiteId = &emptyString
 	singleSched1Update, err = apiClient.ScheduleServiceUpdateSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.ResourceId,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -145,6 +159,7 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 
 	SingleSchedule1GetUp, err = apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -158,6 +173,7 @@ func TestSchedSingle_UpdatePut(t *testing.T) {
 	utils.SingleSchedule2Request.TargetSiteId = &emptyStringWrong
 	singleSched1Update, err = apiClient.ScheduleServiceUpdateSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.ResourceId,
 		utils.SingleSchedule2Request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -175,6 +191,8 @@ func TestSchedSingle_Errors(t *testing.T) {
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
+
+	projectName := getProjectID(t)
 	if err != nil {
 		t.Fatalf("new API client error %s", err.Error())
 	}
@@ -185,6 +203,7 @@ func TestSchedSingle_Errors(t *testing.T) {
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		singleSched1Up, err := apiClient.ScheduleServiceUpdateSingleScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.SingleScheduleUnexistID,
 			utils.SingleSchedule1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -196,6 +215,7 @@ func TestSchedSingle_Errors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		s1res, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.SingleScheduleUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -206,6 +226,7 @@ func TestSchedSingle_Errors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resDelSite, err := apiClient.ScheduleServiceDeleteSingleScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.SingleScheduleUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -216,6 +237,7 @@ func TestSchedSingle_Errors(t *testing.T) {
 	t.Run("Put_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		singleSched1Up, err := apiClient.ScheduleServiceUpdateSingleScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.SingleScheduleWrongID,
 			utils.SingleSchedule1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -227,6 +249,7 @@ func TestSchedSingle_Errors(t *testing.T) {
 	t.Run("Get_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		s1res, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.SingleScheduleWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -237,6 +260,7 @@ func TestSchedSingle_Errors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		resDelSite, err := apiClient.ScheduleServiceDeleteSingleScheduleWithResponse(
 			ctx,
+			projectName,
 			utils.SingleScheduleWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -254,6 +278,8 @@ func TestSchedSingleList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.ResourceId
 
@@ -268,6 +294,7 @@ func TestSchedSingleList(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -283,6 +310,7 @@ func TestSchedSingleList(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err = apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -298,6 +326,7 @@ func TestSchedSingleList(t *testing.T) {
 
 	resList, err = apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{
 			SiteId: siteCreated1.JSON200.ResourceId,
 		},
@@ -317,6 +346,8 @@ func TestSchedSingleListQuery(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	postRespSite1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	postRespSite2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
 
@@ -332,6 +363,7 @@ func TestSchedSingleListQuery(t *testing.T) {
 	// Checks list of SingleSchedules with noo siteID
 	resList, err := apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -344,6 +376,7 @@ func TestSchedSingleListQuery(t *testing.T) {
 	// Checks list of SingleSchedules with siteID 1
 	resList, err = apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{
 			SiteId: postRespSite1.JSON200.ResourceId,
 		},
@@ -358,6 +391,7 @@ func TestSchedSingleListQuery(t *testing.T) {
 	// Checks list of SingleSchedules with SiteId 2
 	resList, err = apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{
 			SiteId: postRespSite2.JSON200.ResourceId,
 		},
@@ -371,6 +405,7 @@ func TestSchedSingleListQuery(t *testing.T) {
 
 	resList, err = apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -448,8 +483,11 @@ func TestSchedSingleList_ListEmpty(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	resList, err := apiClient.ScheduleServiceListSingleSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSingleSchedulesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -467,8 +505,11 @@ func TestSchedList_ListEmpty(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	resList, err := apiClient.ScheduleServiceListSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSchedulesParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -486,6 +527,8 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	siteCreated1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 
 	utils.SingleSchedule1Request.TargetSiteId = siteCreated1.JSON200.SiteID
@@ -493,6 +536,7 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 
 	SingleSchedule1Get, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.SingleScheduleID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -506,6 +550,7 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 
 	singleSched1Update, err := apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.SingleScheduleID,
 		&api.ScheduleServicePatchSingleScheduleParams{},
 		utils.SingleSchedule2Request,
@@ -518,6 +563,7 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 
 	SingleSchedule1GetUp, err := apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.SingleScheduleID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -537,6 +583,7 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	utils.SingleSchedule2Request.TargetSiteId = &emptyString
 	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.SingleScheduleID,
 		&api.ScheduleServicePatchSingleScheduleParams{},
 		utils.SingleSchedule2Request,
@@ -549,6 +596,7 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 
 	SingleSchedule1GetUp, err = apiClient.ScheduleServiceGetSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.SingleScheduleID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -568,6 +616,7 @@ func TestSchedSingle_UpdatePatch(t *testing.T) {
 	utils.SingleSchedule2Request.TargetSiteId = &emptyStringWrong
 	singleSched1Update, err = apiClient.ScheduleServicePatchSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		*singleSched1.JSON200.SingleScheduleID,
 		&api.ScheduleServicePatchSingleScheduleParams{},
 		utils.SingleSchedule2Request,

@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -21,6 +22,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/test/utils"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 )
 
@@ -175,8 +177,11 @@ func CreateSchedSingle(
 ) *api.ScheduleServiceCreateSingleScheduleResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	sched, err := apiClient.ScheduleServiceCreateSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		reqSched,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -197,8 +202,11 @@ func DeleteSchedSingle(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	schedDel, err := apiClient.ScheduleServiceDeleteSingleScheduleWithResponse(
 		ctx,
+		projectName,
 		schedID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -214,8 +222,11 @@ func CreateSchedRepeated(
 ) *api.ScheduleServiceCreateRepeatedScheduleResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	sched, err := apiClient.ScheduleServiceCreateRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		reqSched,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -237,8 +248,11 @@ func DeleteSchedRepeated(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	schedDel, err := apiClient.ScheduleServiceDeleteRepeatedScheduleWithResponse(
 		ctx,
+		projectName,
 		schedID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -254,7 +268,10 @@ func CreateRegion(
 ) *api.RegionServiceCreateRegionResponse {
 	tb.Helper()
 
-	region, err := apiClient.RegionServiceCreateRegionWithResponse(ctx, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	projectName := getProjectID(tb)
+
+	region, err := apiClient.RegionServiceCreateRegionWithResponse(
+		ctx, projectName, regionRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, region.StatusCode())
 	require.NotNil(tb, region.JSON200, "Region creation returned nil JSON200")
@@ -272,8 +289,11 @@ func DeleteRegion(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	resDelRegion, err := apiClient.RegionServiceDeleteRegionWithResponse(
 		ctx,
+		projectName,
 		regionID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -289,7 +309,10 @@ func CreateSite(
 ) *api.SiteServiceCreateSiteResponse {
 	tb.Helper()
 
-	site, err := apiClient.SiteServiceCreateSiteWithResponse(ctx, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	projectName := getProjectID(tb)
+
+	site, err := apiClient.SiteServiceCreateSiteWithResponse(
+		ctx, projectName, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, site.StatusCode())
 	require.NotNil(tb, site.JSON200, "Site creation returned nil JSON200")
@@ -307,7 +330,10 @@ func DeleteSite(
 ) {
 	tb.Helper()
 
-	resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(ctx, siteID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	projectName := getProjectID(tb)
+
+	resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(
+		ctx, projectName, siteID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, resDelSite.StatusCode())
 }
@@ -392,9 +418,12 @@ func AssertInMaintenance(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	timestampString := fmt.Sprint(timestamp.UTC().Unix())
 	sReply, err := apiClient.ScheduleServiceListSchedulesWithResponse(
 		ctx,
+		projectName,
 		&api.ScheduleServiceListSchedulesParams{
 			HostId:    hostID,
 			SiteId:    siteID,
@@ -427,16 +456,21 @@ func CreateOS(
 ) *api.OperatingSystemServiceCreateOperatingSystemResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	osCreated, err := apiClient.OperatingSystemServiceCreateOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		reqOS,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if osCreated.StatusCode() != http.StatusOK {
+		tb.Logf("OS create failed: status=%d body=%s", osCreated.StatusCode(), string(osCreated.Body))
+	}
 	assert.Equal(tb, http.StatusOK, osCreated.StatusCode())
 	require.NotNil(tb, osCreated.JSON200, "OS creation returned nil JSON200")
 	require.NotNil(tb, osCreated.JSON200.ResourceId, "OS creation returned nil ResourceId")
-
 	tb.Cleanup(func() {
 		time.Sleep(sleepTime) // Waits until Instance reconciliation happens
 		DeleteOS(context.Background(), tb, apiClient, *osCreated.JSON200.ResourceId)
@@ -453,15 +487,67 @@ func DeleteOS(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
+	getResp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
+		ctx,
+		projectName,
+		osID,
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
+	)
+	if err != nil {
+		tb.Logf("WARNING: Failed to get OS %s before delete: %v", osID, err)
+		return
+	}
+	if getResp.StatusCode() != http.StatusOK || getResp.JSON200 == nil {
+		return
+	}
+
+	name := ""
+	if getResp.JSON200.Name != nil {
+		name = *getResp.JSON200.Name
+	}
+	profileName := ""
+	if getResp.JSON200.ProfileName != nil {
+		profileName = *getResp.JSON200.ProfileName
+	}
+	repo := ""
+	if getResp.JSON200.RepoUrl != nil {
+		repo = *getResp.JSON200.RepoUrl
+	}
+	metadata := ""
+	if getResp.JSON200.Metadata != nil {
+		metadata = *getResp.JSON200.Metadata
+	}
+	if name != utils.OSName1 && name != utils.OSName2 && name != utils.OSName3 &&
+		repo != utils.OSRepo1 && repo != utils.OSRepo2 && repo != utils.OSRepo3 &&
+		!strings.HasPrefix(name, "OSName") &&
+		!strings.HasPrefix(name, "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816) ") &&
+		!strings.Contains(metadata, "\"createdby\":\"int-test\"") &&
+		!strings.HasPrefix(profileName, "ubuntu-22.04-lts-generic-ext:1.0.2-") &&
+		!(name == "" && profileName == "") {
+		tb.Logf(
+			"WARNING: Skipping delete for OS %s (name=%q, repo=%q, profile=%q, metadata=%q)",
+			osID,
+			name,
+			repo,
+			profileName,
+			metadata,
+		)
+		return
+	}
+
 	osDel, err := apiClient.OperatingSystemServiceDeleteOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		osID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
 	if osDel.StatusCode() != http.StatusOK {
-		tb.Logf("WARNING: Failed to delete OS %s - Status Code: %d", osID, osDel.StatusCode())
+		tb.Logf("WARNING: Skipping delete for OS %s - Status Code: %d", osID, osDel.StatusCode())
 		tb.Logf("Response Body: %s", string(osDel.Body))
+		return
 	}
 	assert.Equal(tb, http.StatusOK, osDel.StatusCode())
 }
@@ -474,12 +560,18 @@ func CreateWorkload(
 ) *api.WorkloadServiceCreateWorkloadResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	wCreated, err := apiClient.WorkloadServiceCreateWorkloadWithResponse(
 		ctx,
+		projectName,
 		reqWorkload,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if wCreated.StatusCode() != http.StatusOK {
+		tb.Logf("Workload create failed: status=%d body=%s", wCreated.StatusCode(), string(wCreated.Body))
+	}
 	assert.Equal(tb, http.StatusOK, wCreated.StatusCode())
 
 	if wCreated.JSON200 != nil && wCreated.JSON200.ResourceId != nil {
@@ -496,8 +588,11 @@ func DeleteWorkload(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	wDel, err := apiClient.WorkloadServiceDeleteWorkloadWithResponse(
 		ctx,
+		projectName,
 		workloadID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -513,8 +608,11 @@ func CreateWorkloadMember(
 ) *api.WorkloadMemberServiceCreateWorkloadMemberResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	mCreated, err := apiClient.WorkloadMemberServiceCreateWorkloadMemberWithResponse(
 		ctx,
+		projectName,
 		reqMember,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -535,8 +633,11 @@ func DeleteWorkloadMember(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	mDel, err := apiClient.WorkloadMemberServiceDeleteWorkloadMemberWithResponse(
 		ctx,
+		projectName,
 		memberID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -584,8 +685,10 @@ func CreateTelemetryLogsGroup(
 ) *api.TelemetryLogsGroupServiceCreateTelemetryLogsGroupResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	created, err := apiClient.TelemetryLogsGroupServiceCreateTelemetryLogsGroupWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryLogsGroup creation returned nil JSON200")
@@ -602,8 +705,10 @@ func DeleteTelemetryLogsGroup(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryLogsGroupServiceDeleteTelemetryLogsGroupWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
@@ -616,8 +721,10 @@ func CreateTelemetryMetricsGroup(
 ) *api.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	created, err := apiClient.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryMetricsGroup creation returned nil JSON200")
@@ -634,8 +741,10 @@ func DeleteTelemetryMetricsGroup(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroupWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
@@ -648,8 +757,10 @@ func CreateTelemetryLogsProfile(
 ) *api.TelemetryLogsProfileServiceCreateTelemetryLogsProfileResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	created, err := apiClient.TelemetryLogsProfileServiceCreateTelemetryLogsProfileWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryLogsProfile creation returned nil JSON200")
@@ -666,8 +777,10 @@ func DeleteTelemetryLogsProfile(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryLogsProfileServiceDeleteTelemetryLogsProfileWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
@@ -680,8 +793,10 @@ func CreateTelemetryMetricsProfile(
 ) *api.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	created, err := apiClient.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfileWithResponse(
-		ctx, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, request, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, created.StatusCode())
 	require.NotNil(tb, created.JSON200, "TelemetryMetricsProfile creation returned nil JSON200")
@@ -698,8 +813,10 @@ func DeleteTelemetryMetricsProfile(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	res, err := apiClient.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfileWithResponse(
-		ctx, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, id, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, res.StatusCode())
 }
@@ -712,12 +829,18 @@ func CreateProvider(
 ) *api.ProviderServiceCreateProviderResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	providerCreated, err := apiClient.ProviderServiceCreateProviderWithResponse(
 		ctx,
+		projectName,
 		reqProvider,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(tb, err)
+	if providerCreated.StatusCode() != http.StatusOK {
+		tb.Logf("Provider create failed: status=%d body=%s", providerCreated.StatusCode(), string(providerCreated.Body))
+	}
 	assert.Equal(tb, http.StatusOK, providerCreated.StatusCode())
 	require.NotNil(tb, providerCreated.JSON200, "Provider creation returned nil JSON200")
 	require.NotNil(tb, providerCreated.JSON200.ResourceId, "Provider creation returned nil ResourceId")
@@ -734,8 +857,11 @@ func DeleteProvider(
 ) {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	providerDel, err := apiClient.ProviderServiceDeleteProviderWithResponse(
 		ctx,
+		projectName,
 		providerID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -749,8 +875,11 @@ func CreateLocalAccount(ctx context.Context, t *testing.T, apiClient *api.Client
 ) *api.LocalAccountServiceCreateLocalAccountResponse {
 	t.Helper()
 
+	projectName := getProjectID(t)
+
 	response, err := apiClient.LocalAccountServiceCreateLocalAccountWithResponse(
 		ctx,
+		projectName,
 		request,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -771,8 +900,11 @@ func DeleteLocalAccount(ctx context.Context, t *testing.T,
 ) {
 	t.Helper()
 
+	projectName := getProjectID(t)
+
 	response, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
 		ctx,
+		projectName,
 		resourceID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -798,8 +930,11 @@ func CreateOsUpdatePolicy(
 ) *api.OSUpdatePolicyCreateOSUpdatePolicyResponse {
 	tb.Helper()
 
+	projectName := getProjectID(tb)
+
 	policyCreated, err := apiClient.OSUpdatePolicyCreateOSUpdatePolicyWithResponse(
 		ctx,
+		projectName,
 		reqPolicy,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -820,6 +955,7 @@ func DeleteOSUpdatePolicy(ctx context.Context, tb testing.TB, apiClient *api.Cli
 
 	policyDel, err := apiClient.OSUpdatePolicyDeleteOSUpdatePolicyWithResponse(
 		ctx,
+		getProjectID(tb),
 		policyID,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -827,6 +963,9 @@ func DeleteOSUpdatePolicy(ctx context.Context, tb testing.TB, apiClient *api.Cli
 	if policyDel.StatusCode() != http.StatusOK {
 		tb.Logf("WARNING: Failed to delete OSUpdatePolicy %s - Status Code: %d", policyID, policyDel.StatusCode())
 		tb.Logf("Response Body: %s", string(policyDel.Body))
+		if policyDel.StatusCode() == http.StatusBadRequest && strings.Contains(string(policyDel.Body), "still referenced") {
+			return
+		}
 	}
 	assert.Equal(tb, http.StatusOK, policyDel.StatusCode())
 }

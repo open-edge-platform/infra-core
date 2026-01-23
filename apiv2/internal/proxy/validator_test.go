@@ -33,17 +33,17 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	siteName := "site"
 	siteBody := api.SiteResource{Name: &siteName}
 	projectName := "test-project"
-	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", siteBody)
+	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", projectName, siteBody)
 	assert.NoError(t, err)
 
 	regionID := "region-12345678"
 	params := &api.SiteServiceListSitesParams{Filter: &regionID}
-	siteGetRequestValid, err := api.NewSiteServiceListSitesRequest("", params)
+	siteGetRequestValid, err := api.NewSiteServiceListSitesRequest("", projectName, params)
 	assert.NoError(t, err)
 
 	pageSizeWrong := 2000
 	paramsWrong := &api.SiteServiceListSitesParams{PageSize: &pageSizeWrong}
-	siteGetRequestInvalid, err := api.NewSiteServiceListSitesRequest("", paramsWrong)
+	siteGetRequestInvalid, err := api.NewSiteServiceListSitesRequest("", projectName, paramsWrong)
 	assert.NoError(t, err)
 
 	emptyUUID := ""
@@ -73,11 +73,11 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		// Kind: api.WORKLOADKINDCLUSTER,
 	}
 	workloadPostRequestInvalidNoName, err := api.NewWorkloadServiceCreateWorkloadRequest(
-		"", workloadInvalidBodyRequest)
+		"", projectName, workloadInvalidBodyRequest)
 	assert.NoError(t, err)
 
 	telemetrylogsPostRequest, err := api.NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(
-		"", utils.TelemetryLogsGroup1Request)
+		"", projectName, utils.TelemetryLogsGroup1Request)
 	assert.NoError(t, err)
 
 	tests := []struct {
