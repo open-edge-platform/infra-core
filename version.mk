@@ -41,7 +41,7 @@ PROTOCGENGRPCGWVERSION_REQ  := 2.26.3
 
 # No version reported
 GOCOBERTURAVERSION_REQ      := 1.2.0
-PROTOCGENENTVERSION_REQ     := 0.6.0
+PROTOCGENENTVERSION_REQ     := 0.7.0
 POSTGRES_VERSION            := 16.4
 
 # System dependencies binary SHA
