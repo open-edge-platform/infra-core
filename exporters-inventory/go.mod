@@ -7,10 +7,10 @@ go 1.24.9
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
-	github.com/open-edge-platform/infra-core/apiv2/v2 v2.8.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.33.2
+	github.com/open-edge-platform/infra-core/apiv2/v2 v2.8.2
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.33.4
 	github.com/open-edge-platform/infra-managers/host v1.24.1
-	github.com/open-edge-platform/infra-managers/maintenance v1.24.1
+	github.com/open-edge-platform/infra-managers/maintenance v1.24.3
 	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.38.15
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2
