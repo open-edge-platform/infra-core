@@ -5,33 +5,49 @@
 # Routes migrated EIM APIs directly to apiv2 (bypassing nexus-api-gateway)
 # Routes all other APIs through nexus-api-gateway (existing behavior)
 #
-# 18 EIM services have been migrated to multi-tenant paths (UI paths listed, middleware rewrites to backend):
+# 18 EIM services migrated (UI paths listed, middleware rewrites to backend):
 # 1. RegionService: /v1/projects/{projectName}/regions
-# 2. SiteService: /v1/projects/{projectName}/sites (also /regions/{id}/sites -> rewritten to /sites)
+# 2. SiteService: /v1/projects/{projectName}/sites
+#    (also /regions/{id}/sites -> rewritten to /sites)
 # 3. LocationService: /v1/projects/{projectName}/locations
-# 4. HostService: /v1/projects/{projectName}/compute/hosts (also /compute/hosts/summary -> /compute/hosts_summary)
+# 4. HostService: /v1/projects/{projectName}/compute/hosts
+#    (also /compute/hosts/summary -> /compute/hosts_summary)
 # 5. InstanceService: /v1/projects/{projectName}/compute/instances
-# 6. OperatingSystemService: /v1/projects/{projectName}/compute/os (rewritten to /compute/operating_systems)
+# 6. OperatingSystemService: /v1/projects/{projectName}/compute/os
+#    (rewritten to /compute/operating_systems)
 # 7. ProviderService: /v1/projects/{projectName}/providers
-# 8. WorkloadService: /v1/projects/{projectName}/compute/workloads (also /workload_members for members)
-# 9. WorkloadMemberService: /v1/projects/{projectName}/compute/workloads/{id}/members
-# 10. ScheduleService: /v1/projects/{projectName}/compute/schedules (rewritten to /schedules)
-# 11. TelemetryLogsGroupService: /v1/projects/{projectName}/telemetry/loggroups (rewritten to /telemetry/groups/logs)
-# 12. TelemetryMetricsGroupService: /v1/projects/{projectName}/telemetry/metricgroups (rewritten to /telemetry/groups/metrics)
-# 13. TelemetryLogsProfileService: /v1/projects/{projectName}/telemetry/loggroups/{id}/logprofiles (rewritten to /telemetry/profiles/logs)
-# 14. TelemetryMetricsProfileService: /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles (rewritten to /telemetry/profiles/metrics)
+# 8. WorkloadService: /v1/projects/{projectName}/compute/workloads
+#    (also /workload_members for members)
+# 9. WorkloadMemberService:
+#    /v1/projects/{projectName}/compute/workloads/{id}/members
+# 10. ScheduleService: /v1/projects/{projectName}/compute/schedules
+#     (rewritten to /schedules)
+# 11. TelemetryLogsGroupService:
+#     /v1/projects/{projectName}/telemetry/loggroups
+#     (rewritten to /telemetry/groups/logs)
+# 12. TelemetryMetricsGroupService:
+#     /v1/projects/{projectName}/telemetry/metricgroups
+#     (rewritten to /telemetry/groups/metrics)
+# 13. TelemetryLogsProfileService:
+#     /v1/projects/{projectName}/telemetry/loggroups/{id}/logprofiles
+#     (rewritten to /telemetry/profiles/logs)
+# 14. TelemetryMetricsProfileService:
+#     /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles
+#     (rewritten to /telemetry/profiles/metrics)
 # 15. LocalAccountService: /v1/projects/{projectName}/localAccounts
 # 16. CustomConfigService: /v1/projects/{projectName}/customConfigs
-# 17. OSUpdatePolicyService: /v1/projects/{projectName}/os-update-policies (rewritten to /os_update_policy)
-# 18. OSUpdateRunService: /v1/projects/{projectName}/os-update-runs (rewritten to /os_update_run)
+# 17. OSUpdatePolicyService: /v1/projects/{projectName}/os-update-policies
+#     (rewritten to /os_update_policy)
+# 18. OSUpdateRunService: /v1/projects/{projectName}/os-update-runs
+#     (rewritten to /os_update_run)
 #
-# Non-migrated services continue to route through nexus-api-gateway as usual:
+# Non-migrated services route through nexus-api-gateway:
 # - AppDeployment: /v1/projects/{projectName}/appdeployment/*
 # - Alerts: /v1/projects/{projectName}/alerts/*
 # - (and other non-EIM services)
 #
-# Legacy paths (/edge-infra.orchestrator.apis/v2/*) are supported via additional_bindings
-# in the proto file for backward compatibility and are routed directly to apiv2.
+# Legacy paths (/edge-infra.orchestrator.apis/v2/*) supported via
+# additional_bindings in proto for backward compatibility, route to apiv2.
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -42,11 +58,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    # Route for migrated EIM endpoints - direct to apiv2 (bypass nexus-api-gw)
+    # Route for migrated EIM endpoints - direct to apiv2
     # Covers all 18 migrated services
-    # PathRegexp matches UI paths; middleware rewrites to backend paths as needed
-    # Includes: compute/*, sites, regions, locations, providers, workloads, schedules, 
-    # telemetry, localAccounts, customConfigs, os-update-*
+    # PathRegexp matches UI paths; middleware rewrites to backend
+    # Includes: compute/*, sites, regions, locations, providers,
+    # workloads, schedules, telemetry, localAccounts, customConfigs,
+    # os-update-*
     - match: >-
         Host(`api.kind.internal`) &&
         PathRegexp(`^/v1/projects/[^/]+/(compute|sites|regions|locations|providers|

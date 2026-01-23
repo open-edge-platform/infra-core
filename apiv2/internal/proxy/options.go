@@ -289,6 +289,7 @@ func UnicodePrintableCharsCheckerMiddleware() echo.MiddlewareFunc {
 	return UnicodePrintableCharsChecker
 }
 
+//nolint:cyclop // Routing middleware legitimately has high cyclomatic complexity
 func (m *Manager) setPathRewrites(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("Path rewrite middleware enabled")
 	e.Pre(func(next echo.HandlerFunc) echo.HandlerFunc {
@@ -319,8 +320,10 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 			}
 
 			// Rewrite hierarchical telemetry paths
+			//nolint:gocritic // if-else chain is clearer than switch for these regex patterns
 			if strings.Contains(path, "/telemetry/metricgroups/") && strings.Contains(path, "/metricprofiles") {
-				// /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles -> /v1/projects/{projectName}/telemetry/profiles/metrics
+				// /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles ->
+				// /v1/projects/{projectName}/telemetry/profiles/metrics
 				re := regexp.MustCompile(`(/v1/projects/[^/]+)/telemetry/metricgroups/[^/]+(/metricprofiles.*)`)
 				newPath := re.ReplaceAllString(path, "$1/telemetry/profiles/metrics$2")
 				newPath = strings.Replace(newPath, "/metricprofiles", "", 1)
@@ -330,7 +333,8 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 					path = newPath
 				}
 			} else if strings.Contains(path, "/telemetry/loggroups/") && strings.Contains(path, "/logprofiles") {
-				// /v1/projects/{projectName}/telemetry/loggroups/{id}/logprofiles -> /v1/projects/{projectName}/telemetry/profiles/logs
+				// /v1/projects/{projectName}/telemetry/loggroups/{id}/logprofiles ->
+				// /v1/projects/{projectName}/telemetry/profiles/logs
 				re := regexp.MustCompile(`(/v1/projects/[^/]+)/telemetry/loggroups/[^/]+(/logprofiles.*)`)
 				newPath := re.ReplaceAllString(path, "$1/telemetry/profiles/logs$2")
 				newPath = strings.Replace(newPath, "/logprofiles", "", 1)
@@ -364,6 +368,7 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 
 			// Rewrite OS Update paths: UI uses kebab-case and plural, backend uses snake_case and singular
 			// UI: /os-update-policies -> Backend: /os_update_policy
+			//nolint:gocritic // if-else chain is clearer than switch for these string patterns
 			if strings.Contains(path, "/os-update-policies/") || strings.HasSuffix(path, "/os-update-policies") {
 				newPath := strings.Replace(path, "/os-update-policies", "/os_update_policy", 1)
 				req.URL.Path = newPath
