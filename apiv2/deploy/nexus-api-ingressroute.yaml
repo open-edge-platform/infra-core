@@ -2,31 +2,36 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Traefik IngressRoute for api.kind.internal routing
-# Routes multi-tenant compute APIs to apiv2 (bypassing nexus-api-gateway)
+# Routes migrated EIM APIs directly to apiv2 (bypassing nexus-api-gateway)
 # Routes all other APIs through nexus-api-gateway (existing behavior)
 #
-# Services currently migrated to multi-tenant paths:
-# - HostService: /v1/projects/{projectName}/compute/hosts
+# 18 EIM services have been migrated to multi-tenant paths:
+# 1. RegionService: /v1/projects/{projectName}/regions
+# 2. SiteService: /v1/projects/{projectName}/sites
+# 3. LocationService: /v1/projects/{projectName}/locations
+# 4. HostService: /v1/projects/{projectName}/compute/hosts
+# 5. InstanceService: /v1/projects/{projectName}/compute/instances
+# 6. OperatingSystemService: /v1/projects/{projectName}/compute/os
+# 7. ProviderService: /v1/projects/{projectName}/providers
+# 8. WorkloadService: /v1/projects/{projectName}/workloads
+# 9. WorkloadMemberService: /v1/projects/{projectName}/workload_members
+# 10. ScheduleService: /v1/projects/{projectName}/schedules
+# 11. TelemetryLogsGroupService: /v1/projects/{projectName}/telemetry/groups/logs
+# 12. TelemetryMetricsGroupService: /v1/projects/{projectName}/telemetry/groups/metrics
+# 13. TelemetryLogsProfileService: /v1/projects/{projectName}/telemetry/profiles/logs
+# 14. TelemetryMetricsProfileService: /v1/projects/{projectName}/telemetry/profiles/metrics
+# 15. LocalAccountService: /v1/projects/{projectName}/localAccounts
+# 16. CustomConfigService: /v1/projects/{projectName}/customConfigs
+# 17. OSUpdatePolicyService: /v1/projects/{projectName}/os-update-policies
+# 18. OSUpdateRunService: /v1/projects/{projectName}/os-update-runs
 #
-# Services still using old paths (routed through nexus-api-gateway):
-# - RegionService: /edge-infra.orchestrator.apis/v2/regions
-# - SiteService: /edge-infra.orchestrator.apis/v2/sites
-# - LocationService: /edge-infra.orchestrator.apis/v2/locations
-# - InstanceService: /edge-infra.orchestrator.apis/v2/instances
-# - OperatingSystemService: /edge-infra.orchestrator.apis/v2/operating_systems
-# - ProviderService: /edge-infra.orchestrator.apis/v2/providers
-# - WorkloadService: /edge-infra.orchestrator.apis/v2/workloads
-# - WorkloadMemberService: /edge-infra.orchestrator.apis/v2/workload_members
-# - ScheduleService: /edge-infra.orchestrator.apis/v2/schedules
-# - TelemetryLogsGroupService: /edge-infra.orchestrator.apis/v2/telemetry/logs/groups
-# - TelemetryMetricsGroupService: /edge-infra.orchestrator.apis/v2/telemetry/metrics/groups
-# - TelemetryLogsProfileService: /edge-infra.orchestrator.apis/v2/telemetry/logs/profiles
-# - TelemetryMetricsProfileService: /edge-infra.orchestrator.apis/v2/telemetry/metrics/profiles
-# - LocalAccountService: /edge-infra.orchestrator.apis/v2/local_accounts
-# - CustomConfigService: /edge-infra.orchestrator.apis/v2/custom_configs
+# Non-migrated services continue to route through nexus-api-gateway as usual:
+# - AppDeployment: /v1/projects/{projectName}/appdeployment/*
+# - Alerts: /v1/projects/{projectName}/alerts/*
+# - (and other non-EIM services)
 #
-# Future migration: Update proto files with /v1/projects/{projectName}/... paths
-# and add corresponding PathRegexp routes here with priority > 20
+# Legacy paths (/edge-infra.orchestrator.apis/v2/*) are supported via additional_bindings
+# in the proto file for backward compatibility and are routed directly to apiv2.
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -37,13 +42,16 @@ spec:
   entryPoints:
     - websecure
   routes:
-    # Route for multi-tenant compute endpoints - direct to apiv2 (bypass nexus-api-gw)
-    # Currently covers: HostService (all CRUD operations)
-    # Includes path rewrites for UI compatibility:
-    # - /hosts/summary -> /hosts_summary (UI bug fix)
-    # - /compute/os -> /edge-infra.orchestrator.apis/v2/operating_systems (OS not migrated yet)
-    # NOTE: ActiveProjectID is now extracted at application level (from path or JWT)
-    - match: Host(`api.kind.internal`) && PathRegexp(`^/v1/projects/[^/]+/compute`)
+    # Route for migrated EIM endpoints - direct to apiv2 (bypass nexus-api-gw)
+    # Covers all 18 migrated services with explicit paths
+    # Only routes migrated services; others fall through to nexus-api-gateway
+    # UI paths (/compute/os, /compute/os_update_policy) via proto bindings
+    # NOTE: ActiveProjectID extracted at app level using orch-library
+    - match: >-
+        Host(`api.kind.internal`) &&
+        PathRegexp(`^/v1/projects/[^/]+/(compute|sites|regions|locations|
+        providers|workloads|workload_members|schedules|telemetry|
+        localAccounts|customConfigs|os-update-policies|os-update-runs)(/|$)`)
       kind: Rule
       priority: 50
       middlewares:
@@ -56,9 +64,9 @@ spec:
           port: 8080
           scheme: http
 
-    # Route for old-style API paths - direct to apiv2
-    # Covers: instances, OS, regions, sites, locations, etc.
-    # NOTE: ActiveProjectID is now extracted from JWT token roles at application level
+    # Route for legacy API paths - direct to apiv2 (backward compatibility)
+    # Supports old paths via proto additional_bindings: /edge-infra.orchestrator.apis/v2/*
+    # NOTE: ActiveProjectID is extracted from JWT token roles at application level
     - match: Host(`api.kind.internal`) && PathPrefix(`/edge-infra.orchestrator.apis/v2`)
       kind: Rule
       priority: 40

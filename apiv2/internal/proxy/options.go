@@ -288,6 +288,39 @@ func UnicodePrintableCharsCheckerMiddleware() echo.MiddlewareFunc {
 	return UnicodePrintableCharsChecker
 }
 
+func (m *Manager) setPathRewrites(e *echo.Echo) {
+	zlog.InfraSec().Info().Msg("Path rewrite middleware enabled")
+	e.Pre(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			req := c.Request()
+			path := req.URL.Path
+
+			// Rewrite /compute/hosts/summary to /compute/hosts-summary
+			// This prevents routing collision with /compute/hosts/{resourceId}
+			if strings.Contains(path, "/compute/hosts/summary") {
+				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts-summary", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+			}
+
+			// For legacy API paths, inject projectName as query parameter
+			// Legacy paths: /edge-infra.orchestrator.apis/v2/*
+			// ActiveProjectID header is set by projectcontext.InjectActiveProjectID middleware
+			if strings.HasPrefix(path, "/edge-infra.orchestrator.apis/v2/") {
+				projectID := c.Request().Header.Get("ActiveProjectID")
+				if projectID != "" && req.URL.Query().Get("projectName") == "" {
+					q := req.URL.Query()
+					q.Set("projectName", projectID)
+					req.URL.RawQuery = q.Encode()
+					zlog.Debug().Str("projectName", projectID).Str("path", path).Msg("Injected projectName query param")
+				}
+			}
+
+			return next(c)
+		}
+	})
+}
+
 func (m *Manager) setUnicodeChecker(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("UnicodeChecker is enabled")
 	e.Use(UnicodePrintableCharsChecker)
@@ -316,6 +349,7 @@ func (m *Manager) setOptions(e *echo.Echo) {
 	m.setCors(e)
 	m.setUnicodeChecker(e)
 	m.setEchoDebug(e)
+	m.setPathRewrites(e) // Path rewrite must come before OapiValidator
 	m.setTracing(e)
 	m.setTenant(e)
 	m.setAuthentication(e)
