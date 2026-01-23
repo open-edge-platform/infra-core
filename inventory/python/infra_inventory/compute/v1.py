@@ -64,6 +64,12 @@ class AmtSku(betterproto.Enum):
     AMT_SKU_ISM = 2
 
 
+class AmtControlMode(betterproto.Enum):
+    AMT_MODE_UNSPECIFIED = 0
+    AMT_MODE_ACM = 1
+    AMT_MODE_CCM = 2
+
+
 class HostComponentState(betterproto.Enum):
     HOST_COMPONENT_STATE_UNSPECIFIED = 0
     HOST_COMPONENT_STATE_ERROR = 1
@@ -220,6 +226,8 @@ class HostResource(betterproto.Message):
     amt_status_indicator: v1.StatusIndication = betterproto.enum_field(95)
     amt_status_timestamp: int = betterproto.uint64_field(96)
     user_lvm_size: int = betterproto.uint32_field(97)
+    amt_control_mode: "AmtControlMode" = betterproto.enum_field(98)
+    amt_dns_suffix: str = betterproto.string_field(99)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)

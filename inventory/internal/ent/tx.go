@@ -38,8 +38,6 @@ type Tx struct {
 	NetlinkResource *NetlinkResourceClient
 	// NetworkSegment is the client for interacting with the NetworkSegment builders.
 	NetworkSegment *NetworkSegmentClient
-	// OSUpdatePolicy is the client for interacting with the OSUpdatePolicy builders.
-	OSUpdatePolicy *OSUpdatePolicyClient
 	// OSUpdatePolicyResource is the client for interacting with the OSUpdatePolicyResource builders.
 	OSUpdatePolicyResource *OSUpdatePolicyResourceClient
 	// OSUpdateRunResource is the client for interacting with the OSUpdateRunResource builders.
@@ -213,7 +211,6 @@ func (tx *Tx) init() {
 	tx.LocalAccountResource = NewLocalAccountResourceClient(tx.config)
 	tx.NetlinkResource = NewNetlinkResourceClient(tx.config)
 	tx.NetworkSegment = NewNetworkSegmentClient(tx.config)
-	tx.OSUpdatePolicy = NewOSUpdatePolicyClient(tx.config)
 	tx.OSUpdatePolicyResource = NewOSUpdatePolicyResourceClient(tx.config)
 	tx.OSUpdateRunResource = NewOSUpdateRunResourceClient(tx.config)
 	tx.OperatingSystemResource = NewOperatingSystemResourceClient(tx.config)

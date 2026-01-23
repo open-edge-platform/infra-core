@@ -23,7 +23,6 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/netlinkresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/networksegment"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/operatingsystemresource"
-	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicy"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdatepolicyresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/osupdaterunresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/ouresource"
@@ -62,7 +61,6 @@ const (
 	TypeLocalAccountResource      = "LocalAccountResource"
 	TypeNetlinkResource           = "NetlinkResource"
 	TypeNetworkSegment            = "NetworkSegment"
-	TypeOSUpdatePolicy            = "OSUpdatePolicy"
 	TypeOSUpdatePolicyResource    = "OSUpdatePolicyResource"
 	TypeOSUpdateRunResource       = "OSUpdateRunResource"
 	TypeOperatingSystemResource   = "OperatingSystemResource"
@@ -1618,6 +1616,8 @@ type HostResourceMutation struct {
 	addamt_status_timestamp          *int64
 	user_lvm_size                    *uint32
 	adduser_lvm_size                 *int32
+	amt_control_mode                 *hostresource.AmtControlMode
+	amt_dns_suffix                   *string
 	tenant_id                        *string
 	created_at                       *string
 	updated_at                       *string
@@ -4509,6 +4509,104 @@ func (m *HostResourceMutation) ResetUserLvmSize() {
 	delete(m.clearedFields, hostresource.FieldUserLvmSize)
 }
 
+// SetAmtControlMode sets the "amt_control_mode" field.
+func (m *HostResourceMutation) SetAmtControlMode(hcm hostresource.AmtControlMode) {
+	m.amt_control_mode = &hcm
+}
+
+// AmtControlMode returns the value of the "amt_control_mode" field in the mutation.
+func (m *HostResourceMutation) AmtControlMode() (r hostresource.AmtControlMode, exists bool) {
+	v := m.amt_control_mode
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtControlMode returns the old "amt_control_mode" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtControlMode(ctx context.Context) (v hostresource.AmtControlMode, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtControlMode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtControlMode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtControlMode: %w", err)
+	}
+	return oldValue.AmtControlMode, nil
+}
+
+// ClearAmtControlMode clears the value of the "amt_control_mode" field.
+func (m *HostResourceMutation) ClearAmtControlMode() {
+	m.amt_control_mode = nil
+	m.clearedFields[hostresource.FieldAmtControlMode] = struct{}{}
+}
+
+// AmtControlModeCleared returns if the "amt_control_mode" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtControlModeCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtControlMode]
+	return ok
+}
+
+// ResetAmtControlMode resets all changes to the "amt_control_mode" field.
+func (m *HostResourceMutation) ResetAmtControlMode() {
+	m.amt_control_mode = nil
+	delete(m.clearedFields, hostresource.FieldAmtControlMode)
+}
+
+// SetAmtDNSSuffix sets the "amt_dns_suffix" field.
+func (m *HostResourceMutation) SetAmtDNSSuffix(s string) {
+	m.amt_dns_suffix = &s
+}
+
+// AmtDNSSuffix returns the value of the "amt_dns_suffix" field in the mutation.
+func (m *HostResourceMutation) AmtDNSSuffix() (r string, exists bool) {
+	v := m.amt_dns_suffix
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtDNSSuffix returns the old "amt_dns_suffix" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtDNSSuffix(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtDNSSuffix is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtDNSSuffix requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtDNSSuffix: %w", err)
+	}
+	return oldValue.AmtDNSSuffix, nil
+}
+
+// ClearAmtDNSSuffix clears the value of the "amt_dns_suffix" field.
+func (m *HostResourceMutation) ClearAmtDNSSuffix() {
+	m.amt_dns_suffix = nil
+	m.clearedFields[hostresource.FieldAmtDNSSuffix] = struct{}{}
+}
+
+// AmtDNSSuffixCleared returns if the "amt_dns_suffix" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtDNSSuffixCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtDNSSuffix]
+	return ok
+}
+
+// ResetAmtDNSSuffix resets all changes to the "amt_dns_suffix" field.
+func (m *HostResourceMutation) ResetAmtDNSSuffix() {
+	m.amt_dns_suffix = nil
+	delete(m.clearedFields, hostresource.FieldAmtDNSSuffix)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *HostResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -4984,7 +5082,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 55)
+	fields := make([]string, 0, 57)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -5141,6 +5239,12 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.user_lvm_size != nil {
 		fields = append(fields, hostresource.FieldUserLvmSize)
 	}
+	if m.amt_control_mode != nil {
+		fields = append(fields, hostresource.FieldAmtControlMode)
+	}
+	if m.amt_dns_suffix != nil {
+		fields = append(fields, hostresource.FieldAmtDNSSuffix)
+	}
 	if m.tenant_id != nil {
 		fields = append(fields, hostresource.FieldTenantID)
 	}
@@ -5262,6 +5366,10 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.AmtStatusTimestamp()
 	case hostresource.FieldUserLvmSize:
 		return m.UserLvmSize()
+	case hostresource.FieldAmtControlMode:
+		return m.AmtControlMode()
+	case hostresource.FieldAmtDNSSuffix:
+		return m.AmtDNSSuffix()
 	case hostresource.FieldTenantID:
 		return m.TenantID()
 	case hostresource.FieldCreatedAt:
@@ -5381,6 +5489,10 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldAmtStatusTimestamp(ctx)
 	case hostresource.FieldUserLvmSize:
 		return m.OldUserLvmSize(ctx)
+	case hostresource.FieldAmtControlMode:
+		return m.OldAmtControlMode(ctx)
+	case hostresource.FieldAmtDNSSuffix:
+		return m.OldAmtDNSSuffix(ctx)
 	case hostresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case hostresource.FieldCreatedAt:
@@ -5760,6 +5872,20 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserLvmSize(v)
 		return nil
+	case hostresource.FieldAmtControlMode:
+		v, ok := value.(hostresource.AmtControlMode)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtControlMode(v)
+		return nil
+	case hostresource.FieldAmtDNSSuffix:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtDNSSuffix(v)
+		return nil
 	case hostresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -6099,6 +6225,12 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(hostresource.FieldUserLvmSize) {
 		fields = append(fields, hostresource.FieldUserLvmSize)
 	}
+	if m.FieldCleared(hostresource.FieldAmtControlMode) {
+		fields = append(fields, hostresource.FieldAmtControlMode)
+	}
+	if m.FieldCleared(hostresource.FieldAmtDNSSuffix) {
+		fields = append(fields, hostresource.FieldAmtDNSSuffix)
+	}
 	return fields
 }
 
@@ -6266,6 +6398,12 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldUserLvmSize:
 		m.ClearUserLvmSize()
 		return nil
+	case hostresource.FieldAmtControlMode:
+		m.ClearAmtControlMode()
+		return nil
+	case hostresource.FieldAmtDNSSuffix:
+		m.ClearAmtDNSSuffix()
+		return nil
 	}
 	return fmt.Errorf("unknown HostResource nullable field %s", name)
 }
@@ -6429,6 +6567,12 @@ func (m *HostResourceMutation) ResetField(name string) error {
 		return nil
 	case hostresource.FieldUserLvmSize:
 		m.ResetUserLvmSize()
+		return nil
+	case hostresource.FieldAmtControlMode:
+		m.ResetAmtControlMode()
+		return nil
+	case hostresource.FieldAmtDNSSuffix:
+		m.ResetAmtDNSSuffix()
 		return nil
 	case hostresource.FieldTenantID:
 		m.ResetTenantID()
@@ -18599,856 +18743,6 @@ func (m *NetworkSegmentMutation) ResetEdge(name string) error {
 		return nil
 	}
 	return fmt.Errorf("unknown NetworkSegment edge %s", name)
-}
-
-// OSUpdatePolicyMutation represents an operation that mutates the OSUpdatePolicy nodes in the graph.
-type OSUpdatePolicyMutation struct {
-	config
-	op                 Op
-	typ                string
-	id                 *int
-	resource_id        *string
-	installed_packages *string
-	update_sources     *string
-	kernel_command     *string
-	update_policy      *osupdatepolicy.UpdatePolicy
-	tenant_id          *string
-	created_at         *string
-	updated_at         *string
-	clearedFields      map[string]struct{}
-	target_os          *int
-	clearedtarget_os   bool
-	done               bool
-	oldValue           func(context.Context) (*OSUpdatePolicy, error)
-	predicates         []predicate.OSUpdatePolicy
-}
-
-var _ ent.Mutation = (*OSUpdatePolicyMutation)(nil)
-
-// osupdatepolicyOption allows management of the mutation configuration using functional options.
-type osupdatepolicyOption func(*OSUpdatePolicyMutation)
-
-// newOSUpdatePolicyMutation creates new mutation for the OSUpdatePolicy entity.
-func newOSUpdatePolicyMutation(c config, op Op, opts ...osupdatepolicyOption) *OSUpdatePolicyMutation {
-	m := &OSUpdatePolicyMutation{
-		config:        c,
-		op:            op,
-		typ:           TypeOSUpdatePolicy,
-		clearedFields: make(map[string]struct{}),
-	}
-	for _, opt := range opts {
-		opt(m)
-	}
-	return m
-}
-
-// withOSUpdatePolicyID sets the ID field of the mutation.
-func withOSUpdatePolicyID(id int) osupdatepolicyOption {
-	return func(m *OSUpdatePolicyMutation) {
-		var (
-			err   error
-			once  sync.Once
-			value *OSUpdatePolicy
-		)
-		m.oldValue = func(ctx context.Context) (*OSUpdatePolicy, error) {
-			once.Do(func() {
-				if m.done {
-					err = errors.New("querying old values post mutation is not allowed")
-				} else {
-					value, err = m.Client().OSUpdatePolicy.Get(ctx, id)
-				}
-			})
-			return value, err
-		}
-		m.id = &id
-	}
-}
-
-// withOSUpdatePolicy sets the old OSUpdatePolicy of the mutation.
-func withOSUpdatePolicy(node *OSUpdatePolicy) osupdatepolicyOption {
-	return func(m *OSUpdatePolicyMutation) {
-		m.oldValue = func(context.Context) (*OSUpdatePolicy, error) {
-			return node, nil
-		}
-		m.id = &node.ID
-	}
-}
-
-// Client returns a new `ent.Client` from the mutation. If the mutation was
-// executed in a transaction (ent.Tx), a transactional client is returned.
-func (m OSUpdatePolicyMutation) Client() *Client {
-	client := &Client{config: m.config}
-	client.init()
-	return client
-}
-
-// Tx returns an `ent.Tx` for mutations that were executed in transactions;
-// it returns an error otherwise.
-func (m OSUpdatePolicyMutation) Tx() (*Tx, error) {
-	if _, ok := m.driver.(*txDriver); !ok {
-		return nil, errors.New("ent: mutation is not running in a transaction")
-	}
-	tx := &Tx{config: m.config}
-	tx.init()
-	return tx, nil
-}
-
-// ID returns the ID value in the mutation. Note that the ID is only available
-// if it was provided to the builder or after it was returned from the database.
-func (m *OSUpdatePolicyMutation) ID() (id int, exists bool) {
-	if m.id == nil {
-		return
-	}
-	return *m.id, true
-}
-
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
-// That means, if the mutation is applied within a transaction with an isolation level such
-// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
-// or updated by the mutation.
-func (m *OSUpdatePolicyMutation) IDs(ctx context.Context) ([]int, error) {
-	switch {
-	case m.op.Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
-		if exists {
-			return []int{id}, nil
-		}
-		fallthrough
-	case m.op.Is(OpUpdate | OpDelete):
-		return m.Client().OSUpdatePolicy.Query().Where(m.predicates...).IDs(ctx)
-	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
-	}
-}
-
-// SetResourceID sets the "resource_id" field.
-func (m *OSUpdatePolicyMutation) SetResourceID(s string) {
-	m.resource_id = &s
-}
-
-// ResourceID returns the value of the "resource_id" field in the mutation.
-func (m *OSUpdatePolicyMutation) ResourceID() (r string, exists bool) {
-	v := m.resource_id
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldResourceID returns the old "resource_id" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldResourceID(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldResourceID is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldResourceID requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldResourceID: %w", err)
-	}
-	return oldValue.ResourceID, nil
-}
-
-// ResetResourceID resets all changes to the "resource_id" field.
-func (m *OSUpdatePolicyMutation) ResetResourceID() {
-	m.resource_id = nil
-}
-
-// SetInstalledPackages sets the "installed_packages" field.
-func (m *OSUpdatePolicyMutation) SetInstalledPackages(s string) {
-	m.installed_packages = &s
-}
-
-// InstalledPackages returns the value of the "installed_packages" field in the mutation.
-func (m *OSUpdatePolicyMutation) InstalledPackages() (r string, exists bool) {
-	v := m.installed_packages
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldInstalledPackages returns the old "installed_packages" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldInstalledPackages(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldInstalledPackages is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldInstalledPackages requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldInstalledPackages: %w", err)
-	}
-	return oldValue.InstalledPackages, nil
-}
-
-// ClearInstalledPackages clears the value of the "installed_packages" field.
-func (m *OSUpdatePolicyMutation) ClearInstalledPackages() {
-	m.installed_packages = nil
-	m.clearedFields[osupdatepolicy.FieldInstalledPackages] = struct{}{}
-}
-
-// InstalledPackagesCleared returns if the "installed_packages" field was cleared in this mutation.
-func (m *OSUpdatePolicyMutation) InstalledPackagesCleared() bool {
-	_, ok := m.clearedFields[osupdatepolicy.FieldInstalledPackages]
-	return ok
-}
-
-// ResetInstalledPackages resets all changes to the "installed_packages" field.
-func (m *OSUpdatePolicyMutation) ResetInstalledPackages() {
-	m.installed_packages = nil
-	delete(m.clearedFields, osupdatepolicy.FieldInstalledPackages)
-}
-
-// SetUpdateSources sets the "update_sources" field.
-func (m *OSUpdatePolicyMutation) SetUpdateSources(s string) {
-	m.update_sources = &s
-}
-
-// UpdateSources returns the value of the "update_sources" field in the mutation.
-func (m *OSUpdatePolicyMutation) UpdateSources() (r string, exists bool) {
-	v := m.update_sources
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldUpdateSources returns the old "update_sources" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldUpdateSources(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldUpdateSources is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldUpdateSources requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdateSources: %w", err)
-	}
-	return oldValue.UpdateSources, nil
-}
-
-// ClearUpdateSources clears the value of the "update_sources" field.
-func (m *OSUpdatePolicyMutation) ClearUpdateSources() {
-	m.update_sources = nil
-	m.clearedFields[osupdatepolicy.FieldUpdateSources] = struct{}{}
-}
-
-// UpdateSourcesCleared returns if the "update_sources" field was cleared in this mutation.
-func (m *OSUpdatePolicyMutation) UpdateSourcesCleared() bool {
-	_, ok := m.clearedFields[osupdatepolicy.FieldUpdateSources]
-	return ok
-}
-
-// ResetUpdateSources resets all changes to the "update_sources" field.
-func (m *OSUpdatePolicyMutation) ResetUpdateSources() {
-	m.update_sources = nil
-	delete(m.clearedFields, osupdatepolicy.FieldUpdateSources)
-}
-
-// SetKernelCommand sets the "kernel_command" field.
-func (m *OSUpdatePolicyMutation) SetKernelCommand(s string) {
-	m.kernel_command = &s
-}
-
-// KernelCommand returns the value of the "kernel_command" field in the mutation.
-func (m *OSUpdatePolicyMutation) KernelCommand() (r string, exists bool) {
-	v := m.kernel_command
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldKernelCommand returns the old "kernel_command" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldKernelCommand(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldKernelCommand is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldKernelCommand requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldKernelCommand: %w", err)
-	}
-	return oldValue.KernelCommand, nil
-}
-
-// ClearKernelCommand clears the value of the "kernel_command" field.
-func (m *OSUpdatePolicyMutation) ClearKernelCommand() {
-	m.kernel_command = nil
-	m.clearedFields[osupdatepolicy.FieldKernelCommand] = struct{}{}
-}
-
-// KernelCommandCleared returns if the "kernel_command" field was cleared in this mutation.
-func (m *OSUpdatePolicyMutation) KernelCommandCleared() bool {
-	_, ok := m.clearedFields[osupdatepolicy.FieldKernelCommand]
-	return ok
-}
-
-// ResetKernelCommand resets all changes to the "kernel_command" field.
-func (m *OSUpdatePolicyMutation) ResetKernelCommand() {
-	m.kernel_command = nil
-	delete(m.clearedFields, osupdatepolicy.FieldKernelCommand)
-}
-
-// SetUpdatePolicy sets the "update_policy" field.
-func (m *OSUpdatePolicyMutation) SetUpdatePolicy(op osupdatepolicy.UpdatePolicy) {
-	m.update_policy = &op
-}
-
-// UpdatePolicy returns the value of the "update_policy" field in the mutation.
-func (m *OSUpdatePolicyMutation) UpdatePolicy() (r osupdatepolicy.UpdatePolicy, exists bool) {
-	v := m.update_policy
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldUpdatePolicy returns the old "update_policy" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldUpdatePolicy(ctx context.Context) (v osupdatepolicy.UpdatePolicy, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldUpdatePolicy is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldUpdatePolicy requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdatePolicy: %w", err)
-	}
-	return oldValue.UpdatePolicy, nil
-}
-
-// ClearUpdatePolicy clears the value of the "update_policy" field.
-func (m *OSUpdatePolicyMutation) ClearUpdatePolicy() {
-	m.update_policy = nil
-	m.clearedFields[osupdatepolicy.FieldUpdatePolicy] = struct{}{}
-}
-
-// UpdatePolicyCleared returns if the "update_policy" field was cleared in this mutation.
-func (m *OSUpdatePolicyMutation) UpdatePolicyCleared() bool {
-	_, ok := m.clearedFields[osupdatepolicy.FieldUpdatePolicy]
-	return ok
-}
-
-// ResetUpdatePolicy resets all changes to the "update_policy" field.
-func (m *OSUpdatePolicyMutation) ResetUpdatePolicy() {
-	m.update_policy = nil
-	delete(m.clearedFields, osupdatepolicy.FieldUpdatePolicy)
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (m *OSUpdatePolicyMutation) SetTenantID(s string) {
-	m.tenant_id = &s
-}
-
-// TenantID returns the value of the "tenant_id" field in the mutation.
-func (m *OSUpdatePolicyMutation) TenantID() (r string, exists bool) {
-	v := m.tenant_id
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldTenantID returns the old "tenant_id" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldTenantID(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldTenantID is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldTenantID requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldTenantID: %w", err)
-	}
-	return oldValue.TenantID, nil
-}
-
-// ResetTenantID resets all changes to the "tenant_id" field.
-func (m *OSUpdatePolicyMutation) ResetTenantID() {
-	m.tenant_id = nil
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (m *OSUpdatePolicyMutation) SetCreatedAt(s string) {
-	m.created_at = &s
-}
-
-// CreatedAt returns the value of the "created_at" field in the mutation.
-func (m *OSUpdatePolicyMutation) CreatedAt() (r string, exists bool) {
-	v := m.created_at
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldCreatedAt returns the old "created_at" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldCreatedAt(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
-	}
-	return oldValue.CreatedAt, nil
-}
-
-// ResetCreatedAt resets all changes to the "created_at" field.
-func (m *OSUpdatePolicyMutation) ResetCreatedAt() {
-	m.created_at = nil
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (m *OSUpdatePolicyMutation) SetUpdatedAt(s string) {
-	m.updated_at = &s
-}
-
-// UpdatedAt returns the value of the "updated_at" field in the mutation.
-func (m *OSUpdatePolicyMutation) UpdatedAt() (r string, exists bool) {
-	v := m.updated_at
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldUpdatedAt returns the old "updated_at" field's value of the OSUpdatePolicy entity.
-// If the OSUpdatePolicy object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *OSUpdatePolicyMutation) OldUpdatedAt(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
-	}
-	return oldValue.UpdatedAt, nil
-}
-
-// ResetUpdatedAt resets all changes to the "updated_at" field.
-func (m *OSUpdatePolicyMutation) ResetUpdatedAt() {
-	m.updated_at = nil
-}
-
-// SetTargetOsID sets the "target_os" edge to the OperatingSystemResource entity by id.
-func (m *OSUpdatePolicyMutation) SetTargetOsID(id int) {
-	m.target_os = &id
-}
-
-// ClearTargetOs clears the "target_os" edge to the OperatingSystemResource entity.
-func (m *OSUpdatePolicyMutation) ClearTargetOs() {
-	m.clearedtarget_os = true
-}
-
-// TargetOsCleared reports if the "target_os" edge to the OperatingSystemResource entity was cleared.
-func (m *OSUpdatePolicyMutation) TargetOsCleared() bool {
-	return m.clearedtarget_os
-}
-
-// TargetOsID returns the "target_os" edge ID in the mutation.
-func (m *OSUpdatePolicyMutation) TargetOsID() (id int, exists bool) {
-	if m.target_os != nil {
-		return *m.target_os, true
-	}
-	return
-}
-
-// TargetOsIDs returns the "target_os" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// TargetOsID instead. It exists only for internal usage by the builders.
-func (m *OSUpdatePolicyMutation) TargetOsIDs() (ids []int) {
-	if id := m.target_os; id != nil {
-		ids = append(ids, *id)
-	}
-	return
-}
-
-// ResetTargetOs resets all changes to the "target_os" edge.
-func (m *OSUpdatePolicyMutation) ResetTargetOs() {
-	m.target_os = nil
-	m.clearedtarget_os = false
-}
-
-// Where appends a list predicates to the OSUpdatePolicyMutation builder.
-func (m *OSUpdatePolicyMutation) Where(ps ...predicate.OSUpdatePolicy) {
-	m.predicates = append(m.predicates, ps...)
-}
-
-// WhereP appends storage-level predicates to the OSUpdatePolicyMutation builder. Using this method,
-// users can use type-assertion to append predicates that do not depend on any generated package.
-func (m *OSUpdatePolicyMutation) WhereP(ps ...func(*sql.Selector)) {
-	p := make([]predicate.OSUpdatePolicy, len(ps))
-	for i := range ps {
-		p[i] = ps[i]
-	}
-	m.Where(p...)
-}
-
-// Op returns the operation name.
-func (m *OSUpdatePolicyMutation) Op() Op {
-	return m.op
-}
-
-// SetOp allows setting the mutation operation.
-func (m *OSUpdatePolicyMutation) SetOp(op Op) {
-	m.op = op
-}
-
-// Type returns the node type of this mutation (OSUpdatePolicy).
-func (m *OSUpdatePolicyMutation) Type() string {
-	return m.typ
-}
-
-// Fields returns all fields that were changed during this mutation. Note that in
-// order to get all numeric fields that were incremented/decremented, call
-// AddedFields().
-func (m *OSUpdatePolicyMutation) Fields() []string {
-	fields := make([]string, 0, 8)
-	if m.resource_id != nil {
-		fields = append(fields, osupdatepolicy.FieldResourceID)
-	}
-	if m.installed_packages != nil {
-		fields = append(fields, osupdatepolicy.FieldInstalledPackages)
-	}
-	if m.update_sources != nil {
-		fields = append(fields, osupdatepolicy.FieldUpdateSources)
-	}
-	if m.kernel_command != nil {
-		fields = append(fields, osupdatepolicy.FieldKernelCommand)
-	}
-	if m.update_policy != nil {
-		fields = append(fields, osupdatepolicy.FieldUpdatePolicy)
-	}
-	if m.tenant_id != nil {
-		fields = append(fields, osupdatepolicy.FieldTenantID)
-	}
-	if m.created_at != nil {
-		fields = append(fields, osupdatepolicy.FieldCreatedAt)
-	}
-	if m.updated_at != nil {
-		fields = append(fields, osupdatepolicy.FieldUpdatedAt)
-	}
-	return fields
-}
-
-// Field returns the value of a field with the given name. The second boolean
-// return value indicates that this field was not set, or was not defined in the
-// schema.
-func (m *OSUpdatePolicyMutation) Field(name string) (ent.Value, bool) {
-	switch name {
-	case osupdatepolicy.FieldResourceID:
-		return m.ResourceID()
-	case osupdatepolicy.FieldInstalledPackages:
-		return m.InstalledPackages()
-	case osupdatepolicy.FieldUpdateSources:
-		return m.UpdateSources()
-	case osupdatepolicy.FieldKernelCommand:
-		return m.KernelCommand()
-	case osupdatepolicy.FieldUpdatePolicy:
-		return m.UpdatePolicy()
-	case osupdatepolicy.FieldTenantID:
-		return m.TenantID()
-	case osupdatepolicy.FieldCreatedAt:
-		return m.CreatedAt()
-	case osupdatepolicy.FieldUpdatedAt:
-		return m.UpdatedAt()
-	}
-	return nil, false
-}
-
-// OldField returns the old value of the field from the database. An error is
-// returned if the mutation operation is not UpdateOne, or the query to the
-// database failed.
-func (m *OSUpdatePolicyMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
-	switch name {
-	case osupdatepolicy.FieldResourceID:
-		return m.OldResourceID(ctx)
-	case osupdatepolicy.FieldInstalledPackages:
-		return m.OldInstalledPackages(ctx)
-	case osupdatepolicy.FieldUpdateSources:
-		return m.OldUpdateSources(ctx)
-	case osupdatepolicy.FieldKernelCommand:
-		return m.OldKernelCommand(ctx)
-	case osupdatepolicy.FieldUpdatePolicy:
-		return m.OldUpdatePolicy(ctx)
-	case osupdatepolicy.FieldTenantID:
-		return m.OldTenantID(ctx)
-	case osupdatepolicy.FieldCreatedAt:
-		return m.OldCreatedAt(ctx)
-	case osupdatepolicy.FieldUpdatedAt:
-		return m.OldUpdatedAt(ctx)
-	}
-	return nil, fmt.Errorf("unknown OSUpdatePolicy field %s", name)
-}
-
-// SetField sets the value of a field with the given name. It returns an error if
-// the field is not defined in the schema, or if the type mismatched the field
-// type.
-func (m *OSUpdatePolicyMutation) SetField(name string, value ent.Value) error {
-	switch name {
-	case osupdatepolicy.FieldResourceID:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetResourceID(v)
-		return nil
-	case osupdatepolicy.FieldInstalledPackages:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetInstalledPackages(v)
-		return nil
-	case osupdatepolicy.FieldUpdateSources:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetUpdateSources(v)
-		return nil
-	case osupdatepolicy.FieldKernelCommand:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetKernelCommand(v)
-		return nil
-	case osupdatepolicy.FieldUpdatePolicy:
-		v, ok := value.(osupdatepolicy.UpdatePolicy)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetUpdatePolicy(v)
-		return nil
-	case osupdatepolicy.FieldTenantID:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetTenantID(v)
-		return nil
-	case osupdatepolicy.FieldCreatedAt:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetCreatedAt(v)
-		return nil
-	case osupdatepolicy.FieldUpdatedAt:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetUpdatedAt(v)
-		return nil
-	}
-	return fmt.Errorf("unknown OSUpdatePolicy field %s", name)
-}
-
-// AddedFields returns all numeric fields that were incremented/decremented during
-// this mutation.
-func (m *OSUpdatePolicyMutation) AddedFields() []string {
-	return nil
-}
-
-// AddedField returns the numeric value that was incremented/decremented on a field
-// with the given name. The second boolean return value indicates that this field
-// was not set, or was not defined in the schema.
-func (m *OSUpdatePolicyMutation) AddedField(name string) (ent.Value, bool) {
-	return nil, false
-}
-
-// AddField adds the value to the field with the given name. It returns an error if
-// the field is not defined in the schema, or if the type mismatched the field
-// type.
-func (m *OSUpdatePolicyMutation) AddField(name string, value ent.Value) error {
-	switch name {
-	}
-	return fmt.Errorf("unknown OSUpdatePolicy numeric field %s", name)
-}
-
-// ClearedFields returns all nullable fields that were cleared during this
-// mutation.
-func (m *OSUpdatePolicyMutation) ClearedFields() []string {
-	var fields []string
-	if m.FieldCleared(osupdatepolicy.FieldInstalledPackages) {
-		fields = append(fields, osupdatepolicy.FieldInstalledPackages)
-	}
-	if m.FieldCleared(osupdatepolicy.FieldUpdateSources) {
-		fields = append(fields, osupdatepolicy.FieldUpdateSources)
-	}
-	if m.FieldCleared(osupdatepolicy.FieldKernelCommand) {
-		fields = append(fields, osupdatepolicy.FieldKernelCommand)
-	}
-	if m.FieldCleared(osupdatepolicy.FieldUpdatePolicy) {
-		fields = append(fields, osupdatepolicy.FieldUpdatePolicy)
-	}
-	return fields
-}
-
-// FieldCleared returns a boolean indicating if a field with the given name was
-// cleared in this mutation.
-func (m *OSUpdatePolicyMutation) FieldCleared(name string) bool {
-	_, ok := m.clearedFields[name]
-	return ok
-}
-
-// ClearField clears the value of the field with the given name. It returns an
-// error if the field is not defined in the schema.
-func (m *OSUpdatePolicyMutation) ClearField(name string) error {
-	switch name {
-	case osupdatepolicy.FieldInstalledPackages:
-		m.ClearInstalledPackages()
-		return nil
-	case osupdatepolicy.FieldUpdateSources:
-		m.ClearUpdateSources()
-		return nil
-	case osupdatepolicy.FieldKernelCommand:
-		m.ClearKernelCommand()
-		return nil
-	case osupdatepolicy.FieldUpdatePolicy:
-		m.ClearUpdatePolicy()
-		return nil
-	}
-	return fmt.Errorf("unknown OSUpdatePolicy nullable field %s", name)
-}
-
-// ResetField resets all changes in the mutation for the field with the given name.
-// It returns an error if the field is not defined in the schema.
-func (m *OSUpdatePolicyMutation) ResetField(name string) error {
-	switch name {
-	case osupdatepolicy.FieldResourceID:
-		m.ResetResourceID()
-		return nil
-	case osupdatepolicy.FieldInstalledPackages:
-		m.ResetInstalledPackages()
-		return nil
-	case osupdatepolicy.FieldUpdateSources:
-		m.ResetUpdateSources()
-		return nil
-	case osupdatepolicy.FieldKernelCommand:
-		m.ResetKernelCommand()
-		return nil
-	case osupdatepolicy.FieldUpdatePolicy:
-		m.ResetUpdatePolicy()
-		return nil
-	case osupdatepolicy.FieldTenantID:
-		m.ResetTenantID()
-		return nil
-	case osupdatepolicy.FieldCreatedAt:
-		m.ResetCreatedAt()
-		return nil
-	case osupdatepolicy.FieldUpdatedAt:
-		m.ResetUpdatedAt()
-		return nil
-	}
-	return fmt.Errorf("unknown OSUpdatePolicy field %s", name)
-}
-
-// AddedEdges returns all edge names that were set/added in this mutation.
-func (m *OSUpdatePolicyMutation) AddedEdges() []string {
-	edges := make([]string, 0, 1)
-	if m.target_os != nil {
-		edges = append(edges, osupdatepolicy.EdgeTargetOs)
-	}
-	return edges
-}
-
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
-// name in this mutation.
-func (m *OSUpdatePolicyMutation) AddedIDs(name string) []ent.Value {
-	switch name {
-	case osupdatepolicy.EdgeTargetOs:
-		if id := m.target_os; id != nil {
-			return []ent.Value{*id}
-		}
-	}
-	return nil
-}
-
-// RemovedEdges returns all edge names that were removed in this mutation.
-func (m *OSUpdatePolicyMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 1)
-	return edges
-}
-
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
-// the given name in this mutation.
-func (m *OSUpdatePolicyMutation) RemovedIDs(name string) []ent.Value {
-	return nil
-}
-
-// ClearedEdges returns all edge names that were cleared in this mutation.
-func (m *OSUpdatePolicyMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 1)
-	if m.clearedtarget_os {
-		edges = append(edges, osupdatepolicy.EdgeTargetOs)
-	}
-	return edges
-}
-
-// EdgeCleared returns a boolean which indicates if the edge with the given name
-// was cleared in this mutation.
-func (m *OSUpdatePolicyMutation) EdgeCleared(name string) bool {
-	switch name {
-	case osupdatepolicy.EdgeTargetOs:
-		return m.clearedtarget_os
-	}
-	return false
-}
-
-// ClearEdge clears the value of the edge with the given name. It returns an error
-// if that edge is not defined in the schema.
-func (m *OSUpdatePolicyMutation) ClearEdge(name string) error {
-	switch name {
-	case osupdatepolicy.EdgeTargetOs:
-		m.ClearTargetOs()
-		return nil
-	}
-	return fmt.Errorf("unknown OSUpdatePolicy unique edge %s", name)
-}
-
-// ResetEdge resets all changes to the edge with the given name in this mutation.
-// It returns an error if the edge is not defined in the schema.
-func (m *OSUpdatePolicyMutation) ResetEdge(name string) error {
-	switch name {
-	case osupdatepolicy.EdgeTargetOs:
-		m.ResetTargetOs()
-		return nil
-	}
-	return fmt.Errorf("unknown OSUpdatePolicy edge %s", name)
 }
 
 // OSUpdatePolicyResourceMutation represents an operation that mutates the OSUpdatePolicyResource nodes in the graph.

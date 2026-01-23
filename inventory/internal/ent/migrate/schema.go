@@ -125,6 +125,8 @@ var (
 		{Name: "amt_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "amt_status_timestamp", Type: field.TypeUint64, Nullable: true},
 		{Name: "user_lvm_size", Type: field.TypeUint32, Nullable: true},
+		{Name: "amt_control_mode", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_MODE_UNSPECIFIED", "AMT_MODE_ACM", "AMT_MODE_CCM"}},
+		{Name: "amt_dns_suffix", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -140,19 +142,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "host_resources_site_resources_site",
-				Columns:    []*schema.Column{HostResourcesColumns[56]},
+				Columns:    []*schema.Column{HostResourcesColumns[58]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_provider_resources_provider",
-				Columns:    []*schema.Column{HostResourcesColumns[57]},
+				Columns:    []*schema.Column{HostResourcesColumns[59]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[58]},
+				Columns:    []*schema.Column{HostResourcesColumns[60]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -177,7 +179,7 @@ var (
 			{
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{HostResourcesColumns[53]},
+				Columns: []*schema.Column{HostResourcesColumns[55]},
 			},
 		},
 	}
@@ -548,33 +550,6 @@ var (
 				Columns:    []*schema.Column{NetworkSegmentsColumns[7]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.NoAction,
-			},
-		},
-	}
-	// OsUpdatePoliciesColumns holds the columns for the "os_update_policies" table.
-	OsUpdatePoliciesColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "resource_id", Type: field.TypeString, Unique: true},
-		{Name: "installed_packages", Type: field.TypeString, Nullable: true},
-		{Name: "update_sources", Type: field.TypeString, Nullable: true},
-		{Name: "kernel_command", Type: field.TypeString, Nullable: true},
-		{Name: "update_policy", Type: field.TypeEnum, Nullable: true, Enums: []string{"UPDATE_POLICY_UNSPECIFIED", "UPDATE_POLICY_LATEST", "UPDATE_POLICY_TARGET"}},
-		{Name: "tenant_id", Type: field.TypeString},
-		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
-		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
-		{Name: "os_update_policy_target_os", Type: field.TypeInt, Nullable: true},
-	}
-	// OsUpdatePoliciesTable holds the schema information for the "os_update_policies" table.
-	OsUpdatePoliciesTable = &schema.Table{
-		Name:       "os_update_policies",
-		Columns:    OsUpdatePoliciesColumns,
-		PrimaryKey: []*schema.Column{OsUpdatePoliciesColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{
-			{
-				Symbol:     "os_update_policies_operating_system_resources_target_os",
-				Columns:    []*schema.Column{OsUpdatePoliciesColumns[9]},
-				RefColumns: []*schema.Column{OperatingSystemResourcesColumns[0]},
-				OnDelete:   schema.SetNull,
 			},
 		},
 	}
@@ -1203,7 +1178,6 @@ var (
 		LocalAccountResourcesTable,
 		NetlinkResourcesTable,
 		NetworkSegmentsTable,
-		OsUpdatePoliciesTable,
 		OsUpdatePolicyResourcesTable,
 		OsUpdateRunResourcesTable,
 		OperatingSystemResourcesTable,
@@ -1240,7 +1214,6 @@ func init() {
 	NetlinkResourcesTable.ForeignKeys[0].RefTable = EndpointResourcesTable
 	NetlinkResourcesTable.ForeignKeys[1].RefTable = EndpointResourcesTable
 	NetworkSegmentsTable.ForeignKeys[0].RefTable = SiteResourcesTable
-	OsUpdatePoliciesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
 	OsUpdatePolicyResourcesTable.ForeignKeys[0].RefTable = OperatingSystemResourcesTable
 	OsUpdateRunResourcesTable.ForeignKeys[0].RefTable = OsUpdatePolicyResourcesTable
 	OsUpdateRunResourcesTable.ForeignKeys[1].RefTable = InstanceResourcesTable

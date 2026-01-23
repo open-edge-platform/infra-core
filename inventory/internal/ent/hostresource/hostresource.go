@@ -118,6 +118,10 @@ const (
 	FieldAmtStatusTimestamp = "amt_status_timestamp"
 	// FieldUserLvmSize holds the string denoting the user_lvm_size field in the database.
 	FieldUserLvmSize = "user_lvm_size"
+	// FieldAmtControlMode holds the string denoting the amt_control_mode field in the database.
+	FieldAmtControlMode = "amt_control_mode"
+	// FieldAmtDNSSuffix holds the string denoting the amt_dns_suffix field in the database.
+	FieldAmtDNSSuffix = "amt_dns_suffix"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -246,6 +250,8 @@ var Columns = []string{
 	FieldAmtStatusIndicator,
 	FieldAmtStatusTimestamp,
 	FieldUserLvmSize,
+	FieldAmtControlMode,
+	FieldAmtDNSSuffix,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -633,6 +639,30 @@ func AmtStatusIndicatorValidator(asi AmtStatusIndicator) error {
 	}
 }
 
+// AmtControlMode defines the type for the "amt_control_mode" enum field.
+type AmtControlMode string
+
+// AmtControlMode values.
+const (
+	AmtControlModeAMT_MODE_UNSPECIFIED AmtControlMode = "AMT_MODE_UNSPECIFIED"
+	AmtControlModeAMT_MODE_ACM         AmtControlMode = "AMT_MODE_ACM"
+	AmtControlModeAMT_MODE_CCM         AmtControlMode = "AMT_MODE_CCM"
+)
+
+func (acm AmtControlMode) String() string {
+	return string(acm)
+}
+
+// AmtControlModeValidator is a validator for the "amt_control_mode" field enum values. It is called by the builders before save.
+func AmtControlModeValidator(acm AmtControlMode) error {
+	switch acm {
+	case AmtControlModeAMT_MODE_UNSPECIFIED, AmtControlModeAMT_MODE_ACM, AmtControlModeAMT_MODE_CCM:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for amt_control_mode field: %q", acm)
+	}
+}
+
 // OrderOption defines the ordering options for the HostResource queries.
 type OrderOption func(*sql.Selector)
 
@@ -899,6 +929,16 @@ func ByAmtStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
 // ByUserLvmSize orders the results by the user_lvm_size field.
 func ByUserLvmSize(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUserLvmSize, opts...).ToFunc()
+}
+
+// ByAmtControlMode orders the results by the amt_control_mode field.
+func ByAmtControlMode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAmtControlMode, opts...).ToFunc()
+}
+
+// ByAmtDNSSuffix orders the results by the amt_dns_suffix field.
+func ByAmtDNSSuffix(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAmtDNSSuffix, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.
