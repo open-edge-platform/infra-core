@@ -172,3 +172,12 @@ func BuildAllowedServiceList(scenarioName string, allowlist map[string][]string)
 
 	return allowed, nil
 }
+
+// GetKnownServices returns the list of all known service names.
+func GetKnownServices() []string {
+	services := make([]string, 0, len(servicesServers))
+	for name := range servicesServers {
+		services = append(services, name)
+	}
+	return services
+}

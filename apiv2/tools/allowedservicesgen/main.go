@@ -15,6 +15,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/server"
 	"gopkg.in/yaml.v3"
 )
 
@@ -33,6 +34,12 @@ func main() {
 	allow, err := loadAllManifests(*manifestsDir)
 	if err != nil {
 		log.Printf("failed to load manifests: %v", err)
+		os.Exit(1)
+	}
+
+	// Validate services against server implementation
+	if err := validateServices(allow); err != nil {
+		log.Printf("validation failed: %v", err)
 		os.Exit(1)
 	}
 
@@ -72,14 +79,14 @@ func processManifestFile(path string, d fs.DirEntry, out map[string][]string) er
 		return nil
 	}
 
-	// extract scenario name from filename
+	// Extract scenario name from filename
 	scenario := strings.TrimSuffix(d.Name(), filepath.Ext(d.Name()))
 	scenario = strings.ToLower(strings.TrimSpace(scenario))
 	if scenario == "" {
 		return fmt.Errorf("invalid manifest filename: %s", d.Name())
 	}
 
-	// read and parse the manifest file
+	// Read and parse the manifest file
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return fmt.Errorf("read %s: %w", path, err)
@@ -90,7 +97,7 @@ func processManifestFile(path string, d fs.DirEntry, out map[string][]string) er
 		return fmt.Errorf("parse file %s error: %w", path, err)
 	}
 
-	// validate and clean services list
+	// Validate and clean services list
 	services := clean(m.Services)
 	if len(services) == 0 {
 		return fmt.Errorf("%s: services list is empty", path)
@@ -110,7 +117,7 @@ func clean(in []string) []string {
 			continue
 		}
 
-		// skip duplicates
+		// Skip duplicates
 		if _, ok := seen[s]; ok {
 			continue
 		}
@@ -175,5 +182,42 @@ func writeGenerated(outPath, pkg string, allowed map[string][]string) error {
 	if err := os.WriteFile(outPath, formatted, 0o644); err != nil {
 		return fmt.Errorf("write: %w", err)
 	}
+	return nil
+}
+
+// validateServices checks that all services in manifests exist
+func validateServices(allowed map[string][]string) error {
+	// Get known services from server package
+	knownServices := server.GetKnownServices()
+	serverServicesMap := make(map[string]bool, len(knownServices))
+	for _, svc := range knownServices {
+		serverServicesMap[svc] = true
+	}
+
+	log.Printf("found %d gRPC service(s) implemented", len(knownServices))
+
+	// Collect all unique services from manifests
+	manifestServices := make(map[string]bool)
+	for scenario, services := range allowed {
+		for _, svc := range services {
+			manifestServices[svc] = true
+		}
+		log.Printf("scenario %q: %d gRPC service(s)", scenario, len(services))
+	}
+
+	// Validate each manifest service is implemented in server
+	var missing []string
+	for svc := range manifestServices {
+		if !serverServicesMap[svc] {
+			missing = append(missing, svc)
+		}
+	}
+
+	if len(missing) > 0 {
+		sort.Strings(missing)
+		return fmt.Errorf("services in manifests but not implemented in server: %v", missing)
+	}
+
+	log.Printf("validation passed")
 	return nil
 }
