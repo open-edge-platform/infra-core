@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 	"unicode"
@@ -295,10 +296,92 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 			req := c.Request()
 			path := req.URL.Path
 
-			// Rewrite /compute/hosts/summary to /compute/hosts-summary
-			// This prevents routing collision with /compute/hosts/{resourceId}
-			if strings.Contains(path, "/compute/hosts/summary") {
-				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts-summary", 1)
+			// Strip trailing slash (except for root path)
+			if len(path) > 1 && strings.HasSuffix(path, "/") {
+				req.URL.Path = strings.TrimSuffix(path, "/")
+				path = req.URL.Path
+				zlog.Debug().Str("path", path).Msg("Stripped trailing slash")
+			}
+
+			// Rewrite UI-friendly paths to backend OpenAPI paths
+			// Based on production API mapping configuration
+
+			// Rewrite hierarchical region/sites path to flat sites path
+			if strings.Contains(path, "/regions/") && strings.Contains(path, "/sites") {
+				// /v1/projects/{projectName}/regions/{regionId}/sites -> /v1/projects/{projectName}/sites
+				re := regexp.MustCompile(`(/v1/projects/[^/]+)/regions/[^/]+(/sites.*)`)
+				newPath := re.ReplaceAllString(path, "$1$2")
+				if newPath != path {
+					req.URL.Path = newPath
+					zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+					path = newPath // Update path for subsequent checks
+				}
+			}
+
+			// Rewrite hierarchical telemetry paths
+			if strings.Contains(path, "/telemetry/metricgroups/") && strings.Contains(path, "/metricprofiles") {
+				// /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles -> /v1/projects/{projectName}/telemetry/profiles/metrics
+				re := regexp.MustCompile(`(/v1/projects/[^/]+)/telemetry/metricgroups/[^/]+(/metricprofiles.*)`)
+				newPath := re.ReplaceAllString(path, "$1/telemetry/profiles/metrics$2")
+				newPath = strings.Replace(newPath, "/metricprofiles", "", 1)
+				if newPath != path {
+					req.URL.Path = newPath
+					zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+					path = newPath
+				}
+			} else if strings.Contains(path, "/telemetry/loggroups/") && strings.Contains(path, "/logprofiles") {
+				// /v1/projects/{projectName}/telemetry/loggroups/{id}/logprofiles -> /v1/projects/{projectName}/telemetry/profiles/logs
+				re := regexp.MustCompile(`(/v1/projects/[^/]+)/telemetry/loggroups/[^/]+(/logprofiles.*)`)
+				newPath := re.ReplaceAllString(path, "$1/telemetry/profiles/logs$2")
+				newPath = strings.Replace(newPath, "/logprofiles", "", 1)
+				if newPath != path {
+					req.URL.Path = newPath
+					zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+					path = newPath
+				}
+			} else if strings.Contains(path, "/telemetry/metricgroups") {
+				// /v1/projects/{projectName}/telemetry/metricgroups -> /v1/projects/{projectName}/telemetry/groups/metrics
+				newPath := strings.Replace(path, "/telemetry/metricgroups", "/telemetry/groups/metrics", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+				path = newPath
+			} else if strings.Contains(path, "/telemetry/loggroups") {
+				// /v1/projects/{projectName}/telemetry/loggroups -> /v1/projects/{projectName}/telemetry/groups/logs
+				newPath := strings.Replace(path, "/telemetry/loggroups", "/telemetry/groups/logs", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+				path = newPath
+			}
+
+			// Rewrite /compute/schedules to /schedules
+			// UI: /v1/projects/{projectName}/compute/schedules -> Backend: /v1/projects/{projectName}/schedules
+			if strings.Contains(path, "/compute/schedules") {
+				newPath := strings.Replace(path, "/compute/schedules", "/schedules", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+				path = newPath
+			}
+
+			// Rewrite OS Update paths: UI uses kebab-case and plural, backend uses snake_case and singular
+			// UI: /os-update-policies -> Backend: /os_update_policy
+			if strings.Contains(path, "/os-update-policies/") || strings.HasSuffix(path, "/os-update-policies") {
+				newPath := strings.Replace(path, "/os-update-policies", "/os_update_policy", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+				// UI: /os-update-runs -> Backend: /os_update_run
+			} else if strings.Contains(path, "/os-update-runs/") || strings.HasSuffix(path, "/os-update-runs") {
+				newPath := strings.Replace(path, "/os-update-runs", "/os_update_run", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+				// UI: /compute/os -> Backend: /compute/operating_systems (abbreviated vs full name)
+			} else if strings.Contains(path, "/compute/os/") || strings.HasSuffix(path, "/compute/os") {
+				newPath := strings.Replace(path, "/compute/os", "/compute/operating_systems", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+			} else if strings.Contains(path, "/compute/hosts/summary") {
+				// Rewrite /compute/hosts/summary to /compute/hosts_summary
+				// UI uses dash, backend uses underscore
+				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts_summary", 1)
 				req.URL.Path = newPath
 				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
 			}
