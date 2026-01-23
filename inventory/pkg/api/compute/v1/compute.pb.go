@@ -898,10 +898,10 @@ type HostResource struct {
 	AmtStatusTimestamp uint64               `protobuf:"varint,96,opt,name=amt_status_timestamp,json=amtStatusTimestamp,proto3" json:"amt_status_timestamp,omitempty"`                                 // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
 	UserLvmSize        uint32               `protobuf:"varint,97,opt,name=user_lvm_size,json=userLvmSize,proto3" json:"user_lvm_size,omitempty"`                                                      // LVM size in GB.
 	AmtControlMode     AmtControlMode       `protobuf:"varint,98,opt,name=amt_control_mode,json=amtControlMode,proto3,enum=compute.v1.AmtControlMode" json:"amt_control_mode,omitempty"`              // coming from user selection
-	AmtDnsSuffix       string               `protobuf:"bytes,99,opt,name=amt_dns_suffix,json=amtDnsSuffix,proto3" json:"amt_dns_suffix,omitempty"`
-	TenantId           string               `protobuf:"bytes,100,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`    // Tenant Identifier
-	CreatedAt          string               `protobuf:"bytes,200,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"` // Creation timestamp
-	UpdatedAt          string               `protobuf:"bytes,201,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"` // Update timestamp
+	AmtDnsSuffix       string               `protobuf:"bytes,99,opt,name=amt_dns_suffix,json=amtDnsSuffix,proto3" json:"amt_dns_suffix,omitempty"`                                                    // textual message that describes dns_suffix for ACM mode.
+	TenantId           string               `protobuf:"bytes,100,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`                                                                 // Tenant Identifier
+	CreatedAt          string               `protobuf:"bytes,200,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`                                                              // Creation timestamp
+	UpdatedAt          string               `protobuf:"bytes,201,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`                                                              // Update timestamp
 }
 
 func (x *HostResource) Reset() {
