@@ -87,7 +87,7 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 # Security config for Go builds
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
-generate: gen-allowed-services buf-gen generate-api ## generate protos, types, server and client
+generate: buf-gen generate-api gen-allowed-services ## generate protos, types, server and client
 
 lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
