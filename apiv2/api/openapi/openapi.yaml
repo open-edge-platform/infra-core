@@ -1107,7 +1107,7 @@ paths:
         - OperatingSystemService
       summary: ListOperatingSystems
       description: Get a list of OSs.
-      operationId: OperatingSystemService_ListOperatingSystems2
+      operationId: OperatingSystemService_ListOperatingSystems3
       parameters:
         - name: orderBy
           in: query
@@ -1177,7 +1177,7 @@ paths:
         - OperatingSystemService
       summary: CreateOperatingSystem
       description: Create an OS
-      operationId: OperatingSystemService_CreateOperatingSystem2
+      operationId: OperatingSystemService_CreateOperatingSystem3
       parameters:
         - name: projectName
           in: query
@@ -1208,7 +1208,7 @@ paths:
         - OperatingSystemService
       summary: GetOperatingSystem
       description: Get a specific OS.
-      operationId: OperatingSystemService_GetOperatingSystem2
+      operationId: OperatingSystemService_GetOperatingSystem3
       parameters:
         - name: resourceId
           in: path
@@ -1238,7 +1238,7 @@ paths:
         - OperatingSystemService
       summary: UpdateOperatingSystem
       description: Update an OS.
-      operationId: OperatingSystemService_UpdateOperatingSystem2
+      operationId: OperatingSystemService_UpdateOperatingSystem3
       parameters:
         - name: resourceId
           in: path
@@ -1276,7 +1276,7 @@ paths:
         - OperatingSystemService
       summary: DeleteOperatingSystem
       description: Delete an OS.
-      operationId: OperatingSystemService_DeleteOperatingSystem2
+      operationId: OperatingSystemService_DeleteOperatingSystem3
       parameters:
         - name: resourceId
           in: path
@@ -1306,7 +1306,7 @@ paths:
         - OperatingSystemService
       summary: PatchOperatingSystem
       description: Patch an OS.
-      operationId: OperatingSystemService_PatchOperatingSystem2
+      operationId: OperatingSystemService_PatchOperatingSystem3
       parameters:
         - name: resourceId
           in: path
@@ -5279,6 +5279,253 @@ paths:
       summary: PatchOperatingSystem
       description: Patch an OS.
       operationId: OperatingSystemService_PatchOperatingSystem
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the os.
+        content:
+          application/json:
+            schema:
+              title: os
+              description: Updated values for the os.
+              $ref: '#/components/schemas/OperatingSystemResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
+  /v1/projects/{projectName}/compute/os:
+    get:
+      tags:
+        - OperatingSystemService
+      summary: ListOperatingSystems
+      description: Get a list of OSs.
+      operationId: OperatingSystemService_ListOperatingSystems2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperatingSystemsResponse'
+    post:
+      tags:
+        - OperatingSystemService
+      summary: CreateOperatingSystem
+      description: Create an OS
+      operationId: OperatingSystemService_CreateOperatingSystem2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The os to create.
+        content:
+          application/json:
+            schema:
+              title: os
+              description: The os to create.
+              $ref: '#/components/schemas/OperatingSystemResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
+  /v1/projects/{projectName}/compute/os/{resourceId}:
+    get:
+      tags:
+        - OperatingSystemService
+      summary: GetOperatingSystem
+      description: Get a specific OS.
+      operationId: OperatingSystemService_GetOperatingSystem2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested os.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested os.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
+    put:
+      tags:
+        - OperatingSystemService
+      summary: UpdateOperatingSystem
+      description: Update an OS.
+      operationId: OperatingSystemService_UpdateOperatingSystem2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the os os to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the os os to be updated.
+      requestBody:
+        description: Updated values for the os.
+        content:
+          application/json:
+            schema:
+              title: os
+              description: Updated values for the os.
+              $ref: '#/components/schemas/OperatingSystemResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemResource'
+    delete:
+      tags:
+        - OperatingSystemService
+      summary: DeleteOperatingSystem
+      description: Delete an OS.
+      operationId: OperatingSystemService_DeleteOperatingSystem2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the os os to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the os os to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteOperatingSystemResponse'
+    patch:
+      tags:
+        - OperatingSystemService
+      summary: PatchOperatingSystem
+      description: Patch an OS.
+      operationId: OperatingSystemService_PatchOperatingSystem2
       parameters:
         - name: projectName
           in: path

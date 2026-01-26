@@ -5842,8 +5842,8 @@ type LocationServiceListLocations2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// OperatingSystemServiceListOperatingSystems2Params defines parameters for OperatingSystemServiceListOperatingSystems2.
-type OperatingSystemServiceListOperatingSystems2Params struct {
+// OperatingSystemServiceListOperatingSystems3Params defines parameters for OperatingSystemServiceListOperatingSystems3.
+type OperatingSystemServiceListOperatingSystems3Params struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
@@ -5863,26 +5863,26 @@ type OperatingSystemServiceListOperatingSystems2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// OperatingSystemServiceCreateOperatingSystem2Params defines parameters for OperatingSystemServiceCreateOperatingSystem2.
-type OperatingSystemServiceCreateOperatingSystem2Params struct {
+// OperatingSystemServiceCreateOperatingSystem3Params defines parameters for OperatingSystemServiceCreateOperatingSystem3.
+type OperatingSystemServiceCreateOperatingSystem3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// OperatingSystemServiceDeleteOperatingSystem2Params defines parameters for OperatingSystemServiceDeleteOperatingSystem2.
-type OperatingSystemServiceDeleteOperatingSystem2Params struct {
+// OperatingSystemServiceDeleteOperatingSystem3Params defines parameters for OperatingSystemServiceDeleteOperatingSystem3.
+type OperatingSystemServiceDeleteOperatingSystem3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// OperatingSystemServiceGetOperatingSystem2Params defines parameters for OperatingSystemServiceGetOperatingSystem2.
-type OperatingSystemServiceGetOperatingSystem2Params struct {
+// OperatingSystemServiceGetOperatingSystem3Params defines parameters for OperatingSystemServiceGetOperatingSystem3.
+type OperatingSystemServiceGetOperatingSystem3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// OperatingSystemServicePatchOperatingSystem2Params defines parameters for OperatingSystemServicePatchOperatingSystem2.
-type OperatingSystemServicePatchOperatingSystem2Params struct {
+// OperatingSystemServicePatchOperatingSystem3Params defines parameters for OperatingSystemServicePatchOperatingSystem3.
+type OperatingSystemServicePatchOperatingSystem3Params struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 
@@ -5890,8 +5890,8 @@ type OperatingSystemServicePatchOperatingSystem2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// OperatingSystemServiceUpdateOperatingSystem2Params defines parameters for OperatingSystemServiceUpdateOperatingSystem2.
-type OperatingSystemServiceUpdateOperatingSystem2Params struct {
+// OperatingSystemServiceUpdateOperatingSystem3Params defines parameters for OperatingSystemServiceUpdateOperatingSystem3.
+type OperatingSystemServiceUpdateOperatingSystem3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
@@ -6697,6 +6697,30 @@ type OperatingSystemServicePatchOperatingSystemParams struct {
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
 
+// OperatingSystemServiceListOperatingSystems2Params defines parameters for OperatingSystemServiceListOperatingSystems2.
+type OperatingSystemServiceListOperatingSystems2Params struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OperatingSystemServicePatchOperatingSystem2Params defines parameters for OperatingSystemServicePatchOperatingSystem2.
+type OperatingSystemServicePatchOperatingSystem2Params struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // CustomConfigServiceListCustomConfigsParams defines parameters for CustomConfigServiceListCustomConfigs.
 type CustomConfigServiceListCustomConfigsParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -7218,14 +7242,14 @@ type InstanceServiceUpdateInstance2JSONRequestBody = InstanceResource
 // LocalAccountServiceCreateLocalAccount2JSONRequestBody defines body for LocalAccountServiceCreateLocalAccount2 for application/json ContentType.
 type LocalAccountServiceCreateLocalAccount2JSONRequestBody = LocalAccountResource
 
-// OperatingSystemServiceCreateOperatingSystem2JSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem2 for application/json ContentType.
-type OperatingSystemServiceCreateOperatingSystem2JSONRequestBody = OperatingSystemResource
+// OperatingSystemServiceCreateOperatingSystem3JSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem3 for application/json ContentType.
+type OperatingSystemServiceCreateOperatingSystem3JSONRequestBody = OperatingSystemResource
 
-// OperatingSystemServicePatchOperatingSystem2JSONRequestBody defines body for OperatingSystemServicePatchOperatingSystem2 for application/json ContentType.
-type OperatingSystemServicePatchOperatingSystem2JSONRequestBody = OperatingSystemResource
+// OperatingSystemServicePatchOperatingSystem3JSONRequestBody defines body for OperatingSystemServicePatchOperatingSystem3 for application/json ContentType.
+type OperatingSystemServicePatchOperatingSystem3JSONRequestBody = OperatingSystemResource
 
-// OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem2 for application/json ContentType.
-type OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody = OperatingSystemResource
+// OperatingSystemServiceUpdateOperatingSystem3JSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem3 for application/json ContentType.
+type OperatingSystemServiceUpdateOperatingSystem3JSONRequestBody = OperatingSystemResource
 
 // OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy2 for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicy2JSONRequestBody = OSUpdatePolicy
@@ -7337,6 +7361,15 @@ type OperatingSystemServicePatchOperatingSystemJSONRequestBody = OperatingSystem
 
 // OperatingSystemServiceUpdateOperatingSystemJSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem for application/json ContentType.
 type OperatingSystemServiceUpdateOperatingSystemJSONRequestBody = OperatingSystemResource
+
+// OperatingSystemServiceCreateOperatingSystem2JSONRequestBody defines body for OperatingSystemServiceCreateOperatingSystem2 for application/json ContentType.
+type OperatingSystemServiceCreateOperatingSystem2JSONRequestBody = OperatingSystemResource
+
+// OperatingSystemServicePatchOperatingSystem2JSONRequestBody defines body for OperatingSystemServicePatchOperatingSystem2 for application/json ContentType.
+type OperatingSystemServicePatchOperatingSystem2JSONRequestBody = OperatingSystemResource
+
+// OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem2 for application/json ContentType.
+type OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody = OperatingSystemResource
 
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
 type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource

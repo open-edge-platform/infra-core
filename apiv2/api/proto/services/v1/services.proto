@@ -399,6 +399,10 @@ service OperatingSystemService {
       post: "/v1/projects/{projectName}/compute/operating_systems"
       body: "os"
       additional_bindings {
+        post: "/v1/projects/{projectName}/compute/os"
+        body: "os"
+      }
+      additional_bindings {
         post: "/edge-infra.orchestrator.apis/v2/operating_systems"
         body: "os"
       }
@@ -410,6 +414,9 @@ service OperatingSystemService {
       get: "/v1/projects/{projectName}/compute/operating_systems"
 
       additional_bindings {
+        get: "/v1/projects/{projectName}/compute/os"
+      }
+      additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/operating_systems"
       }
     };
@@ -420,6 +427,9 @@ service OperatingSystemService {
       get: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
 
       additional_bindings {
+        get: "/v1/projects/{projectName}/compute/os/{resourceId}"
+      }
+      additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
       }
     };
@@ -429,6 +439,10 @@ service OperatingSystemService {
     option (google.api.http) = {
       put: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
       body: "os"
+      additional_bindings {
+        put: "/v1/projects/{projectName}/compute/os/{resourceId}"
+        body: "os"
+      }
       additional_bindings {
         put: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
         body: "os"
@@ -441,6 +455,10 @@ service OperatingSystemService {
       patch: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
       body: "os"
       additional_bindings {
+        patch: "/v1/projects/{projectName}/compute/os/{resourceId}"
+        body: "os"
+      }
+      additional_bindings {
         patch: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
         body: "os"
       }
@@ -451,6 +469,9 @@ service OperatingSystemService {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
 
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/compute/os/{resourceId}"
+      }
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
       }

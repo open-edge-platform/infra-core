@@ -100,22 +100,22 @@ type ServerInterface interface {
 	LocationServiceListLocations2(ctx echo.Context, params LocationServiceListLocations2Params) error
 	// ListOperatingSystems
 	// (GET /edge-infra.orchestrator.apis/v2/operating_systems)
-	OperatingSystemServiceListOperatingSystems2(ctx echo.Context, params OperatingSystemServiceListOperatingSystems2Params) error
+	OperatingSystemServiceListOperatingSystems3(ctx echo.Context, params OperatingSystemServiceListOperatingSystems3Params) error
 	// CreateOperatingSystem
 	// (POST /edge-infra.orchestrator.apis/v2/operating_systems)
-	OperatingSystemServiceCreateOperatingSystem2(ctx echo.Context, params OperatingSystemServiceCreateOperatingSystem2Params) error
+	OperatingSystemServiceCreateOperatingSystem3(ctx echo.Context, params OperatingSystemServiceCreateOperatingSystem3Params) error
 	// DeleteOperatingSystem
 	// (DELETE /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServiceDeleteOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServiceDeleteOperatingSystem2Params) error
+	OperatingSystemServiceDeleteOperatingSystem3(ctx echo.Context, resourceId string, params OperatingSystemServiceDeleteOperatingSystem3Params) error
 	// GetOperatingSystem
 	// (GET /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServiceGetOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServiceGetOperatingSystem2Params) error
+	OperatingSystemServiceGetOperatingSystem3(ctx echo.Context, resourceId string, params OperatingSystemServiceGetOperatingSystem3Params) error
 	// PatchOperatingSystem
 	// (PATCH /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServicePatchOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServicePatchOperatingSystem2Params) error
+	OperatingSystemServicePatchOperatingSystem3(ctx echo.Context, resourceId string, params OperatingSystemServicePatchOperatingSystem3Params) error
 	// UpdateOperatingSystem
 	// (PUT /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServiceUpdateOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServiceUpdateOperatingSystem2Params) error
+	OperatingSystemServiceUpdateOperatingSystem3(ctx echo.Context, resourceId string, params OperatingSystemServiceUpdateOperatingSystem3Params) error
 	// ListOSUpdatePolicy
 	// (GET /edge-infra.orchestrator.apis/v2/os_update_policy)
 	OSUpdatePolicyListOSUpdatePolicy2(ctx echo.Context, params OSUpdatePolicyListOSUpdatePolicy2Params) error
@@ -389,6 +389,24 @@ type ServerInterface interface {
 	// UpdateOperatingSystem
 	// (PUT /v1/projects/{projectName}/compute/operating_systems/{resourceId})
 	OperatingSystemServiceUpdateOperatingSystem(ctx echo.Context, projectName string, resourceId string) error
+	// ListOperatingSystems
+	// (GET /v1/projects/{projectName}/compute/os)
+	OperatingSystemServiceListOperatingSystems2(ctx echo.Context, projectName string, params OperatingSystemServiceListOperatingSystems2Params) error
+	// CreateOperatingSystem
+	// (POST /v1/projects/{projectName}/compute/os)
+	OperatingSystemServiceCreateOperatingSystem2(ctx echo.Context, projectName string) error
+	// DeleteOperatingSystem
+	// (DELETE /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServiceDeleteOperatingSystem2(ctx echo.Context, projectName string, resourceId string) error
+	// GetOperatingSystem
+	// (GET /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServiceGetOperatingSystem2(ctx echo.Context, projectName string, resourceId string) error
+	// PatchOperatingSystem
+	// (PATCH /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServicePatchOperatingSystem2(ctx echo.Context, projectName string, resourceId string, params OperatingSystemServicePatchOperatingSystem2Params) error
+	// UpdateOperatingSystem
+	// (PUT /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServiceUpdateOperatingSystem2(ctx echo.Context, projectName string, resourceId string) error
 	// ListCustomConfigs
 	// (GET /v1/projects/{projectName}/customConfigs)
 	CustomConfigServiceListCustomConfigs(ctx echo.Context, projectName string, params CustomConfigServiceListCustomConfigsParams) error
@@ -1401,12 +1419,12 @@ func (w *ServerInterfaceWrapper) LocationServiceListLocations2(ctx echo.Context)
 	return err
 }
 
-// OperatingSystemServiceListOperatingSystems2 converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems2(ctx echo.Context) error {
+// OperatingSystemServiceListOperatingSystems3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems3(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServiceListOperatingSystems2Params
+	var params OperatingSystemServiceListOperatingSystems3Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -1443,16 +1461,16 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems2(ctx
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceListOperatingSystems2(ctx, params)
+	err = w.Handler.OperatingSystemServiceListOperatingSystems3(ctx, params)
 	return err
 }
 
-// OperatingSystemServiceCreateOperatingSystem2 converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem2(ctx echo.Context) error {
+// OperatingSystemServiceCreateOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem3(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServiceCreateOperatingSystem2Params
+	var params OperatingSystemServiceCreateOperatingSystem3Params
 	// ------------- Required query parameter "projectName" -------------
 
 	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
@@ -1461,12 +1479,12 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem2(ct
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceCreateOperatingSystem2(ctx, params)
+	err = w.Handler.OperatingSystemServiceCreateOperatingSystem3(ctx, params)
 	return err
 }
 
-// OperatingSystemServiceDeleteOperatingSystem2 converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem2(ctx echo.Context) error {
+// OperatingSystemServiceDeleteOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem3(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1477,7 +1495,7 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem2(ct
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServiceDeleteOperatingSystem2Params
+	var params OperatingSystemServiceDeleteOperatingSystem3Params
 	// ------------- Required query parameter "projectName" -------------
 
 	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
@@ -1486,12 +1504,12 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem2(ct
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceDeleteOperatingSystem2(ctx, resourceId, params)
+	err = w.Handler.OperatingSystemServiceDeleteOperatingSystem3(ctx, resourceId, params)
 	return err
 }
 
-// OperatingSystemServiceGetOperatingSystem2 converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem2(ctx echo.Context) error {
+// OperatingSystemServiceGetOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem3(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1502,7 +1520,7 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem2(ctx e
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServiceGetOperatingSystem2Params
+	var params OperatingSystemServiceGetOperatingSystem3Params
 	// ------------- Required query parameter "projectName" -------------
 
 	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
@@ -1511,12 +1529,12 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem2(ctx e
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceGetOperatingSystem2(ctx, resourceId, params)
+	err = w.Handler.OperatingSystemServiceGetOperatingSystem3(ctx, resourceId, params)
 	return err
 }
 
-// OperatingSystemServicePatchOperatingSystem2 converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem2(ctx echo.Context) error {
+// OperatingSystemServicePatchOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem3(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1527,7 +1545,7 @@ func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem2(ctx
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServicePatchOperatingSystem2Params
+	var params OperatingSystemServicePatchOperatingSystem3Params
 	// ------------- Optional query parameter "fieldMask.paths" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "fieldMask.paths", ctx.QueryParams(), &params.FieldMaskPaths)
@@ -1543,12 +1561,12 @@ func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem2(ctx
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServicePatchOperatingSystem2(ctx, resourceId, params)
+	err = w.Handler.OperatingSystemServicePatchOperatingSystem3(ctx, resourceId, params)
 	return err
 }
 
-// OperatingSystemServiceUpdateOperatingSystem2 converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem2(ctx echo.Context) error {
+// OperatingSystemServiceUpdateOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem3(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1559,7 +1577,7 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem2(ct
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServiceUpdateOperatingSystem2Params
+	var params OperatingSystemServiceUpdateOperatingSystem3Params
 	// ------------- Required query parameter "projectName" -------------
 
 	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
@@ -1568,7 +1586,7 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem2(ct
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem2(ctx, resourceId, params)
+	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem3(ctx, resourceId, params)
 	return err
 }
 
@@ -4278,6 +4296,173 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem(ctx
 
 	// Invoke the callback with all the unmarshaled arguments
 	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServiceListOperatingSystems2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServiceListOperatingSystems2Params
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceListOperatingSystems2(ctx, projectName, params)
+	return err
+}
+
+// OperatingSystemServiceCreateOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceCreateOperatingSystem2(ctx, projectName)
+	return err
+}
+
+// OperatingSystemServiceDeleteOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceDeleteOperatingSystem2(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServiceGetOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceGetOperatingSystem2(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServicePatchOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServicePatchOperatingSystem2Params
+	// ------------- Optional query parameter "fieldMask.paths" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask.paths", ctx.QueryParams(), &params.FieldMaskPaths)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask.paths: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServicePatchOperatingSystem2(ctx, projectName, resourceId, params)
+	return err
+}
+
+// OperatingSystemServiceUpdateOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem2(ctx, projectName, resourceId)
 	return err
 }
 
@@ -6999,12 +7184,12 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceDeleteLocalAccount2)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceGetLocalAccount2)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/locations", wrapper.LocationServiceListLocations2)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceListOperatingSystems2)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceCreateOperatingSystem2)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem2)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem2)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem2)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceListOperatingSystems3)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceCreateOperatingSystem3)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem3)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem3)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem3)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem3)
 	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy", wrapper.OSUpdatePolicyListOSUpdatePolicy2)
 	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy", wrapper.OSUpdatePolicyCreateOSUpdatePolicy2)
 	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy/:resourceId", wrapper.OSUpdatePolicyDeleteOSUpdatePolicy2)
@@ -7096,6 +7281,12 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.GET(baseURL+"/v1/projects/:projectName/compute/operating_systems/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem)
 	router.PATCH(baseURL+"/v1/projects/:projectName/compute/operating_systems/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem)
 	router.PUT(baseURL+"/v1/projects/:projectName/compute/operating_systems/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/os", wrapper.OperatingSystemServiceListOperatingSystems2)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/os", wrapper.OperatingSystemServiceCreateOperatingSystem2)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem2)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem2)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem2)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem2)
 	router.GET(baseURL+"/v1/projects/:projectName/customConfigs", wrapper.CustomConfigServiceListCustomConfigs)
 	router.POST(baseURL+"/v1/projects/:projectName/customConfigs", wrapper.CustomConfigServiceCreateCustomConfig)
 	router.DELETE(baseURL+"/v1/projects/:projectName/customConfigs/:resourceId", wrapper.CustomConfigServiceDeleteCustomConfig)
@@ -7433,152 +7624,153 @@ var swaggerSpec = []string{
 	"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",
-	"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",
-	"//9LuUe4kcEEAA==",
+	"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",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

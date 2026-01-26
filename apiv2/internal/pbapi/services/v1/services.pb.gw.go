@@ -5365,10 +5365,6 @@ func local_request_OperatingSystemService_CreateOperatingSystem_0(ctx context.Co
 
 }
 
-var (
-	filter_OperatingSystemService_CreateOperatingSystem_1 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_OperatingSystemService_CreateOperatingSystem_1(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateOperatingSystemRequest
 	var metadata runtime.ServerMetadata
@@ -5381,11 +5377,21 @@ func request_OperatingSystemService_CreateOperatingSystem_1(ctx context.Context,
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_CreateOperatingSystem_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
 	}
 
 	msg, err := client.CreateOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5405,10 +5411,72 @@ func local_request_OperatingSystemService_CreateOperatingSystem_1(ctx context.Co
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	msg, err := server.CreateOperatingSystem(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OperatingSystemService_CreateOperatingSystem_2 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_OperatingSystemService_CreateOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Os); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_CreateOperatingSystem_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_CreateOperatingSystem_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OperatingSystemService_CreateOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, server OperatingSystemServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Os); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_CreateOperatingSystem_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -5488,12 +5556,29 @@ func local_request_OperatingSystemService_ListOperatingSystems_0(ctx context.Con
 }
 
 var (
-	filter_OperatingSystemService_ListOperatingSystems_1 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_OperatingSystemService_ListOperatingSystems_1 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_OperatingSystemService_ListOperatingSystems_1(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListOperatingSystemsRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -5511,10 +5596,63 @@ func local_request_OperatingSystemService_ListOperatingSystems_1(ctx context.Con
 	var protoReq ListOperatingSystemsRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_ListOperatingSystems_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListOperatingSystems(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OperatingSystemService_ListOperatingSystems_2 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_OperatingSystemService_ListOperatingSystems_2(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatingSystemsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_ListOperatingSystems_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListOperatingSystems(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OperatingSystemService_ListOperatingSystems_2(ctx context.Context, marshaler runtime.Marshaler, server OperatingSystemServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatingSystemsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_ListOperatingSystems_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -5595,10 +5733,6 @@ func local_request_OperatingSystemService_GetOperatingSystem_0(ctx context.Conte
 
 }
 
-var (
-	filter_OperatingSystemService_GetOperatingSystem_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_OperatingSystemService_GetOperatingSystem_1(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetOperatingSystemRequest
 	var metadata runtime.ServerMetadata
@@ -5610,6 +5744,16 @@ func request_OperatingSystemService_GetOperatingSystem_1(ctx context.Context, ma
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -5618,13 +5762,6 @@ func request_OperatingSystemService_GetOperatingSystem_1(ctx context.Context, ma
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_GetOperatingSystem_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5643,6 +5780,46 @@ func local_request_OperatingSystemService_GetOperatingSystem_1(ctx context.Conte
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.GetOperatingSystem(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OperatingSystemService_GetOperatingSystem_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_OperatingSystemService_GetOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -5656,7 +5833,40 @@ func local_request_OperatingSystemService_GetOperatingSystem_1(ctx context.Conte
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_GetOperatingSystem_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_GetOperatingSystem_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OperatingSystemService_GetOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, server OperatingSystemServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_GetOperatingSystem_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -5753,10 +5963,6 @@ func local_request_OperatingSystemService_UpdateOperatingSystem_0(ctx context.Co
 
 }
 
-var (
-	filter_OperatingSystemService_UpdateOperatingSystem_1 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
-)
-
 func request_OperatingSystemService_UpdateOperatingSystem_1(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateOperatingSystemRequest
 	var metadata runtime.ServerMetadata
@@ -5776,6 +5982,16 @@ func request_OperatingSystemService_UpdateOperatingSystem_1(ctx context.Context,
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -5784,13 +6000,6 @@ func request_OperatingSystemService_UpdateOperatingSystem_1(ctx context.Context,
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_UpdateOperatingSystem_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.UpdateOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -5817,6 +6026,54 @@ func local_request_OperatingSystemService_UpdateOperatingSystem_1(ctx context.Co
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.UpdateOperatingSystem(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OperatingSystemService_UpdateOperatingSystem_2 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
+)
+
+func request_OperatingSystemService_UpdateOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Os); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -5830,7 +6087,48 @@ func local_request_OperatingSystemService_UpdateOperatingSystem_1(ctx context.Co
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_UpdateOperatingSystem_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_UpdateOperatingSystem_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.UpdateOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OperatingSystemService_UpdateOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, server OperatingSystemServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Os); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_UpdateOperatingSystem_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -5960,7 +6258,7 @@ func local_request_OperatingSystemService_PatchOperatingSystem_0(ctx context.Con
 }
 
 var (
-	filter_OperatingSystemService_PatchOperatingSystem_1 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
+	filter_OperatingSystemService_PatchOperatingSystem_1 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0, "projectName": 1, "resourceId": 2}, Base: []int{1, 2, 4, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 2, 3, 3, 4, 4}}
 )
 
 func request_OperatingSystemService_PatchOperatingSystem_1(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -5988,6 +6286,16 @@ func request_OperatingSystemService_PatchOperatingSystem_1(ctx context.Context, 
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	val, ok = pathParams["resourceId"]
 	if !ok {
@@ -6037,6 +6345,16 @@ func local_request_OperatingSystemService_PatchOperatingSystem_1(ctx context.Con
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -6051,6 +6369,106 @@ func local_request_OperatingSystemService_PatchOperatingSystem_1(ctx context.Con
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_PatchOperatingSystem_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.PatchOperatingSystem(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OperatingSystemService_PatchOperatingSystem_2 = &utilities.DoubleArray{Encoding: map[string]int{"os": 0, "resourceId": 1}, Base: []int{1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 2, 2, 3, 3}}
+)
+
+func request_OperatingSystemService_PatchOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PatchOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Os); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if protoReq.FieldMask == nil || len(protoReq.FieldMask.GetPaths()) == 0 {
+		if fieldMask, err := runtime.FieldMaskFromRequestBody(newReader(), protoReq.Os); err != nil {
+			return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+		} else {
+			protoReq.FieldMask = fieldMask
+		}
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_PatchOperatingSystem_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.PatchOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OperatingSystemService_PatchOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, server OperatingSystemServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PatchOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Os); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if protoReq.FieldMask == nil || len(protoReq.FieldMask.GetPaths()) == 0 {
+		if fieldMask, err := runtime.FieldMaskFromRequestBody(newReader(), protoReq.Os); err != nil {
+			return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+		} else {
+			protoReq.FieldMask = fieldMask
+		}
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_PatchOperatingSystem_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -6131,10 +6549,6 @@ func local_request_OperatingSystemService_DeleteOperatingSystem_0(ctx context.Co
 
 }
 
-var (
-	filter_OperatingSystemService_DeleteOperatingSystem_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_OperatingSystemService_DeleteOperatingSystem_1(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteOperatingSystemRequest
 	var metadata runtime.ServerMetadata
@@ -6146,6 +6560,16 @@ func request_OperatingSystemService_DeleteOperatingSystem_1(ctx context.Context,
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -6154,13 +6578,6 @@ func request_OperatingSystemService_DeleteOperatingSystem_1(ctx context.Context,
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_DeleteOperatingSystem_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -6179,6 +6596,46 @@ func local_request_OperatingSystemService_DeleteOperatingSystem_1(ctx context.Co
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.DeleteOperatingSystem(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OperatingSystemService_DeleteOperatingSystem_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_OperatingSystemService_DeleteOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, client OperatingSystemServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -6192,7 +6649,40 @@ func local_request_OperatingSystemService_DeleteOperatingSystem_1(ctx context.Co
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_DeleteOperatingSystem_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_DeleteOperatingSystem_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.DeleteOperatingSystem(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OperatingSystemService_DeleteOperatingSystem_2(ctx context.Context, marshaler runtime.Marshaler, server OperatingSystemServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteOperatingSystemRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OperatingSystemService_DeleteOperatingSystem_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -17067,7 +17557,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/CreateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/CreateOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -17081,6 +17571,31 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_CreateOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_OperatingSystemService_CreateOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/CreateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OperatingSystemService_CreateOperatingSystem_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_CreateOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -17117,7 +17632,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/ListOperatingSystems", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/ListOperatingSystems", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -17131,6 +17646,31 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_ListOperatingSystems_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_OperatingSystemService_ListOperatingSystems_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/ListOperatingSystems", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OperatingSystemService_ListOperatingSystems_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_ListOperatingSystems_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -17167,7 +17707,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -17181,6 +17721,31 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_GetOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_OperatingSystemService_GetOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OperatingSystemService_GetOperatingSystem_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_GetOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -17217,7 +17782,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -17231,6 +17796,31 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_UpdateOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PUT", pattern_OperatingSystemService_UpdateOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OperatingSystemService_UpdateOperatingSystem_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_UpdateOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -17267,7 +17857,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -17281,6 +17871,31 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_PatchOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_OperatingSystemService_PatchOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OperatingSystemService_PatchOperatingSystem_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_PatchOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -17317,7 +17932,7 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -17331,6 +17946,31 @@ func RegisterOperatingSystemServiceHandlerServer(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_DeleteOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_OperatingSystemService_DeleteOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OperatingSystemService_DeleteOperatingSystem_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_DeleteOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -22779,7 +23419,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/CreateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/CreateOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -22792,6 +23432,28 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_CreateOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_OperatingSystemService_CreateOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/CreateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OperatingSystemService_CreateOperatingSystem_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_CreateOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -22823,7 +23485,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/ListOperatingSystems", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/ListOperatingSystems", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -22836,6 +23498,28 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_ListOperatingSystems_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_OperatingSystemService_ListOperatingSystems_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/ListOperatingSystems", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OperatingSystemService_ListOperatingSystems_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_ListOperatingSystems_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -22867,7 +23551,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -22880,6 +23564,28 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_GetOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_OperatingSystemService_GetOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/GetOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OperatingSystemService_GetOperatingSystem_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_GetOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -22911,7 +23617,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -22924,6 +23630,28 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_UpdateOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PUT", pattern_OperatingSystemService_UpdateOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/UpdateOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OperatingSystemService_UpdateOperatingSystem_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_UpdateOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -22955,7 +23683,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -22968,6 +23696,28 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		}
 
 		forward_OperatingSystemService_PatchOperatingSystem_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_OperatingSystemService_PatchOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/PatchOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OperatingSystemService_PatchOperatingSystem_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_PatchOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -22999,7 +23749,7 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/os/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -23015,33 +23765,67 @@ func RegisterOperatingSystemServiceHandlerClient(ctx context.Context, mux *runti
 
 	})
 
+	mux.Handle("DELETE", pattern_OperatingSystemService_DeleteOperatingSystem_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OperatingSystemService/DeleteOperatingSystem", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OperatingSystemService_DeleteOperatingSystem_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OperatingSystemService_DeleteOperatingSystem_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
 var (
 	pattern_OperatingSystemService_CreateOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "operating_systems"}, ""))
 
-	pattern_OperatingSystemService_CreateOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems"}, ""))
+	pattern_OperatingSystemService_CreateOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "os"}, ""))
+
+	pattern_OperatingSystemService_CreateOperatingSystem_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems"}, ""))
 
 	pattern_OperatingSystemService_ListOperatingSystems_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "operating_systems"}, ""))
 
-	pattern_OperatingSystemService_ListOperatingSystems_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems"}, ""))
+	pattern_OperatingSystemService_ListOperatingSystems_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "os"}, ""))
+
+	pattern_OperatingSystemService_ListOperatingSystems_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems"}, ""))
 
 	pattern_OperatingSystemService_GetOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "operating_systems", "resourceId"}, ""))
 
-	pattern_OperatingSystemService_GetOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
+	pattern_OperatingSystemService_GetOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "os", "resourceId"}, ""))
+
+	pattern_OperatingSystemService_GetOperatingSystem_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 
 	pattern_OperatingSystemService_UpdateOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "operating_systems", "resourceId"}, ""))
 
-	pattern_OperatingSystemService_UpdateOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
+	pattern_OperatingSystemService_UpdateOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "os", "resourceId"}, ""))
+
+	pattern_OperatingSystemService_UpdateOperatingSystem_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 
 	pattern_OperatingSystemService_PatchOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "operating_systems", "resourceId"}, ""))
 
-	pattern_OperatingSystemService_PatchOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
+	pattern_OperatingSystemService_PatchOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "os", "resourceId"}, ""))
+
+	pattern_OperatingSystemService_PatchOperatingSystem_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 
 	pattern_OperatingSystemService_DeleteOperatingSystem_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "operating_systems", "resourceId"}, ""))
 
-	pattern_OperatingSystemService_DeleteOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
+	pattern_OperatingSystemService_DeleteOperatingSystem_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "compute", "os", "resourceId"}, ""))
+
+	pattern_OperatingSystemService_DeleteOperatingSystem_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "operating_systems", "resourceId"}, ""))
 )
 
 var (
@@ -23049,25 +23833,37 @@ var (
 
 	forward_OperatingSystemService_CreateOperatingSystem_1 = runtime.ForwardResponseMessage
 
+	forward_OperatingSystemService_CreateOperatingSystem_2 = runtime.ForwardResponseMessage
+
 	forward_OperatingSystemService_ListOperatingSystems_0 = runtime.ForwardResponseMessage
 
 	forward_OperatingSystemService_ListOperatingSystems_1 = runtime.ForwardResponseMessage
+
+	forward_OperatingSystemService_ListOperatingSystems_2 = runtime.ForwardResponseMessage
 
 	forward_OperatingSystemService_GetOperatingSystem_0 = runtime.ForwardResponseMessage
 
 	forward_OperatingSystemService_GetOperatingSystem_1 = runtime.ForwardResponseMessage
 
+	forward_OperatingSystemService_GetOperatingSystem_2 = runtime.ForwardResponseMessage
+
 	forward_OperatingSystemService_UpdateOperatingSystem_0 = runtime.ForwardResponseMessage
 
 	forward_OperatingSystemService_UpdateOperatingSystem_1 = runtime.ForwardResponseMessage
+
+	forward_OperatingSystemService_UpdateOperatingSystem_2 = runtime.ForwardResponseMessage
 
 	forward_OperatingSystemService_PatchOperatingSystem_0 = runtime.ForwardResponseMessage
 
 	forward_OperatingSystemService_PatchOperatingSystem_1 = runtime.ForwardResponseMessage
 
+	forward_OperatingSystemService_PatchOperatingSystem_2 = runtime.ForwardResponseMessage
+
 	forward_OperatingSystemService_DeleteOperatingSystem_0 = runtime.ForwardResponseMessage
 
 	forward_OperatingSystemService_DeleteOperatingSystem_1 = runtime.ForwardResponseMessage
+
+	forward_OperatingSystemService_DeleteOperatingSystem_2 = runtime.ForwardResponseMessage
 )
 
 // RegisterProviderServiceHandlerFromEndpoint is same as RegisterProviderServiceHandler but

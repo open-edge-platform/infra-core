@@ -187,29 +187,29 @@ type ClientInterface interface {
 	// LocationServiceListLocations2 request
 	LocationServiceListLocations2(ctx context.Context, params *LocationServiceListLocations2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OperatingSystemServiceListOperatingSystems2 request
-	OperatingSystemServiceListOperatingSystems2(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// OperatingSystemServiceListOperatingSystems3 request
+	OperatingSystemServiceListOperatingSystems3(ctx context.Context, params *OperatingSystemServiceListOperatingSystems3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OperatingSystemServiceCreateOperatingSystem2WithBody request with any body
-	OperatingSystemServiceCreateOperatingSystem2WithBody(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// OperatingSystemServiceCreateOperatingSystem3WithBody request with any body
+	OperatingSystemServiceCreateOperatingSystem3WithBody(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	OperatingSystemServiceCreateOperatingSystem2(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	OperatingSystemServiceCreateOperatingSystem3(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, body OperatingSystemServiceCreateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OperatingSystemServiceDeleteOperatingSystem2 request
-	OperatingSystemServiceDeleteOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// OperatingSystemServiceDeleteOperatingSystem3 request
+	OperatingSystemServiceDeleteOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OperatingSystemServiceGetOperatingSystem2 request
-	OperatingSystemServiceGetOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// OperatingSystemServiceGetOperatingSystem3 request
+	OperatingSystemServiceGetOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OperatingSystemServicePatchOperatingSystem2WithBody request with any body
-	OperatingSystemServicePatchOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// OperatingSystemServicePatchOperatingSystem3WithBody request with any body
+	OperatingSystemServicePatchOperatingSystem3WithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	OperatingSystemServicePatchOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	OperatingSystemServicePatchOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, body OperatingSystemServicePatchOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// OperatingSystemServiceUpdateOperatingSystem2WithBody request with any body
-	OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// OperatingSystemServiceUpdateOperatingSystem3WithBody request with any body
+	OperatingSystemServiceUpdateOperatingSystem3WithBody(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	OperatingSystemServiceUpdateOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	OperatingSystemServiceUpdateOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, body OperatingSystemServiceUpdateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// OSUpdatePolicyListOSUpdatePolicy2 request
 	OSUpdatePolicyListOSUpdatePolicy2(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -557,6 +557,30 @@ type ClientInterface interface {
 	OperatingSystemServiceUpdateOperatingSystemWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	OperatingSystemServiceUpdateOperatingSystem(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceListOperatingSystems2 request
+	OperatingSystemServiceListOperatingSystems2(ctx context.Context, projectName string, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceCreateOperatingSystem2WithBody request with any body
+	OperatingSystemServiceCreateOperatingSystem2WithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OperatingSystemServiceCreateOperatingSystem2(ctx context.Context, projectName string, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceDeleteOperatingSystem2 request
+	OperatingSystemServiceDeleteOperatingSystem2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceGetOperatingSystem2 request
+	OperatingSystemServiceGetOperatingSystem2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServicePatchOperatingSystem2WithBody request with any body
+	OperatingSystemServicePatchOperatingSystem2WithBody(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OperatingSystemServicePatchOperatingSystem2(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// OperatingSystemServiceUpdateOperatingSystem2WithBody request with any body
+	OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	OperatingSystemServiceUpdateOperatingSystem2(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CustomConfigServiceListCustomConfigs request
 	CustomConfigServiceListCustomConfigs(ctx context.Context, projectName string, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1319,8 +1343,8 @@ func (c *Client) LocationServiceListLocations2(ctx context.Context, params *Loca
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServiceListOperatingSystems2(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServiceListOperatingSystems2Request(c.Server, params)
+func (c *Client) OperatingSystemServiceListOperatingSystems3(ctx context.Context, params *OperatingSystemServiceListOperatingSystems3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceListOperatingSystems3Request(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1331,8 +1355,8 @@ func (c *Client) OperatingSystemServiceListOperatingSystems2(ctx context.Context
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServiceCreateOperatingSystem2WithBody(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(c.Server, params, contentType, body)
+func (c *Client) OperatingSystemServiceCreateOperatingSystem3WithBody(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceCreateOperatingSystem3RequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1343,8 +1367,8 @@ func (c *Client) OperatingSystemServiceCreateOperatingSystem2WithBody(ctx contex
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServiceCreateOperatingSystem2(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServiceCreateOperatingSystem2Request(c.Server, params, body)
+func (c *Client) OperatingSystemServiceCreateOperatingSystem3(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, body OperatingSystemServiceCreateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceCreateOperatingSystem3Request(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1355,8 +1379,8 @@ func (c *Client) OperatingSystemServiceCreateOperatingSystem2(ctx context.Contex
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServiceDeleteOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServiceDeleteOperatingSystem2Request(c.Server, resourceId, params)
+func (c *Client) OperatingSystemServiceDeleteOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceDeleteOperatingSystem3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1367,8 +1391,8 @@ func (c *Client) OperatingSystemServiceDeleteOperatingSystem2(ctx context.Contex
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServiceGetOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServiceGetOperatingSystem2Request(c.Server, resourceId, params)
+func (c *Client) OperatingSystemServiceGetOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceGetOperatingSystem3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1379,8 +1403,8 @@ func (c *Client) OperatingSystemServiceGetOperatingSystem2(ctx context.Context, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServicePatchOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) OperatingSystemServicePatchOperatingSystem3WithBody(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystem3RequestWithBody(c.Server, resourceId, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1391,8 +1415,8 @@ func (c *Client) OperatingSystemServicePatchOperatingSystem2WithBody(ctx context
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServicePatchOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServicePatchOperatingSystem2Request(c.Server, resourceId, params, body)
+func (c *Client) OperatingSystemServicePatchOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, body OperatingSystemServicePatchOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystem3Request(c.Server, resourceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1403,8 +1427,8 @@ func (c *Client) OperatingSystemServicePatchOperatingSystem2(ctx context.Context
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) OperatingSystemServiceUpdateOperatingSystem3WithBody(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceUpdateOperatingSystem3RequestWithBody(c.Server, resourceId, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1415,8 +1439,8 @@ func (c *Client) OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx contex
 	return c.Client.Do(req)
 }
 
-func (c *Client) OperatingSystemServiceUpdateOperatingSystem2(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewOperatingSystemServiceUpdateOperatingSystem2Request(c.Server, resourceId, params, body)
+func (c *Client) OperatingSystemServiceUpdateOperatingSystem3(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, body OperatingSystemServiceUpdateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceUpdateOperatingSystem3Request(c.Server, resourceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2953,6 +2977,114 @@ func (c *Client) OperatingSystemServiceUpdateOperatingSystemWithBody(ctx context
 
 func (c *Client) OperatingSystemServiceUpdateOperatingSystem(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewOperatingSystemServiceUpdateOperatingSystemRequest(c.Server, projectName, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceListOperatingSystems2(ctx context.Context, projectName string, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceListOperatingSystems2Request(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceCreateOperatingSystem2WithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceCreateOperatingSystem2(ctx context.Context, projectName string, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceCreateOperatingSystem2Request(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceDeleteOperatingSystem2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceDeleteOperatingSystem2Request(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceGetOperatingSystem2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceGetOperatingSystem2Request(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServicePatchOperatingSystem2WithBody(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServicePatchOperatingSystem2(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServicePatchOperatingSystem2Request(c.Server, projectName, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(c.Server, projectName, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) OperatingSystemServiceUpdateOperatingSystem2(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewOperatingSystemServiceUpdateOperatingSystem2Request(c.Server, projectName, resourceId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -6192,8 +6324,8 @@ func NewLocationServiceListLocations2Request(server string, params *LocationServ
 	return req, nil
 }
 
-// NewOperatingSystemServiceListOperatingSystems2Request generates requests for OperatingSystemServiceListOperatingSystems2
-func NewOperatingSystemServiceListOperatingSystems2Request(server string, params *OperatingSystemServiceListOperatingSystems2Params) (*http.Request, error) {
+// NewOperatingSystemServiceListOperatingSystems3Request generates requests for OperatingSystemServiceListOperatingSystems3
+func NewOperatingSystemServiceListOperatingSystems3Request(server string, params *OperatingSystemServiceListOperatingSystems3Params) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -6301,19 +6433,19 @@ func NewOperatingSystemServiceListOperatingSystems2Request(server string, params
 	return req, nil
 }
 
-// NewOperatingSystemServiceCreateOperatingSystem2Request calls the generic OperatingSystemServiceCreateOperatingSystem2 builder with application/json body
-func NewOperatingSystemServiceCreateOperatingSystem2Request(server string, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody) (*http.Request, error) {
+// NewOperatingSystemServiceCreateOperatingSystem3Request calls the generic OperatingSystemServiceCreateOperatingSystem3 builder with application/json body
+func NewOperatingSystemServiceCreateOperatingSystem3Request(server string, params *OperatingSystemServiceCreateOperatingSystem3Params, body OperatingSystemServiceCreateOperatingSystem3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server, params, "application/json", bodyReader)
+	return NewOperatingSystemServiceCreateOperatingSystem3RequestWithBody(server, params, "application/json", bodyReader)
 }
 
-// NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody generates requests for OperatingSystemServiceCreateOperatingSystem2 with any type of body
-func NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server string, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewOperatingSystemServiceCreateOperatingSystem3RequestWithBody generates requests for OperatingSystemServiceCreateOperatingSystem3 with any type of body
+func NewOperatingSystemServiceCreateOperatingSystem3RequestWithBody(server string, params *OperatingSystemServiceCreateOperatingSystem3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -6359,8 +6491,8 @@ func NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server strin
 	return req, nil
 }
 
-// NewOperatingSystemServiceDeleteOperatingSystem2Request generates requests for OperatingSystemServiceDeleteOperatingSystem2
-func NewOperatingSystemServiceDeleteOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params) (*http.Request, error) {
+// NewOperatingSystemServiceDeleteOperatingSystem3Request generates requests for OperatingSystemServiceDeleteOperatingSystem3
+func NewOperatingSystemServiceDeleteOperatingSystem3Request(server string, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -6411,8 +6543,8 @@ func NewOperatingSystemServiceDeleteOperatingSystem2Request(server string, resou
 	return req, nil
 }
 
-// NewOperatingSystemServiceGetOperatingSystem2Request generates requests for OperatingSystemServiceGetOperatingSystem2
-func NewOperatingSystemServiceGetOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params) (*http.Request, error) {
+// NewOperatingSystemServiceGetOperatingSystem3Request generates requests for OperatingSystemServiceGetOperatingSystem3
+func NewOperatingSystemServiceGetOperatingSystem3Request(server string, resourceId string, params *OperatingSystemServiceGetOperatingSystem3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -6463,19 +6595,19 @@ func NewOperatingSystemServiceGetOperatingSystem2Request(server string, resource
 	return req, nil
 }
 
-// NewOperatingSystemServicePatchOperatingSystem2Request calls the generic OperatingSystemServicePatchOperatingSystem2 builder with application/json body
-func NewOperatingSystemServicePatchOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody) (*http.Request, error) {
+// NewOperatingSystemServicePatchOperatingSystem3Request calls the generic OperatingSystemServicePatchOperatingSystem3 builder with application/json body
+func NewOperatingSystemServicePatchOperatingSystem3Request(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, body OperatingSystemServicePatchOperatingSystem3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewOperatingSystemServicePatchOperatingSystem3RequestWithBody(server, resourceId, params, "application/json", bodyReader)
 }
 
-// NewOperatingSystemServicePatchOperatingSystem2RequestWithBody generates requests for OperatingSystemServicePatchOperatingSystem2 with any type of body
-func NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewOperatingSystemServicePatchOperatingSystem3RequestWithBody generates requests for OperatingSystemServicePatchOperatingSystem3 with any type of body
+func NewOperatingSystemServicePatchOperatingSystem3RequestWithBody(server string, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -6544,19 +6676,19 @@ func NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server string
 	return req, nil
 }
 
-// NewOperatingSystemServiceUpdateOperatingSystem2Request calls the generic OperatingSystemServiceUpdateOperatingSystem2 builder with application/json body
-func NewOperatingSystemServiceUpdateOperatingSystem2Request(server string, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody) (*http.Request, error) {
+// NewOperatingSystemServiceUpdateOperatingSystem3Request calls the generic OperatingSystemServiceUpdateOperatingSystem3 builder with application/json body
+func NewOperatingSystemServiceUpdateOperatingSystem3Request(server string, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, body OperatingSystemServiceUpdateOperatingSystem3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewOperatingSystemServiceUpdateOperatingSystem3RequestWithBody(server, resourceId, params, "application/json", bodyReader)
 }
 
-// NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody generates requests for OperatingSystemServiceUpdateOperatingSystem2 with any type of body
-func NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(server string, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewOperatingSystemServiceUpdateOperatingSystem3RequestWithBody generates requests for OperatingSystemServiceUpdateOperatingSystem3 with any type of body
+func NewOperatingSystemServiceUpdateOperatingSystem3RequestWithBody(server string, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -12946,6 +13078,369 @@ func NewOperatingSystemServiceUpdateOperatingSystemRequestWithBody(server string
 	return req, nil
 }
 
+// NewOperatingSystemServiceListOperatingSystems2Request generates requests for OperatingSystemServiceListOperatingSystems2
+func NewOperatingSystemServiceListOperatingSystems2Request(server string, projectName string, params *OperatingSystemServiceListOperatingSystems2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/compute/os", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceCreateOperatingSystem2Request calls the generic OperatingSystemServiceCreateOperatingSystem2 builder with application/json body
+func NewOperatingSystemServiceCreateOperatingSystem2Request(server string, projectName string, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody generates requests for OperatingSystemServiceCreateOperatingSystem2 with any type of body
+func NewOperatingSystemServiceCreateOperatingSystem2RequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/compute/os", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceDeleteOperatingSystem2Request generates requests for OperatingSystemServiceDeleteOperatingSystem2
+func NewOperatingSystemServiceDeleteOperatingSystem2Request(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/compute/os/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceGetOperatingSystem2Request generates requests for OperatingSystemServiceGetOperatingSystem2
+func NewOperatingSystemServiceGetOperatingSystem2Request(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/compute/os/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewOperatingSystemServicePatchOperatingSystem2Request calls the generic OperatingSystemServicePatchOperatingSystem2 builder with application/json body
+func NewOperatingSystemServicePatchOperatingSystem2Request(server string, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
+}
+
+// NewOperatingSystemServicePatchOperatingSystem2RequestWithBody generates requests for OperatingSystemServicePatchOperatingSystem2 with any type of body
+func NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server string, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/compute/os/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewOperatingSystemServiceUpdateOperatingSystem2Request calls the generic OperatingSystemServiceUpdateOperatingSystem2 builder with application/json body
+func NewOperatingSystemServiceUpdateOperatingSystem2Request(server string, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+}
+
+// NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody generates requests for OperatingSystemServiceUpdateOperatingSystem2 with any type of body
+func NewOperatingSystemServiceUpdateOperatingSystem2RequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/compute/os/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewCustomConfigServiceListCustomConfigsRequest generates requests for CustomConfigServiceListCustomConfigs
 func NewCustomConfigServiceListCustomConfigsRequest(server string, projectName string, params *CustomConfigServiceListCustomConfigsParams) (*http.Request, error) {
 	var err error
@@ -18757,29 +19252,29 @@ type ClientWithResponsesInterface interface {
 	// LocationServiceListLocations2WithResponse request
 	LocationServiceListLocations2WithResponse(ctx context.Context, params *LocationServiceListLocations2Params, reqEditors ...RequestEditorFn) (*LocationServiceListLocations2Response, error)
 
-	// OperatingSystemServiceListOperatingSystems2WithResponse request
-	OperatingSystemServiceListOperatingSystems2WithResponse(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems2Response, error)
+	// OperatingSystemServiceListOperatingSystems3WithResponse request
+	OperatingSystemServiceListOperatingSystems3WithResponse(ctx context.Context, params *OperatingSystemServiceListOperatingSystems3Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems3Response, error)
 
-	// OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse request with any body
-	OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error)
+	// OperatingSystemServiceCreateOperatingSystem3WithBodyWithResponse request with any body
+	OperatingSystemServiceCreateOperatingSystem3WithBodyWithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem3Response, error)
 
-	OperatingSystemServiceCreateOperatingSystem2WithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error)
+	OperatingSystemServiceCreateOperatingSystem3WithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, body OperatingSystemServiceCreateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem3Response, error)
 
-	// OperatingSystemServiceDeleteOperatingSystem2WithResponse request
-	OperatingSystemServiceDeleteOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem2Response, error)
+	// OperatingSystemServiceDeleteOperatingSystem3WithResponse request
+	OperatingSystemServiceDeleteOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem3Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem3Response, error)
 
-	// OperatingSystemServiceGetOperatingSystem2WithResponse request
-	OperatingSystemServiceGetOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem2Response, error)
+	// OperatingSystemServiceGetOperatingSystem3WithResponse request
+	OperatingSystemServiceGetOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem3Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem3Response, error)
 
-	// OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse request with any body
-	OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error)
+	// OperatingSystemServicePatchOperatingSystem3WithBodyWithResponse request with any body
+	OperatingSystemServicePatchOperatingSystem3WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem3Response, error)
 
-	OperatingSystemServicePatchOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error)
+	OperatingSystemServicePatchOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, body OperatingSystemServicePatchOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem3Response, error)
 
-	// OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse request with any body
-	OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error)
+	// OperatingSystemServiceUpdateOperatingSystem3WithBodyWithResponse request with any body
+	OperatingSystemServiceUpdateOperatingSystem3WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem3Response, error)
 
-	OperatingSystemServiceUpdateOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error)
+	OperatingSystemServiceUpdateOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, body OperatingSystemServiceUpdateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem3Response, error)
 
 	// OSUpdatePolicyListOSUpdatePolicy2WithResponse request
 	OSUpdatePolicyListOSUpdatePolicy2WithResponse(ctx context.Context, params *OSUpdatePolicyListOSUpdatePolicy2Params, reqEditors ...RequestEditorFn) (*OSUpdatePolicyListOSUpdatePolicy2Response, error)
@@ -19127,6 +19622,30 @@ type ClientWithResponsesInterface interface {
 	OperatingSystemServiceUpdateOperatingSystemWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystemResponse, error)
 
 	OperatingSystemServiceUpdateOperatingSystemWithResponse(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystemJSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystemResponse, error)
+
+	// OperatingSystemServiceListOperatingSystems2WithResponse request
+	OperatingSystemServiceListOperatingSystems2WithResponse(ctx context.Context, projectName string, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems2Response, error)
+
+	// OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse request with any body
+	OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error)
+
+	OperatingSystemServiceCreateOperatingSystem2WithResponse(ctx context.Context, projectName string, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error)
+
+	// OperatingSystemServiceDeleteOperatingSystem2WithResponse request
+	OperatingSystemServiceDeleteOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem2Response, error)
+
+	// OperatingSystemServiceGetOperatingSystem2WithResponse request
+	OperatingSystemServiceGetOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem2Response, error)
+
+	// OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse request with any body
+	OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error)
+
+	OperatingSystemServicePatchOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error)
+
+	// OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse request with any body
+	OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error)
+
+	OperatingSystemServiceUpdateOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error)
 
 	// CustomConfigServiceListCustomConfigsWithResponse request
 	CustomConfigServiceListCustomConfigsWithResponse(ctx context.Context, projectName string, params *CustomConfigServiceListCustomConfigsParams, reqEditors ...RequestEditorFn) (*CustomConfigServiceListCustomConfigsResponse, error)
@@ -20029,14 +20548,14 @@ func (r LocationServiceListLocations2Response) StatusCode() int {
 	return 0
 }
 
-type OperatingSystemServiceListOperatingSystems2Response struct {
+type OperatingSystemServiceListOperatingSystems3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListOperatingSystemsResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r OperatingSystemServiceListOperatingSystems2Response) Status() string {
+func (r OperatingSystemServiceListOperatingSystems3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20044,21 +20563,21 @@ func (r OperatingSystemServiceListOperatingSystems2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r OperatingSystemServiceListOperatingSystems2Response) StatusCode() int {
+func (r OperatingSystemServiceListOperatingSystems3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type OperatingSystemServiceCreateOperatingSystem2Response struct {
+type OperatingSystemServiceCreateOperatingSystem3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
 }
 
 // Status returns HTTPResponse.Status
-func (r OperatingSystemServiceCreateOperatingSystem2Response) Status() string {
+func (r OperatingSystemServiceCreateOperatingSystem3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20066,21 +20585,21 @@ func (r OperatingSystemServiceCreateOperatingSystem2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r OperatingSystemServiceCreateOperatingSystem2Response) StatusCode() int {
+func (r OperatingSystemServiceCreateOperatingSystem3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type OperatingSystemServiceDeleteOperatingSystem2Response struct {
+type OperatingSystemServiceDeleteOperatingSystem3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteOperatingSystemResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r OperatingSystemServiceDeleteOperatingSystem2Response) Status() string {
+func (r OperatingSystemServiceDeleteOperatingSystem3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20088,21 +20607,21 @@ func (r OperatingSystemServiceDeleteOperatingSystem2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r OperatingSystemServiceDeleteOperatingSystem2Response) StatusCode() int {
+func (r OperatingSystemServiceDeleteOperatingSystem3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type OperatingSystemServiceGetOperatingSystem2Response struct {
+type OperatingSystemServiceGetOperatingSystem3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
 }
 
 // Status returns HTTPResponse.Status
-func (r OperatingSystemServiceGetOperatingSystem2Response) Status() string {
+func (r OperatingSystemServiceGetOperatingSystem3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20110,21 +20629,21 @@ func (r OperatingSystemServiceGetOperatingSystem2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r OperatingSystemServiceGetOperatingSystem2Response) StatusCode() int {
+func (r OperatingSystemServiceGetOperatingSystem3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type OperatingSystemServicePatchOperatingSystem2Response struct {
+type OperatingSystemServicePatchOperatingSystem3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
 }
 
 // Status returns HTTPResponse.Status
-func (r OperatingSystemServicePatchOperatingSystem2Response) Status() string {
+func (r OperatingSystemServicePatchOperatingSystem3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20132,21 +20651,21 @@ func (r OperatingSystemServicePatchOperatingSystem2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r OperatingSystemServicePatchOperatingSystem2Response) StatusCode() int {
+func (r OperatingSystemServicePatchOperatingSystem3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type OperatingSystemServiceUpdateOperatingSystem2Response struct {
+type OperatingSystemServiceUpdateOperatingSystem3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *OperatingSystemResource
 }
 
 // Status returns HTTPResponse.Status
-func (r OperatingSystemServiceUpdateOperatingSystem2Response) Status() string {
+func (r OperatingSystemServiceUpdateOperatingSystem3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20154,7 +20673,7 @@ func (r OperatingSystemServiceUpdateOperatingSystem2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r OperatingSystemServiceUpdateOperatingSystem2Response) StatusCode() int {
+func (r OperatingSystemServiceUpdateOperatingSystem3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -22157,6 +22676,138 @@ func (r OperatingSystemServiceUpdateOperatingSystemResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r OperatingSystemServiceUpdateOperatingSystemResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceListOperatingSystems2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListOperatingSystemsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceListOperatingSystems2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceListOperatingSystems2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceCreateOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceCreateOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceCreateOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceDeleteOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteOperatingSystemResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceDeleteOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceDeleteOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceGetOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceGetOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceGetOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServicePatchOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServicePatchOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServicePatchOperatingSystem2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type OperatingSystemServiceUpdateOperatingSystem2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *OperatingSystemResource
+}
+
+// Status returns HTTPResponse.Status
+func (r OperatingSystemServiceUpdateOperatingSystem2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r OperatingSystemServiceUpdateOperatingSystem2Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -24413,82 +25064,82 @@ func (c *ClientWithResponses) LocationServiceListLocations2WithResponse(ctx cont
 	return ParseLocationServiceListLocations2Response(rsp)
 }
 
-// OperatingSystemServiceListOperatingSystems2WithResponse request returning *OperatingSystemServiceListOperatingSystems2Response
-func (c *ClientWithResponses) OperatingSystemServiceListOperatingSystems2WithResponse(ctx context.Context, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems2Response, error) {
-	rsp, err := c.OperatingSystemServiceListOperatingSystems2(ctx, params, reqEditors...)
+// OperatingSystemServiceListOperatingSystems3WithResponse request returning *OperatingSystemServiceListOperatingSystems3Response
+func (c *ClientWithResponses) OperatingSystemServiceListOperatingSystems3WithResponse(ctx context.Context, params *OperatingSystemServiceListOperatingSystems3Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems3Response, error) {
+	rsp, err := c.OperatingSystemServiceListOperatingSystems3(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServiceListOperatingSystems2Response(rsp)
+	return ParseOperatingSystemServiceListOperatingSystems3Response(rsp)
 }
 
-// OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceCreateOperatingSystem2Response
-func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServiceCreateOperatingSystem2WithBody(ctx, params, contentType, body, reqEditors...)
+// OperatingSystemServiceCreateOperatingSystem3WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceCreateOperatingSystem3Response
+func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem3WithBodyWithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServiceCreateOperatingSystem3WithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServiceCreateOperatingSystem3Response(rsp)
 }
 
-func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem2WithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem2Params, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServiceCreateOperatingSystem2(ctx, params, body, reqEditors...)
+func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem3WithResponse(ctx context.Context, params *OperatingSystemServiceCreateOperatingSystem3Params, body OperatingSystemServiceCreateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServiceCreateOperatingSystem3(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServiceCreateOperatingSystem3Response(rsp)
 }
 
-// OperatingSystemServiceDeleteOperatingSystem2WithResponse request returning *OperatingSystemServiceDeleteOperatingSystem2Response
-func (c *ClientWithResponses) OperatingSystemServiceDeleteOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServiceDeleteOperatingSystem2(ctx, resourceId, params, reqEditors...)
+// OperatingSystemServiceDeleteOperatingSystem3WithResponse request returning *OperatingSystemServiceDeleteOperatingSystem3Response
+func (c *ClientWithResponses) OperatingSystemServiceDeleteOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceDeleteOperatingSystem3Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServiceDeleteOperatingSystem3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServiceDeleteOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServiceDeleteOperatingSystem3Response(rsp)
 }
 
-// OperatingSystemServiceGetOperatingSystem2WithResponse request returning *OperatingSystemServiceGetOperatingSystem2Response
-func (c *ClientWithResponses) OperatingSystemServiceGetOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServiceGetOperatingSystem2(ctx, resourceId, params, reqEditors...)
+// OperatingSystemServiceGetOperatingSystem3WithResponse request returning *OperatingSystemServiceGetOperatingSystem3Response
+func (c *ClientWithResponses) OperatingSystemServiceGetOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceGetOperatingSystem3Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServiceGetOperatingSystem3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServiceGetOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServiceGetOperatingSystem3Response(rsp)
 }
 
-// OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServicePatchOperatingSystem2Response
-func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServicePatchOperatingSystem2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+// OperatingSystemServicePatchOperatingSystem3WithBodyWithResponse request with arbitrary body returning *OperatingSystemServicePatchOperatingSystem3Response
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem3WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystem3WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServicePatchOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServicePatchOperatingSystem3Response(rsp)
 }
 
-func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServicePatchOperatingSystem2(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServicePatchOperatingSystem3Params, body OperatingSystemServicePatchOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystem3(ctx, resourceId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServicePatchOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServicePatchOperatingSystem3Response(rsp)
 }
 
-// OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceUpdateOperatingSystem2Response
-func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+// OperatingSystemServiceUpdateOperatingSystem3WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceUpdateOperatingSystem3Response
+func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem3WithBodyWithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem3WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServiceUpdateOperatingSystem3Response(rsp)
 }
 
-func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem2WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem2Params, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
-	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem2(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem3WithResponse(ctx context.Context, resourceId string, params *OperatingSystemServiceUpdateOperatingSystem3Params, body OperatingSystemServiceUpdateOperatingSystem3JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem3Response, error) {
+	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem3(ctx, resourceId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp)
+	return ParseOperatingSystemServiceUpdateOperatingSystem3Response(rsp)
 }
 
 // OSUpdatePolicyListOSUpdatePolicy2WithResponse request returning *OSUpdatePolicyListOSUpdatePolicy2Response
@@ -25604,6 +26255,84 @@ func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystemWithRes
 		return nil, err
 	}
 	return ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp)
+}
+
+// OperatingSystemServiceListOperatingSystems2WithResponse request returning *OperatingSystemServiceListOperatingSystems2Response
+func (c *ClientWithResponses) OperatingSystemServiceListOperatingSystems2WithResponse(ctx context.Context, projectName string, params *OperatingSystemServiceListOperatingSystems2Params, reqEditors ...RequestEditorFn) (*OperatingSystemServiceListOperatingSystems2Response, error) {
+	rsp, err := c.OperatingSystemServiceListOperatingSystems2(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceListOperatingSystems2Response(rsp)
+}
+
+// OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceCreateOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem2WithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceCreateOperatingSystem2WithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp)
+}
+
+func (c *ClientWithResponses) OperatingSystemServiceCreateOperatingSystem2WithResponse(ctx context.Context, projectName string, body OperatingSystemServiceCreateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceCreateOperatingSystem2(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServiceDeleteOperatingSystem2WithResponse request returning *OperatingSystemServiceDeleteOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceDeleteOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OperatingSystemServiceDeleteOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceDeleteOperatingSystem2(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceDeleteOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServiceGetOperatingSystem2WithResponse request returning *OperatingSystemServiceGetOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceGetOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*OperatingSystemServiceGetOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceGetOperatingSystem2(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceGetOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServicePatchOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem2WithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystem2WithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServicePatchOperatingSystem2Response(rsp)
+}
+
+func (c *ClientWithResponses) OperatingSystemServicePatchOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, params *OperatingSystemServicePatchOperatingSystem2Params, body OperatingSystemServicePatchOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServicePatchOperatingSystem2(ctx, projectName, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServicePatchOperatingSystem2Response(rsp)
+}
+
+// OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse request with arbitrary body returning *OperatingSystemServiceUpdateOperatingSystem2Response
+func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem2WithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem2WithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp)
+}
+
+func (c *ClientWithResponses) OperatingSystemServiceUpdateOperatingSystem2WithResponse(ctx context.Context, projectName string, resourceId string, body OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody, reqEditors ...RequestEditorFn) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
+	rsp, err := c.OperatingSystemServiceUpdateOperatingSystem2(ctx, projectName, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp)
 }
 
 // CustomConfigServiceListCustomConfigsWithResponse request returning *CustomConfigServiceListCustomConfigsResponse
@@ -27330,15 +28059,15 @@ func ParseLocationServiceListLocations2Response(rsp *http.Response) (*LocationSe
 	return response, nil
 }
 
-// ParseOperatingSystemServiceListOperatingSystems2Response parses an HTTP response from a OperatingSystemServiceListOperatingSystems2WithResponse call
-func ParseOperatingSystemServiceListOperatingSystems2Response(rsp *http.Response) (*OperatingSystemServiceListOperatingSystems2Response, error) {
+// ParseOperatingSystemServiceListOperatingSystems3Response parses an HTTP response from a OperatingSystemServiceListOperatingSystems3WithResponse call
+func ParseOperatingSystemServiceListOperatingSystems3Response(rsp *http.Response) (*OperatingSystemServiceListOperatingSystems3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &OperatingSystemServiceListOperatingSystems2Response{
+	response := &OperatingSystemServiceListOperatingSystems3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27356,15 +28085,15 @@ func ParseOperatingSystemServiceListOperatingSystems2Response(rsp *http.Response
 	return response, nil
 }
 
-// ParseOperatingSystemServiceCreateOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceCreateOperatingSystem2WithResponse call
-func ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
+// ParseOperatingSystemServiceCreateOperatingSystem3Response parses an HTTP response from a OperatingSystemServiceCreateOperatingSystem3WithResponse call
+func ParseOperatingSystemServiceCreateOperatingSystem3Response(rsp *http.Response) (*OperatingSystemServiceCreateOperatingSystem3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &OperatingSystemServiceCreateOperatingSystem2Response{
+	response := &OperatingSystemServiceCreateOperatingSystem3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27382,15 +28111,15 @@ func ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp *http.Respons
 	return response, nil
 }
 
-// ParseOperatingSystemServiceDeleteOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceDeleteOperatingSystem2WithResponse call
-func ParseOperatingSystemServiceDeleteOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceDeleteOperatingSystem2Response, error) {
+// ParseOperatingSystemServiceDeleteOperatingSystem3Response parses an HTTP response from a OperatingSystemServiceDeleteOperatingSystem3WithResponse call
+func ParseOperatingSystemServiceDeleteOperatingSystem3Response(rsp *http.Response) (*OperatingSystemServiceDeleteOperatingSystem3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &OperatingSystemServiceDeleteOperatingSystem2Response{
+	response := &OperatingSystemServiceDeleteOperatingSystem3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27408,15 +28137,15 @@ func ParseOperatingSystemServiceDeleteOperatingSystem2Response(rsp *http.Respons
 	return response, nil
 }
 
-// ParseOperatingSystemServiceGetOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceGetOperatingSystem2WithResponse call
-func ParseOperatingSystemServiceGetOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceGetOperatingSystem2Response, error) {
+// ParseOperatingSystemServiceGetOperatingSystem3Response parses an HTTP response from a OperatingSystemServiceGetOperatingSystem3WithResponse call
+func ParseOperatingSystemServiceGetOperatingSystem3Response(rsp *http.Response) (*OperatingSystemServiceGetOperatingSystem3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &OperatingSystemServiceGetOperatingSystem2Response{
+	response := &OperatingSystemServiceGetOperatingSystem3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27434,15 +28163,15 @@ func ParseOperatingSystemServiceGetOperatingSystem2Response(rsp *http.Response) 
 	return response, nil
 }
 
-// ParseOperatingSystemServicePatchOperatingSystem2Response parses an HTTP response from a OperatingSystemServicePatchOperatingSystem2WithResponse call
-func ParseOperatingSystemServicePatchOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
+// ParseOperatingSystemServicePatchOperatingSystem3Response parses an HTTP response from a OperatingSystemServicePatchOperatingSystem3WithResponse call
+func ParseOperatingSystemServicePatchOperatingSystem3Response(rsp *http.Response) (*OperatingSystemServicePatchOperatingSystem3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &OperatingSystemServicePatchOperatingSystem2Response{
+	response := &OperatingSystemServicePatchOperatingSystem3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27460,15 +28189,15 @@ func ParseOperatingSystemServicePatchOperatingSystem2Response(rsp *http.Response
 	return response, nil
 }
 
-// ParseOperatingSystemServiceUpdateOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceUpdateOperatingSystem2WithResponse call
-func ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
+// ParseOperatingSystemServiceUpdateOperatingSystem3Response parses an HTTP response from a OperatingSystemServiceUpdateOperatingSystem3WithResponse call
+func ParseOperatingSystemServiceUpdateOperatingSystem3Response(rsp *http.Response) (*OperatingSystemServiceUpdateOperatingSystem3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &OperatingSystemServiceUpdateOperatingSystem2Response{
+	response := &OperatingSystemServiceUpdateOperatingSystem3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -29835,6 +30564,162 @@ func ParseOperatingSystemServiceUpdateOperatingSystemResponse(rsp *http.Response
 	}
 
 	response := &OperatingSystemServiceUpdateOperatingSystemResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceListOperatingSystems2Response parses an HTTP response from a OperatingSystemServiceListOperatingSystems2WithResponse call
+func ParseOperatingSystemServiceListOperatingSystems2Response(rsp *http.Response) (*OperatingSystemServiceListOperatingSystems2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceListOperatingSystems2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListOperatingSystemsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceCreateOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceCreateOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceCreateOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceCreateOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceCreateOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceDeleteOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceDeleteOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceDeleteOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceDeleteOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceDeleteOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteOperatingSystemResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceGetOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceGetOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceGetOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceGetOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceGetOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServicePatchOperatingSystem2Response parses an HTTP response from a OperatingSystemServicePatchOperatingSystem2WithResponse call
+func ParseOperatingSystemServicePatchOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServicePatchOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServicePatchOperatingSystem2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest OperatingSystemResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseOperatingSystemServiceUpdateOperatingSystem2Response parses an HTTP response from a OperatingSystemServiceUpdateOperatingSystem2WithResponse call
+func ParseOperatingSystemServiceUpdateOperatingSystem2Response(rsp *http.Response) (*OperatingSystemServiceUpdateOperatingSystem2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &OperatingSystemServiceUpdateOperatingSystem2Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
