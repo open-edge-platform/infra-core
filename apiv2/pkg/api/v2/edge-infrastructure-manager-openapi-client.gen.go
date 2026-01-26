@@ -347,33 +347,33 @@ type ClientInterface interface {
 
 	SiteServiceUpdateSite3(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, body SiteServiceUpdateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryLogsGroupServiceListTelemetryLogsGroups2 request
-	TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryLogsGroupServiceListTelemetryLogsGroups3 request
+	TelemetryLogsGroupServiceListTelemetryLogsGroups3(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody request with any body
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBody request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBody(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup3(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2 request
-	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3 request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryLogsGroupServiceGetTelemetryLogsGroup2 request
-	TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroup3 request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup3(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2 request
-	TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups3 request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups3(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody request with any body
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBody request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBody(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2 request
-	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3 request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2 request
-	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3 request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryLogsProfileServiceListTelemetryLogsProfiles2 request
 	TelemetryLogsProfileServiceListTelemetryLogsProfiles2(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -874,6 +874,34 @@ type ClientInterface interface {
 
 	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup request
 	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceListTelemetryLogsGroups2 request
+	TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2 request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroup2 request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2 request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2 request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2 request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryLogsProfileServiceListTelemetryLogsProfiles request
 	TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx context.Context, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2102,8 +2130,8 @@ func (c *Client) SiteServiceUpdateSite3(ctx context.Context, resourceId string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(c.Server, params)
+func (c *Client) TelemetryLogsGroupServiceListTelemetryLogsGroups3(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceListTelemetryLogsGroups3Request(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2114,8 +2142,8 @@ func (c *Client) TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.C
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(c.Server, params, contentType, body)
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBody(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup3RequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2126,8 +2154,8 @@ func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx 
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request(c.Server, params, body)
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup3(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup3Request(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2138,8 +2166,8 @@ func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx context.
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(c.Server, resourceId, params)
+func (c *Client) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2150,8 +2178,8 @@ func (c *Client) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx context.
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(c.Server, resourceId, params)
+func (c *Client) TelemetryLogsGroupServiceGetTelemetryLogsGroup3(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceGetTelemetryLogsGroup3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2162,8 +2190,8 @@ func (c *Client) TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx context.Con
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(c.Server, params)
+func (c *Client) TelemetryMetricsGroupServiceListTelemetryMetricsGroups3(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups3Request(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2174,8 +2202,8 @@ func (c *Client) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx con
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(c.Server, params, contentType, body)
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBody(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3RequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2186,8 +2214,8 @@ func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBod
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request(c.Server, params, body)
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Request(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2198,8 +2226,8 @@ func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx co
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(c.Server, resourceId, params)
+func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2210,8 +2238,8 @@ func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx co
 	return c.Client.Do(req)
 }
 
-func (c *Client) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request(c.Server, resourceId, params)
+func (c *Client) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -4420,6 +4448,126 @@ func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx con
 
 func (c *Client) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(c.Server, projectName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(c.Server, projectName, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request(c.Server, projectName, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(c.Server, projectName, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request(c.Server, projectName, resourceId)
 	if err != nil {
 		return nil, err
 	}
@@ -9760,8 +9908,8 @@ func NewSiteServiceUpdateSite3RequestWithBody(server string, resourceId string, 
 	return req, nil
 }
 
-// NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request generates requests for TelemetryLogsGroupServiceListTelemetryLogsGroups2
-func NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(server string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params) (*http.Request, error) {
+// NewTelemetryLogsGroupServiceListTelemetryLogsGroups3Request generates requests for TelemetryLogsGroupServiceListTelemetryLogsGroups3
+func NewTelemetryLogsGroupServiceListTelemetryLogsGroups3Request(server string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups3Params) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -9853,19 +10001,19 @@ func NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(server string, 
 	return req, nil
 }
 
-// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request calls the generic TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 builder with application/json body
-func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request(server string, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody) (*http.Request, error) {
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup3Request calls the generic TelemetryLogsGroupServiceCreateTelemetryLogsGroup3 builder with application/json body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup3Request(server string, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server, params, "application/json", bodyReader)
+	return NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup3RequestWithBody(server, params, "application/json", bodyReader)
 }
 
-// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody generates requests for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 with any type of body
-func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server string, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup3RequestWithBody generates requests for TelemetryLogsGroupServiceCreateTelemetryLogsGroup3 with any type of body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup3RequestWithBody(server string, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -9911,8 +10059,8 @@ func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server
 	return req, nil
 }
 
-// NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request generates requests for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2
-func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(server string, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params) (*http.Request, error) {
+// NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Request generates requests for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3
+func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Request(server string, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -9963,8 +10111,8 @@ func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(server string,
 	return req, nil
 }
 
-// NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request generates requests for TelemetryLogsGroupServiceGetTelemetryLogsGroup2
-func NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(server string, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params) (*http.Request, error) {
+// NewTelemetryLogsGroupServiceGetTelemetryLogsGroup3Request generates requests for TelemetryLogsGroupServiceGetTelemetryLogsGroup3
+func NewTelemetryLogsGroupServiceGetTelemetryLogsGroup3Request(server string, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -10015,8 +10163,8 @@ func NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(server string, re
 	return req, nil
 }
 
-// NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request generates requests for TelemetryMetricsGroupServiceListTelemetryMetricsGroups2
-func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(server string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params) (*http.Request, error) {
+// NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups3Request generates requests for TelemetryMetricsGroupServiceListTelemetryMetricsGroups3
+func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups3Request(server string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -10108,19 +10256,19 @@ func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(server st
 	return req, nil
 }
 
-// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request calls the generic TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 builder with application/json body
-func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request(server string, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody) (*http.Request, error) {
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Request calls the generic TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3 builder with application/json body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Request(server string, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(server, params, "application/json", bodyReader)
+	return NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3RequestWithBody(server, params, "application/json", bodyReader)
 }
 
-// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody generates requests for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 with any type of body
-func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(server string, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3RequestWithBody generates requests for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3 with any type of body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3RequestWithBody(server string, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -10166,8 +10314,8 @@ func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(
 	return req, nil
 }
 
-// NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request generates requests for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2
-func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(server string, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params) (*http.Request, error) {
+// NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Request generates requests for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3
+func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Request(server string, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -10218,8 +10366,8 @@ func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(server s
 	return req, nil
 }
 
-// NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request generates requests for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2
-func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request(server string, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params) (*http.Request, error) {
+// NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Request generates requests for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3
+func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Request(server string, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -18898,6 +19046,440 @@ func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroupRequest(server strin
 	return req, nil
 }
 
+// NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request generates requests for TelemetryLogsGroupServiceListTelemetryLogsGroups2
+func NewTelemetryLogsGroupServiceListTelemetryLogsGroups2Request(server string, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/loggroups", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request calls the generic TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 builder with application/json body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Request(server string, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody generates requests for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 with any type of body
+func NewTelemetryLogsGroupServiceCreateTelemetryLogsGroup2RequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/loggroups", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request generates requests for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2
+func NewTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Request(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/loggroups/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request generates requests for TelemetryLogsGroupServiceGetTelemetryLogsGroup2
+func NewTelemetryLogsGroupServiceGetTelemetryLogsGroup2Request(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/loggroups/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request generates requests for TelemetryMetricsGroupServiceListTelemetryMetricsGroups2
+func NewTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Request(server string, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/metricgroups", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request calls the generic TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 builder with application/json body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Request(server string, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(server, projectName, "application/json", bodyReader)
+}
+
+// NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody generates requests for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 with any type of body
+func NewTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2RequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/metricgroups", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request generates requests for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2
+func NewTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Request(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/metricgroups/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request generates requests for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2
+func NewTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Request(server string, projectName string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/telemetry/metricgroups/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest generates requests for TelemetryLogsProfileServiceListTelemetryLogsProfiles
 func NewTelemetryLogsProfileServiceListTelemetryLogsProfilesRequest(server string, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams) (*http.Request, error) {
 	var err error
@@ -20617,33 +21199,33 @@ type ClientWithResponsesInterface interface {
 
 	SiteServiceUpdateSite3WithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, body SiteServiceUpdateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite3Response, error)
 
-	// TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request
-	TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error)
+	// TelemetryLogsGroupServiceListTelemetryLogsGroups3WithResponse request
+	TelemetryLogsGroupServiceListTelemetryLogsGroups3WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups3Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups3Response, error)
 
-	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse request with any body
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error)
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBodyWithResponse request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBodyWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response, error)
 
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error)
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response, error)
 
-	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse request
-	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error)
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3WithResponse request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response, error)
 
-	// TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse request
-	TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error)
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroup3WithResponse request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response, error)
 
-	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse request
-	TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error)
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups3WithResponse request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups3WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response, error)
 
-	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse request with any body
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error)
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBodyWithResponse request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response, error)
 
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error)
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response, error)
 
-	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse request
-	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error)
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3WithResponse request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response, error)
 
-	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse request
-	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error)
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3WithResponse request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response, error)
 
 	// TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse request
 	TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse(ctx context.Context, params *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response, error)
@@ -21144,6 +21726,34 @@ type ClientWithResponsesInterface interface {
 
 	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse request
 	TelemetryMetricsGroupServiceGetTelemetryMetricsGroupWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse, error)
+
+	// TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request
+	TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error)
+
+	// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse request with any body
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error)
+
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error)
+
+	// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse request
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error)
+
+	// TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse request
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error)
+
+	// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse request
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error)
+
+	// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse request with any body
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error)
+
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error)
+
+	// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse request
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error)
+
+	// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse request
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error)
 
 	// TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse request
 	TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse(ctx context.Context, projectName string, params *TelemetryLogsProfileServiceListTelemetryLogsProfilesParams, reqEditors ...RequestEditorFn) (*TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse, error)
@@ -22728,14 +23338,14 @@ func (r SiteServiceUpdateSite3Response) StatusCode() int {
 	return 0
 }
 
-type TelemetryLogsGroupServiceListTelemetryLogsGroups2Response struct {
+type TelemetryLogsGroupServiceListTelemetryLogsGroups3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListTelemetryLogsGroupsResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceListTelemetryLogsGroups2Response) Status() string {
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroups3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22743,21 +23353,21 @@ func (r TelemetryLogsGroupServiceListTelemetryLogsGroups2Response) Status() stri
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceListTelemetryLogsGroups2Response) StatusCode() int {
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroups3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response struct {
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsGroupResource
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response) Status() string {
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22765,21 +23375,21 @@ func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response) Status() str
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response) StatusCode() int {
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response struct {
+type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteTelemetryLogsGroupResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response) Status() string {
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22787,21 +23397,21 @@ func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response) Status() str
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response) StatusCode() int {
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response struct {
+type TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryLogsGroupResource
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response) Status() string {
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22809,21 +23419,21 @@ func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response) Status() string
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response) StatusCode() int {
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response struct {
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListTelemetryMetricsGroupsResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response) Status() string {
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22831,21 +23441,21 @@ func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response) Status(
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response) StatusCode() int {
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response struct {
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsGroupResource
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response) Status() string {
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22853,21 +23463,21 @@ func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response) Status
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response) StatusCode() int {
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response struct {
+type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteTelemetryMetricsGroupResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response) Status() string {
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22875,21 +23485,21 @@ func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response) Status
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response) StatusCode() int {
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response struct {
+type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *TelemetryMetricsGroupResource
 }
 
 // Status returns HTTPResponse.Status
-func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response) Status() string {
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -22897,7 +23507,7 @@ func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response) Status() 
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response) StatusCode() int {
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -25808,6 +26418,182 @@ func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse) StatusCode
 	return 0
 }
 
+type TelemetryLogsGroupServiceListTelemetryLogsGroups2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryLogsGroupsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroups2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceListTelemetryLogsGroups2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryLogsGroupResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryLogsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListTelemetryMetricsGroupsResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteTelemetryMetricsGroupResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryMetricsGroupResource
+}
+
+// Status returns HTTPResponse.Status
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -27120,92 +27906,92 @@ func (c *ClientWithResponses) SiteServiceUpdateSite3WithResponse(ctx context.Con
 	return ParseSiteServiceUpdateSite3Response(rsp)
 }
 
-// TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroups2Response
-func (c *ClientWithResponses) TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error) {
-	rsp, err := c.TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx, params, reqEditors...)
+// TelemetryLogsGroupServiceListTelemetryLogsGroups3WithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroups3Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceListTelemetryLogsGroups3WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups3Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups3Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceListTelemetryLogsGroups3(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response(rsp)
+	return ParseTelemetryLogsGroupServiceListTelemetryLogsGroups3Response(rsp)
 }
 
-// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse request with arbitrary body returning *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response
-func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
-	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx, params, contentType, body, reqEditors...)
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBodyWithResponse request with arbitrary body returning *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBodyWithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp)
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response(rsp)
 }
 
-func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
-	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx, params, body, reqEditors...)
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup3(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp)
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response(rsp)
 }
 
-// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse request returning *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response
-func (c *ClientWithResponses) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error) {
-	rsp, err := c.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx, resourceId, params, reqEditors...)
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3WithResponse request returning *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response(rsp)
+	return ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response(rsp)
 }
 
-// TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse request returning *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response
-func (c *ClientWithResponses) TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error) {
-	rsp, err := c.TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx, resourceId, params, reqEditors...)
+// TelemetryLogsGroupServiceGetTelemetryLogsGroup3WithResponse request returning *TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceGetTelemetryLogsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryLogsGroupServiceGetTelemetryLogsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceGetTelemetryLogsGroup3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response(rsp)
+	return ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup3Response(rsp)
 }
 
-// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse request returning *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx, params, reqEditors...)
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups3WithResponse request returning *TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceListTelemetryMetricsGroups3WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceListTelemetryMetricsGroups3(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response(rsp)
+	return ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response(rsp)
 }
 
-// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse request with arbitrary body returning *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx, params, contentType, body, reqEditors...)
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBodyWithResponse request with arbitrary body returning *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBodyWithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp)
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response(rsp)
 }
 
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx, params, body, reqEditors...)
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithResponse(ctx context.Context, params *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp)
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response(rsp)
 }
 
-// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse request returning *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx, resourceId, params, reqEditors...)
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3WithResponse request returning *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response(rsp)
+	return ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response(rsp)
 }
 
-// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse request returning *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response
-func (c *ClientWithResponses) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error) {
-	rsp, err := c.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx, resourceId, params, reqEditors...)
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3WithResponse request returning *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3WithResponse(ctx context.Context, resourceId string, params *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response(rsp)
+	return ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response(rsp)
 }
 
 // TelemetryLogsProfileServiceListTelemetryLogsProfiles2WithResponse request returning *TelemetryLogsProfileServiceListTelemetryLogsProfiles2Response
@@ -28810,6 +29596,94 @@ func (c *ClientWithResponses) TelemetryMetricsGroupServiceGetTelemetryMetricsGro
 		return nil, err
 	}
 	return ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse(rsp)
+}
+
+// TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroups2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response(rsp)
+}
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse request with arbitrary body returning *TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse(ctx context.Context, projectName string, body TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp)
+}
+
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse request returning *TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response(rsp)
+}
+
+// TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse request returning *TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response
+func (c *ClientWithResponses) TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error) {
+	rsp, err := c.TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse request returning *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse(ctx context.Context, projectName string, params *TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx, projectName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse request with arbitrary body returning *TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithBody(ctx, projectName, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp)
+}
+
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse(ctx context.Context, projectName string, body TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx, projectName, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse request returning *TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response(rsp)
+}
+
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse request returning *TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response
+func (c *ClientWithResponses) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error) {
+	rsp, err := c.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx, projectName, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response(rsp)
 }
 
 // TelemetryLogsProfileServiceListTelemetryLogsProfilesWithResponse request returning *TelemetryLogsProfileServiceListTelemetryLogsProfilesResponse
@@ -30858,15 +31732,15 @@ func ParseSiteServiceUpdateSite3Response(rsp *http.Response) (*SiteServiceUpdate
 	return response, nil
 }
 
-// ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response parses an HTTP response from a TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse call
-func ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response(rsp *http.Response) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error) {
+// ParseTelemetryLogsGroupServiceListTelemetryLogsGroups3Response parses an HTTP response from a TelemetryLogsGroupServiceListTelemetryLogsGroups3WithResponse call
+func ParseTelemetryLogsGroupServiceListTelemetryLogsGroups3Response(rsp *http.Response) (*TelemetryLogsGroupServiceListTelemetryLogsGroups3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryLogsGroupServiceListTelemetryLogsGroups2Response{
+	response := &TelemetryLogsGroupServiceListTelemetryLogsGroups3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -30884,15 +31758,15 @@ func ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response(rsp *http.Re
 	return response, nil
 }
 
-// ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse call
-func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
+// ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response parses an HTTP response from a TelemetryLogsGroupServiceCreateTelemetryLogsGroup3WithResponse call
+func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response(rsp *http.Response) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response{
+	response := &TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -30910,15 +31784,15 @@ func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp *http.R
 	return response, nil
 }
 
-// ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse call
-func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error) {
+// ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response parses an HTTP response from a TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3WithResponse call
+func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response(rsp *http.Response) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response{
+	response := &TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -30936,15 +31810,15 @@ func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response(rsp *http.R
 	return response, nil
 }
 
-// ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse call
-func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error) {
+// ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup3Response parses an HTTP response from a TelemetryLogsGroupServiceGetTelemetryLogsGroup3WithResponse call
+func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup3Response(rsp *http.Response) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response{
+	response := &TelemetryLogsGroupServiceGetTelemetryLogsGroup3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -30962,15 +31836,15 @@ func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response(rsp *http.Resp
 	return response, nil
 }
 
-// ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response parses an HTTP response from a TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse call
-func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error) {
+// ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response parses an HTTP response from a TelemetryMetricsGroupServiceListTelemetryMetricsGroups3WithResponse call
+func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response(rsp *http.Response) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response{
+	response := &TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -30988,15 +31862,15 @@ func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response(rsp *h
 	return response, nil
 }
 
-// ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse call
-func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
+// ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response parses an HTTP response from a TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3WithResponse call
+func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response(rsp *http.Response) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response{
+	response := &TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -31014,15 +31888,15 @@ func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp *
 	return response, nil
 }
 
-// ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse call
-func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error) {
+// ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response parses an HTTP response from a TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3WithResponse call
+func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response(rsp *http.Response) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response{
+	response := &TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -31040,15 +31914,15 @@ func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response(rsp *
 	return response, nil
 }
 
-// ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse call
-func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error) {
+// ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response parses an HTTP response from a TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3WithResponse call
+func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response(rsp *http.Response) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response{
+	response := &TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -34481,6 +35355,214 @@ func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse(rsp *http
 	}
 
 	response := &TelemetryMetricsGroupServiceGetTelemetryMetricsGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response parses an HTTP response from a TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse call
+func ParseTelemetryLogsGroupServiceListTelemetryLogsGroups2Response(rsp *http.Response) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceListTelemetryLogsGroups2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryLogsGroupsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceCreateTelemetryLogsGroup2WithResponse call
+func ParseTelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2WithResponse call
+func ParseTelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryLogsGroupResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response parses an HTTP response from a TelemetryLogsGroupServiceGetTelemetryLogsGroup2WithResponse call
+func ParseTelemetryLogsGroupServiceGetTelemetryLogsGroup2Response(rsp *http.Response) (*TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryLogsGroupServiceGetTelemetryLogsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryLogsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response parses an HTTP response from a TelemetryMetricsGroupServiceListTelemetryMetricsGroups2WithResponse call
+func ParseTelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListTelemetryMetricsGroupsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2WithResponse call
+func ParseTelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryMetricsGroupResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2WithResponse call
+func ParseTelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteTelemetryMetricsGroupResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response parses an HTTP response from a TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2WithResponse call
+func ParseTelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response(rsp *http.Response) (*TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

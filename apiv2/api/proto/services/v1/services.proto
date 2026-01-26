@@ -849,6 +849,12 @@ service TelemetryLogsGroupService {
     option (google.api.http) = {
       post: "/v1/projects/{projectName}/telemetry/groups/logs"
       body: "telemetry_logs_group"
+
+      additional_bindings {
+        post: "/v1/projects/{projectName}/telemetry/loggroups"
+        body: "telemetry_logs_group"
+      }
+
       additional_bindings {
         post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"
         body: "telemetry_logs_group"
@@ -861,6 +867,10 @@ service TelemetryLogsGroupService {
       get: "/v1/projects/{projectName}/telemetry/groups/logs"
 
       additional_bindings {
+        get: "/v1/projects/{projectName}/telemetry/loggroups"
+      }
+
+      additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"
       }
     };
@@ -869,6 +879,10 @@ service TelemetryLogsGroupService {
   rpc GetTelemetryLogsGroup(GetTelemetryLogsGroupRequest) returns (resources.telemetry.v1.TelemetryLogsGroupResource) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
+
+      additional_bindings {
+        get: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
+      }
 
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"
@@ -880,6 +894,10 @@ service TelemetryLogsGroupService {
   rpc DeleteTelemetryLogsGroup(DeleteTelemetryLogsGroupRequest) returns (DeleteTelemetryLogsGroupResponse) {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
+
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
+      }
 
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"
@@ -895,6 +913,12 @@ service TelemetryMetricsGroupService {
     option (google.api.http) = {
       post: "/v1/projects/{projectName}/telemetry/groups/metrics"
       body: "telemetry_metrics_group"
+
+      additional_bindings {
+        post: "/v1/projects/{projectName}/telemetry/metricgroups"
+        body: "telemetry_metrics_group"
+      }
+
       additional_bindings {
         post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"
         body: "telemetry_metrics_group"
@@ -907,6 +931,10 @@ service TelemetryMetricsGroupService {
       get: "/v1/projects/{projectName}/telemetry/groups/metrics"
 
       additional_bindings {
+        get: "/v1/projects/{projectName}/telemetry/metricgroups"
+      }
+
+      additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"
       }
     };
@@ -915,6 +943,10 @@ service TelemetryMetricsGroupService {
   rpc GetTelemetryMetricsGroup(GetTelemetryMetricsGroupRequest) returns (resources.telemetry.v1.TelemetryMetricsGroupResource) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
+
+      additional_bindings {
+        get: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
+      }
 
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"
@@ -926,6 +958,10 @@ service TelemetryMetricsGroupService {
   rpc DeleteTelemetryMetricsGroup(DeleteTelemetryMetricsGroupRequest) returns (DeleteTelemetryMetricsGroupResponse) {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
+
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
+      }
 
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"

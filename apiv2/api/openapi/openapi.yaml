@@ -3023,7 +3023,7 @@ paths:
         - TelemetryLogsGroupService
       summary: ListTelemetryLogsGroups
       description: Get a list of telemetry_logs_groups.
-      operationId: TelemetryLogsGroupService_ListTelemetryLogsGroups2
+      operationId: TelemetryLogsGroupService_ListTelemetryLogsGroups3
       parameters:
         - name: pageSize
           in: query
@@ -3080,7 +3080,7 @@ paths:
         - TelemetryLogsGroupService
       summary: CreateTelemetryLogsGroup
       description: Create a telemetry_logs_group.
-      operationId: TelemetryLogsGroupService_CreateTelemetryLogsGroup2
+      operationId: TelemetryLogsGroupService_CreateTelemetryLogsGroup3
       parameters:
         - name: projectName
           in: query
@@ -3111,7 +3111,7 @@ paths:
         - TelemetryLogsGroupService
       summary: GetTelemetryLogsGroup
       description: Get a specific telemetry_logs_group.
-      operationId: TelemetryLogsGroupService_GetTelemetryLogsGroup2
+      operationId: TelemetryLogsGroupService_GetTelemetryLogsGroup3
       parameters:
         - name: resourceId
           in: path
@@ -3141,7 +3141,7 @@ paths:
         - TelemetryLogsGroupService
       summary: DeleteTelemetryLogsGroup
       description: Delete a telemetry_logs_group.
-      operationId: TelemetryLogsGroupService_DeleteTelemetryLogsGroup2
+      operationId: TelemetryLogsGroupService_DeleteTelemetryLogsGroup3
       parameters:
         - name: resourceId
           in: path
@@ -3172,7 +3172,7 @@ paths:
         - TelemetryMetricsGroupService
       summary: ListTelemetryMetricsGroups
       description: Get a list of telemetryMetricsGroups.
-      operationId: TelemetryMetricsGroupService_ListTelemetryMetricsGroups2
+      operationId: TelemetryMetricsGroupService_ListTelemetryMetricsGroups3
       parameters:
         - name: pageSize
           in: query
@@ -3229,7 +3229,7 @@ paths:
         - TelemetryMetricsGroupService
       summary: CreateTelemetryMetricsGroup
       description: Create a telemetry_metrics_group.
-      operationId: TelemetryMetricsGroupService_CreateTelemetryMetricsGroup2
+      operationId: TelemetryMetricsGroupService_CreateTelemetryMetricsGroup3
       parameters:
         - name: projectName
           in: query
@@ -3260,7 +3260,7 @@ paths:
         - TelemetryMetricsGroupService
       summary: GetTelemetryMetricsGroup
       description: Get a specific telemetry_metrics_group.
-      operationId: TelemetryMetricsGroupService_GetTelemetryMetricsGroup2
+      operationId: TelemetryMetricsGroupService_GetTelemetryMetricsGroup3
       parameters:
         - name: resourceId
           in: path
@@ -3290,7 +3290,7 @@ paths:
         - TelemetryMetricsGroupService
       summary: DeleteTelemetryMetricsGroup
       description: Delete a telemetry_metrics_group.
-      operationId: TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup2
+      operationId: TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup3
       parameters:
         - name: resourceId
           in: path
@@ -9139,6 +9139,304 @@ paths:
       summary: DeleteTelemetryMetricsGroup
       description: Delete a telemetry_metrics_group.
       operationId: TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_metrics_group telemetry_metrics_group to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTelemetryMetricsGroupResponse'
+  /v1/projects/{projectName}/telemetry/loggroups:
+    get:
+      tags:
+        - TelemetryLogsGroupService
+      summary: ListTelemetryLogsGroups
+      description: Get a list of telemetry_logs_groups.
+      operationId: TelemetryLogsGroupService_ListTelemetryLogsGroups2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryLogsGroupsResponse'
+    post:
+      tags:
+        - TelemetryLogsGroupService
+      summary: CreateTelemetryLogsGroup
+      description: Create a telemetry_logs_group.
+      operationId: TelemetryLogsGroupService_CreateTelemetryLogsGroup2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The telemetry_logs_group to create.
+        content:
+          application/json:
+            schema:
+              title: telemetry_logs_group
+              description: The telemetry_logs_group to create.
+              $ref: '#/components/schemas/TelemetryLogsGroupResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsGroupResource'
+  /v1/projects/{projectName}/telemetry/loggroups/{resourceId}:
+    get:
+      tags:
+        - TelemetryLogsGroupService
+      summary: GetTelemetryLogsGroup
+      description: Get a specific telemetry_logs_group.
+      operationId: TelemetryLogsGroupService_GetTelemetryLogsGroup2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested telemetry_logs_group.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested telemetry_logs_group.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryLogsGroupResource'
+    delete:
+      tags:
+        - TelemetryLogsGroupService
+      summary: DeleteTelemetryLogsGroup
+      description: Delete a telemetry_logs_group.
+      operationId: TelemetryLogsGroupService_DeleteTelemetryLogsGroup2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the telemetry_logs_group telemetry_logs_group to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteTelemetryLogsGroupResponse'
+  /v1/projects/{projectName}/telemetry/metricgroups:
+    get:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: ListTelemetryMetricsGroups
+      description: Get a list of telemetryMetricsGroups.
+      operationId: TelemetryMetricsGroupService_ListTelemetryMetricsGroups2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryMetricsGroupsResponse'
+    post:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: CreateTelemetryMetricsGroup
+      description: Create a telemetry_metrics_group.
+      operationId: TelemetryMetricsGroupService_CreateTelemetryMetricsGroup2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The telemetry_metrics_group to create.
+        content:
+          application/json:
+            schema:
+              title: telemetry_metrics_group
+              description: The telemetry_metrics_group to create.
+              $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+  /v1/projects/{projectName}/telemetry/metricgroups/{resourceId}:
+    get:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: GetTelemetryMetricsGroup
+      description: Get a specific telemetry_metrics_group.
+      operationId: TelemetryMetricsGroupService_GetTelemetryMetricsGroup2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested telemetry_metrics_group.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested telemetry_metrics_group.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryMetricsGroupResource'
+    delete:
+      tags:
+        - TelemetryMetricsGroupService
+      summary: DeleteTelemetryMetricsGroup
+      description: Delete a telemetry_metrics_group.
+      operationId: TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup2
       parameters:
         - name: projectName
           in: path

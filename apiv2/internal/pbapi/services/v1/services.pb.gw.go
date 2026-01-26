@@ -11647,10 +11647,6 @@ func local_request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_0(ctx cont
 
 }
 
-var (
-	filter_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_logs_group": 0, "telemetryLogsGroup": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateTelemetryLogsGroupRequest
 	var metadata runtime.ServerMetadata
@@ -11663,11 +11659,21 @@ func request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1(ctx context.Co
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
 	}
 
 	msg, err := client.CreateTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -11687,10 +11693,72 @@ func local_request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1(ctx cont
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	msg, err := server.CreateTelemetryLogsGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_logs_group": 0, "telemetryLogsGroup": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
+func request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateTelemetryLogsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TelemetryLogsGroup); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryLogsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateTelemetryLogsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TelemetryLogsGroup); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -11770,12 +11838,29 @@ func local_request_TelemetryLogsGroupService_ListTelemetryLogsGroups_0(ctx conte
 }
 
 var (
-	filter_TelemetryLogsGroupService_ListTelemetryLogsGroups_1 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_TelemetryLogsGroupService_ListTelemetryLogsGroups_1 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_TelemetryLogsGroupService_ListTelemetryLogsGroups_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListTelemetryLogsGroupsRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -11793,10 +11878,63 @@ func local_request_TelemetryLogsGroupService_ListTelemetryLogsGroups_1(ctx conte
 	var protoReq ListTelemetryLogsGroupsRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_ListTelemetryLogsGroups_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListTelemetryLogsGroups(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryLogsGroupService_ListTelemetryLogsGroups_2 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_TelemetryLogsGroupService_ListTelemetryLogsGroups_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListTelemetryLogsGroupsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_ListTelemetryLogsGroups_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListTelemetryLogsGroups(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryLogsGroupService_ListTelemetryLogsGroups_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryLogsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListTelemetryLogsGroupsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_ListTelemetryLogsGroups_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -11877,10 +12015,6 @@ func local_request_TelemetryLogsGroupService_GetTelemetryLogsGroup_0(ctx context
 
 }
 
-var (
-	filter_TelemetryLogsGroupService_GetTelemetryLogsGroup_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_TelemetryLogsGroupService_GetTelemetryLogsGroup_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetTelemetryLogsGroupRequest
 	var metadata runtime.ServerMetadata
@@ -11892,6 +12026,16 @@ func request_TelemetryLogsGroupService_GetTelemetryLogsGroup_1(ctx context.Conte
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -11900,13 +12044,6 @@ func request_TelemetryLogsGroupService_GetTelemetryLogsGroup_1(ctx context.Conte
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_GetTelemetryLogsGroup_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -11925,6 +12062,46 @@ func local_request_TelemetryLogsGroupService_GetTelemetryLogsGroup_1(ctx context
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.GetTelemetryLogsGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryLogsGroupService_GetTelemetryLogsGroup_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_TelemetryLogsGroupService_GetTelemetryLogsGroup_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTelemetryLogsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -11938,7 +12115,40 @@ func local_request_TelemetryLogsGroupService_GetTelemetryLogsGroup_1(ctx context
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_GetTelemetryLogsGroup_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_GetTelemetryLogsGroup_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryLogsGroupService_GetTelemetryLogsGroup_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryLogsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTelemetryLogsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_GetTelemetryLogsGroup_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -12019,10 +12229,6 @@ func local_request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_0(ctx cont
 
 }
 
-var (
-	filter_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteTelemetryLogsGroupRequest
 	var metadata runtime.ServerMetadata
@@ -12034,6 +12240,16 @@ func request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1(ctx context.Co
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -12042,13 +12258,6 @@ func request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1(ctx context.Co
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -12067,6 +12276,46 @@ func local_request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1(ctx cont
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.DeleteTelemetryLogsGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryLogsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteTelemetryLogsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -12080,7 +12329,40 @@ func local_request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1(ctx cont
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.DeleteTelemetryLogsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryLogsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteTelemetryLogsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -12157,10 +12439,6 @@ func local_request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_0(ct
 
 }
 
-var (
-	filter_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_metrics_group": 0, "telemetryMetricsGroup": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateTelemetryMetricsGroupRequest
 	var metadata runtime.ServerMetadata
@@ -12173,11 +12451,21 @@ func request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1(ctx cont
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
 	}
 
 	msg, err := client.CreateTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -12197,10 +12485,72 @@ func local_request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1(ct
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	msg, err := server.CreateTelemetryMetricsGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2 = &utilities.DoubleArray{Encoding: map[string]int{"telemetry_metrics_group": 0, "telemetryMetricsGroup": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
+func request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateTelemetryMetricsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TelemetryMetricsGroup); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryMetricsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateTelemetryMetricsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TelemetryMetricsGroup); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -12280,12 +12630,29 @@ func local_request_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_0(ctx
 }
 
 var (
-	filter_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListTelemetryMetricsGroupsRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -12303,10 +12670,63 @@ func local_request_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1(ctx
 	var protoReq ListTelemetryMetricsGroupsRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListTelemetryMetricsGroups(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListTelemetryMetricsGroupsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListTelemetryMetricsGroups(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryMetricsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListTelemetryMetricsGroupsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -12387,10 +12807,6 @@ func local_request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_0(ctx c
 
 }
 
-var (
-	filter_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetTelemetryMetricsGroupRequest
 	var metadata runtime.ServerMetadata
@@ -12402,6 +12818,16 @@ func request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1(ctx context
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -12410,13 +12836,6 @@ func request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1(ctx context
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -12435,6 +12854,46 @@ func local_request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1(ctx c
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.GetTelemetryMetricsGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTelemetryMetricsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -12448,7 +12907,40 @@ func local_request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1(ctx c
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryMetricsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetTelemetryMetricsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -12529,10 +13021,6 @@ func local_request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_0(ct
 
 }
 
-var (
-	filter_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteTelemetryMetricsGroupRequest
 	var metadata runtime.ServerMetadata
@@ -12544,6 +13032,16 @@ func request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1(ctx cont
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -12552,13 +13050,6 @@ func request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1(ctx cont
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -12577,6 +13068,46 @@ func local_request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1(ct
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.DeleteTelemetryMetricsGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2(ctx context.Context, marshaler runtime.Marshaler, client TelemetryMetricsGroupServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteTelemetryMetricsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -12590,7 +13121,40 @@ func local_request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1(ct
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.DeleteTelemetryMetricsGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2(ctx context.Context, marshaler runtime.Marshaler, server TelemetryMetricsGroupServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteTelemetryMetricsGroupRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -20777,7 +21341,7 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/CreateTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/CreateTelemetryLogsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -20791,6 +21355,31 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		}
 
 		forward_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/CreateTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -20827,7 +21416,7 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/ListTelemetryLogsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/ListTelemetryLogsGroups", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -20841,6 +21430,31 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		}
 
 		forward_TelemetryLogsGroupService_ListTelemetryLogsGroups_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryLogsGroupService_ListTelemetryLogsGroups_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/ListTelemetryLogsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryLogsGroupService_ListTelemetryLogsGroups_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_ListTelemetryLogsGroups_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -20877,7 +21491,7 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -20891,6 +21505,31 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		}
 
 		forward_TelemetryLogsGroupService_GetTelemetryLogsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryLogsGroupService_GetTelemetryLogsGroup_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_GetTelemetryLogsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -20927,7 +21566,7 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -20941,6 +21580,31 @@ func RegisterTelemetryLogsGroupServiceHandlerServer(ctx context.Context, mux *ru
 		}
 
 		forward_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -20986,7 +21650,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/CreateTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/CreateTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -21000,6 +21664,31 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		}
 
 		forward_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/CreateTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -21036,7 +21725,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/ListTelemetryMetricsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/ListTelemetryMetricsGroups", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -21050,6 +21739,31 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		}
 
 		forward_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/ListTelemetryMetricsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -21086,7 +21800,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -21100,6 +21814,31 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		}
 
 		forward_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -21136,7 +21875,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -21150,6 +21889,31 @@ func RegisterTelemetryMetricsGroupServiceHandlerServer(ctx context.Context, mux 
 		}
 
 		forward_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -27229,7 +27993,7 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/CreateTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/CreateTelemetryLogsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27242,6 +28006,28 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		}
 
 		forward_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/CreateTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -27273,7 +28059,7 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/ListTelemetryLogsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/ListTelemetryLogsGroups", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27286,6 +28072,28 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		}
 
 		forward_TelemetryLogsGroupService_ListTelemetryLogsGroups_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryLogsGroupService_ListTelemetryLogsGroups_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/ListTelemetryLogsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryLogsGroupService_ListTelemetryLogsGroups_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_ListTelemetryLogsGroups_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -27317,7 +28125,7 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27330,6 +28138,28 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		}
 
 		forward_TelemetryLogsGroupService_GetTelemetryLogsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/GetTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryLogsGroupService_GetTelemetryLogsGroup_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_GetTelemetryLogsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -27361,7 +28191,7 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27377,25 +28207,55 @@ func RegisterTelemetryLogsGroupServiceHandlerClient(ctx context.Context, mux *ru
 
 	})
 
+	mux.Handle("DELETE", pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryLogsGroupService/DeleteTelemetryLogsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
 var (
 	pattern_TelemetryLogsGroupService_CreateTelemetryLogsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "telemetry", "groups", "logs"}, ""))
 
-	pattern_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs"}, ""))
+	pattern_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "telemetry", "loggroups"}, ""))
+
+	pattern_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs"}, ""))
 
 	pattern_TelemetryLogsGroupService_ListTelemetryLogsGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "telemetry", "groups", "logs"}, ""))
 
-	pattern_TelemetryLogsGroupService_ListTelemetryLogsGroups_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs"}, ""))
+	pattern_TelemetryLogsGroupService_ListTelemetryLogsGroups_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "telemetry", "loggroups"}, ""))
+
+	pattern_TelemetryLogsGroupService_ListTelemetryLogsGroups_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs"}, ""))
 
 	pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "telemetry", "groups", "logs", "resourceId"}, ""))
 
-	pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resourceId"}, ""))
+	pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "telemetry", "loggroups", "resourceId"}, ""))
+
+	pattern_TelemetryLogsGroupService_GetTelemetryLogsGroup_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resourceId"}, ""))
 
 	pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "telemetry", "groups", "logs", "resourceId"}, ""))
 
-	pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resourceId"}, ""))
+	pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "telemetry", "loggroups", "resourceId"}, ""))
+
+	pattern_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "logs", "resourceId"}, ""))
 )
 
 var (
@@ -27403,17 +28263,25 @@ var (
 
 	forward_TelemetryLogsGroupService_CreateTelemetryLogsGroup_1 = runtime.ForwardResponseMessage
 
+	forward_TelemetryLogsGroupService_CreateTelemetryLogsGroup_2 = runtime.ForwardResponseMessage
+
 	forward_TelemetryLogsGroupService_ListTelemetryLogsGroups_0 = runtime.ForwardResponseMessage
 
 	forward_TelemetryLogsGroupService_ListTelemetryLogsGroups_1 = runtime.ForwardResponseMessage
+
+	forward_TelemetryLogsGroupService_ListTelemetryLogsGroups_2 = runtime.ForwardResponseMessage
 
 	forward_TelemetryLogsGroupService_GetTelemetryLogsGroup_0 = runtime.ForwardResponseMessage
 
 	forward_TelemetryLogsGroupService_GetTelemetryLogsGroup_1 = runtime.ForwardResponseMessage
 
+	forward_TelemetryLogsGroupService_GetTelemetryLogsGroup_2 = runtime.ForwardResponseMessage
+
 	forward_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_0 = runtime.ForwardResponseMessage
 
 	forward_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_1 = runtime.ForwardResponseMessage
+
+	forward_TelemetryLogsGroupService_DeleteTelemetryLogsGroup_2 = runtime.ForwardResponseMessage
 )
 
 // RegisterTelemetryMetricsGroupServiceHandlerFromEndpoint is same as RegisterTelemetryMetricsGroupServiceHandler but
@@ -27482,7 +28350,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/CreateTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/CreateTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27495,6 +28363,28 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		}
 
 		forward_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/CreateTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -27526,7 +28416,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/ListTelemetryMetricsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/ListTelemetryMetricsGroups", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27539,6 +28429,28 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		}
 
 		forward_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/ListTelemetryMetricsGroups", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -27570,7 +28482,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27583,6 +28495,28 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		}
 
 		forward_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/GetTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -27614,7 +28548,7 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -27630,25 +28564,55 @@ func RegisterTelemetryMetricsGroupServiceHandlerClient(ctx context.Context, mux 
 
 	})
 
+	mux.Handle("DELETE", pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.TelemetryMetricsGroupService/DeleteTelemetryMetricsGroup", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
 var (
 	pattern_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "telemetry", "groups", "metrics"}, ""))
 
-	pattern_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics"}, ""))
+	pattern_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "telemetry", "metricgroups"}, ""))
+
+	pattern_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics"}, ""))
 
 	pattern_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "telemetry", "groups", "metrics"}, ""))
 
-	pattern_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics"}, ""))
+	pattern_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "telemetry", "metricgroups"}, ""))
+
+	pattern_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics"}, ""))
 
 	pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "telemetry", "groups", "metrics", "resourceId"}, ""))
 
-	pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resourceId"}, ""))
+	pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "telemetry", "metricgroups", "resourceId"}, ""))
+
+	pattern_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resourceId"}, ""))
 
 	pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "telemetry", "groups", "metrics", "resourceId"}, ""))
 
-	pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resourceId"}, ""))
+	pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "telemetry", "metricgroups", "resourceId"}, ""))
+
+	pattern_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"edge-infra.orchestrator.apis", "v2", "telemetry", "groups", "metrics", "resourceId"}, ""))
 )
 
 var (
@@ -27656,17 +28620,25 @@ var (
 
 	forward_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_1 = runtime.ForwardResponseMessage
 
+	forward_TelemetryMetricsGroupService_CreateTelemetryMetricsGroup_2 = runtime.ForwardResponseMessage
+
 	forward_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_0 = runtime.ForwardResponseMessage
 
 	forward_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_1 = runtime.ForwardResponseMessage
+
+	forward_TelemetryMetricsGroupService_ListTelemetryMetricsGroups_2 = runtime.ForwardResponseMessage
 
 	forward_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_0 = runtime.ForwardResponseMessage
 
 	forward_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_1 = runtime.ForwardResponseMessage
 
+	forward_TelemetryMetricsGroupService_GetTelemetryMetricsGroup_2 = runtime.ForwardResponseMessage
+
 	forward_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_0 = runtime.ForwardResponseMessage
 
 	forward_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_1 = runtime.ForwardResponseMessage
+
+	forward_TelemetryMetricsGroupService_DeleteTelemetryMetricsGroup_2 = runtime.ForwardResponseMessage
 )
 
 // RegisterTelemetryLogsProfileServiceHandlerFromEndpoint is same as RegisterTelemetryLogsProfileServiceHandler but

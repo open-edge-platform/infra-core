@@ -331,18 +331,6 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 					zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
 					path = newPath
 				}
-			} else if strings.Contains(path, "/telemetry/metricgroups") {
-				// /v1/projects/{projectName}/telemetry/metricgroups -> /v1/projects/{projectName}/telemetry/groups/metrics
-				newPath := strings.Replace(path, "/telemetry/metricgroups", "/telemetry/groups/metrics", 1)
-				req.URL.Path = newPath
-				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
-				path = newPath
-			} else if strings.Contains(path, "/telemetry/loggroups") {
-				// /v1/projects/{projectName}/telemetry/loggroups -> /v1/projects/{projectName}/telemetry/groups/logs
-				newPath := strings.Replace(path, "/telemetry/loggroups", "/telemetry/groups/logs", 1)
-				req.URL.Path = newPath
-				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
-				path = newPath
 			}
 
 			if strings.Contains(path, "/compute/hosts/summary") {

@@ -6307,8 +6307,8 @@ type SiteServiceUpdateSite3Params struct {
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
-// TelemetryLogsGroupServiceListTelemetryLogsGroups2Params defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups2.
-type TelemetryLogsGroupServiceListTelemetryLogsGroups2Params struct {
+// TelemetryLogsGroupServiceListTelemetryLogsGroups3Params defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups3.
+type TelemetryLogsGroupServiceListTelemetryLogsGroups3Params struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
@@ -6324,26 +6324,26 @@ type TelemetryLogsGroupServiceListTelemetryLogsGroups2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2.
-type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params struct {
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params defines parameters for TelemetryLogsGroupServiceCreateTelemetryLogsGroup3.
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2.
-type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params struct {
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Params defines parameters for TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3.
+type TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params defines parameters for TelemetryLogsGroupServiceGetTelemetryLogsGroup2.
-type TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params struct {
+// TelemetryLogsGroupServiceGetTelemetryLogsGroup3Params defines parameters for TelemetryLogsGroupServiceGetTelemetryLogsGroup3.
+type TelemetryLogsGroupServiceGetTelemetryLogsGroup3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups2.
-type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params struct {
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups3.
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
@@ -6359,20 +6359,20 @@ type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2.
-type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params struct {
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params defines parameters for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3.
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2.
-type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params struct {
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Params defines parameters for TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3.
+type TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params defines parameters for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2.
-type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params struct {
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Params defines parameters for TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3.
+type TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
@@ -7208,6 +7208,34 @@ type TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams struct {
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
 }
 
+// TelemetryLogsGroupServiceListTelemetryLogsGroups2Params defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups2.
+type TelemetryLogsGroupServiceListTelemetryLogsGroups2Params struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+}
+
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params defines parameters for TelemetryMetricsGroupServiceListTelemetryMetricsGroups2.
+type TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+}
+
 // TelemetryLogsProfileServiceListTelemetryLogsProfilesParams defines parameters for TelemetryLogsProfileServiceListTelemetryLogsProfiles.
 type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
 	// PageSize Defines the amount of items to be contained in a single page.
@@ -7401,11 +7429,11 @@ type SiteServicePatchSite3JSONRequestBody = SiteResource
 // SiteServiceUpdateSite3JSONRequestBody defines body for SiteServiceUpdateSite3 for application/json ContentType.
 type SiteServiceUpdateSite3JSONRequestBody = SiteResource
 
-// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 for application/json ContentType.
-type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody = TelemetryLogsGroupResource
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup3JSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup3 for application/json ContentType.
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup3JSONRequestBody = TelemetryLogsGroupResource
 
-// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody defines body for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 for application/json ContentType.
-type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody = TelemetryMetricsGroupResource
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3JSONRequestBody defines body for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3 for application/json ContentType.
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3JSONRequestBody = TelemetryMetricsGroupResource
 
 // TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody defines body for TelemetryLogsProfileServiceCreateTelemetryLogsProfile2 for application/json ContentType.
 type TelemetryLogsProfileServiceCreateTelemetryLogsProfile2JSONRequestBody = TelemetryLogsProfileResource
@@ -7562,6 +7590,12 @@ type TelemetryLogsGroupServiceCreateTelemetryLogsGroupJSONRequestBody = Telemetr
 
 // TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody defines body for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup for application/json ContentType.
 type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroupJSONRequestBody = TelemetryMetricsGroupResource
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 for application/json ContentType.
+type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody = TelemetryLogsGroupResource
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody defines body for TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 for application/json ContentType.
+type TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2JSONRequestBody = TelemetryMetricsGroupResource
 
 // TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody defines body for TelemetryLogsProfileServiceCreateTelemetryLogsProfile for application/json ContentType.
 type TelemetryLogsProfileServiceCreateTelemetryLogsProfileJSONRequestBody = TelemetryLogsProfileResource
