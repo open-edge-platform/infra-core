@@ -6064,8 +6064,8 @@ type RegionServiceUpdateRegion2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceListSchedules2Params defines parameters for ScheduleServiceListSchedules2.
-type ScheduleServiceListSchedules2Params struct {
+// ScheduleServiceListSchedules3Params defines parameters for ScheduleServiceListSchedules3.
+type ScheduleServiceListSchedules3Params struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
@@ -6099,8 +6099,8 @@ type ScheduleServiceListSchedules2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceListRepeatedSchedules2Params defines parameters for ScheduleServiceListRepeatedSchedules2.
-type ScheduleServiceListRepeatedSchedules2Params struct {
+// ScheduleServiceListRepeatedSchedules3Params defines parameters for ScheduleServiceListRepeatedSchedules3.
+type ScheduleServiceListRepeatedSchedules3Params struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
@@ -6134,26 +6134,26 @@ type ScheduleServiceListRepeatedSchedules2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceCreateRepeatedSchedule2Params defines parameters for ScheduleServiceCreateRepeatedSchedule2.
-type ScheduleServiceCreateRepeatedSchedule2Params struct {
+// ScheduleServiceCreateRepeatedSchedule3Params defines parameters for ScheduleServiceCreateRepeatedSchedule3.
+type ScheduleServiceCreateRepeatedSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceDeleteRepeatedSchedule2Params defines parameters for ScheduleServiceDeleteRepeatedSchedule2.
-type ScheduleServiceDeleteRepeatedSchedule2Params struct {
+// ScheduleServiceDeleteRepeatedSchedule3Params defines parameters for ScheduleServiceDeleteRepeatedSchedule3.
+type ScheduleServiceDeleteRepeatedSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceGetRepeatedSchedule2Params defines parameters for ScheduleServiceGetRepeatedSchedule2.
-type ScheduleServiceGetRepeatedSchedule2Params struct {
+// ScheduleServiceGetRepeatedSchedule3Params defines parameters for ScheduleServiceGetRepeatedSchedule3.
+type ScheduleServiceGetRepeatedSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServicePatchRepeatedSchedule2Params defines parameters for ScheduleServicePatchRepeatedSchedule2.
-type ScheduleServicePatchRepeatedSchedule2Params struct {
+// ScheduleServicePatchRepeatedSchedule3Params defines parameters for ScheduleServicePatchRepeatedSchedule3.
+type ScheduleServicePatchRepeatedSchedule3Params struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 
@@ -6161,14 +6161,14 @@ type ScheduleServicePatchRepeatedSchedule2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceUpdateRepeatedSchedule2Params defines parameters for ScheduleServiceUpdateRepeatedSchedule2.
-type ScheduleServiceUpdateRepeatedSchedule2Params struct {
+// ScheduleServiceUpdateRepeatedSchedule3Params defines parameters for ScheduleServiceUpdateRepeatedSchedule3.
+type ScheduleServiceUpdateRepeatedSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceListSingleSchedules2Params defines parameters for ScheduleServiceListSingleSchedules2.
-type ScheduleServiceListSingleSchedules2Params struct {
+// ScheduleServiceListSingleSchedules3Params defines parameters for ScheduleServiceListSingleSchedules3.
+type ScheduleServiceListSingleSchedules3Params struct {
 	// PageSize Defines the amount of items to be contained in a single page.
 	//  Default of 20.
 	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
@@ -6202,26 +6202,26 @@ type ScheduleServiceListSingleSchedules2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceCreateSingleSchedule2Params defines parameters for ScheduleServiceCreateSingleSchedule2.
-type ScheduleServiceCreateSingleSchedule2Params struct {
+// ScheduleServiceCreateSingleSchedule3Params defines parameters for ScheduleServiceCreateSingleSchedule3.
+type ScheduleServiceCreateSingleSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceDeleteSingleSchedule2Params defines parameters for ScheduleServiceDeleteSingleSchedule2.
-type ScheduleServiceDeleteSingleSchedule2Params struct {
+// ScheduleServiceDeleteSingleSchedule3Params defines parameters for ScheduleServiceDeleteSingleSchedule3.
+type ScheduleServiceDeleteSingleSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceGetSingleSchedule2Params defines parameters for ScheduleServiceGetSingleSchedule2.
-type ScheduleServiceGetSingleSchedule2Params struct {
+// ScheduleServiceGetSingleSchedule3Params defines parameters for ScheduleServiceGetSingleSchedule3.
+type ScheduleServiceGetSingleSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServicePatchSingleSchedule2Params defines parameters for ScheduleServicePatchSingleSchedule2.
-type ScheduleServicePatchSingleSchedule2Params struct {
+// ScheduleServicePatchSingleSchedule3Params defines parameters for ScheduleServicePatchSingleSchedule3.
+type ScheduleServicePatchSingleSchedule3Params struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 
@@ -6229,8 +6229,8 @@ type ScheduleServicePatchSingleSchedule2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// ScheduleServiceUpdateSingleSchedule2Params defines parameters for ScheduleServiceUpdateSingleSchedule2.
-type ScheduleServiceUpdateSingleSchedule2Params struct {
+// ScheduleServiceUpdateSingleSchedule3Params defines parameters for ScheduleServiceUpdateSingleSchedule3.
+type ScheduleServiceUpdateSingleSchedule3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
@@ -6717,6 +6717,114 @@ type OperatingSystemServiceListOperatingSystems2Params struct {
 
 // OperatingSystemServicePatchOperatingSystem2Params defines parameters for OperatingSystemServicePatchOperatingSystem2.
 type OperatingSystemServicePatchOperatingSystem2Params struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// ScheduleServiceListSchedules2Params defines parameters for ScheduleServiceListSchedules2.
+type ScheduleServiceListSchedules2Params struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServiceListRepeatedSchedules2Params defines parameters for ScheduleServiceListRepeatedSchedules2.
+type ScheduleServiceListRepeatedSchedules2Params struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServicePatchRepeatedSchedule2Params defines parameters for ScheduleServicePatchRepeatedSchedule2.
+type ScheduleServicePatchRepeatedSchedule2Params struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
+// ScheduleServiceListSingleSchedules2Params defines parameters for ScheduleServiceListSingleSchedules2.
+type ScheduleServiceListSingleSchedules2Params struct {
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// HostId The host ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified host ID applied to them, i.e., target including the inherited ones
+	//  (parent site if not null). If null, returns all the schedules without a host ID as target.
+	HostId *string `form:"hostId,omitempty" json:"hostId,omitempty"`
+
+	// SiteId The site ID target of the schedules. If not specified, returns all schedules
+	//  (given the other query params). If specified, returns the schedules that have
+	//  the specified site ID applied to them, i.e., target including the inherited ones.
+	//  If null, returns all the schedules without a site ID as target
+	SiteId *string `form:"siteId,omitempty" json:"siteId,omitempty"`
+
+	// RegionId The region ID target of the schedules. If not specified,
+	//  returns all schedules (given the other query params).
+	//  If specified, returns the schedules that have the specified region ID applied to them,
+	//  i.e., target including the inherited ones (parent region if not null).
+	//  If null, returns all the schedules without a region ID as target.
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
+	// UnixEpoch Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+	UnixEpoch *string `form:"unixEpoch,omitempty" json:"unixEpoch,omitempty"`
+}
+
+// ScheduleServicePatchSingleSchedule2Params defines parameters for ScheduleServicePatchSingleSchedule2.
+type ScheduleServicePatchSingleSchedule2Params struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 }
@@ -7266,23 +7374,23 @@ type RegionServicePatchRegion2JSONRequestBody = RegionResource
 // RegionServiceUpdateRegion2JSONRequestBody defines body for RegionServiceUpdateRegion2 for application/json ContentType.
 type RegionServiceUpdateRegion2JSONRequestBody = RegionResource
 
-// ScheduleServiceCreateRepeatedSchedule2JSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule2 for application/json ContentType.
-type ScheduleServiceCreateRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+// ScheduleServiceCreateRepeatedSchedule3JSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule3 for application/json ContentType.
+type ScheduleServiceCreateRepeatedSchedule3JSONRequestBody = RepeatedScheduleResource
 
-// ScheduleServicePatchRepeatedSchedule2JSONRequestBody defines body for ScheduleServicePatchRepeatedSchedule2 for application/json ContentType.
-type ScheduleServicePatchRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+// ScheduleServicePatchRepeatedSchedule3JSONRequestBody defines body for ScheduleServicePatchRepeatedSchedule3 for application/json ContentType.
+type ScheduleServicePatchRepeatedSchedule3JSONRequestBody = RepeatedScheduleResource
 
-// ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody defines body for ScheduleServiceUpdateRepeatedSchedule2 for application/json ContentType.
-type ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+// ScheduleServiceUpdateRepeatedSchedule3JSONRequestBody defines body for ScheduleServiceUpdateRepeatedSchedule3 for application/json ContentType.
+type ScheduleServiceUpdateRepeatedSchedule3JSONRequestBody = RepeatedScheduleResource
 
-// ScheduleServiceCreateSingleSchedule2JSONRequestBody defines body for ScheduleServiceCreateSingleSchedule2 for application/json ContentType.
-type ScheduleServiceCreateSingleSchedule2JSONRequestBody = SingleScheduleResource
+// ScheduleServiceCreateSingleSchedule3JSONRequestBody defines body for ScheduleServiceCreateSingleSchedule3 for application/json ContentType.
+type ScheduleServiceCreateSingleSchedule3JSONRequestBody = SingleScheduleResource
 
-// ScheduleServicePatchSingleSchedule2JSONRequestBody defines body for ScheduleServicePatchSingleSchedule2 for application/json ContentType.
-type ScheduleServicePatchSingleSchedule2JSONRequestBody = SingleScheduleResource
+// ScheduleServicePatchSingleSchedule3JSONRequestBody defines body for ScheduleServicePatchSingleSchedule3 for application/json ContentType.
+type ScheduleServicePatchSingleSchedule3JSONRequestBody = SingleScheduleResource
 
-// ScheduleServiceUpdateSingleSchedule2JSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule2 for application/json ContentType.
-type ScheduleServiceUpdateSingleSchedule2JSONRequestBody = SingleScheduleResource
+// ScheduleServiceUpdateSingleSchedule3JSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule3 for application/json ContentType.
+type ScheduleServiceUpdateSingleSchedule3JSONRequestBody = SingleScheduleResource
 
 // SiteServiceCreateSite3JSONRequestBody defines body for SiteServiceCreateSite3 for application/json ContentType.
 type SiteServiceCreateSite3JSONRequestBody = SiteResource
@@ -7370,6 +7478,24 @@ type OperatingSystemServicePatchOperatingSystem2JSONRequestBody = OperatingSyste
 
 // OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody defines body for OperatingSystemServiceUpdateOperatingSystem2 for application/json ContentType.
 type OperatingSystemServiceUpdateOperatingSystem2JSONRequestBody = OperatingSystemResource
+
+// ScheduleServiceCreateRepeatedSchedule2JSONRequestBody defines body for ScheduleServiceCreateRepeatedSchedule2 for application/json ContentType.
+type ScheduleServiceCreateRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServicePatchRepeatedSchedule2JSONRequestBody defines body for ScheduleServicePatchRepeatedSchedule2 for application/json ContentType.
+type ScheduleServicePatchRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody defines body for ScheduleServiceUpdateRepeatedSchedule2 for application/json ContentType.
+type ScheduleServiceUpdateRepeatedSchedule2JSONRequestBody = RepeatedScheduleResource
+
+// ScheduleServiceCreateSingleSchedule2JSONRequestBody defines body for ScheduleServiceCreateSingleSchedule2 for application/json ContentType.
+type ScheduleServiceCreateSingleSchedule2JSONRequestBody = SingleScheduleResource
+
+// ScheduleServicePatchSingleSchedule2JSONRequestBody defines body for ScheduleServicePatchSingleSchedule2 for application/json ContentType.
+type ScheduleServicePatchSingleSchedule2JSONRequestBody = SingleScheduleResource
+
+// ScheduleServiceUpdateSingleSchedule2JSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule2 for application/json ContentType.
+type ScheduleServiceUpdateSingleSchedule2JSONRequestBody = SingleScheduleResource
 
 // CustomConfigServiceCreateCustomConfigJSONRequestBody defines body for CustomConfigServiceCreateCustomConfig for application/json ContentType.
 type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource

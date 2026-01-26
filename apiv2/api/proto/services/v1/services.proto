@@ -644,6 +644,10 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/schedules"
 
       additional_bindings {
+        get: "/v1/projects/{projectName}/compute/schedules"
+      }
+
+      additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/schedules"
       }
     };
@@ -654,6 +658,12 @@ service ScheduleService {
     option (google.api.http) = {
       post: "/v1/projects/{projectName}/schedules/single"
       body: "single_schedule"
+
+      additional_bindings {
+        post: "/v1/projects/{projectName}/compute/schedules/single"
+        body: "single_schedule"
+      }
+
       additional_bindings {
         post: "/edge-infra.orchestrator.apis/v2/schedules/single"
         body: "single_schedule"
@@ -666,6 +676,10 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/schedules/single"
 
       additional_bindings {
+        get: "/v1/projects/{projectName}/compute/schedules/single"
+      }
+
+      additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/schedules/single"
       }
     };
@@ -674,6 +688,10 @@ service ScheduleService {
   rpc GetSingleSchedule(GetSingleScheduleRequest) returns (resources.schedule.v1.SingleScheduleResource) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/schedules/single/{resourceId}"
+
+      additional_bindings {
+        get: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+      }
 
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
@@ -685,6 +703,12 @@ service ScheduleService {
     option (google.api.http) = {
       put: "/v1/projects/{projectName}/schedules/single/{resourceId}"
       body: "single_schedule"
+
+      additional_bindings {
+        put: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+        body: "single_schedule"
+      }
+
       additional_bindings {
         put: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
         body: "single_schedule"
@@ -696,6 +720,12 @@ service ScheduleService {
     option (google.api.http) = {
       patch: "/v1/projects/{projectName}/schedules/single/{resourceId}"
       body: "single_schedule"
+
+      additional_bindings {
+        patch: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+        body: "single_schedule"
+      }
+
       additional_bindings {
         patch: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
         body: "single_schedule"
@@ -708,6 +738,10 @@ service ScheduleService {
       delete: "/v1/projects/{projectName}/schedules/single/{resourceId}"
 
       additional_bindings {
+        delete: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+      }
+
+      additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
       }
     };
@@ -718,6 +752,12 @@ service ScheduleService {
     option (google.api.http) = {
       post: "/v1/projects/{projectName}/schedules/repeated"
       body: "repeated_schedule"
+
+      additional_bindings {
+        post: "/v1/projects/{projectName}/compute/schedules/repeated"
+        body: "repeated_schedule"
+      }
+
       additional_bindings {
         post: "/edge-infra.orchestrator.apis/v2/schedules/repeated"
         body: "repeated_schedule"
@@ -730,6 +770,10 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/schedules/repeated"
 
       additional_bindings {
+        get: "/v1/projects/{projectName}/compute/schedules/repeated"
+      }
+
+      additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/schedules/repeated"
       }
     };
@@ -738,6 +782,10 @@ service ScheduleService {
   rpc GetRepeatedSchedule(GetRepeatedScheduleRequest) returns (resources.schedule.v1.RepeatedScheduleResource) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/schedules/repeated/{resourceId}"
+
+      additional_bindings {
+        get: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+      }
 
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
@@ -749,6 +797,12 @@ service ScheduleService {
     option (google.api.http) = {
       put: "/v1/projects/{projectName}/schedules/repeated/{resourceId}"
       body: "repeated_schedule"
+
+      additional_bindings {
+        put: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+        body: "repeated_schedule"
+      }
+
       additional_bindings {
         put: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
         body: "repeated_schedule"
@@ -760,6 +814,12 @@ service ScheduleService {
     option (google.api.http) = {
       patch: "/v1/projects/{projectName}/schedules/repeated/{resourceId}"
       body: "repeated_schedule"
+
+      additional_bindings {
+        patch: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+        body: "repeated_schedule"
+      }
+
       additional_bindings {
         patch: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
         body: "repeated_schedule"
@@ -770,6 +830,10 @@ service ScheduleService {
   rpc DeleteRepeatedSchedule(DeleteRepeatedScheduleRequest) returns (DeleteRepeatedScheduleResponse) {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/schedules/repeated/{resourceId}"
+
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+      }
 
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"

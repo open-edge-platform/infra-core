@@ -8686,12 +8686,29 @@ func local_request_ScheduleService_ListSchedules_0(ctx context.Context, marshale
 }
 
 var (
-	filter_ScheduleService_ListSchedules_1 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_ScheduleService_ListSchedules_1 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_ScheduleService_ListSchedules_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListSchedulesRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -8709,10 +8726,63 @@ func local_request_ScheduleService_ListSchedules_1(ctx context.Context, marshale
 	var protoReq ListSchedulesRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListSchedules_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListSchedules(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_ListSchedules_2 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_ScheduleService_ListSchedules_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListSchedulesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListSchedules_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListSchedules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_ListSchedules_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListSchedulesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListSchedules_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -8789,10 +8859,6 @@ func local_request_ScheduleService_CreateSingleSchedule_0(ctx context.Context, m
 
 }
 
-var (
-	filter_ScheduleService_CreateSingleSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_ScheduleService_CreateSingleSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateSingleScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -8805,11 +8871,21 @@ func request_ScheduleService_CreateSingleSchedule_1(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateSingleSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
 	}
 
 	msg, err := client.CreateSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -8829,10 +8905,72 @@ func local_request_ScheduleService_CreateSingleSchedule_1(ctx context.Context, m
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	msg, err := server.CreateSingleSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_CreateSingleSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
+func request_ScheduleService_CreateSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.SingleSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateSingleSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateSingleSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_CreateSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.SingleSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateSingleSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -8912,12 +9050,29 @@ func local_request_ScheduleService_ListSingleSchedules_0(ctx context.Context, ma
 }
 
 var (
-	filter_ScheduleService_ListSingleSchedules_1 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_ScheduleService_ListSingleSchedules_1 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_ScheduleService_ListSingleSchedules_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListSingleSchedulesRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -8935,10 +9090,63 @@ func local_request_ScheduleService_ListSingleSchedules_1(ctx context.Context, ma
 	var protoReq ListSingleSchedulesRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListSingleSchedules_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListSingleSchedules(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_ListSingleSchedules_2 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_ScheduleService_ListSingleSchedules_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListSingleSchedulesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListSingleSchedules_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListSingleSchedules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_ListSingleSchedules_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListSingleSchedulesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListSingleSchedules_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -9019,10 +9227,6 @@ func local_request_ScheduleService_GetSingleSchedule_0(ctx context.Context, mars
 
 }
 
-var (
-	filter_ScheduleService_GetSingleSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_ScheduleService_GetSingleSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetSingleScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -9034,6 +9238,16 @@ func request_ScheduleService_GetSingleSchedule_1(ctx context.Context, marshaler 
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9042,13 +9256,6 @@ func request_ScheduleService_GetSingleSchedule_1(ctx context.Context, marshaler 
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetSingleSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -9067,6 +9274,46 @@ func local_request_ScheduleService_GetSingleSchedule_1(ctx context.Context, mars
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.GetSingleSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_GetSingleSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_ScheduleService_GetSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9080,7 +9327,40 @@ func local_request_ScheduleService_GetSingleSchedule_1(ctx context.Context, mars
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetSingleSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetSingleSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_GetSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetSingleSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -9177,10 +9457,6 @@ func local_request_ScheduleService_UpdateSingleSchedule_0(ctx context.Context, m
 
 }
 
-var (
-	filter_ScheduleService_UpdateSingleSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
-)
-
 func request_ScheduleService_UpdateSingleSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateSingleScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -9200,6 +9476,16 @@ func request_ScheduleService_UpdateSingleSchedule_1(ctx context.Context, marshal
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9208,13 +9494,6 @@ func request_ScheduleService_UpdateSingleSchedule_1(ctx context.Context, marshal
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateSingleSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.UpdateSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -9241,6 +9520,54 @@ func local_request_ScheduleService_UpdateSingleSchedule_1(ctx context.Context, m
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.UpdateSingleSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_UpdateSingleSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
+)
+
+func request_ScheduleService_UpdateSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.SingleSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9254,7 +9581,48 @@ func local_request_ScheduleService_UpdateSingleSchedule_1(ctx context.Context, m
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateSingleSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateSingleSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.UpdateSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_UpdateSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.SingleSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateSingleSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -9384,7 +9752,7 @@ func local_request_ScheduleService_PatchSingleSchedule_0(ctx context.Context, ma
 }
 
 var (
-	filter_ScheduleService_PatchSingleSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
+	filter_ScheduleService_PatchSingleSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1, "projectName": 2, "resourceId": 3}, Base: []int{1, 1, 2, 4, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 4, 5, 5}}
 )
 
 func request_ScheduleService_PatchSingleSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -9412,6 +9780,16 @@ func request_ScheduleService_PatchSingleSchedule_1(ctx context.Context, marshale
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	val, ok = pathParams["resourceId"]
 	if !ok {
@@ -9461,6 +9839,16 @@ func local_request_ScheduleService_PatchSingleSchedule_1(ctx context.Context, ma
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9475,6 +9863,106 @@ func local_request_ScheduleService_PatchSingleSchedule_1(ctx context.Context, ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_PatchSingleSchedule_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.PatchSingleSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_PatchSingleSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"single_schedule": 0, "singleSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
+)
+
+func request_ScheduleService_PatchSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PatchSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.SingleSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if protoReq.FieldMask == nil || len(protoReq.FieldMask.GetPaths()) == 0 {
+		if fieldMask, err := runtime.FieldMaskFromRequestBody(newReader(), protoReq.SingleSchedule); err != nil {
+			return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+		} else {
+			protoReq.FieldMask = fieldMask
+		}
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_PatchSingleSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.PatchSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_PatchSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PatchSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.SingleSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if protoReq.FieldMask == nil || len(protoReq.FieldMask.GetPaths()) == 0 {
+		if fieldMask, err := runtime.FieldMaskFromRequestBody(newReader(), protoReq.SingleSchedule); err != nil {
+			return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+		} else {
+			protoReq.FieldMask = fieldMask
+		}
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_PatchSingleSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -9555,10 +10043,6 @@ func local_request_ScheduleService_DeleteSingleSchedule_0(ctx context.Context, m
 
 }
 
-var (
-	filter_ScheduleService_DeleteSingleSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_ScheduleService_DeleteSingleSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteSingleScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -9570,6 +10054,16 @@ func request_ScheduleService_DeleteSingleSchedule_1(ctx context.Context, marshal
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9578,13 +10072,6 @@ func request_ScheduleService_DeleteSingleSchedule_1(ctx context.Context, marshal
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteSingleSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -9603,6 +10090,46 @@ func local_request_ScheduleService_DeleteSingleSchedule_1(ctx context.Context, m
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.DeleteSingleSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_DeleteSingleSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_ScheduleService_DeleteSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9616,7 +10143,40 @@ func local_request_ScheduleService_DeleteSingleSchedule_1(ctx context.Context, m
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteSingleSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteSingleSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.DeleteSingleSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_DeleteSingleSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteSingleScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteSingleSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -9693,10 +10253,6 @@ func local_request_ScheduleService_CreateRepeatedSchedule_0(ctx context.Context,
 
 }
 
-var (
-	filter_ScheduleService_CreateRepeatedSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
 func request_ScheduleService_CreateRepeatedSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateRepeatedScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -9709,11 +10265,21 @@ func request_ScheduleService_CreateRepeatedSchedule_1(ctx context.Context, marsh
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateRepeatedSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
 	}
 
 	msg, err := client.CreateRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -9733,10 +10299,72 @@ func local_request_ScheduleService_CreateRepeatedSchedule_1(ctx context.Context,
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	msg, err := server.CreateRepeatedSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_CreateRepeatedSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
+func request_ScheduleService_CreateRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.RepeatedSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateRepeatedSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateRepeatedSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_CreateRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.RepeatedSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_CreateRepeatedSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -9816,12 +10444,29 @@ func local_request_ScheduleService_ListRepeatedSchedules_0(ctx context.Context, 
 }
 
 var (
-	filter_ScheduleService_ListRepeatedSchedules_1 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_ScheduleService_ListRepeatedSchedules_1 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_ScheduleService_ListRepeatedSchedules_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListRepeatedSchedulesRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -9839,10 +10484,63 @@ func local_request_ScheduleService_ListRepeatedSchedules_1(ctx context.Context, 
 	var protoReq ListRepeatedSchedulesRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListRepeatedSchedules_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListRepeatedSchedules(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_ListRepeatedSchedules_2 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_ScheduleService_ListRepeatedSchedules_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListRepeatedSchedulesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListRepeatedSchedules_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListRepeatedSchedules(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_ListRepeatedSchedules_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListRepeatedSchedulesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_ListRepeatedSchedules_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -9923,10 +10621,6 @@ func local_request_ScheduleService_GetRepeatedSchedule_0(ctx context.Context, ma
 
 }
 
-var (
-	filter_ScheduleService_GetRepeatedSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_ScheduleService_GetRepeatedSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetRepeatedScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -9938,6 +10632,16 @@ func request_ScheduleService_GetRepeatedSchedule_1(ctx context.Context, marshale
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9946,13 +10650,6 @@ func request_ScheduleService_GetRepeatedSchedule_1(ctx context.Context, marshale
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetRepeatedSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -9971,6 +10668,46 @@ func local_request_ScheduleService_GetRepeatedSchedule_1(ctx context.Context, ma
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.GetRepeatedSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_GetRepeatedSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_ScheduleService_GetRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -9984,7 +10721,40 @@ func local_request_ScheduleService_GetRepeatedSchedule_1(ctx context.Context, ma
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetRepeatedSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetRepeatedSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_GetRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_GetRepeatedSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -10081,10 +10851,6 @@ func local_request_ScheduleService_UpdateRepeatedSchedule_0(ctx context.Context,
 
 }
 
-var (
-	filter_ScheduleService_UpdateRepeatedSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
-)
-
 func request_ScheduleService_UpdateRepeatedSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateRepeatedScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -10104,6 +10870,16 @@ func request_ScheduleService_UpdateRepeatedSchedule_1(ctx context.Context, marsh
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -10112,13 +10888,6 @@ func request_ScheduleService_UpdateRepeatedSchedule_1(ctx context.Context, marsh
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateRepeatedSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.UpdateRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -10145,6 +10914,54 @@ func local_request_ScheduleService_UpdateRepeatedSchedule_1(ctx context.Context,
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.UpdateRepeatedSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_UpdateRepeatedSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
+)
+
+func request_ScheduleService_UpdateRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.RepeatedSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -10158,7 +10975,48 @@ func local_request_ScheduleService_UpdateRepeatedSchedule_1(ctx context.Context,
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateRepeatedSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateRepeatedSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.UpdateRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_UpdateRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.RepeatedSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_UpdateRepeatedSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -10288,7 +11146,7 @@ func local_request_ScheduleService_PatchRepeatedSchedule_0(ctx context.Context, 
 }
 
 var (
-	filter_ScheduleService_PatchRepeatedSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
+	filter_ScheduleService_PatchRepeatedSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1, "projectName": 2, "resourceId": 3}, Base: []int{1, 1, 2, 4, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 4, 5, 5}}
 )
 
 func request_ScheduleService_PatchRepeatedSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -10316,6 +11174,16 @@ func request_ScheduleService_PatchRepeatedSchedule_1(ctx context.Context, marsha
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	val, ok = pathParams["resourceId"]
 	if !ok {
@@ -10365,6 +11233,16 @@ func local_request_ScheduleService_PatchRepeatedSchedule_1(ctx context.Context, 
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -10379,6 +11257,106 @@ func local_request_ScheduleService_PatchRepeatedSchedule_1(ctx context.Context, 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_PatchRepeatedSchedule_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.PatchRepeatedSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_PatchRepeatedSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"repeated_schedule": 0, "repeatedSchedule": 1, "resourceId": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
+)
+
+func request_ScheduleService_PatchRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PatchRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.RepeatedSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if protoReq.FieldMask == nil || len(protoReq.FieldMask.GetPaths()) == 0 {
+		if fieldMask, err := runtime.FieldMaskFromRequestBody(newReader(), protoReq.RepeatedSchedule); err != nil {
+			return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+		} else {
+			protoReq.FieldMask = fieldMask
+		}
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_PatchRepeatedSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.PatchRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_PatchRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PatchRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.RepeatedSchedule); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if protoReq.FieldMask == nil || len(protoReq.FieldMask.GetPaths()) == 0 {
+		if fieldMask, err := runtime.FieldMaskFromRequestBody(newReader(), protoReq.RepeatedSchedule); err != nil {
+			return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+		} else {
+			protoReq.FieldMask = fieldMask
+		}
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_PatchRepeatedSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -10459,10 +11437,6 @@ func local_request_ScheduleService_DeleteRepeatedSchedule_0(ctx context.Context,
 
 }
 
-var (
-	filter_ScheduleService_DeleteRepeatedSchedule_1 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
-)
-
 func request_ScheduleService_DeleteRepeatedSchedule_1(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteRepeatedScheduleRequest
 	var metadata runtime.ServerMetadata
@@ -10474,6 +11448,16 @@ func request_ScheduleService_DeleteRepeatedSchedule_1(ctx context.Context, marsh
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -10482,13 +11466,6 @@ func request_ScheduleService_DeleteRepeatedSchedule_1(ctx context.Context, marsh
 	protoReq.ResourceId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteRepeatedSchedule_1); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -10507,6 +11484,46 @@ func local_request_ScheduleService_DeleteRepeatedSchedule_1(ctx context.Context,
 		_   = err
 	)
 
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.DeleteRepeatedSchedule(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_ScheduleService_DeleteRepeatedSchedule_2 = &utilities.DoubleArray{Encoding: map[string]int{"resourceId": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_ScheduleService_DeleteRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, client ScheduleServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
 	val, ok = pathParams["resourceId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
@@ -10520,7 +11537,40 @@ func local_request_ScheduleService_DeleteRepeatedSchedule_1(ctx context.Context,
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteRepeatedSchedule_1); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteRepeatedSchedule_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.DeleteRepeatedSchedule(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ScheduleService_DeleteRepeatedSchedule_2(ctx context.Context, marshaler runtime.Marshaler, server ScheduleServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteRepeatedScheduleRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ScheduleService_DeleteRepeatedSchedule_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -18743,7 +19793,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListSchedules", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -18757,6 +19807,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_ListSchedules_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_ListSchedules_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_ListSchedules_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_ListSchedules_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -18793,7 +19868,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/CreateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/CreateSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -18807,6 +19882,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_CreateSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ScheduleService_CreateSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/CreateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_CreateSingleSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_CreateSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -18843,7 +19943,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListSingleSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListSingleSchedules", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -18857,6 +19957,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_ListSingleSchedules_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_ListSingleSchedules_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListSingleSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_ListSingleSchedules_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_ListSingleSchedules_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -18893,7 +20018,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -18907,6 +20032,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_GetSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_GetSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_GetSingleSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_GetSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -18943,7 +20093,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -18957,6 +20107,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_UpdateSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PUT", pattern_ScheduleService_UpdateSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_UpdateSingleSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_UpdateSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -18993,7 +20168,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19007,6 +20182,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_PatchSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_ScheduleService_PatchSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_PatchSingleSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_PatchSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19043,7 +20243,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19057,6 +20257,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_DeleteSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_ScheduleService_DeleteSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_DeleteSingleSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_DeleteSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19093,7 +20318,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/CreateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/CreateRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19107,6 +20332,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_CreateRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ScheduleService_CreateRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/CreateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_CreateRepeatedSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_CreateRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19143,7 +20393,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListRepeatedSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListRepeatedSchedules", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19157,6 +20407,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_ListRepeatedSchedules_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_ListRepeatedSchedules_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/ListRepeatedSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_ListRepeatedSchedules_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_ListRepeatedSchedules_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19193,7 +20468,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19207,6 +20482,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_GetRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_GetRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_GetRepeatedSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_GetRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19243,7 +20543,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19257,6 +20557,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_UpdateRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PUT", pattern_ScheduleService_UpdateRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_UpdateRepeatedSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_UpdateRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19293,7 +20618,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19307,6 +20632,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_PatchRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_ScheduleService_PatchRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_PatchRepeatedSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_PatchRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19343,7 +20693,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19357,6 +20707,31 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_DeleteRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_ScheduleService_DeleteRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ScheduleService_DeleteRepeatedSchedule_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_DeleteRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -24795,7 +26170,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListSchedules", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -24808,6 +26183,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_ListSchedules_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_ListSchedules_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_ListSchedules_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_ListSchedules_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -24839,7 +26236,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/CreateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/CreateSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -24852,6 +26249,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_CreateSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ScheduleService_CreateSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/CreateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_CreateSingleSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_CreateSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -24883,7 +26302,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListSingleSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListSingleSchedules", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -24896,6 +26315,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_ListSingleSchedules_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_ListSingleSchedules_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListSingleSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_ListSingleSchedules_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_ListSingleSchedules_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -24927,7 +26368,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -24940,6 +26381,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_GetSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_GetSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_GetSingleSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_GetSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -24971,7 +26434,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -24984,6 +26447,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_UpdateSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PUT", pattern_ScheduleService_UpdateSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_UpdateSingleSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_UpdateSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25015,7 +26500,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25028,6 +26513,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_PatchSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_ScheduleService_PatchSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_PatchSingleSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_PatchSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25059,7 +26566,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/single/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25072,6 +26579,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_DeleteSingleSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_ScheduleService_DeleteSingleSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteSingleSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_DeleteSingleSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_DeleteSingleSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25103,7 +26632,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/CreateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/CreateRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25116,6 +26645,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_CreateRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ScheduleService_CreateRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/CreateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_CreateRepeatedSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_CreateRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25147,7 +26698,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListRepeatedSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListRepeatedSchedules", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25160,6 +26711,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_ListRepeatedSchedules_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_ListRepeatedSchedules_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/ListRepeatedSchedules", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_ListRepeatedSchedules_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_ListRepeatedSchedules_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25191,7 +26764,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25204,6 +26777,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_GetRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ScheduleService_GetRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/GetRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_GetRepeatedSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_GetRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25235,7 +26830,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25248,6 +26843,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_UpdateRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PUT", pattern_ScheduleService_UpdateRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/UpdateRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_UpdateRepeatedSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_UpdateRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25279,7 +26896,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25292,6 +26909,28 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		}
 
 		forward_ScheduleService_PatchRepeatedSchedule_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_ScheduleService_PatchRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/PatchRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_PatchRepeatedSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_PatchRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25323,7 +26962,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -25339,61 +26978,109 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 
 	})
 
+	mux.Handle("DELETE", pattern_ScheduleService_DeleteRepeatedSchedule_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.ScheduleService/DeleteRepeatedSchedule", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ScheduleService_DeleteRepeatedSchedule_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ScheduleService_DeleteRepeatedSchedule_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
 var (
 	pattern_ScheduleService_ListSchedules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "projects", "projectName", "schedules"}, ""))
 
-	pattern_ScheduleService_ListSchedules_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "schedules"}, ""))
+	pattern_ScheduleService_ListSchedules_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "schedules"}, ""))
+
+	pattern_ScheduleService_ListSchedules_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "schedules"}, ""))
 
 	pattern_ScheduleService_CreateSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "schedules", "single"}, ""))
 
-	pattern_ScheduleService_CreateSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single"}, ""))
+	pattern_ScheduleService_CreateSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "compute", "schedules", "single"}, ""))
+
+	pattern_ScheduleService_CreateSingleSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single"}, ""))
 
 	pattern_ScheduleService_ListSingleSchedules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "schedules", "single"}, ""))
 
-	pattern_ScheduleService_ListSingleSchedules_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single"}, ""))
+	pattern_ScheduleService_ListSingleSchedules_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "compute", "schedules", "single"}, ""))
+
+	pattern_ScheduleService_ListSingleSchedules_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single"}, ""))
 
 	pattern_ScheduleService_GetSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "single", "resourceId"}, ""))
 
-	pattern_ScheduleService_GetSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
+	pattern_ScheduleService_GetSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "single", "resourceId"}, ""))
+
+	pattern_ScheduleService_GetSingleSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
 	pattern_ScheduleService_UpdateSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "single", "resourceId"}, ""))
 
-	pattern_ScheduleService_UpdateSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
+	pattern_ScheduleService_UpdateSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "single", "resourceId"}, ""))
+
+	pattern_ScheduleService_UpdateSingleSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
 	pattern_ScheduleService_PatchSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "single", "resourceId"}, ""))
 
-	pattern_ScheduleService_PatchSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
+	pattern_ScheduleService_PatchSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "single", "resourceId"}, ""))
+
+	pattern_ScheduleService_PatchSingleSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
 	pattern_ScheduleService_DeleteSingleSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "single", "resourceId"}, ""))
 
-	pattern_ScheduleService_DeleteSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
+	pattern_ScheduleService_DeleteSingleSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "single", "resourceId"}, ""))
+
+	pattern_ScheduleService_DeleteSingleSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "single", "resourceId"}, ""))
 
 	pattern_ScheduleService_CreateRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "schedules", "repeated"}, ""))
 
-	pattern_ScheduleService_CreateRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated"}, ""))
+	pattern_ScheduleService_CreateRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "compute", "schedules", "repeated"}, ""))
+
+	pattern_ScheduleService_CreateRepeatedSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated"}, ""))
 
 	pattern_ScheduleService_ListRepeatedSchedules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "schedules", "repeated"}, ""))
 
-	pattern_ScheduleService_ListRepeatedSchedules_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated"}, ""))
+	pattern_ScheduleService_ListRepeatedSchedules_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "projects", "projectName", "compute", "schedules", "repeated"}, ""))
+
+	pattern_ScheduleService_ListRepeatedSchedules_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated"}, ""))
 
 	pattern_ScheduleService_GetRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "repeated", "resourceId"}, ""))
 
-	pattern_ScheduleService_GetRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
+	pattern_ScheduleService_GetRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "repeated", "resourceId"}, ""))
+
+	pattern_ScheduleService_GetRepeatedSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 
 	pattern_ScheduleService_UpdateRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "repeated", "resourceId"}, ""))
 
-	pattern_ScheduleService_UpdateRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
+	pattern_ScheduleService_UpdateRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "repeated", "resourceId"}, ""))
+
+	pattern_ScheduleService_UpdateRepeatedSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 
 	pattern_ScheduleService_PatchRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "repeated", "resourceId"}, ""))
 
-	pattern_ScheduleService_PatchRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
+	pattern_ScheduleService_PatchRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "repeated", "resourceId"}, ""))
+
+	pattern_ScheduleService_PatchRepeatedSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 
 	pattern_ScheduleService_DeleteRepeatedSchedule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "projects", "projectName", "schedules", "repeated", "resourceId"}, ""))
 
-	pattern_ScheduleService_DeleteRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
+	pattern_ScheduleService_DeleteRepeatedSchedule_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"v1", "projects", "projectName", "compute", "schedules", "repeated", "resourceId"}, ""))
+
+	pattern_ScheduleService_DeleteRepeatedSchedule_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"edge-infra.orchestrator.apis", "v2", "schedules", "repeated", "resourceId"}, ""))
 )
 
 var (
@@ -25401,53 +27088,79 @@ var (
 
 	forward_ScheduleService_ListSchedules_1 = runtime.ForwardResponseMessage
 
+	forward_ScheduleService_ListSchedules_2 = runtime.ForwardResponseMessage
+
 	forward_ScheduleService_CreateSingleSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_CreateSingleSchedule_1 = runtime.ForwardResponseMessage
+
+	forward_ScheduleService_CreateSingleSchedule_2 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_ListSingleSchedules_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_ListSingleSchedules_1 = runtime.ForwardResponseMessage
 
+	forward_ScheduleService_ListSingleSchedules_2 = runtime.ForwardResponseMessage
+
 	forward_ScheduleService_GetSingleSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_GetSingleSchedule_1 = runtime.ForwardResponseMessage
+
+	forward_ScheduleService_GetSingleSchedule_2 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_UpdateSingleSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_UpdateSingleSchedule_1 = runtime.ForwardResponseMessage
 
+	forward_ScheduleService_UpdateSingleSchedule_2 = runtime.ForwardResponseMessage
+
 	forward_ScheduleService_PatchSingleSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_PatchSingleSchedule_1 = runtime.ForwardResponseMessage
+
+	forward_ScheduleService_PatchSingleSchedule_2 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_DeleteSingleSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_DeleteSingleSchedule_1 = runtime.ForwardResponseMessage
 
+	forward_ScheduleService_DeleteSingleSchedule_2 = runtime.ForwardResponseMessage
+
 	forward_ScheduleService_CreateRepeatedSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_CreateRepeatedSchedule_1 = runtime.ForwardResponseMessage
+
+	forward_ScheduleService_CreateRepeatedSchedule_2 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_ListRepeatedSchedules_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_ListRepeatedSchedules_1 = runtime.ForwardResponseMessage
 
+	forward_ScheduleService_ListRepeatedSchedules_2 = runtime.ForwardResponseMessage
+
 	forward_ScheduleService_GetRepeatedSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_GetRepeatedSchedule_1 = runtime.ForwardResponseMessage
+
+	forward_ScheduleService_GetRepeatedSchedule_2 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_UpdateRepeatedSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_UpdateRepeatedSchedule_1 = runtime.ForwardResponseMessage
 
+	forward_ScheduleService_UpdateRepeatedSchedule_2 = runtime.ForwardResponseMessage
+
 	forward_ScheduleService_PatchRepeatedSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_PatchRepeatedSchedule_1 = runtime.ForwardResponseMessage
 
+	forward_ScheduleService_PatchRepeatedSchedule_2 = runtime.ForwardResponseMessage
+
 	forward_ScheduleService_DeleteRepeatedSchedule_0 = runtime.ForwardResponseMessage
 
 	forward_ScheduleService_DeleteRepeatedSchedule_1 = runtime.ForwardResponseMessage
+
+	forward_ScheduleService_DeleteRepeatedSchedule_2 = runtime.ForwardResponseMessage
 )
 
 // RegisterTelemetryLogsGroupServiceHandlerFromEndpoint is same as RegisterTelemetryLogsGroupServiceHandler but

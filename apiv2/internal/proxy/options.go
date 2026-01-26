@@ -345,15 +345,6 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 				path = newPath
 			}
 
-			// Rewrite /compute/schedules to /schedules
-			// UI: /v1/projects/{projectName}/compute/schedules -> Backend: /v1/projects/{projectName}/schedules
-			if strings.Contains(path, "/compute/schedules") {
-				newPath := strings.Replace(path, "/compute/schedules", "/schedules", 1)
-				req.URL.Path = newPath
-				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
-				path = newPath
-			}
-
 			if strings.Contains(path, "/compute/hosts/summary") {
 				// Rewrite /compute/hosts/summary to /compute/hosts:summary
 				// UI uses dash, backend uses colon (Google API custom method syntax)
