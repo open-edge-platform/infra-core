@@ -513,6 +513,7 @@ func TestLocation_Cleanup(t *testing.T) {
 			ctx,
 			projectName,
 			*site.ResourceId,
+			nil,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)

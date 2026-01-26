@@ -106,7 +106,7 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	assert.Equal(t, utils.MetadataR3Inherited, *getr3.JSON200.InheritedMetadata)
 
 	gets1, err := apiClient.SiteServiceGetSiteWithResponse(
-		ctx, projectName, *s1.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *s1.JSON200.ResourceId, nil, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, gets1.StatusCode())
 	assert.Equal(t, *r3.ResourceId, *gets1.JSON200.Region.ResourceId)
@@ -121,7 +121,7 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	)
 
 	gets2, err := apiClient.SiteServiceGetSiteWithResponse(
-		ctx, projectName, *s2.JSON200.ResourceId, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, *s2.JSON200.ResourceId, nil, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, gets2.StatusCode())
 	assert.Equal(t, *r2.ResourceId, *gets2.JSON200.Region.ResourceId)
@@ -173,6 +173,7 @@ func TestLocation_CreateGetDelete(t *testing.T) {
 		ctx,
 		projectName,
 		*s1.JSON200.ResourceId,
+		nil,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
@@ -182,6 +183,7 @@ func TestLocation_CreateGetDelete(t *testing.T) {
 		ctx,
 		projectName,
 		*s2.JSON200.ResourceId,
+		nil,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
@@ -326,6 +328,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 		ctx,
 		projectName,
 		*s1.JSON200.ResourceId,
+		nil,
 		utils.Site1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -336,6 +339,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 		ctx,
 		projectName,
 		*s1.JSON200.ResourceId,
+		nil,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
@@ -348,6 +352,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 		ctx,
 		projectName,
 		*s1.JSON200.ResourceId,
+		nil,
 		utils.Site1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -358,6 +363,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 		ctx,
 		projectName,
 		*s1.JSON200.ResourceId,
+		nil,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)
@@ -371,6 +377,7 @@ func TestLocation_SiteUpdate(t *testing.T) {
 		ctx,
 		projectName,
 		*s1.JSON200.ResourceId,
+		nil,
 		utils.Site1RequestUpdate,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -482,6 +489,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 			ctx,
 			projectName,
 			utils.SiteUnexistID,
+			nil,
 			utils.Site1RequestUpdate,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -494,6 +502,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 			ctx,
 			projectName,
 			utils.SiteUnexistID,
+			nil,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
@@ -505,6 +514,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 			ctx,
 			projectName,
 			utils.SiteUnexistID,
+			nil,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
@@ -516,6 +526,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 			ctx,
 			projectName,
 			utils.SiteWrongID,
+			nil,
 			utils.Site1RequestUpdate,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -528,6 +539,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 			ctx,
 			projectName,
 			utils.SiteWrongID,
+			nil,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
@@ -539,6 +551,7 @@ func TestLocation_SiteErrors(t *testing.T) {
 			ctx,
 			projectName,
 			utils.SiteWrongID,
+			nil,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
@@ -1212,6 +1225,7 @@ func TestSite_Patch(t *testing.T) {
 		ctx,
 		projectName,
 		*site.JSON200.ResourceId,
+		nil,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
 	require.NoError(t, err)

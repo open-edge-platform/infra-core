@@ -33,7 +33,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	siteName := "site"
 	siteBody := api.SiteResource{Name: &siteName}
 	projectName := "test-project"
-	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", projectName, siteBody)
+	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", projectName, nil, siteBody)
 	assert.NoError(t, err)
 
 	regionID := "region-12345678"
