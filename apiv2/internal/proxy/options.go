@@ -366,27 +366,15 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 				path = newPath
 			}
 
-			// Rewrite OS Update paths: UI uses kebab-case and plural, backend uses snake_case and singular
-			// UI: /os-update-policies -> Backend: /os_update_policy
-			//nolint:gocritic // if-else chain is clearer than switch for these string patterns
-			if strings.Contains(path, "/os-update-policies/") || strings.HasSuffix(path, "/os-update-policies") {
-				newPath := strings.Replace(path, "/os-update-policies", "/os_update_policy", 1)
-				req.URL.Path = newPath
-				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
-				// UI: /os-update-runs -> Backend: /os_update_run
-			} else if strings.Contains(path, "/os-update-runs/") || strings.HasSuffix(path, "/os-update-runs") {
-				newPath := strings.Replace(path, "/os-update-runs", "/os_update_run", 1)
-				req.URL.Path = newPath
-				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
-				// UI: /compute/os -> Backend: /compute/operating_systems (abbreviated vs full name)
-			} else if strings.Contains(path, "/compute/os/") || strings.HasSuffix(path, "/compute/os") {
+			// UI: /compute/os -> Backend: /compute/operating_systems (abbreviated vs full name)
+			if strings.Contains(path, "/compute/os/") || strings.HasSuffix(path, "/compute/os") {
 				newPath := strings.Replace(path, "/compute/os", "/compute/operating_systems", 1)
 				req.URL.Path = newPath
 				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
 			} else if strings.Contains(path, "/compute/hosts/summary") {
-				// Rewrite /compute/hosts/summary to /compute/hosts_summary
-				// UI uses dash, backend uses underscore
-				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts_summary", 1)
+				// Rewrite /compute/hosts/summary to /compute/hosts:summary
+				// UI uses dash, backend uses colon (Google API custom method syntax)
+				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts:summary", 1)
 				req.URL.Path = newPath
 				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
 			}

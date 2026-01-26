@@ -602,7 +602,7 @@ paths:
         - HostService
       summary: GetHostsSummary
       description: Get a summary of the hosts status.
-      operationId: HostService_GetHostsSummary2
+      operationId: HostService_GetHostsSummary3
       parameters:
         - name: filter
           in: query
@@ -4660,13 +4660,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HostResource'
-  /v1/projects/{projectName}/compute/hosts_summary:
+  /v1/projects/{projectName}/compute/hosts:summary:
     get:
       tags:
         - HostService
       summary: GetHostsSummary
       description: Get a summary of the hosts status.
       operationId: HostService_GetHostsSummary
+      parameters:
+        - name: projectName
+          in: path
+          description: The project name from the URL path.
+          required: true
+          schema:
+            type: string
+            title: projectName
+            maxLength: 100
+            minLength: 1
+            description: The project name from the URL path.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHostSummaryResponse'
+  /v1/projects/{projectName}/compute/hosts_summary:
+    get:
+      tags:
+        - HostService
+      summary: GetHostsSummary
+      description: Get a summary of the hosts status.
+      operationId: HostService_GetHostsSummary2
       parameters:
         - name: projectName
           in: path
@@ -5610,6 +5648,300 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListLocationsResponse'
+  /v1/projects/{projectName}/os-update-policies:
+    get:
+      tags:
+        - OSUpdatePolicy
+      summary: ListOSUpdatePolicy
+      description: Get a list of OS Update Policies.
+      operationId: OSUpdatePolicy_ListOSUpdatePolicy3
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOSUpdatePolicyResponse'
+    post:
+      tags:
+        - OSUpdatePolicy
+      summary: CreateOSUpdatePolicy
+      description: Create an OS Update Policy.
+      operationId: OSUpdatePolicy_CreateOSUpdatePolicy3
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+      requestBody:
+        description: The OS Update policy to create.
+        content:
+          application/json:
+            schema:
+              title: os_update_policy
+              description: The OS Update policy to create.
+              $ref: '#/components/schemas/OSUpdatePolicy'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdatePolicy'
+  /v1/projects/{projectName}/os-update-policies/{resourceId}:
+    get:
+      tags:
+        - OSUpdatePolicy
+      summary: GetOSUpdatePolicy
+      description: Get a specific OS Update Policy.
+      operationId: OSUpdatePolicy_GetOSUpdatePolicy3
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested os.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested os.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdatePolicy'
+    delete:
+      tags:
+        - OSUpdatePolicy
+      summary: DeleteOSUpdatePolicy
+      description: Delete a OS Update Policy.
+      operationId: OSUpdatePolicy_DeleteOSUpdatePolicy3
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the OS Update Policy to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the OS Update Policy to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteOSUpdatePolicyResponse'
+  /v1/projects/{projectName}/os-update-runs:
+    get:
+      tags:
+        - OSUpdateRun
+      summary: ListOSUpdateRun
+      description: Get a list of OS Update Policies.
+      operationId: OSUpdateRun_ListOSUpdateRun3
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOSUpdateRunResponse'
+  /v1/projects/{projectName}/os-update-runs/{resourceId}:
+    get:
+      tags:
+        - OSUpdateRun
+      summary: GetOSUpdateRun
+      description: Get a specific OS Update Run.
+      operationId: OSUpdateRun_GetOSUpdateRun3
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the requested os.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested os.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OSUpdateRun'
+    delete:
+      tags:
+        - OSUpdateRun
+      summary: DeleteOSUpdateRun
+      description: Delete a OS Update Run.
+      operationId: OSUpdateRun_DeleteOSUpdateRun3
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: resourceId
+          in: path
+          description: Name of the os update run to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the os update run to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteOSUpdateRunResponse'
   /v1/projects/{projectName}/os_update_policy:
     get:
       tags:

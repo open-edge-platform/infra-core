@@ -2016,12 +2016,29 @@ func local_request_HostService_GetHostsSummary_0(ctx context.Context, marshaler 
 }
 
 var (
-	filter_HostService_GetHostsSummary_1 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_HostService_GetHostsSummary_1 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
 
 func request_HostService_GetHostsSummary_1(ctx context.Context, marshaler runtime.Marshaler, client HostServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetHostSummaryRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -2039,10 +2056,63 @@ func local_request_HostService_GetHostsSummary_1(ctx context.Context, marshaler 
 	var protoReq GetHostSummaryRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_HostService_GetHostsSummary_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetHostsSummary(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_HostService_GetHostsSummary_2 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_HostService_GetHostsSummary_2(ctx context.Context, marshaler runtime.Marshaler, client HostServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetHostSummaryRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_HostService_GetHostsSummary_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetHostsSummary(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_HostService_GetHostsSummary_2(ctx context.Context, marshaler runtime.Marshaler, server HostServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetHostSummaryRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_HostService_GetHostsSummary_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -13255,6 +13325,74 @@ func local_request_OSUpdatePolicy_CreateOSUpdatePolicy_1(ctx context.Context, ma
 
 }
 
+func request_OSUpdatePolicy_CreateOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, client OSUpdatePolicyClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.OsUpdatePolicy); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	msg, err := client.CreateOSUpdatePolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OSUpdatePolicy_CreateOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, server OSUpdatePolicyServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.OsUpdatePolicy); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	msg, err := server.CreateOSUpdatePolicy(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 var (
 	filter_OSUpdatePolicy_ListOSUpdatePolicy_0 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
@@ -13353,6 +13491,76 @@ func local_request_OSUpdatePolicy_ListOSUpdatePolicy_1(ctx context.Context, mars
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OSUpdatePolicy_ListOSUpdatePolicy_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListOSUpdatePolicy(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OSUpdatePolicy_ListOSUpdatePolicy_2 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_OSUpdatePolicy_ListOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, client OSUpdatePolicyClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OSUpdatePolicy_ListOSUpdatePolicy_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListOSUpdatePolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OSUpdatePolicy_ListOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, server OSUpdatePolicyServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OSUpdatePolicy_ListOSUpdatePolicy_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -13503,6 +13711,78 @@ func local_request_OSUpdatePolicy_GetOSUpdatePolicy_1(ctx context.Context, marsh
 
 }
 
+func request_OSUpdatePolicy_GetOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, client OSUpdatePolicyClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := client.GetOSUpdatePolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OSUpdatePolicy_GetOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, server OSUpdatePolicyServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.GetOSUpdatePolicy(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_OSUpdatePolicy_DeleteOSUpdatePolicy_0(ctx context.Context, marshaler runtime.Marshaler, client OSUpdatePolicyClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteOSUpdatePolicyRequest
 	var metadata runtime.ServerMetadata
@@ -13645,6 +13925,78 @@ func local_request_OSUpdatePolicy_DeleteOSUpdatePolicy_1(ctx context.Context, ma
 
 }
 
+func request_OSUpdatePolicy_DeleteOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, client OSUpdatePolicyClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := client.DeleteOSUpdatePolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OSUpdatePolicy_DeleteOSUpdatePolicy_2(ctx context.Context, marshaler runtime.Marshaler, server OSUpdatePolicyServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteOSUpdatePolicyRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.DeleteOSUpdatePolicy(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 var (
 	filter_OSUpdateRun_ListOSUpdateRun_0 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
 )
@@ -13743,6 +14095,76 @@ func local_request_OSUpdateRun_ListOSUpdateRun_1(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OSUpdateRun_ListOSUpdateRun_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.ListOSUpdateRun(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_OSUpdateRun_ListOSUpdateRun_2 = &utilities.DoubleArray{Encoding: map[string]int{"projectName": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_OSUpdateRun_ListOSUpdateRun_2(ctx context.Context, marshaler runtime.Marshaler, client OSUpdateRunClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOSUpdateRunRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OSUpdateRun_ListOSUpdateRun_2); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.ListOSUpdateRun(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OSUpdateRun_ListOSUpdateRun_2(ctx context.Context, marshaler runtime.Marshaler, server OSUpdateRunServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOSUpdateRunRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OSUpdateRun_ListOSUpdateRun_2); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -13893,6 +14315,78 @@ func local_request_OSUpdateRun_GetOSUpdateRun_1(ctx context.Context, marshaler r
 
 }
 
+func request_OSUpdateRun_GetOSUpdateRun_2(ctx context.Context, marshaler runtime.Marshaler, client OSUpdateRunClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetOSUpdateRunRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := client.GetOSUpdateRun(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OSUpdateRun_GetOSUpdateRun_2(ctx context.Context, marshaler runtime.Marshaler, server OSUpdateRunServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetOSUpdateRunRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := server.GetOSUpdateRun(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_OSUpdateRun_DeleteOSUpdateRun_0(ctx context.Context, marshaler runtime.Marshaler, client OSUpdateRunClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteOSUpdateRunRequest
 	var metadata runtime.ServerMetadata
@@ -14028,6 +14522,78 @@ func local_request_OSUpdateRun_DeleteOSUpdateRun_1(ctx context.Context, marshale
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_OSUpdateRun_DeleteOSUpdateRun_1); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.DeleteOSUpdateRun(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_OSUpdateRun_DeleteOSUpdateRun_2(ctx context.Context, marshaler runtime.Marshaler, client OSUpdateRunClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteOSUpdateRunRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
+	}
+
+	msg, err := client.DeleteOSUpdateRun(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_OSUpdateRun_DeleteOSUpdateRun_2(ctx context.Context, marshaler runtime.Marshaler, server OSUpdateRunServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteOSUpdateRunRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["projectName"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "projectName")
+	}
+
+	protoReq.ProjectName, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "projectName", err)
+	}
+
+	val, ok = pathParams["resourceId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resourceId")
+	}
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resourceId", err)
 	}
 
 	msg, err := server.DeleteOSUpdateRun(ctx, &protoReq)
@@ -14726,7 +15292,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/hosts_summary"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/hosts:summary"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -14751,7 +15317,7 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts_summary"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/hosts_summary"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -14765,6 +15331,31 @@ func RegisterHostServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		}
 
 		forward_HostService_GetHostsSummary_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_HostService_GetHostsSummary_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts_summary"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_HostService_GetHostsSummary_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_HostService_GetHostsSummary_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -18810,6 +19401,31 @@ func RegisterOSUpdatePolicyHandlerServer(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("POST", pattern_OSUpdatePolicy_CreateOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/CreateOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OSUpdatePolicy_CreateOSUpdatePolicy_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_CreateOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_OSUpdatePolicy_ListOSUpdatePolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -18857,6 +19473,31 @@ func RegisterOSUpdatePolicyHandlerServer(ctx context.Context, mux *runtime.Serve
 		}
 
 		forward_OSUpdatePolicy_ListOSUpdatePolicy_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_OSUpdatePolicy_ListOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/ListOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OSUpdatePolicy_ListOSUpdatePolicy_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_ListOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -18910,6 +19551,31 @@ func RegisterOSUpdatePolicyHandlerServer(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("GET", pattern_OSUpdatePolicy_GetOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OSUpdatePolicy_GetOSUpdatePolicy_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_GetOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("DELETE", pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -18957,6 +19623,31 @@ func RegisterOSUpdatePolicyHandlerServer(ctx context.Context, mux *runtime.Serve
 		}
 
 		forward_OSUpdatePolicy_DeleteOSUpdatePolicy_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OSUpdatePolicy_DeleteOSUpdatePolicy_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_DeleteOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19019,6 +19710,31 @@ func RegisterOSUpdateRunHandlerServer(ctx context.Context, mux *runtime.ServeMux
 
 	})
 
+	mux.Handle("GET", pattern_OSUpdateRun_ListOSUpdateRun_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdateRun/ListOSUpdateRun", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-runs"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OSUpdateRun_ListOSUpdateRun_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdateRun_ListOSUpdateRun_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_OSUpdateRun_GetOSUpdateRun_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -19069,6 +19785,31 @@ func RegisterOSUpdateRunHandlerServer(ctx context.Context, mux *runtime.ServeMux
 
 	})
 
+	mux.Handle("GET", pattern_OSUpdateRun_GetOSUpdateRun_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdateRun/GetOSUpdateRun", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-runs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OSUpdateRun_GetOSUpdateRun_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdateRun_GetOSUpdateRun_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("DELETE", pattern_OSUpdateRun_DeleteOSUpdateRun_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -19116,6 +19857,31 @@ func RegisterOSUpdateRunHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		}
 
 		forward_OSUpdateRun_DeleteOSUpdateRun_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("DELETE", pattern_OSUpdateRun_DeleteOSUpdateRun_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-runs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_OSUpdateRun_DeleteOSUpdateRun_2(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdateRun_DeleteOSUpdateRun_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -19977,7 +20743,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/hosts_summary"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/hosts:summary"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -19999,7 +20765,7 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts_summary"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/compute/hosts_summary"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -20012,6 +20778,28 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		}
 
 		forward_HostService_GetHostsSummary_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_HostService_GetHostsSummary_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.HostService/GetHostsSummary", runtime.WithHTTPPathPattern("/edge-infra.orchestrator.apis/v2/hosts_summary"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_HostService_GetHostsSummary_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_HostService_GetHostsSummary_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -20459,9 +21247,11 @@ func RegisterHostServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_HostService_GetHostsSummary_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "hosts_summary"}, ""))
+	pattern_HostService_GetHostsSummary_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "hosts"}, "summary"))
 
-	pattern_HostService_GetHostsSummary_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "hosts_summary"}, ""))
+	pattern_HostService_GetHostsSummary_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "hosts_summary"}, ""))
+
+	pattern_HostService_GetHostsSummary_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "hosts_summary"}, ""))
 
 	pattern_HostService_CreateHost_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "projects", "projectName", "compute", "hosts"}, ""))
 
@@ -20508,6 +21298,8 @@ var (
 	forward_HostService_GetHostsSummary_0 = runtime.ForwardResponseMessage
 
 	forward_HostService_GetHostsSummary_1 = runtime.ForwardResponseMessage
+
+	forward_HostService_GetHostsSummary_2 = runtime.ForwardResponseMessage
 
 	forward_HostService_CreateHost_0 = runtime.ForwardResponseMessage
 
@@ -24682,6 +25474,28 @@ func RegisterOSUpdatePolicyHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("POST", pattern_OSUpdatePolicy_CreateOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/CreateOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OSUpdatePolicy_CreateOSUpdatePolicy_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_CreateOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_OSUpdatePolicy_ListOSUpdatePolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -24723,6 +25537,28 @@ func RegisterOSUpdatePolicyHandlerClient(ctx context.Context, mux *runtime.Serve
 		}
 
 		forward_OSUpdatePolicy_ListOSUpdatePolicy_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_OSUpdatePolicy_ListOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/ListOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OSUpdatePolicy_ListOSUpdatePolicy_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_ListOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -24770,6 +25606,28 @@ func RegisterOSUpdatePolicyHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("GET", pattern_OSUpdatePolicy_GetOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/GetOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OSUpdatePolicy_GetOSUpdatePolicy_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_GetOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("DELETE", pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -24814,6 +25672,28 @@ func RegisterOSUpdatePolicyHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
+	mux.Handle("DELETE", pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdatePolicy/DeleteOSUpdatePolicy", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-policies/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OSUpdatePolicy_DeleteOSUpdatePolicy_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdatePolicy_DeleteOSUpdatePolicy_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -24822,17 +25702,25 @@ var (
 
 	pattern_OSUpdatePolicy_CreateOSUpdatePolicy_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy"}, ""))
 
+	pattern_OSUpdatePolicy_CreateOSUpdatePolicy_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "projects", "projectName", "os-update-policies"}, ""))
+
 	pattern_OSUpdatePolicy_ListOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "projects", "projectName", "os_update_policy"}, ""))
 
 	pattern_OSUpdatePolicy_ListOSUpdatePolicy_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy"}, ""))
+
+	pattern_OSUpdatePolicy_ListOSUpdatePolicy_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "projects", "projectName", "os-update-policies"}, ""))
 
 	pattern_OSUpdatePolicy_GetOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os_update_policy", "resourceId"}, ""))
 
 	pattern_OSUpdatePolicy_GetOSUpdatePolicy_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy", "resourceId"}, ""))
 
+	pattern_OSUpdatePolicy_GetOSUpdatePolicy_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os-update-policies", "resourceId"}, ""))
+
 	pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os_update_policy", "resourceId"}, ""))
 
 	pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_policy", "resourceId"}, ""))
+
+	pattern_OSUpdatePolicy_DeleteOSUpdatePolicy_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os-update-policies", "resourceId"}, ""))
 )
 
 var (
@@ -24840,17 +25728,25 @@ var (
 
 	forward_OSUpdatePolicy_CreateOSUpdatePolicy_1 = runtime.ForwardResponseMessage
 
+	forward_OSUpdatePolicy_CreateOSUpdatePolicy_2 = runtime.ForwardResponseMessage
+
 	forward_OSUpdatePolicy_ListOSUpdatePolicy_0 = runtime.ForwardResponseMessage
 
 	forward_OSUpdatePolicy_ListOSUpdatePolicy_1 = runtime.ForwardResponseMessage
+
+	forward_OSUpdatePolicy_ListOSUpdatePolicy_2 = runtime.ForwardResponseMessage
 
 	forward_OSUpdatePolicy_GetOSUpdatePolicy_0 = runtime.ForwardResponseMessage
 
 	forward_OSUpdatePolicy_GetOSUpdatePolicy_1 = runtime.ForwardResponseMessage
 
+	forward_OSUpdatePolicy_GetOSUpdatePolicy_2 = runtime.ForwardResponseMessage
+
 	forward_OSUpdatePolicy_DeleteOSUpdatePolicy_0 = runtime.ForwardResponseMessage
 
 	forward_OSUpdatePolicy_DeleteOSUpdatePolicy_1 = runtime.ForwardResponseMessage
+
+	forward_OSUpdatePolicy_DeleteOSUpdatePolicy_2 = runtime.ForwardResponseMessage
 )
 
 // RegisterOSUpdateRunHandlerFromEndpoint is same as RegisterOSUpdateRunHandler but
@@ -24935,6 +25831,28 @@ func RegisterOSUpdateRunHandlerClient(ctx context.Context, mux *runtime.ServeMux
 
 	})
 
+	mux.Handle("GET", pattern_OSUpdateRun_ListOSUpdateRun_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdateRun/ListOSUpdateRun", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-runs"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OSUpdateRun_ListOSUpdateRun_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdateRun_ListOSUpdateRun_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_OSUpdateRun_GetOSUpdateRun_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -24976,6 +25894,28 @@ func RegisterOSUpdateRunHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		}
 
 		forward_OSUpdateRun_GetOSUpdateRun_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_OSUpdateRun_GetOSUpdateRun_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdateRun/GetOSUpdateRun", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-runs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OSUpdateRun_GetOSUpdateRun_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdateRun_GetOSUpdateRun_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -25023,6 +25963,28 @@ func RegisterOSUpdateRunHandlerClient(ctx context.Context, mux *runtime.ServeMux
 
 	})
 
+	mux.Handle("DELETE", pattern_OSUpdateRun_DeleteOSUpdateRun_2, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/services.v1.OSUpdateRun/DeleteOSUpdateRun", runtime.WithHTTPPathPattern("/v1/projects/{projectName}/os-update-runs/{resourceId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_OSUpdateRun_DeleteOSUpdateRun_2(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_OSUpdateRun_DeleteOSUpdateRun_2(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -25031,13 +25993,19 @@ var (
 
 	pattern_OSUpdateRun_ListOSUpdateRun_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run"}, ""))
 
+	pattern_OSUpdateRun_ListOSUpdateRun_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "projects", "projectName", "os-update-runs"}, ""))
+
 	pattern_OSUpdateRun_GetOSUpdateRun_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os_update_run", "resourceId"}, ""))
 
 	pattern_OSUpdateRun_GetOSUpdateRun_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run", "resourceId"}, ""))
 
+	pattern_OSUpdateRun_GetOSUpdateRun_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os-update-runs", "resourceId"}, ""))
+
 	pattern_OSUpdateRun_DeleteOSUpdateRun_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os_update_run", "resourceId"}, ""))
 
 	pattern_OSUpdateRun_DeleteOSUpdateRun_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"edge-infra.orchestrator.apis", "v2", "os_update_run", "resourceId"}, ""))
+
+	pattern_OSUpdateRun_DeleteOSUpdateRun_2 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "projects", "projectName", "os-update-runs", "resourceId"}, ""))
 )
 
 var (
@@ -25045,11 +26013,17 @@ var (
 
 	forward_OSUpdateRun_ListOSUpdateRun_1 = runtime.ForwardResponseMessage
 
+	forward_OSUpdateRun_ListOSUpdateRun_2 = runtime.ForwardResponseMessage
+
 	forward_OSUpdateRun_GetOSUpdateRun_0 = runtime.ForwardResponseMessage
 
 	forward_OSUpdateRun_GetOSUpdateRun_1 = runtime.ForwardResponseMessage
 
+	forward_OSUpdateRun_GetOSUpdateRun_2 = runtime.ForwardResponseMessage
+
 	forward_OSUpdateRun_DeleteOSUpdateRun_0 = runtime.ForwardResponseMessage
 
 	forward_OSUpdateRun_DeleteOSUpdateRun_1 = runtime.ForwardResponseMessage
+
+	forward_OSUpdateRun_DeleteOSUpdateRun_2 = runtime.ForwardResponseMessage
 )

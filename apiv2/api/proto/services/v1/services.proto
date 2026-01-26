@@ -189,7 +189,12 @@ service HostService {
   // Get a summary of the hosts status.
   rpc GetHostsSummary(GetHostSummaryRequest) returns (GetHostSummaryResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/compute/hosts_summary"
+      // Using colon syntax for custom method to avoid conflict with /hosts/{resourceId}
+      // See: https://cloud.google.com/apis/design/custom_methods
+      get: "/v1/projects/{projectName}/compute/hosts:summary"
+      additional_bindings {
+        get: "/v1/projects/{projectName}/compute/hosts_summary"
+      }
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/hosts_summary"
       }
@@ -3135,6 +3140,10 @@ service OSUpdatePolicy {
         post: "/edge-infra.orchestrator.apis/v2/os_update_policy"
         body: "os_update_policy"
       }
+      additional_bindings {
+        post: "/v1/projects/{projectName}/os-update-policies"
+        body: "os_update_policy"
+      }
     };
   }
   // Get a list of OS Update Policies.
@@ -3143,6 +3152,9 @@ service OSUpdatePolicy {
       get: "/v1/projects/{projectName}/os_update_policy"
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/os_update_policy"
+      }
+      additional_bindings {
+        get: "/v1/projects/{projectName}/os-update-policies"
       }
     };
   }
@@ -3153,6 +3165,9 @@ service OSUpdatePolicy {
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
       }
+      additional_bindings {
+        get: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
+      }
     };
   }
   // Delete a OS Update Policy.
@@ -3161,6 +3176,9 @@ service OSUpdatePolicy {
       delete: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
+      }
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
       }
     };
   }
@@ -3271,6 +3289,9 @@ service OSUpdateRun {
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/os_update_run"
       }
+      additional_bindings {
+        get: "/v1/projects/{projectName}/os-update-runs"
+      }
     };
   }
   // Get a specific OS Update Run.
@@ -3280,6 +3301,9 @@ service OSUpdateRun {
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
       }
+      additional_bindings {
+        get: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
+      }
     };
   }
   // Delete a OS Update Run.
@@ -3288,6 +3312,9 @@ service OSUpdateRun {
       delete: "/v1/projects/{projectName}/os_update_run/{resourceId}"
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
+      }
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
       }
     };
   }

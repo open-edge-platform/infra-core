@@ -5706,8 +5706,8 @@ type HostServicePatchRegisterHost2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// HostServiceGetHostsSummary2Params defines parameters for HostServiceGetHostsSummary2.
-type HostServiceGetHostsSummary2Params struct {
+// HostServiceGetHostsSummary3Params defines parameters for HostServiceGetHostsSummary3.
+type HostServiceGetHostsSummary3Params struct {
 	// Filter Optional filter to return only item of interest.
 	//  See https://google.aip.dev/160 for details.
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
@@ -6606,6 +6606,13 @@ type HostServiceGetHostsSummaryParams struct {
 	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
 }
 
+// HostServiceGetHostsSummary2Params defines parameters for HostServiceGetHostsSummary2.
+type HostServiceGetHostsSummary2Params struct {
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+}
+
 // InstanceServiceListInstancesParams defines parameters for InstanceServiceListInstances.
 type InstanceServiceListInstancesParams struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
@@ -6700,6 +6707,42 @@ type LocationServiceListLocationsParams struct {
 
 	// ShowRegions Return region locations
 	ShowRegions *bool `form:"showRegions,omitempty" json:"showRegions,omitempty"`
+}
+
+// OSUpdatePolicyListOSUpdatePolicy3Params defines parameters for OSUpdatePolicyListOSUpdatePolicy3.
+type OSUpdatePolicyListOSUpdatePolicy3Params struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// OSUpdateRunListOSUpdateRun3Params defines parameters for OSUpdateRunListOSUpdateRun3.
+type OSUpdateRunListOSUpdateRun3Params struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // OSUpdatePolicyListOSUpdatePolicyParams defines parameters for OSUpdatePolicyListOSUpdatePolicy.
@@ -7210,6 +7253,9 @@ type CustomConfigServiceCreateCustomConfigJSONRequestBody = CustomConfigResource
 
 // LocalAccountServiceCreateLocalAccountJSONRequestBody defines body for LocalAccountServiceCreateLocalAccount for application/json ContentType.
 type LocalAccountServiceCreateLocalAccountJSONRequestBody = LocalAccountResource
+
+// OSUpdatePolicyCreateOSUpdatePolicy3JSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy3 for application/json ContentType.
+type OSUpdatePolicyCreateOSUpdatePolicy3JSONRequestBody = OSUpdatePolicy
 
 // OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody defines body for OSUpdatePolicyCreateOSUpdatePolicy for application/json ContentType.
 type OSUpdatePolicyCreateOSUpdatePolicyJSONRequestBody = OSUpdatePolicy
