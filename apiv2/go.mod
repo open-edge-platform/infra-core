@@ -17,7 +17,7 @@ require (
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.33.2
-	github.com/open-edge-platform/orch-library/go v0.6.4-0.20260115154659-30f302fb1b1a
+	github.com/open-edge-platform/orch-library/go v0.6.4-0.20260126110346-c97eed1b3071
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.63.0
