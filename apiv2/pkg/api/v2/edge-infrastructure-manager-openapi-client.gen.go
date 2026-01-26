@@ -323,29 +323,29 @@ type ClientInterface interface {
 
 	ScheduleServiceUpdateSingleSchedule2(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, body ScheduleServiceUpdateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SiteServiceListSites2 request
-	SiteServiceListSites2(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SiteServiceListSites3 request
+	SiteServiceListSites3(ctx context.Context, params *SiteServiceListSites3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SiteServiceCreateSite2WithBody request with any body
-	SiteServiceCreateSite2WithBody(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SiteServiceCreateSite3WithBody request with any body
+	SiteServiceCreateSite3WithBody(ctx context.Context, params *SiteServiceCreateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	SiteServiceCreateSite2(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceCreateSite3(ctx context.Context, params *SiteServiceCreateSite3Params, body SiteServiceCreateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SiteServiceDeleteSite2 request
-	SiteServiceDeleteSite2(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SiteServiceDeleteSite3 request
+	SiteServiceDeleteSite3(ctx context.Context, resourceId string, params *SiteServiceDeleteSite3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SiteServiceGetSite2 request
-	SiteServiceGetSite2(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SiteServiceGetSite3 request
+	SiteServiceGetSite3(ctx context.Context, resourceId string, params *SiteServiceGetSite3Params, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SiteServicePatchSite2WithBody request with any body
-	SiteServicePatchSite2WithBody(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SiteServicePatchSite3WithBody request with any body
+	SiteServicePatchSite3WithBody(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	SiteServicePatchSite2(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServicePatchSite3(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, body SiteServicePatchSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SiteServiceUpdateSite2WithBody request with any body
-	SiteServiceUpdateSite2WithBody(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// SiteServiceUpdateSite3WithBody request with any body
+	SiteServiceUpdateSite3WithBody(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	SiteServiceUpdateSite2(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceUpdateSite3(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, body SiteServiceUpdateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryLogsGroupServiceListTelemetryLogsGroups2 request
 	TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -657,6 +657,30 @@ type ClientInterface interface {
 
 	RegionServiceCreateRegion(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// SiteServiceListSites2 request
+	SiteServiceListSites2(ctx context.Context, projectName string, regionId string, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceCreateSite2WithBody request with any body
+	SiteServiceCreateSite2WithBody(ctx context.Context, projectName string, regionId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServiceCreateSite2(ctx context.Context, projectName string, regionId string, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceDeleteSite2 request
+	SiteServiceDeleteSite2(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceGetSite2 request
+	SiteServiceGetSite2(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServicePatchSite2WithBody request with any body
+	SiteServicePatchSite2WithBody(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServicePatchSite2(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SiteServiceUpdateSite2WithBody request with any body
+	SiteServiceUpdateSite2WithBody(ctx context.Context, projectName string, regionId string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SiteServiceUpdateSite2(ctx context.Context, projectName string, regionId string, resourceId string, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// RegionServiceDeleteRegion request
 	RegionServiceDeleteRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -728,15 +752,15 @@ type ClientInterface interface {
 	SiteServiceListSites(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SiteServiceCreateSiteWithBody request with any body
-	SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	SiteServiceCreateSite(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceCreateSite(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SiteServiceDeleteSite request
-	SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, params *SiteServiceDeleteSiteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SiteServiceGetSite request
-	SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, params *SiteServiceGetSiteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SiteServicePatchSiteWithBody request with any body
 	SiteServicePatchSiteWithBody(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -744,9 +768,9 @@ type ClientInterface interface {
 	SiteServicePatchSite(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SiteServiceUpdateSiteWithBody request with any body
-	SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// TelemetryLogsGroupServiceListTelemetryLogsGroups request
 	TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1895,8 +1919,8 @@ func (c *Client) ScheduleServiceUpdateSingleSchedule2(ctx context.Context, resou
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceListSites2(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceListSites2Request(c.Server, params)
+func (c *Client) SiteServiceListSites3(ctx context.Context, params *SiteServiceListSites3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceListSites3Request(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1907,8 +1931,8 @@ func (c *Client) SiteServiceListSites2(ctx context.Context, params *SiteServiceL
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceCreateSite2WithBody(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceCreateSite2RequestWithBody(c.Server, params, contentType, body)
+func (c *Client) SiteServiceCreateSite3WithBody(ctx context.Context, params *SiteServiceCreateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSite3RequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1919,8 +1943,8 @@ func (c *Client) SiteServiceCreateSite2WithBody(ctx context.Context, params *Sit
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceCreateSite2(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceCreateSite2Request(c.Server, params, body)
+func (c *Client) SiteServiceCreateSite3(ctx context.Context, params *SiteServiceCreateSite3Params, body SiteServiceCreateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSite3Request(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1931,8 +1955,8 @@ func (c *Client) SiteServiceCreateSite2(ctx context.Context, params *SiteService
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceDeleteSite2(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceDeleteSite2Request(c.Server, resourceId, params)
+func (c *Client) SiteServiceDeleteSite3(ctx context.Context, resourceId string, params *SiteServiceDeleteSite3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceDeleteSite3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1943,8 +1967,8 @@ func (c *Client) SiteServiceDeleteSite2(ctx context.Context, resourceId string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceGetSite2(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceGetSite2Request(c.Server, resourceId, params)
+func (c *Client) SiteServiceGetSite3(ctx context.Context, resourceId string, params *SiteServiceGetSite3Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceGetSite3Request(c.Server, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1955,8 +1979,8 @@ func (c *Client) SiteServiceGetSite2(ctx context.Context, resourceId string, par
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServicePatchSite2WithBody(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServicePatchSite2RequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) SiteServicePatchSite3WithBody(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSite3RequestWithBody(c.Server, resourceId, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1967,8 +1991,8 @@ func (c *Client) SiteServicePatchSite2WithBody(ctx context.Context, resourceId s
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServicePatchSite2(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServicePatchSite2Request(c.Server, resourceId, params, body)
+func (c *Client) SiteServicePatchSite3(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, body SiteServicePatchSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSite3Request(c.Server, resourceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1979,8 +2003,8 @@ func (c *Client) SiteServicePatchSite2(ctx context.Context, resourceId string, p
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceUpdateSite2WithBody(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceUpdateSite2RequestWithBody(c.Server, resourceId, params, contentType, body)
+func (c *Client) SiteServiceUpdateSite3WithBody(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSite3RequestWithBody(c.Server, resourceId, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -1991,8 +2015,8 @@ func (c *Client) SiteServiceUpdateSite2WithBody(ctx context.Context, resourceId 
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceUpdateSite2(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceUpdateSite2Request(c.Server, resourceId, params, body)
+func (c *Client) SiteServiceUpdateSite3(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, body SiteServiceUpdateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSite3Request(c.Server, resourceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3359,6 +3383,114 @@ func (c *Client) RegionServiceCreateRegion(ctx context.Context, projectName stri
 	return c.Client.Do(req)
 }
 
+func (c *Client) SiteServiceListSites2(ctx context.Context, projectName string, regionId string, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceListSites2Request(c.Server, projectName, regionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceCreateSite2WithBody(ctx context.Context, projectName string, regionId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSite2RequestWithBody(c.Server, projectName, regionId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceCreateSite2(ctx context.Context, projectName string, regionId string, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSite2Request(c.Server, projectName, regionId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceDeleteSite2(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceDeleteSite2Request(c.Server, projectName, regionId, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceGetSite2(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceGetSite2Request(c.Server, projectName, regionId, resourceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServicePatchSite2WithBody(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSite2RequestWithBody(c.Server, projectName, regionId, resourceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServicePatchSite2(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServicePatchSite2Request(c.Server, projectName, regionId, resourceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceUpdateSite2WithBody(ctx context.Context, projectName string, regionId string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSite2RequestWithBody(c.Server, projectName, regionId, resourceId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SiteServiceUpdateSite2(ctx context.Context, projectName string, regionId string, resourceId string, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSite2Request(c.Server, projectName, regionId, resourceId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) RegionServiceDeleteRegion(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewRegionServiceDeleteRegionRequest(c.Server, projectName, resourceId)
 	if err != nil {
@@ -3671,8 +3803,8 @@ func (c *Client) SiteServiceListSites(ctx context.Context, projectName string, p
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceCreateSiteRequestWithBody(c.Server, projectName, contentType, body)
+func (c *Client) SiteServiceCreateSiteWithBody(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSiteRequestWithBody(c.Server, projectName, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3683,8 +3815,8 @@ func (c *Client) SiteServiceCreateSiteWithBody(ctx context.Context, projectName 
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceCreateSite(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceCreateSiteRequest(c.Server, projectName, body)
+func (c *Client) SiteServiceCreateSite(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceCreateSiteRequest(c.Server, projectName, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3695,8 +3827,8 @@ func (c *Client) SiteServiceCreateSite(ctx context.Context, projectName string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceDeleteSiteRequest(c.Server, projectName, resourceId)
+func (c *Client) SiteServiceDeleteSite(ctx context.Context, projectName string, resourceId string, params *SiteServiceDeleteSiteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceDeleteSiteRequest(c.Server, projectName, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -3707,8 +3839,8 @@ func (c *Client) SiteServiceDeleteSite(ctx context.Context, projectName string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceGetSiteRequest(c.Server, projectName, resourceId)
+func (c *Client) SiteServiceGetSite(ctx context.Context, projectName string, resourceId string, params *SiteServiceGetSiteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceGetSiteRequest(c.Server, projectName, resourceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -3743,8 +3875,8 @@ func (c *Client) SiteServicePatchSite(ctx context.Context, projectName string, r
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceUpdateSiteRequestWithBody(c.Server, projectName, resourceId, contentType, body)
+func (c *Client) SiteServiceUpdateSiteWithBody(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSiteRequestWithBody(c.Server, projectName, resourceId, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3755,8 +3887,8 @@ func (c *Client) SiteServiceUpdateSiteWithBody(ctx context.Context, projectName 
 	return c.Client.Do(req)
 }
 
-func (c *Client) SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSiteServiceUpdateSiteRequest(c.Server, projectName, resourceId, body)
+func (c *Client) SiteServiceUpdateSite(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSiteServiceUpdateSiteRequest(c.Server, projectName, resourceId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -8704,8 +8836,8 @@ func NewScheduleServiceUpdateSingleSchedule2RequestWithBody(server string, resou
 	return req, nil
 }
 
-// NewSiteServiceListSites2Request generates requests for SiteServiceListSites2
-func NewSiteServiceListSites2Request(server string, params *SiteServiceListSites2Params) (*http.Request, error) {
+// NewSiteServiceListSites3Request generates requests for SiteServiceListSites3
+func NewSiteServiceListSites3Request(server string, params *SiteServiceListSites3Params) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -8802,6 +8934,22 @@ func NewSiteServiceListSites2Request(server string, params *SiteServiceListSites
 			}
 		}
 
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
@@ -8813,19 +8961,19 @@ func NewSiteServiceListSites2Request(server string, params *SiteServiceListSites
 	return req, nil
 }
 
-// NewSiteServiceCreateSite2Request calls the generic SiteServiceCreateSite2 builder with application/json body
-func NewSiteServiceCreateSite2Request(server string, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody) (*http.Request, error) {
+// NewSiteServiceCreateSite3Request calls the generic SiteServiceCreateSite3 builder with application/json body
+func NewSiteServiceCreateSite3Request(server string, params *SiteServiceCreateSite3Params, body SiteServiceCreateSite3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewSiteServiceCreateSite2RequestWithBody(server, params, "application/json", bodyReader)
+	return NewSiteServiceCreateSite3RequestWithBody(server, params, "application/json", bodyReader)
 }
 
-// NewSiteServiceCreateSite2RequestWithBody generates requests for SiteServiceCreateSite2 with any type of body
-func NewSiteServiceCreateSite2RequestWithBody(server string, params *SiteServiceCreateSite2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewSiteServiceCreateSite3RequestWithBody generates requests for SiteServiceCreateSite3 with any type of body
+func NewSiteServiceCreateSite3RequestWithBody(server string, params *SiteServiceCreateSite3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -8858,6 +9006,22 @@ func NewSiteServiceCreateSite2RequestWithBody(server string, params *SiteService
 			}
 		}
 
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
@@ -8871,8 +9035,8 @@ func NewSiteServiceCreateSite2RequestWithBody(server string, params *SiteService
 	return req, nil
 }
 
-// NewSiteServiceDeleteSite2Request generates requests for SiteServiceDeleteSite2
-func NewSiteServiceDeleteSite2Request(server string, resourceId string, params *SiteServiceDeleteSite2Params) (*http.Request, error) {
+// NewSiteServiceDeleteSite3Request generates requests for SiteServiceDeleteSite3
+func NewSiteServiceDeleteSite3Request(server string, resourceId string, params *SiteServiceDeleteSite3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -8910,6 +9074,22 @@ func NewSiteServiceDeleteSite2Request(server string, resourceId string, params *
 					queryValues.Add(k, v2)
 				}
 			}
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -8923,8 +9103,8 @@ func NewSiteServiceDeleteSite2Request(server string, resourceId string, params *
 	return req, nil
 }
 
-// NewSiteServiceGetSite2Request generates requests for SiteServiceGetSite2
-func NewSiteServiceGetSite2Request(server string, resourceId string, params *SiteServiceGetSite2Params) (*http.Request, error) {
+// NewSiteServiceGetSite3Request generates requests for SiteServiceGetSite3
+func NewSiteServiceGetSite3Request(server string, resourceId string, params *SiteServiceGetSite3Params) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -8964,6 +9144,22 @@ func NewSiteServiceGetSite2Request(server string, resourceId string, params *Sit
 			}
 		}
 
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
@@ -8975,19 +9171,19 @@ func NewSiteServiceGetSite2Request(server string, resourceId string, params *Sit
 	return req, nil
 }
 
-// NewSiteServicePatchSite2Request calls the generic SiteServicePatchSite2 builder with application/json body
-func NewSiteServicePatchSite2Request(server string, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody) (*http.Request, error) {
+// NewSiteServicePatchSite3Request calls the generic SiteServicePatchSite3 builder with application/json body
+func NewSiteServicePatchSite3Request(server string, resourceId string, params *SiteServicePatchSite3Params, body SiteServicePatchSite3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewSiteServicePatchSite2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewSiteServicePatchSite3RequestWithBody(server, resourceId, params, "application/json", bodyReader)
 }
 
-// NewSiteServicePatchSite2RequestWithBody generates requests for SiteServicePatchSite2 with any type of body
-func NewSiteServicePatchSite2RequestWithBody(server string, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewSiteServicePatchSite3RequestWithBody generates requests for SiteServicePatchSite3 with any type of body
+func NewSiteServicePatchSite3RequestWithBody(server string, resourceId string, params *SiteServicePatchSite3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -9031,6 +9227,22 @@ func NewSiteServicePatchSite2RequestWithBody(server string, resourceId string, p
 
 		}
 
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "projectName", runtime.ParamLocationQuery, params.ProjectName); err != nil {
 			return nil, err
 		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -9056,19 +9268,19 @@ func NewSiteServicePatchSite2RequestWithBody(server string, resourceId string, p
 	return req, nil
 }
 
-// NewSiteServiceUpdateSite2Request calls the generic SiteServiceUpdateSite2 builder with application/json body
-func NewSiteServiceUpdateSite2Request(server string, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody) (*http.Request, error) {
+// NewSiteServiceUpdateSite3Request calls the generic SiteServiceUpdateSite3 builder with application/json body
+func NewSiteServiceUpdateSite3Request(server string, resourceId string, params *SiteServiceUpdateSite3Params, body SiteServiceUpdateSite3JSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewSiteServiceUpdateSite2RequestWithBody(server, resourceId, params, "application/json", bodyReader)
+	return NewSiteServiceUpdateSite3RequestWithBody(server, resourceId, params, "application/json", bodyReader)
 }
 
-// NewSiteServiceUpdateSite2RequestWithBody generates requests for SiteServiceUpdateSite2 with any type of body
-func NewSiteServiceUpdateSite2RequestWithBody(server string, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader) (*http.Request, error) {
+// NewSiteServiceUpdateSite3RequestWithBody generates requests for SiteServiceUpdateSite3 with any type of body
+func NewSiteServiceUpdateSite3RequestWithBody(server string, resourceId string, params *SiteServiceUpdateSite3Params, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -9106,6 +9318,22 @@ func NewSiteServiceUpdateSite2RequestWithBody(server string, resourceId string, 
 					queryValues.Add(k, v2)
 				}
 			}
+		}
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -14510,6 +14738,411 @@ func NewRegionServiceCreateRegionRequestWithBody(server string, projectName stri
 	return req, nil
 }
 
+// NewSiteServiceListSites2Request generates requests for SiteServiceListSites2
+func NewSiteServiceListSites2Request(server string, projectName string, regionId string, params *SiteServiceListSites2Params) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "regionId", runtime.ParamLocationPath, regionId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s/sites", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.OrderBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "orderBy", runtime.ParamLocationQuery, *params.OrderBy); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Filter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "filter", runtime.ParamLocationQuery, *params.Filter); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServiceCreateSite2Request calls the generic SiteServiceCreateSite2 builder with application/json body
+func NewSiteServiceCreateSite2Request(server string, projectName string, regionId string, body SiteServiceCreateSite2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServiceCreateSite2RequestWithBody(server, projectName, regionId, "application/json", bodyReader)
+}
+
+// NewSiteServiceCreateSite2RequestWithBody generates requests for SiteServiceCreateSite2 with any type of body
+func NewSiteServiceCreateSite2RequestWithBody(server string, projectName string, regionId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "regionId", runtime.ParamLocationPath, regionId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s/sites", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceDeleteSite2Request generates requests for SiteServiceDeleteSite2
+func NewSiteServiceDeleteSite2Request(server string, projectName string, regionId string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "regionId", runtime.ParamLocationPath, regionId)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s/sites/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServiceGetSite2Request generates requests for SiteServiceGetSite2
+func NewSiteServiceGetSite2Request(server string, projectName string, regionId string, resourceId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "regionId", runtime.ParamLocationPath, regionId)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s/sites/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSiteServicePatchSite2Request calls the generic SiteServicePatchSite2 builder with application/json body
+func NewSiteServicePatchSite2Request(server string, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServicePatchSite2RequestWithBody(server, projectName, regionId, resourceId, params, "application/json", bodyReader)
+}
+
+// NewSiteServicePatchSite2RequestWithBody generates requests for SiteServicePatchSite2 with any type of body
+func NewSiteServicePatchSite2RequestWithBody(server string, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "regionId", runtime.ParamLocationPath, regionId)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s/sites/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldMaskPaths != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSiteServiceUpdateSite2Request calls the generic SiteServiceUpdateSite2 builder with application/json body
+func NewSiteServiceUpdateSite2Request(server string, projectName string, regionId string, resourceId string, body SiteServiceUpdateSite2JSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSiteServiceUpdateSite2RequestWithBody(server, projectName, regionId, resourceId, "application/json", bodyReader)
+}
+
+// NewSiteServiceUpdateSite2RequestWithBody generates requests for SiteServiceUpdateSite2 with any type of body
+func NewSiteServiceUpdateSite2RequestWithBody(server string, projectName string, regionId string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "projectName", runtime.ParamLocationPath, projectName)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "regionId", runtime.ParamLocationPath, regionId)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithLocation("simple", false, "resourceId", runtime.ParamLocationPath, resourceId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/projects/%s/regions/%s/sites/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewRegionServiceDeleteRegionRequest generates requests for RegionServiceDeleteRegion
 func NewRegionServiceDeleteRegionRequest(server string, projectName string, resourceId string) (*http.Request, error) {
 	var err error
@@ -15741,6 +16374,22 @@ func NewSiteServiceListSitesRequest(server string, projectName string, params *S
 
 		}
 
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
@@ -15753,18 +16402,18 @@ func NewSiteServiceListSitesRequest(server string, projectName string, params *S
 }
 
 // NewSiteServiceCreateSiteRequest calls the generic SiteServiceCreateSite builder with application/json body
-func NewSiteServiceCreateSiteRequest(server string, projectName string, body SiteServiceCreateSiteJSONRequestBody) (*http.Request, error) {
+func NewSiteServiceCreateSiteRequest(server string, projectName string, params *SiteServiceCreateSiteParams, body SiteServiceCreateSiteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewSiteServiceCreateSiteRequestWithBody(server, projectName, "application/json", bodyReader)
+	return NewSiteServiceCreateSiteRequestWithBody(server, projectName, params, "application/json", bodyReader)
 }
 
 // NewSiteServiceCreateSiteRequestWithBody generates requests for SiteServiceCreateSite with any type of body
-func NewSiteServiceCreateSiteRequestWithBody(server string, projectName string, contentType string, body io.Reader) (*http.Request, error) {
+func NewSiteServiceCreateSiteRequestWithBody(server string, projectName string, params *SiteServiceCreateSiteParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15789,6 +16438,28 @@ func NewSiteServiceCreateSiteRequestWithBody(server string, projectName string, 
 		return nil, err
 	}
 
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
 	req, err := http.NewRequest("POST", queryURL.String(), body)
 	if err != nil {
 		return nil, err
@@ -15800,7 +16471,7 @@ func NewSiteServiceCreateSiteRequestWithBody(server string, projectName string, 
 }
 
 // NewSiteServiceDeleteSiteRequest generates requests for SiteServiceDeleteSite
-func NewSiteServiceDeleteSiteRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+func NewSiteServiceDeleteSiteRequest(server string, projectName string, resourceId string, params *SiteServiceDeleteSiteParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15830,6 +16501,28 @@ func NewSiteServiceDeleteSiteRequest(server string, projectName string, resource
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
@@ -15841,7 +16534,7 @@ func NewSiteServiceDeleteSiteRequest(server string, projectName string, resource
 }
 
 // NewSiteServiceGetSiteRequest generates requests for SiteServiceGetSite
-func NewSiteServiceGetSiteRequest(server string, projectName string, resourceId string) (*http.Request, error) {
+func NewSiteServiceGetSiteRequest(server string, projectName string, resourceId string, params *SiteServiceGetSiteParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15871,6 +16564,28 @@ func NewSiteServiceGetSiteRequest(server string, projectName string, resourceId 
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("GET", queryURL.String(), nil)
@@ -15944,6 +16659,22 @@ func NewSiteServicePatchSiteRequestWithBody(server string, projectName string, r
 
 		}
 
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
@@ -15958,18 +16689,18 @@ func NewSiteServicePatchSiteRequestWithBody(server string, projectName string, r
 }
 
 // NewSiteServiceUpdateSiteRequest calls the generic SiteServiceUpdateSite builder with application/json body
-func NewSiteServiceUpdateSiteRequest(server string, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody) (*http.Request, error) {
+func NewSiteServiceUpdateSiteRequest(server string, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, body SiteServiceUpdateSiteJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewSiteServiceUpdateSiteRequestWithBody(server, projectName, resourceId, "application/json", bodyReader)
+	return NewSiteServiceUpdateSiteRequestWithBody(server, projectName, resourceId, params, "application/json", bodyReader)
 }
 
 // NewSiteServiceUpdateSiteRequestWithBody generates requests for SiteServiceUpdateSite with any type of body
-func NewSiteServiceUpdateSiteRequestWithBody(server string, projectName string, resourceId string, contentType string, body io.Reader) (*http.Request, error) {
+func NewSiteServiceUpdateSiteRequestWithBody(server string, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -15999,6 +16730,28 @@ func NewSiteServiceUpdateSiteRequestWithBody(server string, projectName string, 
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.RegionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "regionId", runtime.ParamLocationQuery, *params.RegionId); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
 	}
 
 	req, err := http.NewRequest("PUT", queryURL.String(), body)
@@ -18140,29 +18893,29 @@ type ClientWithResponsesInterface interface {
 
 	ScheduleServiceUpdateSingleSchedule2WithResponse(ctx context.Context, resourceId string, params *ScheduleServiceUpdateSingleSchedule2Params, body ScheduleServiceUpdateSingleSchedule2JSONRequestBody, reqEditors ...RequestEditorFn) (*ScheduleServiceUpdateSingleSchedule2Response, error)
 
-	// SiteServiceListSites2WithResponse request
-	SiteServiceListSites2WithResponse(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites2Response, error)
+	// SiteServiceListSites3WithResponse request
+	SiteServiceListSites3WithResponse(ctx context.Context, params *SiteServiceListSites3Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites3Response, error)
 
-	// SiteServiceCreateSite2WithBodyWithResponse request with any body
-	SiteServiceCreateSite2WithBodyWithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error)
+	// SiteServiceCreateSite3WithBodyWithResponse request with any body
+	SiteServiceCreateSite3WithBodyWithResponse(ctx context.Context, params *SiteServiceCreateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite3Response, error)
 
-	SiteServiceCreateSite2WithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error)
+	SiteServiceCreateSite3WithResponse(ctx context.Context, params *SiteServiceCreateSite3Params, body SiteServiceCreateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite3Response, error)
 
-	// SiteServiceDeleteSite2WithResponse request
-	SiteServiceDeleteSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite2Response, error)
+	// SiteServiceDeleteSite3WithResponse request
+	SiteServiceDeleteSite3WithResponse(ctx context.Context, resourceId string, params *SiteServiceDeleteSite3Params, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite3Response, error)
 
-	// SiteServiceGetSite2WithResponse request
-	SiteServiceGetSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceGetSite2Response, error)
+	// SiteServiceGetSite3WithResponse request
+	SiteServiceGetSite3WithResponse(ctx context.Context, resourceId string, params *SiteServiceGetSite3Params, reqEditors ...RequestEditorFn) (*SiteServiceGetSite3Response, error)
 
-	// SiteServicePatchSite2WithBodyWithResponse request with any body
-	SiteServicePatchSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error)
+	// SiteServicePatchSite3WithBodyWithResponse request with any body
+	SiteServicePatchSite3WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite3Response, error)
 
-	SiteServicePatchSite2WithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error)
+	SiteServicePatchSite3WithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, body SiteServicePatchSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite3Response, error)
 
-	// SiteServiceUpdateSite2WithBodyWithResponse request with any body
-	SiteServiceUpdateSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error)
+	// SiteServiceUpdateSite3WithBodyWithResponse request with any body
+	SiteServiceUpdateSite3WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite3Response, error)
 
-	SiteServiceUpdateSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error)
+	SiteServiceUpdateSite3WithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, body SiteServiceUpdateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite3Response, error)
 
 	// TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request
 	TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse(ctx context.Context, params *TelemetryLogsGroupServiceListTelemetryLogsGroups2Params, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroups2Response, error)
@@ -18474,6 +19227,30 @@ type ClientWithResponsesInterface interface {
 
 	RegionServiceCreateRegionWithResponse(ctx context.Context, projectName string, body RegionServiceCreateRegionJSONRequestBody, reqEditors ...RequestEditorFn) (*RegionServiceCreateRegionResponse, error)
 
+	// SiteServiceListSites2WithResponse request
+	SiteServiceListSites2WithResponse(ctx context.Context, projectName string, regionId string, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites2Response, error)
+
+	// SiteServiceCreateSite2WithBodyWithResponse request with any body
+	SiteServiceCreateSite2WithBodyWithResponse(ctx context.Context, projectName string, regionId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error)
+
+	SiteServiceCreateSite2WithResponse(ctx context.Context, projectName string, regionId string, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error)
+
+	// SiteServiceDeleteSite2WithResponse request
+	SiteServiceDeleteSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite2Response, error)
+
+	// SiteServiceGetSite2WithResponse request
+	SiteServiceGetSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSite2Response, error)
+
+	// SiteServicePatchSite2WithBodyWithResponse request with any body
+	SiteServicePatchSite2WithBodyWithResponse(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error)
+
+	SiteServicePatchSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error)
+
+	// SiteServiceUpdateSite2WithBodyWithResponse request with any body
+	SiteServiceUpdateSite2WithBodyWithResponse(ctx context.Context, projectName string, regionId string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error)
+
+	SiteServiceUpdateSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error)
+
 	// RegionServiceDeleteRegionWithResponse request
 	RegionServiceDeleteRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegionResponse, error)
 
@@ -18545,15 +19322,15 @@ type ClientWithResponsesInterface interface {
 	SiteServiceListSitesWithResponse(ctx context.Context, projectName string, params *SiteServiceListSitesParams, reqEditors ...RequestEditorFn) (*SiteServiceListSitesResponse, error)
 
 	// SiteServiceCreateSiteWithBodyWithResponse request with any body
-	SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
+	SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
 
-	SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
+	SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error)
 
 	// SiteServiceDeleteSiteWithResponse request
-	SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error)
+	SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceDeleteSiteParams, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error)
 
 	// SiteServiceGetSiteWithResponse request
-	SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error)
+	SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceGetSiteParams, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error)
 
 	// SiteServicePatchSiteWithBodyWithResponse request with any body
 	SiteServicePatchSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
@@ -18561,9 +19338,9 @@ type ClientWithResponsesInterface interface {
 	SiteServicePatchSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServicePatchSiteParams, body SiteServicePatchSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSiteResponse, error)
 
 	// SiteServiceUpdateSiteWithBodyWithResponse request with any body
-	SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
+	SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
 
-	SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
+	SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error)
 
 	// TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse request
 	TelemetryLogsGroupServiceListTelemetryLogsGroupsWithResponse(ctx context.Context, projectName string, params *TelemetryLogsGroupServiceListTelemetryLogsGroupsParams, reqEditors ...RequestEditorFn) (*TelemetryLogsGroupServiceListTelemetryLogsGroupsResponse, error)
@@ -20044,14 +20821,14 @@ func (r ScheduleServiceUpdateSingleSchedule2Response) StatusCode() int {
 	return 0
 }
 
-type SiteServiceListSites2Response struct {
+type SiteServiceListSites3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ListSitesResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r SiteServiceListSites2Response) Status() string {
+func (r SiteServiceListSites3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20059,21 +20836,21 @@ func (r SiteServiceListSites2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceListSites2Response) StatusCode() int {
+func (r SiteServiceListSites3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type SiteServiceCreateSite2Response struct {
+type SiteServiceCreateSite3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
 }
 
 // Status returns HTTPResponse.Status
-func (r SiteServiceCreateSite2Response) Status() string {
+func (r SiteServiceCreateSite3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20081,21 +20858,21 @@ func (r SiteServiceCreateSite2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceCreateSite2Response) StatusCode() int {
+func (r SiteServiceCreateSite3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type SiteServiceDeleteSite2Response struct {
+type SiteServiceDeleteSite3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *DeleteSiteResponse
 }
 
 // Status returns HTTPResponse.Status
-func (r SiteServiceDeleteSite2Response) Status() string {
+func (r SiteServiceDeleteSite3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20103,21 +20880,21 @@ func (r SiteServiceDeleteSite2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceDeleteSite2Response) StatusCode() int {
+func (r SiteServiceDeleteSite3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type SiteServiceGetSite2Response struct {
+type SiteServiceGetSite3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
 }
 
 // Status returns HTTPResponse.Status
-func (r SiteServiceGetSite2Response) Status() string {
+func (r SiteServiceGetSite3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20125,21 +20902,21 @@ func (r SiteServiceGetSite2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceGetSite2Response) StatusCode() int {
+func (r SiteServiceGetSite3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type SiteServicePatchSite2Response struct {
+type SiteServicePatchSite3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
 }
 
 // Status returns HTTPResponse.Status
-func (r SiteServicePatchSite2Response) Status() string {
+func (r SiteServicePatchSite3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20147,21 +20924,21 @@ func (r SiteServicePatchSite2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r SiteServicePatchSite2Response) StatusCode() int {
+func (r SiteServicePatchSite3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type SiteServiceUpdateSite2Response struct {
+type SiteServiceUpdateSite3Response struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *SiteResource
 }
 
 // Status returns HTTPResponse.Status
-func (r SiteServiceUpdateSite2Response) Status() string {
+func (r SiteServiceUpdateSite3Response) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -20169,7 +20946,7 @@ func (r SiteServiceUpdateSite2Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r SiteServiceUpdateSite2Response) StatusCode() int {
+func (r SiteServiceUpdateSite3Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -22018,6 +22795,138 @@ func (r RegionServiceCreateRegionResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r RegionServiceCreateRegionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceListSites2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ListSitesResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceListSites2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceListSites2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceCreateSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceCreateSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceCreateSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceDeleteSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeleteSiteResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceDeleteSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceDeleteSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceGetSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceGetSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceGetSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServicePatchSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServicePatchSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServicePatchSite2Response) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SiteServiceUpdateSite2Response struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SiteResource
+}
+
+// Status returns HTTPResponse.Status
+func (r SiteServiceUpdateSite2Response) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SiteServiceUpdateSite2Response) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -23940,82 +24849,82 @@ func (c *ClientWithResponses) ScheduleServiceUpdateSingleSchedule2WithResponse(c
 	return ParseScheduleServiceUpdateSingleSchedule2Response(rsp)
 }
 
-// SiteServiceListSites2WithResponse request returning *SiteServiceListSites2Response
-func (c *ClientWithResponses) SiteServiceListSites2WithResponse(ctx context.Context, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites2Response, error) {
-	rsp, err := c.SiteServiceListSites2(ctx, params, reqEditors...)
+// SiteServiceListSites3WithResponse request returning *SiteServiceListSites3Response
+func (c *ClientWithResponses) SiteServiceListSites3WithResponse(ctx context.Context, params *SiteServiceListSites3Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites3Response, error) {
+	rsp, err := c.SiteServiceListSites3(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServiceListSites2Response(rsp)
+	return ParseSiteServiceListSites3Response(rsp)
 }
 
-// SiteServiceCreateSite2WithBodyWithResponse request with arbitrary body returning *SiteServiceCreateSite2Response
-func (c *ClientWithResponses) SiteServiceCreateSite2WithBodyWithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error) {
-	rsp, err := c.SiteServiceCreateSite2WithBody(ctx, params, contentType, body, reqEditors...)
+// SiteServiceCreateSite3WithBodyWithResponse request with arbitrary body returning *SiteServiceCreateSite3Response
+func (c *ClientWithResponses) SiteServiceCreateSite3WithBodyWithResponse(ctx context.Context, params *SiteServiceCreateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite3Response, error) {
+	rsp, err := c.SiteServiceCreateSite3WithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServiceCreateSite2Response(rsp)
+	return ParseSiteServiceCreateSite3Response(rsp)
 }
 
-func (c *ClientWithResponses) SiteServiceCreateSite2WithResponse(ctx context.Context, params *SiteServiceCreateSite2Params, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error) {
-	rsp, err := c.SiteServiceCreateSite2(ctx, params, body, reqEditors...)
+func (c *ClientWithResponses) SiteServiceCreateSite3WithResponse(ctx context.Context, params *SiteServiceCreateSite3Params, body SiteServiceCreateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite3Response, error) {
+	rsp, err := c.SiteServiceCreateSite3(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServiceCreateSite2Response(rsp)
+	return ParseSiteServiceCreateSite3Response(rsp)
 }
 
-// SiteServiceDeleteSite2WithResponse request returning *SiteServiceDeleteSite2Response
-func (c *ClientWithResponses) SiteServiceDeleteSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceDeleteSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite2Response, error) {
-	rsp, err := c.SiteServiceDeleteSite2(ctx, resourceId, params, reqEditors...)
+// SiteServiceDeleteSite3WithResponse request returning *SiteServiceDeleteSite3Response
+func (c *ClientWithResponses) SiteServiceDeleteSite3WithResponse(ctx context.Context, resourceId string, params *SiteServiceDeleteSite3Params, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite3Response, error) {
+	rsp, err := c.SiteServiceDeleteSite3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServiceDeleteSite2Response(rsp)
+	return ParseSiteServiceDeleteSite3Response(rsp)
 }
 
-// SiteServiceGetSite2WithResponse request returning *SiteServiceGetSite2Response
-func (c *ClientWithResponses) SiteServiceGetSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceGetSite2Params, reqEditors ...RequestEditorFn) (*SiteServiceGetSite2Response, error) {
-	rsp, err := c.SiteServiceGetSite2(ctx, resourceId, params, reqEditors...)
+// SiteServiceGetSite3WithResponse request returning *SiteServiceGetSite3Response
+func (c *ClientWithResponses) SiteServiceGetSite3WithResponse(ctx context.Context, resourceId string, params *SiteServiceGetSite3Params, reqEditors ...RequestEditorFn) (*SiteServiceGetSite3Response, error) {
+	rsp, err := c.SiteServiceGetSite3(ctx, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServiceGetSite2Response(rsp)
+	return ParseSiteServiceGetSite3Response(rsp)
 }
 
-// SiteServicePatchSite2WithBodyWithResponse request with arbitrary body returning *SiteServicePatchSite2Response
-func (c *ClientWithResponses) SiteServicePatchSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error) {
-	rsp, err := c.SiteServicePatchSite2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+// SiteServicePatchSite3WithBodyWithResponse request with arbitrary body returning *SiteServicePatchSite3Response
+func (c *ClientWithResponses) SiteServicePatchSite3WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite3Response, error) {
+	rsp, err := c.SiteServicePatchSite3WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServicePatchSite2Response(rsp)
+	return ParseSiteServicePatchSite3Response(rsp)
 }
 
-func (c *ClientWithResponses) SiteServicePatchSite2WithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error) {
-	rsp, err := c.SiteServicePatchSite2(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) SiteServicePatchSite3WithResponse(ctx context.Context, resourceId string, params *SiteServicePatchSite3Params, body SiteServicePatchSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite3Response, error) {
+	rsp, err := c.SiteServicePatchSite3(ctx, resourceId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServicePatchSite2Response(rsp)
+	return ParseSiteServicePatchSite3Response(rsp)
 }
 
-// SiteServiceUpdateSite2WithBodyWithResponse request with arbitrary body returning *SiteServiceUpdateSite2Response
-func (c *ClientWithResponses) SiteServiceUpdateSite2WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error) {
-	rsp, err := c.SiteServiceUpdateSite2WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
+// SiteServiceUpdateSite3WithBodyWithResponse request with arbitrary body returning *SiteServiceUpdateSite3Response
+func (c *ClientWithResponses) SiteServiceUpdateSite3WithBodyWithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite3Response, error) {
+	rsp, err := c.SiteServiceUpdateSite3WithBody(ctx, resourceId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServiceUpdateSite2Response(rsp)
+	return ParseSiteServiceUpdateSite3Response(rsp)
 }
 
-func (c *ClientWithResponses) SiteServiceUpdateSite2WithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite2Params, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error) {
-	rsp, err := c.SiteServiceUpdateSite2(ctx, resourceId, params, body, reqEditors...)
+func (c *ClientWithResponses) SiteServiceUpdateSite3WithResponse(ctx context.Context, resourceId string, params *SiteServiceUpdateSite3Params, body SiteServiceUpdateSite3JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite3Response, error) {
+	rsp, err := c.SiteServiceUpdateSite3(ctx, resourceId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSiteServiceUpdateSite2Response(rsp)
+	return ParseSiteServiceUpdateSite3Response(rsp)
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroups2WithResponse request returning *TelemetryLogsGroupServiceListTelemetryLogsGroups2Response
@@ -25006,6 +25915,84 @@ func (c *ClientWithResponses) RegionServiceCreateRegionWithResponse(ctx context.
 	return ParseRegionServiceCreateRegionResponse(rsp)
 }
 
+// SiteServiceListSites2WithResponse request returning *SiteServiceListSites2Response
+func (c *ClientWithResponses) SiteServiceListSites2WithResponse(ctx context.Context, projectName string, regionId string, params *SiteServiceListSites2Params, reqEditors ...RequestEditorFn) (*SiteServiceListSites2Response, error) {
+	rsp, err := c.SiteServiceListSites2(ctx, projectName, regionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceListSites2Response(rsp)
+}
+
+// SiteServiceCreateSite2WithBodyWithResponse request with arbitrary body returning *SiteServiceCreateSite2Response
+func (c *ClientWithResponses) SiteServiceCreateSite2WithBodyWithResponse(ctx context.Context, projectName string, regionId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error) {
+	rsp, err := c.SiteServiceCreateSite2WithBody(ctx, projectName, regionId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceCreateSite2Response(rsp)
+}
+
+func (c *ClientWithResponses) SiteServiceCreateSite2WithResponse(ctx context.Context, projectName string, regionId string, body SiteServiceCreateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSite2Response, error) {
+	rsp, err := c.SiteServiceCreateSite2(ctx, projectName, regionId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceCreateSite2Response(rsp)
+}
+
+// SiteServiceDeleteSite2WithResponse request returning *SiteServiceDeleteSite2Response
+func (c *ClientWithResponses) SiteServiceDeleteSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSite2Response, error) {
+	rsp, err := c.SiteServiceDeleteSite2(ctx, projectName, regionId, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceDeleteSite2Response(rsp)
+}
+
+// SiteServiceGetSite2WithResponse request returning *SiteServiceGetSite2Response
+func (c *ClientWithResponses) SiteServiceGetSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSite2Response, error) {
+	rsp, err := c.SiteServiceGetSite2(ctx, projectName, regionId, resourceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceGetSite2Response(rsp)
+}
+
+// SiteServicePatchSite2WithBodyWithResponse request with arbitrary body returning *SiteServicePatchSite2Response
+func (c *ClientWithResponses) SiteServicePatchSite2WithBodyWithResponse(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error) {
+	rsp, err := c.SiteServicePatchSite2WithBody(ctx, projectName, regionId, resourceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServicePatchSite2Response(rsp)
+}
+
+func (c *ClientWithResponses) SiteServicePatchSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, params *SiteServicePatchSite2Params, body SiteServicePatchSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServicePatchSite2Response, error) {
+	rsp, err := c.SiteServicePatchSite2(ctx, projectName, regionId, resourceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServicePatchSite2Response(rsp)
+}
+
+// SiteServiceUpdateSite2WithBodyWithResponse request with arbitrary body returning *SiteServiceUpdateSite2Response
+func (c *ClientWithResponses) SiteServiceUpdateSite2WithBodyWithResponse(ctx context.Context, projectName string, regionId string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error) {
+	rsp, err := c.SiteServiceUpdateSite2WithBody(ctx, projectName, regionId, resourceId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceUpdateSite2Response(rsp)
+}
+
+func (c *ClientWithResponses) SiteServiceUpdateSite2WithResponse(ctx context.Context, projectName string, regionId string, resourceId string, body SiteServiceUpdateSite2JSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSite2Response, error) {
+	rsp, err := c.SiteServiceUpdateSite2(ctx, projectName, regionId, resourceId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSiteServiceUpdateSite2Response(rsp)
+}
+
 // RegionServiceDeleteRegionWithResponse request returning *RegionServiceDeleteRegionResponse
 func (c *ClientWithResponses) RegionServiceDeleteRegionWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*RegionServiceDeleteRegionResponse, error) {
 	rsp, err := c.RegionServiceDeleteRegion(ctx, projectName, resourceId, reqEditors...)
@@ -25233,16 +26220,16 @@ func (c *ClientWithResponses) SiteServiceListSitesWithResponse(ctx context.Conte
 }
 
 // SiteServiceCreateSiteWithBodyWithResponse request with arbitrary body returning *SiteServiceCreateSiteResponse
-func (c *ClientWithResponses) SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
-	rsp, err := c.SiteServiceCreateSiteWithBody(ctx, projectName, contentType, body, reqEditors...)
+func (c *ClientWithResponses) SiteServiceCreateSiteWithBodyWithResponse(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
+	rsp, err := c.SiteServiceCreateSiteWithBody(ctx, projectName, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseSiteServiceCreateSiteResponse(rsp)
 }
 
-func (c *ClientWithResponses) SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
-	rsp, err := c.SiteServiceCreateSite(ctx, projectName, body, reqEditors...)
+func (c *ClientWithResponses) SiteServiceCreateSiteWithResponse(ctx context.Context, projectName string, params *SiteServiceCreateSiteParams, body SiteServiceCreateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceCreateSiteResponse, error) {
+	rsp, err := c.SiteServiceCreateSite(ctx, projectName, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -25250,8 +26237,8 @@ func (c *ClientWithResponses) SiteServiceCreateSiteWithResponse(ctx context.Cont
 }
 
 // SiteServiceDeleteSiteWithResponse request returning *SiteServiceDeleteSiteResponse
-func (c *ClientWithResponses) SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error) {
-	rsp, err := c.SiteServiceDeleteSite(ctx, projectName, resourceId, reqEditors...)
+func (c *ClientWithResponses) SiteServiceDeleteSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceDeleteSiteParams, reqEditors ...RequestEditorFn) (*SiteServiceDeleteSiteResponse, error) {
+	rsp, err := c.SiteServiceDeleteSite(ctx, projectName, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -25259,8 +26246,8 @@ func (c *ClientWithResponses) SiteServiceDeleteSiteWithResponse(ctx context.Cont
 }
 
 // SiteServiceGetSiteWithResponse request returning *SiteServiceGetSiteResponse
-func (c *ClientWithResponses) SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error) {
-	rsp, err := c.SiteServiceGetSite(ctx, projectName, resourceId, reqEditors...)
+func (c *ClientWithResponses) SiteServiceGetSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceGetSiteParams, reqEditors ...RequestEditorFn) (*SiteServiceGetSiteResponse, error) {
+	rsp, err := c.SiteServiceGetSite(ctx, projectName, resourceId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -25285,16 +26272,16 @@ func (c *ClientWithResponses) SiteServicePatchSiteWithResponse(ctx context.Conte
 }
 
 // SiteServiceUpdateSiteWithBodyWithResponse request with arbitrary body returning *SiteServiceUpdateSiteResponse
-func (c *ClientWithResponses) SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
-	rsp, err := c.SiteServiceUpdateSiteWithBody(ctx, projectName, resourceId, contentType, body, reqEditors...)
+func (c *ClientWithResponses) SiteServiceUpdateSiteWithBodyWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
+	rsp, err := c.SiteServiceUpdateSiteWithBody(ctx, projectName, resourceId, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseSiteServiceUpdateSiteResponse(rsp)
 }
 
-func (c *ClientWithResponses) SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
-	rsp, err := c.SiteServiceUpdateSite(ctx, projectName, resourceId, body, reqEditors...)
+func (c *ClientWithResponses) SiteServiceUpdateSiteWithResponse(ctx context.Context, projectName string, resourceId string, params *SiteServiceUpdateSiteParams, body SiteServiceUpdateSiteJSONRequestBody, reqEditors ...RequestEditorFn) (*SiteServiceUpdateSiteResponse, error) {
+	rsp, err := c.SiteServiceUpdateSite(ctx, projectName, resourceId, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -27279,15 +28266,15 @@ func ParseScheduleServiceUpdateSingleSchedule2Response(rsp *http.Response) (*Sch
 	return response, nil
 }
 
-// ParseSiteServiceListSites2Response parses an HTTP response from a SiteServiceListSites2WithResponse call
-func ParseSiteServiceListSites2Response(rsp *http.Response) (*SiteServiceListSites2Response, error) {
+// ParseSiteServiceListSites3Response parses an HTTP response from a SiteServiceListSites3WithResponse call
+func ParseSiteServiceListSites3Response(rsp *http.Response) (*SiteServiceListSites3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &SiteServiceListSites2Response{
+	response := &SiteServiceListSites3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27305,15 +28292,15 @@ func ParseSiteServiceListSites2Response(rsp *http.Response) (*SiteServiceListSit
 	return response, nil
 }
 
-// ParseSiteServiceCreateSite2Response parses an HTTP response from a SiteServiceCreateSite2WithResponse call
-func ParseSiteServiceCreateSite2Response(rsp *http.Response) (*SiteServiceCreateSite2Response, error) {
+// ParseSiteServiceCreateSite3Response parses an HTTP response from a SiteServiceCreateSite3WithResponse call
+func ParseSiteServiceCreateSite3Response(rsp *http.Response) (*SiteServiceCreateSite3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &SiteServiceCreateSite2Response{
+	response := &SiteServiceCreateSite3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27331,15 +28318,15 @@ func ParseSiteServiceCreateSite2Response(rsp *http.Response) (*SiteServiceCreate
 	return response, nil
 }
 
-// ParseSiteServiceDeleteSite2Response parses an HTTP response from a SiteServiceDeleteSite2WithResponse call
-func ParseSiteServiceDeleteSite2Response(rsp *http.Response) (*SiteServiceDeleteSite2Response, error) {
+// ParseSiteServiceDeleteSite3Response parses an HTTP response from a SiteServiceDeleteSite3WithResponse call
+func ParseSiteServiceDeleteSite3Response(rsp *http.Response) (*SiteServiceDeleteSite3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &SiteServiceDeleteSite2Response{
+	response := &SiteServiceDeleteSite3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27357,15 +28344,15 @@ func ParseSiteServiceDeleteSite2Response(rsp *http.Response) (*SiteServiceDelete
 	return response, nil
 }
 
-// ParseSiteServiceGetSite2Response parses an HTTP response from a SiteServiceGetSite2WithResponse call
-func ParseSiteServiceGetSite2Response(rsp *http.Response) (*SiteServiceGetSite2Response, error) {
+// ParseSiteServiceGetSite3Response parses an HTTP response from a SiteServiceGetSite3WithResponse call
+func ParseSiteServiceGetSite3Response(rsp *http.Response) (*SiteServiceGetSite3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &SiteServiceGetSite2Response{
+	response := &SiteServiceGetSite3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27383,15 +28370,15 @@ func ParseSiteServiceGetSite2Response(rsp *http.Response) (*SiteServiceGetSite2R
 	return response, nil
 }
 
-// ParseSiteServicePatchSite2Response parses an HTTP response from a SiteServicePatchSite2WithResponse call
-func ParseSiteServicePatchSite2Response(rsp *http.Response) (*SiteServicePatchSite2Response, error) {
+// ParseSiteServicePatchSite3Response parses an HTTP response from a SiteServicePatchSite3WithResponse call
+func ParseSiteServicePatchSite3Response(rsp *http.Response) (*SiteServicePatchSite3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &SiteServicePatchSite2Response{
+	response := &SiteServicePatchSite3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -27409,15 +28396,15 @@ func ParseSiteServicePatchSite2Response(rsp *http.Response) (*SiteServicePatchSi
 	return response, nil
 }
 
-// ParseSiteServiceUpdateSite2Response parses an HTTP response from a SiteServiceUpdateSite2WithResponse call
-func ParseSiteServiceUpdateSite2Response(rsp *http.Response) (*SiteServiceUpdateSite2Response, error) {
+// ParseSiteServiceUpdateSite3Response parses an HTTP response from a SiteServiceUpdateSite3WithResponse call
+func ParseSiteServiceUpdateSite3Response(rsp *http.Response) (*SiteServiceUpdateSite3Response, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &SiteServiceUpdateSite2Response{
+	response := &SiteServiceUpdateSite3Response{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -29609,6 +30596,162 @@ func ParseRegionServiceCreateRegionResponse(rsp *http.Response) (*RegionServiceC
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest RegionResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceListSites2Response parses an HTTP response from a SiteServiceListSites2WithResponse call
+func ParseSiteServiceListSites2Response(rsp *http.Response) (*SiteServiceListSites2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceListSites2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ListSitesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceCreateSite2Response parses an HTTP response from a SiteServiceCreateSite2WithResponse call
+func ParseSiteServiceCreateSite2Response(rsp *http.Response) (*SiteServiceCreateSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceCreateSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceDeleteSite2Response parses an HTTP response from a SiteServiceDeleteSite2WithResponse call
+func ParseSiteServiceDeleteSite2Response(rsp *http.Response) (*SiteServiceDeleteSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceDeleteSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeleteSiteResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceGetSite2Response parses an HTTP response from a SiteServiceGetSite2WithResponse call
+func ParseSiteServiceGetSite2Response(rsp *http.Response) (*SiteServiceGetSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceGetSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServicePatchSite2Response parses an HTTP response from a SiteServicePatchSite2WithResponse call
+func ParseSiteServicePatchSite2Response(rsp *http.Response) (*SiteServicePatchSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServicePatchSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSiteServiceUpdateSite2Response parses an HTTP response from a SiteServiceUpdateSite2WithResponse call
+func ParseSiteServiceUpdateSite2Response(rsp *http.Response) (*SiteServiceUpdateSite2Response, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SiteServiceUpdateSite2Response{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SiteResource
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

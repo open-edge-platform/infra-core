@@ -52,6 +52,7 @@ const (
 	// Fields and Edges constants for "CreateSiteRequest"
 	CreateSiteRequestEdgeSite         = "site"
 	CreateSiteRequestFieldProjectName = "projectName"
+	CreateSiteRequestFieldRegionId    = "regionId"
 
 	// Fields and Edges constants for "CreateSiteResponse"
 	CreateSiteResponseEdgeSite = "site"
@@ -59,6 +60,7 @@ const (
 	// Fields and Edges constants for "GetSiteRequest"
 	GetSiteRequestFieldResourceId  = "resourceId"
 	GetSiteRequestFieldProjectName = "projectName"
+	GetSiteRequestFieldRegionId    = "regionId"
 
 	// Fields and Edges constants for "GetSiteResponse"
 	GetSiteResponseEdgeSite = "site"
@@ -69,6 +71,7 @@ const (
 	ListSitesRequestFieldPageSize    = "page_size"
 	ListSitesRequestFieldOffset      = "offset"
 	ListSitesRequestFieldProjectName = "projectName"
+	ListSitesRequestFieldRegionId    = "regionId"
 
 	// Fields and Edges constants for "ListSitesResponse"
 	ListSitesResponseEdgeSites          = "sites"
@@ -79,16 +82,19 @@ const (
 	UpdateSiteRequestFieldResourceId  = "resourceId"
 	UpdateSiteRequestEdgeSite         = "site"
 	UpdateSiteRequestFieldProjectName = "projectName"
+	UpdateSiteRequestFieldRegionId    = "regionId"
 
 	// Fields and Edges constants for "PatchSiteRequest"
 	PatchSiteRequestFieldResourceId  = "resourceId"
 	PatchSiteRequestEdgeSite         = "site"
 	PatchSiteRequestEdgeFieldMask    = "field_mask"
+	PatchSiteRequestFieldRegionId    = "regionId"
 	PatchSiteRequestFieldProjectName = "projectName"
 
 	// Fields and Edges constants for "DeleteSiteRequest"
 	DeleteSiteRequestFieldResourceId  = "resourceId"
 	DeleteSiteRequestFieldProjectName = "projectName"
+	DeleteSiteRequestFieldRegionId    = "regionId"
 
 	// Fields and Edges constants for "DeleteSiteResponse"
 

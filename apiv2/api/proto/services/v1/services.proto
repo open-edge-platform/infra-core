@@ -112,6 +112,10 @@ service SiteService {
       post: "/v1/projects/{projectName}/sites"
       body: "site"
       additional_bindings {
+        post: "/v1/projects/{projectName}/regions/{regionId}/sites"
+        body: "site"
+      }
+      additional_bindings {
         post: "/edge-infra.orchestrator.apis/v2/sites"
         body: "site"
       }
@@ -121,7 +125,9 @@ service SiteService {
   rpc ListSites(ListSitesRequest) returns (ListSitesResponse) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/sites"
-
+      additional_bindings {
+        get: "/v1/projects/{projectName}/regions/{regionId}/sites"
+      }
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/sites"
       }
@@ -131,7 +137,9 @@ service SiteService {
   rpc GetSite(GetSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/sites/{resourceId}"
-
+      additional_bindings {
+        get: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+      }
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
       }
@@ -142,6 +150,10 @@ service SiteService {
     option (google.api.http) = {
       put: "/v1/projects/{projectName}/sites/{resourceId}"
       body: "site"
+      additional_bindings {
+        put: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+        body: "site"
+      }
       additional_bindings {
         put: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
         body: "site"
@@ -154,6 +166,10 @@ service SiteService {
       patch: "/v1/projects/{projectName}/sites/{resourceId}"
       body: "site"
       additional_bindings {
+        patch: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+        body: "site"
+      }
+      additional_bindings {
         patch: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
         body: "site"
       }
@@ -163,7 +179,9 @@ service SiteService {
   rpc DeleteSite(DeleteSiteRequest) returns (DeleteSiteResponse) {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/sites/{resourceId}"
-
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+      }
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
       }
@@ -1187,6 +1205,8 @@ message CreateSiteRequest {
   resources.location.v1.SiteResource site = 1 [(google.api.field_behavior) = REQUIRED];
   // Project name
   string projectName = 2 [(google.api.field_behavior) = REQUIRED];
+  // Optional region ID for hierarchical path support
+  string regionId = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for the CreateSite method.
@@ -1201,6 +1221,8 @@ message GetSiteRequest {
   string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Project name
   string projectName = 2 [(google.api.field_behavior) = REQUIRED];
+  // Optional region ID for hierarchical path support
+  string regionId = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for the GetSite method.
@@ -1248,6 +1270,8 @@ message ListSitesRequest {
   ];
   // Project name
   string projectName = 6 [(google.api.field_behavior) = REQUIRED];
+  // Optional region ID for hierarchical path support
+  string regionId = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for the ListSites method.
@@ -1268,6 +1292,8 @@ message UpdateSiteRequest {
   resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
   // Project name
   string projectName = 3 [(google.api.field_behavior) = REQUIRED];
+  // Optional region ID for hierarchical path support
+  string regionId = 4 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Request message for the PatchSite method.
@@ -1278,6 +1304,8 @@ message PatchSiteRequest {
   resources.location.v1.SiteResource site = 2 [(google.api.field_behavior) = REQUIRED];
   // Field mask to be applied on the patch of site.
   google.protobuf.FieldMask field_mask = 3;
+  // Optional region ID for hierarchical path support
+  string regionId = 4 [(google.api.field_behavior) = OPTIONAL];
   // Project name
   string projectName = 5 [(google.api.field_behavior) = REQUIRED];
 }
@@ -1288,6 +1316,8 @@ message DeleteSiteRequest {
   string resourceId = 1 [(google.api.field_behavior) = REQUIRED];
   // Project name
   string projectName = 2 [(google.api.field_behavior) = REQUIRED];
+  // Optional region ID for hierarchical path support
+  string regionId = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Response message for DeleteSite.

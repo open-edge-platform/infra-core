@@ -1868,6 +1868,7 @@ Request message for the CreateSite method.
 | ----- | ---- | ----- | ----------- |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | The site to create. |
 | projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -2371,6 +2372,7 @@ Request message for DeleteSite.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the site site to be deleted. |
 | projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -2928,6 +2930,7 @@ Request message for the GetSite method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested site. |
 | projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -3714,6 +3717,7 @@ Request message for the ListSites method.
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -4102,6 +4106,7 @@ Request message for the PatchSite method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of site. |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 | projectName | [string](#string) |  | Project name |
 
 
@@ -4293,6 +4298,7 @@ Request message for the UpdateSite method.
 | resourceId | [string](#string) |  | Name of the site site to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 | projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 

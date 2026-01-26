@@ -307,18 +307,6 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 			// Rewrite UI-friendly paths to backend OpenAPI paths
 			// Based on production API mapping configuration
 
-			// Rewrite hierarchical region/sites path to flat sites path
-			if strings.Contains(path, "/regions/") && strings.Contains(path, "/sites") {
-				// /v1/projects/{projectName}/regions/{regionId}/sites -> /v1/projects/{projectName}/sites
-				re := regexp.MustCompile(`(/v1/projects/[^/]+)/regions/[^/]+(/sites.*)`)
-				newPath := re.ReplaceAllString(path, "$1$2")
-				if newPath != path {
-					req.URL.Path = newPath
-					zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
-					path = newPath // Update path for subsequent checks
-				}
-			}
-
 			// Rewrite hierarchical telemetry paths
 			//nolint:gocritic // if-else chain is clearer than switch for these regex patterns
 			if strings.Contains(path, "/telemetry/metricgroups/") && strings.Contains(path, "/metricprofiles") {

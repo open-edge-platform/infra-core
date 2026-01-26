@@ -397,6 +397,9 @@ type CreateSiteRequest struct {
 	// ProjectName Project name
 	ProjectName string `json:"projectName"`
 
+	// RegionId (OPTIONAL) Optional region ID for hierarchical path support
+	RegionId *string `json:"regionId,omitempty"`
+
 	// Site A site resource.
 	Site SiteResource `json:"site"`
 }
@@ -649,6 +652,9 @@ type DeleteSingleScheduleResponse = map[string]interface{}
 type DeleteSiteRequest struct {
 	// ProjectName Project name
 	ProjectName string `json:"projectName"`
+
+	// RegionId (OPTIONAL) Optional region ID for hierarchical path support
+	RegionId *string `json:"regionId,omitempty"`
 
 	// ResourceId Name of the site site to be deleted.
 	ResourceId string `json:"resourceId"`
@@ -920,6 +926,9 @@ type GetSingleScheduleResponse struct {
 type GetSiteRequest struct {
 	// ProjectName Project name
 	ProjectName string `json:"projectName"`
+
+	// RegionId (OPTIONAL) Optional region ID for hierarchical path support
+	RegionId *string `json:"regionId,omitempty"`
 
 	// ResourceId Name of the requested site.
 	ResourceId string `json:"resourceId"`
@@ -1999,6 +2008,9 @@ type ListSitesRequest struct {
 
 	// ProjectName Project name
 	ProjectName string `json:"projectName"`
+
+	// RegionId (OPTIONAL) Optional region ID for hierarchical path support
+	RegionId *string `json:"regionId,omitempty"`
 }
 
 // ListSitesResponse Response message for the ListSites method.
@@ -3916,6 +3928,9 @@ type PatchSiteRequest struct {
 	// ProjectName Project name
 	ProjectName string `json:"projectName"`
 
+	// RegionId (OPTIONAL) Optional region ID for hierarchical path support
+	RegionId *string `json:"regionId,omitempty"`
+
 	// ResourceId ID of the resource to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -5184,6 +5199,9 @@ type UpdateSiteRequest struct {
 	// ProjectName Project name
 	ProjectName string `json:"projectName"`
 
+	// RegionId (OPTIONAL) Optional region ID for hierarchical path support
+	RegionId *string `json:"regionId,omitempty"`
+
 	// ResourceId Name of the site site to be updated.
 	ResourceId string `json:"resourceId"`
 
@@ -6217,8 +6235,8 @@ type ScheduleServiceUpdateSingleSchedule2Params struct {
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// SiteServiceListSites2Params defines parameters for SiteServiceListSites2.
-type SiteServiceListSites2Params struct {
+// SiteServiceListSites3Params defines parameters for SiteServiceListSites3.
+type SiteServiceListSites3Params struct {
 	// OrderBy Optional comma separated list of fields to specify a sorting order.
 	//  See https://google.aip.dev/132 for details.
 	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
@@ -6236,39 +6254,57 @@ type SiteServiceListSites2Params struct {
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
+
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
-// SiteServiceCreateSite2Params defines parameters for SiteServiceCreateSite2.
-type SiteServiceCreateSite2Params struct {
+// SiteServiceCreateSite3Params defines parameters for SiteServiceCreateSite3.
+type SiteServiceCreateSite3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
+
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
-// SiteServiceDeleteSite2Params defines parameters for SiteServiceDeleteSite2.
-type SiteServiceDeleteSite2Params struct {
+// SiteServiceDeleteSite3Params defines parameters for SiteServiceDeleteSite3.
+type SiteServiceDeleteSite3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
+
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
-// SiteServiceGetSite2Params defines parameters for SiteServiceGetSite2.
-type SiteServiceGetSite2Params struct {
+// SiteServiceGetSite3Params defines parameters for SiteServiceGetSite3.
+type SiteServiceGetSite3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
+
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
-// SiteServicePatchSite2Params defines parameters for SiteServicePatchSite2.
-type SiteServicePatchSite2Params struct {
+// SiteServicePatchSite3Params defines parameters for SiteServicePatchSite3.
+type SiteServicePatchSite3Params struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
 
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
 }
 
-// SiteServiceUpdateSite2Params defines parameters for SiteServiceUpdateSite2.
-type SiteServiceUpdateSite2Params struct {
+// SiteServiceUpdateSite3Params defines parameters for SiteServiceUpdateSite3.
+type SiteServiceUpdateSite3Params struct {
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
+
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroups2Params defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups2.
@@ -6820,6 +6856,30 @@ type RegionServiceListRegionsParams struct {
 	ShowTotalSites *bool `form:"showTotalSites,omitempty" json:"showTotalSites,omitempty"`
 }
 
+// SiteServiceListSites2Params defines parameters for SiteServiceListSites2.
+type SiteServiceListSites2Params struct {
+	// OrderBy Optional comma separated list of fields to specify a sorting order.
+	//  See https://google.aip.dev/132 for details.
+	OrderBy *string `form:"orderBy,omitempty" json:"orderBy,omitempty"`
+
+	// Filter Optional filter to return only item of interest.
+	//  See https://google.aip.dev/160 for details.
+	Filter *string `form:"filter,omitempty" json:"filter,omitempty"`
+
+	// PageSize Defines the amount of items to be contained in a single page.
+	//  Default of 20.
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Offset Index of the first item to return. This allows skipping items.
+	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+}
+
+// SiteServicePatchSite2Params defines parameters for SiteServicePatchSite2.
+type SiteServicePatchSite2Params struct {
+	// FieldMaskPaths The set of field mask paths.
+	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+}
+
 // RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
 type RegionServicePatchRegionParams struct {
 	// FieldMaskPaths The set of field mask paths.
@@ -6950,12 +7010,42 @@ type SiteServiceListSitesParams struct {
 
 	// Offset Index of the first item to return. This allows skipping items.
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+}
+
+// SiteServiceCreateSiteParams defines parameters for SiteServiceCreateSite.
+type SiteServiceCreateSiteParams struct {
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+}
+
+// SiteServiceDeleteSiteParams defines parameters for SiteServiceDeleteSite.
+type SiteServiceDeleteSiteParams struct {
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+}
+
+// SiteServiceGetSiteParams defines parameters for SiteServiceGetSite.
+type SiteServiceGetSiteParams struct {
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
 // SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
 type SiteServicePatchSiteParams struct {
 	// FieldMaskPaths The set of field mask paths.
 	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
+}
+
+// SiteServiceUpdateSiteParams defines parameters for SiteServiceUpdateSite.
+type SiteServiceUpdateSiteParams struct {
+	// RegionId Optional region ID for hierarchical path support
+	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroupsParams defines parameters for TelemetryLogsGroupServiceListTelemetryLogsGroups.
@@ -7170,14 +7260,14 @@ type ScheduleServicePatchSingleSchedule2JSONRequestBody = SingleScheduleResource
 // ScheduleServiceUpdateSingleSchedule2JSONRequestBody defines body for ScheduleServiceUpdateSingleSchedule2 for application/json ContentType.
 type ScheduleServiceUpdateSingleSchedule2JSONRequestBody = SingleScheduleResource
 
-// SiteServiceCreateSite2JSONRequestBody defines body for SiteServiceCreateSite2 for application/json ContentType.
-type SiteServiceCreateSite2JSONRequestBody = SiteResource
+// SiteServiceCreateSite3JSONRequestBody defines body for SiteServiceCreateSite3 for application/json ContentType.
+type SiteServiceCreateSite3JSONRequestBody = SiteResource
 
-// SiteServicePatchSite2JSONRequestBody defines body for SiteServicePatchSite2 for application/json ContentType.
-type SiteServicePatchSite2JSONRequestBody = SiteResource
+// SiteServicePatchSite3JSONRequestBody defines body for SiteServicePatchSite3 for application/json ContentType.
+type SiteServicePatchSite3JSONRequestBody = SiteResource
 
-// SiteServiceUpdateSite2JSONRequestBody defines body for SiteServiceUpdateSite2 for application/json ContentType.
-type SiteServiceUpdateSite2JSONRequestBody = SiteResource
+// SiteServiceUpdateSite3JSONRequestBody defines body for SiteServiceUpdateSite3 for application/json ContentType.
+type SiteServiceUpdateSite3JSONRequestBody = SiteResource
 
 // TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody defines body for TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 for application/json ContentType.
 type TelemetryLogsGroupServiceCreateTelemetryLogsGroup2JSONRequestBody = TelemetryLogsGroupResource
@@ -7265,6 +7355,15 @@ type ProviderServiceCreateProviderJSONRequestBody = ProviderResource
 
 // RegionServiceCreateRegionJSONRequestBody defines body for RegionServiceCreateRegion for application/json ContentType.
 type RegionServiceCreateRegionJSONRequestBody = RegionResource
+
+// SiteServiceCreateSite2JSONRequestBody defines body for SiteServiceCreateSite2 for application/json ContentType.
+type SiteServiceCreateSite2JSONRequestBody = SiteResource
+
+// SiteServicePatchSite2JSONRequestBody defines body for SiteServicePatchSite2 for application/json ContentType.
+type SiteServicePatchSite2JSONRequestBody = SiteResource
+
+// SiteServiceUpdateSite2JSONRequestBody defines body for SiteServiceUpdateSite2 for application/json ContentType.
+type SiteServiceUpdateSite2JSONRequestBody = SiteResource
 
 // RegionServicePatchRegionJSONRequestBody defines body for RegionServicePatchRegion for application/json ContentType.
 type RegionServicePatchRegionJSONRequestBody = RegionResource

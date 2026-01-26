@@ -2734,7 +2734,7 @@ paths:
         - SiteService
       summary: ListSites
       description: Get a list of sites.
-      operationId: SiteService_ListSites2
+      operationId: SiteService_ListSites3
       parameters:
         - name: orderBy
           in: query
@@ -2792,6 +2792,13 @@ paths:
             type: string
             title: projectName
             description: Project name
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       responses:
         "200":
           description: Success
@@ -2804,7 +2811,7 @@ paths:
         - SiteService
       summary: CreateSite
       description: Create a site.
-      operationId: SiteService_CreateSite2
+      operationId: SiteService_CreateSite3
       parameters:
         - name: projectName
           in: query
@@ -2814,6 +2821,13 @@ paths:
             type: string
             title: projectName
             description: Project name
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       requestBody:
         description: The site to create.
         content:
@@ -2835,7 +2849,7 @@ paths:
         - SiteService
       summary: GetSite
       description: Get a specific site.
-      operationId: SiteService_GetSite2
+      operationId: SiteService_GetSite3
       parameters:
         - name: resourceId
           in: path
@@ -2853,6 +2867,13 @@ paths:
             type: string
             title: projectName
             description: Project name
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       responses:
         "200":
           description: Success
@@ -2865,7 +2886,7 @@ paths:
         - SiteService
       summary: UpdateSite
       description: Update a site.
-      operationId: SiteService_UpdateSite2
+      operationId: SiteService_UpdateSite3
       parameters:
         - name: resourceId
           in: path
@@ -2883,6 +2904,13 @@ paths:
             type: string
             title: projectName
             description: Project name
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       requestBody:
         description: Updated values for the site.
         content:
@@ -2903,7 +2931,7 @@ paths:
         - SiteService
       summary: DeleteSite
       description: Delete a site.
-      operationId: SiteService_DeleteSite2
+      operationId: SiteService_DeleteSite3
       parameters:
         - name: resourceId
           in: path
@@ -2921,6 +2949,13 @@ paths:
             type: string
             title: projectName
             description: Project name
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       responses:
         "200":
           description: Success
@@ -2933,7 +2968,7 @@ paths:
         - SiteService
       summary: PatchSite
       description: Patch a site.
-      operationId: SiteService_PatchSite2
+      operationId: SiteService_PatchSite3
       parameters:
         - name: resourceId
           in: path
@@ -2952,6 +2987,13 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
         - name: projectName
           in: query
           description: Project name
@@ -6506,6 +6548,301 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegionResource'
+  /v1/projects/{projectName}/regions/{regionId}/sites:
+    get:
+      tags:
+        - SiteService
+      summary: ListSites
+      description: Get a list of sites.
+      operationId: SiteService_ListSites2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: regionId
+          in: path
+          description: Optional region ID for hierarchical path support
+          required: true
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
+        - name: orderBy
+          in: query
+          description: |-
+            Optional comma separated list of fields to specify a sorting order.
+             See https://google.aip.dev/132 for details.
+          schema:
+            type: string
+            title: order_by
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9., ]+$
+            description: |-
+              (OPTIONAL) Optional comma separated list of fields to specify a sorting order.
+               See https://google.aip.dev/132 for details.
+        - name: filter
+          in: query
+          description: |-
+            Optional filter to return only item of interest.
+             See https://google.aip.dev/160 for details.
+          schema:
+            type: string
+            title: filter
+            maxLength: 1000
+            pattern: ^$|^[a-zA-Z-_0-9.,:/=*(){}"' ]+$
+            description: |-
+              (OPTIONAL) Optional filter to return only item of interest.
+               See https://google.aip.dev/160 for details.
+        - name: pageSize
+          in: query
+          description: |-
+            Defines the amount of items to be contained in a single page.
+             Default of 20.
+          schema:
+            type: integer
+            title: page_size
+            maximum: 100
+            minimum: 1
+            description: |-
+              (OPTIONAL) Defines the amount of items to be contained in a single page.
+               Default of 20.
+        - name: offset
+          in: query
+          description: Index of the first item to return. This allows skipping items.
+          schema:
+            type: integer
+            title: offset
+            maximum: 10000
+            minimum: 0
+            description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSitesResponse'
+    post:
+      tags:
+        - SiteService
+      summary: CreateSite
+      description: Create a site.
+      operationId: SiteService_CreateSite2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: regionId
+          in: path
+          description: Optional region ID for hierarchical path support
+          required: true
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
+      requestBody:
+        description: The site to create.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: The site to create.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+  /v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}:
+    get:
+      tags:
+        - SiteService
+      summary: GetSite
+      description: Get a specific site.
+      operationId: SiteService_GetSite2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: regionId
+          in: path
+          description: Optional region ID for hierarchical path support
+          required: true
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
+        - name: resourceId
+          in: path
+          description: Name of the requested site.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the requested site.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+    put:
+      tags:
+        - SiteService
+      summary: UpdateSite
+      description: Update a site.
+      operationId: SiteService_UpdateSite2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: regionId
+          in: path
+          description: Optional region ID for hierarchical path support
+          required: true
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
+        - name: resourceId
+          in: path
+          description: Name of the site site to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the site site to be updated.
+      requestBody:
+        description: Updated values for the site.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: Updated values for the site.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
+    delete:
+      tags:
+        - SiteService
+      summary: DeleteSite
+      description: Delete a site.
+      operationId: SiteService_DeleteSite2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: regionId
+          in: path
+          description: Optional region ID for hierarchical path support
+          required: true
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
+        - name: resourceId
+          in: path
+          description: Name of the site site to be deleted.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: Name of the site site to be deleted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSiteResponse'
+    patch:
+      tags:
+        - SiteService
+      summary: PatchSite
+      description: Patch a site.
+      operationId: SiteService_PatchSite2
+      parameters:
+        - name: projectName
+          in: path
+          description: Project name
+          required: true
+          schema:
+            type: string
+            title: projectName
+            description: Project name
+        - name: regionId
+          in: path
+          description: Optional region ID for hierarchical path support
+          required: true
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
+        - name: resourceId
+          in: path
+          description: ID of the resource to be updated.
+          required: true
+          schema:
+            type: string
+            title: resourceId
+            description: ID of the resource to be updated.
+        - name: fieldMask.paths
+          in: query
+          description: The set of field mask paths.
+          schema:
+            type: array
+            items:
+              type: string
+            title: paths
+            description: The set of field mask paths.
+      requestBody:
+        description: Updated values for the site.
+        content:
+          application/json:
+            schema:
+              title: site
+              description: Updated values for the site.
+              $ref: '#/components/schemas/SiteResource'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteResource'
   /v1/projects/{projectName}/regions/{resourceId}:
     get:
       tags:
@@ -7386,6 +7723,13 @@ paths:
             maximum: 10000
             minimum: 0
             description: (OPTIONAL) Index of the first item to return. This allows skipping items.
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       responses:
         "200":
           description: Success
@@ -7408,6 +7752,13 @@ paths:
             type: string
             title: projectName
             description: Project name
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       requestBody:
         description: The site to create.
         content:
@@ -7447,6 +7798,13 @@ paths:
             type: string
             title: resourceId
             description: Name of the requested site.
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       responses:
         "200":
           description: Success
@@ -7477,6 +7835,13 @@ paths:
             type: string
             title: resourceId
             description: Name of the site site to be updated.
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       requestBody:
         description: Updated values for the site.
         content:
@@ -7515,6 +7880,13 @@ paths:
             type: string
             title: resourceId
             description: Name of the site site to be deleted.
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       responses:
         "200":
           description: Success
@@ -7554,6 +7926,13 @@ paths:
               type: string
             title: paths
             description: The set of field mask paths.
+        - name: regionId
+          in: query
+          description: Optional region ID for hierarchical path support
+          schema:
+            type: string
+            title: regionId
+            description: (OPTIONAL) Optional region ID for hierarchical path support
       requestBody:
         description: Updated values for the site.
         content:
@@ -11702,6 +12081,10 @@ components:
           type: string
           title: projectName
           description: Project name
+        regionId:
+          type: string
+          title: regionId
+          description: (OPTIONAL) Optional region ID for hierarchical path support
       title: CreateSiteRequest
       required:
         - site
@@ -12151,6 +12534,10 @@ components:
           type: string
           title: projectName
           description: Project name
+        regionId:
+          type: string
+          title: regionId
+          description: (OPTIONAL) Optional region ID for hierarchical path support
       title: DeleteSiteRequest
       required:
         - resourceId
@@ -12676,6 +13063,10 @@ components:
           type: string
           title: projectName
           description: Project name
+        regionId:
+          type: string
+          title: regionId
+          description: (OPTIONAL) Optional region ID for hierarchical path support
       title: GetSiteRequest
       required:
         - resourceId
@@ -13965,6 +14356,10 @@ components:
           type: string
           title: projectName
           description: Project name
+        regionId:
+          type: string
+          title: regionId
+          description: (OPTIONAL) Optional region ID for hierarchical path support
       title: ListSitesRequest
       required:
         - projectName
@@ -14624,6 +15019,10 @@ components:
           title: field_mask
           description: Field mask to be applied on the patch of site.
           $ref: '#/components/schemas/google.protobuf.FieldMask'
+        regionId:
+          type: string
+          title: regionId
+          description: (OPTIONAL) Optional region ID for hierarchical path support
         projectName:
           type: string
           title: projectName
@@ -14888,6 +15287,10 @@ components:
           type: string
           title: projectName
           description: Project name
+        regionId:
+          type: string
+          title: regionId
+          description: (OPTIONAL) Optional region ID for hierarchical path support
       title: UpdateSiteRequest
       required:
         - resourceId
