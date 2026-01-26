@@ -289,7 +289,30 @@ func UnicodePrintableCharsCheckerMiddleware() echo.MiddlewareFunc {
 	return UnicodePrintableCharsChecker
 }
 
-//nolint:cyclop // Routing middleware legitimately has high cyclomatic complexity
+// injectProjectNameForLegacyPath injects projectName query parameter for legacy API paths.
+// Legacy paths: /edge-infra.orchestrator.apis/v2/*
+// ActiveProjectID header is set by projectcontext.InjectActiveProjectID middleware.
+func injectProjectNameForLegacyPath(c echo.Context) {
+	req := c.Request()
+	path := req.URL.Path
+
+	if strings.HasPrefix(path, "/edge-infra.orchestrator.apis/v2/") {
+		projectID := req.Header.Get("ActiveProjectID")
+		if projectID != "" && req.URL.Query().Get("projectName") == "" {
+			q := req.URL.Query()
+			q.Set("projectName", projectID)
+			req.URL.RawQuery = q.Encode()
+			zlog.Debug().Str("projectName", projectID).Str("path", path).Msg("Injected projectName query param")
+		}
+	}
+}
+
+// setPathRewrites configures path normalization and rewriting middleware.
+// Most path rewrites have been migrated to proto additional_bindings.
+// Only 3 rewrites remain here due:
+// 1. Hierarchical telemetry profiles (semantic transformation, no backend parent-child relationship).
+// 2. Hosts summary path (dash to underscore conversion).
+// 3. Legacy path query parameter injection (requires context and header access).
 func (m *Manager) setPathRewrites(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("Path rewrite middleware enabled")
 	e.Pre(func(next echo.HandlerFunc) echo.HandlerFunc {
@@ -297,18 +320,12 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 			req := c.Request()
 			path := req.URL.Path
 
-			// Strip trailing slash (except for root path)
 			if len(path) > 1 && strings.HasSuffix(path, "/") {
 				req.URL.Path = strings.TrimSuffix(path, "/")
 				path = req.URL.Path
 				zlog.Debug().Str("path", path).Msg("Stripped trailing slash")
 			}
 
-			// Rewrite UI-friendly paths to backend OpenAPI paths
-			// Based on production API mapping configuration
-
-			// Rewrite hierarchical telemetry paths
-			//nolint:gocritic // if-else chain is clearer than switch for these regex patterns
 			if strings.Contains(path, "/telemetry/metricgroups/") && strings.Contains(path, "/metricprofiles") {
 				// /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles ->
 				// /v1/projects/{projectName}/telemetry/profiles/metrics
@@ -334,25 +351,14 @@ func (m *Manager) setPathRewrites(e *echo.Echo) {
 			}
 
 			if strings.Contains(path, "/compute/hosts/summary") {
-				// Rewrite /compute/hosts/summary to /compute/hosts:summary
-				// UI uses dash, backend uses colon (Google API custom method syntax)
-				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts:summary", 1)
+				// Rewrite /compute/hosts/summary to /compute/hosts_summary
+				// UI uses dash, backend uses underscore
+				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts_summary", 1)
 				req.URL.Path = newPath
 				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
 			}
 
-			// For legacy API paths, inject projectName as query parameter
-			// Legacy paths: /edge-infra.orchestrator.apis/v2/*
-			// ActiveProjectID header is set by projectcontext.InjectActiveProjectID middleware
-			if strings.HasPrefix(path, "/edge-infra.orchestrator.apis/v2/") {
-				projectID := c.Request().Header.Get("ActiveProjectID")
-				if projectID != "" && req.URL.Query().Get("projectName") == "" {
-					q := req.URL.Query()
-					q.Set("projectName", projectID)
-					req.URL.RawQuery = q.Encode()
-					zlog.Debug().Str("projectName", projectID).Str("path", path).Msg("Injected projectName query param")
-				}
-			}
+			injectProjectNameForLegacyPath(c)
 
 			return next(c)
 		}

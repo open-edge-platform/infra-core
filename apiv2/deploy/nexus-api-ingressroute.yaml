@@ -16,30 +16,23 @@
 # 6. OperatingSystemService: /v1/projects/{projectName}/compute/os
 #    (rewritten to /compute/operating_systems)
 # 7. ProviderService: /v1/projects/{projectName}/providers
-# 8. WorkloadService: /v1/projects/{projectName}/compute/workloads
-#    (also /workload_members for members)
+# 8. WorkloadService: /v1/projects/{projectName}/workloads
 # 9. WorkloadMemberService:
-#    /v1/projects/{projectName}/compute/workloads/{id}/members
-# 10. ScheduleService: /v1/projects/{projectName}/compute/schedules
-#     (rewritten to /schedules)
+#    /v1/projects/{projectName}/workload_members
+# 10. ScheduleService: /v1/projects/{projectName}/schedules
 # 11. TelemetryLogsGroupService:
 #     /v1/projects/{projectName}/telemetry/loggroups
-#     (rewritten to /telemetry/groups/logs)
 # 12. TelemetryMetricsGroupService:
 #     /v1/projects/{projectName}/telemetry/metricgroups
-#     (rewritten to /telemetry/groups/metrics)
 # 13. TelemetryLogsProfileService:
-#     /v1/projects/{projectName}/telemetry/loggroups/{id}/logprofiles
-#     (rewritten to /telemetry/profiles/logs)
+#     /v1/projects/{projectName}/telemetry/logprofiles
 # 14. TelemetryMetricsProfileService:
-#     /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles
-#     (rewritten to /telemetry/profiles/metrics)
+#     /v1/projects/{projectName}/telemetry/metricprofiles
 # 15. LocalAccountService: /v1/projects/{projectName}/localAccounts
 # 16. CustomConfigService: /v1/projects/{projectName}/customConfigs
-# 17. OSUpdatePolicyService: /v1/projects/{projectName}/os-update-policies
-#     (rewritten to /os_update_policy)
+# 17. OSUpdatePolicyService:
+#     /v1/projects/{projectName}/os-update-policies
 # 18. OSUpdateRunService: /v1/projects/{projectName}/os-update-runs
-#     (rewritten to /os_update_run)
 #
 # Non-migrated services route through nexus-api-gateway:
 # - AppDeployment: /v1/projects/{projectName}/appdeployment/*
@@ -64,7 +57,9 @@ spec:
     # Includes: compute/*, sites, regions, locations, providers,
     # workloads, schedules, telemetry, localAccounts, customConfigs,
     # os-update-*
-    - match: Host(`api.kind.internal`) && PathRegexp(`^/v1/projects/[^/]+/(compute|sites|regions|locations|providers|workloads|workload_members|telemetry|localAccounts|customConfigs|os-update-policies|os-update-runs)(/.*)?$`)
+    - match: >-
+        Host(`api.kind.internal`) &&
+        PathRegexp(`^/v1/projects/[^/]+/(compute|sites|regions|locations|providers|workloads|workload_members|telemetry|localAccounts|customConfigs|os-update-policies|os-update-runs)(/.*)?$`)
       kind: Rule
       priority: 50
       middlewares:
