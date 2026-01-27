@@ -91,7 +91,8 @@ jobs:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@8fc2349c02d438e1707f99343069963fb49d3eba  # 2026.0.6
     with:
-      orch_ci_repo_ref: 41bb1591eeeb5249092850c9a86ccbbbe51e63d5  # 0.1.58 Pin bootstrap action and scripts
+      orch_ci_repo_ref: 8fc2349c02d438e1707f99343069963fb49d3eba # 2026.0.6 Pin bootstrap action and scripts
+      bootstrap_tools: "all,golangci-lint2"
       run_security_scans: true
       run_version_check: true
       run_dep_version_check: true
@@ -103,7 +104,7 @@ jobs:
       run_artifact: false
       prefix_tag_separator: "/"
       project_folder: ${{ matrix.project_folder }}
-      trivy_image_skip: "postgres:16.4,ghcr.io/dependabot/dependabot-updater-core:latest"
+      trivy_image_skip: "postgres:16.4"
       trivy_config_path: '${{ matrix.project_folder }}/trivy.yaml'
     secrets:
       NO_AUTH_ECR_PUSH_USERNAME: ${{ secrets.NO_AUTH_ECR_PUSH_USERNAME }}

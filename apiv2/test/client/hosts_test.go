@@ -910,7 +910,7 @@ func TestHostsSummary(t *testing.T) {
 
 func TestHostRegister(t *testing.T) {
 	log.Info().Msgf("Begin compute host register tests")
-	var registeredHosts []*api.HostServiceRegisterHostResponse
+	registeredHosts := make([]*api.HostServiceRegisterHostResponse, 0, 4)
 
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
@@ -1094,7 +1094,6 @@ func TestHostRegister(t *testing.T) {
 			projectName,
 			*host.JSON200.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
-			AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
 		assert.Equal(t, http.StatusOK, resHost.StatusCode())

@@ -921,7 +921,7 @@ func (is *InventorygRPCServer) GetHostsSummary(
 func fromInvIPAddresses(
 	invIPAddresses []*inv_networkv1.IPAddressResource,
 ) []*networkv1.IPAddressResource {
-	IPAddresses := []*networkv1.IPAddressResource{}
+	IPAddresses := make([]*networkv1.IPAddressResource, 0, len(invIPAddresses))
 	for _, invIPAddress := range invIPAddresses {
 		configMode := networkv1.IPAddressConfigMethod(invIPAddress.GetConfigMethod())
 		status := networkv1.IPAddressStatus(invIPAddress.GetStatus())

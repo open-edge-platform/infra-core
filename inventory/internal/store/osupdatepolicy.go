@@ -384,11 +384,11 @@ func (is *InvStore) FilterOSUpdatePolicies(ctx context.Context, filter *inv_v1.R
 func getOSPolicyUpdateIDFromResourceID(
 	ctx context.Context, client *ent.Client, osPolicyUpdate *compute_v1.OSUpdatePolicyResource,
 ) (int, error) {
-	oup, qerr := client.OSUpdatePolicyResource.Query().
+	result, qerr := client.OSUpdatePolicyResource.Query().
 		Where(oup.ResourceID(osPolicyUpdate.ResourceId)).
 		Only(ctx)
 	if qerr != nil {
 		return 0, errors.Wrap(qerr)
 	}
-	return oup.ID, nil
+	return result.ID, nil
 }

@@ -3140,7 +3140,7 @@ func Test_OrderBy(t *testing.T) {
 			} else {
 				require.NoError(t, err)
 				require.Len(t, findresIDs.Resources, len(tc.expectedOrder))
-				var expectedIDs []*client.ResourceTenantIDCarrier
+				expectedIDs := make([]*client.ResourceTenantIDCarrier, 0, len(tc.expectedOrder))
 				for _, id := range tc.expectedOrder {
 					expectedIDs = append(
 						expectedIDs,
@@ -3164,7 +3164,7 @@ func Test_OrderBy(t *testing.T) {
 			} else {
 				require.NoError(t, err)
 
-				var resources []*computev1.HostResource
+				resources := make([]*computev1.HostResource, 0, len(listres.Resources))
 				for _, r := range listres.Resources {
 					resources = append(resources, r.GetResource().GetHost())
 				}
