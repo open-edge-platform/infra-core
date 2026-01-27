@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	serverAddress = "localhost:61587"
+	serverAddress = "127.0.0.1:61587"
 
 	testDigest       = "TEST_DIGEST"
 	testFile         = "TEST_FILE"
@@ -171,7 +171,7 @@ func TestMain(m *testing.M) {
 	)
 	flag.Parse()
 
-	os.Setenv(RsProxyRegistryEnv, "rs-proxy.localhost:61587/")
+	os.Setenv(RsProxyRegistryEnv, serverAddress+"/")
 	run := m.Run() // run all tests
 	os.Unsetenv(RsProxyRegistryEnv)
 	os.Exit(run)
@@ -353,19 +353,18 @@ func Test_GetRepositoryTags(t *testing.T) {
 
 // Test_RsProxyEnv tests the value of env var RsProxyRegistryEnv.
 // This was initially set by sync.Once in the first call to GetRsProxyRegistryAddress().
-// It was done as part of the call "os.Setenv(RsProxyRegistryEnv, "rs-proxy.localhost:61587/")".
+// It was done as part of the call "os.Setenv(RsProxyRegistryEnv, serverAddress+"/")".
 func Test_RsProxyEnv(t *testing.T) {
 	t.Run("RsProxyEnv", func(t *testing.T) {
-		expectedAddr := "rs-proxy.localhost:61587/"
 		rsProxyRegistryAddr := GetRsProxyRegistryAddress()
-		assert.Equal(t, expectedAddr, rsProxyRegistryAddr)
+		assert.Equal(t, serverAddress+"/", rsProxyRegistryAddr)
 
 		t.Setenv(RsProxyRegistryEnv, "test")
 		assert.NotEqual(t, "test", GetRsProxyRegistryAddress())
-		assert.Equal(t, expectedAddr, GetRsProxyRegistryAddress())
+		assert.Equal(t, serverAddress+"/", GetRsProxyRegistryAddress())
 
 		t.Setenv(RsProxyRegistryEnv, "test2")
 		assert.NotEqual(t, "test2", GetRsProxyRegistryAddress())
-		assert.Equal(t, expectedAddr, GetRsProxyRegistryAddress())
+		assert.Equal(t, serverAddress+"/", GetRsProxyRegistryAddress())
 	})
 }
