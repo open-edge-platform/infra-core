@@ -369,6 +369,7 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 	registrationStatusIndicator := statusv1.StatusIndication_value[host.RegistrationStatusIndicator.String()]
 	powerCommandPolicy := computev1.PowerCommandPolicy_value[host.PowerCommandPolicy.String()]
 	amtSku := computev1.AmtSku_value[host.AmtSku.String()]
+	AmtControlMode := computev1.AmtControlMode_value[host.AmtControlMode.String()]
 	desiredAmtState := computev1.AmtState_value[host.DesiredAmtState.String()]
 	currentAmtState := computev1.AmtState_value[host.CurrentAmtState.String()]
 	powerStatusIndicator := statusv1.StatusIndication_value[host.PowerStatusIndicator.String()]
@@ -421,9 +422,11 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		PowerCommandPolicy:          computev1.PowerCommandPolicy(powerCommandPolicy),
 		PowerOnTime:                 host.PowerOnTime,
 		AmtSku:                      computev1.AmtSku(amtSku),
+		AmtControlMode:              computev1.AmtControlMode(AmtControlMode),
 		DesiredAmtState:             computev1.AmtState(desiredAmtState),
 		CurrentAmtState:             computev1.AmtState(currentAmtState),
 		AmtStatus:                   host.AmtStatus,
+		AmtDnsSuffix:                host.AmtDNSSuffix,
 		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
 		AmtStatusTimestamp:          host.AmtStatusTimestamp,
 		UserLvmSize:                 host.UserLvmSize,
