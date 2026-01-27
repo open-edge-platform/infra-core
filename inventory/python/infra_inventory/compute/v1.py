@@ -65,9 +65,9 @@ class AmtSku(betterproto.Enum):
 
 
 class AmtControlMode(betterproto.Enum):
-    AMT_MODE_UNSPECIFIED = 0
-    AMT_MODE_ACM = 1
-    AMT_MODE_CCM = 2
+    AMT_CONTROL_MODE_UNSPECIFIED = 0
+    AMT_CONTROL_MODE_ACM = 1
+    AMT_CONTROL_MODE_CCM = 2
 
 
 class HostComponentState(betterproto.Enum):

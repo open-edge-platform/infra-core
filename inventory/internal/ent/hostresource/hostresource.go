@@ -644,9 +644,9 @@ type AmtControlMode string
 
 // AmtControlMode values.
 const (
-	AmtControlModeAMT_MODE_UNSPECIFIED AmtControlMode = "AMT_MODE_UNSPECIFIED"
-	AmtControlModeAMT_MODE_ACM         AmtControlMode = "AMT_MODE_ACM"
-	AmtControlModeAMT_MODE_CCM         AmtControlMode = "AMT_MODE_CCM"
+	AmtControlModeAMT_CONTROL_MODE_UNSPECIFIED AmtControlMode = "AMT_CONTROL_MODE_UNSPECIFIED"
+	AmtControlModeAMT_CONTROL_MODE_ACM         AmtControlMode = "AMT_CONTROL_MODE_ACM"
+	AmtControlModeAMT_CONTROL_MODE_CCM         AmtControlMode = "AMT_CONTROL_MODE_CCM"
 )
 
 func (acm AmtControlMode) String() string {
@@ -656,7 +656,7 @@ func (acm AmtControlMode) String() string {
 // AmtControlModeValidator is a validator for the "amt_control_mode" field enum values. It is called by the builders before save.
 func AmtControlModeValidator(acm AmtControlMode) error {
 	switch acm {
-	case AmtControlModeAMT_MODE_UNSPECIFIED, AmtControlModeAMT_MODE_ACM, AmtControlModeAMT_MODE_CCM:
+	case AmtControlModeAMT_CONTROL_MODE_UNSPECIFIED, AmtControlModeAMT_CONTROL_MODE_ACM, AmtControlModeAMT_CONTROL_MODE_CCM:
 		return nil
 	default:
 		return fmt.Errorf("hostresource: invalid enum value for amt_control_mode field: %q", acm)

@@ -890,9 +890,9 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| AMT_MODE_UNSPECIFIED | 0 |  |
-| AMT_MODE_ACM | 1 |  |
-| AMT_MODE_CCM | 2 |  |
+| AMT_CONTROL_MODE_UNSPECIFIED | 0 |  |
+| AMT_CONTROL_MODE_ACM | 1 |  |
+| AMT_CONTROL_MODE_CCM | 2 |  |
 
 
 
