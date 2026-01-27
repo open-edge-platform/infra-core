@@ -233,13 +233,12 @@ message HostResource {
   status.v1.StatusIndication amt_status_indicator = 95 [(ent.field) = {optional: true}]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
   uint64 amt_status_timestamp = 96 [(ent.field) = {optional: true}]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
   uint32 user_lvm_size = 97 [(ent.field) = {optional: true}]; // LVM size in GB.
-  AmtControlMode amt_control_mode = 98  [(ent.field) = {optional: true}]; // coming from user selection
+  AmtControlMode amt_control_mode = 98 [(ent.field) = {optional: true}]; // coming from user selection
   string amt_dns_suffix = 99 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {max_bytes: 96},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];// textual message that describes dns_suffix for ACM mode.
-
+  ]; // textual message that describes dns_suffix for ACM mode.
 
   string tenant_id = 100 [
     (ent.field) = {
