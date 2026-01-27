@@ -34,10 +34,10 @@ jobs:
         with:
           persist-credentials: false
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@ec8e8c2ec9d654d8cf4b6f7929b175282f5f1f40  # 2026.0.4
+        uses: open-edge-platform/orch-ci/verify-branch-name@41bb1591eeeb5249092850c9a86ccbbbe51e63d5  # 2026.0.4
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@ec8e8c2ec9d654d8cf4b6f7929b175282f5f1f40  # 2026.0.4
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@41bb1591eeeb5249092850c9a86ccbbbe51e63d5  # 2026.0.4
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         env:
@@ -89,9 +89,9 @@ jobs:
       fail-fast: false
       matrix:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@ec8e8c2ec9d654d8cf4b6f7929b175282f5f1f40  # 2026.0.4
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@41bb1591eeeb5249092850c9a86ccbbbe51e63d5  # 2026.0.4
     with:
-      orch_ci_repo_ref: 15fa19e8760a1d7954de69b7059433f3855bbd92  # 0.1.58 Pin bootstrap action and scripts
+      orch_ci_repo_ref: 41bb1591eeeb5249092850c9a86ccbbbe51e63d5  # 0.1.58 Pin bootstrap action and scripts
       run_security_scans: true
       run_version_check: true
       run_dep_version_check: true
@@ -113,7 +113,7 @@ jobs:
       contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@ec8e8c2ec9d654d8cf4b6f7929b175282f5f1f40  # 2026.0.4
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@41bb1591eeeb5249092850c9a86ccbbbe51e63d5  # 2026.0.4
     with:
       bootstrap_tools: "yq,nodejs"
       run_security_scans: true
@@ -143,7 +143,7 @@ jobs:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
           persist-credentials: false
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@ec8e8c2ec9d654d8cf4b6f7929b175282f5f1f40  # 2026.0.4
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@41bb1591eeeb5249092850c9a86ccbbbe51e63d5  # 2026.0.4
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
