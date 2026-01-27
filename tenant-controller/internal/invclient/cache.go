@@ -54,7 +54,7 @@ func (i *inventoryClientNaiveCache) ListAll(ctx context.Context, filter *inv_v1.
 		return nil, herr
 	}
 
-	cached, ok := i.cacheByOperation.get("ListAll", hash)
+	cached, ok := i.get("ListAll", hash)
 	if ok {
 		resource, ok := cached.([]*inv_v1.Resource)
 		if !ok {

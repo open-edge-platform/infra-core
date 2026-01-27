@@ -46,10 +46,9 @@ func CreateJWT(tb testing.TB, tenantID string) (string, string, error) {
 // Only 1 token can persist in the system (otherwise, env variable holding secret key would be re-written).
 func CreateENJWT(tb testing.TB, tenantIDs ...string) (string, string, error) {
 	tb.Helper()
-	roles := []string{
-		"default-roles-master",
-		"rs-access-r",
-	}
+	roles := make([]string, 2, 2+len(tenantIDs)) //nolint:mnd // Size of default roles
+	roles[0] = "default-roles-master"
+	roles[1] = "rs-access-r"
 
 	for _, tid := range tenantIDs {
 		roles = append(

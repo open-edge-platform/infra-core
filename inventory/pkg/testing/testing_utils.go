@@ -353,14 +353,14 @@ func (c *InvResourceDAO) CreateHostWithOpts(
 
 		HardwareKind: "XDgen2",
 		Uuid:         uuid.NewString(),
-		MemoryBytes:  64 * util.Gigabyte, //nolint:mnd // Teting only
+		MemoryBytes:  64 * util.Gigabyte,
 
 		CpuModel:        "12th Gen Intel(R) Core(TM) i9-12900",
 		CpuSockets:      1,
-		CpuCores:        14, //nolint:mnd // Teting only
+		CpuCores:        14,
 		CpuCapabilities: "",
 		CpuArchitecture: "x86_64",
-		CpuThreads:      10, //nolint:mnd // Teting only
+		CpuThreads:      10,
 
 		MgmtIp: "192.168.10.10",
 
@@ -615,7 +615,7 @@ func (c *InvResourceDAO) createRepeatedSchedule(
 	repeatedSchedule := &schedule_v1.RepeatedScheduleResource{
 		Name:            "for unit testing purposes",
 		ScheduleStatus:  schedule_v1.ScheduleStatus_SCHEDULE_STATUS_MAINTENANCE,
-		DurationSeconds: uint32(100), //nolint:mnd // Teting only
+		DurationSeconds: uint32(100),
 		CronMinutes:     "3",
 		CronHours:       "4",
 		CronDayMonth:    "5",
@@ -683,8 +683,8 @@ func (c *InvResourceDAO) createSingleSchedule(
 	singleSchedule := &schedule_v1.SingleScheduleResource{
 		Name:           "for unit testing purposes",
 		ScheduleStatus: schedule_v1.ScheduleStatus_SCHEDULE_STATUS_MAINTENANCE,
-		StartSeconds:   now + 3600, //nolint:mnd // Testing only
-		EndSeconds:     now + 7200, //nolint:mnd // Testing only
+		StartSeconds:   now + 3600,
+		EndSeconds:     now + 7200,
 		TenantId:       tenantID,
 	}
 
@@ -1292,7 +1292,7 @@ func (c *InvResourceDAO) createHostStorage(
 	defer cancel()
 	storage = &computev1.HoststorageResource{
 		Host:          host,
-		CapacityBytes: 1000 * util.Gigabyte, //nolint:mnd // Teting only
+		CapacityBytes: 1000 * util.Gigabyte,
 		TenantId:      tenantID,
 	}
 	resp, err := c.apiClient.Create(
@@ -2100,7 +2100,7 @@ func (c *InvResourceDAO) createRemoteAccessConfiguration(
 	racCreateReq := &remoteaccessv1.RemoteAccessConfiguration{
 		DesiredState:        remoteaccessv1.RemoteAccessState_REMOTE_ACCESS_STATE_ENABLED,
 		Instance:            instance,
-		ExpirationTimestamp: uint64(time.Now().Add(time.Second * 601).Unix()), //nolint:mnd,gosec // Teting only
+		ExpirationTimestamp: uint64(time.Now().Add(time.Second * 601).Unix()), //nolint:gosec // Testing only
 		TenantId:            tenantID,
 	}
 

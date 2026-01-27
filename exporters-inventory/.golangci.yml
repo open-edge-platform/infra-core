@@ -2,6 +2,19 @@
 # SPDX-License-Identifier: Apache-2.0
 
 ---
+version: "2"
+run:
+  go: ""
+  modules-download-mode: readonly
+  issues-exit-code: 1
+  tests: true
+output:
+  formats:
+    text:
+      path: stdout
+      print-linter-name: true
+    html:
+      path: out/golangci-lint_report.html
 linters:
   enable:
     - asasalint
@@ -14,27 +27,19 @@ linters:
     - dogsled
     - dupl
     - durationcheck
-    - errcheck
     - errname
     - errorlint
     - exhaustive
     - funlen
-    - gci
     - gochecknoinits
     - goconst
     - gocritic
     - gocyclo
     - godot
-    - gofmt
-    - gofumpt
     - goheader
-    - goimports
     - gomoddirectives
     - goprintffuncname
     - gosec
-    - gosimple
-    - govet
-    - ineffassign
     - lll
     - misspell
     - mnd
@@ -47,171 +52,133 @@ linters:
     - predeclared
     - revive
     - staticcheck
-    - stylecheck
     - tagliatelle
-    - testpackage
-    - tenv
     - testableexamples
+    - testpackage
     - thelper
     - tparallel
-    - typecheck
     - unconvert
     - unparam
-    - unused
     - usestdlibvars
     - whitespace
-    - dupl
-
-run:
-  timeout: 10m
-
-  issues-exit-code: 1
-
-  tests: true
-
-  # With the read-only mode linter will fail if go.mod file is outdated.
-  modules-download-mode: readonly
-
-  # Keep this empty to use the Go version from the go.mod file.
-  go: ""
-
-linters-settings:
-  gomoddirectives:
-    replace-local: true
-    replace-allow-list:
-      - github.com/open-edge-platform/infra-core/inventory
-      - github.com/open-edge-platform/infra-core/apiv2
-  depguard:
-    rules:
-      main:
-        files:
-          - $all
-          - "!$test"
-        allow:
-          - $gostd
-          - github.com/open-edge-platform
-          - github.com/stretchr/testify
-          - github.com/grpc-ecosystem/go-grpc-middleware
-          - google.golang.org/grpc
-          - google.golang.org/protobuf
-          - github.com/adhocore/gronx
-          - github.com/onosproject/onos-lib-go/pkg/prom
-          - github.com/prometheus/client_golang/prometheus
-      test:
-        files:
-          - "$test"
-        allow:
-          - $gostd
-          - github.com/open-edge-platform
-          - github.com/grpc-ecosystem/go-grpc-middleware
-          - github.com/stretchr/testify
-          - github.com/prometheus/client_golang/prometheus
-  cyclop:
-    # SDL requirements recommend a maximum cyclomatic complexity of 10
-    max-complexity: 10
-  misspell:
-    locale: US
-  lll:
-    line-length: 130
-    tab-width: 4
-  funlen:
-    lines: 100
-    statements: 50
-  exhaustive:
-    default-signifies-exhaustive: true
-
-  gocritic:
-    enabled-tags:
-      - diagnostic
-      - experimental
-      - opinionated
-      - performance
-      - style
-    disabled-checks:
-      # These 3 will detect many cases, but they do sense
-      # if it's performance oriented code
-      - hugeParam
-      - rangeExprCopy
-      - rangeValCopy
-
-  errcheck:
-    # Report `a := b.(MyStruct)` when `a, ok := ...` should be.
-    check-type-assertions: true   # Default: false
-
-    # Report skipped checks:`num, _ := strconv.Atoi(numStr)`.
-    check-blank: true   # Default: false
-
-    # Function to skip.
-    exclude-functions:
-      - io/ioutil.ReadFile
-      - io.Copy(*bytes.Buffer)
-      - io.Copy(os.Stdout)
-
-  govet:
-    enable:
-      - shadow
-
-  nakedret:
-    # No naked returns, ever.
-    max-func-lines: 1   # Default: 30
-
-  tagliatelle:
-    case:
+  settings:
+    cyclop:
+      max-complexity: 10
+    depguard:
       rules:
-        json: snake
-        yaml: snake
-        xml: camel
-        bson: camel
-        avro: snake
-        mapstructure: kebab
-
-  gci:
-    sections:
-      # Standard section: captures all standard packages.
-      - standard
-      # Default section: contains all imports that could not be matched to another section type.
-      - default
-      # Custom section: groups all imports with the specified Prefix.
-      - prefix(github.com/open-edge-platform)
-
+        main:
+          files:
+            - $all
+            - '!$test'
+          allow:
+            - $gostd
+            - github.com/open-edge-platform
+            - github.com/stretchr/testify
+            - github.com/grpc-ecosystem/go-grpc-middleware
+            - google.golang.org/grpc
+            - google.golang.org/protobuf
+            - github.com/adhocore/gronx
+            - github.com/onosproject/onos-lib-go/pkg/prom
+            - github.com/prometheus/client_golang/prometheus
+        test:
+          files:
+            - $test
+          allow:
+            - $gostd
+            - github.com/open-edge-platform
+            - github.com/grpc-ecosystem/go-grpc-middleware
+            - github.com/stretchr/testify
+            - github.com/prometheus/client_golang/prometheus
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+      exclude-functions:
+        - io/ioutil.ReadFile
+        - io.Copy(*bytes.Buffer)
+        - io.Copy(os.Stdout)
+    exhaustive:
+      default-signifies-exhaustive: true
+    funlen:
+      lines: 100
+      statements: 50
+    gocritic:
+      disabled-checks:
+        - hugeParam
+        - rangeExprCopy
+        - rangeValCopy
+      enabled-tags:
+        - diagnostic
+        - experimental
+        - opinionated
+        - performance
+        - style
+    gomoddirectives:
+      replace-allow-list:
+        - github.com/open-edge-platform/infra-core/inventory
+        - github.com/open-edge-platform/infra-core/apiv2
+      replace-local: true
+    govet:
+      enable:
+        - shadow
+    lll:
+      line-length: 130
+      tab-width: 4
+    misspell:
+      locale: US
+    nakedret:
+      max-func-lines: 1
+    tagliatelle:
+      case:
+        rules:
+          avro: snake
+          bson: camel
+          json: snake
+          mapstructure: kebab
+          xml: camel
+          yaml: snake
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - lll
+        path: cmd/exporter.go
+      - path: (.+)\.go$
+        text: Error return value of `.*Close` is not checked
+      - path: (.+)\.go$
+        text: Error return value of `.*Flush` is not checked
+      - path: (.+)\.go$
+        text: Error return value of `.*Write` is not checked
+      - path: (.+)\.go$
+        text: Error return value of `.*Stop` is not checked
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
 issues:
   max-issues-per-linter: 0
-
   max-same-issues: 0
-
-  # When set to `true` linter will analyze only new code which are
-  # not committed or after some specific revision. This is a cool
-  # feature when you're going to introduce linter into a big project.
-  # But I prefer going gradually package by package.
-  # So, it's set to `false` to scan all code.
   new: false
-
   fix: false
-
-  exclude:
-    - Error return value of `.*Close` is not checked
-    - Error return value of `.*Flush` is not checked
-    - Error return value of `.*Write` is not checked
-    - Error return value of `.*Stop` is not checked
-  exclude-rules:
-    - path: cmd/exporter.go
-      linters:
-        - lll
-
-output:
-  # Format:
-  # colored-line-number|line-number|json|tab|checkstyle|code-climate|junit-xml|github-actions
-  #
-  # Multiple can be specified by separating them by comma, output can be provided
-  # for each of them by separating format name and path by colon symbol.
-  # Output path can be either `stdout`, `stderr` or path to the file to write to.
-  # Example: "checkstyle:report.json,colored-line-number"
-  #
-  # Default: colored-line-number
-  formats: colored-line-number:stdout,html:out/golangci-lint_report.html
-
-  print-linter-name: true
-
-  uniq-by-line: false
-
-  sort-results: true
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/open-edge-platform)
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

@@ -4,6 +4,7 @@
 package oam
 
 import (
+	"context"
 	"net"
 	"sync"
 
@@ -98,7 +99,8 @@ func StartOamGrpcServer(
 	if servaddr == "bufconn" {
 		lis = net.Listener(TestBufconn)
 	} else {
-		lis, err = net.Listen("tcp", servaddr)
+		lc := &net.ListenConfig{}
+		lis, err = lc.Listen(context.Background(), "tcp", servaddr)
 		if err != nil {
 			zlog.Fatal().Err(err).Msgf("Error listening with TCP: %s", servaddr)
 			return errors.Wrap(err)
