@@ -35,9 +35,8 @@ const (
 var log = logging.GetLogger("tracing")
 
 func newTraceResources(service string, attribs map[string]string) (*resource.Resource, error) {
-	attributes := []attribute.KeyValue{
-		semconv.ServiceName(service),
-	}
+	attributes := make([]attribute.KeyValue, 1, 1+len(attribs))
+	attributes[0] = semconv.ServiceName(service)
 
 	for attribKey, attribValue := range attribs {
 		attributes = append(attributes, attribute.String(attribKey, attribValue))

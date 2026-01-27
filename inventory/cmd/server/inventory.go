@@ -167,7 +167,8 @@ func main() {
 	wg.Add(1)
 
 	go func() {
-		lis, err := net.Listen("tcp", *servaddr)
+		lc := &net.ListenConfig{}
+		lis, err := lc.Listen(context.Background(), "tcp", *servaddr)
 		if err != nil {
 			zlog.InfraSec().Fatal().Err(err).Msgf("Error listening with TCP on address %s", *servaddr)
 		}

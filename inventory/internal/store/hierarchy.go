@@ -728,8 +728,8 @@ func mapTreeNodeToParentKinds(node *inventoryv1.GetTreeHierarchyResponse_TreeNod
 }
 
 func getSitesPerRegionQuery(tenantID string, resourceIDs []string) (string, []interface{}) {
-	var args []interface{}
-	args = append(args, tenantID)
+	args := make([]interface{}, 1, 1+len(resourceIDs))
+	args[0] = tenantID
 	otherArgs, placeholders := getSQLPlaceholdersAndArgs(resourceIDs, 1)
 	args = append(args, otherArgs...)
 	whereClause := "WHERE " + tenantIDAnd + " resource_id IN (" + placeholders + ")"
