@@ -540,11 +540,11 @@ func TestOSUpdatePolocyMTSanity(t *testing.T) {
 	suite.Run(t, &struct{ mt }{
 		mt: mt{
 			createResource: func(tenantID string) (string, *inv_v1.Resource) {
-				oup := dao.CreateOSUpdatePolicy(
+				policy := dao.CreateOSUpdatePolicy(
 					t, tenantID, inv_testing.OsUpdatePolicyName("OsPolicy1"), inv_testing.OSUpdatePolicyLatest())
-				res, err := util.WrapResource(oup)
+				res, err := util.WrapResource(policy)
 				require.NoError(t, err)
-				return oup.GetResourceId(), res
+				return policy.GetResourceId(), res
 			},
 		},
 	})
