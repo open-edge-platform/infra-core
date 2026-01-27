@@ -4,12 +4,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 GOLINTVERSION_HAVE          := $(shell golangci-lint version | sed 's/.*version //' | sed 's/ .*//')
-GOLINTVERSION_REQ           := 1.64.5
+GOLINTVERSION_REQ           := 2.8.0
 GOJUNITREPORTVERSION_HAVE   := $(shell go-junit-report -version | sed s/.*" v"// | sed 's/ .*//')
 GOJUNITREPORTVERSION_REQ    := 2.1.0
 OPAVERSION_HAVE             := $(shell opa version | grep "Version:" | grep -v "Go" | sed 's/.*Version: //')
 OPAVERSION_REQ              := 1.5.0
-GOVERSION_REQ               := 1.24.9
+GOVERSION_REQ               := 1.25.5
 GOVERSION_HAVE              := $(shell go version | sed 's/.*version go//' | sed 's/ .*//')
 MOCKGENVERSION_HAVE         := $(shell mockgen -version | sed s/.*"v"// | sed 's/ .*//')
 MOCKGENVERSION_REQ          := 1.6.0
@@ -41,7 +41,7 @@ PROTOCGENGRPCGWVERSION_REQ  := 2.26.3
 
 # No version reported
 GOCOBERTURAVERSION_REQ      := 1.2.0
-PROTOCGENENTVERSION_REQ     := 0.6.0
+PROTOCGENENTVERSION_REQ     := 0.7.0
 POSTGRES_VERSION            := 16.4
 
 # System dependencies binary SHA
@@ -128,7 +128,7 @@ ifeq ($(GOJUNITREPORT), true)
 	${GOCMD} install github.com/jstemmer/go-junit-report/v2@v$(GOJUNITREPORTVERSION_REQ)
 endif
 ifeq ($(GOLINT), true)
-	${GOCMD} install github.com/golangci/golangci-lint/cmd/golangci-lint@v${GOLINTVERSION_REQ}
+	${GOCMD} install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v${GOLINTVERSION_REQ}
 endif
 ifeq ($(PROTOCGENENT), true)
 	$(GOCMD) install entgo.io/contrib/entproto/cmd/protoc-gen-ent@v$(PROTOCGENENTVERSION_REQ)

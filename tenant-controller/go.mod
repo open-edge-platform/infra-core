@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/tenant-controller
 
-go 1.24.9
+go 1.25.5
 
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0
@@ -11,7 +11,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/uuid v1.6.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.33.3
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.34.0
 	github.com/open-edge-platform/orch-library/go v0.6.3
 	github.com/open-edge-platform/orch-utils/tenancy-datamodel v1.2.2
 	github.com/prometheus/client_golang v1.23.2

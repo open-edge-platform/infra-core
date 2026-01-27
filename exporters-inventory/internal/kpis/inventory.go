@@ -137,7 +137,7 @@ type InventoryHostsTotalProvisoningTime struct {
 // The metric can be filtered by the labels to get a unique or a sum of hosts in
 // a specific status mode.
 func (h *InventoryHostsStatus) PrometheusFormat() ([]prometheus.Metric, error) {
-	metrics := []prometheus.Metric{}
+	metrics := make([]prometheus.Metric, 0, len(h.Status))
 
 	h.Labels = []string{hostID, hostDeviceGUID, name, hostName, hostSerial, hostTenant, hostStatus}
 	metricDesc := inventoryBuilder.NewMetricDesc(h.name, h.description, h.Labels, staticLabelsInventory)
@@ -196,7 +196,7 @@ func (h *InventoryHostsStatus) PrometheusFormat() ([]prometheus.Metric, error) {
 // The metric can be filtered by the labels to get a unique or a sum of hosts in
 // maintenance mode.
 func (h *InventoryHostsSchedule) PrometheusFormat() ([]prometheus.Metric, error) {
-	metrics := []prometheus.Metric{}
+	metrics := make([]prometheus.Metric, 0, len(h.Status))
 
 	h.Labels = []string{hostID, hostDeviceGUID, name, hostName, hostSerial, hostTenant}
 	metricDesc := inventoryBuilder.NewMetricDesc(h.name, h.description, h.Labels, staticLabelsInventory)
@@ -238,7 +238,7 @@ func (h *InventoryHostsSchedule) PrometheusFormat() ([]prometheus.Metric, error)
 //
 //nolint:dupl // The code is duplicated to avoid the complexity of the function.
 func (h *InventoryHostsOnboardingStatus) PrometheusFormat() ([]prometheus.Metric, error) {
-	metrics := []prometheus.Metric{}
+	metrics := make([]prometheus.Metric, 0, len(h.Status))
 
 	h.Labels = []string{hostID, hostDeviceGUID, name, hostName, hostSerial, hostTenant, hostOnboardingStatus}
 	metricDesc := inventoryBuilder.NewMetricDesc(h.name, h.description, h.Labels, staticLabelsInventory)
@@ -295,7 +295,7 @@ func (h *InventoryHostsOnboardingStatus) PrometheusFormat() ([]prometheus.Metric
 //
 //nolint:dupl // The code is duplicated to avoid the complexity of the function.
 func (h *InventoryHostsProvisioningStatus) PrometheusFormat() ([]prometheus.Metric, error) {
-	metrics := []prometheus.Metric{}
+	metrics := make([]prometheus.Metric, 0, len(h.Status))
 
 	h.Labels = []string{hostID, hostDeviceGUID, name, hostName, hostSerial, hostTenant, hostProvisioningStatus}
 	metricDesc := inventoryBuilder.NewMetricDesc(h.name, h.description, h.Labels, staticLabelsInventory)
@@ -350,7 +350,7 @@ func (h *InventoryHostsProvisioningStatus) PrometheusFormat() ([]prometheus.Metr
 // The metric can be filtered by the labels to get a unique or a sum of hosts in
 // a specific status mode.
 func (h *InventoryHostsUpdateStatus) PrometheusFormat() ([]prometheus.Metric, error) {
-	metrics := []prometheus.Metric{}
+	metrics := make([]prometheus.Metric, 0, len(h.Status))
 
 	h.Labels = []string{hostID, hostDeviceGUID, name, hostName, hostSerial, hostTenant, hostUpdateStatus}
 	metricDesc := inventoryBuilder.NewMetricDesc(h.name, h.description, h.Labels, staticLabelsInventory)
@@ -406,7 +406,7 @@ func (h *InventoryHostsUpdateStatus) PrometheusFormat() ([]prometheus.Metric, er
 // The metric can be filtered by the labels to get a unique or a sum of hosts in
 // a specific status mode.
 func (h *InventoryHostsTotalProvisoningTime) PrometheusFormat() ([]prometheus.Metric, error) {
-	metrics := []prometheus.Metric{}
+	metrics := make([]prometheus.Metric, 0, len(h.ProvisioningTime))
 
 	h.Labels = []string{hostID, hostDeviceGUID, name, hostName, hostSerial, hostTenant}
 	metricDesc := inventoryBuilder.NewMetricDesc(h.name, h.description, h.Labels, staticLabelsInventory)
