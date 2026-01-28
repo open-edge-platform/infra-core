@@ -5,6 +5,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"sync"
 
@@ -16,6 +17,7 @@ import (
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/scenario"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/cert"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	schedule_cache "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client/cache/schedule"
@@ -26,6 +28,43 @@ import (
 )
 
 var zlog = logging.GetLogger("nbi")
+
+// serviceServersSignature defines a signature for a gRPC service registration function.
+type serviceServersSignature func(*grpc.Server, *InventorygRPCServer)
+
+// servicesServers maps gRPC service names to their registration functions.
+var servicesServers = map[string]serviceServersSignature{
+	"RegionService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterRegionServiceServer(s, is) },
+	"SiteService":     func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterSiteServiceServer(s, is) },
+	"LocationService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocationServiceServer(s, is) },
+	"HostService":     func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterHostServiceServer(s, is) },
+	"OperatingSystemService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterOperatingSystemServiceServer(s, is)
+	},
+	"InstanceService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterInstanceServiceServer(s, is) },
+	"ScheduleService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterScheduleServiceServer(s, is) },
+	"WorkloadService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterWorkloadServiceServer(s, is) },
+	"WorkloadMemberService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterWorkloadMemberServiceServer(s, is)
+	},
+	"ProviderService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterProviderServiceServer(s, is) },
+	"TelemetryLogsGroupService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterTelemetryLogsGroupServiceServer(s, is)
+	},
+	"TelemetryMetricsGroupService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterTelemetryMetricsGroupServiceServer(s, is)
+	},
+	"TelemetryMetricsProfileService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterTelemetryMetricsProfileServiceServer(s, is)
+	},
+	"TelemetryLogsProfileService": func(s *grpc.Server, is *InventorygRPCServer) {
+		restv1.RegisterTelemetryLogsProfileServiceServer(s, is)
+	},
+	"LocalAccountService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocalAccountServiceServer(s, is) },
+	"CustomConfigService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterCustomConfigServiceServer(s, is) },
+	"OSUpdatePolicyService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdatePolicyServer(s, is) },
+	"OSUpdateRunService":    func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdateRunServer(s, is) },
+}
 
 type InventorygRPCServer struct {
 	InvClient       client.InventoryClient
@@ -114,6 +153,33 @@ func getServerOpts(enableTracing, enableAuth, insecureGrpc bool,
 	return srvOpts, nil
 }
 
+// setupServices registers gRPC services based on the scenario allowlist.
+func (is *InventorygRPCServer) setupServices(gsrv *grpc.Server, scenarioName string) error {
+	if scenarioName == "" {
+		return fmt.Errorf("scenario name is not set")
+	}
+
+	// build a map of allowed services for quick lookup
+	allowed, err := BuildAllowedServiceList(scenarioName, scenario.Allowlist)
+	if err != nil {
+		return err
+	}
+
+	for serviceName, registerFunc := range servicesServers {
+		if _, isAllowed := allowed[serviceName]; !isAllowed {
+			zlog.Debug().Str("service", serviceName).Str("scenario", scenarioName).
+				Msg("skipping service not allowed for scenario")
+			continue
+		}
+
+		registerFunc(gsrv, is)
+		zlog.Info().Str("service", serviceName).Str("scenario", scenarioName).
+			Msg("registered gRPC service")
+	}
+
+	return nil
+}
+
 func (is *InventorygRPCServer) Start(
 	lis net.Listener,
 	termChan chan bool,
@@ -125,6 +191,7 @@ func (is *InventorygRPCServer) Start(
 	tlsCertPath,
 	tlsKeyPath string,
 	enableAuth bool,
+	scenarioName string,
 ) {
 	srvOpts, err := getServerOpts(enableTracing, enableAuth, insecureGrpc, caCertPath, tlsCertPath, tlsKeyPath)
 	if err != nil {
@@ -133,25 +200,10 @@ func (is *InventorygRPCServer) Start(
 
 	gsrv := grpc.NewServer(srvOpts...)
 
-	// register server - inventoryServer
-	restv1.RegisterRegionServiceServer(gsrv, is)
-	restv1.RegisterSiteServiceServer(gsrv, is)
-	restv1.RegisterLocationServiceServer(gsrv, is)
-	restv1.RegisterHostServiceServer(gsrv, is)
-	restv1.RegisterInstanceServiceServer(gsrv, is)
-	restv1.RegisterScheduleServiceServer(gsrv, is)
-	restv1.RegisterOperatingSystemServiceServer(gsrv, is)
-	restv1.RegisterWorkloadServiceServer(gsrv, is)
-	restv1.RegisterWorkloadMemberServiceServer(gsrv, is)
-	restv1.RegisterTelemetryLogsGroupServiceServer(gsrv, is)
-	restv1.RegisterTelemetryMetricsGroupServiceServer(gsrv, is)
-	restv1.RegisterTelemetryLogsProfileServiceServer(gsrv, is)
-	restv1.RegisterTelemetryMetricsProfileServiceServer(gsrv, is)
-	restv1.RegisterProviderServiceServer(gsrv, is)
-	restv1.RegisterLocalAccountServiceServer(gsrv, is)
-	restv1.RegisterOSUpdateRunServer(gsrv, is)
-	restv1.RegisterOSUpdatePolicyServer(gsrv, is)
-	restv1.RegisterCustomConfigServiceServer(gsrv, is)
+	// register server - inventoryServer based on scenario
+	if err := is.setupServices(gsrv, scenarioName); err != nil {
+		zlog.Fatal().Err(err).Msg("failed to setup services")
+	}
 
 	// enable reflection
 	reflection.Register(gsrv)
