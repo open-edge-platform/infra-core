@@ -231,7 +231,7 @@ message HostResource {
   AmtControlMode amt_control_mode = 98 [(google.api.field_behavior) = OPTIONAL]; // coming from user selection
   string amt_dns_suffix = 99 [
     (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).string = {max_len: 96}
+    (buf.validate.field).string = {max_len: 1024}
   ]; // textual message that describes dns_suffix for ACM mode.
 
   // The site where the host is located.

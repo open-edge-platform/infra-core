@@ -4993,7 +4993,7 @@ components:
         amtDnsSuffix:
           type: string
           title: amt_dns_suffix
-          maxLength: 96
+          maxLength: 1024
           description: (OPTIONAL) textual message that describes dns_suffix for ACM mode.
         siteId:
           type: string
