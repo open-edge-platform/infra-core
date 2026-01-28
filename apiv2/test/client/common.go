@@ -306,12 +306,12 @@ func CreateSite(
 	tb testing.TB,
 	apiClient *api.ClientWithResponses,
 	siteRequest api.SiteResource,
-) *api.SiteServiceCreateSiteResponse {
+) *api.SiteServiceCreateSite2Response {
 	tb.Helper()
 
 	projectName := getProjectID(tb)
 
-	site, err := apiClient.SiteServiceCreateSiteWithResponse(
+	site, err := apiClient.SiteServiceCreateSite2WithResponse(
 		ctx, projectName, nil, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, site.StatusCode())
@@ -332,7 +332,7 @@ func DeleteSite(
 
 	projectName := getProjectID(tb)
 
-	resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(
+	resDelSite, err := apiClient.SiteServiceDeleteSite2WithResponse(
 		ctx, projectName, siteID, nil, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, resDelSite.StatusCode())

@@ -497,10 +497,10 @@ func TestLocation_Cleanup(t *testing.T) {
 		require.NoError(t, err)
 	}
 
-	sites, err := apiClient.SiteServiceListSitesWithResponse(
+	sites, err := apiClient.SiteServiceListSites2WithResponse(
 		ctx,
 		projectName,
-		&api.SiteServiceListSitesParams{
+		&api.SiteServiceListSites2Params{
 			PageSize: &pgSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -509,7 +509,7 @@ func TestLocation_Cleanup(t *testing.T) {
 	require.Equal(t, http.StatusOK, regions.StatusCode())
 
 	for _, site := range sites.JSON200.Sites {
-		_, err := apiClient.SiteServiceDeleteSiteWithResponse(
+		_, err := apiClient.SiteServiceDeleteSite2WithResponse(
 			ctx,
 			projectName,
 			*site.ResourceId,

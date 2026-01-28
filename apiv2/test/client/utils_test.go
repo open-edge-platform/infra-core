@@ -152,7 +152,7 @@ func ListAllSites(
 
 	for {
 		// Call the API to get a paginated list of sites
-		response, err := client.SiteServiceListSitesWithResponse(ctx, projectName, &api.SiteServiceListSitesParams{
+		response, err := client.SiteServiceListSites2WithResponse(ctx, projectName, &api.SiteServiceListSites2Params{
 			PageSize: &pageSize,
 			Offset:   &offset,
 		},
@@ -299,7 +299,7 @@ func TestDeleteAllSites(t *testing.T) {
 	t.Logf("Retrieved %d sites", len(sites))
 	for _, site := range sites {
 		t.Logf("Site ID: %s, Name: %s", *site.ResourceId, *site.Name)
-		resDelSite, err := apiClient.SiteServiceDeleteSiteWithResponse(
+		resDelSite, err := apiClient.SiteServiceDeleteSite2WithResponse(
 			ctx,
 			projectName,
 			*site.ResourceId,

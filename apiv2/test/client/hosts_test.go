@@ -777,7 +777,7 @@ func TestHostInvalidate(t *testing.T) {
 //nolint:unparam // Consider if we can remove some returns values.
 func loadZTPTest(ctx context.Context, t *testing.T, apiClient *api.ClientWithResponses, projectName string,
 	regionRequest *api.RegionResource, siteRequest *api.SiteResource, hostRequest *api.HostResource) (
-	*api.RegionServiceCreateRegionResponse, *api.SiteServiceCreateSiteResponse, *api.HostServiceCreateHostResponse,
+	*api.RegionServiceCreateRegionResponse, *api.SiteServiceCreateSite2Response, *api.HostServiceCreateHostResponse,
 ) {
 	t.Helper()
 

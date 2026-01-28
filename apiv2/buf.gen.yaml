@@ -21,7 +21,7 @@ plugins:
       - paths=source_relative
       - require_unimplemented_servers=false
 
-  # go install github.com/sudorandom/protoc-gen-connect-openapi@v0.22.1
+  # go install github.com/sudorandom/protoc-gen-connect-openapi@v0.23.0
   - name: connect-openapi
     path: protoc-gen-connect-openapi
     out: api/openapi

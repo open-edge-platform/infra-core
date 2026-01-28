@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 syntax = "proto3";
@@ -109,10 +109,10 @@ service SiteService {
   // Create a site.
   rpc CreateSite(CreateSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/sites"
+      post: "/v1/projects/{projectName}/regions/{regionId}/sites"
       body: "site"
       additional_bindings {
-        post: "/v1/projects/{projectName}/regions/{regionId}/sites"
+        post: "/v1/projects/{projectName}/sites"
         body: "site"
       }
       additional_bindings {
@@ -124,9 +124,9 @@ service SiteService {
   // Get a list of sites.
   rpc ListSites(ListSitesRequest) returns (ListSitesResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/sites"
+      get: "/v1/projects/{projectName}/regions/{regionId}/sites"
       additional_bindings {
-        get: "/v1/projects/{projectName}/regions/{regionId}/sites"
+        get: "/v1/projects/{projectName}/sites"
       }
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/sites"
@@ -136,9 +136,9 @@ service SiteService {
   // Get a specific site.
   rpc GetSite(GetSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/sites/{resourceId}"
+      get: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       additional_bindings {
-        get: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+        get: "/v1/projects/{projectName}/sites/{resourceId}"
       }
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
@@ -148,10 +148,10 @@ service SiteService {
   // Update a site.
   rpc UpdateSite(UpdateSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      put: "/v1/projects/{projectName}/sites/{resourceId}"
+      put: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       body: "site"
       additional_bindings {
-        put: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+        put: "/v1/projects/{projectName}/sites/{resourceId}"
         body: "site"
       }
       additional_bindings {
@@ -163,10 +163,10 @@ service SiteService {
   // Patch a site.
   rpc PatchSite(PatchSiteRequest) returns (resources.location.v1.SiteResource) {
     option (google.api.http) = {
-      patch: "/v1/projects/{projectName}/sites/{resourceId}"
+      patch: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       body: "site"
       additional_bindings {
-        patch: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+        patch: "/v1/projects/{projectName}/sites/{resourceId}"
         body: "site"
       }
       additional_bindings {
@@ -178,9 +178,9 @@ service SiteService {
   // Delete a site.
   rpc DeleteSite(DeleteSiteRequest) returns (DeleteSiteResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{projectName}/sites/{resourceId}"
+      delete: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       additional_bindings {
-        delete: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
+        delete: "/v1/projects/{projectName}/sites/{resourceId}"
       }
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
@@ -207,9 +207,7 @@ service HostService {
   // Get a summary of the hosts status.
   rpc GetHostsSummary(GetHostSummaryRequest) returns (GetHostSummaryResponse) {
     option (google.api.http) = {
-      // Using colon syntax for custom method to avoid conflict with /hosts/{resourceId}
-      // See: https://cloud.google.com/apis/design/custom_methods
-      get: "/v1/projects/{projectName}/compute/hosts:summary"
+      get: "/v1/projects/{projectName}/compute/hosts/summary"
       additional_bindings {
         get: "/v1/projects/{projectName}/compute/hosts_summary"
       }
@@ -396,10 +394,10 @@ service OperatingSystemService {
   // Create an OS
   rpc CreateOperatingSystem(CreateOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/compute/operating_systems"
+      post: "/v1/projects/{projectName}/compute/os"
       body: "os"
       additional_bindings {
-        post: "/v1/projects/{projectName}/compute/os"
+        post: "/v1/projects/{projectName}/compute/operating_systems"
         body: "os"
       }
       additional_bindings {
@@ -411,10 +409,10 @@ service OperatingSystemService {
   // Get a list of OSs.
   rpc ListOperatingSystems(ListOperatingSystemsRequest) returns (ListOperatingSystemsResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/compute/operating_systems"
+      get: "/v1/projects/{projectName}/compute/os"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/os"
+        get: "/v1/projects/{projectName}/compute/operating_systems"
       }
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/operating_systems"
@@ -424,10 +422,10 @@ service OperatingSystemService {
   // Get a specific OS.
   rpc GetOperatingSystem(GetOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
+      get: "/v1/projects/{projectName}/compute/os/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/os/{resourceId}"
+        get: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
       }
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
@@ -437,10 +435,10 @@ service OperatingSystemService {
   // Update an OS.
   rpc UpdateOperatingSystem(UpdateOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      put: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
+      put: "/v1/projects/{projectName}/compute/os/{resourceId}"
       body: "os"
       additional_bindings {
-        put: "/v1/projects/{projectName}/compute/os/{resourceId}"
+        put: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
         body: "os"
       }
       additional_bindings {
@@ -452,10 +450,10 @@ service OperatingSystemService {
   // Patch an OS.
   rpc PatchOperatingSystem(PatchOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
-      patch: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
+      patch: "/v1/projects/{projectName}/compute/os/{resourceId}"
       body: "os"
       additional_bindings {
-        patch: "/v1/projects/{projectName}/compute/os/{resourceId}"
+        patch: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
         body: "os"
       }
       additional_bindings {
@@ -467,10 +465,10 @@ service OperatingSystemService {
   // Delete an OS.
   rpc DeleteOperatingSystem(DeleteOperatingSystemRequest) returns (DeleteOperatingSystemResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
+      delete: "/v1/projects/{projectName}/compute/os/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/compute/os/{resourceId}"
+        delete: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
       }
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
@@ -529,8 +527,12 @@ service WorkloadService {
   // Create a workload.
   rpc CreateWorkload(CreateWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/workloads"
+      post: "/v1/projects/{projectName}/compute/workloads"
       body: "workload"
+      additional_bindings {
+        post: "/v1/projects/{projectName}/workloads"
+        body: "workload"
+      }
       additional_bindings {
         post: "/edge-infra.orchestrator.apis/v2/workloads"
         body: "workload"
@@ -540,7 +542,11 @@ service WorkloadService {
   // Get a list of workloads.
   rpc ListWorkloads(ListWorkloadsRequest) returns (ListWorkloadsResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/workloads"
+      get: "/v1/projects/{projectName}/compute/workloads"
+
+      additional_bindings {
+        get: "/v1/projects/{projectName}/workloads"
+      }
 
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/workloads"
@@ -550,7 +556,11 @@ service WorkloadService {
   // Get a specific workload.
   rpc GetWorkload(GetWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/workloads/{resourceId}"
+      get: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
+
+      additional_bindings {
+        get: "/v1/projects/{projectName}/workloads/{resourceId}"
+      }
 
       additional_bindings {
         get: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
@@ -560,8 +570,12 @@ service WorkloadService {
   // Update a workload.
   rpc UpdateWorkload(UpdateWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
     option (google.api.http) = {
-      put: "/v1/projects/{projectName}/workloads/{resourceId}"
+      put: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
       body: "workload"
+      additional_bindings {
+        put: "/v1/projects/{projectName}/workloads/{resourceId}"
+        body: "workload"
+      }
       additional_bindings {
         put: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
         body: "workload"
@@ -571,8 +585,12 @@ service WorkloadService {
   // Patch a workload.
   rpc PatchWorkload(PatchWorkloadRequest) returns (resources.compute.v1.WorkloadResource) {
     option (google.api.http) = {
-      patch: "/v1/projects/{projectName}/workloads/{resourceId}"
+      patch: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
       body: "workload"
+      additional_bindings {
+        patch: "/v1/projects/{projectName}/workloads/{resourceId}"
+        body: "workload"
+      }
       additional_bindings {
         patch: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
         body: "workload"
@@ -582,7 +600,11 @@ service WorkloadService {
   // Delete a workload.
   rpc DeleteWorkload(DeleteWorkloadRequest) returns (DeleteWorkloadResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{projectName}/workloads/{resourceId}"
+      delete: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
+
+      additional_bindings {
+        delete: "/v1/projects/{projectName}/workloads/{resourceId}"
+      }
 
       additional_bindings {
         delete: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
@@ -641,10 +663,10 @@ service ScheduleService {
   // Get a list of schedules (single/repeated).
   rpc ListSchedules(ListSchedulesRequest) returns (ListSchedulesResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/schedules"
+      get: "/v1/projects/{projectName}/compute/schedules"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/schedules"
+        get: "/v1/projects/{projectName}/schedules"
       }
 
       additional_bindings {
@@ -847,11 +869,11 @@ service TelemetryLogsGroupService {
   // Create a telemetry_logs_group.
   rpc CreateTelemetryLogsGroup(CreateTelemetryLogsGroupRequest) returns (resources.telemetry.v1.TelemetryLogsGroupResource) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/telemetry/groups/logs"
+      post: "/v1/projects/{projectName}/telemetry/loggroups"
       body: "telemetry_logs_group"
 
       additional_bindings {
-        post: "/v1/projects/{projectName}/telemetry/loggroups"
+        post: "/v1/projects/{projectName}/telemetry/groups/logs"
         body: "telemetry_logs_group"
       }
 
@@ -864,10 +886,10 @@ service TelemetryLogsGroupService {
   // Get a list of telemetry_logs_groups.
   rpc ListTelemetryLogsGroups(ListTelemetryLogsGroupsRequest) returns (ListTelemetryLogsGroupsResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/telemetry/groups/logs"
+      get: "/v1/projects/{projectName}/telemetry/loggroups"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/loggroups"
+        get: "/v1/projects/{projectName}/telemetry/groups/logs"
       }
 
       additional_bindings {
@@ -878,10 +900,10 @@ service TelemetryLogsGroupService {
   // Get a specific telemetry_logs_group.
   rpc GetTelemetryLogsGroup(GetTelemetryLogsGroupRequest) returns (resources.telemetry.v1.TelemetryLogsGroupResource) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
+      get: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
+        get: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
       }
 
       additional_bindings {
@@ -893,10 +915,10 @@ service TelemetryLogsGroupService {
   // Delete a telemetry_logs_group.
   rpc DeleteTelemetryLogsGroup(DeleteTelemetryLogsGroupRequest) returns (DeleteTelemetryLogsGroupResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
+      delete: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
+        delete: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
       }
 
       additional_bindings {
@@ -911,11 +933,11 @@ service TelemetryMetricsGroupService {
   // Create a telemetry_metrics_group.
   rpc CreateTelemetryMetricsGroup(CreateTelemetryMetricsGroupRequest) returns (resources.telemetry.v1.TelemetryMetricsGroupResource) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/telemetry/groups/metrics"
+      post: "/v1/projects/{projectName}/telemetry/metricgroups"
       body: "telemetry_metrics_group"
 
       additional_bindings {
-        post: "/v1/projects/{projectName}/telemetry/metricgroups"
+        post: "/v1/projects/{projectName}/telemetry/groups/metrics"
         body: "telemetry_metrics_group"
       }
 
@@ -928,10 +950,10 @@ service TelemetryMetricsGroupService {
   // Get a list of telemetryMetricsGroups.
   rpc ListTelemetryMetricsGroups(ListTelemetryMetricsGroupsRequest) returns (ListTelemetryMetricsGroupsResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/telemetry/groups/metrics"
+      get: "/v1/projects/{projectName}/telemetry/metricgroups"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/metricgroups"
+        get: "/v1/projects/{projectName}/telemetry/groups/metrics"
       }
 
       additional_bindings {
@@ -942,10 +964,10 @@ service TelemetryMetricsGroupService {
   // Get a specific telemetry_metrics_group.
   rpc GetTelemetryMetricsGroup(GetTelemetryMetricsGroupRequest) returns (resources.telemetry.v1.TelemetryMetricsGroupResource) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
+      get: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
+        get: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
       }
 
       additional_bindings {
@@ -957,10 +979,10 @@ service TelemetryMetricsGroupService {
   // Delete a telemetry_metrics_group.
   rpc DeleteTelemetryMetricsGroup(DeleteTelemetryMetricsGroupRequest) returns (DeleteTelemetryMetricsGroupResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
+      delete: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
+        delete: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
       }
 
       additional_bindings {
@@ -3285,14 +3307,14 @@ service OSUpdatePolicy {
   // Create an OS Update Policy.
   rpc CreateOSUpdatePolicy(CreateOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
     option (google.api.http) = {
-      post: "/v1/projects/{projectName}/os_update_policy"
+      post: "/v1/projects/{projectName}/os-update-policies"
       body: "os_update_policy"
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/os_update_policy"
+        post: "/v1/projects/{projectName}/os_update_policy"
         body: "os_update_policy"
       }
       additional_bindings {
-        post: "/v1/projects/{projectName}/os-update-policies"
+        post: "/edge-infra.orchestrator.apis/v2/os_update_policy"
         body: "os_update_policy"
       }
     };
@@ -3300,36 +3322,36 @@ service OSUpdatePolicy {
   // Get a list of OS Update Policies.
   rpc ListOSUpdatePolicy(ListOSUpdatePolicyRequest) returns (ListOSUpdatePolicyResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/os_update_policy"
+      get: "/v1/projects/{projectName}/os-update-policies"
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_policy"
+        get: "/v1/projects/{projectName}/os_update_policy"
       }
       additional_bindings {
-        get: "/v1/projects/{projectName}/os-update-policies"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_policy"
       }
     };
   }
   // Get a specific OS Update Policy.
   rpc GetOSUpdatePolicy(GetOSUpdatePolicyRequest) returns (resources.compute.v1.OSUpdatePolicy) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
+      get: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
+        get: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
       }
       additional_bindings {
-        get: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
       }
     };
   }
   // Delete a OS Update Policy.
   rpc DeleteOSUpdatePolicy(DeleteOSUpdatePolicyRequest) returns (DeleteOSUpdatePolicyResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
+      delete: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
+        delete: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
       }
       additional_bindings {
-        delete: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
       }
     };
   }
@@ -3436,36 +3458,36 @@ service OSUpdateRun {
   // Get a list of OS Update Policies.
   rpc ListOSUpdateRun(ListOSUpdateRunRequest) returns (ListOSUpdateRunResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/os_update_run"
+      get: "/v1/projects/{projectName}/os-update-runs"
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_run"
+        get: "/v1/projects/{projectName}/os_update_run"
       }
       additional_bindings {
-        get: "/v1/projects/{projectName}/os-update-runs"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_run"
       }
     };
   }
   // Get a specific OS Update Run.
   rpc GetOSUpdateRun(GetOSUpdateRunRequest) returns (resources.compute.v1.OSUpdateRun) {
     option (google.api.http) = {
-      get: "/v1/projects/{projectName}/os_update_run/{resourceId}"
+      get: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
+        get: "/v1/projects/{projectName}/os_update_run/{resourceId}"
       }
       additional_bindings {
-        get: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
       }
     };
   }
   // Delete a OS Update Run.
   rpc DeleteOSUpdateRun(DeleteOSUpdateRunRequest) returns (DeleteOSUpdateRunResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{projectName}/os_update_run/{resourceId}"
+      delete: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
+        delete: "/v1/projects/{projectName}/os_update_run/{resourceId}"
       }
       additional_bindings {
-        delete: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
       }
     };
   }
