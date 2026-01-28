@@ -6,9 +6,12 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -21,10 +24,20 @@ const (
 	NumPreloadedOSResources = 4
 )
 
+func shortOSSuffix() string {
+	trimmed := strings.ReplaceAll(uuid.New().String(), "-", "")
+	if len(trimmed) > 8 {
+		return trimmed[:8]
+	}
+	return trimmed
+}
+
 func TestOS_CreateGetDelete(t *testing.T) {
 	log.Info().Msgf("Begin os tests")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
+
+	projectName := getProjectID(t)
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
@@ -34,6 +47,7 @@ func TestOS_CreateGetDelete(t *testing.T) {
 
 	get1, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -43,6 +57,7 @@ func TestOS_CreateGetDelete(t *testing.T) {
 
 	get2, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -59,6 +74,8 @@ func TestOS_UpdatePut(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
@@ -67,6 +84,7 @@ func TestOS_UpdatePut(t *testing.T) {
 
 	OSResource1Get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -85,6 +103,7 @@ func TestOS_UpdatePut(t *testing.T) {
 	}
 	os1Update, err := apiClient.OperatingSystemServiceUpdateOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.ResourceId,
 		updateRequest,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -94,6 +113,7 @@ func TestOS_UpdatePut(t *testing.T) {
 
 	OSResource1GetUp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -115,6 +135,8 @@ func TestOS_Errors(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 	if err != nil {
@@ -124,6 +146,7 @@ func TestOS_Errors(t *testing.T) {
 	t.Run("Post_InvalidSha_Status_BadRequest", func(t *testing.T) {
 		os1Up, err := apiClient.OperatingSystemServiceCreateOperatingSystemWithResponse(
 			ctx,
+			projectName,
 			utils.OSResourceRequestInvalidSha256,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -134,6 +157,7 @@ func TestOS_Errors(t *testing.T) {
 	t.Run("Put_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		os1Up, err := apiClient.OperatingSystemServiceUpdateOperatingSystemWithResponse(
 			ctx,
+			projectName,
 			utils.OSResourceUnexistID,
 			utils.OSResource1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -145,6 +169,7 @@ func TestOS_Errors(t *testing.T) {
 	t.Run("Get_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		s1res, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 			ctx,
+			projectName,
 			utils.OSResourceUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -155,6 +180,7 @@ func TestOS_Errors(t *testing.T) {
 	t.Run("Delete_UnexistID_Status_NotFoundError", func(t *testing.T) {
 		resDelSite, err := apiClient.OperatingSystemServiceDeleteOperatingSystemWithResponse(
 			ctx,
+			projectName,
 			utils.OSResourceUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -165,6 +191,7 @@ func TestOS_Errors(t *testing.T) {
 	t.Run("Put_WrongID_Status_NotFoundError", func(t *testing.T) {
 		os1Up, err := apiClient.OperatingSystemServiceUpdateOperatingSystemWithResponse(
 			ctx,
+			projectName,
 			utils.OSResourceWrongID,
 			utils.OSResource1Request,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
@@ -176,6 +203,7 @@ func TestOS_Errors(t *testing.T) {
 	t.Run("Get_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		s1res, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 			ctx,
+			projectName,
 			utils.OSResourceWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -186,6 +214,7 @@ func TestOS_Errors(t *testing.T) {
 	t.Run("Delete_WrongID_Status_StatusNotFound", func(t *testing.T) {
 		resDelSite, err := apiClient.OperatingSystemServiceDeleteOperatingSystemWithResponse(
 			ctx,
+			projectName,
 			utils.OSResourceWrongID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -199,12 +228,15 @@ func TestOS_List(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
 	// Checks if list resources return expected number of entries
 	resList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
+		projectName,
 		&api.OperatingSystemServiceListOperatingSystemsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -224,6 +256,7 @@ func TestOS_List(t *testing.T) {
 	// Checks if list resources return expected number of entries
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
+		projectName,
 		&api.OperatingSystemServiceListOperatingSystemsParams{
 			Offset:   &pageID,
 			PageSize: &pageSize,
@@ -238,6 +271,7 @@ func TestOS_List(t *testing.T) {
 
 	resList, err = apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
+		projectName,
 		&api.OperatingSystemServiceListOperatingSystemsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -253,6 +287,8 @@ func TestOS_CreatewithInstallPackage(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
@@ -260,6 +296,7 @@ func TestOS_CreatewithInstallPackage(t *testing.T) {
 
 	get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -275,11 +312,14 @@ func TestOS_GetWithInstalledPackages(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
 	osList, err := apiClient.OperatingSystemServiceListOperatingSystemsWithResponse(
 		ctx,
+		projectName,
 		&api.OperatingSystemServiceListOperatingSystemsParams{},
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -318,13 +358,17 @@ func TestOS_CreatewithCustom(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	OSName1 := "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816)"
-	OSProfileName1 := "ubuntu-22.04-lts-generic-ext:1.0.2 TestName#724"
-	OSArch1 := "x86"
-	OSRepo1 := "http://test.com/test.raw.gz"
+	suffix := shortOSSuffix()
+	OSName1 := "Ubuntu 22.04 LTS generic EXT (24.08.0-n20240816) " + suffix
+	OSProfileName1 := "ubuntu-22.04-lts-generic-ext:1.0.2-" + suffix
+	OSArch1 := "x86_64"
+	OSRepo1 := "http://test.com/test-" + suffix + ".raw.gz"
+	metadata := fmt.Sprintf(`{"createdby":"int-test","testrun":%q}`, suffix)
 
 	OSSecFeat := api.SECURITYFEATURENONE
 	randSHA := inv_testing.GenerateRandomSha256()
@@ -337,6 +381,7 @@ func TestOS_CreatewithCustom(t *testing.T) {
 		SecurityFeature: &OSSecFeat,
 		OsType:          &utils.OsTypeMutable,
 		OsProvider:      &utils.OSProvider,
+		Metadata:        &metadata,
 	}
 
 	// Create OS without installedPackages (it's a read-only field)
@@ -344,6 +389,7 @@ func TestOS_CreatewithCustom(t *testing.T) {
 
 	get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -357,6 +403,8 @@ func TestOS_UpdatePatch(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
@@ -364,6 +412,7 @@ func TestOS_UpdatePatch(t *testing.T) {
 
 	OSResource1Get, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.OsResourceID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -382,7 +431,9 @@ func TestOS_UpdatePatch(t *testing.T) {
 
 	os1Update, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.OsResourceID,
+		&api.OperatingSystemServicePatchOperatingSystemParams{},
 		patchRequest,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -393,6 +444,7 @@ func TestOS_UpdatePatch(t *testing.T) {
 
 	OSResource1GetUp, err := apiClient.OperatingSystemServiceGetOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.OsResourceID,
 		AddJWTtoTheHeader,
 		AddProjectIDtoTheHeader,
@@ -412,7 +464,9 @@ func TestOS_UpdatePatch(t *testing.T) {
 	osProviderInfra := api.OSPROVIDERKINDINFRA
 	immutableUpdate, err := apiClient.OperatingSystemServicePatchOperatingSystemWithResponse(
 		ctx,
+		projectName,
 		*os1.JSON200.OsResourceID,
+		&api.OperatingSystemServicePatchOperatingSystemParams{},
 		api.OperatingSystemResource{
 			OsType:     &osTypeImmutable,
 			OsProvider: &osProviderInfra,
@@ -420,5 +474,5 @@ func TestOS_UpdatePatch(t *testing.T) {
 		AddJWTtoTheHeader,
 	)
 	require.NoError(t, err)
-	assert.Equal(t, http.StatusUnauthorized, immutableUpdate.StatusCode())
+	assert.Equal(t, http.StatusForbidden, immutableUpdate.StatusCode())
 }
