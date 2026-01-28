@@ -746,6 +746,34 @@ func (_c *HostResourceCreate) SetNillableUserLvmSize(v *uint32) *HostResourceCre
 	return _c
 }
 
+// SetAmtControlMode sets the "amt_control_mode" field.
+func (_c *HostResourceCreate) SetAmtControlMode(v hostresource.AmtControlMode) *HostResourceCreate {
+	_c.mutation.SetAmtControlMode(v)
+	return _c
+}
+
+// SetNillableAmtControlMode sets the "amt_control_mode" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableAmtControlMode(v *hostresource.AmtControlMode) *HostResourceCreate {
+	if v != nil {
+		_c.SetAmtControlMode(*v)
+	}
+	return _c
+}
+
+// SetAmtDNSSuffix sets the "amt_dns_suffix" field.
+func (_c *HostResourceCreate) SetAmtDNSSuffix(v string) *HostResourceCreate {
+	_c.mutation.SetAmtDNSSuffix(v)
+	return _c
+}
+
+// SetNillableAmtDNSSuffix sets the "amt_dns_suffix" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableAmtDNSSuffix(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetAmtDNSSuffix(*v)
+	}
+	return _c
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (_c *HostResourceCreate) SetTenantID(v string) *HostResourceCreate {
 	_c.mutation.SetTenantID(v)
@@ -986,6 +1014,11 @@ func (_c *HostResourceCreate) check() error {
 	if v, ok := _c.mutation.AmtStatusIndicator(); ok {
 		if err := hostresource.AmtStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "amt_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.AmtControlMode(); ok {
+		if err := hostresource.AmtControlModeValidator(v); err != nil {
+			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
 		}
 	}
 	if _, ok := _c.mutation.TenantID(); !ok {
@@ -1230,6 +1263,14 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 	if value, ok := _c.mutation.UserLvmSize(); ok {
 		_spec.SetField(hostresource.FieldUserLvmSize, field.TypeUint32, value)
 		_node.UserLvmSize = value
+	}
+	if value, ok := _c.mutation.AmtControlMode(); ok {
+		_spec.SetField(hostresource.FieldAmtControlMode, field.TypeEnum, value)
+		_node.AmtControlMode = value
+	}
+	if value, ok := _c.mutation.AmtDNSSuffix(); ok {
+		_spec.SetField(hostresource.FieldAmtDNSSuffix, field.TypeString, value)
+		_node.AmtDNSSuffix = value
 	}
 	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostresource.FieldTenantID, field.TypeString, value)

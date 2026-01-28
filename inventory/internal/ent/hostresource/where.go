@@ -243,6 +243,11 @@ func UserLvmSize(v uint32) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldUserLvmSize, v))
 }
 
+// AmtDNSSuffix applies equality check predicate on the "amt_dns_suffix" field. It's identical to AmtDNSSuffixEQ.
+func AmtDNSSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtDNSSuffix, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldTenantID, v))
@@ -3241,6 +3246,111 @@ func UserLvmSizeIsNil() predicate.HostResource {
 // UserLvmSizeNotNil applies the NotNil predicate on the "user_lvm_size" field.
 func UserLvmSizeNotNil() predicate.HostResource {
 	return predicate.HostResource(sql.FieldNotNull(FieldUserLvmSize))
+}
+
+// AmtControlModeEQ applies the EQ predicate on the "amt_control_mode" field.
+func AmtControlModeEQ(v AmtControlMode) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtControlMode, v))
+}
+
+// AmtControlModeNEQ applies the NEQ predicate on the "amt_control_mode" field.
+func AmtControlModeNEQ(v AmtControlMode) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldAmtControlMode, v))
+}
+
+// AmtControlModeIn applies the In predicate on the "amt_control_mode" field.
+func AmtControlModeIn(vs ...AmtControlMode) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldAmtControlMode, vs...))
+}
+
+// AmtControlModeNotIn applies the NotIn predicate on the "amt_control_mode" field.
+func AmtControlModeNotIn(vs ...AmtControlMode) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldAmtControlMode, vs...))
+}
+
+// AmtControlModeIsNil applies the IsNil predicate on the "amt_control_mode" field.
+func AmtControlModeIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldAmtControlMode))
+}
+
+// AmtControlModeNotNil applies the NotNil predicate on the "amt_control_mode" field.
+func AmtControlModeNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldAmtControlMode))
+}
+
+// AmtDNSSuffixEQ applies the EQ predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixNEQ applies the NEQ predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixNEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixIn applies the In predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldAmtDNSSuffix, vs...))
+}
+
+// AmtDNSSuffixNotIn applies the NotIn predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixNotIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldAmtDNSSuffix, vs...))
+}
+
+// AmtDNSSuffixGT applies the GT predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixGTE applies the GTE predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixLT applies the LT predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixLTE applies the LTE predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixContains applies the Contains predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixHasPrefix applies the HasPrefix predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixHasSuffix applies the HasSuffix predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixIsNil applies the IsNil predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldAmtDNSSuffix))
+}
+
+// AmtDNSSuffixNotNil applies the NotNil predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldAmtDNSSuffix))
+}
+
+// AmtDNSSuffixEqualFold applies the EqualFold predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldAmtDNSSuffix, v))
+}
+
+// AmtDNSSuffixContainsFold applies the ContainsFold predicate on the "amt_dns_suffix" field.
+func AmtDNSSuffixContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldAmtDNSSuffix, v))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.
