@@ -312,7 +312,7 @@ func CreateSite(
 	projectName := getProjectID(tb)
 
 	site, err := apiClient.SiteServiceCreateSite2WithResponse(
-		ctx, projectName, nil, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, &api.SiteServiceCreateSite2Params{ProjectName: projectName}, siteRequest, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, site.StatusCode())
 	require.NotNil(tb, site.JSON200, "Site creation returned nil JSON200")
@@ -333,7 +333,7 @@ func DeleteSite(
 	projectName := getProjectID(tb)
 
 	resDelSite, err := apiClient.SiteServiceDeleteSite2WithResponse(
-		ctx, projectName, siteID, nil, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, siteID, &api.SiteServiceDeleteSite2Params{ProjectName: projectName}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(tb, err)
 	assert.Equal(tb, http.StatusOK, resDelSite.StatusCode())
 }

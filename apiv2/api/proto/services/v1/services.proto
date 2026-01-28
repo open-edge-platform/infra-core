@@ -112,11 +112,11 @@ service SiteService {
       post: "/v1/projects/{projectName}/regions/{regionId}/sites"
       body: "site"
       additional_bindings {
-        post: "/v1/projects/{projectName}/sites"
+        post: "/edge-infra.orchestrator.apis/v2/sites"
         body: "site"
       }
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/sites"
+        post: "/v1/projects/{projectName}/sites"
         body: "site"
       }
     };
@@ -126,10 +126,10 @@ service SiteService {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/regions/{regionId}/sites"
       additional_bindings {
-        get: "/v1/projects/{projectName}/sites"
+        get: "/edge-infra.orchestrator.apis/v2/sites"
       }
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/sites"
+        get: "/v1/projects/{projectName}/sites"
       }
     };
   }
@@ -138,10 +138,10 @@ service SiteService {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       additional_bindings {
-        get: "/v1/projects/{projectName}/sites/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
       }
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
+        get: "/v1/projects/{projectName}/sites/{resourceId}"
       }
     };
   }
@@ -151,11 +151,11 @@ service SiteService {
       put: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       body: "site"
       additional_bindings {
-        put: "/v1/projects/{projectName}/sites/{resourceId}"
+        put: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
         body: "site"
       }
       additional_bindings {
-        put: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
+        put: "/v1/projects/{projectName}/sites/{resourceId}"
         body: "site"
       }
     };
@@ -166,11 +166,11 @@ service SiteService {
       patch: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       body: "site"
       additional_bindings {
-        patch: "/v1/projects/{projectName}/sites/{resourceId}"
+        patch: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
         body: "site"
       }
       additional_bindings {
-        patch: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
+        patch: "/v1/projects/{projectName}/sites/{resourceId}"
         body: "site"
       }
     };
@@ -180,10 +180,10 @@ service SiteService {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/regions/{regionId}/sites/{resourceId}"
       additional_bindings {
-        delete: "/v1/projects/{projectName}/sites/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
       }
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/sites/{resourceId}"
+        delete: "/v1/projects/{projectName}/sites/{resourceId}"
       }
     };
   }
@@ -209,10 +209,10 @@ service HostService {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/compute/hosts/summary"
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/hosts_summary"
+        get: "/edge-infra.orchestrator.apis/v2/hosts_summary"
       }
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/hosts_summary"
+        get: "/v1/projects/{projectName}/compute/hosts_summary"
       }
     };
   }
@@ -385,7 +385,12 @@ service InstanceService {
   }
   // Invalidate a instance.
   rpc InvalidateInstance(InvalidateInstanceRequest) returns (InvalidateInstanceResponse) {
-    option (google.api.http) = {put: "/v1/projects/{projectName}/compute/instances/{resourceId}/invalidate"};
+    option (google.api.http) = {
+      put: "/v1/projects/{projectName}/compute/instances/{resourceId}/invalidate"
+      additional_bindings {
+        put: "/edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate"
+      }
+    };
   }
 }
 
@@ -397,11 +402,11 @@ service OperatingSystemService {
       post: "/v1/projects/{projectName}/compute/os"
       body: "os"
       additional_bindings {
-        post: "/v1/projects/{projectName}/compute/operating_systems"
+        post: "/edge-infra.orchestrator.apis/v2/operating_systems"
         body: "os"
       }
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/operating_systems"
+        post: "/v1/projects/{projectName}/compute/operating_systems"
         body: "os"
       }
     };
@@ -410,12 +415,12 @@ service OperatingSystemService {
   rpc ListOperatingSystems(ListOperatingSystemsRequest) returns (ListOperatingSystemsResponse) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/compute/os"
+      additional_bindings {
+        get: "/edge-infra.orchestrator.apis/v2/operating_systems"
+        }
 
       additional_bindings {
         get: "/v1/projects/{projectName}/compute/operating_systems"
-      }
-      additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/operating_systems"
       }
     };
   }
@@ -423,12 +428,12 @@ service OperatingSystemService {
   rpc GetOperatingSystem(GetOperatingSystemRequest) returns (resources.os.v1.OperatingSystemResource) {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/compute/os/{resourceId}"
+      additional_bindings {
+        get: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
+      }
 
       additional_bindings {
         get: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
-      }
-      additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
       }
     };
   }
@@ -438,11 +443,11 @@ service OperatingSystemService {
       put: "/v1/projects/{projectName}/compute/os/{resourceId}"
       body: "os"
       additional_bindings {
-        put: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
+        put: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
         body: "os"
       }
       additional_bindings {
-        put: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
+        put: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
         body: "os"
       }
     };
@@ -453,11 +458,11 @@ service OperatingSystemService {
       patch: "/v1/projects/{projectName}/compute/os/{resourceId}"
       body: "os"
       additional_bindings {
-        patch: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
+        patch: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
         body: "os"
       }
       additional_bindings {
-        patch: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
+        patch: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
         body: "os"
       }
     };
@@ -466,12 +471,12 @@ service OperatingSystemService {
   rpc DeleteOperatingSystem(DeleteOperatingSystemRequest) returns (DeleteOperatingSystemResponse) {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/compute/os/{resourceId}"
+      additional_bindings {
+        delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
+      }
 
       additional_bindings {
         delete: "/v1/projects/{projectName}/compute/operating_systems/{resourceId}"
-      }
-      additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/operating_systems/{resourceId}"
       }
     };
   }
@@ -530,11 +535,11 @@ service WorkloadService {
       post: "/v1/projects/{projectName}/compute/workloads"
       body: "workload"
       additional_bindings {
-        post: "/v1/projects/{projectName}/workloads"
+        post: "/edge-infra.orchestrator.apis/v2/workloads"
         body: "workload"
       }
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/workloads"
+        post: "/v1/projects/{projectName}/workloads"
         body: "workload"
       }
     };
@@ -545,11 +550,11 @@ service WorkloadService {
       get: "/v1/projects/{projectName}/compute/workloads"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/workloads"
+        get: "/edge-infra.orchestrator.apis/v2/workloads"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/workloads"
+        get: "/v1/projects/{projectName}/workloads"
       }
     };
   }
@@ -559,11 +564,11 @@ service WorkloadService {
       get: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/workloads/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
+        get: "/v1/projects/{projectName}/workloads/{resourceId}"
       }
     };
   }
@@ -573,11 +578,11 @@ service WorkloadService {
       put: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
       body: "workload"
       additional_bindings {
-        put: "/v1/projects/{projectName}/workloads/{resourceId}"
+        put: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
         body: "workload"
       }
       additional_bindings {
-        put: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
+        put: "/v1/projects/{projectName}/workloads/{resourceId}"
         body: "workload"
       }
     };
@@ -588,11 +593,11 @@ service WorkloadService {
       patch: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
       body: "workload"
       additional_bindings {
-        patch: "/v1/projects/{projectName}/workloads/{resourceId}"
+        patch: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
         body: "workload"
       }
       additional_bindings {
-        patch: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
+        patch: "/v1/projects/{projectName}/workloads/{resourceId}"
         body: "workload"
       }
     };
@@ -603,11 +608,11 @@ service WorkloadService {
       delete: "/v1/projects/{projectName}/compute/workloads/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/workloads/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
       }
 
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/workloads/{resourceId}"
+        delete: "/v1/projects/{projectName}/workloads/{resourceId}"
       }
     };
   }
@@ -666,11 +671,11 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/compute/schedules"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/schedules"
+        get: "/edge-infra.orchestrator.apis/v2/schedules"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/schedules"
+        get: "/v1/projects/{projectName}/schedules"
       }
     };
   }
@@ -682,12 +687,12 @@ service ScheduleService {
       body: "single_schedule"
 
       additional_bindings {
-        post: "/v1/projects/{projectName}/compute/schedules/single"
+        post: "/edge-infra.orchestrator.apis/v2/schedules/single"
         body: "single_schedule"
       }
 
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/schedules/single"
+        post: "/v1/projects/{projectName}/compute/schedules/single"
         body: "single_schedule"
       }
     };
@@ -698,11 +703,11 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/schedules/single"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/schedules/single"
+        get: "/edge-infra.orchestrator.apis/v2/schedules/single"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/schedules/single"
+        get: "/v1/projects/{projectName}/compute/schedules/single"
       }
     };
   }
@@ -712,11 +717,11 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/schedules/single/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
+        get: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
       }
     };
   }
@@ -727,12 +732,12 @@ service ScheduleService {
       body: "single_schedule"
 
       additional_bindings {
-        put: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+        put: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
         body: "single_schedule"
       }
 
       additional_bindings {
-        put: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
+        put: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
         body: "single_schedule"
       }
     };
@@ -744,12 +749,12 @@ service ScheduleService {
       body: "single_schedule"
 
       additional_bindings {
-        patch: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+        patch: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
         body: "single_schedule"
       }
 
       additional_bindings {
-        patch: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
+        patch: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
         body: "single_schedule"
       }
     };
@@ -760,11 +765,11 @@ service ScheduleService {
       delete: "/v1/projects/{projectName}/schedules/single/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
       }
 
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/schedules/single/{resourceId}"
+        delete: "/v1/projects/{projectName}/compute/schedules/single/{resourceId}"
       }
     };
   }
@@ -776,12 +781,12 @@ service ScheduleService {
       body: "repeated_schedule"
 
       additional_bindings {
-        post: "/v1/projects/{projectName}/compute/schedules/repeated"
+        post: "/edge-infra.orchestrator.apis/v2/schedules/repeated"
         body: "repeated_schedule"
       }
 
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/schedules/repeated"
+        post: "/v1/projects/{projectName}/compute/schedules/repeated"
         body: "repeated_schedule"
       }
     };
@@ -792,11 +797,11 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/schedules/repeated"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/schedules/repeated"
+        get: "/edge-infra.orchestrator.apis/v2/schedules/repeated"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/schedules/repeated"
+        get: "/v1/projects/{projectName}/compute/schedules/repeated"
       }
     };
   }
@@ -806,11 +811,11 @@ service ScheduleService {
       get: "/v1/projects/{projectName}/schedules/repeated/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
+        get: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
       }
     };
   }
@@ -821,12 +826,12 @@ service ScheduleService {
       body: "repeated_schedule"
 
       additional_bindings {
-        put: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+        put: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
         body: "repeated_schedule"
       }
 
       additional_bindings {
-        put: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
+        put: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
         body: "repeated_schedule"
       }
     };
@@ -838,12 +843,12 @@ service ScheduleService {
       body: "repeated_schedule"
 
       additional_bindings {
-        patch: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+        patch: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
         body: "repeated_schedule"
       }
 
       additional_bindings {
-        patch: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
+        patch: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
         body: "repeated_schedule"
       }
     };
@@ -854,11 +859,11 @@ service ScheduleService {
       delete: "/v1/projects/{projectName}/schedules/repeated/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
       }
 
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId}"
+        delete: "/v1/projects/{projectName}/compute/schedules/repeated/{resourceId}"
       }
     };
   }
@@ -873,12 +878,12 @@ service TelemetryLogsGroupService {
       body: "telemetry_logs_group"
 
       additional_bindings {
-        post: "/v1/projects/{projectName}/telemetry/groups/logs"
+        post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"
         body: "telemetry_logs_group"
       }
 
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"
+        post: "/v1/projects/{projectName}/telemetry/groups/logs"
         body: "telemetry_logs_group"
       }
     };
@@ -889,11 +894,11 @@ service TelemetryLogsGroupService {
       get: "/v1/projects/{projectName}/telemetry/loggroups"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/groups/logs"
+        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs"
+        get: "/v1/projects/{projectName}/telemetry/groups/logs"
       }
     };
   }
@@ -903,11 +908,11 @@ service TelemetryLogsGroupService {
       get: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"
+        get: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
       }
     };
   }
@@ -918,11 +923,11 @@ service TelemetryLogsGroupService {
       delete: "/v1/projects/{projectName}/telemetry/loggroups/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"
       }
 
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId}"
+        delete: "/v1/projects/{projectName}/telemetry/groups/logs/{resourceId}"
       }
     };
   }
@@ -937,12 +942,12 @@ service TelemetryMetricsGroupService {
       body: "telemetry_metrics_group"
 
       additional_bindings {
-        post: "/v1/projects/{projectName}/telemetry/groups/metrics"
+        post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"
         body: "telemetry_metrics_group"
       }
 
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"
+        post: "/v1/projects/{projectName}/telemetry/groups/metrics"
         body: "telemetry_metrics_group"
       }
     };
@@ -953,11 +958,11 @@ service TelemetryMetricsGroupService {
       get: "/v1/projects/{projectName}/telemetry/metricgroups"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/groups/metrics"
+        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics"
+        get: "/v1/projects/{projectName}/telemetry/groups/metrics"
       }
     };
   }
@@ -967,11 +972,11 @@ service TelemetryMetricsGroupService {
       get: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
 
       additional_bindings {
-        get: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"
       }
 
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"
+        get: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
       }
     };
   }
@@ -982,11 +987,11 @@ service TelemetryMetricsGroupService {
       delete: "/v1/projects/{projectName}/telemetry/metricgroups/{resourceId}"
 
       additional_bindings {
-        delete: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"
       }
 
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId}"
+        delete: "/v1/projects/{projectName}/telemetry/groups/metrics/{resourceId}"
       }
     };
   }
@@ -3310,11 +3315,11 @@ service OSUpdatePolicy {
       post: "/v1/projects/{projectName}/os-update-policies"
       body: "os_update_policy"
       additional_bindings {
-        post: "/v1/projects/{projectName}/os_update_policy"
+        post: "/edge-infra.orchestrator.apis/v2/os_update_policy"
         body: "os_update_policy"
       }
       additional_bindings {
-        post: "/edge-infra.orchestrator.apis/v2/os_update_policy"
+        post: "/v1/projects/{projectName}/os_update_policy"
         body: "os_update_policy"
       }
     };
@@ -3324,10 +3329,10 @@ service OSUpdatePolicy {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/os-update-policies"
       additional_bindings {
-        get: "/v1/projects/{projectName}/os_update_policy"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_policy"
       }
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_policy"
+        get: "/v1/projects/{projectName}/os_update_policy"
       }
     };
   }
@@ -3336,10 +3341,10 @@ service OSUpdatePolicy {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
       additional_bindings {
-        get: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
       }
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
+        get: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
       }
     };
   }
@@ -3348,10 +3353,10 @@ service OSUpdatePolicy {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/os-update-policies/{resourceId}"
       additional_bindings {
-        delete: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
       }
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId}"
+        delete: "/v1/projects/{projectName}/os_update_policy/{resourceId}"
       }
     };
   }
@@ -3460,10 +3465,10 @@ service OSUpdateRun {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/os-update-runs"
       additional_bindings {
-        get: "/v1/projects/{projectName}/os_update_run"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_run"
       }
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_run"
+        get: "/v1/projects/{projectName}/os_update_run"
       }
     };
   }
@@ -3472,10 +3477,10 @@ service OSUpdateRun {
     option (google.api.http) = {
       get: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
       additional_bindings {
-        get: "/v1/projects/{projectName}/os_update_run/{resourceId}"
+        get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
       }
       additional_bindings {
-        get: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
+        get: "/v1/projects/{projectName}/os_update_run/{resourceId}"
       }
     };
   }
@@ -3484,10 +3489,10 @@ service OSUpdateRun {
     option (google.api.http) = {
       delete: "/v1/projects/{projectName}/os-update-runs/{resourceId}"
       additional_bindings {
-        delete: "/v1/projects/{projectName}/os_update_run/{resourceId}"
+        delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
       }
       additional_bindings {
-        delete: "/edge-infra.orchestrator.apis/v2/os_update_run/{resourceId}"
+        delete: "/v1/projects/{projectName}/os_update_run/{resourceId}"
       }
     };
   }

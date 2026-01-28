@@ -152,9 +152,10 @@ func ListAllSites(
 
 	for {
 		// Call the API to get a paginated list of sites
-		response, err := client.SiteServiceListSites2WithResponse(ctx, projectName, &api.SiteServiceListSites2Params{
-			PageSize: &pageSize,
-			Offset:   &offset,
+		response, err := client.SiteServiceListSites2WithResponse(ctx, &api.SiteServiceListSites2Params{
+			ProjectName: projectName,
+			PageSize:    &pageSize,
+			Offset:      &offset,
 		},
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 		if err != nil {
@@ -301,9 +302,8 @@ func TestDeleteAllSites(t *testing.T) {
 		t.Logf("Site ID: %s, Name: %s", *site.ResourceId, *site.Name)
 		resDelSite, err := apiClient.SiteServiceDeleteSite2WithResponse(
 			ctx,
-			projectName,
 			*site.ResourceId,
-			nil,
+			&api.SiteServiceDeleteSite2Params{ProjectName: projectName},
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)

@@ -499,9 +499,9 @@ func TestLocation_Cleanup(t *testing.T) {
 
 	sites, err := apiClient.SiteServiceListSites2WithResponse(
 		ctx,
-		projectName,
 		&api.SiteServiceListSites2Params{
-			PageSize: &pgSize,
+			ProjectName: projectName,
+			PageSize:    &pgSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -511,9 +511,8 @@ func TestLocation_Cleanup(t *testing.T) {
 	for _, site := range sites.JSON200.Sites {
 		_, err := apiClient.SiteServiceDeleteSite2WithResponse(
 			ctx,
-			projectName,
 			*site.ResourceId,
-			nil,
+			&api.SiteServiceDeleteSite2Params{ProjectName: projectName},
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
