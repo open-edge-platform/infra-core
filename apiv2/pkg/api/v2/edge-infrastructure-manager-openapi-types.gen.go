@@ -5690,8 +5690,8 @@ type HostServiceGetHost2Params struct {
 
 // HostServicePatchHost2Params defines parameters for HostServicePatchHost2.
 type HostServicePatchHost2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of host.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName The project name from the URL path.
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -5775,8 +5775,8 @@ type InstanceServiceGetInstance2Params struct {
 
 // InstanceServicePatchInstance2Params defines parameters for InstanceServicePatchInstance2.
 type InstanceServicePatchInstance2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of instance.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName The project name from the URL path.
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -5889,8 +5889,8 @@ type OperatingSystemServiceGetOperatingSystem2Params struct {
 
 // OperatingSystemServicePatchOperatingSystem2Params defines parameters for OperatingSystemServicePatchOperatingSystem2.
 type OperatingSystemServicePatchOperatingSystem2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of os.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -6057,8 +6057,8 @@ type RegionServiceGetRegion2Params struct {
 
 // RegionServicePatchRegion2Params defines parameters for RegionServicePatchRegion2.
 type RegionServicePatchRegion2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of region.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -6160,8 +6160,8 @@ type ScheduleServiceGetRepeatedSchedule2Params struct {
 
 // ScheduleServicePatchRepeatedSchedule2Params defines parameters for ScheduleServicePatchRepeatedSchedule2.
 type ScheduleServicePatchRepeatedSchedule2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of repeated_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -6228,8 +6228,8 @@ type ScheduleServiceGetSingleSchedule2Params struct {
 
 // ScheduleServicePatchSingleSchedule2Params defines parameters for ScheduleServicePatchSingleSchedule2.
 type ScheduleServicePatchSingleSchedule2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of single_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -6294,8 +6294,8 @@ type SiteServiceGetSite2Params struct {
 
 // SiteServicePatchSite2Params defines parameters for SiteServicePatchSite2.
 type SiteServicePatchSite2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of site.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// RegionId Optional region ID for hierarchical path support
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
@@ -6435,8 +6435,8 @@ type TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params struct {
 
 // TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile2.
 type TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of telemetry_logs_profile.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -6500,8 +6500,8 @@ type TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params struct {
 
 // TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2.
 type TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of telemetry_metrics_profile.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -6593,8 +6593,8 @@ type WorkloadServiceGetWorkload2Params struct {
 
 // WorkloadServicePatchWorkload2Params defines parameters for WorkloadServicePatchWorkload2.
 type WorkloadServicePatchWorkload2Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of workload.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// ProjectName Project name
 	ProjectName string `form:"projectName" json:"projectName"`
@@ -6638,8 +6638,8 @@ type HostServiceGetHostsSummaryParams struct {
 
 // HostServicePatchHostParams defines parameters for HostServicePatchHost.
 type HostServicePatchHostParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of host.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // HostServiceInvalidateHostParams defines parameters for HostServiceInvalidateHost.
@@ -6675,8 +6675,8 @@ type InstanceServiceListInstancesParams struct {
 
 // InstanceServicePatchInstanceParams defines parameters for InstanceServicePatchInstance.
 type InstanceServicePatchInstanceParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of instance.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // OperatingSystemServiceListOperatingSystems3Params defines parameters for OperatingSystemServiceListOperatingSystems3.
@@ -6699,8 +6699,8 @@ type OperatingSystemServiceListOperatingSystems3Params struct {
 
 // OperatingSystemServicePatchOperatingSystem3Params defines parameters for OperatingSystemServicePatchOperatingSystem3.
 type OperatingSystemServicePatchOperatingSystem3Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of os.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // OperatingSystemServiceListOperatingSystemsParams defines parameters for OperatingSystemServiceListOperatingSystems.
@@ -6723,8 +6723,8 @@ type OperatingSystemServiceListOperatingSystemsParams struct {
 
 // OperatingSystemServicePatchOperatingSystemParams defines parameters for OperatingSystemServicePatchOperatingSystem.
 type OperatingSystemServicePatchOperatingSystemParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of os.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // ScheduleServiceListSchedulesParams defines parameters for ScheduleServiceListSchedules.
@@ -6793,8 +6793,8 @@ type ScheduleServiceListRepeatedSchedules3Params struct {
 
 // ScheduleServicePatchRepeatedSchedule3Params defines parameters for ScheduleServicePatchRepeatedSchedule3.
 type ScheduleServicePatchRepeatedSchedule3Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of repeated_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // ScheduleServiceListSingleSchedules3Params defines parameters for ScheduleServiceListSingleSchedules3.
@@ -6831,8 +6831,8 @@ type ScheduleServiceListSingleSchedules3Params struct {
 
 // ScheduleServicePatchSingleSchedule3Params defines parameters for ScheduleServicePatchSingleSchedule3.
 type ScheduleServicePatchSingleSchedule3Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of single_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // WorkloadServiceListWorkloadsParams defines parameters for WorkloadServiceListWorkloads.
@@ -6855,8 +6855,8 @@ type WorkloadServiceListWorkloadsParams struct {
 
 // WorkloadServicePatchWorkloadParams defines parameters for WorkloadServicePatchWorkload.
 type WorkloadServicePatchWorkloadParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of workload.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // CustomConfigServiceListCustomConfigsParams defines parameters for CustomConfigServiceListCustomConfigs.
@@ -7038,14 +7038,14 @@ type SiteServiceListSitesParams struct {
 
 // SiteServicePatchSiteParams defines parameters for SiteServicePatchSite.
 type SiteServicePatchSiteParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of site.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // RegionServicePatchRegionParams defines parameters for RegionServicePatchRegion.
 type RegionServicePatchRegionParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of region.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // ScheduleServiceListSchedules3Params defines parameters for ScheduleServiceListSchedules3.
@@ -7114,8 +7114,8 @@ type ScheduleServiceListRepeatedSchedulesParams struct {
 
 // ScheduleServicePatchRepeatedScheduleParams defines parameters for ScheduleServicePatchRepeatedSchedule.
 type ScheduleServicePatchRepeatedScheduleParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of repeated_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // ScheduleServiceListSingleSchedulesParams defines parameters for ScheduleServiceListSingleSchedules.
@@ -7152,8 +7152,8 @@ type ScheduleServiceListSingleSchedulesParams struct {
 
 // ScheduleServicePatchSingleScheduleParams defines parameters for ScheduleServicePatchSingleSchedule.
 type ScheduleServicePatchSingleScheduleParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of single_schedule.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // SiteServiceListSites3Params defines parameters for SiteServiceListSites3.
@@ -7197,8 +7197,8 @@ type SiteServiceGetSite3Params struct {
 
 // SiteServicePatchSite3Params defines parameters for SiteServicePatchSite3.
 type SiteServicePatchSite3Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of site.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 
 	// RegionId Optional region ID for hierarchical path support
 	RegionId *string `form:"regionId,omitempty" json:"regionId,omitempty"`
@@ -7297,8 +7297,8 @@ type TelemetryLogsProfileServiceListTelemetryLogsProfilesParams struct {
 
 // TelemetryLogsProfileServicePatchTelemetryLogsProfileParams defines parameters for TelemetryLogsProfileServicePatchTelemetryLogsProfile.
 type TelemetryLogsProfileServicePatchTelemetryLogsProfileParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of telemetry_logs_profile.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams defines parameters for TelemetryMetricsProfileServiceListTelemetryMetricsProfiles.
@@ -7332,8 +7332,8 @@ type TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams struct {
 
 // TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams defines parameters for TelemetryMetricsProfileServicePatchTelemetryMetricsProfile.
 type TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of telemetry_metrics_profile.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // WorkloadMemberServiceListWorkloadMembersParams defines parameters for WorkloadMemberServiceListWorkloadMembers.
@@ -7374,8 +7374,8 @@ type WorkloadServiceListWorkloads3Params struct {
 
 // WorkloadServicePatchWorkload3Params defines parameters for WorkloadServicePatchWorkload3.
 type WorkloadServicePatchWorkload3Params struct {
-	// FieldMaskPaths The set of field mask paths.
-	FieldMaskPaths *[]string `form:"fieldMask.paths,omitempty" json:"fieldMask.paths,omitempty"`
+	// FieldMask Field mask to be applied on the patch of workload.
+	FieldMask *string `form:"fieldMask,omitempty" json:"fieldMask,omitempty"`
 }
 
 // CustomConfigServiceCreateCustomConfig2JSONRequestBody defines body for CustomConfigServiceCreateCustomConfig2 for application/json ContentType.

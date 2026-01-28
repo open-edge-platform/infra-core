@@ -5765,9 +5765,9 @@ func NewHostServicePatchHost2RequestWithBody(server string, resourceId string, p
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -6428,9 +6428,9 @@ func NewInstanceServicePatchInstance2RequestWithBody(server string, resourceId s
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -7261,9 +7261,9 @@ func NewOperatingSystemServicePatchOperatingSystem2RequestWithBody(server string
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -8449,9 +8449,9 @@ func NewRegionServicePatchRegion2RequestWithBody(server string, resourceId strin
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -9039,9 +9039,9 @@ func NewScheduleServicePatchRepeatedSchedule2RequestWithBody(server string, reso
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -9488,9 +9488,9 @@ func NewScheduleServicePatchSingleSchedule2RequestWithBody(server string, resour
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -9969,9 +9969,9 @@ func NewSiteServicePatchSite2RequestWithBody(server string, resourceId string, p
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -10976,9 +10976,9 @@ func NewTelemetryLogsProfileServicePatchTelemetryLogsProfile2RequestWithBody(ser
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -11441,9 +11441,9 @@ func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfile2RequestWithBo
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -12129,9 +12129,9 @@ func NewWorkloadServicePatchWorkload2RequestWithBody(server string, resourceId s
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -12640,9 +12640,9 @@ func NewHostServicePatchHostRequestWithBody(server string, projectName string, r
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -13217,9 +13217,9 @@ func NewInstanceServicePatchInstanceRequestWithBody(server string, projectName s
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -13621,9 +13621,9 @@ func NewOperatingSystemServicePatchOperatingSystem3RequestWithBody(server string
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -13984,9 +13984,9 @@ func NewOperatingSystemServicePatchOperatingSystemRequestWithBody(server string,
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -14515,9 +14515,9 @@ func NewScheduleServicePatchRepeatedSchedule3RequestWithBody(server string, proj
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -14910,9 +14910,9 @@ func NewScheduleServicePatchSingleSchedule3RequestWithBody(server string, projec
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -15273,9 +15273,9 @@ func NewWorkloadServicePatchWorkloadRequestWithBody(server string, projectName s
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -17463,9 +17463,9 @@ func NewSiteServicePatchSiteRequestWithBody(server string, projectName string, r
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -17682,9 +17682,9 @@ func NewRegionServicePatchRegionRequestWithBody(server string, projectName strin
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -18213,9 +18213,9 @@ func NewScheduleServicePatchRepeatedScheduleRequestWithBody(server string, proje
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -18608,9 +18608,9 @@ func NewScheduleServicePatchSingleScheduleRequestWithBody(server string, project
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -19053,9 +19053,9 @@ func NewSiteServicePatchSite3RequestWithBody(server string, projectName string, 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -20370,9 +20370,9 @@ func NewTelemetryLogsProfileServicePatchTelemetryLogsProfileRequestWithBody(serv
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -20781,9 +20781,9 @@ func NewTelemetryMetricsProfileServicePatchTelemetryMetricsProfileRequestWithBod
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -21377,9 +21377,9 @@ func NewWorkloadServicePatchWorkload3RequestWithBody(server string, projectName 
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.FieldMaskPaths != nil {
+		if params.FieldMask != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask.paths", runtime.ParamLocationQuery, *params.FieldMaskPaths); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "fieldMask", runtime.ParamLocationQuery, *params.FieldMask); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
