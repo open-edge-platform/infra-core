@@ -24,6 +24,9 @@ OASDIFF         := true
 PROTOCGENOAPI   := true
 PROTOCGENGRPCGW := true
 
+# Tool paths - prefer Go bin path for oapi-codegen v2
+OAPI_CODEGEN_CMD ?= $(shell command -v ~/go/bin/oapi-codegen 2>/dev/null || command -v oapi-codegen)
+
 # Defining the shell, users and groups
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
@@ -87,7 +90,7 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 # Security config for Go builds
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
-generate: buf-gen generate-api gen-allowed-services ## generate protos, types, server and client
+generate: buf-gen-api oapi-patch oapi-banner generate-api gen-allowed-services ## generate protos, types, server and client
 
 lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
@@ -113,17 +116,17 @@ oapi-docs:  ## generates a single/complete documentation of the OpenAPI spec in 
 
 $(TYPES): $(OPENAPI_PATH) ## generate types API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/types.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/types.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-types.gen.go $@
 
 $(SERVER): $(OPENAPI_PATH) ## generate server API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/server.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/server.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-server.gen.go $@
 
 $(CLIENT): $(OPENAPI_PATH) ## generate client API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/client.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/client.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-client.gen.go $@
 
 go-build: $(OUT_DIR) ## go build
@@ -237,7 +240,7 @@ buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
   	buf --version ;\
   	HUMAN=true buf generate
 
-buf-gen: buf-gen-api oapi-patch oapi-banner ## compile protoc files
+buf-gen: buf-gen-api ## compile protoc files
 
 buf-lint: ## Lint and format protobuf files
 	buf --version

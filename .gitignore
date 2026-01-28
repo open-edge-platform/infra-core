@@ -22,3 +22,5 @@ go.work
 
 # Useful when developing with coder vms
 .tool-versions
+
+apiv2/cmd/protoc-gen-go-const/protoc-gen-go-const
