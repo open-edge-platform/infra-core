@@ -499,7 +499,7 @@ func (sc *InvCollectorClient) LoadAllHostsFromInv() {
 // The clone of the messages is done to avoid race conditions
 // where getHosts is used, in case access to host info is needed.
 func (sc *InvCollectorClient) getHosts() []*inv_v1.Resource {
-	hosts := make([]*inv_v1.Resource, 0)
+	hosts := make([]*inv_v1.Resource, 0, len(sc.Cache.Hosts))
 	for _, host := range sc.Cache.Hosts {
 		hosts = append(hosts, host)
 	}

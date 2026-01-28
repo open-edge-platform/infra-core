@@ -27,19 +27,19 @@ func GenerateRandomSha256() string {
 }
 
 func GenerateRandomProfileName() string {
-	return fmt.Sprintf("Test OS profile name #%d", generateRandomInteger(1023)) //nolint:mnd // Teting only
+	return fmt.Sprintf("Test OS profile name #%d", generateRandomInteger(1023))
 }
 
 func GenerateRandomOsResourceName() string {
-	return fmt.Sprintf("Test OS name #%d", generateRandomInteger(1023)) //nolint:mnd // Testing only
+	return fmt.Sprintf("Test OS name #%d", generateRandomInteger(1023))
 }
 
 func GenerateRandomOsUpdatePolicyName() string {
-	return fmt.Sprintf("Test OS Update Policy name #%d", generateRandomInteger(1023)) //nolint:mnd // Testing only
+	return fmt.Sprintf("Test OS Update Policy name #%d", generateRandomInteger(1023))
 }
 
 func GenerateRandInt(minValue, maxValue int) int64 {
-	nBig, err := rand.Int(rand.Reader, new(big.Int).SetUint64(uint64(maxValue-minValue+1))) //nolint:gosec // Teting only
+	nBig, err := rand.Int(rand.Reader, new(big.Int).SetUint64(uint64(maxValue-minValue+1))) //nolint:gosec // Testing only
 	if err != nil {
 		panic(err)
 	}

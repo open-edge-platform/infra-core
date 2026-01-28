@@ -134,10 +134,7 @@ func CreateClient(ct ClientType, clientKind inv_v1.ClientKind, resourceKinds []i
 			grpc.WithUnaryInterceptor(client.TenantContextInsertingInterceptorTestingOnly()))
 	}
 	// Init the client and update the glob structures
-	insecure := true
-	if certPath != "" {
-		insecure = false
-	}
+	insecure := certPath == ""
 	events := make(chan *client.WatchEvents, eventsBufSize)
 	clientCfg := client.InventoryClientConfig{
 		Name:        string(ct),

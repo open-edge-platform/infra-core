@@ -966,7 +966,7 @@ func TestCheckListOutputIsSingular(t *testing.T) {
 			},
 		},
 	}
-	resources := make([]*inv_v1.Resource, 0)
+	resources := make([]*inv_v1.Resource, 0, 2)
 
 	// Should return a NotFound error - empty list of resources
 	err1 := util.CheckListOutputIsSingular(resources)
