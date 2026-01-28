@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package server_test
@@ -70,4 +70,112 @@ func TestTruncateUint64ToUint32(t *testing.T) {
 
 	assert.Equal(t, time.Unix(nowUnix, 0), time.Unix(int64(nowUnixUint32), 0))
 	fmt.Println(time.Unix(int64(nowUnixUint32), 0))
+}
+
+func TestBuildAllowedServiceList(t *testing.T) {
+	tests := []struct {
+		name         string
+		scenarioName string
+		allowlist    map[string][]string
+		wantLen      int
+		wantErr      bool
+		wantServices []string
+	}{
+		{
+			name:         "valid scenario with services",
+			scenarioName: "test-scenario-full",
+			allowlist: map[string][]string{
+				"test-scenario-full": {"RegionService", "SiteService", "HostService"},
+			},
+			wantLen:      3,
+			wantErr:      false,
+			wantServices: []string{"RegionService", "SiteService", "HostService"},
+		},
+		{
+			name:         "unknown scenario",
+			scenarioName: "test-scenario-unknown",
+			allowlist: map[string][]string{
+				"test-scenario-full": {"RegionService"},
+			},
+			wantLen: 0,
+			wantErr: true,
+		},
+		{
+			name:         "scenario with empty service names",
+			scenarioName: "test-scenario-empty",
+			allowlist: map[string][]string{
+				"test-scenario-empty": {"RegionService", "  ", "", "SiteService"},
+			},
+			wantLen:      2,
+			wantErr:      false,
+			wantServices: []string{"RegionService", "SiteService"},
+		},
+		{
+			name:         "scenario with no services",
+			scenarioName: "test-scenario-minimal",
+			allowlist: map[string][]string{
+				"test-scenario-minimal": {},
+			},
+			wantLen: 0,
+			wantErr: false,
+		},
+		{
+			name:         "scenario with whitespace in service names",
+			scenarioName: "test-scenario-whitespace",
+			allowlist: map[string][]string{
+				"test-scenario-whitespace": {"  RegionService  ", "SiteService "},
+			},
+			wantLen:      2,
+			wantErr:      false,
+			wantServices: []string{"RegionService", "SiteService"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := server.BuildAllowedServiceList(tt.scenarioName, tt.allowlist)
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("BuildAllowedServiceList() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			if err != nil {
+				return // Expected error case
+			}
+
+			if len(got) != tt.wantLen {
+				t.Errorf("BuildAllowedServiceList() got map length %d, want %d", len(got), tt.wantLen)
+			}
+
+			for _, service := range tt.wantServices {
+				if _, exists := got[service]; !exists {
+					t.Errorf("BuildAllowedServiceList() missing service %q in result", service)
+				}
+			}
+		})
+	}
+}
+
+func TestBuildAllowedServiceList_UnregisteredService(t *testing.T) {
+	allowlist := map[string][]string{
+		"test-scenario-unregistered": {"RegionService", "UnknownService"},
+	}
+
+	list, err := server.BuildAllowedServiceList("test-scenario-unregistered", allowlist)
+	if err != nil {
+		t.Errorf("BuildAllowedServiceList() unexpected error: %v", err)
+	}
+
+	if len(list) != 1 {
+		t.Errorf("BuildAllowedServiceList() got map length %d, want 1", len(list))
+	}
+
+	// Only known services should be in the allowed map
+	if _, exists := list["RegionService"]; !exists {
+		t.Error("BuildAllowedServiceList() missing RegionService in result")
+	}
+	if _, exists := list["UnknownService"]; exists {
+		t.Error("BuildAllowedServiceList() should not include UnknownService in result")
+	}
 }

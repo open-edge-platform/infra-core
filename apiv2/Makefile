@@ -87,7 +87,7 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 # Security config for Go builds
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
-generate: buf-gen generate-api ## generate protos, types, server and client
+generate: buf-gen generate-api gen-allowed-services ## generate protos, types, server and client
 
 lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
@@ -234,14 +234,14 @@ buf-update: common-buf-update ## Update buf modules
 
 buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
 	set +u; . ./$</bin/activate; set -u ;\
-  buf --version ;\
-  HUMAN=true buf generate
+  	buf --version ;\
+  	HUMAN=true buf generate
 
 buf-gen: buf-gen-api oapi-patch oapi-banner ## compile protoc files
 
 buf-lint: ## Lint and format protobuf files
 	buf --version
-	# TODO: currently failing buf format and buf lint - need to be fixed
+	# TODO: currently failing buf format and buf lint - needs to be fixed
 
 buf-breaking: common-buf-breaking
 
@@ -250,3 +250,6 @@ oasdiff-breaking: # Check for breaking changes in openapi using oasdiff
 	mkdir -p ${TEMP_BASE_OPENAPI_DIR}
 	git archive origin/${BASE_BRANCH} ${OPENAPI_PATH} | tar -x -C ${TEMP_BASE_OPENAPI_DIR}
 	oasdiff breaking --composed "${TEMP_BASE_OPENAPI_DIR}/${OPENAPI_PATH}"  "${OPENAPI_PATH}" --fail-on ERR
+
+gen-allowed-services: ## Generate allowed services list for EIM scenarios
+	go run ./tools/allowedservicesgen
