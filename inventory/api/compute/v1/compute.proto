@@ -236,7 +236,7 @@ message HostResource {
   AmtControlMode amt_control_mode = 98 [(ent.field) = {optional: true}]; // coming from user selection
   string amt_dns_suffix = 99 [
     (ent.field) = {optional: true},
-    (buf.validate.field).string = {max_bytes: 96},
+    (buf.validate.field).string = {max_bytes: 1024},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // textual message that describes dns_suffix for ACM mode.
 
