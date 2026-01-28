@@ -17,6 +17,7 @@ import (
 
 	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
 	restv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/services/v1"
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/scenario"
 	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	inv_client "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
@@ -33,27 +34,26 @@ type serviceClientsSignature func(
 	endpoint string,
 	opts []grpc.DialOption) (err error)
 
-// servicesClients defines a list of all gRPC service clients that must be
-// registered to serve REST API.
-var servicesClients = []serviceClientsSignature{
-	restv1.RegisterRegionServiceHandlerFromEndpoint,
-	restv1.RegisterSiteServiceHandlerFromEndpoint,
-	restv1.RegisterLocationServiceHandlerFromEndpoint,
-	restv1.RegisterHostServiceHandlerFromEndpoint,
-	restv1.RegisterOperatingSystemServiceHandlerFromEndpoint,
-	restv1.RegisterInstanceServiceHandlerFromEndpoint,
-	restv1.RegisterScheduleServiceHandlerFromEndpoint,
-	restv1.RegisterWorkloadServiceHandlerFromEndpoint,
-	restv1.RegisterWorkloadMemberServiceHandlerFromEndpoint,
-	restv1.RegisterProviderServiceHandlerFromEndpoint,
-	restv1.RegisterTelemetryLogsGroupServiceHandlerFromEndpoint,
-	restv1.RegisterTelemetryMetricsGroupServiceHandlerFromEndpoint,
-	restv1.RegisterTelemetryMetricsProfileServiceHandlerFromEndpoint,
-	restv1.RegisterTelemetryLogsProfileServiceHandlerFromEndpoint,
-	restv1.RegisterLocalAccountServiceHandlerFromEndpoint,
-	restv1.RegisterCustomConfigServiceHandlerFromEndpoint,
-	restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
-	restv1.RegisterOSUpdateRunHandlerFromEndpoint,
+// servicesClients maps gRPC service names to their grpc-gateway registration functions.
+var servicesClients = map[string]serviceClientsSignature{
+	"RegionService":                  restv1.RegisterRegionServiceHandlerFromEndpoint,
+	"SiteService":                    restv1.RegisterSiteServiceHandlerFromEndpoint,
+	"LocationService":                restv1.RegisterLocationServiceHandlerFromEndpoint,
+	"HostService":                    restv1.RegisterHostServiceHandlerFromEndpoint,
+	"OperatingSystemService":         restv1.RegisterOperatingSystemServiceHandlerFromEndpoint,
+	"InstanceService":                restv1.RegisterInstanceServiceHandlerFromEndpoint,
+	"ScheduleService":                restv1.RegisterScheduleServiceHandlerFromEndpoint,
+	"WorkloadService":                restv1.RegisterWorkloadServiceHandlerFromEndpoint,
+	"WorkloadMemberService":          restv1.RegisterWorkloadMemberServiceHandlerFromEndpoint,
+	"ProviderService":                restv1.RegisterProviderServiceHandlerFromEndpoint,
+	"TelemetryLogsGroupService":      restv1.RegisterTelemetryLogsGroupServiceHandlerFromEndpoint,
+	"TelemetryMetricsGroupService":   restv1.RegisterTelemetryMetricsGroupServiceHandlerFromEndpoint,
+	"TelemetryMetricsProfileService": restv1.RegisterTelemetryMetricsProfileServiceHandlerFromEndpoint,
+	"TelemetryLogsProfileService":    restv1.RegisterTelemetryLogsProfileServiceHandlerFromEndpoint,
+	"LocalAccountService":            restv1.RegisterLocalAccountServiceHandlerFromEndpoint,
+	"CustomConfigService":            restv1.RegisterCustomConfigServiceHandlerFromEndpoint,
+	"OSUpdatePolicyService":          restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
+	"OSUpdateRunService":             restv1.RegisterOSUpdateRunHandlerFromEndpoint,
 }
 
 const (
@@ -96,18 +96,42 @@ func WrapH(h http.Handler) echo.HandlerFunc {
 }
 
 func (m *Manager) setupClients(mux *runtime.ServeMux) error {
-	for _, serviceClient := range servicesClients {
-		err := serviceClient(m.ctx, mux, m.cfg.GRPCEndpoint,
+	scenarioName := m.cfg.Scenario
+	if scenarioName == "" {
+		return fmt.Errorf("scenario is not set in config")
+	}
+
+	// build a map of allowed services for quick lookup
+	allowed, err := BuildAllowedClientList(scenarioName, scenario.Allowlist)
+	if err != nil {
+		return err
+	}
+
+	for serviceName, serviceClient := range servicesClients {
+		if _, isAllowed := allowed[serviceName]; !isAllowed {
+			zlog.Debug().Str("service", serviceName).Str("scenario", scenarioName).
+				Msg("skipping service client not allowed for scenario")
+			continue
+		}
+
+		if err := serviceClient(
+			m.ctx,
+			mux,
+			m.cfg.GRPCEndpoint,
 			[]grpc.DialOption{
 				grpc.WithTransportCredentials(insecure.NewCredentials()),
 				// Use Inventory client max message size, to keep Inventory and API consistent.
 				grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(inv_client.MaxMessageSize)),
-			})
-		if err != nil {
-			zlog.InfraErr(err).Msgf("failed to set service client %v", serviceClient)
+			},
+		); err != nil {
+			zlog.InfraErr(err).Str("service", serviceName).Str("scenario", scenarioName).
+				Msg("failed to set service client")
 			return err
 		}
+
+		zlog.Info().Str("service", serviceName).Str("scenario", scenarioName).Msg("registered gRPC client")
 	}
+
 	return nil
 }
 

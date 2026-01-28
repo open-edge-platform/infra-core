@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package server
@@ -13,6 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
+	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/common"
 	commonv1 "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 )
@@ -143,4 +144,40 @@ func GrpcToOpenAPITimestamps(obj withCreatedAtUpdatedAtInvRes) *commonv1.Timesta
 		CreatedAt: timestamppb.New(createdAt),
 		UpdatedAt: timestamppb.New(updatedAt),
 	}
+}
+
+// BuildAllowedServiceList builds a map of allowed services based on the scenario.
+func BuildAllowedServiceList(scenarioName string, allowlist map[string][]string) (map[string]struct{}, error) {
+	// Convert servicesServers map to map[string]interface{} to be used by the common function
+	knownServices := make(map[string]interface{}, len(servicesServers))
+	for key := range servicesServers {
+		knownServices[key] = nil
+	}
+
+	allowed, unknown, err := common.BuildAllowedHandlersList(scenarioName, allowlist, knownServices)
+	if err != nil {
+		zlog.Err(err).Msg("unknown scenario")
+		return nil, err
+	}
+
+	// Log unknown services
+	for _, serviceName := range unknown {
+		zlog.Warn().Str("scenario", scenarioName).Msgf("allowed service %s is not among known services", serviceName)
+	}
+
+	// Log registered services
+	for serviceName := range allowed {
+		zlog.Debug().Str("scenario", scenarioName).Msgf("including service %s in the allowed handlers list", serviceName)
+	}
+
+	return allowed, nil
+}
+
+// GetKnownServices returns the list of all known service names.
+func GetKnownServices() []string {
+	services := make([]string, 0, len(servicesServers))
+	for name := range servicesServers {
+		services = append(services, name)
+	}
+	return services
 }
