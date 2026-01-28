@@ -90,7 +90,7 @@ COPYRIGHT_BANNER := '1i---\n\# SPDX-FileCopyrightText: (C) 2025 Intel Corporatio
 # Security config for Go builds
 GOEXTRAFLAGS := $(COMMON_GOEXTRAFLAGS)
 
-generate: buf-gen generate-api gen-allowed-services ## generate protos, types, server and client
+generate: buf-gen-api oapi-patch oapi-banner generate-api gen-allowed-services ## generate protos, types, server and client
 
 lint: $(OUT_DIR) generate buf-breaking validate-openapi license yamllint go-lint hadolint mdlint ## Run all lint
 
@@ -240,7 +240,7 @@ buf-gen-api: $(VENV_NAME) ## Compile protoc api files into code
   	buf --version ;\
   	HUMAN=true buf generate
 
-buf-gen: buf-gen-api oapi-patch oapi-banner ## compile protoc files
+buf-gen: buf-gen-api ## compile protoc files
 
 buf-lint: ## Lint and format protobuf files
 	buf --version
