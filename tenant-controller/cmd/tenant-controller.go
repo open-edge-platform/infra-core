@@ -169,7 +169,8 @@ func main() {
 	}
 
 	tenantTerminationCtrl := controller.NewTerminationController(invClient)
-	tenantInitializationCtrl := controller.NewTenantInitializationController(initialResourcesProviders, invClient, nxc, *skipOSProvisioning)
+	tenantInitializationCtrl := controller.NewTenantInitializationController(
+		initialResourcesProviders, invClient, nxc, *skipOSProvisioning)
 
 	controller.NewEventDispatcher(invClient, tenantInitializationCtrl, tenantTerminationCtrl).Start(termChan)
 

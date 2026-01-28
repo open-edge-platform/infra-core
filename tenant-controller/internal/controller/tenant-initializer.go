@@ -69,6 +69,7 @@ type TenantInitializationController struct {
 	skipOSProvisioning        bool
 }
 
+//nolint:cyclop // Complexity is acceptable due to conditional logic for skipOSProvisioning
 func (tc *TenantInitializationController) InitializeTenant(ctx context.Context, config ProjectConfig) error {
 	log.Info().Msgf("Initializing new tenant(%s)", config.TenantID)
 
