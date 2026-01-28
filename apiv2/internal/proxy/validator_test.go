@@ -55,7 +55,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	assert.NoError(t, err)
 
 	hostsPostRegisterRequestValid, err := api.NewHostServiceRegisterHostRequest(
-		"", projectName, nil, utils.HostRegisterAutoOnboard)
+		"", projectName, (*api.HostServiceRegisterHostParams)(nil), utils.HostRegisterAutoOnboard)
 	assert.NoError(t, err)
 
 	hostName := "host"
