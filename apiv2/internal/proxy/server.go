@@ -22,6 +22,7 @@ import (
 	inv_client "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
 	ginutils "github.com/open-edge-platform/orch-library/go/pkg/middleware/gin"
+	"github.com/open-edge-platform/orch-library/go/pkg/middleware/projectcontext"
 )
 
 var zlog = logging.GetLogger("proxy")
@@ -84,6 +85,11 @@ func WrapH(h http.Handler) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		req := c.Request()
 		res := c.Response()
+		zlog.Debug().
+			Str("method", req.Method).
+			Str("path", req.URL.Path).
+			Str("rawPath", req.URL.RawPath).
+			Msg("gRPC-gateway mux receiving request")
 		h.ServeHTTP(res, req)
 		return nil
 	}
@@ -129,20 +135,42 @@ func (m *Manager) setupClients(mux *runtime.ServeMux) error {
 	return nil
 }
 
+func (m *Manager) metadataExtractor(ctx context.Context, request *http.Request) metadata.MD {
+	authHeader := request.Header.Get("Authorization")
+	uaHeader := request.Header.Get("User-Agent")
+	projectIDHeader := request.Header.Get(ActiveProjectID)
+
+	// Use the framework-agnostic helper from orch-library to resolve and validate project ID
+	projectUUID, err := projectcontext.ResolveAndValidateProjectID(
+		ctx,
+		request.URL.Path,
+		authHeader,
+		projectIDHeader,
+		projectcontext.ProjectResolverConfig{
+			ProjectServiceURL:     m.cfg.RestServer.NexusAPIURL,
+			ErrorOnMissingProject: false,
+		},
+	)
+	if err != nil {
+		zlog.Warn().Err(err).Msg("Failed to resolve and validate project ID")
+	} else if projectUUID != "" {
+		projectIDHeader = projectUUID
+	}
+
+	return metadata.Pairs(
+		"authorization", authHeader,
+		"user-agent", uaHeader,
+		"activeprojectid", projectIDHeader,
+	)
+}
+
 const ActiveProjectID = "ActiveProjectID"
 
 func (m *Manager) Start() error {
 	// creating mux for gRPC gateway. This will multiplex or route request different gRPC services.
 	mux := runtime.NewServeMux(
 		// convert header in response(going from gateway) from metadata received.
-		runtime.WithMetadata(func(_ context.Context, request *http.Request) metadata.MD {
-			authHeader := request.Header.Get("Authorization")
-			uaHeader := request.Header.Get("User-Agent")
-			projectIDHeader := request.Header.Get(ActiveProjectID)
-			// send all the headers received from the client
-			md := metadata.Pairs("authorization", authHeader, "user-agent", uaHeader, "activeprojectid", projectIDHeader)
-			return md
-		}),
+		runtime.WithMetadata(m.metadataExtractor),
 		runtime.WithRoutingErrorHandler(ginutils.HandleRoutingError),
 		runtime.WithErrorHandler(customErrorHandler),
 	)

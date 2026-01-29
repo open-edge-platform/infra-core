@@ -23,6 +23,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
+	"github.com/open-edge-platform/orch-library/go/pkg/middleware/projectcontext"
 )
 
 var allowMethods = []string{
@@ -103,6 +104,11 @@ func (m *Manager) setAuthentication(e *echo.Echo) {
 }
 
 func (m *Manager) setTenant(e *echo.Echo) {
+	// Use middleware via Echo wrapper to inject active project ID into request context
+	e.Use(echo.WrapMiddleware(
+		projectcontext.InjectActiveProjectID(m.cfg.RestServer.NexusAPIURL, true),
+	))
+
 	e.Use(tenant.TenantInterceptor)
 	zlog.InfraSec().Info().Msg("Tenant Interceptor is enabled")
 }
