@@ -201,10 +201,17 @@ func (m *Manager) Start() error {
 	}
 
 	zlog.Info().Str("baseUrl", m.cfg.RestServer.BaseURL).Msgf("Registering handlers")
-	gatewayURL := fmt.Sprintf("%s/*{grpc_gateway}", m.cfg.RestServer.BaseURL)
-	zlog.Info().Str("gatewayURL", m.cfg.RestServer.BaseURL).Msgf("Group Proxy URL")
-	g := e.Group(gatewayURL)
-	g.Match(allowMethods, "", WrapH(mux))
+
+	// When BaseURL is empty, match all paths without Group to pass full path to gRPC-gateway
+	if m.cfg.RestServer.BaseURL == "" {
+		e.Match(allowMethods, "/*{grpc_gateway}", WrapH(mux))
+		zlog.Info().Msg("Registered gRPC-gateway on root path")
+	} else {
+		gatewayURL := fmt.Sprintf("%s/*{grpc_gateway}", m.cfg.RestServer.BaseURL)
+		zlog.Info().Str("gatewayURL", gatewayURL).Msgf("Group Proxy URL")
+		g := e.Group(gatewayURL)
+		g.Match(allowMethods, "", WrapH(mux))
+	}
 
 	zlog.Info().Str("address", m.cfg.RestServer.Address).Msgf("Starting REST server")
 
