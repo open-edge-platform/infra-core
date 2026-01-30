@@ -205,7 +205,7 @@ func fromInvHostStatus(
 	powerStatusTimestamp := TruncateUint64ToUint32(invHost.GetPowerStatusTimestamp())
 
 	amtStatus := invHost.GetAmtStatus()
-	amtDnsSuffix := invHost.GetAmtDnsSuffix()
+	amtDNSSuffix := invHost.GetAmtDnsSuffix()
 	amtStatusIndicator := statusv1.StatusIndication(invHost.GetPowerStatusIndicator())
 	amtStatusTimestamp := TruncateUint64ToUint32(invHost.GetAmtStatusTimestamp())
 
@@ -224,7 +224,7 @@ func fromInvHostStatus(
 	host.AmtStatus = amtStatus
 	host.AmtStatusIndicator = amtStatusIndicator
 	host.AmtStatusTimestamp = amtStatusTimestamp
-	host.AmtDnsSuffix = amtDnsSuffix
+	host.AmtDnsSuffix = amtDNSSuffix
 }
 
 func fromInvHostEdges(
