@@ -3,6 +3,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 name: vpro
-description: EIM API services enabling only vPRO functionality
+description: EIM scenario with EIM Northbound API services enabling only vPRO functionality.
 services:
   - HostService
