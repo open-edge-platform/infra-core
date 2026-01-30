@@ -49,6 +49,7 @@ func NewTenantInitializationController(
 	rdl []configuration.InitResourcesProvider,
 	ic InventoryClient,
 	nxc *nexus.Client,
+	skipOSProvisioning bool,
 ) *TenantInitializationController {
 	cmpOpts := createResourceComparisonOptions(supportedResources)
 	return &TenantInitializationController{
@@ -56,6 +57,7 @@ func NewTenantInitializationController(
 		nxc:                       nxc,
 		resourceDefinitionLoader:  rdl,
 		resourceComparisonOptions: cmpOpts,
+		skipOSProvisioning:        skipOSProvisioning,
 	}
 }
 
@@ -64,8 +66,10 @@ type TenantInitializationController struct {
 	resourceDefinitionLoader  []configuration.InitResourcesProvider
 	resourceComparisonOptions []cmp.Option
 	nxc                       *nexus.Client
+	skipOSProvisioning        bool
 }
 
+//nolint:cyclop // Complexity is acceptable due to conditional logic for skipOSProvisioning
 func (tc *TenantInitializationController) InitializeTenant(ctx context.Context, config ProjectConfig) error {
 	log.Info().Msgf("Initializing new tenant(%s)", config.TenantID)
 
@@ -116,7 +120,41 @@ func (tc *TenantInitializationController) InitializeTenant(ctx context.Context, 
 		}
 	}
 	// create tenant instance
-	return second(tc.ic.CreateTenantResource(ctx, config.TenantID))
+	if err := second(tc.ic.CreateTenantResource(ctx, config.TenantID)); err != nil {
+		return err
+	}
+
+	// If skipOSProvisioning is enabled, immediately set WatcherOsmanager=true
+	// and complete tenant initialization without waiting for OS Resource Manager
+	if tc.skipOSProvisioning {
+		log.Info().Msgf("skipOSProvisioning=true, setting WatcherOsmanager=true for tenant(%s)", config.TenantID)
+		tenant, err := tc.ic.GetTenantResourceInstance(ctx, config.TenantID)
+		if err != nil {
+			log.Err(err).Msgf("Failed to get tenant resource for updating WatcherOsmanager")
+			return err
+		}
+
+		tenant.WatcherOsmanager = true
+		_, err = tc.ic.UpdateTenantResource(
+			ctx,
+			&fieldmaskpb.FieldMask{Paths: []string{tenantv1.TenantFieldWatcherOsmanager}},
+			tenant,
+		)
+		if err != nil {
+			log.Err(err).Msgf("Failed to update WatcherOsmanager for tenant(%s)", config.TenantID)
+			return err
+		}
+		log.Info().Msgf("Successfully set WatcherOsmanager=true for tenant(%s)", config.TenantID)
+
+		// Complete tenant initialization immediately without waiting for watch event
+		log.Info().Msgf("skipOSProvisioning=true, completing tenant initialization immediately for tenant(%s)", config.TenantID)
+		if err := tc.handleTenantDesiredStateCreated(tenant); err != nil {
+			log.Err(err).Msgf("Failed to complete tenant initialization for tenant(%s)", config.TenantID)
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (tc *TenantInitializationController) HandleEvent(we *client.WatchEvents) {
@@ -129,13 +167,19 @@ func (tc *TenantInitializationController) HandleEvent(we *client.WatchEvents) {
 		return
 	}
 
-	log.Info().Msgf("[HANDLE-EVENT] tenant=%s, WatcherOsmanager=%v, DesiredState=%v",
-		tenant.GetTenantId(), tenant.WatcherOsmanager, tenant.DesiredState)
+	log.Info().Msgf("[HANDLE-EVENT] tenant=%s, WatcherOsmanager=%v, DesiredState=%v, skipOSProvisioning=%v",
+		tenant.GetTenantId(), tenant.WatcherOsmanager, tenant.DesiredState, tc.skipOSProvisioning)
 
-	if !tenant.WatcherOsmanager {
+	// Skip WatcherOsmanager check if skipOSProvisioning is enabled
+	if !tc.skipOSProvisioning && !tenant.WatcherOsmanager {
 		log.Warn().Msgf("[HANDLE-EVENT-EXIT2] OS Resource Manager is not yet done with %s (WatcherOsmanager=false)",
 			tenant.GetTenantId())
 		return
+	}
+
+	if tc.skipOSProvisioning {
+		log.Info().Msgf("[HANDLE-EVENT] skipOSProvisioning=true, bypassing WatcherOsmanager check for tenant=%s",
+			tenant.GetTenantId())
 	}
 	if tenant.DesiredState != tenantv1.TenantState_TENANT_STATE_CREATED {
 		log.Debug().Msgf("[HANDLE-EVENT-EXIT3] tenant=%s DesiredState=%v (not CREATED)",

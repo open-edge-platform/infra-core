@@ -87,6 +87,7 @@ func TestDataModelSanity(t *testing.T) {
 		[]configuration.InitResourcesProvider{cl, lcl},
 		ic,
 		nxc,
+		false, // skipOSProvisioning
 	)
 
 	termChan := make(chan bool, 1)

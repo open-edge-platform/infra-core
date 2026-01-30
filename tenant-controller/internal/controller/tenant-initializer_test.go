@@ -45,7 +45,7 @@ func TestNewInitResourcesProvider(t *testing.T) {
 		configLoader, lenovoconfigLoader,
 	}
 	ic := testutils.CreateInvClient(t)
-	tc := NewTenantInitializationController(loaders, ic, nil)
+	tc := NewTenantInitializationController(loaders, ic, nil, false)
 	require.Equal(t, ic, tc.ic)
 	require.Equal(t, configLoader, tc.resourceDefinitionLoader[0])
 	require.Equal(t, lenovoconfigLoader, tc.resourceDefinitionLoader[1])
@@ -55,7 +55,7 @@ func TestInitializeTenant_TenantAlreadyExist(t *testing.T) {
 	icMock := new(invClientMock)
 	icMock.On("GetTenantResource", mock.Anything, mock.AnythingOfType("string")).
 		Return("tid", "rid", nil)
-	tic := NewTenantInitializationController(nil, icMock, nil)
+	tic := NewTenantInitializationController(nil, icMock, nil, false)
 
 	sut := tic.InitializeTenant
 	err := sut(context.TODO(), ProjectConfig{})
@@ -67,7 +67,7 @@ func TestInitializeTenant_FailOnGetTenantResource(t *testing.T) {
 	icMock := new(invClientMock)
 	icMock.On("GetTenantResource", mock.Anything, mock.AnythingOfType("string")).
 		Return("", "", expectedError)
-	tic := NewTenantInitializationController(nil, icMock, nil)
+	tic := NewTenantInitializationController(nil, icMock, nil, false)
 
 	sut := tic.InitializeTenant
 	err := sut(context.TODO(), ProjectConfig{})
@@ -93,7 +93,7 @@ func TestInitializeTenant_FailOnUnsupportedResourceKind(t *testing.T) {
 			{}, // empty resource
 		},
 	}
-	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil)
+	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil, false)
 
 	sut := tic.InitializeTenant
 	err := sut(context.TODO(), ProjectConfig{})
@@ -115,7 +115,7 @@ func TestInitializeTenant_FailOnListAll(t *testing.T) {
 			},
 		},
 	}
-	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil)
+	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil, false)
 
 	sut := tic.InitializeTenant
 	err := sut(context.TODO(), ProjectConfig{})
@@ -147,7 +147,7 @@ func TestInitializeTenant_ExistingResourceShallBeSkip(t *testing.T) {
 	resourceProvider := testResourcesProvider{
 		resources: []*inv_v1.Resource{existingResource},
 	}
-	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil)
+	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil, false)
 
 	sut := tic.InitializeTenant
 
@@ -182,7 +182,7 @@ func TestInitializeTenant_FailOnCreateResource(t *testing.T) {
 	resourceProvider := testResourcesProvider{
 		resources: []*inv_v1.Resource{existingResource},
 	}
-	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil)
+	tic := NewTenantInitializationController([]configuration.InitResourcesProvider{resourceProvider}, icMock, nil, false)
 
 	sut := tic.InitializeTenant
 
@@ -204,7 +204,7 @@ func TestInitializeTenant(t *testing.T) {
 		cl, lcl,
 	}
 
-	sut := NewTenantInitializationController(ls, ic, nil)
+	sut := NewTenantInitializationController(ls, ic, nil, false)
 
 	require.NoError(t, sut.InitializeTenant(context.TODO(), ProjectConfig{
 		TenantID: tenant1ID,
@@ -497,7 +497,7 @@ func TestTenantController_contains(t *testing.T) {
 		},
 	}
 
-	sut := NewTenantInitializationController(nil, nil, nil).contains
+	sut := NewTenantInitializationController(nil, nil, nil, false).contains
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
