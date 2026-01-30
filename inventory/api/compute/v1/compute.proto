@@ -815,7 +815,7 @@ message HostdeviceResource {
 
   string network_status = 25 [(ent.field) = {optional: true}]; // Networking status for RAS on host.
   string remote_status = 26 [(ent.field) = {optional: true}]; // Remote connection status for RAS on host.
-  string remote_trigger = 27 [(ent.field) = {optional:true}]; // Trigger for enabling remote connection for RAS on host.
+  string remote_trigger = 27 [(ent.field) = {optional: true}]; // Trigger for enabling remote connection for RAS on host.
   string mps_hostname = 28 [(ent.field) = {optional: true}]; // Host name for MPS instance remotely connected to host.
 
   string tenant_id = 100 [
