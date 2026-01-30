@@ -16,6 +16,11 @@ func (r *registry) RegisterHostResource() {
 			inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 			hostresource.ValidColumn,
 			map[string]edgeHandler{
+				hostresource.EdgeHostDevice: {
+					func(p sqlPredicate) sqlPredicate { return hostresource.HasHostDeviceWith(p) },
+					inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
+				},
+
 				hostresource.EdgeHostGpus: {
 					func(p sqlPredicate) sqlPredicate { return hostresource.HasHostGpusWith(p) },
 					inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
@@ -52,6 +57,7 @@ func (r *registry) RegisterHostResource() {
 				},
 			},
 			map[string]sqlPredicate{
+				hostresource.EdgeHostDevice:   hostresource.HasHostDevice(),
 				hostresource.EdgeHostGpus:     hostresource.HasHostGpus(),
 				hostresource.EdgeHostNics:     hostresource.HasHostNics(),
 				hostresource.EdgeHostStorages: hostresource.HasHostStorages(),

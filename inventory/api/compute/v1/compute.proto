@@ -214,6 +214,8 @@ message HostResource {
   repeated HostusbResource host_usbs = 72 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host USB resources. This edge is read-only.
   repeated HostgpuResource host_gpus = 73 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host GPU resources. This edge is read-only.
 
+  HostdeviceResource host_device = 80 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host vPRO support resources.
+
   InstanceResource instance = 90 [(ent.edge) = {
     unique: true
     ref: "host"
@@ -750,6 +752,83 @@ message InstanceResource {
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // textual message that gives detailed status of the instance's software components.
+
+  string created_at = 200 [(ent.field) = {
+    immutable: true
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }]; // Creation timestamp
+
+  string updated_at = 201 [(ent.field) = {
+    // The field immutable from API perspective, will be changed internally in the hooks.
+    immutable: false
+    optional: false
+    schema_type: [
+      {
+        key: "postgres"
+        value: "TIMESTAMP"
+      }
+    ]
+  }]; // Update timestamp
+}
+
+// HostdeviceResource describes the vPRO support and settings on a host.
+message HostdeviceResource {
+  option (ent.schema) = {gen: true};
+  option (infrainv.schemaExtension) = {
+    indexes: [
+      {
+        unique: false
+        fields: ["tenant_id"]
+      }
+    ]
+  };
+
+  string resource_id = 1 [
+    (ent.field) = {unique: true},
+    (buf.validate.field).string = {
+      pattern: "^hostdevice-[0-9a-f]{8}$"
+      max_bytes: 16
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // Resource ID
+
+  HostResource host = 8 [(ent.edge) = {
+    unique: true
+    required: true
+  }]; // The Host related to this device information.
+
+  string version = 10 [(ent.field) = {optional: true}]; // Version number of AMT on the host.
+  string hostname = 11 [(ent.field) = {optional: true}]; // Host name of the host.
+  string operational_state = 12 [(ent.field) = {optional: true}]; // Operational state of AMT on the host, either enabled or disabled.
+  string build_number = 13 [(ent.field) = {optional: true}]; // Build Number of AMT on the host.
+  string sku = 14 [(ent.field) = {optional: true}]; // Integer number of the SKU of the host.
+  string features = 15 [(ent.field) = {optional: true}]; // AMT features available on host.
+  string device_guid = 16 [(ent.field) = {optional: true}]; // Unique device ID for host.
+  string control_mode = 17 [(ent.field) = {optional: true}]; // Control mode selected for vPRO on host, either client or admin.
+  string dns_suffix = 18 [(ent.field) = {optional: true}]; // DNS Suffix for the host.
+
+  string network_status = 25 [(ent.field) = {optional: true}]; // Networking status for RAS on host.
+  string remote_status = 26 [(ent.field) = {optional: true}]; // Remote connection status for RAS on host.
+  string remote_trigger = 27 [(ent.field) = {optional:true}]; // Trigger for enabling remote connection for RAS on host.
+  string mps_hostname = 28 [(ent.field) = {optional: true}]; // Host name for MPS instance remotely connected to host.
+
+  string tenant_id = 100 [
+    (ent.field) = {
+      immutable: true
+      optional: false
+    },
+    (buf.validate.field).string = {
+      uuid: true
+      max_bytes: 36
+    },
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ]; // Tenant Identifier
 
   string created_at = 200 [(ent.field) = {
     immutable: true

@@ -10,6 +10,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -1297,6 +1298,21 @@ func (_u *HostResourceUpdate) AddHostGpus(v ...*HostgpuResource) *HostResourceUp
 	return _u.AddHostGpuIDs(ids...)
 }
 
+// AddHostDeviceIDs adds the "host_device" edge to the HostdeviceResource entity by IDs.
+func (_u *HostResourceUpdate) AddHostDeviceIDs(ids ...int) *HostResourceUpdate {
+	_u.mutation.AddHostDeviceIDs(ids...)
+	return _u
+}
+
+// AddHostDevice adds the "host_device" edges to the HostdeviceResource entity.
+func (_u *HostResourceUpdate) AddHostDevice(v ...*HostdeviceResource) *HostResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.AddHostDeviceIDs(ids...)
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
 func (_u *HostResourceUpdate) SetInstanceID(id int) *HostResourceUpdate {
 	_u.mutation.SetInstanceID(id)
@@ -1415,6 +1431,27 @@ func (_u *HostResourceUpdate) RemoveHostGpus(v ...*HostgpuResource) *HostResourc
 		ids[i] = v[i].ID
 	}
 	return _u.RemoveHostGpuIDs(ids...)
+}
+
+// ClearHostDevice clears all "host_device" edges to the HostdeviceResource entity.
+func (_u *HostResourceUpdate) ClearHostDevice() *HostResourceUpdate {
+	_u.mutation.ClearHostDevice()
+	return _u
+}
+
+// RemoveHostDeviceIDs removes the "host_device" edge to HostdeviceResource entities by IDs.
+func (_u *HostResourceUpdate) RemoveHostDeviceIDs(ids ...int) *HostResourceUpdate {
+	_u.mutation.RemoveHostDeviceIDs(ids...)
+	return _u
+}
+
+// RemoveHostDevice removes "host_device" edges to HostdeviceResource entities.
+func (_u *HostResourceUpdate) RemoveHostDevice(v ...*HostdeviceResource) *HostResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.RemoveHostDeviceIDs(ids...)
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
@@ -2130,6 +2167,51 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if _u.mutation.HostDeviceCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.RemovedHostDeviceIDs(); len(nodes) > 0 && !_u.mutation.HostDeviceCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.HostDeviceIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -3449,6 +3531,21 @@ func (_u *HostResourceUpdateOne) AddHostGpus(v ...*HostgpuResource) *HostResourc
 	return _u.AddHostGpuIDs(ids...)
 }
 
+// AddHostDeviceIDs adds the "host_device" edge to the HostdeviceResource entity by IDs.
+func (_u *HostResourceUpdateOne) AddHostDeviceIDs(ids ...int) *HostResourceUpdateOne {
+	_u.mutation.AddHostDeviceIDs(ids...)
+	return _u
+}
+
+// AddHostDevice adds the "host_device" edges to the HostdeviceResource entity.
+func (_u *HostResourceUpdateOne) AddHostDevice(v ...*HostdeviceResource) *HostResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.AddHostDeviceIDs(ids...)
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
 func (_u *HostResourceUpdateOne) SetInstanceID(id int) *HostResourceUpdateOne {
 	_u.mutation.SetInstanceID(id)
@@ -3567,6 +3664,27 @@ func (_u *HostResourceUpdateOne) RemoveHostGpus(v ...*HostgpuResource) *HostReso
 		ids[i] = v[i].ID
 	}
 	return _u.RemoveHostGpuIDs(ids...)
+}
+
+// ClearHostDevice clears all "host_device" edges to the HostdeviceResource entity.
+func (_u *HostResourceUpdateOne) ClearHostDevice() *HostResourceUpdateOne {
+	_u.mutation.ClearHostDevice()
+	return _u
+}
+
+// RemoveHostDeviceIDs removes the "host_device" edge to HostdeviceResource entities by IDs.
+func (_u *HostResourceUpdateOne) RemoveHostDeviceIDs(ids ...int) *HostResourceUpdateOne {
+	_u.mutation.RemoveHostDeviceIDs(ids...)
+	return _u
+}
+
+// RemoveHostDevice removes "host_device" edges to HostdeviceResource entities.
+func (_u *HostResourceUpdateOne) RemoveHostDevice(v ...*HostdeviceResource) *HostResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.RemoveHostDeviceIDs(ids...)
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
@@ -4312,6 +4430,51 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if _u.mutation.HostDeviceCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.RemovedHostDeviceIDs(); len(nodes) > 0 && !_u.mutation.HostDeviceCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.HostDeviceIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
