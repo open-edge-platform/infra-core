@@ -10,6 +10,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -174,6 +175,33 @@ func (f TraverseHostResource) Traverse(ctx context.Context, q ent.Query) error {
 		return f(ctx, q)
 	}
 	return fmt.Errorf("unexpected query type %T. expect *ent.HostResourceQuery", q)
+}
+
+// The HostdeviceResourceFunc type is an adapter to allow the use of ordinary function as a Querier.
+type HostdeviceResourceFunc func(context.Context, *ent.HostdeviceResourceQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f HostdeviceResourceFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.HostdeviceResourceQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.HostdeviceResourceQuery", q)
+}
+
+// The TraverseHostdeviceResource type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseHostdeviceResource func(context.Context, *ent.HostdeviceResourceQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseHostdeviceResource) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseHostdeviceResource) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.HostdeviceResourceQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.HostdeviceResourceQuery", q)
 }
 
 // The HostgpuResourceFunc type is an adapter to allow the use of ordinary function as a Querier.
@@ -860,6 +888,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.EndpointResourceQuery, predicate.EndpointResource, endpointresource.OrderOption]{typ: ent.TypeEndpointResource, tq: q}, nil
 	case *ent.HostResourceQuery:
 		return &query[*ent.HostResourceQuery, predicate.HostResource, hostresource.OrderOption]{typ: ent.TypeHostResource, tq: q}, nil
+	case *ent.HostdeviceResourceQuery:
+		return &query[*ent.HostdeviceResourceQuery, predicate.HostdeviceResource, hostdeviceresource.OrderOption]{typ: ent.TypeHostdeviceResource, tq: q}, nil
 	case *ent.HostgpuResourceQuery:
 		return &query[*ent.HostgpuResourceQuery, predicate.HostgpuResource, hostgpuresource.OrderOption]{typ: ent.TypeHostgpuResource, tq: q}, nil
 	case *ent.HostnicResourceQuery:

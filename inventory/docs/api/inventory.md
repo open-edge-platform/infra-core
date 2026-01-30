@@ -32,6 +32,7 @@
 - [compute/v1/compute.proto](#compute_v1_compute-proto)
     - [CustomConfigResource](#compute-v1-CustomConfigResource)
     - [HostResource](#compute-v1-HostResource)
+    - [HostdeviceResource](#compute-v1-HostdeviceResource)
     - [HostgpuResource](#compute-v1-HostgpuResource)
     - [HostnicResource](#compute-v1-HostnicResource)
     - [HoststorageResource](#compute-v1-HoststorageResource)
@@ -576,6 +577,7 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 | host_nics | [HostnicResource](#compute-v1-HostnicResource) | repeated | Back-reference to attached host NIC resources. This edge is read-only. |
 | host_usbs | [HostusbResource](#compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. This edge is read-only. |
 | host_gpus | [HostgpuResource](#compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. This edge is read-only. |
+| host_device | [HostdeviceResource](#compute-v1-HostdeviceResource) |  | Back-reference to attached host vPRO support resources. |
 | instance | [InstanceResource](#compute-v1-InstanceResource) |  | back-reference to baremetal Instance associated to this host |
 | amt_sku | [AmtSku](#compute-v1-AmtSku) |  | coming from device introspection |
 | desired_amt_state | [AmtState](#compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
@@ -588,6 +590,38 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | amt_control_mode | [AmtControlMode](#compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
+| tenant_id | [string](#string) |  | Tenant Identifier |
+| created_at | [string](#string) |  | Creation timestamp |
+| updated_at | [string](#string) |  | Update timestamp |
+
+
+
+
+
+
+<a name="compute-v1-HostdeviceResource"></a>
+
+### HostdeviceResource
+HostdeviceResource describes the vPRO support and settings on a host.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource_id | [string](#string) |  | Resource ID |
+| host | [HostResource](#compute-v1-HostResource) |  | The Host related to this device information. |
+| version | [string](#string) |  | Version number of AMT on the host. |
+| hostname | [string](#string) |  | Host name of the host. |
+| operational_state | [string](#string) |  | Operational state of AMT on the host, either enabled or disabled. |
+| build_number | [string](#string) |  | Build Number of AMT on the host. |
+| sku | [string](#string) |  | Integer number of the SKU of the host. |
+| features | [string](#string) |  | AMT features available on host. |
+| device_guid | [string](#string) |  | Unique device ID for host. |
+| control_mode | [string](#string) |  | Control mode selected for vPRO on host, either client or admin. |
+| dns_suffix | [string](#string) |  | DNS Suffix for the host. |
+| network_status | [string](#string) |  | Networking status for RAS on host. |
+| remote_status | [string](#string) |  | Remote connection status for RAS on host. |
+| remote_trigger | [string](#string) |  | Trigger for enabling remote connection for RAS on host. |
+| mps_hostname | [string](#string) |  | Host name for MPS instance remotely connected to host. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -2156,6 +2190,7 @@ Also, limit and offset parameter are used for pagination.
 | RESOURCE_KIND_HOSTNIC | 50 |  |
 | RESOURCE_KIND_HOSTUSB | 51 |  |
 | RESOURCE_KIND_HOSTGPU | 52 |  |
+| RESOURCE_KIND_HOSTDEVICE | 53 |  |
 | RESOURCE_KIND_INSTANCE | 64 |  |
 | RESOURCE_KIND_IPADDRESS | 95 |  |
 | RESOURCE_KIND_NETWORKSEGMENT | 96 |  |
