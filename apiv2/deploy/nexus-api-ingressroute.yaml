@@ -59,7 +59,7 @@ spec:
     # os-update-*
     - match: >-
         Host(`api.kind.internal`) &&
-        PathRegexp(`^/v1/projects/[^/]+/(compute|sites|regions|locations|providers|workloads|workload_members|telemetry|localAccounts|customConfigs|os-update-policies|os-update-runs)(/.*)?$`)
+        PathRegexp(`^/v1/projects/[^/]+/(compute|sites|regions|locations|providers|schedules|workloads|workload_members|telemetry|localAccounts|customConfigs|os-update-policies|os-update-runs)(/.*)?$`)
       kind: Rule
       priority: 50
       middlewares:
