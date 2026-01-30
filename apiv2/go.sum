@@ -1066,6 +1066,8 @@ github.com/open-edge-platform/infra-core/inventory/v2 v2.34.2-0.20260127153752-2
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.2-0.20260127153752-27a5acbed557/go.mod h1:NzKTZ1cCdSvixIvsA4Ig3zzsryIHQJHnF/bGQ1+JBbc=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.2-0.20260128055433-f3ea64e87228 h1:GKKq4XBDHUtTulap+jRO2pfWpWqAu+K+yWPTtviQB2k=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.2-0.20260128055433-f3ea64e87228/go.mod h1:NzKTZ1cCdSvixIvsA4Ig3zzsryIHQJHnF/bGQ1+JBbc=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.34.2 h1:7wPJ7RhM4K484HNxhz6Mjn/LuvHciDiey0cAR/Zmh6g=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.34.2/go.mod h1:NzKTZ1cCdSvixIvsA4Ig3zzsryIHQJHnF/bGQ1+JBbc=
 github.com/open-edge-platform/orch-library/go v0.6.2 h1:JbZCtsWRKFenjZrUHdPVlpHl3gu0/vmUrjJ6SGc2Gyg=
 github.com/open-edge-platform/orch-library/go v0.6.2/go.mod h1:3Tes/GJfwYbnQa/1scbKiLbjZrL4fJEouFk28oo5/c8=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
