@@ -1145,6 +1145,46 @@ func (_u *HostResourceUpdate) ClearUserLvmSize() *HostResourceUpdate {
 	return _u
 }
 
+// SetAmtControlMode sets the "amt_control_mode" field.
+func (_u *HostResourceUpdate) SetAmtControlMode(v hostresource.AmtControlMode) *HostResourceUpdate {
+	_u.mutation.SetAmtControlMode(v)
+	return _u
+}
+
+// SetNillableAmtControlMode sets the "amt_control_mode" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableAmtControlMode(v *hostresource.AmtControlMode) *HostResourceUpdate {
+	if v != nil {
+		_u.SetAmtControlMode(*v)
+	}
+	return _u
+}
+
+// ClearAmtControlMode clears the value of the "amt_control_mode" field.
+func (_u *HostResourceUpdate) ClearAmtControlMode() *HostResourceUpdate {
+	_u.mutation.ClearAmtControlMode()
+	return _u
+}
+
+// SetAmtDNSSuffix sets the "amt_dns_suffix" field.
+func (_u *HostResourceUpdate) SetAmtDNSSuffix(v string) *HostResourceUpdate {
+	_u.mutation.SetAmtDNSSuffix(v)
+	return _u
+}
+
+// SetNillableAmtDNSSuffix sets the "amt_dns_suffix" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableAmtDNSSuffix(v *string) *HostResourceUpdate {
+	if v != nil {
+		_u.SetAmtDNSSuffix(*v)
+	}
+	return _u
+}
+
+// ClearAmtDNSSuffix clears the value of the "amt_dns_suffix" field.
+func (_u *HostResourceUpdate) ClearAmtDNSSuffix() *HostResourceUpdate {
+	_u.mutation.ClearAmtDNSSuffix()
+	return _u
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (_u *HostResourceUpdate) SetUpdatedAt(v string) *HostResourceUpdate {
 	_u.mutation.SetUpdatedAt(v)
@@ -1480,6 +1520,11 @@ func (_u *HostResourceUpdate) check() error {
 	if v, ok := _u.mutation.AmtStatusIndicator(); ok {
 		if err := hostresource.AmtStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "amt_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.AmtControlMode(); ok {
+		if err := hostresource.AmtControlModeValidator(v); err != nil {
+			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
 		}
 	}
 	return nil
@@ -1838,6 +1883,18 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 	}
 	if _u.mutation.UserLvmSizeCleared() {
 		_spec.ClearField(hostresource.FieldUserLvmSize, field.TypeUint32)
+	}
+	if value, ok := _u.mutation.AmtControlMode(); ok {
+		_spec.SetField(hostresource.FieldAmtControlMode, field.TypeEnum, value)
+	}
+	if _u.mutation.AmtControlModeCleared() {
+		_spec.ClearField(hostresource.FieldAmtControlMode, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.AmtDNSSuffix(); ok {
+		_spec.SetField(hostresource.FieldAmtDNSSuffix, field.TypeString, value)
+	}
+	if _u.mutation.AmtDNSSuffixCleared() {
+		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
@@ -3240,6 +3297,46 @@ func (_u *HostResourceUpdateOne) ClearUserLvmSize() *HostResourceUpdateOne {
 	return _u
 }
 
+// SetAmtControlMode sets the "amt_control_mode" field.
+func (_u *HostResourceUpdateOne) SetAmtControlMode(v hostresource.AmtControlMode) *HostResourceUpdateOne {
+	_u.mutation.SetAmtControlMode(v)
+	return _u
+}
+
+// SetNillableAmtControlMode sets the "amt_control_mode" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableAmtControlMode(v *hostresource.AmtControlMode) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetAmtControlMode(*v)
+	}
+	return _u
+}
+
+// ClearAmtControlMode clears the value of the "amt_control_mode" field.
+func (_u *HostResourceUpdateOne) ClearAmtControlMode() *HostResourceUpdateOne {
+	_u.mutation.ClearAmtControlMode()
+	return _u
+}
+
+// SetAmtDNSSuffix sets the "amt_dns_suffix" field.
+func (_u *HostResourceUpdateOne) SetAmtDNSSuffix(v string) *HostResourceUpdateOne {
+	_u.mutation.SetAmtDNSSuffix(v)
+	return _u
+}
+
+// SetNillableAmtDNSSuffix sets the "amt_dns_suffix" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableAmtDNSSuffix(v *string) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetAmtDNSSuffix(*v)
+	}
+	return _u
+}
+
+// ClearAmtDNSSuffix clears the value of the "amt_dns_suffix" field.
+func (_u *HostResourceUpdateOne) ClearAmtDNSSuffix() *HostResourceUpdateOne {
+	_u.mutation.ClearAmtDNSSuffix()
+	return _u
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (_u *HostResourceUpdateOne) SetUpdatedAt(v string) *HostResourceUpdateOne {
 	_u.mutation.SetUpdatedAt(v)
@@ -3588,6 +3685,11 @@ func (_u *HostResourceUpdateOne) check() error {
 	if v, ok := _u.mutation.AmtStatusIndicator(); ok {
 		if err := hostresource.AmtStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "amt_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_status_indicator": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.AmtControlMode(); ok {
+		if err := hostresource.AmtControlModeValidator(v); err != nil {
+			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
 		}
 	}
 	return nil
@@ -3963,6 +4065,18 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 	}
 	if _u.mutation.UserLvmSizeCleared() {
 		_spec.ClearField(hostresource.FieldUserLvmSize, field.TypeUint32)
+	}
+	if value, ok := _u.mutation.AmtControlMode(); ok {
+		_spec.SetField(hostresource.FieldAmtControlMode, field.TypeEnum, value)
+	}
+	if _u.mutation.AmtControlModeCleared() {
+		_spec.ClearField(hostresource.FieldAmtControlMode, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.AmtDNSSuffix(); ok {
+		_spec.SetField(hostresource.FieldAmtDNSSuffix, field.TypeString, value)
+	}
+	if _u.mutation.AmtDNSSuffixCleared() {
+		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
