@@ -125,6 +125,8 @@ var (
 		{Name: "amt_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "amt_status_timestamp", Type: field.TypeUint64, Nullable: true},
 		{Name: "user_lvm_size", Type: field.TypeUint32, Nullable: true},
+		{Name: "amt_control_mode", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_CONTROL_MODE_UNSPECIFIED", "AMT_CONTROL_MODE_ACM", "AMT_CONTROL_MODE_CCM"}},
+		{Name: "amt_dns_suffix", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -140,19 +142,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "host_resources_site_resources_site",
-				Columns:    []*schema.Column{HostResourcesColumns[56]},
+				Columns:    []*schema.Column{HostResourcesColumns[58]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_provider_resources_provider",
-				Columns:    []*schema.Column{HostResourcesColumns[57]},
+				Columns:    []*schema.Column{HostResourcesColumns[59]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[58]},
+				Columns:    []*schema.Column{HostResourcesColumns[60]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -177,7 +179,7 @@ var (
 			{
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{HostResourcesColumns[53]},
+				Columns: []*schema.Column{HostResourcesColumns[55]},
 			},
 		},
 	}
