@@ -65,6 +65,8 @@ const (
 	HostResourceFieldAmtStatusIndicator          = "amt_status_indicator"
 	HostResourceFieldAmtStatusTimestamp          = "amt_status_timestamp"
 	HostResourceFieldUserLvmSize                 = "user_lvm_size"
+	HostResourceFieldAmtControlMode              = "amt_control_mode"
+	HostResourceFieldAmtDnsSuffix                = "amt_dns_suffix"
 	HostResourceFieldTenantId                    = "tenant_id"
 	HostResourceFieldCreatedAt                   = "created_at"
 	HostResourceFieldUpdatedAt                   = "updated_at"

@@ -46,6 +46,7 @@ func HostEnumStateMap(fname string, eint int32) (ent.Value, error) {
 		hosts.FieldDesiredAmtState:             hosts.DesiredAmtState(computev1.AmtState_name[eint]),
 		hosts.FieldCurrentAmtState:             hosts.CurrentAmtState(computev1.AmtState_name[eint]),
 		hosts.FieldAmtSku:                      hosts.AmtSku(computev1.AmtSku_name[eint]),
+		hosts.FieldAmtControlMode:              hosts.AmtControlMode(computev1.AmtControlMode_name[eint]),
 		hosts.FieldPowerStatusIndicator:        hosts.PowerStatusIndicator(statusv1.StatusIndication_name[eint]),
 		hosts.FieldAmtStatusIndicator:          hosts.AmtStatusIndicator(statusv1.StatusIndication_name[eint]),
 	}
