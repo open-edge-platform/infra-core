@@ -136,7 +136,7 @@ func main() {
 			cfg.Inventory.CertPath,
 			cfg.Inventory.KeyPath,
 			cfg.RestServer.Authentication,
-			cfg.Scenario,
+			cfg.EIMScenario,
 		)
 	}()
 
