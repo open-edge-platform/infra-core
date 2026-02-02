@@ -47,6 +47,14 @@ message OperatingSystemResource {
         ]
       },
       {
+        unique: true
+        fields: [
+          "profile_name",
+          "image_id",
+          "tenant_id"
+        ]
+      },
+      {
         unique: false
         fields: ["tenant_id"]
       }
