@@ -318,6 +318,32 @@ class HostgpuResource(betterproto.Message):
 
 
 @dataclass
+class HostdeviceResource(betterproto.Message):
+    """
+    HostdeviceResource describes the vPRO support and settings on a host.
+    """
+
+    resource_id: str = betterproto.string_field(1)
+    host: "HostResource" = betterproto.message_field(8)
+    version: str = betterproto.string_field(10)
+    hostname: str = betterproto.string_field(11)
+    operational_state: str = betterproto.string_field(12)
+    build_number: str = betterproto.string_field(13)
+    sku: str = betterproto.string_field(14)
+    features: str = betterproto.string_field(15)
+    device_guid: str = betterproto.string_field(16)
+    control_mode: str = betterproto.string_field(17)
+    dns_suffix: str = betterproto.string_field(18)
+    network_status: str = betterproto.string_field(25)
+    remote_status: str = betterproto.string_field(26)
+    remote_trigger: str = betterproto.string_field(27)
+    mps_hostname: str = betterproto.string_field(28)
+    tenant_id: str = betterproto.string_field(100)
+    created_at: str = betterproto.string_field(200)
+    updated_at: str = betterproto.string_field(201)
+
+
+@dataclass
 class InstanceResource(betterproto.Message):
     """
     InstanceResource describes an instantiated OS install, running on either a
@@ -378,32 +404,6 @@ class InstanceResource(betterproto.Message):
     custom_config: List["CustomConfigResource"] = betterproto.message_field(53)
     tenant_id: str = betterproto.string_field(100)
     instance_status_detail: str = betterproto.string_field(101)
-    created_at: str = betterproto.string_field(200)
-    updated_at: str = betterproto.string_field(201)
-
-
-@dataclass
-class HostdeviceResource(betterproto.Message):
-    """
-    HostdeviceResource describes the vPRO support and settings on a host.
-    """
-
-    resource_id: str = betterproto.string_field(1)
-    host: "HostResource" = betterproto.message_field(8)
-    version: str = betterproto.string_field(10)
-    hostname: str = betterproto.string_field(11)
-    operational_state: str = betterproto.string_field(12)
-    build_number: str = betterproto.string_field(13)
-    sku: str = betterproto.string_field(14)
-    features: str = betterproto.string_field(15)
-    device_guid: str = betterproto.string_field(16)
-    control_mode: str = betterproto.string_field(17)
-    dns_suffix: str = betterproto.string_field(18)
-    network_status: str = betterproto.string_field(25)
-    remote_status: str = betterproto.string_field(26)
-    remote_trigger: str = betterproto.string_field(27)
-    mps_hostname: str = betterproto.string_field(28)
-    tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
 
