@@ -56,10 +56,6 @@ the service name in the protobuf definition file (`api/proto/services/v1/service
 
 2. Define services
    ```yaml
-   ---
-   # SPDX-FileCopyrightText: (C) 2026 Intel Corporation
-   # SPDX-License-Identifier: Apache-2.0
-   
    name: custom-scenario
    description: Custom deployment configuration
    services:
@@ -82,6 +78,7 @@ the service name in the protobuf definition file (`api/proto/services/v1/service
 
 The code generator (`tools/allowservicesgen`) validates:
 
+- All service names must exist in the `services.proto` file.
 - All service names in manifests are mapped to service handler in server implementation
 - Manifest files are valid YAML
 - Each manifest has at least one service
