@@ -114,12 +114,17 @@ func main() {
 	// Add inventory grpc server Start
 	wg.Add(1)
 	go func() {
-		lis, err := net.Listen("tcp", cfg.GRPCAddress)
+		lc := net.ListenConfig{}
+		lis, err := lc.Listen(context.Background(), "tcp", cfg.GRPCAddress)
 		if err != nil {
 			zlog.InfraSec().Err(err).Msgf("Error listening with TCP on address %s", cfg.GRPCAddress)
 			fatal(err)
 		}
-		defer lis.Close()
+		defer func() {
+			if err := lis.Close(); err != nil {
+				zlog.InfraSec().Err(err).Msg("Failed to close listener")
+			}
+		}()
 		invServer.Start(
 			lis,
 			termChan,
@@ -131,6 +136,7 @@ func main() {
 			cfg.Inventory.CertPath,
 			cfg.Inventory.KeyPath,
 			cfg.RestServer.Authentication,
+			cfg.Scenario,
 		)
 	}()
 

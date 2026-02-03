@@ -9,7 +9,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"strings"
 	"sync"
 
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
@@ -156,17 +155,10 @@ func getRepoClient(client *http.Client, reference string) (*remote.Repository, e
 
 	// use a custom client to apply proxy settings
 	repo.Client = client
-	// rs-proxy only supports http, for other registries use https
-	repo.PlainHTTP = isRsProxy(reference)
+	// rs-proxy only supports http
+	repo.PlainHTTP = true
 
 	return repo, nil
-}
-
-// isRsProxy checks if the reference is using the rs-proxy registry.
-// rs-proxy only supports plain HTTP, while other registries should use HTTPS.
-func isRsProxy(reference string) bool {
-	// Check if the reference contains the rs-proxy pattern
-	return strings.Contains(reference, "rs-proxy")
 }
 
 func getOCIImageManifest(ctx context.Context, repoClient *remote.Repository, tag string) (*ocispec.Manifest, error) {

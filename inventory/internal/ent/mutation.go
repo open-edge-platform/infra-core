@@ -1618,6 +1618,8 @@ type HostResourceMutation struct {
 	addamt_status_timestamp          *int64
 	user_lvm_size                    *uint32
 	adduser_lvm_size                 *int32
+	amt_control_mode                 *hostresource.AmtControlMode
+	amt_dns_suffix                   *string
 	tenant_id                        *string
 	created_at                       *string
 	updated_at                       *string
@@ -4509,6 +4511,104 @@ func (m *HostResourceMutation) ResetUserLvmSize() {
 	delete(m.clearedFields, hostresource.FieldUserLvmSize)
 }
 
+// SetAmtControlMode sets the "amt_control_mode" field.
+func (m *HostResourceMutation) SetAmtControlMode(hcm hostresource.AmtControlMode) {
+	m.amt_control_mode = &hcm
+}
+
+// AmtControlMode returns the value of the "amt_control_mode" field in the mutation.
+func (m *HostResourceMutation) AmtControlMode() (r hostresource.AmtControlMode, exists bool) {
+	v := m.amt_control_mode
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtControlMode returns the old "amt_control_mode" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtControlMode(ctx context.Context) (v hostresource.AmtControlMode, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtControlMode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtControlMode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtControlMode: %w", err)
+	}
+	return oldValue.AmtControlMode, nil
+}
+
+// ClearAmtControlMode clears the value of the "amt_control_mode" field.
+func (m *HostResourceMutation) ClearAmtControlMode() {
+	m.amt_control_mode = nil
+	m.clearedFields[hostresource.FieldAmtControlMode] = struct{}{}
+}
+
+// AmtControlModeCleared returns if the "amt_control_mode" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtControlModeCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtControlMode]
+	return ok
+}
+
+// ResetAmtControlMode resets all changes to the "amt_control_mode" field.
+func (m *HostResourceMutation) ResetAmtControlMode() {
+	m.amt_control_mode = nil
+	delete(m.clearedFields, hostresource.FieldAmtControlMode)
+}
+
+// SetAmtDNSSuffix sets the "amt_dns_suffix" field.
+func (m *HostResourceMutation) SetAmtDNSSuffix(s string) {
+	m.amt_dns_suffix = &s
+}
+
+// AmtDNSSuffix returns the value of the "amt_dns_suffix" field in the mutation.
+func (m *HostResourceMutation) AmtDNSSuffix() (r string, exists bool) {
+	v := m.amt_dns_suffix
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAmtDNSSuffix returns the old "amt_dns_suffix" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldAmtDNSSuffix(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAmtDNSSuffix is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAmtDNSSuffix requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAmtDNSSuffix: %w", err)
+	}
+	return oldValue.AmtDNSSuffix, nil
+}
+
+// ClearAmtDNSSuffix clears the value of the "amt_dns_suffix" field.
+func (m *HostResourceMutation) ClearAmtDNSSuffix() {
+	m.amt_dns_suffix = nil
+	m.clearedFields[hostresource.FieldAmtDNSSuffix] = struct{}{}
+}
+
+// AmtDNSSuffixCleared returns if the "amt_dns_suffix" field was cleared in this mutation.
+func (m *HostResourceMutation) AmtDNSSuffixCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldAmtDNSSuffix]
+	return ok
+}
+
+// ResetAmtDNSSuffix resets all changes to the "amt_dns_suffix" field.
+func (m *HostResourceMutation) ResetAmtDNSSuffix() {
+	m.amt_dns_suffix = nil
+	delete(m.clearedFields, hostresource.FieldAmtDNSSuffix)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *HostResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -4984,7 +5084,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 55)
+	fields := make([]string, 0, 57)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -5141,6 +5241,12 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.user_lvm_size != nil {
 		fields = append(fields, hostresource.FieldUserLvmSize)
 	}
+	if m.amt_control_mode != nil {
+		fields = append(fields, hostresource.FieldAmtControlMode)
+	}
+	if m.amt_dns_suffix != nil {
+		fields = append(fields, hostresource.FieldAmtDNSSuffix)
+	}
 	if m.tenant_id != nil {
 		fields = append(fields, hostresource.FieldTenantID)
 	}
@@ -5262,6 +5368,10 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.AmtStatusTimestamp()
 	case hostresource.FieldUserLvmSize:
 		return m.UserLvmSize()
+	case hostresource.FieldAmtControlMode:
+		return m.AmtControlMode()
+	case hostresource.FieldAmtDNSSuffix:
+		return m.AmtDNSSuffix()
 	case hostresource.FieldTenantID:
 		return m.TenantID()
 	case hostresource.FieldCreatedAt:
@@ -5381,6 +5491,10 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldAmtStatusTimestamp(ctx)
 	case hostresource.FieldUserLvmSize:
 		return m.OldUserLvmSize(ctx)
+	case hostresource.FieldAmtControlMode:
+		return m.OldAmtControlMode(ctx)
+	case hostresource.FieldAmtDNSSuffix:
+		return m.OldAmtDNSSuffix(ctx)
 	case hostresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case hostresource.FieldCreatedAt:
@@ -5760,6 +5874,20 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserLvmSize(v)
 		return nil
+	case hostresource.FieldAmtControlMode:
+		v, ok := value.(hostresource.AmtControlMode)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtControlMode(v)
+		return nil
+	case hostresource.FieldAmtDNSSuffix:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAmtDNSSuffix(v)
+		return nil
 	case hostresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -6099,6 +6227,12 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(hostresource.FieldUserLvmSize) {
 		fields = append(fields, hostresource.FieldUserLvmSize)
 	}
+	if m.FieldCleared(hostresource.FieldAmtControlMode) {
+		fields = append(fields, hostresource.FieldAmtControlMode)
+	}
+	if m.FieldCleared(hostresource.FieldAmtDNSSuffix) {
+		fields = append(fields, hostresource.FieldAmtDNSSuffix)
+	}
 	return fields
 }
 
@@ -6266,6 +6400,12 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldUserLvmSize:
 		m.ClearUserLvmSize()
 		return nil
+	case hostresource.FieldAmtControlMode:
+		m.ClearAmtControlMode()
+		return nil
+	case hostresource.FieldAmtDNSSuffix:
+		m.ClearAmtDNSSuffix()
+		return nil
 	}
 	return fmt.Errorf("unknown HostResource nullable field %s", name)
 }
@@ -6429,6 +6569,12 @@ func (m *HostResourceMutation) ResetField(name string) error {
 		return nil
 	case hostresource.FieldUserLvmSize:
 		m.ResetUserLvmSize()
+		return nil
+	case hostresource.FieldAmtControlMode:
+		m.ResetAmtControlMode()
+		return nil
+	case hostresource.FieldAmtDNSSuffix:
+		m.ResetAmtDNSSuffix()
 		return nil
 	case hostresource.FieldTenantID:
 		m.ResetTenantID()
