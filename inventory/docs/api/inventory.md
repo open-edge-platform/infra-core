@@ -42,6 +42,7 @@
     - [WorkloadMember](#compute-v1-WorkloadMember)
     - [WorkloadResource](#compute-v1-WorkloadResource)
   
+    - [AmtControlMode](#compute-v1-AmtControlMode)
     - [AmtSku](#compute-v1-AmtSku)
     - [AmtState](#compute-v1-AmtState)
     - [BaremetalControllerKind](#compute-v1-BaremetalControllerKind)
@@ -585,6 +586,8 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | amt_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
 | amt_status_timestamp | [uint64](#uint64) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
+| amt_control_mode | [AmtControlMode](#compute-v1-AmtControlMode) |  | coming from user selection |
+| amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -878,6 +881,19 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 
  
+
+
+<a name="compute-v1-AmtControlMode"></a>
+
+### AmtControlMode
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_CONTROL_MODE_UNSPECIFIED | 0 |  |
+| AMT_CONTROL_MODE_ACM | 1 |  |
+| AMT_CONTROL_MODE_CCM | 2 |  |
+
 
 
 <a name="compute-v1-AmtSku"></a>
