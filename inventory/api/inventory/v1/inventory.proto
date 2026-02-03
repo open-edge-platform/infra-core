@@ -211,6 +211,7 @@ message Resource {
     compute.v1.HostnicResource hostnic = 42;
     compute.v1.HostusbResource hostusb = 43;
     compute.v1.HostgpuResource hostgpu = 44;
+    compute.v1.HostdeviceResource hostdevice = 45;
 
     compute.v1.InstanceResource instance = 50;
 

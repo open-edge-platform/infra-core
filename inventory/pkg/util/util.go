@@ -825,6 +825,7 @@ func GetResourceFromKind(resourceType inv_v1.ResourceKind) (*inv_v1.Resource, er
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:     {Resource: &inv_v1.Resource_Hostnic{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:     {Resource: &inv_v1.Resource_Hostusb{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU:     {Resource: &inv_v1.Resource_Hostgpu{}},
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:  {Resource: &inv_v1.Resource_Hostdevice{}},
 
 		inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT: {Resource: &inv_v1.Resource_NetworkSegment{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_NETLINK:        {Resource: &inv_v1.Resource_Netlink{}},
