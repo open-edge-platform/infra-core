@@ -4,7 +4,8 @@ This directory contains YAML manifests that define which API services are enable
 
 ## Overview
 
-Each manifest file defines an  **EIM scenario** - a specific configuration of enabled API services for different deployment contexts. The filename (without extension) becomes the scenario name used at runtime.
+Each manifest file defines an  **EIM scenario** - a specific configuration of enabled API services for different
+deployment contexts. The filename (without extension) becomes the scenario name used at runtime.
 
 ## Usage
 
@@ -48,13 +49,18 @@ the service name in the protobuf definition file (`api/proto/services/v1/service
 
 ## Adding a New Scenario
 
+**Note:** All services defined in `services.proto` must have their handler registration functions
+mapped in `internal/proxy/server.go` and `internal/server/server.go`.
+
 1. Create manifest file
+
    ```bash
    # Filename becomes scenario name
    touch manifests/custom-scenario.yaml
    ```
 
 2. Define services
+
    ```yaml
    name: custom-scenario
    description: Custom deployment configuration
@@ -65,6 +71,7 @@ the service name in the protobuf definition file (`api/proto/services/v1/service
    ```
 
 3. Regenerate code
+
    ```bash
    make generate
    ```
@@ -79,11 +86,10 @@ the service name in the protobuf definition file (`api/proto/services/v1/service
 The code generator (`tools/allowservicesgen`) validates:
 
 - All service names must exist in the `services.proto` file.
-- All service names in manifests are mapped to service handler in server implementation
-- Manifest files are valid YAML
-- Each manifest has at least one service
-- Service handlers can exist in code but not be used in any scenario (valid)
-- Services in manifests that don't exist in code return build error
+- Services in manifests that don't exist in code return build error.
+- Manifest files are valid YAML.
+- Each manifest has at least one service.
+- Services can exist in `services.proto` but not be used in any scenario.
 
 ## Related Files
 

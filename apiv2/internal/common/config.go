@@ -165,7 +165,7 @@ func Config() (*GlobalConfig, error) {
 	enableAuditing := flag.Bool(EnableAuditing, defaultCfg.EnableAuditing, EnableAuditingDescription)
 	gRPCEndpoint := flag.String("grpcEndpoint", defaultCfg.GRPCEndpoint, "The endpoint of the gRPC server")
 	gRPCAddress := flag.String("grpcAddress", defaultCfg.GRPCEndpoint, "The gRPC server address")
-	eimScenario := flag.String("eimScenario", defaultCfg.EIMScenario, "The EIM deployment scenario name (e.g., 'fulleim', 'vpro')")
+	eimScenario := flag.String("eimScenario", defaultCfg.EIMScenario, "The EIM deployment scenario name")
 	flag.Parse()
 
 	return &GlobalConfig{
