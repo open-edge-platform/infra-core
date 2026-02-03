@@ -62,10 +62,10 @@ var servicesServers = map[string]serviceServersSignature{
 	"TelemetryLogsProfileService": func(s *grpc.Server, is *InventorygRPCServer) {
 		restv1.RegisterTelemetryLogsProfileServiceServer(s, is)
 	},
-	"LocalAccountService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocalAccountServiceServer(s, is) },
-	"CustomConfigService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterCustomConfigServiceServer(s, is) },
-	"OSUpdatePolicyService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdatePolicyServer(s, is) },
-	"OSUpdateRunService":    func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdateRunServer(s, is) },
+	"LocalAccountService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocalAccountServiceServer(s, is) },
+	"CustomConfigService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterCustomConfigServiceServer(s, is) },
+	"OSUpdatePolicy":      func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdatePolicyServer(s, is) },
+	"OSUpdateRun":         func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdateRunServer(s, is) },
 }
 
 type InventorygRPCServer struct {

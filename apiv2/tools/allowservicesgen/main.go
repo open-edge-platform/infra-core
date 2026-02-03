@@ -37,13 +37,21 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Validate services against server implementation
-	if err := validateServices(allow); err != nil {
+	// Load proto services
+	protoServicesMap, serviceCount, err := getServicesFromProto("api/proto/services/v1/services.proto")
+	if err != nil {
+		log.Printf("failed to parse proto: %v", err)
+		os.Exit(1)
+	}
+	log.Printf("found %d service(s) in proto file", serviceCount)
+
+	// Validate service names against services in protobuf definitions
+	if err := validateServices(allow, protoServicesMap); err != nil {
 		log.Printf("validation failed: %v", err)
 		os.Exit(1)
 	}
 
-	if err := writeGenerated(*outFile, *pkgName, allow); err != nil {
+	if err := writeGenerated(*outFile, *pkgName, allow, protoServicesMap); err != nil {
 		log.Printf("failed to write generated file: %v", err)
 		os.Exit(1)
 	}
@@ -128,7 +136,7 @@ func clean(in []string) []string {
 	return out
 }
 
-func writeGenerated(outPath, pkg string, allowed map[string][]string) error {
+func writeGenerated(outPath, pkg string, allowed map[string][]string, protoServicesMap map[string]string) error {
 	scenarios := make([]string, 0, len(allowed))
 	for sc := range allowed {
 		scenarios = append(scenarios, sc)
@@ -150,7 +158,26 @@ func writeGenerated(outPath, pkg string, allowed map[string][]string) error {
 
 	buf.WriteString("var Allowlist = map[string][]string{\n")
 	for _, sc := range scenarios {
-		services := append([]string(nil), allowed[sc]...)
+		rawServices := allowed[sc]
+
+		seen := make(map[string]struct{})
+		services := make([]string, 0, len(rawServices))
+
+		for _, s := range rawServices {
+			normalized := normalizeServiceName(s)
+
+			// If we have an equivalent in proto, use the proto service name
+			if protoName, ok := protoServicesMap[normalized]; ok {
+				s = protoName
+			}
+
+			if _, exists := seen[s]; exists {
+				continue
+			}
+			seen[s] = struct{}{}
+			services = append(services, s)
+		}
+
 		sort.Strings(services)
 
 		buf.WriteString(fmt.Sprintf("\t%q: {\n", sc))
@@ -186,7 +213,7 @@ func writeGenerated(outPath, pkg string, allowed map[string][]string) error {
 }
 
 // getServicesFromProto parses the proto file and extracts service names.
-func getServicesFromProto(protoPath string) (map[string]struct{}, int, error) {
+func getServicesFromProto(protoPath string) (map[string]string, int, error) {
 	content, err := os.ReadFile(protoPath)
 	if err != nil {
 		return nil, 0, fmt.Errorf("read proto file %q: %w", protoPath, err)
@@ -196,7 +223,7 @@ func getServicesFromProto(protoPath string) (map[string]struct{}, int, error) {
 	re := regexp.MustCompile(`(?m)^service\s+(\w+)\s*\{`)
 	matches := re.FindAllSubmatch(content, -1)
 
-	services := make(map[string]struct{})
+	services := make(map[string]string)
 
 	for _, match := range matches {
 		if len(match) < 2 {
@@ -206,7 +233,7 @@ func getServicesFromProto(protoPath string) (map[string]struct{}, int, error) {
 		rawName := string(match[1])
 		normalized := normalizeServiceName(rawName)
 
-		services[normalized] = struct{}{}
+		services[normalized] = rawName
 	}
 
 	return services, len(services), nil
@@ -222,14 +249,7 @@ func normalizeServiceName(name string) string {
 }
 
 // validateServices checks that all services in manifests are defined in proto file.
-func validateServices(allowed map[string][]string) error {
-	// Get services from proto file (source of truth)
-	protoServicesMap, serviceCount, err := getServicesFromProto("api/proto/services/v1/services.proto")
-	if err != nil {
-		return fmt.Errorf("failed to parse proto: %w", err)
-	}
-
-	log.Printf("found %d service(s) in proto file", serviceCount)
+func validateServices(allowed map[string][]string, protoServicesMap map[string]string) error {
 
 	// Collect all unique services from manifests
 	manifestServices := make(map[string]bool)

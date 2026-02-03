@@ -53,8 +53,8 @@ var servicesClients = map[string]serviceClientsSignature{
 	"TelemetryLogsProfileService":    restv1.RegisterTelemetryLogsProfileServiceHandlerFromEndpoint,
 	"LocalAccountService":            restv1.RegisterLocalAccountServiceHandlerFromEndpoint,
 	"CustomConfigService":            restv1.RegisterCustomConfigServiceHandlerFromEndpoint,
-	"OSUpdatePolicyService":          restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
-	"OSUpdateRunService":             restv1.RegisterOSUpdateRunHandlerFromEndpoint,
+	"OSUpdatePolicy":                 restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
+	"OSUpdateRun":                    restv1.RegisterOSUpdateRunHandlerFromEndpoint,
 }
 
 const (
