@@ -22,301 +22,739 @@ import (
 type ServerInterface interface {
 	// ListCustomConfigs
 	// (GET /edge-infra.orchestrator.apis/v2/customConfigs)
-	CustomConfigServiceListCustomConfigs(ctx echo.Context, params CustomConfigServiceListCustomConfigsParams) error
+	CustomConfigServiceListCustomConfigs2(ctx echo.Context, params CustomConfigServiceListCustomConfigs2Params) error
 	// CreateCustomConfig
 	// (POST /edge-infra.orchestrator.apis/v2/customConfigs)
-	CustomConfigServiceCreateCustomConfig(ctx echo.Context) error
+	CustomConfigServiceCreateCustomConfig2(ctx echo.Context, params CustomConfigServiceCreateCustomConfig2Params) error
 	// DeleteCustomConfig
 	// (DELETE /edge-infra.orchestrator.apis/v2/customConfigs/{resourceId})
-	CustomConfigServiceDeleteCustomConfig(ctx echo.Context, resourceId string) error
+	CustomConfigServiceDeleteCustomConfig2(ctx echo.Context, resourceId string, params CustomConfigServiceDeleteCustomConfig2Params) error
 	// GetCustomConfig
 	// (GET /edge-infra.orchestrator.apis/v2/customConfigs/{resourceId})
-	CustomConfigServiceGetCustomConfig(ctx echo.Context, resourceId string) error
+	CustomConfigServiceGetCustomConfig2(ctx echo.Context, resourceId string, params CustomConfigServiceGetCustomConfig2Params) error
 	// ListHosts
 	// (GET /edge-infra.orchestrator.apis/v2/hosts)
-	HostServiceListHosts(ctx echo.Context, params HostServiceListHostsParams) error
+	HostServiceListHosts2(ctx echo.Context, params HostServiceListHosts2Params) error
 	// CreateHost
 	// (POST /edge-infra.orchestrator.apis/v2/hosts)
-	HostServiceCreateHost(ctx echo.Context) error
+	HostServiceCreateHost2(ctx echo.Context, params HostServiceCreateHost2Params) error
 	// RegisterHost
 	// (POST /edge-infra.orchestrator.apis/v2/hosts/register)
-	HostServiceRegisterHost(ctx echo.Context) error
+	HostServiceRegisterHost2(ctx echo.Context, params HostServiceRegisterHost2Params) error
 	// DeleteHost
 	// (DELETE /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
-	HostServiceDeleteHost(ctx echo.Context, resourceId string) error
+	HostServiceDeleteHost2(ctx echo.Context, resourceId string, params HostServiceDeleteHost2Params) error
 	// GetHost
 	// (GET /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
-	HostServiceGetHost(ctx echo.Context, resourceId string) error
+	HostServiceGetHost2(ctx echo.Context, resourceId string, params HostServiceGetHost2Params) error
 	// PatchHost
 	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
-	HostServicePatchHost(ctx echo.Context, resourceId string) error
+	HostServicePatchHost2(ctx echo.Context, resourceId string, params HostServicePatchHost2Params) error
 	// UpdateHost
 	// (PUT /edge-infra.orchestrator.apis/v2/hosts/{resourceId})
-	HostServiceUpdateHost(ctx echo.Context, resourceId string) error
+	HostServiceUpdateHost2(ctx echo.Context, resourceId string, params HostServiceUpdateHost2Params) error
 	// InvalidateHost
 	// (PUT /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/invalidate)
-	HostServiceInvalidateHost(ctx echo.Context, resourceId string, params HostServiceInvalidateHostParams) error
+	HostServiceInvalidateHost2(ctx echo.Context, resourceId string, params HostServiceInvalidateHost2Params) error
 	// OnboardHost
 	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/onboard)
-	HostServiceOnboardHost(ctx echo.Context, resourceId string) error
+	HostServiceOnboardHost2(ctx echo.Context, resourceId string, params HostServiceOnboardHost2Params) error
 	// PatchRegisterHost
 	// (PATCH /edge-infra.orchestrator.apis/v2/hosts/{resourceId}/register)
-	HostServicePatchRegisterHost(ctx echo.Context, resourceId string) error
+	HostServicePatchRegisterHost2(ctx echo.Context, resourceId string, params HostServicePatchRegisterHost2Params) error
 	// GetHostsSummary
 	// (GET /edge-infra.orchestrator.apis/v2/hosts_summary)
-	HostServiceGetHostsSummary(ctx echo.Context, params HostServiceGetHostsSummaryParams) error
+	HostServiceGetHostsSummary2(ctx echo.Context, params HostServiceGetHostsSummary2Params) error
 	// ListInstances
 	// (GET /edge-infra.orchestrator.apis/v2/instances)
-	InstanceServiceListInstances(ctx echo.Context, params InstanceServiceListInstancesParams) error
+	InstanceServiceListInstances2(ctx echo.Context, params InstanceServiceListInstances2Params) error
 	// CreateInstance
 	// (POST /edge-infra.orchestrator.apis/v2/instances)
-	InstanceServiceCreateInstance(ctx echo.Context) error
+	InstanceServiceCreateInstance2(ctx echo.Context, params InstanceServiceCreateInstance2Params) error
 	// DeleteInstance
 	// (DELETE /edge-infra.orchestrator.apis/v2/instances/{resourceId})
-	InstanceServiceDeleteInstance(ctx echo.Context, resourceId string) error
+	InstanceServiceDeleteInstance2(ctx echo.Context, resourceId string, params InstanceServiceDeleteInstance2Params) error
 	// GetInstance
 	// (GET /edge-infra.orchestrator.apis/v2/instances/{resourceId})
-	InstanceServiceGetInstance(ctx echo.Context, resourceId string) error
+	InstanceServiceGetInstance2(ctx echo.Context, resourceId string, params InstanceServiceGetInstance2Params) error
 	// PatchInstance
 	// (PATCH /edge-infra.orchestrator.apis/v2/instances/{resourceId})
-	InstanceServicePatchInstance(ctx echo.Context, resourceId string) error
+	InstanceServicePatchInstance2(ctx echo.Context, resourceId string, params InstanceServicePatchInstance2Params) error
 	// UpdateInstance
 	// (PUT /edge-infra.orchestrator.apis/v2/instances/{resourceId})
-	InstanceServiceUpdateInstance(ctx echo.Context, resourceId string) error
+	InstanceServiceUpdateInstance2(ctx echo.Context, resourceId string, params InstanceServiceUpdateInstance2Params) error
 	// InvalidateInstance
 	// (PUT /edge-infra.orchestrator.apis/v2/instances/{resourceId}/invalidate)
-	InstanceServiceInvalidateInstance(ctx echo.Context, resourceId string) error
+	InstanceServiceInvalidateInstance2(ctx echo.Context, resourceId string, params InstanceServiceInvalidateInstance2Params) error
 	// ListLocalAccounts
 	// (GET /edge-infra.orchestrator.apis/v2/localAccounts)
-	LocalAccountServiceListLocalAccounts(ctx echo.Context, params LocalAccountServiceListLocalAccountsParams) error
+	LocalAccountServiceListLocalAccounts2(ctx echo.Context, params LocalAccountServiceListLocalAccounts2Params) error
 	// CreateLocalAccount
 	// (POST /edge-infra.orchestrator.apis/v2/localAccounts)
-	LocalAccountServiceCreateLocalAccount(ctx echo.Context) error
+	LocalAccountServiceCreateLocalAccount2(ctx echo.Context, params LocalAccountServiceCreateLocalAccount2Params) error
 	// DeleteLocalAccount
 	// (DELETE /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId})
-	LocalAccountServiceDeleteLocalAccount(ctx echo.Context, resourceId string) error
+	LocalAccountServiceDeleteLocalAccount2(ctx echo.Context, resourceId string, params LocalAccountServiceDeleteLocalAccount2Params) error
 	// GetLocalAccount
 	// (GET /edge-infra.orchestrator.apis/v2/localAccounts/{resourceId})
-	LocalAccountServiceGetLocalAccount(ctx echo.Context, resourceId string) error
+	LocalAccountServiceGetLocalAccount2(ctx echo.Context, resourceId string, params LocalAccountServiceGetLocalAccount2Params) error
 	// ListLocations
 	// (GET /edge-infra.orchestrator.apis/v2/locations)
-	LocationServiceListLocations(ctx echo.Context, params LocationServiceListLocationsParams) error
+	LocationServiceListLocations2(ctx echo.Context, params LocationServiceListLocations2Params) error
 	// ListOperatingSystems
 	// (GET /edge-infra.orchestrator.apis/v2/operating_systems)
-	OperatingSystemServiceListOperatingSystems(ctx echo.Context, params OperatingSystemServiceListOperatingSystemsParams) error
+	OperatingSystemServiceListOperatingSystems2(ctx echo.Context, params OperatingSystemServiceListOperatingSystems2Params) error
 	// CreateOperatingSystem
 	// (POST /edge-infra.orchestrator.apis/v2/operating_systems)
-	OperatingSystemServiceCreateOperatingSystem(ctx echo.Context) error
+	OperatingSystemServiceCreateOperatingSystem2(ctx echo.Context, params OperatingSystemServiceCreateOperatingSystem2Params) error
 	// DeleteOperatingSystem
 	// (DELETE /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServiceDeleteOperatingSystem(ctx echo.Context, resourceId string) error
+	OperatingSystemServiceDeleteOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServiceDeleteOperatingSystem2Params) error
 	// GetOperatingSystem
 	// (GET /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServiceGetOperatingSystem(ctx echo.Context, resourceId string) error
+	OperatingSystemServiceGetOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServiceGetOperatingSystem2Params) error
 	// PatchOperatingSystem
 	// (PATCH /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServicePatchOperatingSystem(ctx echo.Context, resourceId string) error
+	OperatingSystemServicePatchOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServicePatchOperatingSystem2Params) error
 	// UpdateOperatingSystem
 	// (PUT /edge-infra.orchestrator.apis/v2/operating_systems/{resourceId})
-	OperatingSystemServiceUpdateOperatingSystem(ctx echo.Context, resourceId string) error
+	OperatingSystemServiceUpdateOperatingSystem2(ctx echo.Context, resourceId string, params OperatingSystemServiceUpdateOperatingSystem2Params) error
 	// ListOSUpdatePolicy
 	// (GET /edge-infra.orchestrator.apis/v2/os_update_policy)
-	OSUpdatePolicyListOSUpdatePolicy(ctx echo.Context, params OSUpdatePolicyListOSUpdatePolicyParams) error
+	OSUpdatePolicyListOSUpdatePolicy2(ctx echo.Context, params OSUpdatePolicyListOSUpdatePolicy2Params) error
 	// CreateOSUpdatePolicy
 	// (POST /edge-infra.orchestrator.apis/v2/os_update_policy)
-	OSUpdatePolicyCreateOSUpdatePolicy(ctx echo.Context) error
+	OSUpdatePolicyCreateOSUpdatePolicy2(ctx echo.Context, params OSUpdatePolicyCreateOSUpdatePolicy2Params) error
 	// DeleteOSUpdatePolicy
 	// (DELETE /edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId})
-	OSUpdatePolicyDeleteOSUpdatePolicy(ctx echo.Context, resourceId string) error
+	OSUpdatePolicyDeleteOSUpdatePolicy2(ctx echo.Context, resourceId string, params OSUpdatePolicyDeleteOSUpdatePolicy2Params) error
 	// GetOSUpdatePolicy
 	// (GET /edge-infra.orchestrator.apis/v2/os_update_policy/{resourceId})
-	OSUpdatePolicyGetOSUpdatePolicy(ctx echo.Context, resourceId string) error
+	OSUpdatePolicyGetOSUpdatePolicy2(ctx echo.Context, resourceId string, params OSUpdatePolicyGetOSUpdatePolicy2Params) error
 	// ListOSUpdateRun
 	// (GET /edge-infra.orchestrator.apis/v2/os_update_run)
-	OSUpdateRunListOSUpdateRun(ctx echo.Context, params OSUpdateRunListOSUpdateRunParams) error
+	OSUpdateRunListOSUpdateRun2(ctx echo.Context, params OSUpdateRunListOSUpdateRun2Params) error
 	// DeleteOSUpdateRun
 	// (DELETE /edge-infra.orchestrator.apis/v2/os_update_run/{resourceId})
-	OSUpdateRunDeleteOSUpdateRun(ctx echo.Context, resourceId string) error
+	OSUpdateRunDeleteOSUpdateRun2(ctx echo.Context, resourceId string, params OSUpdateRunDeleteOSUpdateRun2Params) error
 	// GetOSUpdateRun
 	// (GET /edge-infra.orchestrator.apis/v2/os_update_run/{resourceId})
-	OSUpdateRunGetOSUpdateRun(ctx echo.Context, resourceId string) error
+	OSUpdateRunGetOSUpdateRun2(ctx echo.Context, resourceId string, params OSUpdateRunGetOSUpdateRun2Params) error
 	// ListProviders
 	// (GET /edge-infra.orchestrator.apis/v2/providers)
-	ProviderServiceListProviders(ctx echo.Context, params ProviderServiceListProvidersParams) error
+	ProviderServiceListProviders2(ctx echo.Context, params ProviderServiceListProviders2Params) error
 	// CreateProvider
 	// (POST /edge-infra.orchestrator.apis/v2/providers)
-	ProviderServiceCreateProvider(ctx echo.Context) error
+	ProviderServiceCreateProvider2(ctx echo.Context, params ProviderServiceCreateProvider2Params) error
 	// DeleteProvider
 	// (DELETE /edge-infra.orchestrator.apis/v2/providers/{resourceId})
-	ProviderServiceDeleteProvider(ctx echo.Context, resourceId string) error
+	ProviderServiceDeleteProvider2(ctx echo.Context, resourceId string, params ProviderServiceDeleteProvider2Params) error
 	// GetProvider
 	// (GET /edge-infra.orchestrator.apis/v2/providers/{resourceId})
-	ProviderServiceGetProvider(ctx echo.Context, resourceId string) error
+	ProviderServiceGetProvider2(ctx echo.Context, resourceId string, params ProviderServiceGetProvider2Params) error
 	// ListRegions
 	// (GET /edge-infra.orchestrator.apis/v2/regions)
-	RegionServiceListRegions(ctx echo.Context, params RegionServiceListRegionsParams) error
+	RegionServiceListRegions2(ctx echo.Context, params RegionServiceListRegions2Params) error
 	// CreateRegion
 	// (POST /edge-infra.orchestrator.apis/v2/regions)
-	RegionServiceCreateRegion(ctx echo.Context) error
+	RegionServiceCreateRegion2(ctx echo.Context, params RegionServiceCreateRegion2Params) error
 	// DeleteRegion
 	// (DELETE /edge-infra.orchestrator.apis/v2/regions/{resourceId})
-	RegionServiceDeleteRegion(ctx echo.Context, resourceId string) error
+	RegionServiceDeleteRegion2(ctx echo.Context, resourceId string, params RegionServiceDeleteRegion2Params) error
 	// GetRegion
 	// (GET /edge-infra.orchestrator.apis/v2/regions/{resourceId})
-	RegionServiceGetRegion(ctx echo.Context, resourceId string) error
+	RegionServiceGetRegion2(ctx echo.Context, resourceId string, params RegionServiceGetRegion2Params) error
 	// PatchRegion
 	// (PATCH /edge-infra.orchestrator.apis/v2/regions/{resourceId})
-	RegionServicePatchRegion(ctx echo.Context, resourceId string) error
+	RegionServicePatchRegion2(ctx echo.Context, resourceId string, params RegionServicePatchRegion2Params) error
 	// UpdateRegion
 	// (PUT /edge-infra.orchestrator.apis/v2/regions/{resourceId})
-	RegionServiceUpdateRegion(ctx echo.Context, resourceId string) error
+	RegionServiceUpdateRegion2(ctx echo.Context, resourceId string, params RegionServiceUpdateRegion2Params) error
 	// ListSchedules
 	// (GET /edge-infra.orchestrator.apis/v2/schedules)
-	ScheduleServiceListSchedules(ctx echo.Context, params ScheduleServiceListSchedulesParams) error
+	ScheduleServiceListSchedules2(ctx echo.Context, params ScheduleServiceListSchedules2Params) error
 	// ListRepeatedSchedules
 	// (GET /edge-infra.orchestrator.apis/v2/schedules/repeated)
-	ScheduleServiceListRepeatedSchedules(ctx echo.Context, params ScheduleServiceListRepeatedSchedulesParams) error
+	ScheduleServiceListRepeatedSchedules2(ctx echo.Context, params ScheduleServiceListRepeatedSchedules2Params) error
 	// CreateRepeatedSchedule
 	// (POST /edge-infra.orchestrator.apis/v2/schedules/repeated)
-	ScheduleServiceCreateRepeatedSchedule(ctx echo.Context) error
+	ScheduleServiceCreateRepeatedSchedule2(ctx echo.Context, params ScheduleServiceCreateRepeatedSchedule2Params) error
 	// DeleteRepeatedSchedule
 	// (DELETE /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
-	ScheduleServiceDeleteRepeatedSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServiceDeleteRepeatedSchedule2(ctx echo.Context, resourceId string, params ScheduleServiceDeleteRepeatedSchedule2Params) error
 	// GetRepeatedSchedule
 	// (GET /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
-	ScheduleServiceGetRepeatedSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServiceGetRepeatedSchedule2(ctx echo.Context, resourceId string, params ScheduleServiceGetRepeatedSchedule2Params) error
 	// PatchRepeatedSchedule
 	// (PATCH /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
-	ScheduleServicePatchRepeatedSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServicePatchRepeatedSchedule2(ctx echo.Context, resourceId string, params ScheduleServicePatchRepeatedSchedule2Params) error
 	// UpdateRepeatedSchedule
 	// (PUT /edge-infra.orchestrator.apis/v2/schedules/repeated/{resourceId})
-	ScheduleServiceUpdateRepeatedSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServiceUpdateRepeatedSchedule2(ctx echo.Context, resourceId string, params ScheduleServiceUpdateRepeatedSchedule2Params) error
 	// ListSingleSchedules
 	// (GET /edge-infra.orchestrator.apis/v2/schedules/single)
-	ScheduleServiceListSingleSchedules(ctx echo.Context, params ScheduleServiceListSingleSchedulesParams) error
+	ScheduleServiceListSingleSchedules2(ctx echo.Context, params ScheduleServiceListSingleSchedules2Params) error
 	// CreateSingleSchedule
 	// (POST /edge-infra.orchestrator.apis/v2/schedules/single)
-	ScheduleServiceCreateSingleSchedule(ctx echo.Context) error
+	ScheduleServiceCreateSingleSchedule2(ctx echo.Context, params ScheduleServiceCreateSingleSchedule2Params) error
 	// DeleteSingleSchedule
 	// (DELETE /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
-	ScheduleServiceDeleteSingleSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServiceDeleteSingleSchedule2(ctx echo.Context, resourceId string, params ScheduleServiceDeleteSingleSchedule2Params) error
 	// GetSingleSchedule
 	// (GET /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
-	ScheduleServiceGetSingleSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServiceGetSingleSchedule2(ctx echo.Context, resourceId string, params ScheduleServiceGetSingleSchedule2Params) error
 	// PatchSingleSchedule
 	// (PATCH /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
-	ScheduleServicePatchSingleSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServicePatchSingleSchedule2(ctx echo.Context, resourceId string, params ScheduleServicePatchSingleSchedule2Params) error
 	// UpdateSingleSchedule
 	// (PUT /edge-infra.orchestrator.apis/v2/schedules/single/{resourceId})
-	ScheduleServiceUpdateSingleSchedule(ctx echo.Context, resourceId string) error
+	ScheduleServiceUpdateSingleSchedule2(ctx echo.Context, resourceId string, params ScheduleServiceUpdateSingleSchedule2Params) error
 	// ListSites
 	// (GET /edge-infra.orchestrator.apis/v2/sites)
-	SiteServiceListSites(ctx echo.Context, params SiteServiceListSitesParams) error
+	SiteServiceListSites2(ctx echo.Context, params SiteServiceListSites2Params) error
 	// CreateSite
 	// (POST /edge-infra.orchestrator.apis/v2/sites)
-	SiteServiceCreateSite(ctx echo.Context) error
+	SiteServiceCreateSite2(ctx echo.Context, params SiteServiceCreateSite2Params) error
 	// DeleteSite
 	// (DELETE /edge-infra.orchestrator.apis/v2/sites/{resourceId})
-	SiteServiceDeleteSite(ctx echo.Context, resourceId string) error
+	SiteServiceDeleteSite2(ctx echo.Context, resourceId string, params SiteServiceDeleteSite2Params) error
 	// GetSite
 	// (GET /edge-infra.orchestrator.apis/v2/sites/{resourceId})
-	SiteServiceGetSite(ctx echo.Context, resourceId string) error
+	SiteServiceGetSite2(ctx echo.Context, resourceId string, params SiteServiceGetSite2Params) error
 	// PatchSite
 	// (PATCH /edge-infra.orchestrator.apis/v2/sites/{resourceId})
-	SiteServicePatchSite(ctx echo.Context, resourceId string) error
+	SiteServicePatchSite2(ctx echo.Context, resourceId string, params SiteServicePatchSite2Params) error
 	// UpdateSite
 	// (PUT /edge-infra.orchestrator.apis/v2/sites/{resourceId})
-	SiteServiceUpdateSite(ctx echo.Context, resourceId string) error
+	SiteServiceUpdateSite2(ctx echo.Context, resourceId string, params SiteServiceUpdateSite2Params) error
 	// ListTelemetryLogsGroups
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/logs)
-	TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx echo.Context, params TelemetryLogsGroupServiceListTelemetryLogsGroupsParams) error
+	TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx echo.Context, params TelemetryLogsGroupServiceListTelemetryLogsGroups2Params) error
 	// CreateTelemetryLogsGroup
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/groups/logs)
-	TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx echo.Context) error
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx echo.Context, params TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params) error
 	// DeleteTelemetryLogsGroup
 	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId})
-	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx echo.Context, resourceId string) error
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx echo.Context, resourceId string, params TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params) error
 	// GetTelemetryLogsGroup
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/logs/{resourceId})
-	TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx echo.Context, resourceId string) error
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx echo.Context, resourceId string, params TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params) error
 	// ListTelemetryMetricsGroups
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics)
-	TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx echo.Context, params TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams) error
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx echo.Context, params TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params) error
 	// CreateTelemetryMetricsGroup
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics)
-	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx echo.Context) error
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx echo.Context, params TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params) error
 	// DeleteTelemetryMetricsGroup
 	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId})
-	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx echo.Context, resourceId string) error
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx echo.Context, resourceId string, params TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params) error
 	// GetTelemetryMetricsGroup
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/{resourceId})
-	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx echo.Context, resourceId string) error
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx echo.Context, resourceId string, params TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params) error
 	// ListTelemetryLogsProfiles
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs)
-	TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx echo.Context, params TelemetryLogsProfileServiceListTelemetryLogsProfilesParams) error
+	TelemetryLogsProfileServiceListTelemetryLogsProfiles2(ctx echo.Context, params TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params) error
 	// CreateTelemetryLogsProfile
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs)
-	TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx echo.Context) error
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfile2(ctx echo.Context, params TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params) error
 	// DeleteTelemetryLogsProfile
 	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
-	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx echo.Context, resourceId string) error
+	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2(ctx echo.Context, resourceId string, params TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params) error
 	// GetTelemetryLogsProfile
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
-	TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx echo.Context, resourceId string) error
+	TelemetryLogsProfileServiceGetTelemetryLogsProfile2(ctx echo.Context, resourceId string, params TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params) error
 	// PatchTelemetryLogsProfile
 	// (PATCH /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
-	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx echo.Context, resourceId string) error
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile2(ctx echo.Context, resourceId string, params TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params) error
 	// UpdateTelemetryLogsProfile
 	// (PUT /edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/{resourceId})
-	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx echo.Context, resourceId string) error
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2(ctx echo.Context, resourceId string, params TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params) error
 	// ListTelemetryMetricsProfiles
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics)
-	TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx echo.Context, params TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams) error
+	TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2(ctx echo.Context, params TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params) error
 	// CreateTelemetryMetricsProfile
 	// (POST /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics)
-	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx echo.Context) error
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2(ctx echo.Context, params TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params) error
 	// DeleteTelemetryMetricsProfile
 	// (DELETE /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
-	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
+	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2(ctx echo.Context, resourceId string, params TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params) error
 	// GetTelemetryMetricsProfile
 	// (GET /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
-	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
+	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2(ctx echo.Context, resourceId string, params TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params) error
 	// PatchTelemetryMetricsProfile
 	// (PATCH /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
-	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2(ctx echo.Context, resourceId string, params TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params) error
 	// UpdateTelemetryMetricsProfile
 	// (PUT /edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/{resourceId})
-	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx echo.Context, resourceId string) error
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2(ctx echo.Context, resourceId string, params TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params) error
 	// ListWorkloadMembers
 	// (GET /edge-infra.orchestrator.apis/v2/workload_members)
-	WorkloadMemberServiceListWorkloadMembers(ctx echo.Context, params WorkloadMemberServiceListWorkloadMembersParams) error
+	WorkloadMemberServiceListWorkloadMembers2(ctx echo.Context, params WorkloadMemberServiceListWorkloadMembers2Params) error
 	// CreateWorkloadMember
 	// (POST /edge-infra.orchestrator.apis/v2/workload_members)
-	WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context) error
+	WorkloadMemberServiceCreateWorkloadMember2(ctx echo.Context, params WorkloadMemberServiceCreateWorkloadMember2Params) error
 	// DeleteWorkloadMember
 	// (DELETE /edge-infra.orchestrator.apis/v2/workload_members/{resourceId})
-	WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context, resourceId string) error
+	WorkloadMemberServiceDeleteWorkloadMember2(ctx echo.Context, resourceId string, params WorkloadMemberServiceDeleteWorkloadMember2Params) error
 	// GetWorkloadMember
 	// (GET /edge-infra.orchestrator.apis/v2/workload_members/{resourceId})
-	WorkloadMemberServiceGetWorkloadMember(ctx echo.Context, resourceId string) error
+	WorkloadMemberServiceGetWorkloadMember2(ctx echo.Context, resourceId string, params WorkloadMemberServiceGetWorkloadMember2Params) error
 	// ListWorkloads
 	// (GET /edge-infra.orchestrator.apis/v2/workloads)
-	WorkloadServiceListWorkloads(ctx echo.Context, params WorkloadServiceListWorkloadsParams) error
+	WorkloadServiceListWorkloads2(ctx echo.Context, params WorkloadServiceListWorkloads2Params) error
 	// CreateWorkload
 	// (POST /edge-infra.orchestrator.apis/v2/workloads)
-	WorkloadServiceCreateWorkload(ctx echo.Context) error
+	WorkloadServiceCreateWorkload2(ctx echo.Context, params WorkloadServiceCreateWorkload2Params) error
 	// DeleteWorkload
 	// (DELETE /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
-	WorkloadServiceDeleteWorkload(ctx echo.Context, resourceId string) error
+	WorkloadServiceDeleteWorkload2(ctx echo.Context, resourceId string, params WorkloadServiceDeleteWorkload2Params) error
 	// GetWorkload
 	// (GET /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
-	WorkloadServiceGetWorkload(ctx echo.Context, resourceId string) error
+	WorkloadServiceGetWorkload2(ctx echo.Context, resourceId string, params WorkloadServiceGetWorkload2Params) error
 	// PatchWorkload
 	// (PATCH /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
-	WorkloadServicePatchWorkload(ctx echo.Context, resourceId string) error
+	WorkloadServicePatchWorkload2(ctx echo.Context, resourceId string, params WorkloadServicePatchWorkload2Params) error
 	// UpdateWorkload
 	// (PUT /edge-infra.orchestrator.apis/v2/workloads/{resourceId})
-	WorkloadServiceUpdateWorkload(ctx echo.Context, resourceId string) error
+	WorkloadServiceUpdateWorkload2(ctx echo.Context, resourceId string, params WorkloadServiceUpdateWorkload2Params) error
+	// ListHosts
+	// (GET /v1/projects/{projectName}/compute/hosts)
+	HostServiceListHosts(ctx echo.Context, projectName string, params HostServiceListHostsParams) error
+	// CreateHost
+	// (POST /v1/projects/{projectName}/compute/hosts)
+	HostServiceCreateHost(ctx echo.Context, projectName string) error
+	// RegisterHost
+	// (POST /v1/projects/{projectName}/compute/hosts/register)
+	HostServiceRegisterHost(ctx echo.Context, projectName string, params HostServiceRegisterHostParams) error
+	// GetHostsSummary
+	// (GET /v1/projects/{projectName}/compute/hosts/summary)
+	HostServiceGetHostsSummary(ctx echo.Context, projectName string, params HostServiceGetHostsSummaryParams) error
+	// DeleteHost
+	// (DELETE /v1/projects/{projectName}/compute/hosts/{resourceId})
+	HostServiceDeleteHost(ctx echo.Context, projectName string, resourceId string) error
+	// GetHost
+	// (GET /v1/projects/{projectName}/compute/hosts/{resourceId})
+	HostServiceGetHost(ctx echo.Context, projectName string, resourceId string) error
+	// PatchHost
+	// (PATCH /v1/projects/{projectName}/compute/hosts/{resourceId})
+	HostServicePatchHost(ctx echo.Context, projectName string, resourceId string, params HostServicePatchHostParams) error
+	// UpdateHost
+	// (PUT /v1/projects/{projectName}/compute/hosts/{resourceId})
+	HostServiceUpdateHost(ctx echo.Context, projectName string, resourceId string) error
+	// InvalidateHost
+	// (PUT /v1/projects/{projectName}/compute/hosts/{resourceId}/invalidate)
+	HostServiceInvalidateHost(ctx echo.Context, projectName string, resourceId string, params HostServiceInvalidateHostParams) error
+	// OnboardHost
+	// (PATCH /v1/projects/{projectName}/compute/hosts/{resourceId}/onboard)
+	HostServiceOnboardHost(ctx echo.Context, projectName string, resourceId string) error
+	// PatchRegisterHost
+	// (PATCH /v1/projects/{projectName}/compute/hosts/{resourceId}/register)
+	HostServicePatchRegisterHost(ctx echo.Context, projectName string, resourceId string) error
+	// GetHostsSummary
+	// (GET /v1/projects/{projectName}/compute/hosts_summary)
+	HostServiceGetHostsSummary3(ctx echo.Context, projectName string, params HostServiceGetHostsSummary3Params) error
+	// ListInstances
+	// (GET /v1/projects/{projectName}/compute/instances)
+	InstanceServiceListInstances(ctx echo.Context, projectName string, params InstanceServiceListInstancesParams) error
+	// CreateInstance
+	// (POST /v1/projects/{projectName}/compute/instances)
+	InstanceServiceCreateInstance(ctx echo.Context, projectName string) error
+	// DeleteInstance
+	// (DELETE /v1/projects/{projectName}/compute/instances/{resourceId})
+	InstanceServiceDeleteInstance(ctx echo.Context, projectName string, resourceId string) error
+	// GetInstance
+	// (GET /v1/projects/{projectName}/compute/instances/{resourceId})
+	InstanceServiceGetInstance(ctx echo.Context, projectName string, resourceId string) error
+	// PatchInstance
+	// (PATCH /v1/projects/{projectName}/compute/instances/{resourceId})
+	InstanceServicePatchInstance(ctx echo.Context, projectName string, resourceId string, params InstanceServicePatchInstanceParams) error
+	// UpdateInstance
+	// (PUT /v1/projects/{projectName}/compute/instances/{resourceId})
+	InstanceServiceUpdateInstance(ctx echo.Context, projectName string, resourceId string) error
+	// InvalidateInstance
+	// (PUT /v1/projects/{projectName}/compute/instances/{resourceId}/invalidate)
+	InstanceServiceInvalidateInstance(ctx echo.Context, projectName string, resourceId string) error
+	// ListOperatingSystems
+	// (GET /v1/projects/{projectName}/compute/operating_systems)
+	OperatingSystemServiceListOperatingSystems3(ctx echo.Context, projectName string, params OperatingSystemServiceListOperatingSystems3Params) error
+	// CreateOperatingSystem
+	// (POST /v1/projects/{projectName}/compute/operating_systems)
+	OperatingSystemServiceCreateOperatingSystem3(ctx echo.Context, projectName string) error
+	// DeleteOperatingSystem
+	// (DELETE /v1/projects/{projectName}/compute/operating_systems/{resourceId})
+	OperatingSystemServiceDeleteOperatingSystem3(ctx echo.Context, projectName string, resourceId string) error
+	// GetOperatingSystem
+	// (GET /v1/projects/{projectName}/compute/operating_systems/{resourceId})
+	OperatingSystemServiceGetOperatingSystem3(ctx echo.Context, projectName string, resourceId string) error
+	// PatchOperatingSystem
+	// (PATCH /v1/projects/{projectName}/compute/operating_systems/{resourceId})
+	OperatingSystemServicePatchOperatingSystem3(ctx echo.Context, projectName string, resourceId string, params OperatingSystemServicePatchOperatingSystem3Params) error
+	// UpdateOperatingSystem
+	// (PUT /v1/projects/{projectName}/compute/operating_systems/{resourceId})
+	OperatingSystemServiceUpdateOperatingSystem3(ctx echo.Context, projectName string, resourceId string) error
+	// ListOperatingSystems
+	// (GET /v1/projects/{projectName}/compute/os)
+	OperatingSystemServiceListOperatingSystems(ctx echo.Context, projectName string, params OperatingSystemServiceListOperatingSystemsParams) error
+	// CreateOperatingSystem
+	// (POST /v1/projects/{projectName}/compute/os)
+	OperatingSystemServiceCreateOperatingSystem(ctx echo.Context, projectName string) error
+	// DeleteOperatingSystem
+	// (DELETE /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServiceDeleteOperatingSystem(ctx echo.Context, projectName string, resourceId string) error
+	// GetOperatingSystem
+	// (GET /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServiceGetOperatingSystem(ctx echo.Context, projectName string, resourceId string) error
+	// PatchOperatingSystem
+	// (PATCH /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServicePatchOperatingSystem(ctx echo.Context, projectName string, resourceId string, params OperatingSystemServicePatchOperatingSystemParams) error
+	// UpdateOperatingSystem
+	// (PUT /v1/projects/{projectName}/compute/os/{resourceId})
+	OperatingSystemServiceUpdateOperatingSystem(ctx echo.Context, projectName string, resourceId string) error
+	// ListSchedules
+	// (GET /v1/projects/{projectName}/compute/schedules)
+	ScheduleServiceListSchedules(ctx echo.Context, projectName string, params ScheduleServiceListSchedulesParams) error
+	// ListRepeatedSchedules
+	// (GET /v1/projects/{projectName}/compute/schedules/repeated)
+	ScheduleServiceListRepeatedSchedules3(ctx echo.Context, projectName string, params ScheduleServiceListRepeatedSchedules3Params) error
+	// CreateRepeatedSchedule
+	// (POST /v1/projects/{projectName}/compute/schedules/repeated)
+	ScheduleServiceCreateRepeatedSchedule3(ctx echo.Context, projectName string) error
+	// DeleteRepeatedSchedule
+	// (DELETE /v1/projects/{projectName}/compute/schedules/repeated/{resourceId})
+	ScheduleServiceDeleteRepeatedSchedule3(ctx echo.Context, projectName string, resourceId string) error
+	// GetRepeatedSchedule
+	// (GET /v1/projects/{projectName}/compute/schedules/repeated/{resourceId})
+	ScheduleServiceGetRepeatedSchedule3(ctx echo.Context, projectName string, resourceId string) error
+	// PatchRepeatedSchedule
+	// (PATCH /v1/projects/{projectName}/compute/schedules/repeated/{resourceId})
+	ScheduleServicePatchRepeatedSchedule3(ctx echo.Context, projectName string, resourceId string, params ScheduleServicePatchRepeatedSchedule3Params) error
+	// UpdateRepeatedSchedule
+	// (PUT /v1/projects/{projectName}/compute/schedules/repeated/{resourceId})
+	ScheduleServiceUpdateRepeatedSchedule3(ctx echo.Context, projectName string, resourceId string) error
+	// ListSingleSchedules
+	// (GET /v1/projects/{projectName}/compute/schedules/single)
+	ScheduleServiceListSingleSchedules3(ctx echo.Context, projectName string, params ScheduleServiceListSingleSchedules3Params) error
+	// CreateSingleSchedule
+	// (POST /v1/projects/{projectName}/compute/schedules/single)
+	ScheduleServiceCreateSingleSchedule3(ctx echo.Context, projectName string) error
+	// DeleteSingleSchedule
+	// (DELETE /v1/projects/{projectName}/compute/schedules/single/{resourceId})
+	ScheduleServiceDeleteSingleSchedule3(ctx echo.Context, projectName string, resourceId string) error
+	// GetSingleSchedule
+	// (GET /v1/projects/{projectName}/compute/schedules/single/{resourceId})
+	ScheduleServiceGetSingleSchedule3(ctx echo.Context, projectName string, resourceId string) error
+	// PatchSingleSchedule
+	// (PATCH /v1/projects/{projectName}/compute/schedules/single/{resourceId})
+	ScheduleServicePatchSingleSchedule3(ctx echo.Context, projectName string, resourceId string, params ScheduleServicePatchSingleSchedule3Params) error
+	// UpdateSingleSchedule
+	// (PUT /v1/projects/{projectName}/compute/schedules/single/{resourceId})
+	ScheduleServiceUpdateSingleSchedule3(ctx echo.Context, projectName string, resourceId string) error
+	// ListWorkloads
+	// (GET /v1/projects/{projectName}/compute/workloads)
+	WorkloadServiceListWorkloads(ctx echo.Context, projectName string, params WorkloadServiceListWorkloadsParams) error
+	// CreateWorkload
+	// (POST /v1/projects/{projectName}/compute/workloads)
+	WorkloadServiceCreateWorkload(ctx echo.Context, projectName string) error
+	// DeleteWorkload
+	// (DELETE /v1/projects/{projectName}/compute/workloads/{resourceId})
+	WorkloadServiceDeleteWorkload(ctx echo.Context, projectName string, resourceId string) error
+	// GetWorkload
+	// (GET /v1/projects/{projectName}/compute/workloads/{resourceId})
+	WorkloadServiceGetWorkload(ctx echo.Context, projectName string, resourceId string) error
+	// PatchWorkload
+	// (PATCH /v1/projects/{projectName}/compute/workloads/{resourceId})
+	WorkloadServicePatchWorkload(ctx echo.Context, projectName string, resourceId string, params WorkloadServicePatchWorkloadParams) error
+	// UpdateWorkload
+	// (PUT /v1/projects/{projectName}/compute/workloads/{resourceId})
+	WorkloadServiceUpdateWorkload(ctx echo.Context, projectName string, resourceId string) error
+	// ListCustomConfigs
+	// (GET /v1/projects/{projectName}/customConfigs)
+	CustomConfigServiceListCustomConfigs(ctx echo.Context, projectName string, params CustomConfigServiceListCustomConfigsParams) error
+	// CreateCustomConfig
+	// (POST /v1/projects/{projectName}/customConfigs)
+	CustomConfigServiceCreateCustomConfig(ctx echo.Context, projectName string) error
+	// DeleteCustomConfig
+	// (DELETE /v1/projects/{projectName}/customConfigs/{resourceId})
+	CustomConfigServiceDeleteCustomConfig(ctx echo.Context, projectName string, resourceId string) error
+	// GetCustomConfig
+	// (GET /v1/projects/{projectName}/customConfigs/{resourceId})
+	CustomConfigServiceGetCustomConfig(ctx echo.Context, projectName string, resourceId string) error
+	// ListLocalAccounts
+	// (GET /v1/projects/{projectName}/localAccounts)
+	LocalAccountServiceListLocalAccounts(ctx echo.Context, projectName string, params LocalAccountServiceListLocalAccountsParams) error
+	// CreateLocalAccount
+	// (POST /v1/projects/{projectName}/localAccounts)
+	LocalAccountServiceCreateLocalAccount(ctx echo.Context, projectName string) error
+	// DeleteLocalAccount
+	// (DELETE /v1/projects/{projectName}/localAccounts/{resourceId})
+	LocalAccountServiceDeleteLocalAccount(ctx echo.Context, projectName string, resourceId string) error
+	// GetLocalAccount
+	// (GET /v1/projects/{projectName}/localAccounts/{resourceId})
+	LocalAccountServiceGetLocalAccount(ctx echo.Context, projectName string, resourceId string) error
+	// ListLocations
+	// (GET /v1/projects/{projectName}/locations)
+	LocationServiceListLocations(ctx echo.Context, projectName string, params LocationServiceListLocationsParams) error
+	// ListOSUpdatePolicy
+	// (GET /v1/projects/{projectName}/os-update-policies)
+	OSUpdatePolicyListOSUpdatePolicy(ctx echo.Context, projectName string, params OSUpdatePolicyListOSUpdatePolicyParams) error
+	// CreateOSUpdatePolicy
+	// (POST /v1/projects/{projectName}/os-update-policies)
+	OSUpdatePolicyCreateOSUpdatePolicy(ctx echo.Context, projectName string) error
+	// DeleteOSUpdatePolicy
+	// (DELETE /v1/projects/{projectName}/os-update-policies/{resourceId})
+	OSUpdatePolicyDeleteOSUpdatePolicy(ctx echo.Context, projectName string, resourceId string) error
+	// GetOSUpdatePolicy
+	// (GET /v1/projects/{projectName}/os-update-policies/{resourceId})
+	OSUpdatePolicyGetOSUpdatePolicy(ctx echo.Context, projectName string, resourceId string) error
+	// ListOSUpdateRun
+	// (GET /v1/projects/{projectName}/os-update-runs)
+	OSUpdateRunListOSUpdateRun(ctx echo.Context, projectName string, params OSUpdateRunListOSUpdateRunParams) error
+	// DeleteOSUpdateRun
+	// (DELETE /v1/projects/{projectName}/os-update-runs/{resourceId})
+	OSUpdateRunDeleteOSUpdateRun(ctx echo.Context, projectName string, resourceId string) error
+	// GetOSUpdateRun
+	// (GET /v1/projects/{projectName}/os-update-runs/{resourceId})
+	OSUpdateRunGetOSUpdateRun(ctx echo.Context, projectName string, resourceId string) error
+	// ListOSUpdatePolicy
+	// (GET /v1/projects/{projectName}/os_update_policy)
+	OSUpdatePolicyListOSUpdatePolicy3(ctx echo.Context, projectName string, params OSUpdatePolicyListOSUpdatePolicy3Params) error
+	// CreateOSUpdatePolicy
+	// (POST /v1/projects/{projectName}/os_update_policy)
+	OSUpdatePolicyCreateOSUpdatePolicy3(ctx echo.Context, projectName string) error
+	// DeleteOSUpdatePolicy
+	// (DELETE /v1/projects/{projectName}/os_update_policy/{resourceId})
+	OSUpdatePolicyDeleteOSUpdatePolicy3(ctx echo.Context, projectName string, resourceId string) error
+	// GetOSUpdatePolicy
+	// (GET /v1/projects/{projectName}/os_update_policy/{resourceId})
+	OSUpdatePolicyGetOSUpdatePolicy3(ctx echo.Context, projectName string, resourceId string) error
+	// ListOSUpdateRun
+	// (GET /v1/projects/{projectName}/os_update_run)
+	OSUpdateRunListOSUpdateRun3(ctx echo.Context, projectName string, params OSUpdateRunListOSUpdateRun3Params) error
+	// DeleteOSUpdateRun
+	// (DELETE /v1/projects/{projectName}/os_update_run/{resourceId})
+	OSUpdateRunDeleteOSUpdateRun3(ctx echo.Context, projectName string, resourceId string) error
+	// GetOSUpdateRun
+	// (GET /v1/projects/{projectName}/os_update_run/{resourceId})
+	OSUpdateRunGetOSUpdateRun3(ctx echo.Context, projectName string, resourceId string) error
+	// ListProviders
+	// (GET /v1/projects/{projectName}/providers)
+	ProviderServiceListProviders(ctx echo.Context, projectName string, params ProviderServiceListProvidersParams) error
+	// CreateProvider
+	// (POST /v1/projects/{projectName}/providers)
+	ProviderServiceCreateProvider(ctx echo.Context, projectName string) error
+	// DeleteProvider
+	// (DELETE /v1/projects/{projectName}/providers/{resourceId})
+	ProviderServiceDeleteProvider(ctx echo.Context, projectName string, resourceId string) error
+	// GetProvider
+	// (GET /v1/projects/{projectName}/providers/{resourceId})
+	ProviderServiceGetProvider(ctx echo.Context, projectName string, resourceId string) error
+	// ListRegions
+	// (GET /v1/projects/{projectName}/regions)
+	RegionServiceListRegions(ctx echo.Context, projectName string, params RegionServiceListRegionsParams) error
+	// CreateRegion
+	// (POST /v1/projects/{projectName}/regions)
+	RegionServiceCreateRegion(ctx echo.Context, projectName string) error
+	// ListSites
+	// (GET /v1/projects/{projectName}/regions/{regionId}/sites)
+	SiteServiceListSites(ctx echo.Context, projectName string, regionId string, params SiteServiceListSitesParams) error
+	// CreateSite
+	// (POST /v1/projects/{projectName}/regions/{regionId}/sites)
+	SiteServiceCreateSite(ctx echo.Context, projectName string, regionId string) error
+	// DeleteSite
+	// (DELETE /v1/projects/{projectName}/regions/{regionId}/sites/{resourceId})
+	SiteServiceDeleteSite(ctx echo.Context, projectName string, regionId string, resourceId string) error
+	// GetSite
+	// (GET /v1/projects/{projectName}/regions/{regionId}/sites/{resourceId})
+	SiteServiceGetSite(ctx echo.Context, projectName string, regionId string, resourceId string) error
+	// PatchSite
+	// (PATCH /v1/projects/{projectName}/regions/{regionId}/sites/{resourceId})
+	SiteServicePatchSite(ctx echo.Context, projectName string, regionId string, resourceId string, params SiteServicePatchSiteParams) error
+	// UpdateSite
+	// (PUT /v1/projects/{projectName}/regions/{regionId}/sites/{resourceId})
+	SiteServiceUpdateSite(ctx echo.Context, projectName string, regionId string, resourceId string) error
+	// DeleteRegion
+	// (DELETE /v1/projects/{projectName}/regions/{resourceId})
+	RegionServiceDeleteRegion(ctx echo.Context, projectName string, resourceId string) error
+	// GetRegion
+	// (GET /v1/projects/{projectName}/regions/{resourceId})
+	RegionServiceGetRegion(ctx echo.Context, projectName string, resourceId string) error
+	// PatchRegion
+	// (PATCH /v1/projects/{projectName}/regions/{resourceId})
+	RegionServicePatchRegion(ctx echo.Context, projectName string, resourceId string, params RegionServicePatchRegionParams) error
+	// UpdateRegion
+	// (PUT /v1/projects/{projectName}/regions/{resourceId})
+	RegionServiceUpdateRegion(ctx echo.Context, projectName string, resourceId string) error
+	// ListSchedules
+	// (GET /v1/projects/{projectName}/schedules)
+	ScheduleServiceListSchedules3(ctx echo.Context, projectName string, params ScheduleServiceListSchedules3Params) error
+	// ListRepeatedSchedules
+	// (GET /v1/projects/{projectName}/schedules/repeated)
+	ScheduleServiceListRepeatedSchedules(ctx echo.Context, projectName string, params ScheduleServiceListRepeatedSchedulesParams) error
+	// CreateRepeatedSchedule
+	// (POST /v1/projects/{projectName}/schedules/repeated)
+	ScheduleServiceCreateRepeatedSchedule(ctx echo.Context, projectName string) error
+	// DeleteRepeatedSchedule
+	// (DELETE /v1/projects/{projectName}/schedules/repeated/{resourceId})
+	ScheduleServiceDeleteRepeatedSchedule(ctx echo.Context, projectName string, resourceId string) error
+	// GetRepeatedSchedule
+	// (GET /v1/projects/{projectName}/schedules/repeated/{resourceId})
+	ScheduleServiceGetRepeatedSchedule(ctx echo.Context, projectName string, resourceId string) error
+	// PatchRepeatedSchedule
+	// (PATCH /v1/projects/{projectName}/schedules/repeated/{resourceId})
+	ScheduleServicePatchRepeatedSchedule(ctx echo.Context, projectName string, resourceId string, params ScheduleServicePatchRepeatedScheduleParams) error
+	// UpdateRepeatedSchedule
+	// (PUT /v1/projects/{projectName}/schedules/repeated/{resourceId})
+	ScheduleServiceUpdateRepeatedSchedule(ctx echo.Context, projectName string, resourceId string) error
+	// ListSingleSchedules
+	// (GET /v1/projects/{projectName}/schedules/single)
+	ScheduleServiceListSingleSchedules(ctx echo.Context, projectName string, params ScheduleServiceListSingleSchedulesParams) error
+	// CreateSingleSchedule
+	// (POST /v1/projects/{projectName}/schedules/single)
+	ScheduleServiceCreateSingleSchedule(ctx echo.Context, projectName string) error
+	// DeleteSingleSchedule
+	// (DELETE /v1/projects/{projectName}/schedules/single/{resourceId})
+	ScheduleServiceDeleteSingleSchedule(ctx echo.Context, projectName string, resourceId string) error
+	// GetSingleSchedule
+	// (GET /v1/projects/{projectName}/schedules/single/{resourceId})
+	ScheduleServiceGetSingleSchedule(ctx echo.Context, projectName string, resourceId string) error
+	// PatchSingleSchedule
+	// (PATCH /v1/projects/{projectName}/schedules/single/{resourceId})
+	ScheduleServicePatchSingleSchedule(ctx echo.Context, projectName string, resourceId string, params ScheduleServicePatchSingleScheduleParams) error
+	// UpdateSingleSchedule
+	// (PUT /v1/projects/{projectName}/schedules/single/{resourceId})
+	ScheduleServiceUpdateSingleSchedule(ctx echo.Context, projectName string, resourceId string) error
+	// ListSites
+	// (GET /v1/projects/{projectName}/sites)
+	SiteServiceListSites3(ctx echo.Context, projectName string, params SiteServiceListSites3Params) error
+	// CreateSite
+	// (POST /v1/projects/{projectName}/sites)
+	SiteServiceCreateSite3(ctx echo.Context, projectName string, params SiteServiceCreateSite3Params) error
+	// DeleteSite
+	// (DELETE /v1/projects/{projectName}/sites/{resourceId})
+	SiteServiceDeleteSite3(ctx echo.Context, projectName string, resourceId string, params SiteServiceDeleteSite3Params) error
+	// GetSite
+	// (GET /v1/projects/{projectName}/sites/{resourceId})
+	SiteServiceGetSite3(ctx echo.Context, projectName string, resourceId string, params SiteServiceGetSite3Params) error
+	// PatchSite
+	// (PATCH /v1/projects/{projectName}/sites/{resourceId})
+	SiteServicePatchSite3(ctx echo.Context, projectName string, resourceId string, params SiteServicePatchSite3Params) error
+	// UpdateSite
+	// (PUT /v1/projects/{projectName}/sites/{resourceId})
+	SiteServiceUpdateSite3(ctx echo.Context, projectName string, resourceId string, params SiteServiceUpdateSite3Params) error
+	// ListTelemetryLogsGroups
+	// (GET /v1/projects/{projectName}/telemetry/groups/logs)
+	TelemetryLogsGroupServiceListTelemetryLogsGroups3(ctx echo.Context, projectName string, params TelemetryLogsGroupServiceListTelemetryLogsGroups3Params) error
+	// CreateTelemetryLogsGroup
+	// (POST /v1/projects/{projectName}/telemetry/groups/logs)
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup3(ctx echo.Context, projectName string) error
+	// DeleteTelemetryLogsGroup
+	// (DELETE /v1/projects/{projectName}/telemetry/groups/logs/{resourceId})
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3(ctx echo.Context, projectName string, resourceId string) error
+	// GetTelemetryLogsGroup
+	// (GET /v1/projects/{projectName}/telemetry/groups/logs/{resourceId})
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup3(ctx echo.Context, projectName string, resourceId string) error
+	// ListTelemetryMetricsGroups
+	// (GET /v1/projects/{projectName}/telemetry/groups/metrics)
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups3(ctx echo.Context, projectName string, params TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params) error
+	// CreateTelemetryMetricsGroup
+	// (POST /v1/projects/{projectName}/telemetry/groups/metrics)
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3(ctx echo.Context, projectName string) error
+	// DeleteTelemetryMetricsGroup
+	// (DELETE /v1/projects/{projectName}/telemetry/groups/metrics/{resourceId})
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3(ctx echo.Context, projectName string, resourceId string) error
+	// GetTelemetryMetricsGroup
+	// (GET /v1/projects/{projectName}/telemetry/groups/metrics/{resourceId})
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3(ctx echo.Context, projectName string, resourceId string) error
+	// ListTelemetryLogsGroups
+	// (GET /v1/projects/{projectName}/telemetry/loggroups)
+	TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx echo.Context, projectName string, params TelemetryLogsGroupServiceListTelemetryLogsGroupsParams) error
+	// CreateTelemetryLogsGroup
+	// (POST /v1/projects/{projectName}/telemetry/loggroups)
+	TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx echo.Context, projectName string) error
+	// DeleteTelemetryLogsGroup
+	// (DELETE /v1/projects/{projectName}/telemetry/loggroups/{resourceId})
+	TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx echo.Context, projectName string, resourceId string) error
+	// GetTelemetryLogsGroup
+	// (GET /v1/projects/{projectName}/telemetry/loggroups/{resourceId})
+	TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx echo.Context, projectName string, resourceId string) error
+	// ListTelemetryMetricsGroups
+	// (GET /v1/projects/{projectName}/telemetry/metricgroups)
+	TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx echo.Context, projectName string, params TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams) error
+	// CreateTelemetryMetricsGroup
+	// (POST /v1/projects/{projectName}/telemetry/metricgroups)
+	TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx echo.Context, projectName string) error
+	// DeleteTelemetryMetricsGroup
+	// (DELETE /v1/projects/{projectName}/telemetry/metricgroups/{resourceId})
+	TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx echo.Context, projectName string, resourceId string) error
+	// GetTelemetryMetricsGroup
+	// (GET /v1/projects/{projectName}/telemetry/metricgroups/{resourceId})
+	TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx echo.Context, projectName string, resourceId string) error
+	// ListTelemetryLogsProfiles
+	// (GET /v1/projects/{projectName}/telemetry/profiles/logs)
+	TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx echo.Context, projectName string, params TelemetryLogsProfileServiceListTelemetryLogsProfilesParams) error
+	// CreateTelemetryLogsProfile
+	// (POST /v1/projects/{projectName}/telemetry/profiles/logs)
+	TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx echo.Context, projectName string) error
+	// DeleteTelemetryLogsProfile
+	// (DELETE /v1/projects/{projectName}/telemetry/profiles/logs/{resourceId})
+	TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx echo.Context, projectName string, resourceId string) error
+	// GetTelemetryLogsProfile
+	// (GET /v1/projects/{projectName}/telemetry/profiles/logs/{resourceId})
+	TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx echo.Context, projectName string, resourceId string) error
+	// PatchTelemetryLogsProfile
+	// (PATCH /v1/projects/{projectName}/telemetry/profiles/logs/{resourceId})
+	TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx echo.Context, projectName string, resourceId string, params TelemetryLogsProfileServicePatchTelemetryLogsProfileParams) error
+	// UpdateTelemetryLogsProfile
+	// (PUT /v1/projects/{projectName}/telemetry/profiles/logs/{resourceId})
+	TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx echo.Context, projectName string, resourceId string) error
+	// ListTelemetryMetricsProfiles
+	// (GET /v1/projects/{projectName}/telemetry/profiles/metrics)
+	TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx echo.Context, projectName string, params TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams) error
+	// CreateTelemetryMetricsProfile
+	// (POST /v1/projects/{projectName}/telemetry/profiles/metrics)
+	TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx echo.Context, projectName string) error
+	// DeleteTelemetryMetricsProfile
+	// (DELETE /v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId})
+	TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx echo.Context, projectName string, resourceId string) error
+	// GetTelemetryMetricsProfile
+	// (GET /v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId})
+	TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx echo.Context, projectName string, resourceId string) error
+	// PatchTelemetryMetricsProfile
+	// (PATCH /v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId})
+	TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx echo.Context, projectName string, resourceId string, params TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams) error
+	// UpdateTelemetryMetricsProfile
+	// (PUT /v1/projects/{projectName}/telemetry/profiles/metrics/{resourceId})
+	TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx echo.Context, projectName string, resourceId string) error
+	// ListWorkloadMembers
+	// (GET /v1/projects/{projectName}/workload_members)
+	WorkloadMemberServiceListWorkloadMembers(ctx echo.Context, projectName string, params WorkloadMemberServiceListWorkloadMembersParams) error
+	// CreateWorkloadMember
+	// (POST /v1/projects/{projectName}/workload_members)
+	WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context, projectName string) error
+	// DeleteWorkloadMember
+	// (DELETE /v1/projects/{projectName}/workload_members/{resourceId})
+	WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context, projectName string, resourceId string) error
+	// GetWorkloadMember
+	// (GET /v1/projects/{projectName}/workload_members/{resourceId})
+	WorkloadMemberServiceGetWorkloadMember(ctx echo.Context, projectName string, resourceId string) error
+	// ListWorkloads
+	// (GET /v1/projects/{projectName}/workloads)
+	WorkloadServiceListWorkloads3(ctx echo.Context, projectName string, params WorkloadServiceListWorkloads3Params) error
+	// CreateWorkload
+	// (POST /v1/projects/{projectName}/workloads)
+	WorkloadServiceCreateWorkload3(ctx echo.Context, projectName string) error
+	// DeleteWorkload
+	// (DELETE /v1/projects/{projectName}/workloads/{resourceId})
+	WorkloadServiceDeleteWorkload3(ctx echo.Context, projectName string, resourceId string) error
+	// GetWorkload
+	// (GET /v1/projects/{projectName}/workloads/{resourceId})
+	WorkloadServiceGetWorkload3(ctx echo.Context, projectName string, resourceId string) error
+	// PatchWorkload
+	// (PATCH /v1/projects/{projectName}/workloads/{resourceId})
+	WorkloadServicePatchWorkload3(ctx echo.Context, projectName string, resourceId string, params WorkloadServicePatchWorkload3Params) error
+	// UpdateWorkload
+	// (PUT /v1/projects/{projectName}/workloads/{resourceId})
+	WorkloadServiceUpdateWorkload3(ctx echo.Context, projectName string, resourceId string) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -324,12 +762,12 @@ type ServerInterfaceWrapper struct {
 	Handler ServerInterface
 }
 
-// CustomConfigServiceListCustomConfigs converts echo context to params.
-func (w *ServerInterfaceWrapper) CustomConfigServiceListCustomConfigs(ctx echo.Context) error {
+// CustomConfigServiceListCustomConfigs2 converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceListCustomConfigs2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params CustomConfigServiceListCustomConfigsParams
+	var params CustomConfigServiceListCustomConfigs2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -358,58 +796,92 @@ func (w *ServerInterfaceWrapper) CustomConfigServiceListCustomConfigs(ctx echo.C
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.CustomConfigServiceListCustomConfigs(ctx, params)
-	return err
-}
+	// ------------- Required query parameter "projectName" -------------
 
-// CustomConfigServiceCreateCustomConfig converts echo context to params.
-func (w *ServerInterfaceWrapper) CustomConfigServiceCreateCustomConfig(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.CustomConfigServiceCreateCustomConfig(ctx)
-	return err
-}
-
-// CustomConfigServiceDeleteCustomConfig converts echo context to params.
-func (w *ServerInterfaceWrapper) CustomConfigServiceDeleteCustomConfig(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.CustomConfigServiceDeleteCustomConfig(ctx, resourceId)
+	err = w.Handler.CustomConfigServiceListCustomConfigs2(ctx, params)
 	return err
 }
 
-// CustomConfigServiceGetCustomConfig converts echo context to params.
-func (w *ServerInterfaceWrapper) CustomConfigServiceGetCustomConfig(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.CustomConfigServiceGetCustomConfig(ctx, resourceId)
-	return err
-}
-
-// HostServiceListHosts converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceListHosts(ctx echo.Context) error {
+// CustomConfigServiceCreateCustomConfig2 converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceCreateCustomConfig2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params HostServiceListHostsParams
+	var params CustomConfigServiceCreateCustomConfig2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CustomConfigServiceCreateCustomConfig2(ctx, params)
+	return err
+}
+
+// CustomConfigServiceDeleteCustomConfig2 converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceDeleteCustomConfig2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params CustomConfigServiceDeleteCustomConfig2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CustomConfigServiceDeleteCustomConfig2(ctx, resourceId, params)
+	return err
+}
+
+// CustomConfigServiceGetCustomConfig2 converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceGetCustomConfig2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params CustomConfigServiceGetCustomConfig2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CustomConfigServiceGetCustomConfig2(ctx, resourceId, params)
+	return err
+}
+
+// HostServiceListHosts2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceListHosts2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceListHosts2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -438,95 +910,63 @@ func (w *ServerInterfaceWrapper) HostServiceListHosts(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceListHosts(ctx, params)
+	err = w.Handler.HostServiceListHosts2(ctx, params)
 	return err
 }
 
-// HostServiceCreateHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceCreateHost(ctx echo.Context) error {
+// HostServiceCreateHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceCreateHost2(ctx echo.Context) error {
 	var err error
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceCreateHost2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceCreateHost(ctx)
+	err = w.Handler.HostServiceCreateHost2(ctx, params)
 	return err
 }
 
-// HostServiceRegisterHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceRegisterHost(ctx echo.Context) error {
+// HostServiceRegisterHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceRegisterHost2(ctx echo.Context) error {
 	var err error
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceRegisterHost(ctx)
-	return err
-}
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceRegisterHost2Params
+	// ------------- Optional query parameter "resourceId" -------------
 
-// HostServiceDeleteHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceDeleteHost(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, false, "resourceId", ctx.QueryParams(), &params.ResourceId)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceDeleteHost(ctx, resourceId)
-	return err
-}
+	// ------------- Required query parameter "projectName" -------------
 
-// HostServiceGetHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceGetHost(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceGetHost(ctx, resourceId)
+	err = w.Handler.HostServiceRegisterHost2(ctx, params)
 	return err
 }
 
-// HostServicePatchHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServicePatchHost(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServicePatchHost(ctx, resourceId)
-	return err
-}
-
-// HostServiceUpdateHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceUpdateHost(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceUpdateHost(ctx, resourceId)
-	return err
-}
-
-// HostServiceInvalidateHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceInvalidateHost(ctx echo.Context) error {
+// HostServiceDeleteHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceDeleteHost2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -537,7 +977,114 @@ func (w *ServerInterfaceWrapper) HostServiceInvalidateHost(ctx echo.Context) err
 	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params HostServiceInvalidateHostParams
+	var params HostServiceDeleteHost2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceDeleteHost2(ctx, resourceId, params)
+	return err
+}
+
+// HostServiceGetHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceGetHost2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceGetHost2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceGetHost2(ctx, resourceId, params)
+	return err
+}
+
+// HostServicePatchHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServicePatchHost2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServicePatchHost2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServicePatchHost2(ctx, resourceId, params)
+	return err
+}
+
+// HostServiceUpdateHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceUpdateHost2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceUpdateHost2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceUpdateHost2(ctx, resourceId, params)
+	return err
+}
+
+// HostServiceInvalidateHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceInvalidateHost2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceInvalidateHost2Params
 	// ------------- Optional query parameter "note" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "note", ctx.QueryParams(), &params.Note)
@@ -545,13 +1092,20 @@ func (w *ServerInterfaceWrapper) HostServiceInvalidateHost(ctx echo.Context) err
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter note: %s", err))
 	}
 
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceInvalidateHost(ctx, resourceId, params)
+	err = w.Handler.HostServiceInvalidateHost2(ctx, resourceId, params)
 	return err
 }
 
-// HostServiceOnboardHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceOnboardHost(ctx echo.Context) error {
+// HostServiceOnboardHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceOnboardHost2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -561,13 +1115,22 @@ func (w *ServerInterfaceWrapper) HostServiceOnboardHost(ctx echo.Context) error 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceOnboardHost2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceOnboardHost(ctx, resourceId)
+	err = w.Handler.HostServiceOnboardHost2(ctx, resourceId, params)
 	return err
 }
 
-// HostServicePatchRegisterHost converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServicePatchRegisterHost(ctx echo.Context) error {
+// HostServicePatchRegisterHost2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServicePatchRegisterHost2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -577,17 +1140,26 @@ func (w *ServerInterfaceWrapper) HostServicePatchRegisterHost(ctx echo.Context) 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServicePatchRegisterHost2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServicePatchRegisterHost(ctx, resourceId)
+	err = w.Handler.HostServicePatchRegisterHost2(ctx, resourceId, params)
 	return err
 }
 
-// HostServiceGetHostsSummary converts echo context to params.
-func (w *ServerInterfaceWrapper) HostServiceGetHostsSummary(ctx echo.Context) error {
+// HostServiceGetHostsSummary2 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceGetHostsSummary2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params HostServiceGetHostsSummaryParams
+	var params HostServiceGetHostsSummary2Params
 	// ------------- Optional query parameter "filter" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
@@ -595,17 +1167,24 @@ func (w *ServerInterfaceWrapper) HostServiceGetHostsSummary(ctx echo.Context) er
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
 	}
 
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.HostServiceGetHostsSummary(ctx, params)
+	err = w.Handler.HostServiceGetHostsSummary2(ctx, params)
 	return err
 }
 
-// InstanceServiceListInstances converts echo context to params.
-func (w *ServerInterfaceWrapper) InstanceServiceListInstances(ctx echo.Context) error {
+// InstanceServiceListInstances2 converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceListInstances2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params InstanceServiceListInstancesParams
+	var params InstanceServiceListInstances2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -634,106 +1213,174 @@ func (w *ServerInterfaceWrapper) InstanceServiceListInstances(ctx echo.Context) 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServiceListInstances(ctx, params)
-	return err
-}
+	// ------------- Required query parameter "projectName" -------------
 
-// InstanceServiceCreateInstance converts echo context to params.
-func (w *ServerInterfaceWrapper) InstanceServiceCreateInstance(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServiceCreateInstance(ctx)
-	return err
-}
-
-// InstanceServiceDeleteInstance converts echo context to params.
-func (w *ServerInterfaceWrapper) InstanceServiceDeleteInstance(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServiceDeleteInstance(ctx, resourceId)
+	err = w.Handler.InstanceServiceListInstances2(ctx, params)
 	return err
 }
 
-// InstanceServiceGetInstance converts echo context to params.
-func (w *ServerInterfaceWrapper) InstanceServiceGetInstance(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServiceGetInstance(ctx, resourceId)
-	return err
-}
-
-// InstanceServicePatchInstance converts echo context to params.
-func (w *ServerInterfaceWrapper) InstanceServicePatchInstance(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServicePatchInstance(ctx, resourceId)
-	return err
-}
-
-// InstanceServiceUpdateInstance converts echo context to params.
-func (w *ServerInterfaceWrapper) InstanceServiceUpdateInstance(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServiceUpdateInstance(ctx, resourceId)
-	return err
-}
-
-// InstanceServiceInvalidateInstance converts echo context to params.
-func (w *ServerInterfaceWrapper) InstanceServiceInvalidateInstance(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.InstanceServiceInvalidateInstance(ctx, resourceId)
-	return err
-}
-
-// LocalAccountServiceListLocalAccounts converts echo context to params.
-func (w *ServerInterfaceWrapper) LocalAccountServiceListLocalAccounts(ctx echo.Context) error {
+// InstanceServiceCreateInstance2 converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceCreateInstance2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params LocalAccountServiceListLocalAccountsParams
+	var params InstanceServiceCreateInstance2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceCreateInstance2(ctx, params)
+	return err
+}
+
+// InstanceServiceDeleteInstance2 converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceDeleteInstance2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params InstanceServiceDeleteInstance2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceDeleteInstance2(ctx, resourceId, params)
+	return err
+}
+
+// InstanceServiceGetInstance2 converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceGetInstance2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params InstanceServiceGetInstance2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceGetInstance2(ctx, resourceId, params)
+	return err
+}
+
+// InstanceServicePatchInstance2 converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServicePatchInstance2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params InstanceServicePatchInstance2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServicePatchInstance2(ctx, resourceId, params)
+	return err
+}
+
+// InstanceServiceUpdateInstance2 converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceUpdateInstance2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params InstanceServiceUpdateInstance2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceUpdateInstance2(ctx, resourceId, params)
+	return err
+}
+
+// InstanceServiceInvalidateInstance2 converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceInvalidateInstance2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params InstanceServiceInvalidateInstance2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceInvalidateInstance2(ctx, resourceId, params)
+	return err
+}
+
+// LocalAccountServiceListLocalAccounts2 converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceListLocalAccounts2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params LocalAccountServiceListLocalAccounts2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -762,58 +1409,92 @@ func (w *ServerInterfaceWrapper) LocalAccountServiceListLocalAccounts(ctx echo.C
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.LocalAccountServiceListLocalAccounts(ctx, params)
-	return err
-}
+	// ------------- Required query parameter "projectName" -------------
 
-// LocalAccountServiceCreateLocalAccount converts echo context to params.
-func (w *ServerInterfaceWrapper) LocalAccountServiceCreateLocalAccount(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.LocalAccountServiceCreateLocalAccount(ctx)
-	return err
-}
-
-// LocalAccountServiceDeleteLocalAccount converts echo context to params.
-func (w *ServerInterfaceWrapper) LocalAccountServiceDeleteLocalAccount(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.LocalAccountServiceDeleteLocalAccount(ctx, resourceId)
+	err = w.Handler.LocalAccountServiceListLocalAccounts2(ctx, params)
 	return err
 }
 
-// LocalAccountServiceGetLocalAccount converts echo context to params.
-func (w *ServerInterfaceWrapper) LocalAccountServiceGetLocalAccount(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.LocalAccountServiceGetLocalAccount(ctx, resourceId)
-	return err
-}
-
-// LocationServiceListLocations converts echo context to params.
-func (w *ServerInterfaceWrapper) LocationServiceListLocations(ctx echo.Context) error {
+// LocalAccountServiceCreateLocalAccount2 converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceCreateLocalAccount2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params LocationServiceListLocationsParams
+	var params LocalAccountServiceCreateLocalAccount2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocalAccountServiceCreateLocalAccount2(ctx, params)
+	return err
+}
+
+// LocalAccountServiceDeleteLocalAccount2 converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceDeleteLocalAccount2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params LocalAccountServiceDeleteLocalAccount2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocalAccountServiceDeleteLocalAccount2(ctx, resourceId, params)
+	return err
+}
+
+// LocalAccountServiceGetLocalAccount2 converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceGetLocalAccount2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params LocalAccountServiceGetLocalAccount2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocalAccountServiceGetLocalAccount2(ctx, resourceId, params)
+	return err
+}
+
+// LocationServiceListLocations2 converts echo context to params.
+func (w *ServerInterfaceWrapper) LocationServiceListLocations2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params LocationServiceListLocations2Params
 	// ------------- Optional query parameter "name" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "name", ctx.QueryParams(), &params.Name)
@@ -835,17 +1516,24 @@ func (w *ServerInterfaceWrapper) LocationServiceListLocations(ctx echo.Context) 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter showRegions: %s", err))
 	}
 
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.LocationServiceListLocations(ctx, params)
+	err = w.Handler.LocationServiceListLocations2(ctx, params)
 	return err
 }
 
-// OperatingSystemServiceListOperatingSystems converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems(ctx echo.Context) error {
+// OperatingSystemServiceListOperatingSystems2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OperatingSystemServiceListOperatingSystemsParams
+	var params OperatingSystemServiceListOperatingSystems2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -874,90 +1562,149 @@ func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems(ctx 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceListOperatingSystems(ctx, params)
-	return err
-}
+	// ------------- Required query parameter "projectName" -------------
 
-// OperatingSystemServiceCreateOperatingSystem converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceCreateOperatingSystem(ctx)
-	return err
-}
-
-// OperatingSystemServiceDeleteOperatingSystem converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceDeleteOperatingSystem(ctx, resourceId)
+	err = w.Handler.OperatingSystemServiceListOperatingSystems2(ctx, params)
 	return err
 }
 
-// OperatingSystemServiceGetOperatingSystem converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceGetOperatingSystem(ctx, resourceId)
-	return err
-}
-
-// OperatingSystemServicePatchOperatingSystem converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServicePatchOperatingSystem(ctx, resourceId)
-	return err
-}
-
-// OperatingSystemServiceUpdateOperatingSystem converts echo context to params.
-func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem(ctx, resourceId)
-	return err
-}
-
-// OSUpdatePolicyListOSUpdatePolicy converts echo context to params.
-func (w *ServerInterfaceWrapper) OSUpdatePolicyListOSUpdatePolicy(ctx echo.Context) error {
+// OperatingSystemServiceCreateOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OSUpdatePolicyListOSUpdatePolicyParams
+	var params OperatingSystemServiceCreateOperatingSystem2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceCreateOperatingSystem2(ctx, params)
+	return err
+}
+
+// OperatingSystemServiceDeleteOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServiceDeleteOperatingSystem2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceDeleteOperatingSystem2(ctx, resourceId, params)
+	return err
+}
+
+// OperatingSystemServiceGetOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServiceGetOperatingSystem2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceGetOperatingSystem2(ctx, resourceId, params)
+	return err
+}
+
+// OperatingSystemServicePatchOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServicePatchOperatingSystem2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServicePatchOperatingSystem2(ctx, resourceId, params)
+	return err
+}
+
+// OperatingSystemServiceUpdateOperatingSystem2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServiceUpdateOperatingSystem2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem2(ctx, resourceId, params)
+	return err
+}
+
+// OSUpdatePolicyListOSUpdatePolicy2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyListOSUpdatePolicy2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdatePolicyListOSUpdatePolicy2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -986,58 +1733,92 @@ func (w *ServerInterfaceWrapper) OSUpdatePolicyListOSUpdatePolicy(ctx echo.Conte
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OSUpdatePolicyListOSUpdatePolicy(ctx, params)
-	return err
-}
+	// ------------- Required query parameter "projectName" -------------
 
-// OSUpdatePolicyCreateOSUpdatePolicy converts echo context to params.
-func (w *ServerInterfaceWrapper) OSUpdatePolicyCreateOSUpdatePolicy(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OSUpdatePolicyCreateOSUpdatePolicy(ctx)
-	return err
-}
-
-// OSUpdatePolicyDeleteOSUpdatePolicy converts echo context to params.
-func (w *ServerInterfaceWrapper) OSUpdatePolicyDeleteOSUpdatePolicy(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OSUpdatePolicyDeleteOSUpdatePolicy(ctx, resourceId)
+	err = w.Handler.OSUpdatePolicyListOSUpdatePolicy2(ctx, params)
 	return err
 }
 
-// OSUpdatePolicyGetOSUpdatePolicy converts echo context to params.
-func (w *ServerInterfaceWrapper) OSUpdatePolicyGetOSUpdatePolicy(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OSUpdatePolicyGetOSUpdatePolicy(ctx, resourceId)
-	return err
-}
-
-// OSUpdateRunListOSUpdateRun converts echo context to params.
-func (w *ServerInterfaceWrapper) OSUpdateRunListOSUpdateRun(ctx echo.Context) error {
+// OSUpdatePolicyCreateOSUpdatePolicy2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyCreateOSUpdatePolicy2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params OSUpdateRunListOSUpdateRunParams
+	var params OSUpdatePolicyCreateOSUpdatePolicy2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyCreateOSUpdatePolicy2(ctx, params)
+	return err
+}
+
+// OSUpdatePolicyDeleteOSUpdatePolicy2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyDeleteOSUpdatePolicy2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdatePolicyDeleteOSUpdatePolicy2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyDeleteOSUpdatePolicy2(ctx, resourceId, params)
+	return err
+}
+
+// OSUpdatePolicyGetOSUpdatePolicy2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyGetOSUpdatePolicy2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdatePolicyGetOSUpdatePolicy2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyGetOSUpdatePolicy2(ctx, resourceId, params)
+	return err
+}
+
+// OSUpdateRunListOSUpdateRun2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunListOSUpdateRun2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdateRunListOSUpdateRun2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -1066,13 +1847,20 @@ func (w *ServerInterfaceWrapper) OSUpdateRunListOSUpdateRun(ctx echo.Context) er
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OSUpdateRunListOSUpdateRun(ctx, params)
+	err = w.Handler.OSUpdateRunListOSUpdateRun2(ctx, params)
 	return err
 }
 
-// OSUpdateRunDeleteOSUpdateRun converts echo context to params.
-func (w *ServerInterfaceWrapper) OSUpdateRunDeleteOSUpdateRun(ctx echo.Context) error {
+// OSUpdateRunDeleteOSUpdateRun2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunDeleteOSUpdateRun2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1082,13 +1870,22 @@ func (w *ServerInterfaceWrapper) OSUpdateRunDeleteOSUpdateRun(ctx echo.Context) 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdateRunDeleteOSUpdateRun2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OSUpdateRunDeleteOSUpdateRun(ctx, resourceId)
+	err = w.Handler.OSUpdateRunDeleteOSUpdateRun2(ctx, resourceId, params)
 	return err
 }
 
-// OSUpdateRunGetOSUpdateRun converts echo context to params.
-func (w *ServerInterfaceWrapper) OSUpdateRunGetOSUpdateRun(ctx echo.Context) error {
+// OSUpdateRunGetOSUpdateRun2 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunGetOSUpdateRun2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1098,17 +1895,26 @@ func (w *ServerInterfaceWrapper) OSUpdateRunGetOSUpdateRun(ctx echo.Context) err
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdateRunGetOSUpdateRun2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.OSUpdateRunGetOSUpdateRun(ctx, resourceId)
+	err = w.Handler.OSUpdateRunGetOSUpdateRun2(ctx, resourceId, params)
 	return err
 }
 
-// ProviderServiceListProviders converts echo context to params.
-func (w *ServerInterfaceWrapper) ProviderServiceListProviders(ctx echo.Context) error {
+// ProviderServiceListProviders2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceListProviders2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params ProviderServiceListProvidersParams
+	var params ProviderServiceListProviders2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -1137,58 +1943,92 @@ func (w *ServerInterfaceWrapper) ProviderServiceListProviders(ctx echo.Context) 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ProviderServiceListProviders(ctx, params)
-	return err
-}
+	// ------------- Required query parameter "projectName" -------------
 
-// ProviderServiceCreateProvider converts echo context to params.
-func (w *ServerInterfaceWrapper) ProviderServiceCreateProvider(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ProviderServiceCreateProvider(ctx)
-	return err
-}
-
-// ProviderServiceDeleteProvider converts echo context to params.
-func (w *ServerInterfaceWrapper) ProviderServiceDeleteProvider(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ProviderServiceDeleteProvider(ctx, resourceId)
+	err = w.Handler.ProviderServiceListProviders2(ctx, params)
 	return err
 }
 
-// ProviderServiceGetProvider converts echo context to params.
-func (w *ServerInterfaceWrapper) ProviderServiceGetProvider(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ProviderServiceGetProvider(ctx, resourceId)
-	return err
-}
-
-// RegionServiceListRegions converts echo context to params.
-func (w *ServerInterfaceWrapper) RegionServiceListRegions(ctx echo.Context) error {
+// ProviderServiceCreateProvider2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceCreateProvider2(ctx echo.Context) error {
 	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params RegionServiceListRegionsParams
+	var params ProviderServiceCreateProvider2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ProviderServiceCreateProvider2(ctx, params)
+	return err
+}
+
+// ProviderServiceDeleteProvider2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceDeleteProvider2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ProviderServiceDeleteProvider2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ProviderServiceDeleteProvider2(ctx, resourceId, params)
+	return err
+}
+
+// ProviderServiceGetProvider2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceGetProvider2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ProviderServiceGetProvider2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ProviderServiceGetProvider2(ctx, resourceId, params)
+	return err
+}
+
+// RegionServiceListRegions2 converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceListRegions2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServiceListRegions2Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -1224,22 +2064,38 @@ func (w *ServerInterfaceWrapper) RegionServiceListRegions(ctx echo.Context) erro
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter showTotalSites: %s", err))
 	}
 
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegionServiceListRegions(ctx, params)
+	err = w.Handler.RegionServiceListRegions2(ctx, params)
 	return err
 }
 
-// RegionServiceCreateRegion converts echo context to params.
-func (w *ServerInterfaceWrapper) RegionServiceCreateRegion(ctx echo.Context) error {
+// RegionServiceCreateRegion2 converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceCreateRegion2(ctx echo.Context) error {
 	var err error
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServiceCreateRegion2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegionServiceCreateRegion(ctx)
+	err = w.Handler.RegionServiceCreateRegion2(ctx, params)
 	return err
 }
 
-// RegionServiceDeleteRegion converts echo context to params.
-func (w *ServerInterfaceWrapper) RegionServiceDeleteRegion(ctx echo.Context) error {
+// RegionServiceDeleteRegion2 converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceDeleteRegion2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1249,13 +2105,22 @@ func (w *ServerInterfaceWrapper) RegionServiceDeleteRegion(ctx echo.Context) err
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServiceDeleteRegion2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegionServiceDeleteRegion(ctx, resourceId)
+	err = w.Handler.RegionServiceDeleteRegion2(ctx, resourceId, params)
 	return err
 }
 
-// RegionServiceGetRegion converts echo context to params.
-func (w *ServerInterfaceWrapper) RegionServiceGetRegion(ctx echo.Context) error {
+// RegionServiceGetRegion2 converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceGetRegion2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1265,13 +2130,22 @@ func (w *ServerInterfaceWrapper) RegionServiceGetRegion(ctx echo.Context) error 
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServiceGetRegion2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegionServiceGetRegion(ctx, resourceId)
+	err = w.Handler.RegionServiceGetRegion2(ctx, resourceId, params)
 	return err
 }
 
-// RegionServicePatchRegion converts echo context to params.
-func (w *ServerInterfaceWrapper) RegionServicePatchRegion(ctx echo.Context) error {
+// RegionServicePatchRegion2 converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServicePatchRegion2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1281,13 +2155,29 @@ func (w *ServerInterfaceWrapper) RegionServicePatchRegion(ctx echo.Context) erro
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServicePatchRegion2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegionServicePatchRegion(ctx, resourceId)
+	err = w.Handler.RegionServicePatchRegion2(ctx, resourceId, params)
 	return err
 }
 
-// RegionServiceUpdateRegion converts echo context to params.
-func (w *ServerInterfaceWrapper) RegionServiceUpdateRegion(ctx echo.Context) error {
+// RegionServiceUpdateRegion2 converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceUpdateRegion2(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
@@ -1297,14 +2187,2404 @@ func (w *ServerInterfaceWrapper) RegionServiceUpdateRegion(ctx echo.Context) err
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServiceUpdateRegion2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegionServiceUpdateRegion(ctx, resourceId)
+	err = w.Handler.RegionServiceUpdateRegion2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServiceListSchedules2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceListSchedules2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceListSchedules2Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "hostId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "hostId", ctx.QueryParams(), &params.HostId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter hostId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "unixEpoch" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "unixEpoch", ctx.QueryParams(), &params.UnixEpoch)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter unixEpoch: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceListSchedules2(ctx, params)
+	return err
+}
+
+// ScheduleServiceListRepeatedSchedules2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceListRepeatedSchedules2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceListRepeatedSchedules2Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "hostId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "hostId", ctx.QueryParams(), &params.HostId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter hostId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "unixEpoch" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "unixEpoch", ctx.QueryParams(), &params.UnixEpoch)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter unixEpoch: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceListRepeatedSchedules2(ctx, params)
+	return err
+}
+
+// ScheduleServiceCreateRepeatedSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceCreateRepeatedSchedule2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceCreateRepeatedSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceCreateRepeatedSchedule2(ctx, params)
+	return err
+}
+
+// ScheduleServiceDeleteRepeatedSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceDeleteRepeatedSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceDeleteRepeatedSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceDeleteRepeatedSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServiceGetRepeatedSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceGetRepeatedSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceGetRepeatedSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceGetRepeatedSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServicePatchRepeatedSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServicePatchRepeatedSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServicePatchRepeatedSchedule2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServicePatchRepeatedSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServiceUpdateRepeatedSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceUpdateRepeatedSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceUpdateRepeatedSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceUpdateRepeatedSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServiceListSingleSchedules2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceListSingleSchedules2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceListSingleSchedules2Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "hostId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "hostId", ctx.QueryParams(), &params.HostId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter hostId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "unixEpoch" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "unixEpoch", ctx.QueryParams(), &params.UnixEpoch)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter unixEpoch: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceListSingleSchedules2(ctx, params)
+	return err
+}
+
+// ScheduleServiceCreateSingleSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceCreateSingleSchedule2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceCreateSingleSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceCreateSingleSchedule2(ctx, params)
+	return err
+}
+
+// ScheduleServiceDeleteSingleSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceDeleteSingleSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceDeleteSingleSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceDeleteSingleSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServiceGetSingleSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceGetSingleSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceGetSingleSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceGetSingleSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServicePatchSingleSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServicePatchSingleSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServicePatchSingleSchedule2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServicePatchSingleSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// ScheduleServiceUpdateSingleSchedule2 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceUpdateSingleSchedule2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceUpdateSingleSchedule2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceUpdateSingleSchedule2(ctx, resourceId, params)
+	return err
+}
+
+// SiteServiceListSites2 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceListSites2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceListSites2Params
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceListSites2(ctx, params)
+	return err
+}
+
+// SiteServiceCreateSite2 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceCreateSite2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceCreateSite2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceCreateSite2(ctx, params)
+	return err
+}
+
+// SiteServiceDeleteSite2 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceDeleteSite2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceDeleteSite2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceDeleteSite2(ctx, resourceId, params)
+	return err
+}
+
+// SiteServiceGetSite2 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceGetSite2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceGetSite2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceGetSite2(ctx, resourceId, params)
+	return err
+}
+
+// SiteServicePatchSite2 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServicePatchSite2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServicePatchSite2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServicePatchSite2(ctx, resourceId, params)
+	return err
+}
+
+// SiteServiceUpdateSite2 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceUpdateSite2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceUpdateSite2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceUpdateSite2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryLogsGroupServiceListTelemetryLogsGroups2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsGroupServiceListTelemetryLogsGroups2Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsGroupServiceListTelemetryLogsGroups2(ctx, params)
+	return err
+}
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsGroupServiceCreateTelemetryLogsGroup2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2(ctx, params)
+	return err
+}
+
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryLogsGroupServiceGetTelemetryLogsGroup2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsGroupServiceGetTelemetryLogsGroup2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsGroupServiceGetTelemetryLogsGroup2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsGroupServiceListTelemetryMetricsGroups2Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsGroupServiceListTelemetryMetricsGroups2(ctx, params)
+	return err
+}
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2(ctx, params)
+	return err
+}
+
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryLogsProfileServiceListTelemetryLogsProfiles2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceListTelemetryLogsProfiles2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsProfileServiceListTelemetryLogsProfiles2Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "instanceId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "instanceId", ctx.QueryParams(), &params.InstanceId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter instanceId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "showInherited" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "showInherited", ctx.QueryParams(), &params.ShowInherited)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter showInherited: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsProfileServiceListTelemetryLogsProfiles2(ctx, params)
+	return err
+}
+
+// TelemetryLogsProfileServiceCreateTelemetryLogsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceCreateTelemetryLogsProfile2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsProfileServiceCreateTelemetryLogsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsProfileServiceCreateTelemetryLogsProfile2(ctx, params)
+	return err
+}
+
+// TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryLogsProfileServiceGetTelemetryLogsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceGetTelemetryLogsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsProfileServiceGetTelemetryLogsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsProfileServiceGetTelemetryLogsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryLogsProfileServicePatchTelemetryLogsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsProfileServicePatchTelemetryLogsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsProfileServicePatchTelemetryLogsProfile2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsProfileServicePatchTelemetryLogsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "instanceId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "instanceId", ctx.QueryParams(), &params.InstanceId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter instanceId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "showInherited" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "showInherited", ctx.QueryParams(), &params.ShowInherited)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter showInherited: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2(ctx, params)
+	return err
+}
+
+// TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2(ctx, params)
+	return err
+}
+
+// TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2(ctx, resourceId, params)
+	return err
+}
+
+// WorkloadMemberServiceListWorkloadMembers2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceListWorkloadMembers2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadMemberServiceListWorkloadMembers2Params
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceListWorkloadMembers2(ctx, params)
+	return err
+}
+
+// WorkloadMemberServiceCreateWorkloadMember2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceCreateWorkloadMember2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadMemberServiceCreateWorkloadMember2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceCreateWorkloadMember2(ctx, params)
+	return err
+}
+
+// WorkloadMemberServiceDeleteWorkloadMember2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceDeleteWorkloadMember2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadMemberServiceDeleteWorkloadMember2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceDeleteWorkloadMember2(ctx, resourceId, params)
+	return err
+}
+
+// WorkloadMemberServiceGetWorkloadMember2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadMemberServiceGetWorkloadMember2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadMemberServiceGetWorkloadMember2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadMemberServiceGetWorkloadMember2(ctx, resourceId, params)
+	return err
+}
+
+// WorkloadServiceListWorkloads2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceListWorkloads2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServiceListWorkloads2Params
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceListWorkloads2(ctx, params)
+	return err
+}
+
+// WorkloadServiceCreateWorkload2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceCreateWorkload2(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServiceCreateWorkload2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceCreateWorkload2(ctx, params)
+	return err
+}
+
+// WorkloadServiceDeleteWorkload2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceDeleteWorkload2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServiceDeleteWorkload2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceDeleteWorkload2(ctx, resourceId, params)
+	return err
+}
+
+// WorkloadServiceGetWorkload2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceGetWorkload2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServiceGetWorkload2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceGetWorkload2(ctx, resourceId, params)
+	return err
+}
+
+// WorkloadServicePatchWorkload2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServicePatchWorkload2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServicePatchWorkload2Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServicePatchWorkload2(ctx, resourceId, params)
+	return err
+}
+
+// WorkloadServiceUpdateWorkload2 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceUpdateWorkload2(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServiceUpdateWorkload2Params
+	// ------------- Required query parameter "projectName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "projectName", ctx.QueryParams(), &params.ProjectName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceUpdateWorkload2(ctx, resourceId, params)
+	return err
+}
+
+// HostServiceListHosts converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceListHosts(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceListHostsParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceListHosts(ctx, projectName, params)
+	return err
+}
+
+// HostServiceCreateHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceCreateHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceCreateHost(ctx, projectName)
+	return err
+}
+
+// HostServiceRegisterHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceRegisterHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceRegisterHostParams
+	// ------------- Optional query parameter "resourceId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "resourceId", ctx.QueryParams(), &params.ResourceId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceRegisterHost(ctx, projectName, params)
+	return err
+}
+
+// HostServiceGetHostsSummary converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceGetHostsSummary(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceGetHostsSummaryParams
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceGetHostsSummary(ctx, projectName, params)
+	return err
+}
+
+// HostServiceDeleteHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceDeleteHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceDeleteHost(ctx, projectName, resourceId)
+	return err
+}
+
+// HostServiceGetHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceGetHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceGetHost(ctx, projectName, resourceId)
+	return err
+}
+
+// HostServicePatchHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServicePatchHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServicePatchHostParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServicePatchHost(ctx, projectName, resourceId, params)
+	return err
+}
+
+// HostServiceUpdateHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceUpdateHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceUpdateHost(ctx, projectName, resourceId)
+	return err
+}
+
+// HostServiceInvalidateHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceInvalidateHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceInvalidateHostParams
+	// ------------- Optional query parameter "note" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "note", ctx.QueryParams(), &params.Note)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter note: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceInvalidateHost(ctx, projectName, resourceId, params)
+	return err
+}
+
+// HostServiceOnboardHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceOnboardHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceOnboardHost(ctx, projectName, resourceId)
+	return err
+}
+
+// HostServicePatchRegisterHost converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServicePatchRegisterHost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServicePatchRegisterHost(ctx, projectName, resourceId)
+	return err
+}
+
+// HostServiceGetHostsSummary3 converts echo context to params.
+func (w *ServerInterfaceWrapper) HostServiceGetHostsSummary3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params HostServiceGetHostsSummary3Params
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.HostServiceGetHostsSummary3(ctx, projectName, params)
+	return err
+}
+
+// InstanceServiceListInstances converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceListInstances(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params InstanceServiceListInstancesParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceListInstances(ctx, projectName, params)
+	return err
+}
+
+// InstanceServiceCreateInstance converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceCreateInstance(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceCreateInstance(ctx, projectName)
+	return err
+}
+
+// InstanceServiceDeleteInstance converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceDeleteInstance(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceDeleteInstance(ctx, projectName, resourceId)
+	return err
+}
+
+// InstanceServiceGetInstance converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceGetInstance(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceGetInstance(ctx, projectName, resourceId)
+	return err
+}
+
+// InstanceServicePatchInstance converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServicePatchInstance(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params InstanceServicePatchInstanceParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServicePatchInstance(ctx, projectName, resourceId, params)
+	return err
+}
+
+// InstanceServiceUpdateInstance converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceUpdateInstance(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceUpdateInstance(ctx, projectName, resourceId)
+	return err
+}
+
+// InstanceServiceInvalidateInstance converts echo context to params.
+func (w *ServerInterfaceWrapper) InstanceServiceInvalidateInstance(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.InstanceServiceInvalidateInstance(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServiceListOperatingSystems3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServiceListOperatingSystems3Params
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceListOperatingSystems3(ctx, projectName, params)
+	return err
+}
+
+// OperatingSystemServiceCreateOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceCreateOperatingSystem3(ctx, projectName)
+	return err
+}
+
+// OperatingSystemServiceDeleteOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceDeleteOperatingSystem3(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServiceGetOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceGetOperatingSystem3(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServicePatchOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServicePatchOperatingSystem3Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServicePatchOperatingSystem3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// OperatingSystemServiceUpdateOperatingSystem3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem3(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServiceListOperatingSystems converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceListOperatingSystems(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServiceListOperatingSystemsParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceListOperatingSystems(ctx, projectName, params)
+	return err
+}
+
+// OperatingSystemServiceCreateOperatingSystem converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceCreateOperatingSystem(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceCreateOperatingSystem(ctx, projectName)
+	return err
+}
+
+// OperatingSystemServiceDeleteOperatingSystem converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceDeleteOperatingSystem(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceDeleteOperatingSystem(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServiceGetOperatingSystem converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceGetOperatingSystem(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceGetOperatingSystem(ctx, projectName, resourceId)
+	return err
+}
+
+// OperatingSystemServicePatchOperatingSystem converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServicePatchOperatingSystem(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OperatingSystemServicePatchOperatingSystemParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServicePatchOperatingSystem(ctx, projectName, resourceId, params)
+	return err
+}
+
+// OperatingSystemServiceUpdateOperatingSystem converts echo context to params.
+func (w *ServerInterfaceWrapper) OperatingSystemServiceUpdateOperatingSystem(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OperatingSystemServiceUpdateOperatingSystem(ctx, projectName, resourceId)
 	return err
 }
 
 // ScheduleServiceListSchedules converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceListSchedules(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params ScheduleServiceListSchedulesParams
@@ -1351,13 +4631,1775 @@ func (w *ServerInterfaceWrapper) ScheduleServiceListSchedules(ctx echo.Context) 
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceListSchedules(ctx, params)
+	err = w.Handler.ScheduleServiceListSchedules(ctx, projectName, params)
+	return err
+}
+
+// ScheduleServiceListRepeatedSchedules3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceListRepeatedSchedules3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceListRepeatedSchedules3Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "hostId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "hostId", ctx.QueryParams(), &params.HostId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter hostId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "unixEpoch" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "unixEpoch", ctx.QueryParams(), &params.UnixEpoch)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter unixEpoch: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceListRepeatedSchedules3(ctx, projectName, params)
+	return err
+}
+
+// ScheduleServiceCreateRepeatedSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceCreateRepeatedSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceCreateRepeatedSchedule3(ctx, projectName)
+	return err
+}
+
+// ScheduleServiceDeleteRepeatedSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceDeleteRepeatedSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceDeleteRepeatedSchedule3(ctx, projectName, resourceId)
+	return err
+}
+
+// ScheduleServiceGetRepeatedSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceGetRepeatedSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceGetRepeatedSchedule3(ctx, projectName, resourceId)
+	return err
+}
+
+// ScheduleServicePatchRepeatedSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServicePatchRepeatedSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServicePatchRepeatedSchedule3Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServicePatchRepeatedSchedule3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// ScheduleServiceUpdateRepeatedSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceUpdateRepeatedSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceUpdateRepeatedSchedule3(ctx, projectName, resourceId)
+	return err
+}
+
+// ScheduleServiceListSingleSchedules3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceListSingleSchedules3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceListSingleSchedules3Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "hostId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "hostId", ctx.QueryParams(), &params.HostId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter hostId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "unixEpoch" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "unixEpoch", ctx.QueryParams(), &params.UnixEpoch)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter unixEpoch: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceListSingleSchedules3(ctx, projectName, params)
+	return err
+}
+
+// ScheduleServiceCreateSingleSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceCreateSingleSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceCreateSingleSchedule3(ctx, projectName)
+	return err
+}
+
+// ScheduleServiceDeleteSingleSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceDeleteSingleSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceDeleteSingleSchedule3(ctx, projectName, resourceId)
+	return err
+}
+
+// ScheduleServiceGetSingleSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceGetSingleSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceGetSingleSchedule3(ctx, projectName, resourceId)
+	return err
+}
+
+// ScheduleServicePatchSingleSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServicePatchSingleSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServicePatchSingleSchedule3Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServicePatchSingleSchedule3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// ScheduleServiceUpdateSingleSchedule3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceUpdateSingleSchedule3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceUpdateSingleSchedule3(ctx, projectName, resourceId)
+	return err
+}
+
+// WorkloadServiceListWorkloads converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceListWorkloads(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServiceListWorkloadsParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceListWorkloads(ctx, projectName, params)
+	return err
+}
+
+// WorkloadServiceCreateWorkload converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceCreateWorkload(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceCreateWorkload(ctx, projectName)
+	return err
+}
+
+// WorkloadServiceDeleteWorkload converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceDeleteWorkload(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceDeleteWorkload(ctx, projectName, resourceId)
+	return err
+}
+
+// WorkloadServiceGetWorkload converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceGetWorkload(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceGetWorkload(ctx, projectName, resourceId)
+	return err
+}
+
+// WorkloadServicePatchWorkload converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServicePatchWorkload(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServicePatchWorkloadParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServicePatchWorkload(ctx, projectName, resourceId, params)
+	return err
+}
+
+// WorkloadServiceUpdateWorkload converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceUpdateWorkload(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServiceUpdateWorkload(ctx, projectName, resourceId)
+	return err
+}
+
+// CustomConfigServiceListCustomConfigs converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceListCustomConfigs(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params CustomConfigServiceListCustomConfigsParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CustomConfigServiceListCustomConfigs(ctx, projectName, params)
+	return err
+}
+
+// CustomConfigServiceCreateCustomConfig converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceCreateCustomConfig(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CustomConfigServiceCreateCustomConfig(ctx, projectName)
+	return err
+}
+
+// CustomConfigServiceDeleteCustomConfig converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceDeleteCustomConfig(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CustomConfigServiceDeleteCustomConfig(ctx, projectName, resourceId)
+	return err
+}
+
+// CustomConfigServiceGetCustomConfig converts echo context to params.
+func (w *ServerInterfaceWrapper) CustomConfigServiceGetCustomConfig(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CustomConfigServiceGetCustomConfig(ctx, projectName, resourceId)
+	return err
+}
+
+// LocalAccountServiceListLocalAccounts converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceListLocalAccounts(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params LocalAccountServiceListLocalAccountsParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocalAccountServiceListLocalAccounts(ctx, projectName, params)
+	return err
+}
+
+// LocalAccountServiceCreateLocalAccount converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceCreateLocalAccount(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocalAccountServiceCreateLocalAccount(ctx, projectName)
+	return err
+}
+
+// LocalAccountServiceDeleteLocalAccount converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceDeleteLocalAccount(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocalAccountServiceDeleteLocalAccount(ctx, projectName, resourceId)
+	return err
+}
+
+// LocalAccountServiceGetLocalAccount converts echo context to params.
+func (w *ServerInterfaceWrapper) LocalAccountServiceGetLocalAccount(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocalAccountServiceGetLocalAccount(ctx, projectName, resourceId)
+	return err
+}
+
+// LocationServiceListLocations converts echo context to params.
+func (w *ServerInterfaceWrapper) LocationServiceListLocations(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params LocationServiceListLocationsParams
+	// ------------- Optional query parameter "name" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "name", ctx.QueryParams(), &params.Name)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter name: %s", err))
+	}
+
+	// ------------- Optional query parameter "showSites" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "showSites", ctx.QueryParams(), &params.ShowSites)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter showSites: %s", err))
+	}
+
+	// ------------- Optional query parameter "showRegions" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "showRegions", ctx.QueryParams(), &params.ShowRegions)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter showRegions: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.LocationServiceListLocations(ctx, projectName, params)
+	return err
+}
+
+// OSUpdatePolicyListOSUpdatePolicy converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyListOSUpdatePolicy(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdatePolicyListOSUpdatePolicyParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyListOSUpdatePolicy(ctx, projectName, params)
+	return err
+}
+
+// OSUpdatePolicyCreateOSUpdatePolicy converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyCreateOSUpdatePolicy(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyCreateOSUpdatePolicy(ctx, projectName)
+	return err
+}
+
+// OSUpdatePolicyDeleteOSUpdatePolicy converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyDeleteOSUpdatePolicy(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyDeleteOSUpdatePolicy(ctx, projectName, resourceId)
+	return err
+}
+
+// OSUpdatePolicyGetOSUpdatePolicy converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyGetOSUpdatePolicy(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyGetOSUpdatePolicy(ctx, projectName, resourceId)
+	return err
+}
+
+// OSUpdateRunListOSUpdateRun converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunListOSUpdateRun(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdateRunListOSUpdateRunParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdateRunListOSUpdateRun(ctx, projectName, params)
+	return err
+}
+
+// OSUpdateRunDeleteOSUpdateRun converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunDeleteOSUpdateRun(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdateRunDeleteOSUpdateRun(ctx, projectName, resourceId)
+	return err
+}
+
+// OSUpdateRunGetOSUpdateRun converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunGetOSUpdateRun(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdateRunGetOSUpdateRun(ctx, projectName, resourceId)
+	return err
+}
+
+// OSUpdatePolicyListOSUpdatePolicy3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyListOSUpdatePolicy3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdatePolicyListOSUpdatePolicy3Params
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyListOSUpdatePolicy3(ctx, projectName, params)
+	return err
+}
+
+// OSUpdatePolicyCreateOSUpdatePolicy3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyCreateOSUpdatePolicy3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyCreateOSUpdatePolicy3(ctx, projectName)
+	return err
+}
+
+// OSUpdatePolicyDeleteOSUpdatePolicy3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyDeleteOSUpdatePolicy3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyDeleteOSUpdatePolicy3(ctx, projectName, resourceId)
+	return err
+}
+
+// OSUpdatePolicyGetOSUpdatePolicy3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdatePolicyGetOSUpdatePolicy3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdatePolicyGetOSUpdatePolicy3(ctx, projectName, resourceId)
+	return err
+}
+
+// OSUpdateRunListOSUpdateRun3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunListOSUpdateRun3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params OSUpdateRunListOSUpdateRun3Params
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdateRunListOSUpdateRun3(ctx, projectName, params)
+	return err
+}
+
+// OSUpdateRunDeleteOSUpdateRun3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunDeleteOSUpdateRun3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdateRunDeleteOSUpdateRun3(ctx, projectName, resourceId)
+	return err
+}
+
+// OSUpdateRunGetOSUpdateRun3 converts echo context to params.
+func (w *ServerInterfaceWrapper) OSUpdateRunGetOSUpdateRun3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.OSUpdateRunGetOSUpdateRun3(ctx, projectName, resourceId)
+	return err
+}
+
+// ProviderServiceListProviders converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceListProviders(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ProviderServiceListProvidersParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ProviderServiceListProviders(ctx, projectName, params)
+	return err
+}
+
+// ProviderServiceCreateProvider converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceCreateProvider(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ProviderServiceCreateProvider(ctx, projectName)
+	return err
+}
+
+// ProviderServiceDeleteProvider converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceDeleteProvider(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ProviderServiceDeleteProvider(ctx, projectName, resourceId)
+	return err
+}
+
+// ProviderServiceGetProvider converts echo context to params.
+func (w *ServerInterfaceWrapper) ProviderServiceGetProvider(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ProviderServiceGetProvider(ctx, projectName, resourceId)
+	return err
+}
+
+// RegionServiceListRegions converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceListRegions(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServiceListRegionsParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "showTotalSites" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "showTotalSites", ctx.QueryParams(), &params.ShowTotalSites)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter showTotalSites: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.RegionServiceListRegions(ctx, projectName, params)
+	return err
+}
+
+// RegionServiceCreateRegion converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceCreateRegion(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.RegionServiceCreateRegion(ctx, projectName)
+	return err
+}
+
+// SiteServiceListSites converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceListSites(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "regionId" -------------
+	var regionId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "regionId", ctx.Param("regionId"), &regionId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceListSitesParams
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", ctx.QueryParams(), &params.Filter)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter filter: %s", err))
+	}
+
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceListSites(ctx, projectName, regionId, params)
+	return err
+}
+
+// SiteServiceCreateSite converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceCreateSite(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "regionId" -------------
+	var regionId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "regionId", ctx.Param("regionId"), &regionId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceCreateSite(ctx, projectName, regionId)
+	return err
+}
+
+// SiteServiceDeleteSite converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceDeleteSite(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "regionId" -------------
+	var regionId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "regionId", ctx.Param("regionId"), &regionId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceDeleteSite(ctx, projectName, regionId, resourceId)
+	return err
+}
+
+// SiteServiceGetSite converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceGetSite(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "regionId" -------------
+	var regionId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "regionId", ctx.Param("regionId"), &regionId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceGetSite(ctx, projectName, regionId, resourceId)
+	return err
+}
+
+// SiteServicePatchSite converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServicePatchSite(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "regionId" -------------
+	var regionId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "regionId", ctx.Param("regionId"), &regionId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServicePatchSiteParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServicePatchSite(ctx, projectName, regionId, resourceId, params)
+	return err
+}
+
+// SiteServiceUpdateSite converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceUpdateSite(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "regionId" -------------
+	var regionId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "regionId", ctx.Param("regionId"), &regionId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceUpdateSite(ctx, projectName, regionId, resourceId)
+	return err
+}
+
+// RegionServiceDeleteRegion converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceDeleteRegion(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.RegionServiceDeleteRegion(ctx, projectName, resourceId)
+	return err
+}
+
+// RegionServiceGetRegion converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceGetRegion(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.RegionServiceGetRegion(ctx, projectName, resourceId)
+	return err
+}
+
+// RegionServicePatchRegion converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServicePatchRegion(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params RegionServicePatchRegionParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.RegionServicePatchRegion(ctx, projectName, resourceId, params)
+	return err
+}
+
+// RegionServiceUpdateRegion converts echo context to params.
+func (w *ServerInterfaceWrapper) RegionServiceUpdateRegion(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.RegionServiceUpdateRegion(ctx, projectName, resourceId)
+	return err
+}
+
+// ScheduleServiceListSchedules3 converts echo context to params.
+func (w *ServerInterfaceWrapper) ScheduleServiceListSchedules3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServiceListSchedules3Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "hostId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "hostId", ctx.QueryParams(), &params.HostId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter hostId: %s", err))
+	}
+
+	// ------------- Optional query parameter "siteId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "siteId", ctx.QueryParams(), &params.SiteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter siteId: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// ------------- Optional query parameter "unixEpoch" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "unixEpoch", ctx.QueryParams(), &params.UnixEpoch)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter unixEpoch: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.ScheduleServiceListSchedules3(ctx, projectName, params)
 	return err
 }
 
 // ScheduleServiceListRepeatedSchedules converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceListRepeatedSchedules(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params ScheduleServiceListRepeatedSchedulesParams
@@ -1404,22 +6446,37 @@ func (w *ServerInterfaceWrapper) ScheduleServiceListRepeatedSchedules(ctx echo.C
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceListRepeatedSchedules(ctx, params)
+	err = w.Handler.ScheduleServiceListRepeatedSchedules(ctx, projectName, params)
 	return err
 }
 
 // ScheduleServiceCreateRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceCreateRepeatedSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceCreateRepeatedSchedule(ctx)
+	err = w.Handler.ScheduleServiceCreateRepeatedSchedule(ctx, projectName)
 	return err
 }
 
 // ScheduleServiceDeleteRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceDeleteRepeatedSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1429,13 +6486,21 @@ func (w *ServerInterfaceWrapper) ScheduleServiceDeleteRepeatedSchedule(ctx echo.
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceDeleteRepeatedSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServiceDeleteRepeatedSchedule(ctx, projectName, resourceId)
 	return err
 }
 
 // ScheduleServiceGetRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceGetRepeatedSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1445,13 +6510,21 @@ func (w *ServerInterfaceWrapper) ScheduleServiceGetRepeatedSchedule(ctx echo.Con
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceGetRepeatedSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServiceGetRepeatedSchedule(ctx, projectName, resourceId)
 	return err
 }
 
 // ScheduleServicePatchRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServicePatchRepeatedSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1460,14 +6533,31 @@ func (w *ServerInterfaceWrapper) ScheduleServicePatchRepeatedSchedule(ctx echo.C
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServicePatchRepeatedScheduleParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServicePatchRepeatedSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServicePatchRepeatedSchedule(ctx, projectName, resourceId, params)
 	return err
 }
 
 // ScheduleServiceUpdateRepeatedSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceUpdateRepeatedSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1477,13 +6567,20 @@ func (w *ServerInterfaceWrapper) ScheduleServiceUpdateRepeatedSchedule(ctx echo.
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceUpdateRepeatedSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServiceUpdateRepeatedSchedule(ctx, projectName, resourceId)
 	return err
 }
 
 // ScheduleServiceListSingleSchedules converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceListSingleSchedules(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params ScheduleServiceListSingleSchedulesParams
@@ -1530,22 +6627,37 @@ func (w *ServerInterfaceWrapper) ScheduleServiceListSingleSchedules(ctx echo.Con
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceListSingleSchedules(ctx, params)
+	err = w.Handler.ScheduleServiceListSingleSchedules(ctx, projectName, params)
 	return err
 }
 
 // ScheduleServiceCreateSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceCreateSingleSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceCreateSingleSchedule(ctx)
+	err = w.Handler.ScheduleServiceCreateSingleSchedule(ctx, projectName)
 	return err
 }
 
 // ScheduleServiceDeleteSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceDeleteSingleSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1555,13 +6667,21 @@ func (w *ServerInterfaceWrapper) ScheduleServiceDeleteSingleSchedule(ctx echo.Co
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceDeleteSingleSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServiceDeleteSingleSchedule(ctx, projectName, resourceId)
 	return err
 }
 
 // ScheduleServiceGetSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceGetSingleSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1571,13 +6691,21 @@ func (w *ServerInterfaceWrapper) ScheduleServiceGetSingleSchedule(ctx echo.Conte
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceGetSingleSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServiceGetSingleSchedule(ctx, projectName, resourceId)
 	return err
 }
 
 // ScheduleServicePatchSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServicePatchSingleSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1586,14 +6714,31 @@ func (w *ServerInterfaceWrapper) ScheduleServicePatchSingleSchedule(ctx echo.Con
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ScheduleServicePatchSingleScheduleParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServicePatchSingleSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServicePatchSingleSchedule(ctx, projectName, resourceId, params)
 	return err
 }
 
 // ScheduleServiceUpdateSingleSchedule converts echo context to params.
 func (w *ServerInterfaceWrapper) ScheduleServiceUpdateSingleSchedule(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1603,16 +6748,23 @@ func (w *ServerInterfaceWrapper) ScheduleServiceUpdateSingleSchedule(ctx echo.Co
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.ScheduleServiceUpdateSingleSchedule(ctx, resourceId)
+	err = w.Handler.ScheduleServiceUpdateSingleSchedule(ctx, projectName, resourceId)
 	return err
 }
 
-// SiteServiceListSites converts echo context to params.
-func (w *ServerInterfaceWrapper) SiteServiceListSites(ctx echo.Context) error {
+// SiteServiceListSites3 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceListSites3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params SiteServiceListSitesParams
+	var params SiteServiceListSites3Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -1641,23 +6793,248 @@ func (w *ServerInterfaceWrapper) SiteServiceListSites(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
 	}
 
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.SiteServiceListSites(ctx, params)
+	err = w.Handler.SiteServiceListSites3(ctx, projectName, params)
 	return err
 }
 
-// SiteServiceCreateSite converts echo context to params.
-func (w *ServerInterfaceWrapper) SiteServiceCreateSite(ctx echo.Context) error {
+// SiteServiceCreateSite3 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceCreateSite3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceCreateSite3Params
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.SiteServiceCreateSite(ctx)
+	err = w.Handler.SiteServiceCreateSite3(ctx, projectName, params)
 	return err
 }
 
-// SiteServiceDeleteSite converts echo context to params.
-func (w *ServerInterfaceWrapper) SiteServiceDeleteSite(ctx echo.Context) error {
+// SiteServiceDeleteSite3 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceDeleteSite3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceDeleteSite3Params
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceDeleteSite3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// SiteServiceGetSite3 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceGetSite3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceGetSite3Params
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceGetSite3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// SiteServicePatchSite3 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServicePatchSite3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServicePatchSite3Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServicePatchSite3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// SiteServiceUpdateSite3 converts echo context to params.
+func (w *ServerInterfaceWrapper) SiteServiceUpdateSite3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SiteServiceUpdateSite3Params
+	// ------------- Optional query parameter "regionId" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "regionId", ctx.QueryParams(), &params.RegionId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter regionId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.SiteServiceUpdateSite3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// TelemetryLogsGroupServiceListTelemetryLogsGroups3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceListTelemetryLogsGroups3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsGroupServiceListTelemetryLogsGroups3Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsGroupServiceListTelemetryLogsGroups3(ctx, projectName, params)
+	return err
+}
+
+// TelemetryLogsGroupServiceCreateTelemetryLogsGroup3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceCreateTelemetryLogsGroup3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryLogsGroupServiceCreateTelemetryLogsGroup3(ctx, projectName)
+	return err
+}
+
+// TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1667,13 +7044,21 @@ func (w *ServerInterfaceWrapper) SiteServiceDeleteSite(ctx echo.Context) error {
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.SiteServiceDeleteSite(ctx, resourceId)
+	err = w.Handler.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3(ctx, projectName, resourceId)
 	return err
 }
 
-// SiteServiceGetSite converts echo context to params.
-func (w *ServerInterfaceWrapper) SiteServiceGetSite(ctx echo.Context) error {
+// TelemetryLogsGroupServiceGetTelemetryLogsGroup3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceGetTelemetryLogsGroup3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1683,13 +7068,76 @@ func (w *ServerInterfaceWrapper) SiteServiceGetSite(ctx echo.Context) error {
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.SiteServiceGetSite(ctx, resourceId)
+	err = w.Handler.TelemetryLogsGroupServiceGetTelemetryLogsGroup3(ctx, projectName, resourceId)
 	return err
 }
 
-// SiteServicePatchSite converts echo context to params.
-func (w *ServerInterfaceWrapper) SiteServicePatchSite(ctx echo.Context) error {
+// TelemetryMetricsGroupServiceListTelemetryMetricsGroups3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceListTelemetryMetricsGroups3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsGroupServiceListTelemetryMetricsGroups3Params
+	// ------------- Optional query parameter "pageSize" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "pageSize", ctx.QueryParams(), &params.PageSize)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter pageSize: %s", err))
+	}
+
+	// ------------- Optional query parameter "offset" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "offset", ctx.QueryParams(), &params.Offset)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter offset: %s", err))
+	}
+
+	// ------------- Optional query parameter "orderBy" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter orderBy: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsGroupServiceListTelemetryMetricsGroups3(ctx, projectName, params)
+	return err
+}
+
+// TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3(ctx, projectName)
+	return err
+}
+
+// TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1699,13 +7147,21 @@ func (w *ServerInterfaceWrapper) SiteServicePatchSite(ctx echo.Context) error {
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.SiteServicePatchSite(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3(ctx, projectName, resourceId)
 	return err
 }
 
-// SiteServiceUpdateSite converts echo context to params.
-func (w *ServerInterfaceWrapper) SiteServiceUpdateSite(ctx echo.Context) error {
+// TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3 converts echo context to params.
+func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1715,13 +7171,20 @@ func (w *ServerInterfaceWrapper) SiteServiceUpdateSite(ctx echo.Context) error {
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.SiteServiceUpdateSite(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryLogsGroupServiceListTelemetryLogsGroups converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params TelemetryLogsGroupServiceListTelemetryLogsGroupsParams
@@ -1747,22 +7210,37 @@ func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceListTelemetryLogsGroup
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx, params)
+	err = w.Handler.TelemetryLogsGroupServiceListTelemetryLogsGroups(ctx, projectName, params)
 	return err
 }
 
 // TelemetryLogsGroupServiceCreateTelemetryLogsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx)
+	err = w.Handler.TelemetryLogsGroupServiceCreateTelemetryLogsGroup(ctx, projectName)
 	return err
 }
 
 // TelemetryLogsGroupServiceDeleteTelemetryLogsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1772,13 +7250,21 @@ func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceDeleteTelemetryLogsGro
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx, resourceId)
+	err = w.Handler.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryLogsGroupServiceGetTelemetryLogsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1788,13 +7274,20 @@ func (w *ServerInterfaceWrapper) TelemetryLogsGroupServiceGetTelemetryLogsGroup(
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx, resourceId)
+	err = w.Handler.TelemetryLogsGroupServiceGetTelemetryLogsGroup(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryMetricsGroupServiceListTelemetryMetricsGroups converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params TelemetryMetricsGroupServiceListTelemetryMetricsGroupsParams
@@ -1820,22 +7313,37 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceListTelemetryMetric
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx, params)
+	err = w.Handler.TelemetryMetricsGroupServiceListTelemetryMetricsGroups(ctx, projectName, params)
 	return err
 }
 
 // TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx)
+	err = w.Handler.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup(ctx, projectName)
 	return err
 }
 
 // TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1845,13 +7353,21 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceDeleteTelemetryMetr
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryMetricsGroupServiceGetTelemetryMetricsGroup converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1861,13 +7377,20 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsGroupServiceGetTelemetryMetrics
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryLogsProfileServiceListTelemetryLogsProfiles converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params TelemetryLogsProfileServiceListTelemetryLogsProfilesParams
@@ -1921,22 +7444,37 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceListTelemetryLogsPro
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx, params)
+	err = w.Handler.TelemetryLogsProfileServiceListTelemetryLogsProfiles(ctx, projectName, params)
 	return err
 }
 
 // TelemetryLogsProfileServiceCreateTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx)
+	err = w.Handler.TelemetryLogsProfileServiceCreateTelemetryLogsProfile(ctx, projectName)
 	return err
 }
 
 // TelemetryLogsProfileServiceDeleteTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1946,13 +7484,21 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceDeleteTelemetryLogsP
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryLogsProfileServiceGetTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1962,13 +7508,21 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceGetTelemetryLogsProf
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryLogsProfileServiceGetTelemetryLogsProfile(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryLogsProfileServicePatchTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1977,14 +7531,31 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServicePatchTelemetryLogsPr
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryLogsProfileServicePatchTelemetryLogsProfileParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryLogsProfileServicePatchTelemetryLogsProfile(ctx, projectName, resourceId, params)
 	return err
 }
 
 // TelemetryLogsProfileServiceUpdateTelemetryLogsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -1994,13 +7565,20 @@ func (w *ServerInterfaceWrapper) TelemetryLogsProfileServiceUpdateTelemetryLogsP
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryMetricsProfileServiceListTelemetryMetricsProfiles converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params TelemetryMetricsProfileServiceListTelemetryMetricsProfilesParams
@@ -2054,22 +7632,37 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceListTelemetryMetr
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx, params)
+	err = w.Handler.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles(ctx, projectName, params)
 	return err
 }
 
 // TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx)
+	err = w.Handler.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile(ctx, projectName)
 	return err
 }
 
 // TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2079,13 +7672,21 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceDeleteTelemetryMe
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryMetricsProfileServiceGetTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2095,13 +7696,21 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceGetTelemetryMetri
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile(ctx, projectName, resourceId)
 	return err
 }
 
 // TelemetryMetricsProfileServicePatchTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2110,14 +7719,31 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServicePatchTelemetryMet
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
 	}
 
+	// Parameter object where we will unmarshal all parameters from the context
+	var params TelemetryMetricsProfileServicePatchTelemetryMetricsProfileParams
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile(ctx, projectName, resourceId, params)
 	return err
 }
 
 // TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2127,13 +7753,20 @@ func (w *ServerInterfaceWrapper) TelemetryMetricsProfileServiceUpdateTelemetryMe
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx, resourceId)
+	err = w.Handler.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile(ctx, projectName, resourceId)
 	return err
 }
 
 // WorkloadMemberServiceListWorkloadMembers converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadMemberServiceListWorkloadMembers(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
 	var params WorkloadMemberServiceListWorkloadMembersParams
@@ -2166,22 +7799,37 @@ func (w *ServerInterfaceWrapper) WorkloadMemberServiceListWorkloadMembers(ctx ec
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceListWorkloadMembers(ctx, params)
+	err = w.Handler.WorkloadMemberServiceListWorkloadMembers(ctx, projectName, params)
 	return err
 }
 
 // WorkloadMemberServiceCreateWorkloadMember converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadMemberServiceCreateWorkloadMember(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceCreateWorkloadMember(ctx)
+	err = w.Handler.WorkloadMemberServiceCreateWorkloadMember(ctx, projectName)
 	return err
 }
 
 // WorkloadMemberServiceDeleteWorkloadMember converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadMemberServiceDeleteWorkloadMember(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2191,13 +7839,21 @@ func (w *ServerInterfaceWrapper) WorkloadMemberServiceDeleteWorkloadMember(ctx e
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceDeleteWorkloadMember(ctx, resourceId)
+	err = w.Handler.WorkloadMemberServiceDeleteWorkloadMember(ctx, projectName, resourceId)
 	return err
 }
 
 // WorkloadMemberServiceGetWorkloadMember converts echo context to params.
 func (w *ServerInterfaceWrapper) WorkloadMemberServiceGetWorkloadMember(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2207,16 +7863,23 @@ func (w *ServerInterfaceWrapper) WorkloadMemberServiceGetWorkloadMember(ctx echo
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadMemberServiceGetWorkloadMember(ctx, resourceId)
+	err = w.Handler.WorkloadMemberServiceGetWorkloadMember(ctx, projectName, resourceId)
 	return err
 }
 
-// WorkloadServiceListWorkloads converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadServiceListWorkloads(ctx echo.Context) error {
+// WorkloadServiceListWorkloads3 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceListWorkloads3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params WorkloadServiceListWorkloadsParams
+	var params WorkloadServiceListWorkloads3Params
 	// ------------- Optional query parameter "orderBy" -------------
 
 	err = runtime.BindQueryParameter("form", true, false, "orderBy", ctx.QueryParams(), &params.OrderBy)
@@ -2246,22 +7909,37 @@ func (w *ServerInterfaceWrapper) WorkloadServiceListWorkloads(ctx echo.Context) 
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadServiceListWorkloads(ctx, params)
+	err = w.Handler.WorkloadServiceListWorkloads3(ctx, projectName, params)
 	return err
 }
 
-// WorkloadServiceCreateWorkload converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadServiceCreateWorkload(ctx echo.Context) error {
+// WorkloadServiceCreateWorkload3 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceCreateWorkload3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadServiceCreateWorkload(ctx)
+	err = w.Handler.WorkloadServiceCreateWorkload3(ctx, projectName)
 	return err
 }
 
-// WorkloadServiceDeleteWorkload converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadServiceDeleteWorkload(ctx echo.Context) error {
+// WorkloadServiceDeleteWorkload3 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceDeleteWorkload3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2271,13 +7949,21 @@ func (w *ServerInterfaceWrapper) WorkloadServiceDeleteWorkload(ctx echo.Context)
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadServiceDeleteWorkload(ctx, resourceId)
+	err = w.Handler.WorkloadServiceDeleteWorkload3(ctx, projectName, resourceId)
 	return err
 }
 
-// WorkloadServiceGetWorkload converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadServiceGetWorkload(ctx echo.Context) error {
+// WorkloadServiceGetWorkload3 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceGetWorkload3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2287,13 +7973,54 @@ func (w *ServerInterfaceWrapper) WorkloadServiceGetWorkload(ctx echo.Context) er
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadServiceGetWorkload(ctx, resourceId)
+	err = w.Handler.WorkloadServiceGetWorkload3(ctx, projectName, resourceId)
 	return err
 }
 
-// WorkloadServicePatchWorkload converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadServicePatchWorkload(ctx echo.Context) error {
+// WorkloadServicePatchWorkload3 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServicePatchWorkload3(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
+	// ------------- Path parameter "resourceId" -------------
+	var resourceId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params WorkloadServicePatchWorkload3Params
+	// ------------- Optional query parameter "fieldMask" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "fieldMask", ctx.QueryParams(), &params.FieldMask)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter fieldMask: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.WorkloadServicePatchWorkload3(ctx, projectName, resourceId, params)
+	return err
+}
+
+// WorkloadServiceUpdateWorkload3 converts echo context to params.
+func (w *ServerInterfaceWrapper) WorkloadServiceUpdateWorkload3(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "projectName" -------------
+	var projectName string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectName", ctx.Param("projectName"), &projectName, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter projectName: %s", err))
+	}
+
 	// ------------- Path parameter "resourceId" -------------
 	var resourceId string
 
@@ -2303,23 +8030,7 @@ func (w *ServerInterfaceWrapper) WorkloadServicePatchWorkload(ctx echo.Context) 
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadServicePatchWorkload(ctx, resourceId)
-	return err
-}
-
-// WorkloadServiceUpdateWorkload converts echo context to params.
-func (w *ServerInterfaceWrapper) WorkloadServiceUpdateWorkload(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "resourceId" -------------
-	var resourceId string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "resourceId", ctx.Param("resourceId"), &resourceId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter resourceId: %s", err))
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.WorkloadServiceUpdateWorkload(ctx, resourceId)
+	err = w.Handler.WorkloadServiceUpdateWorkload3(ctx, projectName, resourceId)
 	return err
 }
 
@@ -2351,415 +8062,774 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 		Handler: si,
 	}
 
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs", wrapper.CustomConfigServiceListCustomConfigs)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs", wrapper.CustomConfigServiceCreateCustomConfig)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs/:resourceId", wrapper.CustomConfigServiceDeleteCustomConfig)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs/:resourceId", wrapper.CustomConfigServiceGetCustomConfig)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts", wrapper.HostServiceListHosts)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/hosts", wrapper.HostServiceCreateHost)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/register", wrapper.HostServiceRegisterHost)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceDeleteHost)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceGetHost)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServicePatchHost)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceUpdateHost)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/invalidate", wrapper.HostServiceInvalidateHost)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/onboard", wrapper.HostServiceOnboardHost)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/register", wrapper.HostServicePatchRegisterHost)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts_summary", wrapper.HostServiceGetHostsSummary)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/instances", wrapper.InstanceServiceListInstances)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/instances", wrapper.InstanceServiceCreateInstance)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceDeleteInstance)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceGetInstance)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServicePatchInstance)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceUpdateInstance)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId/invalidate", wrapper.InstanceServiceInvalidateInstance)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts", wrapper.LocalAccountServiceListLocalAccounts)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts", wrapper.LocalAccountServiceCreateLocalAccount)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceDeleteLocalAccount)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceGetLocalAccount)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/locations", wrapper.LocationServiceListLocations)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceListOperatingSystems)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceCreateOperatingSystem)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy", wrapper.OSUpdatePolicyListOSUpdatePolicy)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy", wrapper.OSUpdatePolicyCreateOSUpdatePolicy)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy/:resourceId", wrapper.OSUpdatePolicyDeleteOSUpdatePolicy)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy/:resourceId", wrapper.OSUpdatePolicyGetOSUpdatePolicy)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_run", wrapper.OSUpdateRunListOSUpdateRun)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_run/:resourceId", wrapper.OSUpdateRunDeleteOSUpdateRun)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_run/:resourceId", wrapper.OSUpdateRunGetOSUpdateRun)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/providers", wrapper.ProviderServiceListProviders)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/providers", wrapper.ProviderServiceCreateProvider)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resourceId", wrapper.ProviderServiceDeleteProvider)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resourceId", wrapper.ProviderServiceGetProvider)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/regions", wrapper.RegionServiceListRegions)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/regions", wrapper.RegionServiceCreateRegion)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceDeleteRegion)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceGetRegion)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServicePatchRegion)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceUpdateRegion)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules", wrapper.ScheduleServiceListSchedules)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated", wrapper.ScheduleServiceListRepeatedSchedules)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated", wrapper.ScheduleServiceCreateRepeatedSchedule)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceDeleteRepeatedSchedule)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceGetRepeatedSchedule)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServicePatchRepeatedSchedule)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceUpdateRepeatedSchedule)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single", wrapper.ScheduleServiceListSingleSchedules)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single", wrapper.ScheduleServiceCreateSingleSchedule)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceDeleteSingleSchedule)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceGetSingleSchedule)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServicePatchSingleSchedule)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceUpdateSingleSchedule)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/sites", wrapper.SiteServiceListSites)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/sites", wrapper.SiteServiceCreateSite)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceDeleteSite)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceGetSite)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServicePatchSite)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceUpdateSite)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceListTelemetryLogsGroups)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceCreateTelemetryLogsGroup)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceGetTelemetryLogsGroup)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceListTelemetryMetricsGroups)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceListTelemetryLogsProfiles)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceCreateTelemetryLogsProfile)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceGetTelemetryLogsProfile)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServicePatchTelemetryLogsProfile)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceListWorkloadMembers)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceCreateWorkloadMember)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceDeleteWorkloadMember)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceGetWorkloadMember)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workloads", wrapper.WorkloadServiceListWorkloads)
-	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/workloads", wrapper.WorkloadServiceCreateWorkload)
-	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceDeleteWorkload)
-	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceGetWorkload)
-	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServicePatchWorkload)
-	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceUpdateWorkload)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs", wrapper.CustomConfigServiceListCustomConfigs2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs", wrapper.CustomConfigServiceCreateCustomConfig2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs/:resourceId", wrapper.CustomConfigServiceDeleteCustomConfig2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/customConfigs/:resourceId", wrapper.CustomConfigServiceGetCustomConfig2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts", wrapper.HostServiceListHosts2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/hosts", wrapper.HostServiceCreateHost2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/register", wrapper.HostServiceRegisterHost2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceDeleteHost2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceGetHost2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServicePatchHost2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId", wrapper.HostServiceUpdateHost2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/invalidate", wrapper.HostServiceInvalidateHost2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/onboard", wrapper.HostServiceOnboardHost2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/hosts/:resourceId/register", wrapper.HostServicePatchRegisterHost2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/hosts_summary", wrapper.HostServiceGetHostsSummary2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/instances", wrapper.InstanceServiceListInstances2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/instances", wrapper.InstanceServiceCreateInstance2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceDeleteInstance2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceGetInstance2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServicePatchInstance2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId", wrapper.InstanceServiceUpdateInstance2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/instances/:resourceId/invalidate", wrapper.InstanceServiceInvalidateInstance2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts", wrapper.LocalAccountServiceListLocalAccounts2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts", wrapper.LocalAccountServiceCreateLocalAccount2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceDeleteLocalAccount2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/localAccounts/:resourceId", wrapper.LocalAccountServiceGetLocalAccount2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/locations", wrapper.LocationServiceListLocations2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceListOperatingSystems2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems", wrapper.OperatingSystemServiceCreateOperatingSystem2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/operating_systems/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy", wrapper.OSUpdatePolicyListOSUpdatePolicy2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy", wrapper.OSUpdatePolicyCreateOSUpdatePolicy2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy/:resourceId", wrapper.OSUpdatePolicyDeleteOSUpdatePolicy2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_policy/:resourceId", wrapper.OSUpdatePolicyGetOSUpdatePolicy2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_run", wrapper.OSUpdateRunListOSUpdateRun2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_run/:resourceId", wrapper.OSUpdateRunDeleteOSUpdateRun2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/os_update_run/:resourceId", wrapper.OSUpdateRunGetOSUpdateRun2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/providers", wrapper.ProviderServiceListProviders2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/providers", wrapper.ProviderServiceCreateProvider2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resourceId", wrapper.ProviderServiceDeleteProvider2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/providers/:resourceId", wrapper.ProviderServiceGetProvider2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/regions", wrapper.RegionServiceListRegions2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/regions", wrapper.RegionServiceCreateRegion2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceDeleteRegion2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceGetRegion2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServicePatchRegion2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/regions/:resourceId", wrapper.RegionServiceUpdateRegion2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules", wrapper.ScheduleServiceListSchedules2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated", wrapper.ScheduleServiceListRepeatedSchedules2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated", wrapper.ScheduleServiceCreateRepeatedSchedule2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceDeleteRepeatedSchedule2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceGetRepeatedSchedule2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServicePatchRepeatedSchedule2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/repeated/:resourceId", wrapper.ScheduleServiceUpdateRepeatedSchedule2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single", wrapper.ScheduleServiceListSingleSchedules2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single", wrapper.ScheduleServiceCreateSingleSchedule2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceDeleteSingleSchedule2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceGetSingleSchedule2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServicePatchSingleSchedule2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/schedules/single/:resourceId", wrapper.ScheduleServiceUpdateSingleSchedule2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/sites", wrapper.SiteServiceListSites2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/sites", wrapper.SiteServiceCreateSite2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceDeleteSite2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceGetSite2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServicePatchSite2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/sites/:resourceId", wrapper.SiteServiceUpdateSite2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceListTelemetryLogsGroups2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceCreateTelemetryLogsGroup2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceGetTelemetryLogsGroup2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceListTelemetryMetricsGroups2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceListTelemetryLogsProfiles2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceCreateTelemetryLogsProfile2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceGetTelemetryLogsProfile2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServicePatchTelemetryLogsProfile2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceListWorkloadMembers2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members", wrapper.WorkloadMemberServiceCreateWorkloadMember2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceDeleteWorkloadMember2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workload_members/:resourceId", wrapper.WorkloadMemberServiceGetWorkloadMember2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workloads", wrapper.WorkloadServiceListWorkloads2)
+	router.POST(baseURL+"/edge-infra.orchestrator.apis/v2/workloads", wrapper.WorkloadServiceCreateWorkload2)
+	router.DELETE(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceDeleteWorkload2)
+	router.GET(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceGetWorkload2)
+	router.PATCH(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServicePatchWorkload2)
+	router.PUT(baseURL+"/edge-infra.orchestrator.apis/v2/workloads/:resourceId", wrapper.WorkloadServiceUpdateWorkload2)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/hosts", wrapper.HostServiceListHosts)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/hosts", wrapper.HostServiceCreateHost)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/hosts/register", wrapper.HostServiceRegisterHost)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/hosts/summary", wrapper.HostServiceGetHostsSummary)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/hosts/:resourceId", wrapper.HostServiceDeleteHost)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/hosts/:resourceId", wrapper.HostServiceGetHost)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/hosts/:resourceId", wrapper.HostServicePatchHost)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/hosts/:resourceId", wrapper.HostServiceUpdateHost)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/hosts/:resourceId/invalidate", wrapper.HostServiceInvalidateHost)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/hosts/:resourceId/onboard", wrapper.HostServiceOnboardHost)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/hosts/:resourceId/register", wrapper.HostServicePatchRegisterHost)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/hosts_summary", wrapper.HostServiceGetHostsSummary3)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/instances", wrapper.InstanceServiceListInstances)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/instances", wrapper.InstanceServiceCreateInstance)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/instances/:resourceId", wrapper.InstanceServiceDeleteInstance)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/instances/:resourceId", wrapper.InstanceServiceGetInstance)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/instances/:resourceId", wrapper.InstanceServicePatchInstance)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/instances/:resourceId", wrapper.InstanceServiceUpdateInstance)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/instances/:resourceId/invalidate", wrapper.InstanceServiceInvalidateInstance)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/operating_systems", wrapper.OperatingSystemServiceListOperatingSystems3)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/operating_systems", wrapper.OperatingSystemServiceCreateOperatingSystem3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/operating_systems/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem3)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/operating_systems/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem3)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/operating_systems/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem3)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/operating_systems/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem3)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/os", wrapper.OperatingSystemServiceListOperatingSystems)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/os", wrapper.OperatingSystemServiceCreateOperatingSystem)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServiceDeleteOperatingSystem)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServiceGetOperatingSystem)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServicePatchOperatingSystem)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/os/:resourceId", wrapper.OperatingSystemServiceUpdateOperatingSystem)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/schedules", wrapper.ScheduleServiceListSchedules)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/schedules/repeated", wrapper.ScheduleServiceListRepeatedSchedules3)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/schedules/repeated", wrapper.ScheduleServiceCreateRepeatedSchedule3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/schedules/repeated/:resourceId", wrapper.ScheduleServiceDeleteRepeatedSchedule3)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/schedules/repeated/:resourceId", wrapper.ScheduleServiceGetRepeatedSchedule3)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/schedules/repeated/:resourceId", wrapper.ScheduleServicePatchRepeatedSchedule3)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/schedules/repeated/:resourceId", wrapper.ScheduleServiceUpdateRepeatedSchedule3)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/schedules/single", wrapper.ScheduleServiceListSingleSchedules3)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/schedules/single", wrapper.ScheduleServiceCreateSingleSchedule3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/schedules/single/:resourceId", wrapper.ScheduleServiceDeleteSingleSchedule3)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/schedules/single/:resourceId", wrapper.ScheduleServiceGetSingleSchedule3)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/schedules/single/:resourceId", wrapper.ScheduleServicePatchSingleSchedule3)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/schedules/single/:resourceId", wrapper.ScheduleServiceUpdateSingleSchedule3)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/workloads", wrapper.WorkloadServiceListWorkloads)
+	router.POST(baseURL+"/v1/projects/:projectName/compute/workloads", wrapper.WorkloadServiceCreateWorkload)
+	router.DELETE(baseURL+"/v1/projects/:projectName/compute/workloads/:resourceId", wrapper.WorkloadServiceDeleteWorkload)
+	router.GET(baseURL+"/v1/projects/:projectName/compute/workloads/:resourceId", wrapper.WorkloadServiceGetWorkload)
+	router.PATCH(baseURL+"/v1/projects/:projectName/compute/workloads/:resourceId", wrapper.WorkloadServicePatchWorkload)
+	router.PUT(baseURL+"/v1/projects/:projectName/compute/workloads/:resourceId", wrapper.WorkloadServiceUpdateWorkload)
+	router.GET(baseURL+"/v1/projects/:projectName/customConfigs", wrapper.CustomConfigServiceListCustomConfigs)
+	router.POST(baseURL+"/v1/projects/:projectName/customConfigs", wrapper.CustomConfigServiceCreateCustomConfig)
+	router.DELETE(baseURL+"/v1/projects/:projectName/customConfigs/:resourceId", wrapper.CustomConfigServiceDeleteCustomConfig)
+	router.GET(baseURL+"/v1/projects/:projectName/customConfigs/:resourceId", wrapper.CustomConfigServiceGetCustomConfig)
+	router.GET(baseURL+"/v1/projects/:projectName/localAccounts", wrapper.LocalAccountServiceListLocalAccounts)
+	router.POST(baseURL+"/v1/projects/:projectName/localAccounts", wrapper.LocalAccountServiceCreateLocalAccount)
+	router.DELETE(baseURL+"/v1/projects/:projectName/localAccounts/:resourceId", wrapper.LocalAccountServiceDeleteLocalAccount)
+	router.GET(baseURL+"/v1/projects/:projectName/localAccounts/:resourceId", wrapper.LocalAccountServiceGetLocalAccount)
+	router.GET(baseURL+"/v1/projects/:projectName/locations", wrapper.LocationServiceListLocations)
+	router.GET(baseURL+"/v1/projects/:projectName/os-update-policies", wrapper.OSUpdatePolicyListOSUpdatePolicy)
+	router.POST(baseURL+"/v1/projects/:projectName/os-update-policies", wrapper.OSUpdatePolicyCreateOSUpdatePolicy)
+	router.DELETE(baseURL+"/v1/projects/:projectName/os-update-policies/:resourceId", wrapper.OSUpdatePolicyDeleteOSUpdatePolicy)
+	router.GET(baseURL+"/v1/projects/:projectName/os-update-policies/:resourceId", wrapper.OSUpdatePolicyGetOSUpdatePolicy)
+	router.GET(baseURL+"/v1/projects/:projectName/os-update-runs", wrapper.OSUpdateRunListOSUpdateRun)
+	router.DELETE(baseURL+"/v1/projects/:projectName/os-update-runs/:resourceId", wrapper.OSUpdateRunDeleteOSUpdateRun)
+	router.GET(baseURL+"/v1/projects/:projectName/os-update-runs/:resourceId", wrapper.OSUpdateRunGetOSUpdateRun)
+	router.GET(baseURL+"/v1/projects/:projectName/os_update_policy", wrapper.OSUpdatePolicyListOSUpdatePolicy3)
+	router.POST(baseURL+"/v1/projects/:projectName/os_update_policy", wrapper.OSUpdatePolicyCreateOSUpdatePolicy3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/os_update_policy/:resourceId", wrapper.OSUpdatePolicyDeleteOSUpdatePolicy3)
+	router.GET(baseURL+"/v1/projects/:projectName/os_update_policy/:resourceId", wrapper.OSUpdatePolicyGetOSUpdatePolicy3)
+	router.GET(baseURL+"/v1/projects/:projectName/os_update_run", wrapper.OSUpdateRunListOSUpdateRun3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/os_update_run/:resourceId", wrapper.OSUpdateRunDeleteOSUpdateRun3)
+	router.GET(baseURL+"/v1/projects/:projectName/os_update_run/:resourceId", wrapper.OSUpdateRunGetOSUpdateRun3)
+	router.GET(baseURL+"/v1/projects/:projectName/providers", wrapper.ProviderServiceListProviders)
+	router.POST(baseURL+"/v1/projects/:projectName/providers", wrapper.ProviderServiceCreateProvider)
+	router.DELETE(baseURL+"/v1/projects/:projectName/providers/:resourceId", wrapper.ProviderServiceDeleteProvider)
+	router.GET(baseURL+"/v1/projects/:projectName/providers/:resourceId", wrapper.ProviderServiceGetProvider)
+	router.GET(baseURL+"/v1/projects/:projectName/regions", wrapper.RegionServiceListRegions)
+	router.POST(baseURL+"/v1/projects/:projectName/regions", wrapper.RegionServiceCreateRegion)
+	router.GET(baseURL+"/v1/projects/:projectName/regions/:regionId/sites", wrapper.SiteServiceListSites)
+	router.POST(baseURL+"/v1/projects/:projectName/regions/:regionId/sites", wrapper.SiteServiceCreateSite)
+	router.DELETE(baseURL+"/v1/projects/:projectName/regions/:regionId/sites/:resourceId", wrapper.SiteServiceDeleteSite)
+	router.GET(baseURL+"/v1/projects/:projectName/regions/:regionId/sites/:resourceId", wrapper.SiteServiceGetSite)
+	router.PATCH(baseURL+"/v1/projects/:projectName/regions/:regionId/sites/:resourceId", wrapper.SiteServicePatchSite)
+	router.PUT(baseURL+"/v1/projects/:projectName/regions/:regionId/sites/:resourceId", wrapper.SiteServiceUpdateSite)
+	router.DELETE(baseURL+"/v1/projects/:projectName/regions/:resourceId", wrapper.RegionServiceDeleteRegion)
+	router.GET(baseURL+"/v1/projects/:projectName/regions/:resourceId", wrapper.RegionServiceGetRegion)
+	router.PATCH(baseURL+"/v1/projects/:projectName/regions/:resourceId", wrapper.RegionServicePatchRegion)
+	router.PUT(baseURL+"/v1/projects/:projectName/regions/:resourceId", wrapper.RegionServiceUpdateRegion)
+	router.GET(baseURL+"/v1/projects/:projectName/schedules", wrapper.ScheduleServiceListSchedules3)
+	router.GET(baseURL+"/v1/projects/:projectName/schedules/repeated", wrapper.ScheduleServiceListRepeatedSchedules)
+	router.POST(baseURL+"/v1/projects/:projectName/schedules/repeated", wrapper.ScheduleServiceCreateRepeatedSchedule)
+	router.DELETE(baseURL+"/v1/projects/:projectName/schedules/repeated/:resourceId", wrapper.ScheduleServiceDeleteRepeatedSchedule)
+	router.GET(baseURL+"/v1/projects/:projectName/schedules/repeated/:resourceId", wrapper.ScheduleServiceGetRepeatedSchedule)
+	router.PATCH(baseURL+"/v1/projects/:projectName/schedules/repeated/:resourceId", wrapper.ScheduleServicePatchRepeatedSchedule)
+	router.PUT(baseURL+"/v1/projects/:projectName/schedules/repeated/:resourceId", wrapper.ScheduleServiceUpdateRepeatedSchedule)
+	router.GET(baseURL+"/v1/projects/:projectName/schedules/single", wrapper.ScheduleServiceListSingleSchedules)
+	router.POST(baseURL+"/v1/projects/:projectName/schedules/single", wrapper.ScheduleServiceCreateSingleSchedule)
+	router.DELETE(baseURL+"/v1/projects/:projectName/schedules/single/:resourceId", wrapper.ScheduleServiceDeleteSingleSchedule)
+	router.GET(baseURL+"/v1/projects/:projectName/schedules/single/:resourceId", wrapper.ScheduleServiceGetSingleSchedule)
+	router.PATCH(baseURL+"/v1/projects/:projectName/schedules/single/:resourceId", wrapper.ScheduleServicePatchSingleSchedule)
+	router.PUT(baseURL+"/v1/projects/:projectName/schedules/single/:resourceId", wrapper.ScheduleServiceUpdateSingleSchedule)
+	router.GET(baseURL+"/v1/projects/:projectName/sites", wrapper.SiteServiceListSites3)
+	router.POST(baseURL+"/v1/projects/:projectName/sites", wrapper.SiteServiceCreateSite3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/sites/:resourceId", wrapper.SiteServiceDeleteSite3)
+	router.GET(baseURL+"/v1/projects/:projectName/sites/:resourceId", wrapper.SiteServiceGetSite3)
+	router.PATCH(baseURL+"/v1/projects/:projectName/sites/:resourceId", wrapper.SiteServicePatchSite3)
+	router.PUT(baseURL+"/v1/projects/:projectName/sites/:resourceId", wrapper.SiteServiceUpdateSite3)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceListTelemetryLogsGroups3)
+	router.POST(baseURL+"/v1/projects/:projectName/telemetry/groups/logs", wrapper.TelemetryLogsGroupServiceCreateTelemetryLogsGroup3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup3)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/groups/logs/:resourceId", wrapper.TelemetryLogsGroupServiceGetTelemetryLogsGroup3)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceListTelemetryMetricsGroups3)
+	router.POST(baseURL+"/v1/projects/:projectName/telemetry/groups/metrics", wrapper.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup3)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/groups/metrics/:resourceId", wrapper.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup3)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/loggroups", wrapper.TelemetryLogsGroupServiceListTelemetryLogsGroups)
+	router.POST(baseURL+"/v1/projects/:projectName/telemetry/loggroups", wrapper.TelemetryLogsGroupServiceCreateTelemetryLogsGroup)
+	router.DELETE(baseURL+"/v1/projects/:projectName/telemetry/loggroups/:resourceId", wrapper.TelemetryLogsGroupServiceDeleteTelemetryLogsGroup)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/loggroups/:resourceId", wrapper.TelemetryLogsGroupServiceGetTelemetryLogsGroup)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/metricgroups", wrapper.TelemetryMetricsGroupServiceListTelemetryMetricsGroups)
+	router.POST(baseURL+"/v1/projects/:projectName/telemetry/metricgroups", wrapper.TelemetryMetricsGroupServiceCreateTelemetryMetricsGroup)
+	router.DELETE(baseURL+"/v1/projects/:projectName/telemetry/metricgroups/:resourceId", wrapper.TelemetryMetricsGroupServiceDeleteTelemetryMetricsGroup)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/metricgroups/:resourceId", wrapper.TelemetryMetricsGroupServiceGetTelemetryMetricsGroup)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceListTelemetryLogsProfiles)
+	router.POST(baseURL+"/v1/projects/:projectName/telemetry/profiles/logs", wrapper.TelemetryLogsProfileServiceCreateTelemetryLogsProfile)
+	router.DELETE(baseURL+"/v1/projects/:projectName/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceDeleteTelemetryLogsProfile)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceGetTelemetryLogsProfile)
+	router.PATCH(baseURL+"/v1/projects/:projectName/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServicePatchTelemetryLogsProfile)
+	router.PUT(baseURL+"/v1/projects/:projectName/telemetry/profiles/logs/:resourceId", wrapper.TelemetryLogsProfileServiceUpdateTelemetryLogsProfile)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceListTelemetryMetricsProfiles)
+	router.POST(baseURL+"/v1/projects/:projectName/telemetry/profiles/metrics", wrapper.TelemetryMetricsProfileServiceCreateTelemetryMetricsProfile)
+	router.DELETE(baseURL+"/v1/projects/:projectName/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceDeleteTelemetryMetricsProfile)
+	router.GET(baseURL+"/v1/projects/:projectName/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceGetTelemetryMetricsProfile)
+	router.PATCH(baseURL+"/v1/projects/:projectName/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServicePatchTelemetryMetricsProfile)
+	router.PUT(baseURL+"/v1/projects/:projectName/telemetry/profiles/metrics/:resourceId", wrapper.TelemetryMetricsProfileServiceUpdateTelemetryMetricsProfile)
+	router.GET(baseURL+"/v1/projects/:projectName/workload_members", wrapper.WorkloadMemberServiceListWorkloadMembers)
+	router.POST(baseURL+"/v1/projects/:projectName/workload_members", wrapper.WorkloadMemberServiceCreateWorkloadMember)
+	router.DELETE(baseURL+"/v1/projects/:projectName/workload_members/:resourceId", wrapper.WorkloadMemberServiceDeleteWorkloadMember)
+	router.GET(baseURL+"/v1/projects/:projectName/workload_members/:resourceId", wrapper.WorkloadMemberServiceGetWorkloadMember)
+	router.GET(baseURL+"/v1/projects/:projectName/workloads", wrapper.WorkloadServiceListWorkloads3)
+	router.POST(baseURL+"/v1/projects/:projectName/workloads", wrapper.WorkloadServiceCreateWorkload3)
+	router.DELETE(baseURL+"/v1/projects/:projectName/workloads/:resourceId", wrapper.WorkloadServiceDeleteWorkload3)
+	router.GET(baseURL+"/v1/projects/:projectName/workloads/:resourceId", wrapper.WorkloadServiceGetWorkload3)
+	router.PATCH(baseURL+"/v1/projects/:projectName/workloads/:resourceId", wrapper.WorkloadServicePatchWorkload3)
+	router.PUT(baseURL+"/v1/projects/:projectName/workloads/:resourceId", wrapper.WorkloadServiceUpdateWorkload3)
 
 }
 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"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",
+	"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",
+	"UpZMLZ4wm60pKsinjse0pRsCZS2NWhZ1igVXM6qbsWBd03oF1tFNpMZ8Y7J2MzA9lpmdmdjS/6MInzxK",
+	"2pTkWYgwyWZ30Mzgl3GWZXfQslneLbQaxZrb1ty25vZ3Z2735AP0PGY/oa4BdUDJxN4AAUiIO2XMxJMv",
+	"WGuRihYl8LgOwtSduCjIQ7xqWjXoamPwmV/QP0q/oM+65r2fr4at+IL+WpZCXIo6Z3nY5V8fE7MSnIrI",
+	"ZK3zkMm+PSYiZUheLirrxQauFyQzOl+k0Sna5yFUfK2I0g52mPKFeDIbO9Z0lTReQlTZA6DPVGT5ijWo",
+	"pgMcNw5YgwA5gCfQqDDJpZQ4Ew9Oo3ReHnIPPR9PxXg+5jlWoqBLx2kp1DjAD0B8hPCMtOImMgsI+xQQ",
+	"RGUenZpbZE47udw08+87eIYClyKnsrz9vvEYsfPMvx+6GvIkCY5830MQW8+vUQlfQ1CUGirvmjBpDjQI",
+	"jJJ0WcvqMATDyAbW55u5LJaYqRkgJbflSUKkKkBcOUhKjlWZfFcwulcOlWrCCoaolaqsUBChFO1+LlE8",
+	"etBUXZCsm6t24FTMd6uHTtXlu0bhU00YJh0E04RbcsOZNIAeNYxKm9fS/WNImhwqqqMlFRftXAOl86Ea",
+	"0fp3VuazhIlt4U9b+NMW/rSFP23hT1v40xb+tIU/beFPW/jTFv60hT9t4U9b+NMW/rSFP23hT1v40xb+",
+	"tIU/beFPW/jTFv60xTEbXjTllNDLu5x4/tEYufdPdW7JCsttruGSTIz1JPETGy7iuSJI38w9suXstXN2",
+	"PtNsOs5qtYoiFVKcki0LqorYRCeb6GQTnWyik010solONtHJJjrZRCeb6GQTnR6/xNWacp1SoxVUaVgl",
+	"40kV4yj3VBgnMxc0sqlPBdU7amc/pbboqUperSsHKjlcHbJezUJfR+mrhlxirjm0mlcvQxVF9PIURbAa",
+	"AGYzRZoUwlpXklRzxmxaDqshOxkKGa0rZ8oA2WOXxbKZU48vovIpqqbaVTWFakUOSF5k1eSB7zaXKo+5",
+	"bTqVTaey6VQ2ncqmU9l0KptOZdOpbDqVTaey6VQ2ncqmU9l0KptOZdOpbDqVTaey6VQ2ncqmU9l0KptO",
+	"ZZMumt8+leZdZK4ovooIj6LrqJoXaBWzq1a8P0ulizxJQMajJVutAJhNubLcXzf3arPxXfd+8MnzoTOc",
+	"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",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

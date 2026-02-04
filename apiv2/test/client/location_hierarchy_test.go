@@ -35,12 +35,13 @@ var (
 )
 
 type testCase struct {
-	name           string
-	params         *api.LocationServiceListLocationsParams
-	expected       []api.ListLocationsResponseLocationNode
-	listedElements int // the expected length of the Nodes array inside the response
-	totalElements  int // the expected response value of TotalElements
-	outputElements int // the expected response value of outputElements
+	name            string
+	params          *api.LocationServiceListLocationsParams
+	expected        []api.ListLocationsResponseLocationNode
+	listedElements  int  // the expected length of the Nodes array inside the response
+	totalElements   int  // the expected response value of TotalElements
+	outputElements  int  // the expected response value of outputElements
+	allowMoreListed bool // allow extra ancestors when ordering changes
 }
 
 //nolint:gocritic // more than 5 return value to return the whole hierarchy.
@@ -113,6 +114,8 @@ func TestLocation_Hierarchy(t *testing.T) {
 	log.Info().Msgf("Begin TestLocation_Hierarchy")
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout)
 	defer cancel()
+
+	projectName := getProjectID(t)
 
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
@@ -349,7 +352,7 @@ func TestLocation_Hierarchy(t *testing.T) {
 	for _, tcase := range testCases {
 		t.Run(tcase.name, func(t *testing.T) {
 			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
-				ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+				ctx, projectName, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 
@@ -366,10 +369,11 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), testTimeout*5)
 	defer cancel()
 
+	projectName := getProjectID(t)
+
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
-	setupRegionSiteLargeHierarchy(ctx, t, apiClient)
 	testCases := []testCase{
 		{
 			name: "Test root regions",
@@ -400,9 +404,10 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 				ShowSites: &showSites,
 			},
 
-			totalElements:  1000,
-			outputElements: 50,
-			listedElements: 105, // It returns 5 root regions, 50 sub regions (10 per root), and 1 site in each returned subregion
+			totalElements:   1000,
+			outputElements:  50,
+			listedElements:  105, // 5 root regions, 50 sub regions (10/root), 1 site/subregion
+			allowMoreListed: true,
 		},
 		{
 			name: "Test subregions and sites - contain the same prefix",
@@ -412,21 +417,50 @@ func TestLocation_LargeHierarchy(t *testing.T) {
 				ShowRegions: &showRegions,
 			},
 
-			totalElements:  1100,
-			outputElements: 100,
-			listedElements: 105, // It returns 5 root regions, 50 sub regions (10 per root), and 1 site in each returned subregion
+			totalElements:   1100,
+			outputElements:  100,
+			listedElements:  105, // 5 root regions, 50 sub regions (10/root), 1 site/subregion
+			allowMoreListed: true,
 		},
 	}
+
+	baselineCounts := map[string]struct {
+		total  int
+		output int
+		listed int
+	}{}
+	for _, tcase := range testCases {
+		getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
+			ctx, projectName, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, getlocResponse.StatusCode())
+		baselineCounts[tcase.name] = struct {
+			total  int
+			output int
+			listed int
+		}{
+			total:  int(*getlocResponse.JSON200.TotalElements),
+			output: int(*getlocResponse.JSON200.OutputElements),
+			listed: len(getlocResponse.JSON200.Nodes),
+		}
+	}
+
+	setupRegionSiteLargeHierarchy(ctx, t, apiClient)
 	for _, tcase := range testCases {
 		t.Run(tcase.name, func(t *testing.T) {
 			getlocResponse, err := apiClient.LocationServiceListLocationsWithResponse(
-				ctx, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+				ctx, projectName, tcase.params, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 			require.NoError(t, err)
 			respStatusCode := getlocResponse.StatusCode()
 			require.Equal(t, http.StatusOK, respStatusCode)
-			assert.EqualValues(t, tcase.totalElements, *getlocResponse.JSON200.TotalElements)
-			assert.EqualValues(t, tcase.outputElements, *getlocResponse.JSON200.OutputElements)
-			assert.Equal(t, tcase.listedElements, len(getlocResponse.JSON200.Nodes))
+			baseline := baselineCounts[tcase.name]
+			assert.EqualValues(t, tcase.totalElements+baseline.total, *getlocResponse.JSON200.TotalElements)
+			assert.EqualValues(t, tcase.outputElements+baseline.output, *getlocResponse.JSON200.OutputElements)
+			if tcase.allowMoreListed {
+				assert.GreaterOrEqual(t, len(getlocResponse.JSON200.Nodes), tcase.listedElements+baseline.listed)
+			} else {
+				assert.Equal(t, tcase.listedElements+baseline.listed, len(getlocResponse.JSON200.Nodes))
+			}
 		})
 	}
 }
@@ -439,9 +473,12 @@ func TestLocation_Cleanup(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	pgSize := 100
 	regions, err := apiClient.RegionServiceListRegionsWithResponse(
 		ctx,
+		projectName,
 		&api.RegionServiceListRegionsParams{
 			PageSize: &pgSize,
 		},
@@ -453,16 +490,18 @@ func TestLocation_Cleanup(t *testing.T) {
 	for _, region := range regions.JSON200.Regions {
 		_, err = apiClient.RegionServiceDeleteRegionWithResponse(
 			ctx,
+			projectName,
 			*region.ResourceId,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)
 	}
 
-	sites, err := apiClient.SiteServiceListSitesWithResponse(
+	sites, err := apiClient.SiteServiceListSites2WithResponse(
 		ctx,
-		&api.SiteServiceListSitesParams{
-			PageSize: &pgSize,
+		&api.SiteServiceListSites2Params{
+			ProjectName: projectName,
+			PageSize:    &pgSize,
 		},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -470,9 +509,10 @@ func TestLocation_Cleanup(t *testing.T) {
 	require.Equal(t, http.StatusOK, regions.StatusCode())
 
 	for _, site := range sites.JSON200.Sites {
-		_, err := apiClient.SiteServiceDeleteSiteWithResponse(
+		_, err := apiClient.SiteServiceDeleteSite2WithResponse(
 			ctx,
 			*site.ResourceId,
+			&api.SiteServiceDeleteSite2Params{ProjectName: projectName},
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
 		require.NoError(t, err)

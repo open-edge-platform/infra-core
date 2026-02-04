@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 	"unicode"
@@ -23,6 +24,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
+	"github.com/open-edge-platform/orch-library/go/pkg/middleware/projectcontext"
 )
 
 var allowMethods = []string{
@@ -103,6 +105,11 @@ func (m *Manager) setAuthentication(e *echo.Echo) {
 }
 
 func (m *Manager) setTenant(e *echo.Echo) {
+	// Use middleware via Echo wrapper to inject active project ID into request context
+	e.Use(echo.WrapMiddleware(
+		projectcontext.InjectActiveProjectID(m.cfg.RestServer.NexusAPIURL, true),
+	))
+
 	e.Use(tenant.TenantInterceptor)
 	zlog.InfraSec().Info().Msg("Tenant Interceptor is enabled")
 }
@@ -282,6 +289,82 @@ func UnicodePrintableCharsCheckerMiddleware() echo.MiddlewareFunc {
 	return UnicodePrintableCharsChecker
 }
 
+// injectProjectNameForLegacyPath injects projectName query parameter for legacy API paths.
+// Legacy paths: /edge-infra.orchestrator.apis/v2/*
+// ActiveProjectID header is set by projectcontext.InjectActiveProjectID middleware.
+func injectProjectNameForLegacyPath(c echo.Context) {
+	req := c.Request()
+	path := req.URL.Path
+
+	if strings.HasPrefix(path, "/edge-infra.orchestrator.apis/v2/") {
+		projectID := req.Header.Get("ActiveProjectID")
+		if projectID != "" && req.URL.Query().Get("projectName") == "" {
+			q := req.URL.Query()
+			q.Set("projectName", projectID)
+			req.URL.RawQuery = q.Encode()
+			zlog.Debug().Str("projectName", projectID).Str("path", path).Msg("Injected projectName query param")
+		}
+	}
+}
+
+// setPathRewrites configures path normalization and rewriting middleware.
+// Most path rewrites have been migrated to proto additional_bindings.
+// Only 3 rewrites remain here due to:
+// 1. Hierarchical telemetry profiles (semantic transformation, no backend parent-child relationship).
+// 2. Hosts summary path (dash to underscore conversion - UI uses dash, backend uses underscore).
+// 3. Legacy path query parameter injection (requires context and header access).
+func (m *Manager) setPathRewrites(e *echo.Echo) {
+	zlog.InfraSec().Info().Msg("Path rewrite middleware enabled")
+	e.Pre(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			req := c.Request()
+			path := req.URL.Path
+
+			if len(path) > 1 && strings.HasSuffix(path, "/") {
+				req.URL.Path = strings.TrimSuffix(path, "/")
+				path = req.URL.Path
+				zlog.Debug().Str("path", path).Msg("Stripped trailing slash")
+			}
+
+			if strings.Contains(path, "/telemetry/metricgroups/") && strings.Contains(path, "/metricprofiles") {
+				// /v1/projects/{projectName}/telemetry/metricgroups/{id}/metricprofiles ->
+				// /v1/projects/{projectName}/telemetry/profiles/metrics
+				re := regexp.MustCompile(`(/v1/projects/[^/]+)/telemetry/metricgroups/[^/]+(/metricprofiles.*)`)
+				newPath := re.ReplaceAllString(path, "$1/telemetry/profiles/metrics$2")
+				newPath = strings.Replace(newPath, "/metricprofiles", "", 1)
+				if newPath != path {
+					req.URL.Path = newPath
+					zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+					path = newPath
+				}
+			} else if strings.Contains(path, "/telemetry/loggroups/") && strings.Contains(path, "/logprofiles") {
+				// /v1/projects/{projectName}/telemetry/loggroups/{id}/logprofiles ->
+				// /v1/projects/{projectName}/telemetry/profiles/logs
+				re := regexp.MustCompile(`(/v1/projects/[^/]+)/telemetry/loggroups/[^/]+(/logprofiles.*)`)
+				newPath := re.ReplaceAllString(path, "$1/telemetry/profiles/logs$2")
+				newPath = strings.Replace(newPath, "/logprofiles", "", 1)
+				if newPath != path {
+					req.URL.Path = newPath
+					zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+					path = newPath
+				}
+			}
+
+			if strings.Contains(path, "/compute/hosts/summary") {
+				// Rewrite /compute/hosts/summary to /compute/hosts_summary
+				// UI uses dash, backend uses underscore
+				newPath := strings.Replace(path, "/compute/hosts/summary", "/compute/hosts_summary", 1)
+				req.URL.Path = newPath
+				zlog.Debug().Str("oldPath", path).Str("newPath", newPath).Msg("Path rewritten")
+			}
+
+			injectProjectNameForLegacyPath(c)
+
+			return next(c)
+		}
+	})
+}
+
 func (m *Manager) setUnicodeChecker(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("UnicodeChecker is enabled")
 	e.Use(UnicodePrintableCharsChecker)
@@ -310,6 +393,7 @@ func (m *Manager) setOptions(e *echo.Echo) {
 	m.setCors(e)
 	m.setUnicodeChecker(e)
 	m.setEchoDebug(e)
+	m.setPathRewrites(e) // Path rewrite must come before OapiValidator
 	m.setTracing(e)
 	m.setTenant(e)
 	m.setAuthentication(e)
