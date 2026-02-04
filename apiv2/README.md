@@ -80,6 +80,15 @@ make run
 make go-run
 ```
 
+By default, the API starts with the `fulleim` scenario. To run a specific scenario locally (for example `vpro`), pass the flag to the Go entrypoints:
+
+```bash
+go run ./cmd/api -- -eimScenario vpro
+go run ./cmd/proxy -- -eimScenario vpro
+```
+
+In production, the scenario is configured via Helm values.
+
 See the [documentation][user-guide-url] if you want to learn more about using Edge Orchestrator.
 
 ## Contribute
