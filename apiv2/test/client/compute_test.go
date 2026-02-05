@@ -23,10 +23,58 @@ func TestComputeSummary(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	utils.Site1Request.RegionId = nil
 	s1 := CreateSite(ctx, t, apiClient, utils.Site1Request)
 	utils.Site2Request.RegionId = nil
 	s2 := CreateSite(ctx, t, apiClient, utils.Site2Request)
+
+	// Baseline summaries (environment may already contain hosts)
+	res, err := apiClient.HostServiceGetHostsSummaryWithResponse(
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode())
+	baselineTotalHost := *res.JSON200.Total
+	baselineUnallocatedHost := *res.JSON200.Unallocated
+
+	filterMetaInherited := fmt.Sprintf("metadata='{"+"\""+"key"+"\""+":%q,"+"\""+"value"+"\""+":%q}'",
+		utils.MetadataHost2[0].Key, utils.MetadataHost2[0].Value)
+	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host2"}'`, filterMetaInherited)
+	resMetaInherited, err := apiClient.HostServiceGetHostsSummaryWithResponse(
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaInherited},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resMetaInherited.StatusCode())
+	baselineMetaInheritedTotal := *resMetaInherited.JSON200.Total
+	baselineMetaInheritedUnallocated := *resMetaInherited.JSON200.Unallocated
+	baselineMetaInheritedError := *resMetaInherited.JSON200.Error
+	baselineMetaInheritedRunning := *resMetaInherited.JSON200.Running
+
+	filterMetaStandalone := fmt.Sprintf("metadata='{"+"\""+"key"+"\""+":%q,"+"\""+"value"+"\""+":%q}'",
+		utils.MetadataHost2[0].Key, utils.MetadataHost1[0].Value)
+	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host1"}'`, filterMetaStandalone)
+	resMetaStandalone, err := apiClient.HostServiceGetHostsSummaryWithResponse(
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaStandalone},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resMetaStandalone.StatusCode())
+	baselineMetaStandaloneTotal := *resMetaStandalone.JSON200.Total
+	baselineMetaStandaloneUnallocated := *resMetaStandalone.JSON200.Unallocated
+	baselineMetaStandaloneError := *resMetaStandalone.JSON200.Error
+	baselineMetaStandaloneRunning := *resMetaStandalone.JSON200.Running
+
+	filterSite1 := fmt.Sprintf("site.resourceId=%q", *s1.JSON200.SiteID)
+	resSite1, err := apiClient.HostServiceGetHostsSummaryWithResponse(
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filterSite1}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resSite1.StatusCode())
+	baselineSite1Total := *resSite1.JSON200.Total
+	baselineSite1Unallocated := *resSite1.JSON200.Unallocated
+	baselineSite1Error := *resSite1.JSON200.Error
+	baselineSite1Running := *resSite1.JSON200.Running
 
 	expectedTotalHost := 0
 	expectedUnallocatedHost := 0
@@ -70,48 +118,48 @@ func TestComputeSummary(t *testing.T) {
 	}
 
 	// Total (all hosts)
-	res, err := apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
-	assert.Equal(t, expectedTotalHost, *res.JSON200.Total)
-	assert.Equal(t, expectedUnallocatedHost, *res.JSON200.Unallocated)
+	t.Logf("DEBUG: expectedTotalHost=%d, actual Total=%d", expectedTotalHost+baselineTotalHost, *res.JSON200.Total)
+	t.Logf("DEBUG: expectedUnallocatedHost=%d, actual Unallocated=%d",
+		expectedUnallocatedHost+baselineUnallocatedHost, *res.JSON200.Unallocated)
+	assert.Equal(t, expectedTotalHost+baselineTotalHost, *res.JSON200.Total)
+	assert.Equal(t, expectedUnallocatedHost+baselineUnallocatedHost, *res.JSON200.Unallocated)
 
 	// Filter by metadata (inherited) `metadata='{"key":"examplekey3","value":"host2"}'`
-	filter := fmt.Sprintf("metadata='{\"key\":%q,\"value\":%q}'",
-		utils.MetadataHost2[0].Key, utils.MetadataHost2[0].Value)
-	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host2"}'`, filter)
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaInherited},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
-	assert.Equal(t, hostsWithSiteAndMetaFromSite2, *res.JSON200.Total)
-	assert.Zero(t, *res.JSON200.Unallocated)
-	assert.Zero(t, *res.JSON200.Error)
-	assert.Zero(t, *res.JSON200.Running)
+	assert.Equal(t, baselineMetaInheritedTotal+hostsWithSiteAndMetaFromSite2, *res.JSON200.Total)
+	assert.Equal(t, baselineMetaInheritedUnallocated, *res.JSON200.Unallocated)
+	assert.Equal(t, baselineMetaInheritedError, *res.JSON200.Error)
+	assert.Equal(t, baselineMetaInheritedRunning, *res.JSON200.Running)
 
 	// Filter by metadata (standalone) `metadata='{"key":"examplekey3","value":"host2"}'`
-	filter = fmt.Sprintf("metadata='{\"key\":%q,\"value\":%q}'",
-		utils.MetadataHost2[0].Key, utils.MetadataHost1[0].Value)
-	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host1"}'`, filter)
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName,
+		&api.HostServiceGetHostsSummaryParams{Filter: &filterMetaStandalone},
+		AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
-	assert.Equal(t, hostsWithoutSiteWithMeta, *res.JSON200.Total)
-	assert.Equal(t, hostsWithoutSiteWithMeta, *res.JSON200.Unallocated)
-	assert.Zero(t, *res.JSON200.Error)
-	assert.Zero(t, *res.JSON200.Running)
+	assert.Equal(t, baselineMetaStandaloneTotal+hostsWithoutSiteWithMeta, *res.JSON200.Total)
+	assert.Equal(t, baselineMetaStandaloneUnallocated+hostsWithoutSiteWithMeta, *res.JSON200.Unallocated)
+	assert.Equal(t, baselineMetaStandaloneError, *res.JSON200.Error)
+	assert.Equal(t, baselineMetaStandaloneRunning, *res.JSON200.Running)
 
 	// Filter by host's site-id
-	filter = fmt.Sprintf("site.resourceId=%q", *s1.JSON200.SiteID)
 	res, err = apiClient.HostServiceGetHostsSummaryWithResponse(
-		ctx, &api.HostServiceGetHostsSummaryParams{Filter: &filter}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.HostServiceGetHostsSummaryParams{Filter: &filterSite1}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode())
-	assert.Equal(t, hostsWithSiteFromSite1, *res.JSON200.Total)
-	assert.Zero(t, *res.JSON200.Unallocated)
-	assert.Zero(t, *res.JSON200.Error)
-	assert.Zero(t, *res.JSON200.Running)
+	assert.Equal(t, baselineSite1Total+hostsWithSiteFromSite1, *res.JSON200.Total)
+	assert.Equal(t, baselineSite1Unallocated, *res.JSON200.Unallocated)
+	assert.Equal(t, baselineSite1Error, *res.JSON200.Error)
+	assert.Equal(t, baselineSite1Running, *res.JSON200.Running)
 	// Cleanup done in create helper functions
 }

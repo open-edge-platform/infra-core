@@ -35,7 +35,7 @@ DBMLRENDERER_REQ            := 1.0.30
 OASDIFF_HAVE                := $(shell oasdiff --version | sed -n 's/^oasdiff version //p')
 OASDIFF_REQ                 := 1.11.4
 PROTOCGENOAPIVERSION_HAVE   := $(shell protoc-gen-connect-openapi --version | sed s/.*"protoc-gen-connect-openapi "// | sed 's/ .*//')
-PROTOCGENOAPIVERSION_REQ    := 0.17.0
+PROTOCGENOAPIVERSION_REQ    := 0.23.0
 PROTOCGENGRPCGWVERSION_HAVE := $(shell protoc-gen-grpc-gateway --version | sed s/.*"Version "// | sed 's/ .*//')
 PROTOCGENGRPCGWVERSION_REQ  := 2.26.3
 
