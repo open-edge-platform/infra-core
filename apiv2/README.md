@@ -80,7 +80,8 @@ make run
 make go-run
 ```
 
-By default, the API starts with the `fulleim` scenario. To run a specific scenario locally (for example `vpro`), pass the flag to the Go entrypoints:
+By default, the API starts with the `fulleim` scenario. To run a specific scenario locally
+(for example `vpro`), pass the flag to the Go entrypoints:
 
 ```bash
 go run ./cmd/api -- -eimScenario vpro
