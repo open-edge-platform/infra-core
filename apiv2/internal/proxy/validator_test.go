@@ -32,29 +32,30 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 
 	siteName := "site"
 	siteBody := api.SiteResource{Name: &siteName}
-	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", siteBody)
+	projectName := "test-project"
+	regionID := "region-12345678"
+	sitePostRequestValid, err := api.NewSiteServiceCreateSiteRequest("", projectName, regionID, siteBody)
 	assert.NoError(t, err)
 
-	regionID := "region-12345678"
 	params := &api.SiteServiceListSitesParams{Filter: &regionID}
-	siteGetRequestValid, err := api.NewSiteServiceListSitesRequest("", params)
+	siteGetRequestValid, err := api.NewSiteServiceListSitesRequest("", projectName, regionID, params)
 	assert.NoError(t, err)
 
 	pageSizeWrong := 2000
 	paramsWrong := &api.SiteServiceListSitesParams{PageSize: &pageSizeWrong}
-	siteGetRequestInvalid, err := api.NewSiteServiceListSitesRequest("", paramsWrong)
+	siteGetRequestInvalid, err := api.NewSiteServiceListSitesRequest("", projectName, regionID, paramsWrong)
 	assert.NoError(t, err)
 
 	emptyUUID := ""
 	hostParamsWrong := &api.HostServiceListHostsParams{Filter: &emptyUUID}
-	hostsGetRequestInvalid, err := api.NewHostServiceListHostsRequest("", hostParamsWrong)
+	hostsGetRequestInvalid, err := api.NewHostServiceListHostsRequest("", projectName, hostParamsWrong)
 	assert.NoError(t, err)
 
-	hostsPostRequestValid, err := api.NewHostServiceCreateHostRequest("", utils.Host1Request)
+	hostsPostRequestValid, err := api.NewHostServiceCreateHostRequest("", projectName, utils.Host1Request)
 	assert.NoError(t, err)
 
 	hostsPostRegisterRequestValid, err := api.NewHostServiceRegisterHostRequest(
-		"", utils.HostRegisterAutoOnboard)
+		"", projectName, (*api.HostServiceRegisterHostParams)(nil), utils.HostRegisterAutoOnboard)
 	assert.NoError(t, err)
 
 	hostName := "host"
@@ -64,7 +65,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		CpuTopology: &regionID,
 	}
 	hostsPostRequestInvalid, err := api.NewHostServiceCreateHostRequest(
-		"", hostInvalidBodyRequest)
+		"", projectName, hostInvalidBodyRequest)
 	assert.NoError(t, err)
 
 	// Enforce the test of required fields in the request body.
@@ -72,11 +73,11 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		// Kind: api.WORKLOADKINDCLUSTER,
 	}
 	workloadPostRequestInvalidNoName, err := api.NewWorkloadServiceCreateWorkloadRequest(
-		"", workloadInvalidBodyRequest)
+		"", projectName, workloadInvalidBodyRequest)
 	assert.NoError(t, err)
 
 	telemetrylogsPostRequest, err := api.NewTelemetryLogsGroupServiceCreateTelemetryLogsGroupRequest(
-		"", utils.TelemetryLogsGroup1Request)
+		"", projectName, utils.TelemetryLogsGroup1Request)
 	assert.NoError(t, err)
 
 	tests := []struct {
@@ -102,19 +103,19 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 		{
 			name: "Valid Request/Body Format",
 			request: createRequestWithMethodPathParams(http.MethodGet,
-				"/edge-infra.orchestrator.apis/v2/hosts"),
+				"/v1/projects/test-project/compute/hosts"),
 			expectedStatus: http.StatusOK,
 		},
 		{
 			name: "Valid Request Path",
 			request: createRequestWithMethodPathParams(http.MethodGet,
-				"/edge-infra.orchestrator.apis/v2/hosts/summary"),
+				"/v1/projects/test-project/compute/hosts_summary"),
 			expectedStatus: http.StatusOK,
 		},
 		{
 			name: "Valid path prefix with invalid request path",
 			request: createRequestWithMethodPathParams(http.MethodGet,
-				"/edge-infra.orchestrator.apis/v2/hostss"),
+				"/v1/projects/test-project/compute/hostss"),
 			expectedStatus: http.StatusNotFound,
 		},
 		{

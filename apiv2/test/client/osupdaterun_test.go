@@ -23,15 +23,17 @@ func TestOSUpdateRun_GetListNotFound(t *testing.T) {
 
 	osUpdateRunNonexistResourceID := "osupdaterun-111111"
 
+	projectName := getProjectID(t)
+
 	// Get OSUpdateRun
 	getResp, err := apiClient.OSUpdateRunGetOSUpdateRunWithResponse(
-		ctx, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusNotFound, getResp.StatusCode())
 
 	// List OSUpdateRuns should not be found
 	listResp, err := apiClient.OSUpdateRunListOSUpdateRunWithResponse(
-		ctx, &api.OSUpdateRunListOSUpdateRunParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.OSUpdateRunListOSUpdateRunParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, listResp.StatusCode())
 
@@ -53,15 +55,17 @@ func TestOSUpdateRun_CreateGetDelete(t *testing.T) {
 
 	osUpdateRunNonexistResourceID := "osupdaterun-999999"
 
+	projectName := getProjectID(t)
+
 	// Test GET non-existent OSUpdateRun - should return 404
 	getResp, err := apiClient.OSUpdateRunGetOSUpdateRunWithResponse(
-		ctx, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusNotFound, getResp.StatusCode())
 
 	// Test LIST OSUpdateRuns - should return empty list or existing runs from infrastructure
 	listResp, err := apiClient.OSUpdateRunListOSUpdateRunWithResponse(
-		ctx, &api.OSUpdateRunListOSUpdateRunParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.OSUpdateRunListOSUpdateRunParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, listResp.StatusCode())
 	assert.NotNil(t, listResp.JSON200)
@@ -69,7 +73,7 @@ func TestOSUpdateRun_CreateGetDelete(t *testing.T) {
 
 	// Test DELETE non-existent OSUpdateRun - should return 404
 	deleteResp, err := apiClient.OSUpdateRunDeleteOSUpdateRunWithResponse(
-		ctx, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusNotFound, deleteResp.StatusCode())
 }
@@ -84,9 +88,11 @@ func TestOSUpdateRun_ListMultiple(t *testing.T) {
 	// Note: OSUpdateRun resources are created by infrastructure when OS updates occur
 	// This test verifies the LIST operation works correctly
 
+	projectName := getProjectID(t)
+
 	// Test LIST OSUpdateRuns - should return successfully even if empty
 	listResp, err := apiClient.OSUpdateRunListOSUpdateRunWithResponse(
-		ctx, &api.OSUpdateRunListOSUpdateRunParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, &api.OSUpdateRunListOSUpdateRunParams{}, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, listResp.StatusCode())
 	assert.NotNil(t, listResp.JSON200)
@@ -112,9 +118,11 @@ func TestOSUpdateRun_DeleteNonExistent(t *testing.T) {
 
 	osUpdateRunNonexistResourceID := "osupdaterun-111111"
 
+	projectName := getProjectID(t)
+
 	// Test DELETE non-existent OSUpdateRun
 	deleteResp, err := apiClient.OSUpdateRunDeleteOSUpdateRunWithResponse(
-		ctx, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, osUpdateRunNonexistResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusNotFound, deleteResp.StatusCode())
 }
@@ -128,15 +136,17 @@ func TestOSUpdateRun_InvalidResourceID(t *testing.T) {
 
 	invalidResourceID := "invalid-resource-id"
 
+	projectName := getProjectID(t)
+
 	// Test GET with invalid resource ID format
 	getResp, err := apiClient.OSUpdateRunGetOSUpdateRunWithResponse(
-		ctx, invalidResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, invalidResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusBadRequest, getResp.StatusCode())
 
 	// Test DELETE with invalid resource ID format
 	deleteResp, err := apiClient.OSUpdateRunDeleteOSUpdateRunWithResponse(
-		ctx, invalidResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
+		ctx, projectName, invalidResourceID, AddJWTtoTheHeader, AddProjectIDtoTheHeader)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusBadRequest, deleteResp.StatusCode())
 }
