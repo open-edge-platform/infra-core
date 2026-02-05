@@ -87,7 +87,7 @@ type GlobalConfig struct {
 	Inventory      Southbound
 	Websocket      Websocket
 	EnableAuditing bool
-	Scenario       string
+	EIMScenario    string
 }
 
 type Websocket struct {
@@ -130,7 +130,7 @@ func DefaultConfig() *GlobalConfig {
 		EnableAuditing: true,
 		GRPCAddress:    "0.0.0.0:8090",
 		GRPCEndpoint:   "localhost:8090",
-		Scenario:       DefaultScenario,
+		EIMScenario:    DefaultScenario,
 	}
 }
 
@@ -170,7 +170,7 @@ func Config() (*GlobalConfig, error) {
 	enableAuditing := flag.Bool(EnableAuditing, defaultCfg.EnableAuditing, EnableAuditingDescription)
 	gRPCEndpoint := flag.String("grpcEndpoint", defaultCfg.GRPCEndpoint, "The endpoint of the gRPC server")
 	gRPCAddress := flag.String("grpcAddress", defaultCfg.GRPCEndpoint, "The gRPC server address")
-	scenario := flag.String("scenario", defaultCfg.Scenario, "The deployment scenario name (e.g., 'fulleim', 'vpro')")
+	eimScenario := flag.String("eimScenario", defaultCfg.EIMScenario, "The EIM deployment scenario name")
 	flag.Parse()
 
 	return &GlobalConfig{
@@ -209,6 +209,6 @@ func Config() (*GlobalConfig, error) {
 		EnableAuditing: *enableAuditing,
 		GRPCEndpoint:   *gRPCEndpoint,
 		GRPCAddress:    *gRPCAddress,
-		Scenario:       *scenario,
+		EIMScenario:    *eimScenario,
 	}, nil
 }

@@ -33,6 +33,8 @@ var zlog = logging.GetLogger("nbi")
 type serviceServersSignature func(*grpc.Server, *InventorygRPCServer)
 
 // servicesServers maps gRPC service names to their registration functions.
+// These are used to register services conditionally based on the scenario allowlist.
+// service name must match one of the service names used in api/proto/services/v1/services.proto.
 var servicesServers = map[string]serviceServersSignature{
 	"RegionService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterRegionServiceServer(s, is) },
 	"SiteService":     func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterSiteServiceServer(s, is) },
@@ -60,10 +62,10 @@ var servicesServers = map[string]serviceServersSignature{
 	"TelemetryLogsProfileService": func(s *grpc.Server, is *InventorygRPCServer) {
 		restv1.RegisterTelemetryLogsProfileServiceServer(s, is)
 	},
-	"LocalAccountService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocalAccountServiceServer(s, is) },
-	"CustomConfigService":   func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterCustomConfigServiceServer(s, is) },
-	"OSUpdatePolicyService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdatePolicyServer(s, is) },
-	"OSUpdateRunService":    func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdateRunServer(s, is) },
+	"LocalAccountService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterLocalAccountServiceServer(s, is) },
+	"CustomConfigService": func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterCustomConfigServiceServer(s, is) },
+	"OSUpdatePolicy":      func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdatePolicyServer(s, is) },
+	"OSUpdateRun":         func(s *grpc.Server, is *InventorygRPCServer) { restv1.RegisterOSUpdateRunServer(s, is) },
 }
 
 type InventorygRPCServer struct {
