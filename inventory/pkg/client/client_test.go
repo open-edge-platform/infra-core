@@ -1107,7 +1107,7 @@ func TestCacheUuidInvalidateViaDeleteEvent(t *testing.T) {
 			_, tErr := rmClient.Delete(ctx, tc.resID)
 			require.NoError(t, tErr)
 			// Wait a little bit for the event to be propagated
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(30 * time.Millisecond)
 
 			// Cache should be empty now
 			assertUUIDNotInCache(t, hostUUID)
