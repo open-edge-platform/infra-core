@@ -466,6 +466,19 @@ func CreateHostStorageNoCleanup(tb testing.TB, host *computev1.HostResource) *co
 	return getInvResourceDAO().CreateHostStorageNoCleanup(tb, client.FakeTenantID, host)
 }
 
+// CreateHostDevice - creates host device. Note this helper is not really meant to be used for the
+// test of HostDeviceResource, but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by the eager loading.
+func CreateHostDevice(tb testing.TB, host *computev1.HostResource) *computev1.HostdeviceResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateHostDevice(tb, client.FakeTenantID, host)
+}
+
+func CreateHostDeviceNoCleanup(tb testing.TB, host *computev1.HostResource) *computev1.HostdeviceResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateHostDeviceNoCleanup(tb, client.FakeTenantID, host)
+}
+
 // CreateHostusb - creates host usb. Note this helper is not really meant to be used for the
 // test of HostUsbResource, but they are typically leveraged in case of wider
 // tests involving long chain of relations that are not usually fulfilled by

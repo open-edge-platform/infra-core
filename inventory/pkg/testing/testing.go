@@ -269,6 +269,9 @@ func clearDB(ctx context.Context, dbURL string) error { //nolint:cyclop,funlen /
 	if _, err := c.HoststorageResource.Delete().Exec(ctx); err != nil {
 		return err
 	}
+	if _, err := c.HostdeviceResource.Delete().Exec(ctx); err != nil {
+		return err
+	}
 	if _, err := c.HostusbResource.Delete().Exec(ctx); err != nil {
 		return err
 	}

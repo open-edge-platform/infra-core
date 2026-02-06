@@ -25,6 +25,7 @@ var (
 		inv_v1.ResourceKind_RESOURCE_KIND_PROVIDER,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
@@ -34,6 +35,7 @@ var (
 	subscribeCacheUUIDResourceKinds = []inv_v1.ResourceKind{
 		inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,

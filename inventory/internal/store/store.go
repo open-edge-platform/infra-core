@@ -288,6 +288,8 @@ func setEdgeHostIDForMut(ctx context.Context, client *ent.Client, mut ent.Mutati
 		mut.SetHostID(hostID)
 	case *ent.HoststorageResourceMutation:
 		mut.SetHostID(hostID)
+	case *ent.HostdeviceResourceMutation:
+		mut.SetHostID(hostID)
 	case *ent.HostusbResourceMutation:
 		mut.SetHostID(hostID)
 	case *ent.HostgpuResourceMutation:

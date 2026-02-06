@@ -34,6 +34,7 @@ func TestGetCacheSusbcriptionResourceKind(t *testing.T) {
 		inv_v1.ResourceKind_RESOURCE_KIND_PROVIDER,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
@@ -50,6 +51,7 @@ func TestGetCacheUUIDSusbcriptionResourceKind(t *testing.T) {
 	exp := []inv_v1.ResourceKind{
 		inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
@@ -117,18 +119,22 @@ func TestCacheUUIDStoreGetAndInvalidate(t *testing.T) {
 	hostGpuT1 := &computev1.HostgpuResource{ResourceId: "hostgpu-12345678"}
 	hostNicT1 := &computev1.HostnicResource{ResourceId: "hostnic-12345678"}
 	hostStorageT1 := &computev1.HoststorageResource{ResourceId: "hoststorage-12345678"}
+	hostDeviceT1 := &computev1.HostdeviceResource{ResourceId: "hostdevice-12345678"}
 	hostT1.Host.HostUsbs = []*computev1.HostusbResource{hostUsbT1}
 	hostT1.Host.HostGpus = []*computev1.HostgpuResource{hostGpuT1}
 	hostT1.Host.HostNics = []*computev1.HostnicResource{hostNicT1}
 	hostT1.Host.HostStorages = []*computev1.HoststorageResource{hostStorageT1}
+	hostT1.Host.HostDevice = hostDeviceT1
 	hostUsbT2 := &computev1.HostusbResource{ResourceId: "hostusb-87654321"}
 	hostGpuT2 := &computev1.HostgpuResource{ResourceId: "hostgpu-87654321"}
 	hostNicT2 := &computev1.HostnicResource{ResourceId: "hostnic-87654321"}
 	hostStorageT2 := &computev1.HoststorageResource{ResourceId: "hoststorage-87654321"}
+	hostDeviceT2 := &computev1.HostdeviceResource{ResourceId: "hostdevice-87654321"}
 	hostT2.Host.HostUsbs = []*computev1.HostusbResource{hostUsbT2}
 	hostT2.Host.HostGpus = []*computev1.HostgpuResource{hostGpuT2}
 	hostT2.Host.HostNics = []*computev1.HostnicResource{hostNicT2}
 	hostT2.Host.HostStorages = []*computev1.HoststorageResource{hostStorageT2}
+	hostT2.Host.HostDevice = hostDeviceT2
 
 	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
@@ -177,14 +183,17 @@ func TestCacheUUIDInvalidateMultipleKey(t *testing.T) {
 	hostGpu := &computev1.HostgpuResource{ResourceId: "hostgpu-12345678"}
 	hostNic := &computev1.HostnicResource{ResourceId: "hostnic-12345678"}
 	hostStorage := &computev1.HoststorageResource{ResourceId: "hoststorage-12345678"}
+	hostDevice := &computev1.HostdeviceResource{ResourceId: "hostdevice-12345678"}
 	hostT1.Host.HostUsbs = []*computev1.HostusbResource{hostUsb}
 	hostT1.Host.HostGpus = []*computev1.HostgpuResource{hostGpu}
 	hostT1.Host.HostNics = []*computev1.HostnicResource{hostNic}
 	hostT1.Host.HostStorages = []*computev1.HoststorageResource{hostStorage}
+	hostT1.Host.HostDevice = hostDevice
 	hostT2.Host.HostUsbs = []*computev1.HostusbResource{hostUsb}
 	hostT2.Host.HostGpus = []*computev1.HostgpuResource{hostGpu}
 	hostT2.Host.HostNics = []*computev1.HostnicResource{hostNic}
 	hostT2.Host.HostStorages = []*computev1.HoststorageResource{hostStorage}
+	hostT2.Host.HostDevice = hostDevice
 
 	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
@@ -207,6 +216,9 @@ func TestCacheUUIDInvalidateMultipleKey(t *testing.T) {
 		},
 		"hostStorageT1": {
 			invalidateResID: hostStorage.ResourceId,
+		},
+		"hostDeviceT1": {
+			invalidateResID: hostDevice.ResourceId,
 		},
 	}
 	for tcname, tc := range testcasesT1 {
@@ -248,6 +260,10 @@ func TestGetHostResourceIdFromSubRes(t *testing.T) {
 		ResourceId: "hoststorage-12345678",
 		Host:       hr.Host,
 	}
+	hostDevice := &computev1.HostdeviceResource{
+		ResourceId: "hostdevice-12345678",
+		Host:       hr.Host,
+	}
 
 	c := cache.NewInventoryCache(defaultCacheTTLTest, 0)
 
@@ -271,6 +287,9 @@ func TestGetHostResourceIdFromSubRes(t *testing.T) {
 		},
 		"hostStorage": {
 			res: &inv_v1.Resource{Resource: &inv_v1.Resource_Hoststorage{Hoststorage: hostStorage}},
+		},
+		"hostDevice": {
+			res: &inv_v1.Resource{Resource: &inv_v1.Resource_Hostdevice{Hostdevice: hostDevice}},
 		},
 	}
 	for tcname, tc := range testcases {

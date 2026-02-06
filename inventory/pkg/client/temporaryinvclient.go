@@ -209,6 +209,8 @@ func setTenantID(resource *inv_v1.Resource, tenantID string) error {
 		message = resource.GetHost()
 	case *inv_v1.Resource_Hoststorage:
 		message = resource.GetHoststorage()
+	case *inv_v1.Resource_Hostdevice:
+		message = resource.GetHostdevice()
 	case *inv_v1.Resource_Hostnic:
 		message = resource.GetHostnic()
 	case *inv_v1.Resource_Hostusb:

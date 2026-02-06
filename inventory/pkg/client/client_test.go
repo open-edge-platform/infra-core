@@ -794,6 +794,7 @@ func TestCacheUuidUpdate(t *testing.T) {
 	hostGpu := inv_testing.CreatHostGPU(t, host)
 	hostUsb := inv_testing.CreateHostusb(t, host)
 	hostStorage := inv_testing.CreateHostStorage(t, host)
+	hostDevice := inv_testing.CreateHostDevice(t, host)
 	hostNic := inv_testing.CreateHostNic(t, host)
 	// TODO: create Host GPU as well
 	hostUUID := host.GetUuid()
@@ -846,6 +847,12 @@ func TestCacheUuidUpdate(t *testing.T) {
 				Resource: &inv_v1.Resource_Hoststorage{Hoststorage: hostStorage},
 			},
 		},
+		"HostDevice": {
+			resID: hostDevice.GetResourceId(),
+			upRes: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Hostdevice{Hostdevice: hostDevice},
+			},
+		},
 		"HostNic": {
 			resID: hostNic.GetResourceId(),
 			upRes: &inv_v1.Resource{
@@ -878,6 +885,7 @@ func TestCacheUuidInvalidateViaUpdateEvent(t *testing.T) {
 	hostGpu := inv_testing.CreatHostGPU(t, host)
 	hostUsb := inv_testing.CreateHostusb(t, host)
 	hostStorage := inv_testing.CreateHostStorage(t, host)
+	hostDevice := inv_testing.CreateHostDevice(t, host)
 	hostNic := inv_testing.CreateHostNic(t, host)
 	hostUUID := host.GetUuid()
 	host2UUID := host2.GetUuid()
@@ -928,6 +936,12 @@ func TestCacheUuidInvalidateViaUpdateEvent(t *testing.T) {
 			resID: hostStorage.GetResourceId(),
 			upRes: &inv_v1.Resource{
 				Resource: &inv_v1.Resource_Hoststorage{Hoststorage: hostStorage},
+			},
+		},
+		"HostDevice": {
+			resID: hostDevice.GetResourceId(),
+			upRes: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Hostdevice{Hostdevice: hostDevice},
 			},
 		},
 		"HostNic": {
@@ -987,6 +1001,13 @@ func TestCacheUuidInvalidateViaCreateEvent(t *testing.T) {
 				}},
 			},
 		},
+		"HostDevice": {
+			&inv_v1.Resource{
+				Resource: &inv_v1.Resource_Hostdevice{Hostdevice: &computev1.HostdeviceResource{
+					Host: host,
+				}},
+			},
+		},
 		"HostNic": {
 			&inv_v1.Resource{
 				Resource: &inv_v1.Resource_Hostnic{Hostnic: &computev1.HostnicResource{
@@ -1038,6 +1059,7 @@ func TestCacheUuidInvalidateViaDeleteEvent(t *testing.T) {
 	hostGpu := inv_testing.CreatHostGPUNoCleanup(t, host)
 	hostUsb := inv_testing.CreateHostusbNoCleanup(t, host)
 	hostStorage := inv_testing.CreateHostStorageNoCleanup(t, host)
+	hostDevice := inv_testing.CreateHostDeviceNoCleanup(t, host)
 	hostNic := inv_testing.CreateHostNicNoCleanup(t, host)
 	hostUUID := host.GetUuid()
 	host2UUID := host2.GetUuid()
@@ -1067,6 +1089,9 @@ func TestCacheUuidInvalidateViaDeleteEvent(t *testing.T) {
 		},
 		"HostStorage": {
 			resID: hostStorage.GetResourceId(),
+		},
+		"HostDevice": {
+			resID: hostDevice.GetResourceId(),
 		},
 		"HostNic": {
 			resID: hostNic.GetResourceId(),
@@ -1171,6 +1196,20 @@ func TestCacheUuidCreateWithWarmCache(t *testing.T) {
 		resp, err := clientCache.Create(ctx,
 			&inv_v1.Resource{
 				Resource: &inv_v1.Resource_Hoststorage{Hoststorage: &computev1.HoststorageResource{
+					Host: host,
+				}},
+			})
+		require.NoError(t, err)
+		t.Cleanup(func() { inv_testing.DeleteResource(t, inv_testing.GetResourceIDOrFail(t, resp)) })
+		assertUUIDNotInCache(t, hostUUID)
+		assertUUIDInCache(t, host2UUID)
+	})
+
+	t.Run("HostDevice", func(t *testing.T) {
+		loadAndAssertUUIDInCache(t, hostUUID)
+		resp, err := clientCache.Create(ctx,
+			&inv_v1.Resource{
+				Resource: &inv_v1.Resource_Hostdevice{Hostdevice: &computev1.HostdeviceResource{
 					Host: host,
 				}},
 			})
