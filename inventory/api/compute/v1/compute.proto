@@ -612,7 +612,7 @@ message HostdeviceResource {
     (ent.field) = {unique: true},
     (buf.validate.field).string = {
       pattern: "^hostdevice-[0-9a-f]{8}$"
-      max_bytes: 16
+      max_bytes: 20
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // Resource ID
