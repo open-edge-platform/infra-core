@@ -293,6 +293,7 @@ func fromInvHost(
 		HostNics:           fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:           fromInvHostUsbs(invHost.GetHostUsbs()),
 		HostGpus:           fromInvHostGpus(invHost.GetHostGpus()),
+		HostDevice:         fromInvHostDevice(invHost.GetHostDevice()),
 		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
@@ -406,6 +407,24 @@ func fromInvHostGpus(gpus []*inv_computev1.HostgpuResource) []*computev1.Hostgpu
 		})
 	}
 	return hostGpus
+}
+
+func fromInvHostDevice(device *inv_computev1.HostdeviceResource) *computev1.HostdeviceResource {
+	return &computev1.HostdeviceResource{
+		Version:          device.GetVersion(),
+		Hostname:         device.GetHostname(),
+		OperationalState: device.GetOperationalState(),
+		BuildNumber:      device.GetBuildNumber(),
+		Sku:              device.GetSku(),
+		Features:         device.GetFeatures(),
+		DeviceGuid:       device.GetDeviceGuid(),
+		ControlMode:      device.GetControlMode(),
+		DnsSuffix:        device.GetDnsSuffix(),
+		NetworkStatus:    device.GetNetworkStatus(),
+		RemoteStatus:     device.GetRemoteStatus(),
+		RemoteTrigger:    device.GetRemoteTrigger(),
+		MpsHostname:      device.GetMpsHostname(),
+	}
 }
 
 func (is *InventorygRPCServer) CreateHost(

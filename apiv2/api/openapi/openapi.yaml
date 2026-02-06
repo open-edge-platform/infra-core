@@ -4939,6 +4939,11 @@ components:
           title: host_gpus
           description: Back-reference to attached host GPU resources.
           readOnly: true
+        hostDevice:
+          title: host_device
+          description: Back-reference to attached host vPRO support resources.
+          readOnly: true
+          $ref: '#/components/schemas/HostdeviceResource'
         instance:
           title: instance
           description: The instance associated with the host.
@@ -5010,6 +5015,77 @@ components:
         - name
       additionalProperties: false
       description: A Host resource.
+    HostdeviceResource:
+      type: object
+      properties:
+        version:
+          type: string
+          title: version
+          description: Version number of AMT on the host.
+          readOnly: true
+        hostname:
+          type: string
+          title: hostname
+          description: Host name of the host.
+          readOnly: true
+        operationalState:
+          type: string
+          title: operational_state
+          description: Operational state of AMT on the host, either enabled or disabled.
+          readOnly: true
+        buildNumber:
+          type: string
+          title: build_number
+          description: Build Number of AMT on the host.
+          readOnly: true
+        sku:
+          type: string
+          title: sku
+          description: Integer number of the SKU of the host.
+          readOnly: true
+        features:
+          type: string
+          title: features
+          description: AMT features available on host.
+          readOnly: true
+        deviceGuid:
+          type: string
+          title: device_guid
+          description: Unique device ID for host.
+          readOnly: true
+        controlMode:
+          type: string
+          title: control_mode
+          description: Control mode selected for vPRO on host, either client or admin.
+          readOnly: true
+        dnsSuffix:
+          type: string
+          title: dns_suffix
+          description: DNS Suffix for the host.
+          readOnly: true
+        networkStatus:
+          type: string
+          title: network_status
+          description: Networking status for RAS on host.
+          readOnly: true
+        remoteStatus:
+          type: string
+          title: remote_status
+          description: Remote connection status for RAS on host.
+          readOnly: true
+        remoteTrigger:
+          type: string
+          title: remote_trigger
+          description: Trigger for enabling remote connection for RAS on host.
+          readOnly: true
+        mpsHostname:
+          type: string
+          title: mps_hostname
+          description: Host name for MPS instance remotely connected to host.
+          readOnly: true
+      title: HostdeviceResource
+      additionalProperties: false
+      description: The vPRO support details of host.
     HostgpuResource:
       type: object
       properties:
