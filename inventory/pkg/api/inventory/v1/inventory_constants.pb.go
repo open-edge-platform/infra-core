@@ -38,6 +38,7 @@ const (
 	ResourceEdgeHostnic          = "hostnic"
 	ResourceEdgeHostusb          = "hostusb"
 	ResourceEdgeHostgpu          = "hostgpu"
+	ResourceEdgeHostdevice       = "hostdevice"
 	ResourceEdgeInstance         = "instance"
 	ResourceEdgeIpaddress        = "ipaddress"
 	ResourceEdgeNetworkSegment   = "network_segment"

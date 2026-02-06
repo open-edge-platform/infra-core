@@ -16,6 +16,7 @@ import (
 	internal_ent "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	hostdevice "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -241,6 +242,7 @@ type OrderOption interface {
 		hostnicresource.OrderOption |
 		hostresource.OrderOption |
 		hoststorage.OrderOption |
+		hostdevice.OrderOption |
 		hostusb.OrderOption |
 		instanceresource.OrderOption |
 		ipaddressresource.OrderOption |

@@ -112,6 +112,8 @@ func (tts *TimestampTestSuite) TestUpdateTimestamps() {
 		// Other special cases are handled via the updateResource func.
 		case "HostgpuResource", "HostnicResource", "HoststorageResource", "HostusbResource":
 			fieldName = "device_name"
+		case "HostdeviceResource":
+			fieldName = "hostname"
 		case "OperatingSystemResource":
 			fieldName = "installed_packages"
 		default:
@@ -250,6 +252,16 @@ func TestTimestamp(t *testing.T) {
 			},
 			emptyFunc: func() proto.Message {
 				return &computev1.HoststorageResource{}
+			},
+		},
+		{
+			name:       "HostDevice",
+			clientType: inv_testing.APIClient,
+			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
+				return dao.CreateHostDevice(t, tenantIDOne, dao.CreateHost(t, tenantIDOne))
+			},
+			emptyFunc: func() proto.Message {
+				return &computev1.HostdeviceResource{}
 			},
 		},
 		{

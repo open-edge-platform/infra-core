@@ -39,6 +39,7 @@ class ResourceKind(betterproto.Enum):
     RESOURCE_KIND_HOSTNIC = 50
     RESOURCE_KIND_HOSTUSB = 51
     RESOURCE_KIND_HOSTGPU = 52
+    RESOURCE_KIND_HOSTDEVICE = 53
     RESOURCE_KIND_INSTANCE = 64
     RESOURCE_KIND_IPADDRESS = 95
     RESOURCE_KIND_NETWORKSEGMENT = 96
@@ -133,6 +134,7 @@ class Resource(betterproto.Message):
     hostnic: v1.HostnicResource = betterproto.message_field(42, group="resource")
     hostusb: v1.HostusbResource = betterproto.message_field(43, group="resource")
     hostgpu: v1.HostgpuResource = betterproto.message_field(44, group="resource")
+    hostdevice: v1.HostdeviceResource = betterproto.message_field(45, group="resource")
     instance: v1.InstanceResource = betterproto.message_field(50, group="resource")
     ipaddress: v1.IPAddressResource = betterproto.message_field(59, group="resource")
     network_segment: v1.NetworkSegment = betterproto.message_field(60, group="resource")

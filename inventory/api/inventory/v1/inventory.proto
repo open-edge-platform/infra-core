@@ -166,6 +166,7 @@ enum ResourceKind {
   RESOURCE_KIND_HOSTNIC = 50;
   RESOURCE_KIND_HOSTUSB = 51;
   RESOURCE_KIND_HOSTGPU = 52;
+  RESOURCE_KIND_HOSTDEVICE = 53;
 
   RESOURCE_KIND_INSTANCE = 64;
 
@@ -210,6 +211,7 @@ message Resource {
     compute.v1.HostnicResource hostnic = 42;
     compute.v1.HostusbResource hostusb = 43;
     compute.v1.HostgpuResource hostgpu = 44;
+    compute.v1.HostdeviceResource hostdevice = 45;
 
     compute.v1.InstanceResource instance = 50;
 

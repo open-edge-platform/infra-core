@@ -152,6 +152,7 @@ func (c *InventoryCache) InvalidateCacheUUIDByResourceID(tenantID, resourceID st
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:
 		if v, ok := c.reverseMap.Load(tenantIDBasedKey{tenantID, resourceID}); !ok {
 			return
@@ -214,6 +215,8 @@ func (c *InventoryCache) GetHostResourceIDFromSubRes(res *inv_v1.Resource) strin
 		return res.GetHostgpu().GetHost().GetResourceId()
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE:
 		return res.GetHoststorage().GetHost().GetResourceId()
+	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:
+		return res.GetHostdevice().GetHost().GetResourceId()
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:
 		// TODO: how to manage IPs?
 		return res.GetHostnic().GetHost().GetResourceId()

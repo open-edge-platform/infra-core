@@ -156,11 +156,13 @@ type HostResourceEdges struct {
 	HostUsbs []*HostusbResource `json:"host_usbs,omitempty"`
 	// HostGpus holds the value of the host_gpus edge.
 	HostGpus []*HostgpuResource `json:"host_gpus,omitempty"`
+	// HostDevice holds the value of the host_device edge.
+	HostDevice []*HostdeviceResource `json:"host_device,omitempty"`
 	// Instance holds the value of the instance edge.
 	Instance *InstanceResource `json:"instance,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [7]bool
+	loadedTypes [8]bool
 }
 
 // SiteOrErr returns the Site value or an error if the edge
@@ -221,12 +223,21 @@ func (e HostResourceEdges) HostGpusOrErr() ([]*HostgpuResource, error) {
 	return nil, &NotLoadedError{edge: "host_gpus"}
 }
 
+// HostDeviceOrErr returns the HostDevice value or an error if the edge
+// was not loaded in eager-loading.
+func (e HostResourceEdges) HostDeviceOrErr() ([]*HostdeviceResource, error) {
+	if e.loadedTypes[6] {
+		return e.HostDevice, nil
+	}
+	return nil, &NotLoadedError{edge: "host_device"}
+}
+
 // InstanceOrErr returns the Instance value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e HostResourceEdges) InstanceOrErr() (*InstanceResource, error) {
 	if e.Instance != nil {
 		return e.Instance, nil
-	} else if e.loadedTypes[6] {
+	} else if e.loadedTypes[7] {
 		return nil, &NotFoundError{label: instanceresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "instance"}
@@ -672,6 +683,11 @@ func (_m *HostResource) QueryHostUsbs() *HostusbResourceQuery {
 // QueryHostGpus queries the "host_gpus" edge of the HostResource entity.
 func (_m *HostResource) QueryHostGpus() *HostgpuResourceQuery {
 	return NewHostResourceClient(_m.config).QueryHostGpus(_m)
+}
+
+// QueryHostDevice queries the "host_device" edge of the HostResource entity.
+func (_m *HostResource) QueryHostDevice() *HostdeviceResourceQuery {
+	return NewHostResourceClient(_m.config).QueryHostDevice(_m)
 }
 
 // QueryInstance queries the "instance" edge of the HostResource entity.

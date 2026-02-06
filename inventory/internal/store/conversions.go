@@ -587,6 +587,37 @@ func entHostStorageResourceToProtoHostStorageResource(hostStorage *ent.Hoststora
 	return protoHostStorage
 }
 
+func entHostDeviceResourceToProtoHostDeviceResource(hostDevice *ent.HostdeviceResource) *computev1.HostdeviceResource {
+	if hostDevice == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	protoHostDevice := &computev1.HostdeviceResource{
+		ResourceId:       hostDevice.ResourceID,
+		Version:          hostDevice.Version,
+		Hostname:         hostDevice.Hostname,
+		OperationalState: hostDevice.OperationalState,
+		BuildNumber:      hostDevice.BuildNumber,
+		Sku:              hostDevice.Sku,
+		Features:         hostDevice.Features,
+		DeviceGuid:       hostDevice.DeviceGUID,
+		ControlMode:      hostDevice.ControlMode,
+		DnsSuffix:        hostDevice.DNSSuffix,
+		NetworkStatus:    hostDevice.NetworkStatus,
+		RemoteStatus:     hostDevice.RemoteStatus,
+		RemoteTrigger:    hostDevice.RemoteTrigger,
+		MpsHostname:      hostDevice.MpsHostname,
+		TenantId:         hostDevice.TenantID,
+		CreatedAt:        hostDevice.CreatedAt,
+		UpdatedAt:        hostDevice.UpdatedAt,
+	}
+	if host, qerr := hostDevice.Edges.HostOrErr(); qerr == nil {
+		protoHostDevice.Host = entHostResourceToProtoHostResource(host)
+	}
+
+	return protoHostDevice
+}
+
 func entRemoteAccessConfigurationToProto(entity *ent.RemoteAccessConfiguration) *remoteaccessv1.RemoteAccessConfiguration {
 	if entity == nil {
 		return nil

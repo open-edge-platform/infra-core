@@ -215,6 +215,8 @@ func (srv *InventorygRPCServer) CreateResource(
 
 	case *inv_v1.Resource_Hoststorage:
 		res, err = srv.IS.CreateHoststorage(ctx, in.GetResource().GetHoststorage())
+	case *inv_v1.Resource_Hostdevice:
+		res, err = srv.IS.CreateHostdevice(ctx, in.GetResource().GetHostdevice())
 	case *inv_v1.Resource_Hostnic:
 		res, err = srv.IS.CreateHostnic(ctx, in.GetResource().GetHostnic())
 	case *inv_v1.Resource_Hostusb:
@@ -374,6 +376,7 @@ func (srv *InventorygRPCServer) FindResources(
 	}, nil
 }
 
+//nolint:gocyclo // high cyclomatic complexity due to switch
 func (srv *InventorygRPCServer) GetResource(
 	ctx context.Context,
 	in *inv_v1.GetResourceRequest,
@@ -417,6 +420,8 @@ func (srv *InventorygRPCServer) GetResource(
 		gresresp.Resource, gresresp.RenderedMetadata, err = srv.IS.GetHost(ctx, in.ResourceId, in.GetTenantId())
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE:
 		gresresp.Resource, err = srv.IS.GetHoststorage(ctx, in.ResourceId)
+	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:
+		gresresp.Resource, err = srv.IS.GetHostdevice(ctx, in.ResourceId)
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:
 		gresresp.Resource, err = srv.IS.GetHostnic(ctx, in.ResourceId)
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:
@@ -523,6 +528,8 @@ func (srv *InventorygRPCServer) doUpdateResource(
 			ctx, in.ResourceId, in.GetResource().GetHost(), in.GetFieldMask(), in.GetTenantId())
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE:
 		res, err = srv.IS.UpdateHoststorage(ctx, in.ResourceId, in.GetResource().GetHoststorage(), in.GetFieldMask())
+	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:
+		res, err = srv.IS.UpdateHostdevice(ctx, in.ResourceId, in.GetResource().GetHostdevice(), in.GetFieldMask())
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:
 		res, err = srv.IS.UpdateHostnic(ctx, in.ResourceId, in.GetResource().GetHostnic(), in.GetFieldMask())
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:
@@ -690,6 +697,8 @@ func (srv *InventorygRPCServer) doDeleteResource(
 		res, softDelete, err = srv.IS.DeleteHost(ctx, in.ResourceId, in.GetTenantId())
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE:
 		res, err = srv.IS.DeleteHoststorage(ctx, in.ResourceId)
+	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:
+		res, err = srv.IS.DeleteHostdevice(ctx, in.ResourceId)
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:
 		res, err = srv.IS.DeleteHostnic(ctx, in.ResourceId)
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:
@@ -922,6 +931,7 @@ var deleteResourcesHandlers = map[inv_v1.ResourceKind]deleteResourcesHandlerProv
 	inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:           func(is *store.InvStore) deleteResourcesHandler { return is.DeleteHostNICs },
 	inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU:           func(is *store.InvStore) deleteResourcesHandler { return is.DeleteHostGPUs },
 	inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE:       func(is *store.InvStore) deleteResourcesHandler { return is.DeleteHostStorages },
+	inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:        func(is *store.InvStore) deleteResourcesHandler { return is.DeleteHostDevices },
 	inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:           func(is *store.InvStore) deleteResourcesHandler { return is.DeleteHostUSBs },
 	inv_v1.ResourceKind_RESOURCE_KIND_INSTANCE:          func(is *store.InvStore) deleteResourcesHandler { return is.DeleteInstances },
 	inv_v1.ResourceKind_RESOURCE_KIND_IPADDRESS:         func(is *store.InvStore) deleteResourcesHandler { return is.DeleteIPAddresses },

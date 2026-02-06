@@ -182,6 +182,7 @@ func main() {
 		{msg: &computev1.HostResource{}, ShortName: "Host", ProtoPackageName: "computev1"},
 		{msg: &computev1.HostnicResource{}, ShortName: "HostNic", ProtoPackageName: "computev1"},
 		{msg: &computev1.HoststorageResource{}, ShortName: "HostStorage", ProtoPackageName: "computev1"},
+		{msg: &computev1.HostdeviceResource{}, ShortName: "HostDevice", ProtoPackageName: "computev1"},
 		{msg: &computev1.HostusbResource{}, ShortName: "HostUSB", ProtoPackageName: "computev1"},
 		{msg: &computev1.InstanceResource{}, ShortName: "Instance", ProtoPackageName: "computev1"},
 		{msg: &computev1.WorkloadResource{}, ShortName: "Workload", ProtoPackageName: "computev1"},
