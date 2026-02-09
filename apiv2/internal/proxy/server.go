@@ -35,6 +35,8 @@ type serviceClientsSignature func(
 	opts []grpc.DialOption) (err error)
 
 // servicesClients maps gRPC service names to their grpc-gateway registration functions.
+// These are used to register service handlers conditionally based on the scenario allowlist.
+// Service name must match one of the service names used in api/proto/services/v1/services.proto.
 var servicesClients = map[string]serviceClientsSignature{
 	"RegionService":                  restv1.RegisterRegionServiceHandlerFromEndpoint,
 	"SiteService":                    restv1.RegisterSiteServiceHandlerFromEndpoint,
@@ -52,8 +54,8 @@ var servicesClients = map[string]serviceClientsSignature{
 	"TelemetryLogsProfileService":    restv1.RegisterTelemetryLogsProfileServiceHandlerFromEndpoint,
 	"LocalAccountService":            restv1.RegisterLocalAccountServiceHandlerFromEndpoint,
 	"CustomConfigService":            restv1.RegisterCustomConfigServiceHandlerFromEndpoint,
-	"OSUpdatePolicyService":          restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
-	"OSUpdateRunService":             restv1.RegisterOSUpdateRunHandlerFromEndpoint,
+	"OSUpdatePolicy":                 restv1.RegisterOSUpdatePolicyHandlerFromEndpoint,
+	"OSUpdateRun":                    restv1.RegisterOSUpdateRunHandlerFromEndpoint,
 }
 
 const (
@@ -96,7 +98,7 @@ func WrapH(h http.Handler) echo.HandlerFunc {
 }
 
 func (m *Manager) setupClients(mux *runtime.ServeMux) error {
-	scenarioName := m.cfg.Scenario
+	scenarioName := m.cfg.EIMScenario
 	if scenarioName == "" {
 		return fmt.Errorf("scenario is not set in config")
 	}

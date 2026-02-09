@@ -167,7 +167,7 @@ func BuildAllowedServiceList(scenarioName string, allowlist map[string][]string)
 
 	// Log registered services
 	for serviceName := range allowed {
-		zlog.Debug().Str("scenario", scenarioName).Msgf("including service %s in the allowed handlers list", serviceName)
+		zlog.Debug().Str("scenario", scenarioName).Msgf("including service %s in the allowed list", serviceName)
 	}
 
 	return allowed, nil
