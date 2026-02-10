@@ -24,6 +24,8 @@ func TestLocalAccount_CreateGetDelete(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	// Create LocalAccounts
 	account1 := CreateLocalAccount(ctx, t, apiClient, utils.LocalAccount1Request)
 	account2 := CreateLocalAccount(ctx, t, apiClient, utils.LocalAccount2Request)
@@ -31,6 +33,7 @@ func TestLocalAccount_CreateGetDelete(t *testing.T) {
 	// Get LocalAccount 1
 	get1, err := apiClient.LocalAccountServiceGetLocalAccountWithResponse(
 		ctx,
+		projectName,
 		*account1.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -42,6 +45,7 @@ func TestLocalAccount_CreateGetDelete(t *testing.T) {
 	// Get LocalAccount 2
 	get2, err := apiClient.LocalAccountServiceGetLocalAccountWithResponse(
 		ctx,
+		projectName,
 		*account2.JSON200.ResourceId,
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)
@@ -61,9 +65,12 @@ func TestLocalAccount_Errors(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	t.Run("Post_NoUsername_BadRequest", func(t *testing.T) {
 		account, err := apiClient.LocalAccountServiceCreateLocalAccountWithResponse(
 			ctx,
+			projectName,
 			utils.LocalAccountNoName,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -74,6 +81,7 @@ func TestLocalAccount_Errors(t *testing.T) {
 	t.Run("Get_UnexistID_NotFound", func(t *testing.T) {
 		account, err := apiClient.LocalAccountServiceGetLocalAccountWithResponse(
 			ctx,
+			projectName,
 			utils.LocalAccountUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -84,6 +92,7 @@ func TestLocalAccount_Errors(t *testing.T) {
 	t.Run("Delete_UnexistID_NotFound", func(t *testing.T) {
 		account, err := apiClient.LocalAccountServiceDeleteLocalAccountWithResponse(
 			ctx,
+			projectName,
 			utils.LocalAccountUnexistID,
 			AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 		)
@@ -101,6 +110,8 @@ func TestLocalAccountList(t *testing.T) {
 	apiClient, err := GetAPIClient()
 	require.NoError(t, err)
 
+	projectName := getProjectID(t)
+
 	totalItems := 5
 	var offset int
 	pageSize := 2
@@ -115,6 +126,7 @@ func TestLocalAccountList(t *testing.T) {
 	// Check if list resources return expected number of entries
 	resList, err := apiClient.LocalAccountServiceListLocalAccountsWithResponse(
 		ctx,
+		projectName,
 		&api.LocalAccountServiceListLocalAccountsParams{
 			Offset:   &offset,
 			PageSize: &pageSize,
@@ -129,6 +141,7 @@ func TestLocalAccountList(t *testing.T) {
 
 	resList, err = apiClient.LocalAccountServiceListLocalAccountsWithResponse(
 		ctx,
+		projectName,
 		&api.LocalAccountServiceListLocalAccountsParams{},
 		AddJWTtoTheHeader, AddProjectIDtoTheHeader,
 	)

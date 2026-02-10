@@ -12,10 +12,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 
-	"github.com/open-edge-platform/infra-core/apiv2/v2/internal/server"
 	"gopkg.in/yaml.v3"
 )
 
@@ -37,13 +37,21 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Validate services against server implementation
-	if err := validateServices(allow); err != nil {
+	// Load proto services
+	protoServicesMap, serviceCount, err := getServicesFromProto("api/proto/services/v1/services.proto")
+	if err != nil {
+		log.Printf("failed to parse proto: %v", err)
+		os.Exit(1)
+	}
+	log.Printf("found %d service(s) in proto file", serviceCount)
+
+	// Validate service names against services in protobuf definitions
+	if err := validateServices(allow, protoServicesMap); err != nil {
 		log.Printf("validation failed: %v", err)
 		os.Exit(1)
 	}
 
-	if err := writeGenerated(*outFile, *pkgName, allow); err != nil {
+	if err := writeGenerated(*outFile, *pkgName, allow, protoServicesMap); err != nil {
 		log.Printf("failed to write generated file: %v", err)
 		os.Exit(1)
 	}
@@ -128,7 +136,7 @@ func clean(in []string) []string {
 	return out
 }
 
-func writeGenerated(outPath, pkg string, allowed map[string][]string) error {
+func writeGenerated(outPath, pkg string, allowed map[string][]string, protoServicesMap map[string]string) error {
 	scenarios := make([]string, 0, len(allowed))
 	for sc := range allowed {
 		scenarios = append(scenarios, sc)
@@ -150,7 +158,26 @@ func writeGenerated(outPath, pkg string, allowed map[string][]string) error {
 
 	buf.WriteString("var Allowlist = map[string][]string{\n")
 	for _, sc := range scenarios {
-		services := append([]string(nil), allowed[sc]...)
+		rawServices := allowed[sc]
+
+		seen := make(map[string]struct{})
+		services := make([]string, 0, len(rawServices))
+
+		for _, s := range rawServices {
+			normalized := normalizeServiceName(s)
+
+			// If we have an equivalent in proto, use the proto service name
+			if protoName, ok := protoServicesMap[normalized]; ok {
+				s = protoName
+			}
+
+			if _, exists := seen[s]; exists {
+				continue
+			}
+			seen[s] = struct{}{}
+			services = append(services, s)
+		}
+
 		sort.Strings(services)
 
 		buf.WriteString(fmt.Sprintf("\t%q: {\n", sc))
@@ -185,37 +212,66 @@ func writeGenerated(outPath, pkg string, allowed map[string][]string) error {
 	return nil
 }
 
-// validateServices checks that all services in manifests exist
-func validateServices(allowed map[string][]string) error {
-	// Get known services from server package
-	knownServices := server.GetKnownServices()
-	serverServicesMap := make(map[string]bool, len(knownServices))
-	for _, svc := range knownServices {
-		serverServicesMap[svc] = true
+// getServicesFromProto parses the proto file and extracts service names.
+func getServicesFromProto(protoPath string) (map[string]string, int, error) {
+	content, err := os.ReadFile(protoPath)
+	if err != nil {
+		return nil, 0, fmt.Errorf("read proto file %q: %w", protoPath, err)
 	}
 
-	log.Printf("found %d gRPC service(s) implemented", len(knownServices))
+	// Matches: service HostService {  OR  service Host {
+	re := regexp.MustCompile(`(?m)^service\s+(\w+)\s*\{`)
+	matches := re.FindAllSubmatch(content, -1)
+
+	services := make(map[string]string)
+
+	for _, match := range matches {
+		if len(match) < 2 {
+			continue
+		}
+
+		rawName := string(match[1])
+		normalized := normalizeServiceName(rawName)
+
+		services[normalized] = rawName
+	}
+
+	return services, len(services), nil
+}
+
+func normalizeServiceName(name string) string {
+	const suffix = "Service"
+
+	if strings.HasSuffix(name, suffix) {
+		return strings.TrimSuffix(name, suffix)
+	}
+	return name
+}
+
+// validateServices checks that all services in manifests are defined in proto file.
+func validateServices(allowed map[string][]string, protoServicesMap map[string]string) error {
 
 	// Collect all unique services from manifests
 	manifestServices := make(map[string]bool)
 	for scenario, services := range allowed {
 		for _, svc := range services {
-			manifestServices[svc] = true
+			normalized := normalizeServiceName(svc)
+			manifestServices[normalized] = true
 		}
-		log.Printf("scenario %q: %d gRPC service(s)", scenario, len(services))
+		log.Printf("scenario %q: %d service(s)", scenario, len(services))
 	}
 
-	// Validate each manifest service is implemented in server
+	// Validate each manifest service exists in proto
 	var missing []string
 	for svc := range manifestServices {
-		if !serverServicesMap[svc] {
+		if _, ok := protoServicesMap[svc]; !ok {
 			missing = append(missing, svc)
 		}
 	}
 
 	if len(missing) > 0 {
 		sort.Strings(missing)
-		return fmt.Errorf("services in manifests but not implemented in server: %v", missing)
+		return fmt.Errorf("services in manifests but not defined in proto: %v", missing)
 	}
 
 	log.Printf("validation passed")

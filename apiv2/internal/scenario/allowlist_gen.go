@@ -6,6 +6,7 @@ package scenario
 
 var KnownScenarios = []string{
 	"fulleim",
+	"noobb",
 	"vpro",
 }
 
@@ -16,8 +17,8 @@ var Allowlist = map[string][]string{
 		"InstanceService",
 		"LocalAccountService",
 		"LocationService",
-		"OSUpdatePolicyService",
-		"OSUpdateRunService",
+		"OSUpdatePolicy",
+		"OSUpdateRun",
 		"OperatingSystemService",
 		"ProviderService",
 		"RegionService",
@@ -27,6 +28,22 @@ var Allowlist = map[string][]string{
 		"TelemetryLogsProfileService",
 		"TelemetryMetricsGroupService",
 		"TelemetryMetricsProfileService",
+		"WorkloadMemberService",
+		"WorkloadService",
+	},
+	"noobb": {
+		"CustomConfigService",
+		"HostService",
+		"InstanceService",
+		"LocalAccountService",
+		"LocationService",
+		"OSUpdatePolicy",
+		"OSUpdateRun",
+		"OperatingSystemService",
+		"ProviderService",
+		"RegionService",
+		"ScheduleService",
+		"SiteService",
 		"WorkloadMemberService",
 		"WorkloadService",
 	},
