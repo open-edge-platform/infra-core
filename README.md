@@ -26,7 +26,7 @@ To develop one of the several core components, please follow its guide in README
 
 ## Container Images
 
-All components in this repository are containerized and automatically published to AWS ECR (Elastic Container Registry) upon merges to the `main` or `release-*` branches.
+All components in this repository are containerized and automatically published to AWS ECR (Elastic Container Registry) when changes to their respective directories are merged to the `main` or `release-*` branches.
 
 For detailed information about image publishing, including verification steps and troubleshooting, see [IMAGES.md](IMAGES.md).
 
