@@ -2,8 +2,8 @@
 # SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-name: fulleim
-description: EIM scenario with all EIM Northbound API services enabled.
+name: noobb
+description: EIM scenario with all EIM Northbound API services, excluding observability endpoints.
 services:
   - RegionService
   - SiteService
@@ -15,10 +15,6 @@ services:
   - WorkloadService
   - WorkloadMemberService
   - ProviderService
-  - TelemetryLogsGroupService
-  - TelemetryMetricsGroupService
-  - TelemetryMetricsProfileService
-  - TelemetryLogsProfileService
   - LocalAccountService
   - CustomConfigService
   - OSUpdatePolicyService
