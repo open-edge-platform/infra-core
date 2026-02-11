@@ -24,6 +24,23 @@ Read more about Edge Orchestrator in the [User Guide](https://docs.openedgeplatf
 
 To develop one of the several core components, please follow its guide in README.md located in its respective folder.
 
+## Container Images
+
+All components in this repository are containerized and automatically published to AWS ECR (Elastic Container Registry) upon merges to the `main` or `release-*` branches.
+
+For detailed information about image publishing, including verification steps and troubleshooting, see [IMAGES.md](IMAGES.md).
+
+### Published Images
+
+The following container images are automatically built and published:
+
+- **API**: `080137407410.dkr.ecr.us-west-2.amazonaws.com/edge-orch/infra/apiv2`
+- **Inventory**: `080137407410.dkr.ecr.us-west-2.amazonaws.com/edge-orch/infra/inventory`
+- **Inventory Exporter**: `080137407410.dkr.ecr.us-west-2.amazonaws.com/edge-orch/infra/exporters-inventory`
+- **Tenant Controller**: `080137407410.dkr.ecr.us-west-2.amazonaws.com/edge-orch/infra/tenant-controller`
+
+For deployment using these images, see the [infra-charts](https://github.com/open-edge-platform/infra-charts) repository.
+
 ## Contribute
 
 To learn how to contribute to the project, see the [Contributor's
