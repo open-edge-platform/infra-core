@@ -228,7 +228,6 @@ func TestCacheUUIDInvalidateMultipleKey(t *testing.T) {
 			c.InvalidateCacheUUIDByResourceID(tenant1, tc.invalidateResID)
 
 			res1, err1 := c.GetHostByUUID(tenant1, uuidT1)
-			assert.NoError(t, err1)
 			assert.Nil(t, res1)
 			assertCacheNotFound(t, err1)
 
