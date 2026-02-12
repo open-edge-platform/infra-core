@@ -52,6 +52,10 @@ var (
 		"lenovoResourcesDefinitionPath",
 		"",
 		"path to the file containing list of Lenovo resources to be initialized on every new tenant creation")
+	skipOSProvisioning = flag.Bool(
+		"skipOSProvisioning",
+		false,
+		"Skip waiting for OS Resource Manager watcher acknowledgment when true")
 )
 
 // Project related variables. Overwritten by build process.
@@ -165,7 +169,8 @@ func main() {
 	}
 
 	tenantTerminationCtrl := controller.NewTerminationController(invClient)
-	tenantInitializationCtrl := controller.NewTenantInitializationController(initialResourcesProviders, invClient, nxc)
+	tenantInitializationCtrl := controller.NewTenantInitializationController(
+		initialResourcesProviders, invClient, nxc, *skipOSProvisioning)
 
 	controller.NewEventDispatcher(invClient, tenantInitializationCtrl, tenantTerminationCtrl).Start(termChan)
 
