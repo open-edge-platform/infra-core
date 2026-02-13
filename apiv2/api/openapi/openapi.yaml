@@ -15947,6 +15947,13 @@ components:
           $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: Timestamps
       additionalProperties: false
+    AmtControlMode:
+      type: string
+      title: AmtControlMode
+      enum:
+        - AMT_CONTROL_MODE_UNSPECIFIED
+        - AMT_CONTROL_MODE_ACM
+        - AMT_CONTROL_MODE_CCM
     AmtSku:
       type: string
       title: AmtSku
@@ -16262,6 +16269,15 @@ components:
           title: user_lvm_size
           description: LVM size in GB.
           readOnly: true
+        amtControlMode:
+          title: amt_control_mode
+          description: (OPTIONAL) coming from user selection
+          $ref: '#/components/schemas/AmtControlMode'
+        amtDnsSuffix:
+          type: string
+          title: amt_dns_suffix
+          maxLength: 1024
+          description: (OPTIONAL) textual message that describes dns_suffix for ACM mode.
         siteId:
           type: string
           title: site_id
