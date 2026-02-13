@@ -1542,6 +1542,7 @@ Request message for the CreateCustomConfig method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | custom_config | [resources.customconfig.v1.CustomConfigResource](#resources-customconfig-v1-CustomConfigResource) |  | The custom configuration to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1572,6 +1573,7 @@ Request message for the CreateHost method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | The host to create. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -1602,6 +1604,7 @@ Request message for the CreateInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance to create. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -1632,6 +1635,7 @@ Request message for the CreateLocalAccount method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | local_account | [resources.localaccount.v1.LocalAccountResource](#resources-localaccount-v1-LocalAccountResource) |  | The localaccount to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1662,6 +1666,7 @@ Request message for the CreateOSUpdatePolicy method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | os_update_policy | [resources.compute.v1.OSUpdatePolicy](#resources-compute-v1-OSUpdatePolicy) |  | The OS Update policy to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1692,6 +1697,7 @@ Request message for the CreateOSUpdateRun method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | os_update_run | [resources.compute.v1.OSUpdateRun](#resources-compute-v1-OSUpdateRun) |  | The os update run to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1722,6 +1728,7 @@ Request message for the CreateOperatingSystem method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | The os to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1752,6 +1759,7 @@ Request message for the CreateProvider method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | provider | [resources.provider.v1.ProviderResource](#resources-provider-v1-ProviderResource) |  | The provider to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1782,6 +1790,7 @@ Request message for the CreateRegion method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | The region to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1812,6 +1821,7 @@ Request message for the CreateRepeatedSchedule method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | The repeated_schedule to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1842,6 +1852,7 @@ Request message for the CreateSingleSchedule method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | The single_schedule to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1872,6 +1883,8 @@ Request message for the CreateSite method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | The site to create. |
+| projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -1902,6 +1915,7 @@ Request message for the CreateTelemetryLogsGroup method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | telemetry_logs_group | [resources.telemetry.v1.TelemetryLogsGroupResource](#resources-telemetry-v1-TelemetryLogsGroupResource) |  | The telemetry_logs_group to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1932,6 +1946,7 @@ Request message for the CreateTelemetryLogsProfile method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | The telemetry_logs_profile to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1962,6 +1977,7 @@ Request message for the CreateTelemetryMetricsGroup method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | telemetry_metrics_group | [resources.telemetry.v1.TelemetryMetricsGroupResource](#resources-telemetry-v1-TelemetryMetricsGroupResource) |  | The telemetry_metrics_group to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -1992,6 +2008,7 @@ Request message for the CreateTelemetryMetricsProfile method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | The telemetry_metrics_profile to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2022,6 +2039,7 @@ Request message for the CreateWorkloadMember method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | workload_member | [resources.compute.v1.WorkloadMember](#resources-compute-v1-WorkloadMember) |  | The workload_member to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2052,6 +2070,7 @@ Request message for the CreateWorkload method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | The workload to create. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2082,6 +2101,7 @@ Request message for DeleteCustomConfig.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the customconfig to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2107,6 +2127,7 @@ Request message for DeleteHost.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the host host to be deleted. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2132,6 +2153,7 @@ Request message for DeleteInstance.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the instance instance to be deleted. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2157,6 +2179,7 @@ Request message for DeleteLocalAccount.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the localaccount to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2182,6 +2205,7 @@ Request message for DeleteOperatingSystem.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the OS Update Policy to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2207,6 +2231,7 @@ Request message for DeleteOperatingSystem.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the os update run to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2232,6 +2257,7 @@ Request message for DeleteOperatingSystem.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the os os to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2257,6 +2283,7 @@ Request message for DeleteProvider.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the provider provider to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2282,6 +2309,7 @@ Request message for DeleteRegion.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the region region to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2307,6 +2335,7 @@ Request message for DeleteRepeatedSchedule.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2332,6 +2361,7 @@ Request message for DeleteSingleSchedule.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the single_schedule single_schedule to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2357,6 +2387,8 @@ Request message for DeleteSite.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the site site to be deleted. |
+| projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -2382,6 +2414,7 @@ Request message for DeleteTelemetryLogsGroup.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the telemetry_logs_group telemetry_logs_group to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2407,6 +2440,7 @@ Request message for DeleteTelemetryLogsProfile.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2432,6 +2466,7 @@ Request message for DeleteTelemetryMetricsGroup.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the telemetry_metrics_group telemetry_metrics_group to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2457,6 +2492,7 @@ Request message for DeleteTelemetryMetricsProfile.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2482,6 +2518,7 @@ Request message for DeleteWorkloadMember.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the workload_member workload_member to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2507,6 +2544,7 @@ Request message for DeleteWorkload.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the workload workload to be deleted. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2532,6 +2570,7 @@ Request message for the GetCustomConfig method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested custom configuration. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2562,6 +2601,7 @@ Request message for the GetHost method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested host. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2592,6 +2632,7 @@ Request the summary of Hosts resources.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2625,6 +2666,7 @@ Request message for the GetInstance method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -2655,6 +2697,7 @@ Request message for the GetLocalAccount method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested localaccount. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2685,6 +2728,7 @@ Request message for the GetOSUpdatePolicy method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested os. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2715,6 +2759,7 @@ Request message for the GetOSUpdateRun method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested os. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2745,6 +2790,7 @@ Request message for the GetOperatingSystem method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested os. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2775,6 +2821,7 @@ Request message for the GetProvider method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested provider. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2805,6 +2852,7 @@ Request message for the GetRegion method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested region. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2835,6 +2883,7 @@ Request message for the GetRepeatedSchedule method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested repeated_schedule. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2865,6 +2914,7 @@ Request message for the GetSingleSchedule method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested single_schedule. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2895,6 +2945,8 @@ Request message for the GetSite method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested site. |
+| projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -2925,6 +2977,7 @@ Request message for the GetTelemetryLogsGroup method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested telemetry_logs_group. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2955,6 +3008,7 @@ Request message for the GetTelemetryLogsProfile method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested telemetry_logs_profile. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -2985,6 +3039,7 @@ Request message for the GetTelemetryMetricsGroup method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested telemetry_metrics_group. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3015,6 +3070,7 @@ Request message for the GetTelemetryMetricsProfile method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested telemetry_metrics_profile. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3045,6 +3101,7 @@ Request message for the GetWorkloadMember method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested workload_member. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3075,6 +3132,7 @@ Request message for the GetWorkload method.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the requested workload. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3126,6 +3184,7 @@ Request to invalidate/untrust a Host.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Host resource ID |
 | note | [string](#string) |  | user-provided reason for change or a freeform field |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3151,6 +3210,7 @@ Request message for Invalidate Instance.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Instance resource ID |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3179,6 +3239,7 @@ Request message for the ListCustomConfigs method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3214,6 +3275,7 @@ Request message for the ListHosts method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3249,6 +3311,7 @@ Request message for the ListInstances method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3284,6 +3347,7 @@ Request message for the ListLocalAccounts method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3318,6 +3382,7 @@ Request message for the ListLocations method.
 | name | [string](#string) |  | Filter locations by name |
 | show_sites | [bool](#bool) |  | Return site locations |
 | show_regions | [bool](#bool) |  | Return region locations |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3371,6 +3436,7 @@ Request message for the ListOSUpdatePolicy method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3406,6 +3472,7 @@ Request message for the ListOSUpdateRun method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3441,6 +3508,7 @@ Request message for the ListOperatingSystems method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3476,6 +3544,7 @@ Request message for the ListProviders method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3512,6 +3581,7 @@ Request message for the ListRegions method.
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | show_total_sites | [bool](#bool) |  | Flag to signal if the total amount of site in a region should be returned. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3549,6 +3619,7 @@ Request message for the ListRepeatedSchedules method.
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
 | unix_epoch | [string](#string) |  | Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3586,6 +3657,7 @@ Request message for the ListSchedules method.
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
 | unix_epoch | [string](#string) |  | Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3624,6 +3696,7 @@ Request message for the ListSingleSchedules method.
 | site_id | [string](#string) |  | The site ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified site ID applied to them, i.e., target including the inherited ones. If null, returns all the schedules without a site ID as target |
 | region_id | [string](#string) |  | The region ID target of the schedules. If not specified, returns all schedules (given the other query params). If specified, returns the schedules that have the specified region ID applied to them, i.e., target including the inherited ones (parent region if not null). If null, returns all the schedules without a region ID as target. |
 | unix_epoch | [string](#string) |  | Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3659,6 +3732,8 @@ Request message for the ListSites method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -3693,6 +3768,7 @@ Request message for the ListTelemetryLogsGroups method.
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3731,6 +3807,7 @@ Request message for the ListTelemetryLogsProfiles method.
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
 | region_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given regionID. |
 | show_inherited | [bool](#bool) |  | Indicates if listed telemetry profiles should be extended with telemetry profiles rendered from hierarchy. This flag is only used along with one of siteId, regionId or instanceId. If siteId, regionId or instanceId are not set, this flag is ignored. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3765,6 +3842,7 @@ Request message for the ListTelemetryMetricsGroups method.
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
 | order_by | [string](#string) |  | Optional comma separated list of fields to specify a sorting order. See https://google.aip.dev/132 for details. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3803,6 +3881,7 @@ Request message for the ListTelemetryMetricsProfiles method.
 | site_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given siteID. |
 | region_id | [string](#string) |  | Returns only the telemetry profiles that are assigned with the given regionID. |
 | show_inherited | [bool](#bool) |  | Indicates if listed telemetry profiles should be extended with telemetry profiles rendered from hierarchy. This flag is only used along with one of siteId, regionId or instanceId. If siteId, regionId or instanceId are not set, this flag is ignored. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3838,6 +3917,7 @@ Request message for the ListWorkloadMembers method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3873,6 +3953,7 @@ Request message for the ListWorkloads method.
 | filter | [string](#string) |  | Optional filter to return only item of interest. See https://google.aip.dev/160 for details. |
 | page_size | [uint32](#uint32) |  | Defines the amount of items to be contained in a single page. Default of 20. |
 | offset | [uint32](#uint32) |  | Index of the first item to return. This allows skipping items. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3905,6 +3986,7 @@ Request to onboard a Host.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Host resource ID |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3932,6 +4014,7 @@ Request message for the PatchHost method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of host. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3949,6 +4032,7 @@ Request message for the PatchInstance method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -3966,6 +4050,7 @@ Request message for the PatchOperatingSystem method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of os. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -3983,6 +4068,7 @@ Request message for the PatchRegion method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of region. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4000,6 +4086,7 @@ Request message for the PatchRepeatedSchedule method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of repeated_schedule. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4017,6 +4104,7 @@ Request message for the PatchSingleSchedule method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of single_schedule. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4034,6 +4122,8 @@ Request message for the PatchSite method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of site. |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4051,6 +4141,7 @@ Request message for the PatchTelemetryLogs method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_logs_profile. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4068,6 +4159,7 @@ Request message for the PatchTelemetryMetricsProfile method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of telemetry_metrics_profile. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4085,6 +4177,7 @@ Request message for the PatchWorkload method.
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
 | field_mask | [google.protobuf.FieldMask](#google-protobuf-FieldMask) |  | Field mask to be applied on the patch of workload. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4101,6 +4194,7 @@ Request to register a Host.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  |  |
 | host | [HostRegister](#services-v1-HostRegister) |  |  |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -4117,6 +4211,7 @@ Request message for the UpdateHost method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the host host to be updated. |
 | host | [resources.compute.v1.HostResource](#resources-compute-v1-HostResource) |  | Updated values for the host. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -4133,6 +4228,7 @@ Request message for the UpdateInstance method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | ID of the resource to be updated. |
 | instance | [resources.compute.v1.InstanceResource](#resources-compute-v1-InstanceResource) |  | Updated values for the instance. |
+| projectName | [string](#string) |  | The project name from the URL path. |
 
 
 
@@ -4149,6 +4245,7 @@ Request message for the UpdateOperatingSystem method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the os os to be updated. |
 | os | [resources.os.v1.OperatingSystemResource](#resources-os-v1-OperatingSystemResource) |  | Updated values for the os. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4165,6 +4262,7 @@ Request message for the UpdateRegion method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the region region to be updated. |
 | region | [resources.location.v1.RegionResource](#resources-location-v1-RegionResource) |  | Updated values for the region. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4181,6 +4279,7 @@ Request message for the UpdateRepeatedSchedule method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the repeated_schedule repeated_schedule to be updated. |
 | repeated_schedule | [resources.schedule.v1.RepeatedScheduleResource](#resources-schedule-v1-RepeatedScheduleResource) |  | Updated values for the repeated_schedule. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4197,6 +4296,7 @@ Request message for the UpdateSingleSchedule method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the single_schedule single_schedule to be updated. |
 | single_schedule | [resources.schedule.v1.SingleScheduleResource](#resources-schedule-v1-SingleScheduleResource) |  | Updated values for the single_schedule. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4213,6 +4313,8 @@ Request message for the UpdateSite method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the site site to be updated. |
 | site | [resources.location.v1.SiteResource](#resources-location-v1-SiteResource) |  | Updated values for the site. |
+| projectName | [string](#string) |  | Project name |
+| regionId | [string](#string) |  | Optional region ID for hierarchical path support |
 
 
 
@@ -4229,6 +4331,7 @@ Request message for the UpdateTelemetryLogsProfile method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the telemetry_logs_profile telemetry_logs_profile to be updated. |
 | telemetry_logs_profile | [resources.telemetry.v1.TelemetryLogsProfileResource](#resources-telemetry-v1-TelemetryLogsProfileResource) |  | Updated values for the telemetry_logs_profile. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4245,6 +4348,7 @@ Request message for the UpdateTelemetryMetricsProfile method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the telemetry_metrics_profile telemetry_metrics_profile to be updated. |
 | telemetry_metrics_profile | [resources.telemetry.v1.TelemetryMetricsProfileResource](#resources-telemetry-v1-TelemetryMetricsProfileResource) |  | Updated values for the telemetry_metrics_profile. |
+| projectName | [string](#string) |  | Project name |
 
 
 
@@ -4261,6 +4365,7 @@ Request message for the UpdateWorkload method.
 | ----- | ---- | ----- | ----------- |
 | resourceId | [string](#string) |  | Name of the workload workload to be updated. |
 | workload | [resources.compute.v1.WorkloadResource](#resources-compute-v1-WorkloadResource) |  | Updated values for the workload. |
+| projectName | [string](#string) |  | Project name |
 
 
 

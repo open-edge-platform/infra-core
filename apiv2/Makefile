@@ -24,6 +24,9 @@ OASDIFF         := true
 PROTOCGENOAPI   := true
 PROTOCGENGRPCGW := true
 
+# Tool paths - prefer Go bin path for oapi-codegen v2
+OAPI_CODEGEN_CMD ?= $(shell command -v ~/go/bin/oapi-codegen 2>/dev/null || command -v oapi-codegen)
+
 # Defining the shell, users and groups
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
@@ -74,6 +77,9 @@ GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(
 
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
 
+ALLOWLIST_GEN_TOOL := ./tools/allowservicesgen
+ALLOWLIST_PATH := ./internal/scenario/allowlist_gen.go
+
 # Target variables
 TYPES  := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-types.gen.go"
 SERVER := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-server.gen.go"
@@ -113,17 +119,17 @@ oapi-docs:  ## generates a single/complete documentation of the OpenAPI spec in 
 
 $(TYPES): $(OPENAPI_PATH) ## generate types API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/types.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/types.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-types.gen.go $@
 
 $(SERVER): $(OPENAPI_PATH) ## generate server API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/server.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/server.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-server.gen.go $@
 
 $(CLIENT): $(OPENAPI_PATH) ## generate client API from OpenAPI specs
 	mkdir -p $(API_GEN_FOLDER)
-	oapi-codegen --config=api/openapi/client.cfg.yaml $<
+	$(OAPI_CODEGEN_CMD) --config=api/openapi/client.cfg.yaml $<
 	mv edge-infrastructure-manager-openapi-client.gen.go $@
 
 go-build: $(OUT_DIR) ## go build
@@ -252,4 +258,5 @@ oasdiff-breaking: # Check for breaking changes in openapi using oasdiff
 	oasdiff breaking --composed "${TEMP_BASE_OPENAPI_DIR}/${OPENAPI_PATH}"  "${OPENAPI_PATH}" --fail-on ERR
 
 gen-allowed-services: ## Generate allowed services list for EIM scenarios
-	go run ./tools/allowedservicesgen
+	rm -f ${ALLOWLIST_PATH}
+	go run ${ALLOWLIST_GEN_TOOL}
