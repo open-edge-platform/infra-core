@@ -215,6 +215,8 @@ func setTenantID(resource *inv_v1.Resource, tenantID string) error {
 		message = resource.GetHostusb()
 	case *inv_v1.Resource_Hostgpu:
 		message = resource.GetHostgpu()
+	case *inv_v1.Resource_HostDevice:
+		message = resource.GetHostDevice()
 	case *inv_v1.Resource_NetworkSegment:
 		message = resource.GetNetworkSegment()
 	case *inv_v1.Resource_Netlink:

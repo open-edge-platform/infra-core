@@ -16,6 +16,7 @@ import (
 	internal_ent "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	hostdevice "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -237,6 +238,7 @@ func getOffsetAndLimit(filter *inv_v1.ResourceFilter) (offset, limit int, err er
 
 type OrderOption interface {
 	endpointresource.OrderOption |
+		hostdevice.OrderOption |
 		hostgpuresource.OrderOption |
 		hostnicresource.OrderOption |
 		hostresource.OrderOption |

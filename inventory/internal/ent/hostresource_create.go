@@ -9,6 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -890,6 +891,25 @@ func (_c *HostResourceCreate) AddHostGpus(v ...*HostgpuResource) *HostResourceCr
 	return _c.AddHostGpuIDs(ids...)
 }
 
+// SetHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID.
+func (_c *HostResourceCreate) SetHostDeviceID(id int) *HostResourceCreate {
+	_c.mutation.SetHostDeviceID(id)
+	return _c
+}
+
+// SetNillableHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableHostDeviceID(id *int) *HostResourceCreate {
+	if id != nil {
+		_c = _c.SetHostDeviceID(*id)
+	}
+	return _c
+}
+
+// SetHostDevice sets the "host_device" edge to the HostdeviceResource entity.
+func (_c *HostResourceCreate) SetHostDevice(v *HostdeviceResource) *HostResourceCreate {
+	return _c.SetHostDeviceID(v.ID)
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
 func (_c *HostResourceCreate) SetInstanceID(id int) *HostResourceCreate {
 	_c.mutation.SetInstanceID(id)
@@ -1380,6 +1400,23 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := _c.mutation.HostDeviceIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_node.hostdevice_resource_host = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := _c.mutation.InstanceIDs(); len(nodes) > 0 {

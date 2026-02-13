@@ -128,6 +128,7 @@ func (c *Cli) PromptRoot() (interface{}, error) {
 		{Name: "<Exit>", Next: parentPrompt},
 		{Name: "Create VM", Next: c.promptCreateVM},
 		{Name: "List Hosts", Next: c.PromptListHosts},
+		{Name: "List HostDevices", Next: c.PromptListHostDevices},
 		{Name: "List HostNics", Next: c.PromptListHostNics},
 		{Name: "List HostStorages", Next: c.PromptListHostStorages},
 		{Name: "List HostUSBs", Next: c.PromptListHostUSBs},

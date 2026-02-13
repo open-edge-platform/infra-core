@@ -922,6 +922,126 @@ func FuzzCreateHostgpu(f *testing.F) {
 	)
 }
 
+func FuzzCreateHostdevice(f *testing.F) {
+	invClient := getTestClient(f)
+	f.Add(
+		"1.2.34",
+		"testhost",
+		"enabled",
+		"1234",
+		"5678",
+		"test input for features",
+		"1234abcd-ef56-7890-12ab-34567890cdef",
+		"client",
+		"testhost.com",
+		"direct",
+		"not connected",
+		"user initiated",
+		"",
+		"tenant-12345678",
+	)
+	f.Add(
+		"1.2.35",
+		"testhost1",
+		"disabled",
+		"7890",
+		"12234",
+		"test input for features",
+		"1234abcd-ef56-7890-12ab-34567890cdef",
+		"admin",
+		"",
+		"",
+		"connected",
+		"",
+		"",
+		"tenant-87654321",
+	)
+	f.Add(
+		"1.4.56",
+		" ",
+		" ",
+		"1234",
+		"5678",
+		"111111111111",
+		"aaaaaaaaaaaa",
+		"client1",
+		"testhost1.com",
+		"",
+		" ",
+		"user initiated",
+		"testmpshost",
+		"tenant-11223344",
+	)
+	f.Add(
+		"7.8.90",
+		"testhost3",
+		"",
+		"aaaaa",
+		"wwwww",
+		" ",
+		" ",
+		"client",
+		"testhost2.com",
+		"indirect",
+		"disconnected",
+		"ccccccccccc",
+		"1111111111",
+		"tenant-55667788",
+	)
+	f.Fuzz(
+		func(t *testing.T,
+			version string,
+			devicename string,
+			operational_state string,
+			build_number string,
+			sku string,
+			features string,
+			device_guid string,
+			control_mode string,
+			dns_suffix string,
+			network_status string,
+			remote_status string,
+			remote_trigger string,
+			mps_hostname string,
+			tenantId string,
+		) {
+			res := &invv1.Resource{
+				Resource: &invv1.Resource_HostDevice{
+					HostDevice: &computev1.HostdeviceResource{
+						Version:          version,
+						DeviceName:       devicename,
+						OperationalState: operational_state,
+						BuildNumber:      build_number,
+						Sku:              sku,
+						Features:         features,
+						DeviceGuid:       device_guid,
+						ControlMode:      control_mode,
+						DnsSuffix:        dns_suffix,
+						NetworkStatus:    network_status,
+						RemoteStatus:     remote_status,
+						RemoteTrigger:    remote_trigger,
+						MpsHostname:      mps_hostname,
+						TenantId:         tenantId,
+					},
+				},
+			}
+
+			ctx := context.Background()
+
+			created, err := invClient.Create(ctx, res)
+			if created == nil || err != nil {
+				log.Debug().Msg("create fuzz failed")
+				if checkError(err) {
+					t.Errorf("%v", err.Error())
+				}
+			} else {
+				log.Debug().Msg("create fuzz ok")
+				require.NoError(t, err)
+			}
+		},
+	)
+}
+
 func FuzzCreateInstance(f *testing.F) {
 	invClient := getTestClient(f)
 	f.Add(

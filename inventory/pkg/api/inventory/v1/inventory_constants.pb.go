@@ -56,6 +56,7 @@ const (
 	ResourceEdgeOsUpdatePolicy   = "os_update_policy"
 	ResourceEdgeCustomConfig     = "custom_config"
 	ResourceEdgeOsUpdateRun      = "os_update_run"
+	ResourceEdgeHostDevice       = "host_device"
 
 	// Fields and Edges constants for "ResourceFilter"
 	ResourceFilterEdgeResource = "resource"

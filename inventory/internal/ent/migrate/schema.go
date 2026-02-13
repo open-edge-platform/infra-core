@@ -132,6 +132,7 @@ var (
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "host_resource_site", Type: field.TypeInt, Nullable: true},
 		{Name: "host_resource_provider", Type: field.TypeInt, Nullable: true},
+		{Name: "hostdevice_resource_host", Type: field.TypeInt, Unique: true, Nullable: true},
 		{Name: "instance_resource_host", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// HostResourcesTable holds the schema information for the "host_resources" table.
@@ -153,8 +154,14 @@ var (
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "host_resources_instance_resources_host",
+				Symbol:     "host_resources_hostdevice_resources_host",
 				Columns:    []*schema.Column{HostResourcesColumns[60]},
+				RefColumns: []*schema.Column{HostdeviceResourcesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "host_resources_instance_resources_host",
+				Columns:    []*schema.Column{HostResourcesColumns[61]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -180,6 +187,41 @@ var (
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
 				Columns: []*schema.Column{HostResourcesColumns[55]},
+			},
+		},
+	}
+	// HostdeviceResourcesColumns holds the columns for the "hostdevice_resources" table.
+	HostdeviceResourcesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "kind", Type: field.TypeString, Nullable: true},
+		{Name: "version", Type: field.TypeString, Nullable: true},
+		{Name: "device_name", Type: field.TypeString, Nullable: true},
+		{Name: "operational_state", Type: field.TypeString, Nullable: true},
+		{Name: "build_number", Type: field.TypeString, Nullable: true},
+		{Name: "sku", Type: field.TypeString, Nullable: true},
+		{Name: "features", Type: field.TypeString, Nullable: true},
+		{Name: "device_guid", Type: field.TypeString, Unique: true, Nullable: true},
+		{Name: "control_mode", Type: field.TypeString, Nullable: true},
+		{Name: "dns_suffix", Type: field.TypeString, Nullable: true},
+		{Name: "network_status", Type: field.TypeString, Nullable: true},
+		{Name: "remote_status", Type: field.TypeString, Nullable: true},
+		{Name: "remote_trigger", Type: field.TypeString, Nullable: true},
+		{Name: "mps_hostname", Type: field.TypeString, Nullable: true},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+	}
+	// HostdeviceResourcesTable holds the schema information for the "hostdevice_resources" table.
+	HostdeviceResourcesTable = &schema.Table{
+		Name:       "hostdevice_resources",
+		Columns:    HostdeviceResourcesColumns,
+		PrimaryKey: []*schema.Column{HostdeviceResourcesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "hostdeviceresource_tenant_id",
+				Unique:  false,
+				Columns: []*schema.Column{HostdeviceResourcesColumns[16]},
 			},
 		},
 	}
@@ -1196,6 +1238,7 @@ var (
 		CustomConfigResourcesTable,
 		EndpointResourcesTable,
 		HostResourcesTable,
+		HostdeviceResourcesTable,
 		HostgpuResourcesTable,
 		HostnicResourcesTable,
 		HoststorageResourcesTable,
@@ -1229,7 +1272,8 @@ func init() {
 	EndpointResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostResourcesTable.ForeignKeys[0].RefTable = SiteResourcesTable
 	HostResourcesTable.ForeignKeys[1].RefTable = ProviderResourcesTable
-	HostResourcesTable.ForeignKeys[2].RefTable = InstanceResourcesTable
+	HostResourcesTable.ForeignKeys[2].RefTable = HostdeviceResourcesTable
+	HostResourcesTable.ForeignKeys[3].RefTable = InstanceResourcesTable
 	HostgpuResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostnicResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HoststorageResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable

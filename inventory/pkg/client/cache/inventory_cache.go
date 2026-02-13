@@ -28,6 +28,7 @@ var (
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		inv_v1.ResourceKind_RESOURCE_KIND_INSTANCE,
 		inv_v1.ResourceKind_RESOURCE_KIND_OS,
 	}
@@ -37,6 +38,7 @@ var (
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		inv_v1.ResourceKind_RESOURCE_KIND_INSTANCE,
 	}
 )

@@ -8,6 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/instanceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/providerresource"
@@ -135,11 +136,12 @@ type HostResource struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the HostResourceQuery when eager-loading is set.
-	Edges                  HostResourceEdges `json:"edges"`
-	host_resource_site     *int
-	host_resource_provider *int
-	instance_resource_host *int
-	selectValues           sql.SelectValues
+	Edges                    HostResourceEdges `json:"edges"`
+	host_resource_site       *int
+	host_resource_provider   *int
+	hostdevice_resource_host *int
+	instance_resource_host   *int
+	selectValues             sql.SelectValues
 }
 
 // HostResourceEdges holds the relations/edges for other nodes in the graph.
@@ -156,11 +158,13 @@ type HostResourceEdges struct {
 	HostUsbs []*HostusbResource `json:"host_usbs,omitempty"`
 	// HostGpus holds the value of the host_gpus edge.
 	HostGpus []*HostgpuResource `json:"host_gpus,omitempty"`
+	// HostDevice holds the value of the host_device edge.
+	HostDevice *HostdeviceResource `json:"host_device,omitempty"`
 	// Instance holds the value of the instance edge.
 	Instance *InstanceResource `json:"instance,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [7]bool
+	loadedTypes [8]bool
 }
 
 // SiteOrErr returns the Site value or an error if the edge
@@ -221,12 +225,23 @@ func (e HostResourceEdges) HostGpusOrErr() ([]*HostgpuResource, error) {
 	return nil, &NotLoadedError{edge: "host_gpus"}
 }
 
+// HostDeviceOrErr returns the HostDevice value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e HostResourceEdges) HostDeviceOrErr() (*HostdeviceResource, error) {
+	if e.HostDevice != nil {
+		return e.HostDevice, nil
+	} else if e.loadedTypes[6] {
+		return nil, &NotFoundError{label: hostdeviceresource.Label}
+	}
+	return nil, &NotLoadedError{edge: "host_device"}
+}
+
 // InstanceOrErr returns the Instance value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e HostResourceEdges) InstanceOrErr() (*InstanceResource, error) {
 	if e.Instance != nil {
 		return e.Instance, nil
-	} else if e.loadedTypes[6] {
+	} else if e.loadedTypes[7] {
 		return nil, &NotFoundError{label: instanceresource.Label}
 	}
 	return nil, &NotLoadedError{edge: "instance"}
@@ -245,7 +260,9 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullInt64)
 		case hostresource.ForeignKeys[1]: // host_resource_provider
 			values[i] = new(sql.NullInt64)
-		case hostresource.ForeignKeys[2]: // instance_resource_host
+		case hostresource.ForeignKeys[2]: // hostdevice_resource_host
+			values[i] = new(sql.NullInt64)
+		case hostresource.ForeignKeys[3]: // instance_resource_host
 			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -626,6 +643,13 @@ func (_m *HostResource) assignValues(columns []string, values []any) error {
 			}
 		case hostresource.ForeignKeys[2]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for edge-field hostdevice_resource_host", value)
+			} else if value.Valid {
+				_m.hostdevice_resource_host = new(int)
+				*_m.hostdevice_resource_host = int(value.Int64)
+			}
+		case hostresource.ForeignKeys[3]:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field instance_resource_host", value)
 			} else if value.Valid {
 				_m.instance_resource_host = new(int)
@@ -672,6 +696,11 @@ func (_m *HostResource) QueryHostUsbs() *HostusbResourceQuery {
 // QueryHostGpus queries the "host_gpus" edge of the HostResource entity.
 func (_m *HostResource) QueryHostGpus() *HostgpuResourceQuery {
 	return NewHostResourceClient(_m.config).QueryHostGpus(_m)
+}
+
+// QueryHostDevice queries the "host_device" edge of the HostResource entity.
+func (_m *HostResource) QueryHostDevice() *HostdeviceResourceQuery {
+	return NewHostResourceClient(_m.config).QueryHostDevice(_m)
 }
 
 // QueryInstance queries the "instance" edge of the HostResource entity.
