@@ -16292,7 +16292,57 @@ components:
       required:
         - name
       additionalProperties: false
-      description: A Host resource.
+    StatusIndication:
+      type: string
+      title: StatusIndication
+      enum:
+        - STATUS_INDICATION_UNSPECIFIED
+        - STATUS_INDICATION_ERROR
+        - STATUS_INDICATION_IN_PROGRESS
+        - STATUS_INDICATION_IDLE
+      description: The status indicator.
+    AmtControlMode:
+      type: string
+      title: AmtControlMode
+      enum:
+        - AMT_CONTROL_MODE_UNSPECIFIED
+        - AMT_CONTROL_MODE_ACM
+        - AMT_CONTROL_MODE_CCM
+    AmtSku:
+      type: string
+      title: AmtSku
+      enum:
+        - AMT_SKU_UNSPECIFIED
+        - AMT_SKU_AMT
+        - AMT_SKU_ISM
+    AmtState:
+      type: string
+      title: AmtState
+      enum:
+        - AMT_STATE_UNSPECIFIED
+        - AMT_STATE_PROVISIONED
+        - AMT_STATE_UNPROVISIONED
+        - AMT_STATE_DISCONNECTED
+      description: The state of the AMT (Active Management Technology) component.
+    BaremetalControllerKind:
+      type: string
+      title: BaremetalControllerKind
+      enum:
+        - BAREMETAL_CONTROLLER_KIND_UNSPECIFIED
+        - BAREMETAL_CONTROLLER_KIND_NONE
+        - BAREMETAL_CONTROLLER_KIND_IPMI
+        - BAREMETAL_CONTROLLER_KIND_VPRO
+        - BAREMETAL_CONTROLLER_KIND_PDU
+      description: The type of BMC.
+    HostComponentState:
+      type: string
+      title: HostComponentState
+      enum:
+        - HOST_COMPONENT_STATE_UNSPECIFIED
+        - HOST_COMPONENT_STATE_ERROR
+        - HOST_COMPONENT_STATE_DELETED
+        - HOST_COMPONENT_STATE_EXISTS
+      description: The state of the Host component.
     HostState:
       type: string
       title: HostState
@@ -16670,7 +16720,16 @@ components:
           pattern: ^inst-[0-9a-f]{8}$
           description: Deprecated, The instance's unique identifier. Alias of resourceID.
           readOnly: true
-        hostID:
+        amtControlMode:
+          title: amt_control_mode
+          description: (OPTIONAL) coming from user selection
+          $ref: '#/components/schemas/AmtControlMode'
+        amtDnsSuffix:
+          type: string
+          title: amt_dns_suffix
+          maxLength: 1024
+          description: (OPTIONAL) textual message that describes dns_suffix for ACM mode.
+        siteId:
           type: string
           title: hostID
           maxLength: 13
