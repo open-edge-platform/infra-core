@@ -14,7 +14,7 @@ func BuildAllowedHandlersList(scenarioName string, allowlist map[string][]string
 ) (allowed map[string]struct{}, unknown []string, err error) {
 	allowedServices, ok := allowlist[scenarioName]
 	if !ok {
-		err := fmt.Errorf("unknown scenario %q", scenarioName)
+		err = fmt.Errorf("unknown scenario %q", scenarioName)
 		return nil, nil, err
 	}
 

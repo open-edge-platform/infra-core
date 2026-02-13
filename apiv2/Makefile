@@ -77,6 +77,9 @@ GOCMD_TESTCLIENTJWT_TOKEN  := PROJECT_ID=$(PROJECT_ID) JWT_TOKEN=$(JWT_TOKEN) $(
 
 API_GEN_FOLDER := pkg/api/v$(VERSION_MAJOR)
 
+ALLOWLIST_GEN_TOOL := ./tools/allowservicesgen
+ALLOWLIST_PATH := ./internal/scenario/allowlist_gen.go
+
 # Target variables
 TYPES  := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-types.gen.go"
 SERVER := "$(API_GEN_FOLDER)/edge-infrastructure-manager-openapi-server.gen.go"
@@ -255,4 +258,5 @@ oasdiff-breaking: # Check for breaking changes in openapi using oasdiff
 	oasdiff breaking --composed "${TEMP_BASE_OPENAPI_DIR}/${OPENAPI_PATH}"  "${OPENAPI_PATH}" --fail-on ERR
 
 gen-allowed-services: ## Generate allowed services list for EIM scenarios
-	go run ./tools/allowedservicesgen
+	rm -f ${ALLOWLIST_PATH}
+	go run ${ALLOWLIST_GEN_TOOL}
