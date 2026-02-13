@@ -3686,6 +3686,29 @@ func HasHostGpusWith(preds ...predicate.HostgpuResource) predicate.HostResource 
 	})
 }
 
+// HasHostDevice applies the HasEdge predicate on the "host_device" edge.
+func HasHostDevice() predicate.HostResource {
+	return predicate.HostResource(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, HostDeviceTable, HostDeviceColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasHostDeviceWith applies the HasEdge predicate on the "host_device" edge with a given conditions (other predicates).
+func HasHostDeviceWith(preds ...predicate.HostdeviceResource) predicate.HostResource {
+	return predicate.HostResource(func(s *sql.Selector) {
+		step := newHostDeviceStep()
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
 // HasInstance applies the HasEdge predicate on the "instance" edge.
 func HasInstance() predicate.HostResource {
 	return predicate.HostResource(func(s *sql.Selector) {

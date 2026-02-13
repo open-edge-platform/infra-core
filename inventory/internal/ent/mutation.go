@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -53,6 +54,7 @@ const (
 	TypeCustomConfigResource      = "CustomConfigResource"
 	TypeEndpointResource          = "EndpointResource"
 	TypeHostResource              = "HostResource"
+	TypeHostdeviceResource        = "HostdeviceResource"
 	TypeHostgpuResource           = "HostgpuResource"
 	TypeHostnicResource           = "HostnicResource"
 	TypeHoststorageResource       = "HoststorageResource"
@@ -1640,6 +1642,8 @@ type HostResourceMutation struct {
 	host_gpus                        map[int]struct{}
 	removedhost_gpus                 map[int]struct{}
 	clearedhost_gpus                 bool
+	host_device                      *int
+	clearedhost_device               bool
 	instance                         *int
 	clearedinstance                  bool
 	done                             bool
@@ -5011,6 +5015,45 @@ func (m *HostResourceMutation) ResetHostGpus() {
 	m.removedhost_gpus = nil
 }
 
+// SetHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by id.
+func (m *HostResourceMutation) SetHostDeviceID(id int) {
+	m.host_device = &id
+}
+
+// ClearHostDevice clears the "host_device" edge to the HostdeviceResource entity.
+func (m *HostResourceMutation) ClearHostDevice() {
+	m.clearedhost_device = true
+}
+
+// HostDeviceCleared reports if the "host_device" edge to the HostdeviceResource entity was cleared.
+func (m *HostResourceMutation) HostDeviceCleared() bool {
+	return m.clearedhost_device
+}
+
+// HostDeviceID returns the "host_device" edge ID in the mutation.
+func (m *HostResourceMutation) HostDeviceID() (id int, exists bool) {
+	if m.host_device != nil {
+		return *m.host_device, true
+	}
+	return
+}
+
+// HostDeviceIDs returns the "host_device" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// HostDeviceID instead. It exists only for internal usage by the builders.
+func (m *HostResourceMutation) HostDeviceIDs() (ids []int) {
+	if id := m.host_device; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetHostDevice resets all changes to the "host_device" edge.
+func (m *HostResourceMutation) ResetHostDevice() {
+	m.host_device = nil
+	m.clearedhost_device = false
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by id.
 func (m *HostResourceMutation) SetInstanceID(id int) {
 	m.instance = &id
@@ -6591,7 +6634,7 @@ func (m *HostResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *HostResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.site != nil {
 		edges = append(edges, hostresource.EdgeSite)
 	}
@@ -6609,6 +6652,9 @@ func (m *HostResourceMutation) AddedEdges() []string {
 	}
 	if m.host_gpus != nil {
 		edges = append(edges, hostresource.EdgeHostGpus)
+	}
+	if m.host_device != nil {
+		edges = append(edges, hostresource.EdgeHostDevice)
 	}
 	if m.instance != nil {
 		edges = append(edges, hostresource.EdgeInstance)
@@ -6652,6 +6698,10 @@ func (m *HostResourceMutation) AddedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case hostresource.EdgeHostDevice:
+		if id := m.host_device; id != nil {
+			return []ent.Value{*id}
+		}
 	case hostresource.EdgeInstance:
 		if id := m.instance; id != nil {
 			return []ent.Value{*id}
@@ -6662,7 +6712,7 @@ func (m *HostResourceMutation) AddedIDs(name string) []ent.Value {
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *HostResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.removedhost_storages != nil {
 		edges = append(edges, hostresource.EdgeHostStorages)
 	}
@@ -6712,7 +6762,7 @@ func (m *HostResourceMutation) RemovedIDs(name string) []ent.Value {
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *HostResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.clearedsite {
 		edges = append(edges, hostresource.EdgeSite)
 	}
@@ -6730,6 +6780,9 @@ func (m *HostResourceMutation) ClearedEdges() []string {
 	}
 	if m.clearedhost_gpus {
 		edges = append(edges, hostresource.EdgeHostGpus)
+	}
+	if m.clearedhost_device {
+		edges = append(edges, hostresource.EdgeHostDevice)
 	}
 	if m.clearedinstance {
 		edges = append(edges, hostresource.EdgeInstance)
@@ -6753,6 +6806,8 @@ func (m *HostResourceMutation) EdgeCleared(name string) bool {
 		return m.clearedhost_usbs
 	case hostresource.EdgeHostGpus:
 		return m.clearedhost_gpus
+	case hostresource.EdgeHostDevice:
+		return m.clearedhost_device
 	case hostresource.EdgeInstance:
 		return m.clearedinstance
 	}
@@ -6768,6 +6823,9 @@ func (m *HostResourceMutation) ClearEdge(name string) error {
 		return nil
 	case hostresource.EdgeProvider:
 		m.ClearProvider()
+		return nil
+	case hostresource.EdgeHostDevice:
+		m.ClearHostDevice()
 		return nil
 	case hostresource.EdgeInstance:
 		m.ClearInstance()
@@ -6798,11 +6856,1594 @@ func (m *HostResourceMutation) ResetEdge(name string) error {
 	case hostresource.EdgeHostGpus:
 		m.ResetHostGpus()
 		return nil
+	case hostresource.EdgeHostDevice:
+		m.ResetHostDevice()
+		return nil
 	case hostresource.EdgeInstance:
 		m.ResetInstance()
 		return nil
 	}
 	return fmt.Errorf("unknown HostResource edge %s", name)
+}
+
+// HostdeviceResourceMutation represents an operation that mutates the HostdeviceResource nodes in the graph.
+type HostdeviceResourceMutation struct {
+	config
+	op                Op
+	typ               string
+	id                *int
+	resource_id       *string
+	kind              *string
+	version           *string
+	device_name       *string
+	operational_state *string
+	build_number      *string
+	sku               *string
+	features          *string
+	device_guid       *string
+	control_mode      *string
+	dns_suffix        *string
+	network_status    *string
+	remote_status     *string
+	remote_trigger    *string
+	mps_hostname      *string
+	tenant_id         *string
+	created_at        *string
+	updated_at        *string
+	clearedFields     map[string]struct{}
+	host              *int
+	clearedhost       bool
+	done              bool
+	oldValue          func(context.Context) (*HostdeviceResource, error)
+	predicates        []predicate.HostdeviceResource
+}
+
+var _ ent.Mutation = (*HostdeviceResourceMutation)(nil)
+
+// hostdeviceresourceOption allows management of the mutation configuration using functional options.
+type hostdeviceresourceOption func(*HostdeviceResourceMutation)
+
+// newHostdeviceResourceMutation creates new mutation for the HostdeviceResource entity.
+func newHostdeviceResourceMutation(c config, op Op, opts ...hostdeviceresourceOption) *HostdeviceResourceMutation {
+	m := &HostdeviceResourceMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeHostdeviceResource,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withHostdeviceResourceID sets the ID field of the mutation.
+func withHostdeviceResourceID(id int) hostdeviceresourceOption {
+	return func(m *HostdeviceResourceMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *HostdeviceResource
+		)
+		m.oldValue = func(ctx context.Context) (*HostdeviceResource, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().HostdeviceResource.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withHostdeviceResource sets the old HostdeviceResource of the mutation.
+func withHostdeviceResource(node *HostdeviceResource) hostdeviceresourceOption {
+	return func(m *HostdeviceResourceMutation) {
+		m.oldValue = func(context.Context) (*HostdeviceResource, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m HostdeviceResourceMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m HostdeviceResourceMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *HostdeviceResourceMutation) ID() (id int, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *HostdeviceResourceMutation) IDs(ctx context.Context) ([]int, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []int{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().HostdeviceResource.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetResourceID sets the "resource_id" field.
+func (m *HostdeviceResourceMutation) SetResourceID(s string) {
+	m.resource_id = &s
+}
+
+// ResourceID returns the value of the "resource_id" field in the mutation.
+func (m *HostdeviceResourceMutation) ResourceID() (r string, exists bool) {
+	v := m.resource_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldResourceID returns the old "resource_id" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldResourceID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldResourceID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldResourceID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldResourceID: %w", err)
+	}
+	return oldValue.ResourceID, nil
+}
+
+// ResetResourceID resets all changes to the "resource_id" field.
+func (m *HostdeviceResourceMutation) ResetResourceID() {
+	m.resource_id = nil
+}
+
+// SetKind sets the "kind" field.
+func (m *HostdeviceResourceMutation) SetKind(s string) {
+	m.kind = &s
+}
+
+// Kind returns the value of the "kind" field in the mutation.
+func (m *HostdeviceResourceMutation) Kind() (r string, exists bool) {
+	v := m.kind
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldKind returns the old "kind" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldKind(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldKind is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldKind requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldKind: %w", err)
+	}
+	return oldValue.Kind, nil
+}
+
+// ClearKind clears the value of the "kind" field.
+func (m *HostdeviceResourceMutation) ClearKind() {
+	m.kind = nil
+	m.clearedFields[hostdeviceresource.FieldKind] = struct{}{}
+}
+
+// KindCleared returns if the "kind" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) KindCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldKind]
+	return ok
+}
+
+// ResetKind resets all changes to the "kind" field.
+func (m *HostdeviceResourceMutation) ResetKind() {
+	m.kind = nil
+	delete(m.clearedFields, hostdeviceresource.FieldKind)
+}
+
+// SetVersion sets the "version" field.
+func (m *HostdeviceResourceMutation) SetVersion(s string) {
+	m.version = &s
+}
+
+// Version returns the value of the "version" field in the mutation.
+func (m *HostdeviceResourceMutation) Version() (r string, exists bool) {
+	v := m.version
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldVersion returns the old "version" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldVersion(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldVersion is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldVersion requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldVersion: %w", err)
+	}
+	return oldValue.Version, nil
+}
+
+// ClearVersion clears the value of the "version" field.
+func (m *HostdeviceResourceMutation) ClearVersion() {
+	m.version = nil
+	m.clearedFields[hostdeviceresource.FieldVersion] = struct{}{}
+}
+
+// VersionCleared returns if the "version" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) VersionCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldVersion]
+	return ok
+}
+
+// ResetVersion resets all changes to the "version" field.
+func (m *HostdeviceResourceMutation) ResetVersion() {
+	m.version = nil
+	delete(m.clearedFields, hostdeviceresource.FieldVersion)
+}
+
+// SetDeviceName sets the "device_name" field.
+func (m *HostdeviceResourceMutation) SetDeviceName(s string) {
+	m.device_name = &s
+}
+
+// DeviceName returns the value of the "device_name" field in the mutation.
+func (m *HostdeviceResourceMutation) DeviceName() (r string, exists bool) {
+	v := m.device_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeviceName returns the old "device_name" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldDeviceName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeviceName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeviceName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeviceName: %w", err)
+	}
+	return oldValue.DeviceName, nil
+}
+
+// ClearDeviceName clears the value of the "device_name" field.
+func (m *HostdeviceResourceMutation) ClearDeviceName() {
+	m.device_name = nil
+	m.clearedFields[hostdeviceresource.FieldDeviceName] = struct{}{}
+}
+
+// DeviceNameCleared returns if the "device_name" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) DeviceNameCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldDeviceName]
+	return ok
+}
+
+// ResetDeviceName resets all changes to the "device_name" field.
+func (m *HostdeviceResourceMutation) ResetDeviceName() {
+	m.device_name = nil
+	delete(m.clearedFields, hostdeviceresource.FieldDeviceName)
+}
+
+// SetOperationalState sets the "operational_state" field.
+func (m *HostdeviceResourceMutation) SetOperationalState(s string) {
+	m.operational_state = &s
+}
+
+// OperationalState returns the value of the "operational_state" field in the mutation.
+func (m *HostdeviceResourceMutation) OperationalState() (r string, exists bool) {
+	v := m.operational_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldOperationalState returns the old "operational_state" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldOperationalState(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldOperationalState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldOperationalState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldOperationalState: %w", err)
+	}
+	return oldValue.OperationalState, nil
+}
+
+// ClearOperationalState clears the value of the "operational_state" field.
+func (m *HostdeviceResourceMutation) ClearOperationalState() {
+	m.operational_state = nil
+	m.clearedFields[hostdeviceresource.FieldOperationalState] = struct{}{}
+}
+
+// OperationalStateCleared returns if the "operational_state" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) OperationalStateCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldOperationalState]
+	return ok
+}
+
+// ResetOperationalState resets all changes to the "operational_state" field.
+func (m *HostdeviceResourceMutation) ResetOperationalState() {
+	m.operational_state = nil
+	delete(m.clearedFields, hostdeviceresource.FieldOperationalState)
+}
+
+// SetBuildNumber sets the "build_number" field.
+func (m *HostdeviceResourceMutation) SetBuildNumber(s string) {
+	m.build_number = &s
+}
+
+// BuildNumber returns the value of the "build_number" field in the mutation.
+func (m *HostdeviceResourceMutation) BuildNumber() (r string, exists bool) {
+	v := m.build_number
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBuildNumber returns the old "build_number" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldBuildNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBuildNumber is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBuildNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBuildNumber: %w", err)
+	}
+	return oldValue.BuildNumber, nil
+}
+
+// ClearBuildNumber clears the value of the "build_number" field.
+func (m *HostdeviceResourceMutation) ClearBuildNumber() {
+	m.build_number = nil
+	m.clearedFields[hostdeviceresource.FieldBuildNumber] = struct{}{}
+}
+
+// BuildNumberCleared returns if the "build_number" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) BuildNumberCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldBuildNumber]
+	return ok
+}
+
+// ResetBuildNumber resets all changes to the "build_number" field.
+func (m *HostdeviceResourceMutation) ResetBuildNumber() {
+	m.build_number = nil
+	delete(m.clearedFields, hostdeviceresource.FieldBuildNumber)
+}
+
+// SetSku sets the "sku" field.
+func (m *HostdeviceResourceMutation) SetSku(s string) {
+	m.sku = &s
+}
+
+// Sku returns the value of the "sku" field in the mutation.
+func (m *HostdeviceResourceMutation) Sku() (r string, exists bool) {
+	v := m.sku
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSku returns the old "sku" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldSku(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSku is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSku requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSku: %w", err)
+	}
+	return oldValue.Sku, nil
+}
+
+// ClearSku clears the value of the "sku" field.
+func (m *HostdeviceResourceMutation) ClearSku() {
+	m.sku = nil
+	m.clearedFields[hostdeviceresource.FieldSku] = struct{}{}
+}
+
+// SkuCleared returns if the "sku" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) SkuCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldSku]
+	return ok
+}
+
+// ResetSku resets all changes to the "sku" field.
+func (m *HostdeviceResourceMutation) ResetSku() {
+	m.sku = nil
+	delete(m.clearedFields, hostdeviceresource.FieldSku)
+}
+
+// SetFeatures sets the "features" field.
+func (m *HostdeviceResourceMutation) SetFeatures(s string) {
+	m.features = &s
+}
+
+// Features returns the value of the "features" field in the mutation.
+func (m *HostdeviceResourceMutation) Features() (r string, exists bool) {
+	v := m.features
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFeatures returns the old "features" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldFeatures(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFeatures is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFeatures requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFeatures: %w", err)
+	}
+	return oldValue.Features, nil
+}
+
+// ClearFeatures clears the value of the "features" field.
+func (m *HostdeviceResourceMutation) ClearFeatures() {
+	m.features = nil
+	m.clearedFields[hostdeviceresource.FieldFeatures] = struct{}{}
+}
+
+// FeaturesCleared returns if the "features" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) FeaturesCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldFeatures]
+	return ok
+}
+
+// ResetFeatures resets all changes to the "features" field.
+func (m *HostdeviceResourceMutation) ResetFeatures() {
+	m.features = nil
+	delete(m.clearedFields, hostdeviceresource.FieldFeatures)
+}
+
+// SetDeviceGUID sets the "device_guid" field.
+func (m *HostdeviceResourceMutation) SetDeviceGUID(s string) {
+	m.device_guid = &s
+}
+
+// DeviceGUID returns the value of the "device_guid" field in the mutation.
+func (m *HostdeviceResourceMutation) DeviceGUID() (r string, exists bool) {
+	v := m.device_guid
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeviceGUID returns the old "device_guid" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldDeviceGUID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeviceGUID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeviceGUID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeviceGUID: %w", err)
+	}
+	return oldValue.DeviceGUID, nil
+}
+
+// ClearDeviceGUID clears the value of the "device_guid" field.
+func (m *HostdeviceResourceMutation) ClearDeviceGUID() {
+	m.device_guid = nil
+	m.clearedFields[hostdeviceresource.FieldDeviceGUID] = struct{}{}
+}
+
+// DeviceGUIDCleared returns if the "device_guid" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) DeviceGUIDCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldDeviceGUID]
+	return ok
+}
+
+// ResetDeviceGUID resets all changes to the "device_guid" field.
+func (m *HostdeviceResourceMutation) ResetDeviceGUID() {
+	m.device_guid = nil
+	delete(m.clearedFields, hostdeviceresource.FieldDeviceGUID)
+}
+
+// SetControlMode sets the "control_mode" field.
+func (m *HostdeviceResourceMutation) SetControlMode(s string) {
+	m.control_mode = &s
+}
+
+// ControlMode returns the value of the "control_mode" field in the mutation.
+func (m *HostdeviceResourceMutation) ControlMode() (r string, exists bool) {
+	v := m.control_mode
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldControlMode returns the old "control_mode" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldControlMode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldControlMode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldControlMode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldControlMode: %w", err)
+	}
+	return oldValue.ControlMode, nil
+}
+
+// ClearControlMode clears the value of the "control_mode" field.
+func (m *HostdeviceResourceMutation) ClearControlMode() {
+	m.control_mode = nil
+	m.clearedFields[hostdeviceresource.FieldControlMode] = struct{}{}
+}
+
+// ControlModeCleared returns if the "control_mode" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) ControlModeCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldControlMode]
+	return ok
+}
+
+// ResetControlMode resets all changes to the "control_mode" field.
+func (m *HostdeviceResourceMutation) ResetControlMode() {
+	m.control_mode = nil
+	delete(m.clearedFields, hostdeviceresource.FieldControlMode)
+}
+
+// SetDNSSuffix sets the "dns_suffix" field.
+func (m *HostdeviceResourceMutation) SetDNSSuffix(s string) {
+	m.dns_suffix = &s
+}
+
+// DNSSuffix returns the value of the "dns_suffix" field in the mutation.
+func (m *HostdeviceResourceMutation) DNSSuffix() (r string, exists bool) {
+	v := m.dns_suffix
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDNSSuffix returns the old "dns_suffix" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldDNSSuffix(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDNSSuffix is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDNSSuffix requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDNSSuffix: %w", err)
+	}
+	return oldValue.DNSSuffix, nil
+}
+
+// ClearDNSSuffix clears the value of the "dns_suffix" field.
+func (m *HostdeviceResourceMutation) ClearDNSSuffix() {
+	m.dns_suffix = nil
+	m.clearedFields[hostdeviceresource.FieldDNSSuffix] = struct{}{}
+}
+
+// DNSSuffixCleared returns if the "dns_suffix" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) DNSSuffixCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldDNSSuffix]
+	return ok
+}
+
+// ResetDNSSuffix resets all changes to the "dns_suffix" field.
+func (m *HostdeviceResourceMutation) ResetDNSSuffix() {
+	m.dns_suffix = nil
+	delete(m.clearedFields, hostdeviceresource.FieldDNSSuffix)
+}
+
+// SetNetworkStatus sets the "network_status" field.
+func (m *HostdeviceResourceMutation) SetNetworkStatus(s string) {
+	m.network_status = &s
+}
+
+// NetworkStatus returns the value of the "network_status" field in the mutation.
+func (m *HostdeviceResourceMutation) NetworkStatus() (r string, exists bool) {
+	v := m.network_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldNetworkStatus returns the old "network_status" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldNetworkStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldNetworkStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldNetworkStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldNetworkStatus: %w", err)
+	}
+	return oldValue.NetworkStatus, nil
+}
+
+// ClearNetworkStatus clears the value of the "network_status" field.
+func (m *HostdeviceResourceMutation) ClearNetworkStatus() {
+	m.network_status = nil
+	m.clearedFields[hostdeviceresource.FieldNetworkStatus] = struct{}{}
+}
+
+// NetworkStatusCleared returns if the "network_status" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) NetworkStatusCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldNetworkStatus]
+	return ok
+}
+
+// ResetNetworkStatus resets all changes to the "network_status" field.
+func (m *HostdeviceResourceMutation) ResetNetworkStatus() {
+	m.network_status = nil
+	delete(m.clearedFields, hostdeviceresource.FieldNetworkStatus)
+}
+
+// SetRemoteStatus sets the "remote_status" field.
+func (m *HostdeviceResourceMutation) SetRemoteStatus(s string) {
+	m.remote_status = &s
+}
+
+// RemoteStatus returns the value of the "remote_status" field in the mutation.
+func (m *HostdeviceResourceMutation) RemoteStatus() (r string, exists bool) {
+	v := m.remote_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemoteStatus returns the old "remote_status" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldRemoteStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRemoteStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRemoteStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemoteStatus: %w", err)
+	}
+	return oldValue.RemoteStatus, nil
+}
+
+// ClearRemoteStatus clears the value of the "remote_status" field.
+func (m *HostdeviceResourceMutation) ClearRemoteStatus() {
+	m.remote_status = nil
+	m.clearedFields[hostdeviceresource.FieldRemoteStatus] = struct{}{}
+}
+
+// RemoteStatusCleared returns if the "remote_status" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) RemoteStatusCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldRemoteStatus]
+	return ok
+}
+
+// ResetRemoteStatus resets all changes to the "remote_status" field.
+func (m *HostdeviceResourceMutation) ResetRemoteStatus() {
+	m.remote_status = nil
+	delete(m.clearedFields, hostdeviceresource.FieldRemoteStatus)
+}
+
+// SetRemoteTrigger sets the "remote_trigger" field.
+func (m *HostdeviceResourceMutation) SetRemoteTrigger(s string) {
+	m.remote_trigger = &s
+}
+
+// RemoteTrigger returns the value of the "remote_trigger" field in the mutation.
+func (m *HostdeviceResourceMutation) RemoteTrigger() (r string, exists bool) {
+	v := m.remote_trigger
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemoteTrigger returns the old "remote_trigger" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldRemoteTrigger(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRemoteTrigger is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRemoteTrigger requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemoteTrigger: %w", err)
+	}
+	return oldValue.RemoteTrigger, nil
+}
+
+// ClearRemoteTrigger clears the value of the "remote_trigger" field.
+func (m *HostdeviceResourceMutation) ClearRemoteTrigger() {
+	m.remote_trigger = nil
+	m.clearedFields[hostdeviceresource.FieldRemoteTrigger] = struct{}{}
+}
+
+// RemoteTriggerCleared returns if the "remote_trigger" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) RemoteTriggerCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldRemoteTrigger]
+	return ok
+}
+
+// ResetRemoteTrigger resets all changes to the "remote_trigger" field.
+func (m *HostdeviceResourceMutation) ResetRemoteTrigger() {
+	m.remote_trigger = nil
+	delete(m.clearedFields, hostdeviceresource.FieldRemoteTrigger)
+}
+
+// SetMpsHostname sets the "mps_hostname" field.
+func (m *HostdeviceResourceMutation) SetMpsHostname(s string) {
+	m.mps_hostname = &s
+}
+
+// MpsHostname returns the value of the "mps_hostname" field in the mutation.
+func (m *HostdeviceResourceMutation) MpsHostname() (r string, exists bool) {
+	v := m.mps_hostname
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMpsHostname returns the old "mps_hostname" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldMpsHostname(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMpsHostname is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMpsHostname requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMpsHostname: %w", err)
+	}
+	return oldValue.MpsHostname, nil
+}
+
+// ClearMpsHostname clears the value of the "mps_hostname" field.
+func (m *HostdeviceResourceMutation) ClearMpsHostname() {
+	m.mps_hostname = nil
+	m.clearedFields[hostdeviceresource.FieldMpsHostname] = struct{}{}
+}
+
+// MpsHostnameCleared returns if the "mps_hostname" field was cleared in this mutation.
+func (m *HostdeviceResourceMutation) MpsHostnameCleared() bool {
+	_, ok := m.clearedFields[hostdeviceresource.FieldMpsHostname]
+	return ok
+}
+
+// ResetMpsHostname resets all changes to the "mps_hostname" field.
+func (m *HostdeviceResourceMutation) ResetMpsHostname() {
+	m.mps_hostname = nil
+	delete(m.clearedFields, hostdeviceresource.FieldMpsHostname)
+}
+
+// SetTenantID sets the "tenant_id" field.
+func (m *HostdeviceResourceMutation) SetTenantID(s string) {
+	m.tenant_id = &s
+}
+
+// TenantID returns the value of the "tenant_id" field in the mutation.
+func (m *HostdeviceResourceMutation) TenantID() (r string, exists bool) {
+	v := m.tenant_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantID returns the old "tenant_id" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldTenantID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTenantID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTenantID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantID: %w", err)
+	}
+	return oldValue.TenantID, nil
+}
+
+// ResetTenantID resets all changes to the "tenant_id" field.
+func (m *HostdeviceResourceMutation) ResetTenantID() {
+	m.tenant_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *HostdeviceResourceMutation) SetCreatedAt(s string) {
+	m.created_at = &s
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *HostdeviceResourceMutation) CreatedAt() (r string, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldCreatedAt(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *HostdeviceResourceMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *HostdeviceResourceMutation) SetUpdatedAt(s string) {
+	m.updated_at = &s
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *HostdeviceResourceMutation) UpdatedAt() (r string, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the HostdeviceResource entity.
+// If the HostdeviceResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostdeviceResourceMutation) OldUpdatedAt(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *HostdeviceResourceMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+}
+
+// SetHostID sets the "host" edge to the HostResource entity by id.
+func (m *HostdeviceResourceMutation) SetHostID(id int) {
+	m.host = &id
+}
+
+// ClearHost clears the "host" edge to the HostResource entity.
+func (m *HostdeviceResourceMutation) ClearHost() {
+	m.clearedhost = true
+}
+
+// HostCleared reports if the "host" edge to the HostResource entity was cleared.
+func (m *HostdeviceResourceMutation) HostCleared() bool {
+	return m.clearedhost
+}
+
+// HostID returns the "host" edge ID in the mutation.
+func (m *HostdeviceResourceMutation) HostID() (id int, exists bool) {
+	if m.host != nil {
+		return *m.host, true
+	}
+	return
+}
+
+// HostIDs returns the "host" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// HostID instead. It exists only for internal usage by the builders.
+func (m *HostdeviceResourceMutation) HostIDs() (ids []int) {
+	if id := m.host; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetHost resets all changes to the "host" edge.
+func (m *HostdeviceResourceMutation) ResetHost() {
+	m.host = nil
+	m.clearedhost = false
+}
+
+// Where appends a list predicates to the HostdeviceResourceMutation builder.
+func (m *HostdeviceResourceMutation) Where(ps ...predicate.HostdeviceResource) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the HostdeviceResourceMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *HostdeviceResourceMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.HostdeviceResource, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *HostdeviceResourceMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *HostdeviceResourceMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (HostdeviceResource).
+func (m *HostdeviceResourceMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *HostdeviceResourceMutation) Fields() []string {
+	fields := make([]string, 0, 18)
+	if m.resource_id != nil {
+		fields = append(fields, hostdeviceresource.FieldResourceID)
+	}
+	if m.kind != nil {
+		fields = append(fields, hostdeviceresource.FieldKind)
+	}
+	if m.version != nil {
+		fields = append(fields, hostdeviceresource.FieldVersion)
+	}
+	if m.device_name != nil {
+		fields = append(fields, hostdeviceresource.FieldDeviceName)
+	}
+	if m.operational_state != nil {
+		fields = append(fields, hostdeviceresource.FieldOperationalState)
+	}
+	if m.build_number != nil {
+		fields = append(fields, hostdeviceresource.FieldBuildNumber)
+	}
+	if m.sku != nil {
+		fields = append(fields, hostdeviceresource.FieldSku)
+	}
+	if m.features != nil {
+		fields = append(fields, hostdeviceresource.FieldFeatures)
+	}
+	if m.device_guid != nil {
+		fields = append(fields, hostdeviceresource.FieldDeviceGUID)
+	}
+	if m.control_mode != nil {
+		fields = append(fields, hostdeviceresource.FieldControlMode)
+	}
+	if m.dns_suffix != nil {
+		fields = append(fields, hostdeviceresource.FieldDNSSuffix)
+	}
+	if m.network_status != nil {
+		fields = append(fields, hostdeviceresource.FieldNetworkStatus)
+	}
+	if m.remote_status != nil {
+		fields = append(fields, hostdeviceresource.FieldRemoteStatus)
+	}
+	if m.remote_trigger != nil {
+		fields = append(fields, hostdeviceresource.FieldRemoteTrigger)
+	}
+	if m.mps_hostname != nil {
+		fields = append(fields, hostdeviceresource.FieldMpsHostname)
+	}
+	if m.tenant_id != nil {
+		fields = append(fields, hostdeviceresource.FieldTenantID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, hostdeviceresource.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, hostdeviceresource.FieldUpdatedAt)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *HostdeviceResourceMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case hostdeviceresource.FieldResourceID:
+		return m.ResourceID()
+	case hostdeviceresource.FieldKind:
+		return m.Kind()
+	case hostdeviceresource.FieldVersion:
+		return m.Version()
+	case hostdeviceresource.FieldDeviceName:
+		return m.DeviceName()
+	case hostdeviceresource.FieldOperationalState:
+		return m.OperationalState()
+	case hostdeviceresource.FieldBuildNumber:
+		return m.BuildNumber()
+	case hostdeviceresource.FieldSku:
+		return m.Sku()
+	case hostdeviceresource.FieldFeatures:
+		return m.Features()
+	case hostdeviceresource.FieldDeviceGUID:
+		return m.DeviceGUID()
+	case hostdeviceresource.FieldControlMode:
+		return m.ControlMode()
+	case hostdeviceresource.FieldDNSSuffix:
+		return m.DNSSuffix()
+	case hostdeviceresource.FieldNetworkStatus:
+		return m.NetworkStatus()
+	case hostdeviceresource.FieldRemoteStatus:
+		return m.RemoteStatus()
+	case hostdeviceresource.FieldRemoteTrigger:
+		return m.RemoteTrigger()
+	case hostdeviceresource.FieldMpsHostname:
+		return m.MpsHostname()
+	case hostdeviceresource.FieldTenantID:
+		return m.TenantID()
+	case hostdeviceresource.FieldCreatedAt:
+		return m.CreatedAt()
+	case hostdeviceresource.FieldUpdatedAt:
+		return m.UpdatedAt()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *HostdeviceResourceMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case hostdeviceresource.FieldResourceID:
+		return m.OldResourceID(ctx)
+	case hostdeviceresource.FieldKind:
+		return m.OldKind(ctx)
+	case hostdeviceresource.FieldVersion:
+		return m.OldVersion(ctx)
+	case hostdeviceresource.FieldDeviceName:
+		return m.OldDeviceName(ctx)
+	case hostdeviceresource.FieldOperationalState:
+		return m.OldOperationalState(ctx)
+	case hostdeviceresource.FieldBuildNumber:
+		return m.OldBuildNumber(ctx)
+	case hostdeviceresource.FieldSku:
+		return m.OldSku(ctx)
+	case hostdeviceresource.FieldFeatures:
+		return m.OldFeatures(ctx)
+	case hostdeviceresource.FieldDeviceGUID:
+		return m.OldDeviceGUID(ctx)
+	case hostdeviceresource.FieldControlMode:
+		return m.OldControlMode(ctx)
+	case hostdeviceresource.FieldDNSSuffix:
+		return m.OldDNSSuffix(ctx)
+	case hostdeviceresource.FieldNetworkStatus:
+		return m.OldNetworkStatus(ctx)
+	case hostdeviceresource.FieldRemoteStatus:
+		return m.OldRemoteStatus(ctx)
+	case hostdeviceresource.FieldRemoteTrigger:
+		return m.OldRemoteTrigger(ctx)
+	case hostdeviceresource.FieldMpsHostname:
+		return m.OldMpsHostname(ctx)
+	case hostdeviceresource.FieldTenantID:
+		return m.OldTenantID(ctx)
+	case hostdeviceresource.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case hostdeviceresource.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	}
+	return nil, fmt.Errorf("unknown HostdeviceResource field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *HostdeviceResourceMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case hostdeviceresource.FieldResourceID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetResourceID(v)
+		return nil
+	case hostdeviceresource.FieldKind:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetKind(v)
+		return nil
+	case hostdeviceresource.FieldVersion:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetVersion(v)
+		return nil
+	case hostdeviceresource.FieldDeviceName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeviceName(v)
+		return nil
+	case hostdeviceresource.FieldOperationalState:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetOperationalState(v)
+		return nil
+	case hostdeviceresource.FieldBuildNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBuildNumber(v)
+		return nil
+	case hostdeviceresource.FieldSku:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSku(v)
+		return nil
+	case hostdeviceresource.FieldFeatures:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFeatures(v)
+		return nil
+	case hostdeviceresource.FieldDeviceGUID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeviceGUID(v)
+		return nil
+	case hostdeviceresource.FieldControlMode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetControlMode(v)
+		return nil
+	case hostdeviceresource.FieldDNSSuffix:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDNSSuffix(v)
+		return nil
+	case hostdeviceresource.FieldNetworkStatus:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetNetworkStatus(v)
+		return nil
+	case hostdeviceresource.FieldRemoteStatus:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemoteStatus(v)
+		return nil
+	case hostdeviceresource.FieldRemoteTrigger:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemoteTrigger(v)
+		return nil
+	case hostdeviceresource.FieldMpsHostname:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMpsHostname(v)
+		return nil
+	case hostdeviceresource.FieldTenantID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantID(v)
+		return nil
+	case hostdeviceresource.FieldCreatedAt:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case hostdeviceresource.FieldUpdatedAt:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	}
+	return fmt.Errorf("unknown HostdeviceResource field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *HostdeviceResourceMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *HostdeviceResourceMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *HostdeviceResourceMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown HostdeviceResource numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *HostdeviceResourceMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(hostdeviceresource.FieldKind) {
+		fields = append(fields, hostdeviceresource.FieldKind)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldVersion) {
+		fields = append(fields, hostdeviceresource.FieldVersion)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldDeviceName) {
+		fields = append(fields, hostdeviceresource.FieldDeviceName)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldOperationalState) {
+		fields = append(fields, hostdeviceresource.FieldOperationalState)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldBuildNumber) {
+		fields = append(fields, hostdeviceresource.FieldBuildNumber)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldSku) {
+		fields = append(fields, hostdeviceresource.FieldSku)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldFeatures) {
+		fields = append(fields, hostdeviceresource.FieldFeatures)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldDeviceGUID) {
+		fields = append(fields, hostdeviceresource.FieldDeviceGUID)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldControlMode) {
+		fields = append(fields, hostdeviceresource.FieldControlMode)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldDNSSuffix) {
+		fields = append(fields, hostdeviceresource.FieldDNSSuffix)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldNetworkStatus) {
+		fields = append(fields, hostdeviceresource.FieldNetworkStatus)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldRemoteStatus) {
+		fields = append(fields, hostdeviceresource.FieldRemoteStatus)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldRemoteTrigger) {
+		fields = append(fields, hostdeviceresource.FieldRemoteTrigger)
+	}
+	if m.FieldCleared(hostdeviceresource.FieldMpsHostname) {
+		fields = append(fields, hostdeviceresource.FieldMpsHostname)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *HostdeviceResourceMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *HostdeviceResourceMutation) ClearField(name string) error {
+	switch name {
+	case hostdeviceresource.FieldKind:
+		m.ClearKind()
+		return nil
+	case hostdeviceresource.FieldVersion:
+		m.ClearVersion()
+		return nil
+	case hostdeviceresource.FieldDeviceName:
+		m.ClearDeviceName()
+		return nil
+	case hostdeviceresource.FieldOperationalState:
+		m.ClearOperationalState()
+		return nil
+	case hostdeviceresource.FieldBuildNumber:
+		m.ClearBuildNumber()
+		return nil
+	case hostdeviceresource.FieldSku:
+		m.ClearSku()
+		return nil
+	case hostdeviceresource.FieldFeatures:
+		m.ClearFeatures()
+		return nil
+	case hostdeviceresource.FieldDeviceGUID:
+		m.ClearDeviceGUID()
+		return nil
+	case hostdeviceresource.FieldControlMode:
+		m.ClearControlMode()
+		return nil
+	case hostdeviceresource.FieldDNSSuffix:
+		m.ClearDNSSuffix()
+		return nil
+	case hostdeviceresource.FieldNetworkStatus:
+		m.ClearNetworkStatus()
+		return nil
+	case hostdeviceresource.FieldRemoteStatus:
+		m.ClearRemoteStatus()
+		return nil
+	case hostdeviceresource.FieldRemoteTrigger:
+		m.ClearRemoteTrigger()
+		return nil
+	case hostdeviceresource.FieldMpsHostname:
+		m.ClearMpsHostname()
+		return nil
+	}
+	return fmt.Errorf("unknown HostdeviceResource nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *HostdeviceResourceMutation) ResetField(name string) error {
+	switch name {
+	case hostdeviceresource.FieldResourceID:
+		m.ResetResourceID()
+		return nil
+	case hostdeviceresource.FieldKind:
+		m.ResetKind()
+		return nil
+	case hostdeviceresource.FieldVersion:
+		m.ResetVersion()
+		return nil
+	case hostdeviceresource.FieldDeviceName:
+		m.ResetDeviceName()
+		return nil
+	case hostdeviceresource.FieldOperationalState:
+		m.ResetOperationalState()
+		return nil
+	case hostdeviceresource.FieldBuildNumber:
+		m.ResetBuildNumber()
+		return nil
+	case hostdeviceresource.FieldSku:
+		m.ResetSku()
+		return nil
+	case hostdeviceresource.FieldFeatures:
+		m.ResetFeatures()
+		return nil
+	case hostdeviceresource.FieldDeviceGUID:
+		m.ResetDeviceGUID()
+		return nil
+	case hostdeviceresource.FieldControlMode:
+		m.ResetControlMode()
+		return nil
+	case hostdeviceresource.FieldDNSSuffix:
+		m.ResetDNSSuffix()
+		return nil
+	case hostdeviceresource.FieldNetworkStatus:
+		m.ResetNetworkStatus()
+		return nil
+	case hostdeviceresource.FieldRemoteStatus:
+		m.ResetRemoteStatus()
+		return nil
+	case hostdeviceresource.FieldRemoteTrigger:
+		m.ResetRemoteTrigger()
+		return nil
+	case hostdeviceresource.FieldMpsHostname:
+		m.ResetMpsHostname()
+		return nil
+	case hostdeviceresource.FieldTenantID:
+		m.ResetTenantID()
+		return nil
+	case hostdeviceresource.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case hostdeviceresource.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	}
+	return fmt.Errorf("unknown HostdeviceResource field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *HostdeviceResourceMutation) AddedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.host != nil {
+		edges = append(edges, hostdeviceresource.EdgeHost)
+	}
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *HostdeviceResourceMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case hostdeviceresource.EdgeHost:
+		if id := m.host; id != nil {
+			return []ent.Value{*id}
+		}
+	}
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *HostdeviceResourceMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 1)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *HostdeviceResourceMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *HostdeviceResourceMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.clearedhost {
+		edges = append(edges, hostdeviceresource.EdgeHost)
+	}
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *HostdeviceResourceMutation) EdgeCleared(name string) bool {
+	switch name {
+	case hostdeviceresource.EdgeHost:
+		return m.clearedhost
+	}
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *HostdeviceResourceMutation) ClearEdge(name string) error {
+	switch name {
+	case hostdeviceresource.EdgeHost:
+		m.ClearHost()
+		return nil
+	}
+	return fmt.Errorf("unknown HostdeviceResource unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *HostdeviceResourceMutation) ResetEdge(name string) error {
+	switch name {
+	case hostdeviceresource.EdgeHost:
+		m.ResetHost()
+		return nil
+	}
+	return fmt.Errorf("unknown HostdeviceResource edge %s", name)
 }
 
 // HostgpuResourceMutation represents an operation that mutates the HostgpuResource nodes in the graph.

@@ -59,6 +59,7 @@ const (
 	ResourcePrefixHostnic          ResourcePrefix = "hostnic"
 	ResourcePrefixHostusb          ResourcePrefix = "hostusb"
 	ResourcePrefixHostgpu          ResourcePrefix = "hostgpu"
+	ResourcePrefixHostdevice       ResourcePrefix = "hostdevice"
 	ResourcePrefixNetworkSegment   ResourcePrefix = "netseg"
 	ResourcePrefixNetlink          ResourcePrefix = "netlink"
 	ResourcePrefixEndpoint         ResourcePrefix = "endpoint"
@@ -92,6 +93,7 @@ func ResourceKindToPrefix(kind inv_v1.ResourceKind) ResourcePrefix {
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:           ResourcePrefixHostnic,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:           ResourcePrefixHostusb,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU:           ResourcePrefixHostgpu,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:        ResourcePrefixHostdevice,
 		inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT:    ResourcePrefixNetworkSegment,
 		inv_v1.ResourceKind_RESOURCE_KIND_NETLINK:           ResourcePrefixNetlink,
 		inv_v1.ResourceKind_RESOURCE_KIND_ENDPOINT:          ResourcePrefixEndpoint,
@@ -140,6 +142,8 @@ func GetResourceKindFromResource(resource *inv_v1.Resource) inv_v1.ResourceKind 
 		return inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB
 	case *inv_v1.Resource_Hostgpu:
 		return inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU
+	case *inv_v1.Resource_HostDevice:
+		return inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE
 	case *inv_v1.Resource_NetworkSegment:
 		return inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT
 	case *inv_v1.Resource_Netlink:
@@ -195,6 +199,7 @@ func PrefixToResourceKind(prefix ResourcePrefix) inv_v1.ResourceKind {
 		ResourcePrefixHostnic:          inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		ResourcePrefixHostusb:          inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		ResourcePrefixHostgpu:          inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
+		ResourcePrefixHostdevice:       inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		ResourcePrefixNetworkSegment:   inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT,
 		ResourcePrefixNetlink:          inv_v1.ResourceKind_RESOURCE_KIND_NETLINK,
 		ResourcePrefixEndpoint:         inv_v1.ResourceKind_RESOURCE_KIND_ENDPOINT,
@@ -235,6 +240,7 @@ func stringToPrefix(s string) (ResourcePrefix, error) {
 		string(ResourcePrefixHostnic):          ResourcePrefixHostnic,
 		string(ResourcePrefixHostusb):          ResourcePrefixHostusb,
 		string(ResourcePrefixHostgpu):          ResourcePrefixHostgpu,
+		string(ResourcePrefixHostdevice):       ResourcePrefixHostdevice,
 		string(ResourcePrefixNetworkSegment):   ResourcePrefixNetworkSegment,
 		string(ResourcePrefixNetlink):          ResourcePrefixNetlink,
 		string(ResourcePrefixEndpoint):         ResourcePrefixEndpoint,
@@ -310,6 +316,8 @@ func GetResourceIDFromResource(resource *inv_v1.Resource) (string, error) {
 		return resource.GetHostusb().GetResourceId(), nil
 	case *inv_v1.Resource_Hostgpu:
 		return resource.GetHostgpu().GetResourceId(), nil
+	case *inv_v1.Resource_HostDevice:
+		return resource.GetHostDevice().GetResourceId(), nil
 	case *inv_v1.Resource_NetworkSegment:
 		return resource.GetNetworkSegment().GetResourceId(), nil
 	case *inv_v1.Resource_Netlink:
@@ -376,6 +384,8 @@ func WrapResource(resource proto.Message) (*inv_v1.Resource, error) {
 		wrap.Resource = &inv_v1.Resource_Hostusb{Hostusb: r}
 	case *compute_v1.HostgpuResource:
 		wrap.Resource = &inv_v1.Resource_Hostgpu{Hostgpu: r}
+	case *compute_v1.HostdeviceResource:
+		wrap.Resource = &inv_v1.Resource_HostDevice{HostDevice: r}
 	case *compute_v1.WorkloadResource:
 		wrap.Resource = &inv_v1.Resource_Workload{Workload: r}
 	case *compute_v1.WorkloadMember:
@@ -458,6 +468,7 @@ func GetResourceKindFromMessage(message proto.Message) (inv_v1.ResourceKind, err
 		"HostnicResource":          inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		"HostusbResource":          inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		"HostgpuResource":          inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
+		"HostdeviceResource":       inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 		"NetworkSegment":           inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT,
 		"NetlinkResource":          inv_v1.ResourceKind_RESOURCE_KIND_NETLINK,
 		"EndpointResource":         inv_v1.ResourceKind_RESOURCE_KIND_ENDPOINT,
@@ -825,6 +836,7 @@ func GetResourceFromKind(resourceType inv_v1.ResourceKind) (*inv_v1.Resource, er
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:     {Resource: &inv_v1.Resource_Hostnic{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:     {Resource: &inv_v1.Resource_Hostusb{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU:     {Resource: &inv_v1.Resource_Hostgpu{}},
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE:  {Resource: &inv_v1.Resource_HostDevice{}},
 
 		inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT: {Resource: &inv_v1.Resource_NetworkSegment{}},
 		inv_v1.ResourceKind_RESOURCE_KIND_NETLINK:        {Resource: &inv_v1.Resource_Netlink{}},
@@ -887,6 +899,9 @@ func GetSetResource(resource *inv_v1.Resource) (proto.Message, error) {
 		},
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU: func(r *inv_v1.Resource) proto.Message {
 			return r.GetHostgpu()
+		},
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE: func(r *inv_v1.Resource) proto.Message {
+			return r.GetHostDevice()
 		},
 
 		inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT: func(r *inv_v1.Resource) proto.Message {
@@ -982,6 +997,8 @@ func getResourceProtoMessage(resource *inv_v1.Resource) (proto.Message, error) {
 		message = resource.GetHostusb()
 	case *inv_v1.Resource_Hostgpu:
 		message = resource.GetHostgpu()
+	case *inv_v1.Resource_HostDevice:
+		message = resource.GetHostDevice()
 	case *inv_v1.Resource_NetworkSegment:
 		message = resource.GetNetworkSegment()
 	case *inv_v1.Resource_Netlink:
