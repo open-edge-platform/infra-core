@@ -7,6 +7,13 @@ import (
 	"time"
 )
 
+// Defines values for AmtControlMode.
+const (
+	AMTCONTROLMODEACM         AmtControlMode = "AMT_CONTROL_MODE_ACM"
+	AMTCONTROLMODECCM         AmtControlMode = "AMT_CONTROL_MODE_CCM"
+	AMTCONTROLMODEUNSPECIFIED AmtControlMode = "AMT_CONTROL_MODE_UNSPECIFIED"
+)
+
 // Defines values for AmtSku.
 const (
 	AMTSKUAMT         AmtSku = "AMT_SKU_AMT"
@@ -223,6 +230,9 @@ const (
 	WORKLOADSTATEPROVISIONED WorkloadState = "WORKLOAD_STATE_PROVISIONED"
 	WORKLOADSTATEUNSPECIFIED WorkloadState = "WORKLOAD_STATE_UNSPECIFIED"
 )
+
+// AmtControlMode defines model for AmtControlMode.
+type AmtControlMode string
 
 // AmtSku defines model for AmtSku.
 type AmtSku string
@@ -1056,7 +1066,11 @@ type HostRegister struct {
 
 // HostResource A Host resource.
 type HostResource struct {
-	AmtSku *AmtSku `json:"amtSku,omitempty"`
+	AmtControlMode *AmtControlMode `json:"amtControlMode,omitempty"`
+
+	// AmtDnsSuffix (OPTIONAL) textual message that describes dns_suffix for ACM mode.
+	AmtDnsSuffix *string `json:"amtDnsSuffix,omitempty"`
+	AmtSku       *AmtSku `json:"amtSku,omitempty"`
 
 	// AmtStatus coming from device introspection. Set only by the DM RM.
 	AmtStatus *string `json:"amtStatus,omitempty"`

@@ -71,6 +71,12 @@ enum AmtSku {
   AMT_SKU_ISM = 2;
 }
 
+enum AmtControlMode {
+  AMT_CONTROL_MODE_UNSPECIFIED = 0;
+  AMT_CONTROL_MODE_ACM = 1;
+  AMT_CONTROL_MODE_CCM = 2;
+}
+
 // A Host resource.
 message HostResource {
   // Resource ID, generated on Create.
@@ -222,6 +228,11 @@ message HostResource {
   status.v1.StatusIndication amt_status_indicator = 95 [(google.api.field_behavior) = OUTPUT_ONLY]; // Indicates dynamicity of the amt_status. Set by DM and OM RM only.
   uint32 amt_status_timestamp = 96 [(google.api.field_behavior) = OUTPUT_ONLY]; // UTC timestamp when amt_status was last changed. Set by DM and OM RM only.
   uint32 user_lvm_size = 97 [(google.api.field_behavior) = OUTPUT_ONLY]; // LVM size in GB.
+  AmtControlMode amt_control_mode = 98 [(google.api.field_behavior) = OPTIONAL]; // coming from user selection
+  string amt_dns_suffix = 99 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {max_len: 1024}
+  ]; // textual message that describes dns_suffix for ACM mode.
 
   // The site where the host is located.
   string site_id = 5001 [
