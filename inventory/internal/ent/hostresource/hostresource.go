@@ -189,7 +189,7 @@ const (
 	// HostGpusColumn is the table column denoting the host_gpus relation/edge.
 	HostGpusColumn = "hostgpu_resource_host"
 	// HostDeviceTable is the table that holds the host_device relation/edge.
-	HostDeviceTable = "host_resources"
+	HostDeviceTable = "hostdevice_resources"
 	// HostDeviceInverseTable is the table name for the HostdeviceResource entity.
 	// It exists in this package in order to avoid circular dependency with the "hostdeviceresource" package.
 	HostDeviceInverseTable = "hostdevice_resources"
@@ -271,7 +271,6 @@ var Columns = []string{
 var ForeignKeys = []string{
 	"host_resource_site",
 	"host_resource_provider",
-	"hostdevice_resource_host",
 	"instance_resource_host",
 }
 
@@ -1036,10 +1035,17 @@ func ByHostGpus(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 	}
 }
 
-// ByHostDeviceField orders the results by host_device field.
-func ByHostDeviceField(field string, opts ...sql.OrderTermOption) OrderOption {
+// ByHostDeviceCount orders the results by host_device count.
+func ByHostDeviceCount(opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
-		sqlgraph.OrderByNeighborTerms(s, newHostDeviceStep(), sql.OrderByField(field, opts...))
+		sqlgraph.OrderByNeighborsCount(s, newHostDeviceStep(), opts...)
+	}
+}
+
+// ByHostDevice orders the results by host_device terms.
+func ByHostDevice(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newHostDeviceStep(), append([]sql.OrderTerm{term}, terms...)...)
 	}
 }
 
@@ -1095,7 +1101,7 @@ func newHostDeviceStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(HostDeviceInverseTable, FieldID),
-		sqlgraph.Edge(sqlgraph.O2O, true, HostDeviceTable, HostDeviceColumn),
+		sqlgraph.Edge(sqlgraph.O2M, true, HostDeviceTable, HostDeviceColumn),
 	)
 }
 func newInstanceStep() *sqlgraph.Step {

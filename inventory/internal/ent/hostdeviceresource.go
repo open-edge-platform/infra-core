@@ -55,8 +55,9 @@ type HostdeviceResource struct {
 	UpdatedAt string `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the HostdeviceResourceQuery when eager-loading is set.
-	Edges        HostdeviceResourceEdges `json:"edges"`
-	selectValues sql.SelectValues
+	Edges                    HostdeviceResourceEdges `json:"edges"`
+	hostdevice_resource_host *int
+	selectValues             sql.SelectValues
 }
 
 // HostdeviceResourceEdges holds the relations/edges for other nodes in the graph.
@@ -88,6 +89,8 @@ func (*HostdeviceResource) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullInt64)
 		case hostdeviceresource.FieldResourceID, hostdeviceresource.FieldKind, hostdeviceresource.FieldVersion, hostdeviceresource.FieldDeviceName, hostdeviceresource.FieldOperationalState, hostdeviceresource.FieldBuildNumber, hostdeviceresource.FieldSku, hostdeviceresource.FieldFeatures, hostdeviceresource.FieldDeviceGUID, hostdeviceresource.FieldControlMode, hostdeviceresource.FieldDNSSuffix, hostdeviceresource.FieldNetworkStatus, hostdeviceresource.FieldRemoteStatus, hostdeviceresource.FieldRemoteTrigger, hostdeviceresource.FieldMpsHostname, hostdeviceresource.FieldTenantID, hostdeviceresource.FieldCreatedAt, hostdeviceresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
+		case hostdeviceresource.ForeignKeys[0]: // hostdevice_resource_host
+			values[i] = new(sql.NullInt64)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -216,6 +219,13 @@ func (_m *HostdeviceResource) assignValues(columns []string, values []any) error
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
 				_m.UpdatedAt = value.String
+			}
+		case hostdeviceresource.ForeignKeys[0]:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for edge-field hostdevice_resource_host", value)
+			} else if value.Valid {
+				_m.hostdevice_resource_host = new(int)
+				*_m.hostdevice_resource_host = int(value.Int64)
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])

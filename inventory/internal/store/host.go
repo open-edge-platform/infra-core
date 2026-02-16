@@ -177,7 +177,8 @@ func getHostQuery(ctx context.Context, tx *ent.Tx, tenantID, resourceID string, 
 		WithHostStorages().
 		WithHostNics().
 		WithHostUsbs().
-		WithHostGpus()
+		WithHostGpus().
+		WithHostDevice()
 	if nestedLoad {
 		query.WithInstance(func(query *ent.InstanceResourceQuery) {
 			query.WithOs().
@@ -482,6 +483,7 @@ func filterHosts(ctx context.Context, client *ent.Client, filter *inv_v1.Resourc
 		WithHostNics().
 		WithHostUsbs().
 		WithHostGpus().
+		WithHostDevice().
 		WithInstance(func(query *ent.InstanceResourceQuery) {
 			query.WithOs().
 				WithOsUpdatePolicy()

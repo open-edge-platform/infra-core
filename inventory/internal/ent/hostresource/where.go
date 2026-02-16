@@ -3691,7 +3691,7 @@ func HasHostDevice() predicate.HostResource {
 	return predicate.HostResource(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, HostDeviceTable, HostDeviceColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, HostDeviceTable, HostDeviceColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})

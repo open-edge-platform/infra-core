@@ -214,10 +214,7 @@ message HostResource {
   repeated HostusbResource host_usbs = 72 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host USB resources. This edge is read-only.
   repeated HostgpuResource host_gpus = 73 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host GPU resources. This edge is read-only.
 
-  HostdeviceResource host_device = 74 [(ent.edge) = {
-    unique: true
-    ref: "host"
-  }]; // Back-reference to attached host AMT/vPRO settings. This edge is read-only.
+  HostdeviceResource host_device = 74 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host AMT/vPRO settings. This edge is read-only.
 
   InstanceResource instance = 90 [(ent.edge) = {
     unique: true

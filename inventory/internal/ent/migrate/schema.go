@@ -132,7 +132,6 @@ var (
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "host_resource_site", Type: field.TypeInt, Nullable: true},
 		{Name: "host_resource_provider", Type: field.TypeInt, Nullable: true},
-		{Name: "hostdevice_resource_host", Type: field.TypeInt, Unique: true, Nullable: true},
 		{Name: "instance_resource_host", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// HostResourcesTable holds the schema information for the "host_resources" table.
@@ -154,14 +153,8 @@ var (
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "host_resources_hostdevice_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[60]},
-				RefColumns: []*schema.Column{HostdeviceResourcesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[61]},
+				Columns:    []*schema.Column{HostResourcesColumns[60]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -211,12 +204,21 @@ var (
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "hostdevice_resource_host", Type: field.TypeInt},
 	}
 	// HostdeviceResourcesTable holds the schema information for the "hostdevice_resources" table.
 	HostdeviceResourcesTable = &schema.Table{
 		Name:       "hostdevice_resources",
 		Columns:    HostdeviceResourcesColumns,
 		PrimaryKey: []*schema.Column{HostdeviceResourcesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "hostdevice_resources_host_resources_host",
+				Columns:    []*schema.Column{HostdeviceResourcesColumns[19]},
+				RefColumns: []*schema.Column{HostResourcesColumns[0]},
+				OnDelete:   schema.NoAction,
+			},
+		},
 		Indexes: []*schema.Index{
 			{
 				Name:    "hostdeviceresource_tenant_id",
@@ -1272,8 +1274,8 @@ func init() {
 	EndpointResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostResourcesTable.ForeignKeys[0].RefTable = SiteResourcesTable
 	HostResourcesTable.ForeignKeys[1].RefTable = ProviderResourcesTable
-	HostResourcesTable.ForeignKeys[2].RefTable = HostdeviceResourcesTable
-	HostResourcesTable.ForeignKeys[3].RefTable = InstanceResourcesTable
+	HostResourcesTable.ForeignKeys[2].RefTable = InstanceResourcesTable
+	HostdeviceResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostgpuResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostnicResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HoststorageResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable

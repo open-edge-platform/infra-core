@@ -891,23 +891,19 @@ func (_c *HostResourceCreate) AddHostGpus(v ...*HostgpuResource) *HostResourceCr
 	return _c.AddHostGpuIDs(ids...)
 }
 
-// SetHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID.
-func (_c *HostResourceCreate) SetHostDeviceID(id int) *HostResourceCreate {
-	_c.mutation.SetHostDeviceID(id)
+// AddHostDeviceIDs adds the "host_device" edge to the HostdeviceResource entity by IDs.
+func (_c *HostResourceCreate) AddHostDeviceIDs(ids ...int) *HostResourceCreate {
+	_c.mutation.AddHostDeviceIDs(ids...)
 	return _c
 }
 
-// SetNillableHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID if the given value is not nil.
-func (_c *HostResourceCreate) SetNillableHostDeviceID(id *int) *HostResourceCreate {
-	if id != nil {
-		_c = _c.SetHostDeviceID(*id)
+// AddHostDevice adds the "host_device" edges to the HostdeviceResource entity.
+func (_c *HostResourceCreate) AddHostDevice(v ...*HostdeviceResource) *HostResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return _c
-}
-
-// SetHostDevice sets the "host_device" edge to the HostdeviceResource entity.
-func (_c *HostResourceCreate) SetHostDevice(v *HostdeviceResource) *HostResourceCreate {
-	return _c.SetHostDeviceID(v.ID)
+	return _c.AddHostDeviceIDs(ids...)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
@@ -1404,7 +1400,7 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 	}
 	if nodes := _c.mutation.HostDeviceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   hostresource.HostDeviceTable,
 			Columns: []string{hostresource.HostDeviceColumn},
@@ -1416,7 +1412,6 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.hostdevice_resource_host = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := _c.mutation.InstanceIDs(); len(nodes) > 0 {

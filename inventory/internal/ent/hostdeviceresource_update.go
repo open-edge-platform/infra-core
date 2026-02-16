@@ -497,7 +497,7 @@ func (_u *HostdeviceResourceUpdate) sqlSave(ctx context.Context) (_node int, err
 	}
 	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   hostdeviceresource.HostTable,
 			Columns: []string{hostdeviceresource.HostColumn},
@@ -510,7 +510,7 @@ func (_u *HostdeviceResourceUpdate) sqlSave(ctx context.Context) (_node int, err
 	}
 	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   hostdeviceresource.HostTable,
 			Columns: []string{hostdeviceresource.HostColumn},
@@ -1043,7 +1043,7 @@ func (_u *HostdeviceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Host
 	}
 	if _u.mutation.HostCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   hostdeviceresource.HostTable,
 			Columns: []string{hostdeviceresource.HostColumn},
@@ -1056,7 +1056,7 @@ func (_u *HostdeviceResourceUpdateOne) sqlSave(ctx context.Context) (_node *Host
 	}
 	if nodes := _u.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   hostdeviceresource.HostTable,
 			Columns: []string{hostdeviceresource.HostColumn},

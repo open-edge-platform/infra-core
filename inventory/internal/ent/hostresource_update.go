@@ -1298,23 +1298,19 @@ func (_u *HostResourceUpdate) AddHostGpus(v ...*HostgpuResource) *HostResourceUp
 	return _u.AddHostGpuIDs(ids...)
 }
 
-// SetHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID.
-func (_u *HostResourceUpdate) SetHostDeviceID(id int) *HostResourceUpdate {
-	_u.mutation.SetHostDeviceID(id)
+// AddHostDeviceIDs adds the "host_device" edge to the HostdeviceResource entity by IDs.
+func (_u *HostResourceUpdate) AddHostDeviceIDs(ids ...int) *HostResourceUpdate {
+	_u.mutation.AddHostDeviceIDs(ids...)
 	return _u
 }
 
-// SetNillableHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID if the given value is not nil.
-func (_u *HostResourceUpdate) SetNillableHostDeviceID(id *int) *HostResourceUpdate {
-	if id != nil {
-		_u = _u.SetHostDeviceID(*id)
+// AddHostDevice adds the "host_device" edges to the HostdeviceResource entity.
+func (_u *HostResourceUpdate) AddHostDevice(v ...*HostdeviceResource) *HostResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return _u
-}
-
-// SetHostDevice sets the "host_device" edge to the HostdeviceResource entity.
-func (_u *HostResourceUpdate) SetHostDevice(v *HostdeviceResource) *HostResourceUpdate {
-	return _u.SetHostDeviceID(v.ID)
+	return _u.AddHostDeviceIDs(ids...)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
@@ -1437,10 +1433,25 @@ func (_u *HostResourceUpdate) RemoveHostGpus(v ...*HostgpuResource) *HostResourc
 	return _u.RemoveHostGpuIDs(ids...)
 }
 
-// ClearHostDevice clears the "host_device" edge to the HostdeviceResource entity.
+// ClearHostDevice clears all "host_device" edges to the HostdeviceResource entity.
 func (_u *HostResourceUpdate) ClearHostDevice() *HostResourceUpdate {
 	_u.mutation.ClearHostDevice()
 	return _u
+}
+
+// RemoveHostDeviceIDs removes the "host_device" edge to HostdeviceResource entities by IDs.
+func (_u *HostResourceUpdate) RemoveHostDeviceIDs(ids ...int) *HostResourceUpdate {
+	_u.mutation.RemoveHostDeviceIDs(ids...)
+	return _u
+}
+
+// RemoveHostDevice removes "host_device" edges to HostdeviceResource entities.
+func (_u *HostResourceUpdate) RemoveHostDevice(v ...*HostdeviceResource) *HostResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.RemoveHostDeviceIDs(ids...)
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
@@ -2165,7 +2176,7 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 	}
 	if _u.mutation.HostDeviceCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   hostresource.HostDeviceTable,
 			Columns: []string{hostresource.HostDeviceColumn},
@@ -2176,9 +2187,25 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
+	if nodes := _u.mutation.RemovedHostDeviceIDs(); len(nodes) > 0 && !_u.mutation.HostDeviceCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
 	if nodes := _u.mutation.HostDeviceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   hostresource.HostDeviceTable,
 			Columns: []string{hostresource.HostDeviceColumn},
@@ -3504,23 +3531,19 @@ func (_u *HostResourceUpdateOne) AddHostGpus(v ...*HostgpuResource) *HostResourc
 	return _u.AddHostGpuIDs(ids...)
 }
 
-// SetHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID.
-func (_u *HostResourceUpdateOne) SetHostDeviceID(id int) *HostResourceUpdateOne {
-	_u.mutation.SetHostDeviceID(id)
+// AddHostDeviceIDs adds the "host_device" edge to the HostdeviceResource entity by IDs.
+func (_u *HostResourceUpdateOne) AddHostDeviceIDs(ids ...int) *HostResourceUpdateOne {
+	_u.mutation.AddHostDeviceIDs(ids...)
 	return _u
 }
 
-// SetNillableHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by ID if the given value is not nil.
-func (_u *HostResourceUpdateOne) SetNillableHostDeviceID(id *int) *HostResourceUpdateOne {
-	if id != nil {
-		_u = _u.SetHostDeviceID(*id)
+// AddHostDevice adds the "host_device" edges to the HostdeviceResource entity.
+func (_u *HostResourceUpdateOne) AddHostDevice(v ...*HostdeviceResource) *HostResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return _u
-}
-
-// SetHostDevice sets the "host_device" edge to the HostdeviceResource entity.
-func (_u *HostResourceUpdateOne) SetHostDevice(v *HostdeviceResource) *HostResourceUpdateOne {
-	return _u.SetHostDeviceID(v.ID)
+	return _u.AddHostDeviceIDs(ids...)
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
@@ -3643,10 +3666,25 @@ func (_u *HostResourceUpdateOne) RemoveHostGpus(v ...*HostgpuResource) *HostReso
 	return _u.RemoveHostGpuIDs(ids...)
 }
 
-// ClearHostDevice clears the "host_device" edge to the HostdeviceResource entity.
+// ClearHostDevice clears all "host_device" edges to the HostdeviceResource entity.
 func (_u *HostResourceUpdateOne) ClearHostDevice() *HostResourceUpdateOne {
 	_u.mutation.ClearHostDevice()
 	return _u
+}
+
+// RemoveHostDeviceIDs removes the "host_device" edge to HostdeviceResource entities by IDs.
+func (_u *HostResourceUpdateOne) RemoveHostDeviceIDs(ids ...int) *HostResourceUpdateOne {
+	_u.mutation.RemoveHostDeviceIDs(ids...)
+	return _u
+}
+
+// RemoveHostDevice removes "host_device" edges to HostdeviceResource entities.
+func (_u *HostResourceUpdateOne) RemoveHostDevice(v ...*HostdeviceResource) *HostResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.RemoveHostDeviceIDs(ids...)
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
@@ -4401,7 +4439,7 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 	}
 	if _u.mutation.HostDeviceCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   hostresource.HostDeviceTable,
 			Columns: []string{hostresource.HostDeviceColumn},
@@ -4412,9 +4450,25 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
+	if nodes := _u.mutation.RemovedHostDeviceIDs(); len(nodes) > 0 && !_u.mutation.HostDeviceCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostDeviceTable,
+			Columns: []string{hostresource.HostDeviceColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostdeviceresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
 	if nodes := _u.mutation.HostDeviceIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   hostresource.HostDeviceTable,
 			Columns: []string{hostresource.HostDeviceColumn},

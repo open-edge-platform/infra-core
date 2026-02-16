@@ -457,8 +457,10 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 			protoHost.HostUsbs = append(protoHost.HostUsbs, entHostusbResourceToProtoHostusbResource(u))
 		}
 	}
-	if device, qerr := host.Edges.HostDeviceOrErr(); qerr == nil {
-		protoHost.HostDevice = entHostDeviceResourceToProtoHostDeviceResource(device)
+	if devices, qerr := host.Edges.HostDeviceOrErr(); qerr == nil {
+		for _, d := range devices {
+			protoHost.HostDevice = entHostDeviceResourceToProtoHostDeviceResource(d)
+		}
 	}
 	if inst, qerr := host.Edges.InstanceOrErr(); qerr == nil {
 		protoHost.Instance = entInstanceResourceToProtoInstanceResource(inst)

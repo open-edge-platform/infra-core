@@ -1642,7 +1642,8 @@ type HostResourceMutation struct {
 	host_gpus                        map[int]struct{}
 	removedhost_gpus                 map[int]struct{}
 	clearedhost_gpus                 bool
-	host_device                      *int
+	host_device                      map[int]struct{}
+	removedhost_device               map[int]struct{}
 	clearedhost_device               bool
 	instance                         *int
 	clearedinstance                  bool
@@ -5015,9 +5016,14 @@ func (m *HostResourceMutation) ResetHostGpus() {
 	m.removedhost_gpus = nil
 }
 
-// SetHostDeviceID sets the "host_device" edge to the HostdeviceResource entity by id.
-func (m *HostResourceMutation) SetHostDeviceID(id int) {
-	m.host_device = &id
+// AddHostDeviceIDs adds the "host_device" edge to the HostdeviceResource entity by ids.
+func (m *HostResourceMutation) AddHostDeviceIDs(ids ...int) {
+	if m.host_device == nil {
+		m.host_device = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.host_device[ids[i]] = struct{}{}
+	}
 }
 
 // ClearHostDevice clears the "host_device" edge to the HostdeviceResource entity.
@@ -5030,20 +5036,29 @@ func (m *HostResourceMutation) HostDeviceCleared() bool {
 	return m.clearedhost_device
 }
 
-// HostDeviceID returns the "host_device" edge ID in the mutation.
-func (m *HostResourceMutation) HostDeviceID() (id int, exists bool) {
-	if m.host_device != nil {
-		return *m.host_device, true
+// RemoveHostDeviceIDs removes the "host_device" edge to the HostdeviceResource entity by IDs.
+func (m *HostResourceMutation) RemoveHostDeviceIDs(ids ...int) {
+	if m.removedhost_device == nil {
+		m.removedhost_device = make(map[int]struct{})
+	}
+	for i := range ids {
+		delete(m.host_device, ids[i])
+		m.removedhost_device[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedHostDevice returns the removed IDs of the "host_device" edge to the HostdeviceResource entity.
+func (m *HostResourceMutation) RemovedHostDeviceIDs() (ids []int) {
+	for id := range m.removedhost_device {
+		ids = append(ids, id)
 	}
 	return
 }
 
 // HostDeviceIDs returns the "host_device" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// HostDeviceID instead. It exists only for internal usage by the builders.
 func (m *HostResourceMutation) HostDeviceIDs() (ids []int) {
-	if id := m.host_device; id != nil {
-		ids = append(ids, *id)
+	for id := range m.host_device {
+		ids = append(ids, id)
 	}
 	return
 }
@@ -5052,6 +5067,7 @@ func (m *HostResourceMutation) HostDeviceIDs() (ids []int) {
 func (m *HostResourceMutation) ResetHostDevice() {
 	m.host_device = nil
 	m.clearedhost_device = false
+	m.removedhost_device = nil
 }
 
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by id.
@@ -6699,9 +6715,11 @@ func (m *HostResourceMutation) AddedIDs(name string) []ent.Value {
 		}
 		return ids
 	case hostresource.EdgeHostDevice:
-		if id := m.host_device; id != nil {
-			return []ent.Value{*id}
+		ids := make([]ent.Value, 0, len(m.host_device))
+		for id := range m.host_device {
+			ids = append(ids, id)
 		}
+		return ids
 	case hostresource.EdgeInstance:
 		if id := m.instance; id != nil {
 			return []ent.Value{*id}
@@ -6724,6 +6742,9 @@ func (m *HostResourceMutation) RemovedEdges() []string {
 	}
 	if m.removedhost_gpus != nil {
 		edges = append(edges, hostresource.EdgeHostGpus)
+	}
+	if m.removedhost_device != nil {
+		edges = append(edges, hostresource.EdgeHostDevice)
 	}
 	return edges
 }
@@ -6753,6 +6774,12 @@ func (m *HostResourceMutation) RemovedIDs(name string) []ent.Value {
 	case hostresource.EdgeHostGpus:
 		ids := make([]ent.Value, 0, len(m.removedhost_gpus))
 		for id := range m.removedhost_gpus {
+			ids = append(ids, id)
+		}
+		return ids
+	case hostresource.EdgeHostDevice:
+		ids := make([]ent.Value, 0, len(m.removedhost_device))
+		for id := range m.removedhost_device {
 			ids = append(ids, id)
 		}
 		return ids
@@ -6823,9 +6850,6 @@ func (m *HostResourceMutation) ClearEdge(name string) error {
 		return nil
 	case hostresource.EdgeProvider:
 		m.ClearProvider()
-		return nil
-	case hostresource.EdgeHostDevice:
-		m.ClearHostDevice()
 		return nil
 	case hostresource.EdgeInstance:
 		m.ClearInstance()

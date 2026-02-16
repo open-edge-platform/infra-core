@@ -222,7 +222,7 @@ func (_q *HostResourceQuery) QueryHostDevice() *HostdeviceResourceQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, selector),
 			sqlgraph.To(hostdeviceresource.Table, hostdeviceresource.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, hostresource.HostDeviceTable, hostresource.HostDeviceColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostDeviceTable, hostresource.HostDeviceColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
@@ -636,7 +636,7 @@ func (_q *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 			_q.withInstance != nil,
 		}
 	)
-	if _q.withSite != nil || _q.withProvider != nil || _q.withHostDevice != nil || _q.withInstance != nil {
+	if _q.withSite != nil || _q.withProvider != nil || _q.withInstance != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -701,8 +701,9 @@ func (_q *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 		}
 	}
 	if query := _q.withHostDevice; query != nil {
-		if err := _q.loadHostDevice(ctx, query, nodes, nil,
-			func(n *HostResource, e *HostdeviceResource) { n.Edges.HostDevice = e }); err != nil {
+		if err := _q.loadHostDevice(ctx, query, nodes,
+			func(n *HostResource) { n.Edges.HostDevice = []*HostdeviceResource{} },
+			func(n *HostResource, e *HostdeviceResource) { n.Edges.HostDevice = append(n.Edges.HostDevice, e) }); err != nil {
 			return nil, err
 		}
 	}
@@ -904,34 +905,33 @@ func (_q *HostResourceQuery) loadHostGpus(ctx context.Context, query *HostgpuRes
 	return nil
 }
 func (_q *HostResourceQuery) loadHostDevice(ctx context.Context, query *HostdeviceResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostdeviceResource)) error {
-	ids := make([]int, 0, len(nodes))
-	nodeids := make(map[int][]*HostResource)
+	fks := make([]driver.Value, 0, len(nodes))
+	nodeids := make(map[int]*HostResource)
 	for i := range nodes {
-		if nodes[i].hostdevice_resource_host == nil {
-			continue
+		fks = append(fks, nodes[i].ID)
+		nodeids[nodes[i].ID] = nodes[i]
+		if init != nil {
+			init(nodes[i])
 		}
-		fk := *nodes[i].hostdevice_resource_host
-		if _, ok := nodeids[fk]; !ok {
-			ids = append(ids, fk)
-		}
-		nodeids[fk] = append(nodeids[fk], nodes[i])
 	}
-	if len(ids) == 0 {
-		return nil
-	}
-	query.Where(hostdeviceresource.IDIn(ids...))
+	query.withFKs = true
+	query.Where(predicate.HostdeviceResource(func(s *sql.Selector) {
+		s.Where(sql.InValues(s.C(hostresource.HostDeviceColumn), fks...))
+	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		fk := n.hostdevice_resource_host
+		if fk == nil {
+			return fmt.Errorf(`foreign-key "hostdevice_resource_host" is nil for node %v`, n.ID)
+		}
+		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "hostdevice_resource_host" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "hostdevice_resource_host" returned %v for node %v`, *fk, n.ID)
 		}
-		for i := range nodes {
-			assign(nodes[i], n)
-		}
+		assign(node, n)
 	}
 	return nil
 }

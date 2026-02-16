@@ -959,7 +959,7 @@ func (c *HostResourceClient) QueryHostDevice(_m *HostResource) *HostdeviceResour
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
 			sqlgraph.To(hostdeviceresource.Table, hostdeviceresource.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, hostresource.HostDeviceTable, hostresource.HostDeviceColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostDeviceTable, hostresource.HostDeviceColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
@@ -1124,7 +1124,7 @@ func (c *HostdeviceResourceClient) QueryHost(_m *HostdeviceResource) *HostResour
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostdeviceresource.Table, hostdeviceresource.FieldID, id),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, hostdeviceresource.HostTable, hostdeviceresource.HostColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, hostdeviceresource.HostTable, hostdeviceresource.HostColumn),
 		)
 		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil

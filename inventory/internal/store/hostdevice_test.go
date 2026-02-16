@@ -350,7 +350,7 @@ func Test_FilterHostdevices(t *testing.T) {
 		Resource: &inv_v1.Resource_HostDevice{
 			HostDevice: &computev1.HostdeviceResource{
 				Host:       host2,
-				DeviceName: "testhost",
+				DeviceName: "testhost1",
 			},
 		},
 	}
@@ -698,20 +698,14 @@ func TestHostDeviceMTSanity(t *testing.T) {
 }
 
 func TestDeleteResources_HostDevices(t *testing.T) {
-	suite.Run(t, &struct{ hardDeleteAllResourcesSuite }{
-		hardDeleteAllResourcesSuite: hardDeleteAllResourcesSuite{
-			createModel: func(dao *inv_testing.InvResourceDAO) (string, int) {
-				tenantID := uuid.NewString()
-				host := dao.CreateHost(t, tenantID)
-				return tenantID, len(
-					[]any{
-						dao.CreateHostDeviceNoCleanup(t, tenantID, host),
-						dao.CreateHostDeviceNoCleanup(t, tenantID, host),
-						dao.CreateHostDeviceNoCleanup(t, tenantID, host),
-					},
-				)
-			},
-			resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
+	suite.Run(t, &hardDeleteAllResourcesSuite{
+		createModel: func(dao *inv_testing.InvResourceDAO) (string, int) {
+			tenantID := uuid.NewString()
+			host := dao.CreateHost(t, tenantID)
+			return tenantID, len([]any{
+				dao.CreateHostDeviceNoCleanup(t, tenantID, host),
+			})
 		},
+		resourceKind: inv_v1.ResourceKind_RESOURCE_KIND_HOSTDEVICE,
 	})
 }

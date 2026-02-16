@@ -400,7 +400,7 @@ func (_c *HostdeviceResourceCreate) createSpec() (*HostdeviceResource, *sqlgraph
 	}
 	if nodes := _c.mutation.HostIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   hostdeviceresource.HostTable,
 			Columns: []string{hostdeviceresource.HostColumn},
@@ -412,6 +412,7 @@ func (_c *HostdeviceResourceCreate) createSpec() (*HostdeviceResource, *sqlgraph
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
+		_node.hostdevice_resource_host = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

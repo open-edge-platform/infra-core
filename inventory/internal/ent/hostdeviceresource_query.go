@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"database/sql/driver"
 	"fmt"
 	"math"
 
@@ -25,6 +24,7 @@ type HostdeviceResourceQuery struct {
 	inters     []Interceptor
 	predicates []predicate.HostdeviceResource
 	withHost   *HostResourceQuery
+	withFKs    bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -75,7 +75,7 @@ func (_q *HostdeviceResourceQuery) QueryHost() *HostResourceQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(hostdeviceresource.Table, hostdeviceresource.FieldID, selector),
 			sqlgraph.To(hostresource.Table, hostresource.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, hostdeviceresource.HostTable, hostdeviceresource.HostColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, hostdeviceresource.HostTable, hostdeviceresource.HostColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
@@ -370,11 +370,18 @@ func (_q *HostdeviceResourceQuery) prepareQuery(ctx context.Context) error {
 func (_q *HostdeviceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*HostdeviceResource, error) {
 	var (
 		nodes       = []*HostdeviceResource{}
+		withFKs     = _q.withFKs
 		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
 			_q.withHost != nil,
 		}
 	)
+	if _q.withHost != nil {
+		withFKs = true
+	}
+	if withFKs {
+		_spec.Node.Columns = append(_spec.Node.Columns, hostdeviceresource.ForeignKeys...)
+	}
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*HostdeviceResource).scanValues(nil, columns)
 	}
@@ -403,30 +410,34 @@ func (_q *HostdeviceResourceQuery) sqlAll(ctx context.Context, hooks ...queryHoo
 }
 
 func (_q *HostdeviceResourceQuery) loadHost(ctx context.Context, query *HostResourceQuery, nodes []*HostdeviceResource, init func(*HostdeviceResource), assign func(*HostdeviceResource, *HostResource)) error {
-	fks := make([]driver.Value, 0, len(nodes))
-	nodeids := make(map[int]*HostdeviceResource)
+	ids := make([]int, 0, len(nodes))
+	nodeids := make(map[int][]*HostdeviceResource)
 	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
+		if nodes[i].hostdevice_resource_host == nil {
+			continue
+		}
+		fk := *nodes[i].hostdevice_resource_host
+		if _, ok := nodeids[fk]; !ok {
+			ids = append(ids, fk)
+		}
+		nodeids[fk] = append(nodeids[fk], nodes[i])
 	}
-	query.withFKs = true
-	query.Where(predicate.HostResource(func(s *sql.Selector) {
-		s.Where(sql.InValues(s.C(hostdeviceresource.HostColumn), fks...))
-	}))
+	if len(ids) == 0 {
+		return nil
+	}
+	query.Where(hostresource.IDIn(ids...))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.hostdevice_resource_host
-		if fk == nil {
-			return fmt.Errorf(`foreign-key "hostdevice_resource_host" is nil for node %v`, n.ID)
-		}
-		node, ok := nodeids[*fk]
+		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected referenced foreign-key "hostdevice_resource_host" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "hostdevice_resource_host" returned %v`, n.ID)
 		}
-		assign(node, n)
+		for i := range nodes {
+			assign(nodes[i], n)
+		}
 	}
 	return nil
 }
