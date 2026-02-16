@@ -41,6 +41,8 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldDesiredPowerState:  inv_computev1.HostResourceFieldDesiredPowerState,
 	computev1.HostResourceFieldDesiredAmtState:    inv_computev1.HostResourceFieldDesiredAmtState,
 	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
+	computev1.HostResourceFieldAmtControlMode:     inv_computev1.HostResourceFieldAmtControlMode,
+	computev1.HostResourceFieldAmtDnsSuffix:       inv_computev1.HostResourceFieldAmtDnsSuffix,
 }
 
 var (
@@ -121,9 +123,11 @@ func toInvHost(host *computev1.HostResource) (*inv_computev1.HostResource, error
 		SerialNumber:       host.GetSerialNumber(),
 		DesiredState:       inv_computev1.HostState_HOST_STATE_ONBOARDED,
 		Metadata:           metadata,
+		AmtDnsSuffix:       host.GetAmtDnsSuffix(),
 		DesiredPowerState:  inv_computev1.PowerState_POWER_STATE_ON,
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
+		AmtControlMode:     inv_computev1.AmtControlMode(host.GetAmtControlMode()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
 		UserLvmSize:        host.GetUserLvmSize(),
 	}
@@ -159,7 +163,9 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		Metadata:           metadata,
 		DesiredPowerState:  inv_computev1.PowerState(host.GetDesiredPowerState()),
 		DesiredAmtState:    inv_computev1.AmtState(host.GetDesiredAmtState()),
+		AmtDnsSuffix:       host.GetAmtDnsSuffix(),
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
+		AmtControlMode:     inv_computev1.AmtControlMode(host.GetAmtControlMode()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
 	}
 
@@ -199,6 +205,7 @@ func fromInvHostStatus(
 	powerStatusTimestamp := TruncateUint64ToUint32(invHost.GetPowerStatusTimestamp())
 
 	amtStatus := invHost.GetAmtStatus()
+	amtDNSSuffix := invHost.GetAmtDnsSuffix()
 	amtStatusIndicator := statusv1.StatusIndication(invHost.GetPowerStatusIndicator())
 	amtStatusTimestamp := TruncateUint64ToUint32(invHost.GetAmtStatusTimestamp())
 
@@ -217,6 +224,7 @@ func fromInvHostStatus(
 	host.AmtStatus = amtStatus
 	host.AmtStatusIndicator = amtStatusIndicator
 	host.AmtStatusTimestamp = amtStatusTimestamp
+	host.AmtDnsSuffix = amtDNSSuffix
 }
 
 func fromInvHostEdges(
@@ -293,7 +301,9 @@ func fromInvHost(
 		HostNics:           fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:           fromInvHostUsbs(invHost.GetHostUsbs()),
 		HostGpus:           fromInvHostGpus(invHost.GetHostGpus()),
+		AmtDnsSuffix:       invHost.GetAmtDnsSuffix(),
 		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
+		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
 		Metadata:           metadata,
