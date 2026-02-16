@@ -53,6 +53,7 @@
     - [WorkloadMember](#resources-compute-v1-WorkloadMember)
     - [WorkloadResource](#resources-compute-v1-WorkloadResource)
   
+    - [AmtControlMode](#resources-compute-v1-AmtControlMode)
     - [AmtSku](#resources-compute-v1-AmtSku)
     - [AmtState](#resources-compute-v1-AmtState)
     - [BaremetalControllerKind](#resources-compute-v1-BaremetalControllerKind)
@@ -808,6 +809,8 @@ A Host resource.
 | amt_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates dynamicity of the amt_status. Set by DM and OM RM only. |
 | amt_status_timestamp | [uint32](#uint32) |  | UTC timestamp when amt_status was last changed. Set by DM and OM RM only. |
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
+| amt_control_mode | [AmtControlMode](#resources-compute-v1-AmtControlMode) |  | coming from user selection |
+| amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
@@ -1070,6 +1073,19 @@ A generic way to group compute resources to obtain a workload.
 
 
  
+
+
+<a name="resources-compute-v1-AmtControlMode"></a>
+
+### AmtControlMode
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| AMT_CONTROL_MODE_UNSPECIFIED | 0 |  |
+| AMT_CONTROL_MODE_ACM | 1 |  |
+| AMT_CONTROL_MODE_CCM | 2 |  |
+
 
 
 <a name="resources-compute-v1-AmtSku"></a>
