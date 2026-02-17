@@ -215,6 +215,8 @@ message HostResource {
   repeated HostusbResource host_usbs = 72 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Back-reference to attached host GPU resources.
   repeated HostgpuResource host_gpus = 73 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Back-reference to attached host vPRO support resources.
+  HostdeviceResource host_device = 80 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The instance associated with the host.
   InstanceResource instance = 90 [(google.api.field_behavior) = OUTPUT_ONLY];
 
@@ -359,6 +361,36 @@ message HostgpuResource {
   repeated string capabilities = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Timestamps associated to the resource.
   resources.common.v1.Timestamps timestamps = 50100 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+// The vPRO support details of host.
+message HostdeviceResource {
+  // Version number of AMT on the host.
+  string version = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Host name of the host.
+  string device_name = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Operational state of AMT on the host, either enabled or disabled.
+  string operational_state = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Build Number of AMT on the host.
+  string build_number = 13 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Integer number of the SKU of the host.
+  string sku = 14 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // AMT features available on host.
+  string features = 15 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Unique device ID for host.
+  string device_guid = 16 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Control mode selected for vPRO on host, either client or admin.
+  string control_mode = 17 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // DNS Suffix for the host.
+  string dns_suffix = 18 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Networking status for RAS on host.
+  string network_status = 25 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Remote connection status for RAS on host.
+  string remote_status = 26 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Trigger for enabling remote connection for RAS on host.
+  string remote_trigger = 27 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Host name for MPS instance remotely connected to host.
+  string mps_hostname = 28 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // The Instance States.
