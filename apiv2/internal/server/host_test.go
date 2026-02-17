@@ -111,7 +111,7 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 			Features:    "feature1,feature2",
 		},
 	},
-	HostDevice: *inv_computev1.HostdeviceResource{
+	HostDevice: &inv_computev1.HostdeviceResource{
 		Version:          "16.1.27",
 		DeviceName:       "testhost",
 		OperationalState: "enabled",
@@ -232,7 +232,7 @@ var exampleAPIHostResource = &computev1.HostResource{
 			Capabilities: []string{"feature1", "feature2"},
 		},
 	},
-	HostDevice: *computev1.HostdeviceResource{
+	HostDevice: &computev1.HostdeviceResource{
 		Version:          "16.1.27",
 		DeviceName:       "testhost",
 		OperationalState: "enabled",
