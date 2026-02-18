@@ -687,6 +687,11 @@ var (
 				Columns: []*schema.Column{OperatingSystemResourcesColumns[2], OperatingSystemResourcesColumns[22]},
 			},
 			{
+				Name:    "operatingsystemresource_profile_name_image_id_tenant_id",
+				Unique:  true,
+				Columns: []*schema.Column{OperatingSystemResourcesColumns[7], OperatingSystemResourcesColumns[5], OperatingSystemResourcesColumns[22]},
+			},
+			{
 				Name:    "operatingsystemresource_tenant_id",
 				Unique:  false,
 				Columns: []*schema.Column{OperatingSystemResourcesColumns[22]},
