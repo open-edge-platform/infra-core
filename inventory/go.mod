@@ -3,7 +3,7 @@
 
 module github.com/open-edge-platform/infra-core/inventory/v2
 
-go 1.25.5
+go 1.25.7
 
 require (
 	ariga.io/atlas v0.38.0
