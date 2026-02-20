@@ -60,7 +60,7 @@ func init() {
 	// Workaround for client-go v0.35.x + fake clients:
 	// WatchListClient + bookmarks break informer sync in tests.
 	//
-	// Disabling this feature gate restores the previous watch behaviour
+	// Disabling this feature gate restores the previous watch behavior
 	// and lets our fake-based controllers progress normally.
 	//
 	// NOTE: this affects only the test binary process.
