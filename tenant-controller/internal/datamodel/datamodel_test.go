@@ -6,6 +6,7 @@ package datamodel
 import (
 	"context"
 	"fmt"
+	"os"
 	"testing"
 	"time"
 
@@ -56,6 +57,16 @@ const (
 
 //nolint:gochecknoinits //just for test purposes
 func init() {
+	// Workaround for client-go v0.35.x + fake clients:
+	// WatchListClient + bookmarks break informer sync in tests.
+	//
+	// Disabling this feature gate restores the previous watch behaviour
+	// and lets our fake-based controllers progress normally.
+	//
+	// NOTE: this affects only the test binary process.
+	if err := os.Setenv("KUBE_FEATURE_WatchListClient", "false"); err != nil {
+		panic(fmt.Sprintf("failed to disable WatchListClient: %v", err))
+	}
 	nexus.CreateObjectMeta = func(name string) metav1.ObjectMeta {
 		return metav1.ObjectMeta{
 			Name:            name,
