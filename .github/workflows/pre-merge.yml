@@ -89,7 +89,7 @@ jobs:
       fail-fast: false
       matrix:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@cd0b18b2ef0e2c52665525fa5503b8ec5edd232f  # 2026.0.10
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@c8c1792b4f2e2934ffc459bb1b981bc26ddaa39a  # 2026.0.12
     with:
       bootstrap_tools: "all,golangci-lint2"
       run_security_scans: true
@@ -113,7 +113,7 @@ jobs:
       contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@cd0b18b2ef0e2c52665525fa5503b8ec5edd232f  # 2026.0.10
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@c8c1792b4f2e2934ffc459bb1b981bc26ddaa39a  # 2026.0.12
     with:
       bootstrap_tools: "yq,nodejs"
       run_security_scans: true
