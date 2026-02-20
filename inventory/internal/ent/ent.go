@@ -14,6 +14,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -103,6 +104,7 @@ func checkColumn(t, c string) error {
 			customconfigresource.Table:      customconfigresource.ValidColumn,
 			endpointresource.Table:          endpointresource.ValidColumn,
 			hostresource.Table:              hostresource.ValidColumn,
+			hostdeviceresource.Table:        hostdeviceresource.ValidColumn,
 			hostgpuresource.Table:           hostgpuresource.ValidColumn,
 			hostnicresource.Table:           hostnicresource.ValidColumn,
 			hoststorageresource.Table:       hoststorageresource.ValidColumn,

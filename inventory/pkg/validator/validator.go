@@ -59,6 +59,7 @@ var invMessages = []proto.Message{
 	&computev1.HoststorageResource{},
 	&computev1.HostgpuResource{},
 	&computev1.HostusbResource{},
+	&computev1.HostdeviceResource{},
 	&computev1.WorkloadResource{},
 	&computev1.WorkloadMember{},
 	&locationv1.SiteResource{},

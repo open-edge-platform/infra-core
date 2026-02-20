@@ -183,6 +183,50 @@ var (
 			},
 		},
 	}
+	// HostdeviceResourcesColumns holds the columns for the "hostdevice_resources" table.
+	HostdeviceResourcesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "resource_id", Type: field.TypeString, Unique: true},
+		{Name: "kind", Type: field.TypeString, Nullable: true},
+		{Name: "version", Type: field.TypeString, Nullable: true},
+		{Name: "device_name", Type: field.TypeString, Nullable: true},
+		{Name: "operational_state", Type: field.TypeString, Nullable: true},
+		{Name: "build_number", Type: field.TypeString, Nullable: true},
+		{Name: "sku", Type: field.TypeString, Nullable: true},
+		{Name: "features", Type: field.TypeString, Nullable: true},
+		{Name: "device_guid", Type: field.TypeString, Unique: true, Nullable: true},
+		{Name: "control_mode", Type: field.TypeString, Nullable: true},
+		{Name: "dns_suffix", Type: field.TypeString, Nullable: true},
+		{Name: "network_status", Type: field.TypeString, Nullable: true},
+		{Name: "remote_status", Type: field.TypeString, Nullable: true},
+		{Name: "remote_trigger", Type: field.TypeString, Nullable: true},
+		{Name: "mps_hostname", Type: field.TypeString, Nullable: true},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
+		{Name: "hostdevice_resource_host", Type: field.TypeInt},
+	}
+	// HostdeviceResourcesTable holds the schema information for the "hostdevice_resources" table.
+	HostdeviceResourcesTable = &schema.Table{
+		Name:       "hostdevice_resources",
+		Columns:    HostdeviceResourcesColumns,
+		PrimaryKey: []*schema.Column{HostdeviceResourcesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "hostdevice_resources_host_resources_host",
+				Columns:    []*schema.Column{HostdeviceResourcesColumns[19]},
+				RefColumns: []*schema.Column{HostResourcesColumns[0]},
+				OnDelete:   schema.NoAction,
+			},
+		},
+		Indexes: []*schema.Index{
+			{
+				Name:    "hostdeviceresource_tenant_id",
+				Unique:  false,
+				Columns: []*schema.Column{HostdeviceResourcesColumns[16]},
+			},
+		},
+	}
 	// HostgpuResourcesColumns holds the columns for the "hostgpu_resources" table.
 	HostgpuResourcesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1201,6 +1245,7 @@ var (
 		CustomConfigResourcesTable,
 		EndpointResourcesTable,
 		HostResourcesTable,
+		HostdeviceResourcesTable,
 		HostgpuResourcesTable,
 		HostnicResourcesTable,
 		HoststorageResourcesTable,
@@ -1235,6 +1280,7 @@ func init() {
 	HostResourcesTable.ForeignKeys[0].RefTable = SiteResourcesTable
 	HostResourcesTable.ForeignKeys[1].RefTable = ProviderResourcesTable
 	HostResourcesTable.ForeignKeys[2].RefTable = InstanceResourcesTable
+	HostdeviceResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostgpuResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HostnicResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable
 	HoststorageResourcesTable.ForeignKeys[0].RefTable = HostResourcesTable

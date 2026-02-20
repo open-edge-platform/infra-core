@@ -292,6 +292,8 @@ func setEdgeHostIDForMut(ctx context.Context, client *ent.Client, mut ent.Mutati
 		mut.SetHostID(hostID)
 	case *ent.HostgpuResourceMutation:
 		mut.SetHostID(hostID)
+	case *ent.HostdeviceResourceMutation:
+		mut.SetHostID(hostID)
 	case *ent.RepeatedScheduleResourceMutation:
 		mut.SetTargetHostID(hostID)
 	case *ent.SingleScheduleResourceMutation:

@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostdeviceresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -36,6 +37,7 @@ type HostResourceQuery struct {
 	withHostNics     *HostnicResourceQuery
 	withHostUsbs     *HostusbResourceQuery
 	withHostGpus     *HostgpuResourceQuery
+	withHostDevice   *HostdeviceResourceQuery
 	withInstance     *InstanceResourceQuery
 	withFKs          bool
 	// intermediate query (i.e. traversal path).
@@ -199,6 +201,28 @@ func (_q *HostResourceQuery) QueryHostGpus() *HostgpuResourceQuery {
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, selector),
 			sqlgraph.To(hostgpuresource.Table, hostgpuresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostGpusTable, hostresource.HostGpusColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryHostDevice chains the current query on the "host_device" edge.
+func (_q *HostResourceQuery) QueryHostDevice() *HostdeviceResourceQuery {
+	query := (&HostdeviceResourceClient{config: _q.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := _q.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := _q.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(hostresource.Table, hostresource.FieldID, selector),
+			sqlgraph.To(hostdeviceresource.Table, hostdeviceresource.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostDeviceTable, hostresource.HostDeviceColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
@@ -426,6 +450,7 @@ func (_q *HostResourceQuery) Clone() *HostResourceQuery {
 		withHostNics:     _q.withHostNics.Clone(),
 		withHostUsbs:     _q.withHostUsbs.Clone(),
 		withHostGpus:     _q.withHostGpus.Clone(),
+		withHostDevice:   _q.withHostDevice.Clone(),
 		withInstance:     _q.withInstance.Clone(),
 		// clone intermediate query.
 		sql:  _q.sql.Clone(),
@@ -496,6 +521,17 @@ func (_q *HostResourceQuery) WithHostGpus(opts ...func(*HostgpuResourceQuery)) *
 		opt(query)
 	}
 	_q.withHostGpus = query
+	return _q
+}
+
+// WithHostDevice tells the query-builder to eager-load the nodes that are connected to
+// the "host_device" edge. The optional arguments are used to configure the query builder of the edge.
+func (_q *HostResourceQuery) WithHostDevice(opts ...func(*HostdeviceResourceQuery)) *HostResourceQuery {
+	query := (&HostdeviceResourceClient{config: _q.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	_q.withHostDevice = query
 	return _q
 }
 
@@ -589,13 +625,14 @@ func (_q *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 		nodes       = []*HostResource{}
 		withFKs     = _q.withFKs
 		_spec       = _q.querySpec()
-		loadedTypes = [7]bool{
+		loadedTypes = [8]bool{
 			_q.withSite != nil,
 			_q.withProvider != nil,
 			_q.withHostStorages != nil,
 			_q.withHostNics != nil,
 			_q.withHostUsbs != nil,
 			_q.withHostGpus != nil,
+			_q.withHostDevice != nil,
 			_q.withInstance != nil,
 		}
 	)
@@ -660,6 +697,13 @@ func (_q *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 		if err := _q.loadHostGpus(ctx, query, nodes,
 			func(n *HostResource) { n.Edges.HostGpus = []*HostgpuResource{} },
 			func(n *HostResource, e *HostgpuResource) { n.Edges.HostGpus = append(n.Edges.HostGpus, e) }); err != nil {
+			return nil, err
+		}
+	}
+	if query := _q.withHostDevice; query != nil {
+		if err := _q.loadHostDevice(ctx, query, nodes,
+			func(n *HostResource) { n.Edges.HostDevice = []*HostdeviceResource{} },
+			func(n *HostResource, e *HostdeviceResource) { n.Edges.HostDevice = append(n.Edges.HostDevice, e) }); err != nil {
 			return nil, err
 		}
 	}
@@ -855,6 +899,37 @@ func (_q *HostResourceQuery) loadHostGpus(ctx context.Context, query *HostgpuRes
 		node, ok := nodeids[*fk]
 		if !ok {
 			return fmt.Errorf(`unexpected referenced foreign-key "hostgpu_resource_host" returned %v for node %v`, *fk, n.ID)
+		}
+		assign(node, n)
+	}
+	return nil
+}
+func (_q *HostResourceQuery) loadHostDevice(ctx context.Context, query *HostdeviceResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostdeviceResource)) error {
+	fks := make([]driver.Value, 0, len(nodes))
+	nodeids := make(map[int]*HostResource)
+	for i := range nodes {
+		fks = append(fks, nodes[i].ID)
+		nodeids[nodes[i].ID] = nodes[i]
+		if init != nil {
+			init(nodes[i])
+		}
+	}
+	query.withFKs = true
+	query.Where(predicate.HostdeviceResource(func(s *sql.Selector) {
+		s.Where(sql.InValues(s.C(hostresource.HostDeviceColumn), fks...))
+	}))
+	neighbors, err := query.All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		fk := n.hostdevice_resource_host
+		if fk == nil {
+			return fmt.Errorf(`foreign-key "hostdevice_resource_host" is nil for node %v`, n.ID)
+		}
+		node, ok := nodeids[*fk]
+		if !ok {
+			return fmt.Errorf(`unexpected referenced foreign-key "hostdevice_resource_host" returned %v for node %v`, *fk, n.ID)
 		}
 		assign(node, n)
 	}

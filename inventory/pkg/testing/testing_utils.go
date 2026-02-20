@@ -1398,6 +1398,70 @@ func (c *InvResourceDAO) CreateHostUsbNoCleanup(
 	return c.createHostusb(tb, tenantID, host, false)
 }
 
+// Create host device. Note this helper is not really meant to be used for the
+// test of HostdeviceResource but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by
+// the eager loading.
+func (c *InvResourceDAO) createHostDevice(
+	tb testing.TB,
+	tenantID string,
+	host *computev1.HostResource,
+	doCleanup bool,
+) (device *computev1.HostdeviceResource) {
+	tb.Helper()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	device = &computev1.HostdeviceResource{
+		Host:       host,
+		Version:    "1.2.34",
+		DeviceName: "testhost",
+		TenantId:   tenantID,
+	}
+	resp, err := c.apiClient.Create(
+		ctx,
+		tenantID,
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_HostDevice{HostDevice: device},
+		})
+	require.NoError(tb, err)
+	deviceResp := resp.GetHostDevice()
+	if doCleanup {
+		tb.Cleanup(func() { c.DeleteResource(tb, tenantID, deviceResp.ResourceId) })
+	}
+	// When this test object is used in protobuf comparisons as part of another
+	// resource, we do not expect further embedded messages. This matches the
+	// structure of objects returned by ent queries, i.e. no two layers of
+	// embedded objects for edges.
+	deviceResp.Host = nil
+
+	return deviceResp
+}
+
+// Create host device. Note this helper is not really meant to be used for the
+// test of HostdeviceResource but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by
+// the eager loading.
+func (c *InvResourceDAO) CreateHostDevice(
+	tb testing.TB,
+	tenantID string,
+	host *computev1.HostResource,
+) (device *computev1.HostdeviceResource) {
+	tb.Helper()
+
+	return c.createHostDevice(tb, tenantID, host, true)
+}
+
+func (c *InvResourceDAO) CreateHostDeviceNoCleanup(
+	tb testing.TB,
+	tenantID string,
+	host *computev1.HostResource,
+) (device *computev1.HostdeviceResource) {
+	tb.Helper()
+
+	return c.createHostDevice(tb, tenantID, host, false)
+}
+
 // Create CustomConfig. Note this helper is not really meant to be used for the
 // test of CustomConfigResource but they are typically leveraged in case of wider
 // tests involving long chain of relations that are not usually fulfilled by

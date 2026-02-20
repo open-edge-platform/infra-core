@@ -457,6 +457,11 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 			protoHost.HostUsbs = append(protoHost.HostUsbs, entHostusbResourceToProtoHostusbResource(u))
 		}
 	}
+	if devices, qerr := host.Edges.HostDeviceOrErr(); qerr == nil {
+		for _, d := range devices {
+			protoHost.HostDevice = entHostDeviceResourceToProtoHostDeviceResource(d)
+		}
+	}
 	if inst, qerr := host.Edges.InstanceOrErr(); qerr == nil {
 		protoHost.Instance = entInstanceResourceToProtoInstanceResource(inst)
 	}
@@ -585,6 +590,37 @@ func entHostStorageResourceToProtoHostStorageResource(hostStorage *ent.Hoststora
 	}
 
 	return protoHostStorage
+}
+
+func entHostDeviceResourceToProtoHostDeviceResource(hostDevice *ent.HostdeviceResource) *computev1.HostdeviceResource {
+	if hostDevice == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	protoHostDevice := &computev1.HostdeviceResource{
+		ResourceId:       hostDevice.ResourceID,
+		Version:          hostDevice.Version,
+		DeviceName:       hostDevice.DeviceName,
+		OperationalState: hostDevice.OperationalState,
+		BuildNumber:      hostDevice.BuildNumber,
+		Sku:              hostDevice.Sku,
+		Features:         hostDevice.Features,
+		DeviceGuid:       hostDevice.DeviceGUID,
+		ControlMode:      hostDevice.ControlMode,
+		DnsSuffix:        hostDevice.DNSSuffix,
+		NetworkStatus:    hostDevice.NetworkStatus,
+		RemoteStatus:     hostDevice.RemoteStatus,
+		RemoteTrigger:    hostDevice.RemoteTrigger,
+		MpsHostname:      hostDevice.MpsHostname,
+		TenantId:         hostDevice.TenantID,
+		CreatedAt:        hostDevice.CreatedAt,
+		UpdatedAt:        hostDevice.UpdatedAt,
+	}
+	if host, qerr := hostDevice.Edges.HostOrErr(); qerr == nil {
+		protoHostDevice.Host = entHostResourceToProtoHostResource(host)
+	}
+
+	return protoHostDevice
 }
 
 func entRemoteAccessConfigurationToProto(entity *ent.RemoteAccessConfiguration) *remoteaccessv1.RemoteAccessConfiguration {
