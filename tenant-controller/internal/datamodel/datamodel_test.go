@@ -210,8 +210,8 @@ func TestDataModelSanity(t *testing.T) {
 			inv_testing.ProviderKind(providerv1.ProviderKind_PROVIDER_KIND_BAREMETAL))
 
 		host := dao.CreateHostNoCleanup(t, projectInfo.B, inv_testing.HostSite(site), inv_testing.HostProvider(provider))
-		os := dao.CreateOsNoCleanup(t, projectInfo.B)
-		dao.CreateInstanceNoCleanup(t, projectInfo.B, host, os)
+		os1 := dao.CreateOsNoCleanup(t, projectInfo.B)
+		dao.CreateInstanceNoCleanup(t, projectInfo.B, host, os1)
 
 		verifyIntegrationWithDataModel(t, projectInfo, nxc, ic)
 	})
@@ -229,8 +229,8 @@ func TestDataModelSanity(t *testing.T) {
 		site := dao.CreateSiteNoCleanup(t, projectInfo.B, inv_testing.SiteProvider(provider), inv_testing.SiteOu(ou),
 			inv_testing.SiteRegion(region))
 		host := dao.CreateHostNoCleanup(t, projectInfo.B, inv_testing.HostSite(site), inv_testing.HostProvider(provider))
-		os := dao.CreateOsNoCleanup(t, projectInfo.B)
-		instance := dao.CreateInstanceNoCleanup(t, projectInfo.B, host, os)
+		os1 := dao.CreateOsNoCleanup(t, projectInfo.B)
+		instance := dao.CreateInstanceNoCleanup(t, projectInfo.B, host, os1)
 		workload := dao.CreateWorkloadNoCleanup(t, projectInfo.B)
 		dao.CreateWorkloadMemberNoCleanup(t, projectInfo.B, workload, instance)
 
@@ -279,10 +279,10 @@ func TestDataModelSanity(t *testing.T) {
 		dao.CreateTelemetryProfile(t, projectInfo.B, inv_testing.TelemetryProfileTarget(site1), tg1, false)
 		dao.CreateTelemetryProfile(t, projectInfo.B, inv_testing.TelemetryProfileTarget(site1), tg2, false)
 
-		os := dao.CreateOsNoCleanup(t, projectInfo.B)
+		os1 := dao.CreateOsNoCleanup(t, projectInfo.B)
 
-		instance1 := dao.CreateInstanceNoCleanup(t, projectInfo.B, host1, os)
-		instance2 := dao.CreateInstanceNoCleanup(t, projectInfo.B, host2, os)
+		instance1 := dao.CreateInstanceNoCleanup(t, projectInfo.B, host1, os1)
+		instance2 := dao.CreateInstanceNoCleanup(t, projectInfo.B, host2, os1)
 
 		workload1 := dao.CreateWorkloadNoCleanup(t, projectInfo.B)
 		workload2 := dao.CreateWorkloadNoCleanup(t,
