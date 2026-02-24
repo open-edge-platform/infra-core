@@ -91,7 +91,7 @@ var (
 	// will be scheduled next hour.
 	expiredRepeatedSched = schedulev1.RepeatedScheduleResource{
 		CronMinutes:     cronAny,
-		CronHours:       fmt.Sprintf("%d", timeNow.Hour()+1),
+		CronHours:       fmt.Sprintf("%d", (timeNow.Hour()+1)%24),
 		CronDayMonth:    cronAny,
 		CronMonth:       cronAny,
 		CronDayWeek:     cronAny,
