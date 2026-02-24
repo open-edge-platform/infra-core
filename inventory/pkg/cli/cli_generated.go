@@ -144,6 +144,123 @@ func (c *Cli) PromptDeleteHost(arg interface{}) (interface{}, error) {
 	}
 }
 
+// Helper funcs for HostDevice
+func helperListHostDevices(ctx context.Context, client inv_client.InventoryClient) ([]*computev1.HostdeviceResource, error) {
+	kind, err := inv_util.GetResourceKindFromMessage(&computev1.HostdeviceResource{})
+	if err != nil {
+		return nil, err
+	}
+	res, err := inv_util.GetResourceFromKind(kind)
+	if err != nil {
+		return nil, err
+	}
+	filter := &inv_v1.ResourceFilter{
+		Resource:  res,
+	}
+	resp, err := client.ListAll(ctx, filter)
+	if inv_errors.IsNotFound(err) {
+		// Continue with empty list.
+	} else if err != nil {
+		return nil, err
+	}
+	return inv_util.GetSpecificResourceList[*computev1.HostdeviceResource](resp)
+}
+
+func (c *Cli) PromptListHostDevices(interface{}) (interface{}, error) {
+	for {
+		res, err := helperListHostDevices(c.ctx, c.client)
+		if err != nil {
+			return nil, err
+		}
+		items := []menuItem{
+			{Name: labelBack, Next: parentPrompt},
+		}
+		for _, r := range res {
+			items = append(items, menuItem{
+				Name: fmt.Sprintf("%.*s", c.lineItemMaxWidth, r),
+				Next: c.PromptHostDeviceDetails,
+				Arg:  r,
+			})
+		}
+		prompt := promptui.Select{
+			Label:     fmt.Sprintf("%d HostDevices total:", len(res)),
+			Items:     items,
+			Templates: selectTemplate,
+			Size:      6,
+			Searcher:  stringContainSearcher(items),
+		}
+		i, _, err := prompt.Run()
+		if err != nil {
+			fmt.Printf("Prompt failed %v\n", err)
+			return nil, err
+		}
+		arg, err := items[i].Next(items[i].Arg)
+		if errors.Is(err, errPromptDone) {
+			return arg, nil
+		} else if errors.Is(err, errPromptSelectDone) {
+			return arg, err
+		} else if err != nil {
+			return nil, err
+		}
+	}
+}
+
+func (c *Cli) PromptHostDeviceDetails(arg interface{}) (interface{}, error) {
+	for {
+		r, ok := arg.(*computev1.HostdeviceResource)
+		if !ok {
+			return nil, errors.New("not a HostDevice")
+		}
+		fmt.Printf("%s", prototext.MarshalOptions{Multiline: true}.Format(r))
+		items := []menuItem{
+			{Name: labelBack, Next: parentPrompt, Arg: r},
+			{Name: "<Select>", Next: returnSelectedItem, Arg: r},
+			{Name: "<Delete>", Next: c.PromptDeleteHostDevice, Arg: r},
+		}
+		prompt := promptui.Select{
+			Label:     "HostDevice Actions:",
+			Items:     items,
+			Templates: selectTemplate,
+			Size:      15,
+		}
+		i, _, err := prompt.Run()
+		if err != nil {
+			fmt.Printf("Prompt failed %v\n", err)
+			return nil, err
+		}
+		arg, err := items[i].Next(items[i].Arg)
+		if errors.Is(err, errPromptDone) {
+			return arg, nil
+		} else if errors.Is(err, errPromptSelectDone) {
+			return arg, err
+		} else if err != nil {
+			return nil, err
+		}
+	}
+}
+
+func (c *Cli) PromptDeleteHostDevice(arg interface{}) (interface{}, error) {
+	r, ok := arg.(*computev1.HostdeviceResource)
+	if !ok {
+		return nil, errors.New("not a HostDevice")
+	}
+	prompt := promptui.Prompt{
+		Label:     "Confirm HostDevice deletion:",
+		IsConfirm: true,
+	}
+	for {
+		result, err := prompt.Run()
+		if err != nil {
+			return nil, nil
+		}
+		if result != "y" {
+			return nil, nil
+		}
+		_, err = c.client.Delete(c.ctx, r.GetResourceId())
+		return nil, err
+	}
+}
+
 // Helper funcs for HostNic
 func helperListHostNics(ctx context.Context, client inv_client.InventoryClient) ([]*computev1.HostnicResource, error) {
 	kind, err := inv_util.GetResourceKindFromMessage(&computev1.HostnicResource{})

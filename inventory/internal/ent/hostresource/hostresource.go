@@ -140,6 +140,8 @@ const (
 	EdgeHostUsbs = "host_usbs"
 	// EdgeHostGpus holds the string denoting the host_gpus edge name in mutations.
 	EdgeHostGpus = "host_gpus"
+	// EdgeHostDevice holds the string denoting the host_device edge name in mutations.
+	EdgeHostDevice = "host_device"
 	// EdgeInstance holds the string denoting the instance edge name in mutations.
 	EdgeInstance = "instance"
 	// Table holds the table name of the hostresource in the database.
@@ -186,6 +188,13 @@ const (
 	HostGpusInverseTable = "hostgpu_resources"
 	// HostGpusColumn is the table column denoting the host_gpus relation/edge.
 	HostGpusColumn = "hostgpu_resource_host"
+	// HostDeviceTable is the table that holds the host_device relation/edge.
+	HostDeviceTable = "hostdevice_resources"
+	// HostDeviceInverseTable is the table name for the HostdeviceResource entity.
+	// It exists in this package in order to avoid circular dependency with the "hostdeviceresource" package.
+	HostDeviceInverseTable = "hostdevice_resources"
+	// HostDeviceColumn is the table column denoting the host_device relation/edge.
+	HostDeviceColumn = "hostdevice_resource_host"
 	// InstanceTable is the table that holds the instance relation/edge.
 	InstanceTable = "host_resources"
 	// InstanceInverseTable is the table name for the InstanceResource entity.
@@ -1026,6 +1035,20 @@ func ByHostGpus(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 	}
 }
 
+// ByHostDeviceCount orders the results by host_device count.
+func ByHostDeviceCount(opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborsCount(s, newHostDeviceStep(), opts...)
+	}
+}
+
+// ByHostDevice orders the results by host_device terms.
+func ByHostDevice(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newHostDeviceStep(), append([]sql.OrderTerm{term}, terms...)...)
+	}
+}
+
 // ByInstanceField orders the results by instance field.
 func ByInstanceField(field string, opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
@@ -1072,6 +1095,13 @@ func newHostGpusStep() *sqlgraph.Step {
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(HostGpusInverseTable, FieldID),
 		sqlgraph.Edge(sqlgraph.O2M, true, HostGpusTable, HostGpusColumn),
+	)
+}
+func newHostDeviceStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(HostDeviceInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.O2M, true, HostDeviceTable, HostDeviceColumn),
 	)
 }
 func newInstanceStep() *sqlgraph.Step {

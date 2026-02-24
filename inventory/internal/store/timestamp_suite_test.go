@@ -110,7 +110,7 @@ func (tts *TimestampTestSuite) TestUpdateTimestamps() {
 		switch upResProto.Descriptor().Name() {
 		// Special case for host sub resources, where there is no names.
 		// Other special cases are handled via the updateResource func.
-		case "HostgpuResource", "HostnicResource", "HoststorageResource", "HostusbResource":
+		case "HostdeviceResource", "HostgpuResource", "HostnicResource", "HoststorageResource", "HostusbResource":
 			fieldName = "device_name"
 		case "OperatingSystemResource":
 			fieldName = "installed_packages"
@@ -214,6 +214,16 @@ func TestTimestamp(t *testing.T) {
 	}{
 		{
 			name:       "Host",
+			clientType: inv_testing.APIClient,
+			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
+				return dao.CreateHost(t, tenantIDOne)
+			},
+			emptyFunc: func() proto.Message {
+				return &computev1.HostResource{}
+			},
+		},
+		{
+			name:       "HostDevice",
 			clientType: inv_testing.APIClient,
 			createFunc: func(dao *inv_testing.InvResourceDAO) tsSuiteTestRes {
 				return dao.CreateHost(t, tenantIDOne)
