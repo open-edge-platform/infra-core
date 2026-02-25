@@ -147,6 +147,10 @@ linters:
       - linters:
           - lll
         path: cmd/exporter.go
+      - linters:
+          - revive
+        text: "var-naming: avoid meaningless package names"
+        path: internal/common/
       - path: (.+)\.go$
         text: Error return value of `.*Close` is not checked
       - path: (.+)\.go$
