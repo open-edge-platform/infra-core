@@ -685,8 +685,8 @@ func (is *InventorygRPCServer) PatchHost(
 	}
 
 	// Validate amtControlMode changes - not allowed when already provisioned
-	if err := is.validateAmtControlModeChange(ctx, req.GetResourceId(), fieldmask); err != nil {
-		return nil, err
+	if errValidate := is.validateAmtControlModeChange(ctx, req.GetResourceId(), fieldmask); errValidate != nil {
+		return nil, errValidate
 	}
 
 	invRes := &inventory.Resource{
