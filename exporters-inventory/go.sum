@@ -260,12 +260,12 @@ github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 h1:bQx3WeLcUWy+RletI
 github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90/go.mod h1:y5+oSEHCPT/DGrS++Wc/479ERge0zTFxaF8PbGKcg2o=
 github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f h1:/uKCsLU8qn5/41xH0/UW8zwNVNpdj5oRhSmVBiHUUKU=
 github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f/go.mod h1:O2ov3sou5onYt+PmLFDkv46z7lEubpUXssBQF3gZOJg=
-github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.7 h1:nLMl+TyyLuff6nuwVFbTpmvT4cWK2fYuOZQFS2OZcs8=
-github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.7/go.mod h1:8Fi0t+DuJGlJTFiD62vn9kWhRRmhuT55O7SWM6w/C3o=
+github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.8 h1:nHc58FQnTWSxzzGBRjyLWiU+uvCjuVXn97XSN4Ykhns=
+github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.8/go.mod h1:fkmsRq1A8GouwgNmX2VbQOwQRXcZoQQo06kYqTe7qYE=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4 h1:mgQ7gtO2W0t2eodLCtC1n3phD7Js7GqZWoq4AD4fH0s=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4/go.mod h1:f7wYe6ohljTw4NfP5+4P2WGIc+nogUK9d8gE44hToQ8=
-github.com/open-edge-platform/infra-managers/host v1.25.2 h1:zOKGVQrWGzwRoBIcQUskid7Qo5K1UjdqGeg4N69m2SU=
-github.com/open-edge-platform/infra-managers/host v1.25.2/go.mod h1:6S10bOcgTmgYeF44+ZOPEEy9uvzBuLInfeVghKqfaiA=
+github.com/open-edge-platform/infra-managers/host v1.25.1 h1:7VwUQcFZZyuoXFQ7u+4hkmewBSQqznFK3E0bmoj3rqM=
+github.com/open-edge-platform/infra-managers/host v1.25.1/go.mod h1:KCSkYpADsd3SZ0SJV61+TWDzcm0KmkT8pr96CbmiSPs=
 github.com/open-edge-platform/infra-managers/maintenance v1.25.1 h1:DNtK2Zh7+3O8FMWxOl8caMXn3mv3KmwstJJD+5oxgZo=
 github.com/open-edge-platform/infra-managers/maintenance v1.25.1/go.mod h1:bFDDEz41t/d9m/xURRWaabEoXZo6di3sRS94RwvKgxk=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.39.8 h1:30uUs8qU5oNJNVJkx0h8dGKGFoNbyT5krgbwxA/Q2OQ=
