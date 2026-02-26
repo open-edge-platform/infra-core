@@ -264,10 +264,10 @@ github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.8 h1:nHc58FQnTWSxzzGBRjyL
 github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.8/go.mod h1:fkmsRq1A8GouwgNmX2VbQOwQRXcZoQQo06kYqTe7qYE=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4 h1:mgQ7gtO2W0t2eodLCtC1n3phD7Js7GqZWoq4AD4fH0s=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4/go.mod h1:f7wYe6ohljTw4NfP5+4P2WGIc+nogUK9d8gE44hToQ8=
-github.com/open-edge-platform/infra-managers/host v1.25.2 h1:zOKGVQrWGzwRoBIcQUskid7Qo5K1UjdqGeg4N69m2SU=
-github.com/open-edge-platform/infra-managers/host v1.25.2/go.mod h1:6S10bOcgTmgYeF44+ZOPEEy9uvzBuLInfeVghKqfaiA=
-github.com/open-edge-platform/infra-managers/maintenance v1.25.1 h1:DNtK2Zh7+3O8FMWxOl8caMXn3mv3KmwstJJD+5oxgZo=
-github.com/open-edge-platform/infra-managers/maintenance v1.25.1/go.mod h1:bFDDEz41t/d9m/xURRWaabEoXZo6di3sRS94RwvKgxk=
+github.com/open-edge-platform/infra-managers/host v1.25.3 h1:JRgAjlkYqBrrVOydhA7MdqBkg5SGJtERJzzBsDsymOc=
+github.com/open-edge-platform/infra-managers/host v1.25.3/go.mod h1:aKMv3jlPQ5JeP2yqBN9wOyvwwjCgeXW0epMvsjwrLR8=
+github.com/open-edge-platform/infra-managers/maintenance v1.25.2 h1:AhUYSDXFELkj2v6XxIfj+GhP9u73a/QSiKErcpc3gNc=
+github.com/open-edge-platform/infra-managers/maintenance v1.25.2/go.mod h1:Vdsq4hD3a8+uLsoFD2VDW+XWDJOe/uHUXBw8WxCTfio=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.39.8 h1:30uUs8qU5oNJNVJkx0h8dGKGFoNbyT5krgbwxA/Q2OQ=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.39.8/go.mod h1:lnFWNCKNvgUL841Zg/BhAEPGkqNTCme6Jf2fakFEwuk=
 github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d h1:xRow90Mk5U2h+R60TTL8lPXIFbdQWSnHyg09vh8NEPo=
