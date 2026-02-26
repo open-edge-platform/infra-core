@@ -260,8 +260,8 @@ github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 h1:bQx3WeLcUWy+RletI
 github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90/go.mod h1:y5+oSEHCPT/DGrS++Wc/479ERge0zTFxaF8PbGKcg2o=
 github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f h1:/uKCsLU8qn5/41xH0/UW8zwNVNpdj5oRhSmVBiHUUKU=
 github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f/go.mod h1:O2ov3sou5onYt+PmLFDkv46z7lEubpUXssBQF3gZOJg=
-github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.8 h1:nHc58FQnTWSxzzGBRjyLWiU+uvCjuVXn97XSN4Ykhns=
-github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.8/go.mod h1:fkmsRq1A8GouwgNmX2VbQOwQRXcZoQQo06kYqTe7qYE=
+github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.9 h1:URwOQX3ACzzAMldRy4xL4vjXlxsJQO+bptMNnRSweUY=
+github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.9/go.mod h1:n2rCzFxwiyb4GP/PSuCXeEz/MJEnzIXl508srKtm4nY=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4 h1:mgQ7gtO2W0t2eodLCtC1n3phD7Js7GqZWoq4AD4fH0s=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4/go.mod h1:f7wYe6ohljTw4NfP5+4P2WGIc+nogUK9d8gE44hToQ8=
 github.com/open-edge-platform/infra-managers/host v1.25.3 h1:JRgAjlkYqBrrVOydhA7MdqBkg5SGJtERJzzBsDsymOc=
