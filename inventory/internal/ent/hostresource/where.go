@@ -228,6 +228,11 @@ func RegistrationStatusTimestamp(v uint64) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldRegistrationStatusTimestamp, v))
 }
 
+// TestField applies equality check predicate on the "test_field" field. It's identical to TestFieldEQ.
+func TestField(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldTestField, v))
+}
+
 // AmtStatus applies equality check predicate on the "amt_status" field. It's identical to AmtStatusEQ.
 func AmtStatus(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldAmtStatus, v))
@@ -2951,6 +2956,56 @@ func RegistrationStatusTimestampIsNil() predicate.HostResource {
 // RegistrationStatusTimestampNotNil applies the NotNil predicate on the "registration_status_timestamp" field.
 func RegistrationStatusTimestampNotNil() predicate.HostResource {
 	return predicate.HostResource(sql.FieldNotNull(FieldRegistrationStatusTimestamp))
+}
+
+// TestFieldEQ applies the EQ predicate on the "test_field" field.
+func TestFieldEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldTestField, v))
+}
+
+// TestFieldNEQ applies the NEQ predicate on the "test_field" field.
+func TestFieldNEQ(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldTestField, v))
+}
+
+// TestFieldIn applies the In predicate on the "test_field" field.
+func TestFieldIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldTestField, vs...))
+}
+
+// TestFieldNotIn applies the NotIn predicate on the "test_field" field.
+func TestFieldNotIn(vs ...uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldTestField, vs...))
+}
+
+// TestFieldGT applies the GT predicate on the "test_field" field.
+func TestFieldGT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldTestField, v))
+}
+
+// TestFieldGTE applies the GTE predicate on the "test_field" field.
+func TestFieldGTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldTestField, v))
+}
+
+// TestFieldLT applies the LT predicate on the "test_field" field.
+func TestFieldLT(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldTestField, v))
+}
+
+// TestFieldLTE applies the LTE predicate on the "test_field" field.
+func TestFieldLTE(v uint64) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldTestField, v))
+}
+
+// TestFieldIsNil applies the IsNil predicate on the "test_field" field.
+func TestFieldIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldTestField))
+}
+
+// TestFieldNotNil applies the NotNil predicate on the "test_field" field.
+func TestFieldNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldTestField))
 }
 
 // AmtSkuEQ applies the EQ predicate on the "amt_sku" field.

@@ -648,6 +648,20 @@ func (_c *HostResourceCreate) SetNillableRegistrationStatusTimestamp(v *uint64) 
 	return _c
 }
 
+// SetTestField sets the "test_field" field.
+func (_c *HostResourceCreate) SetTestField(v uint64) *HostResourceCreate {
+	_c.mutation.SetTestField(v)
+	return _c
+}
+
+// SetNillableTestField sets the "test_field" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableTestField(v *uint64) *HostResourceCreate {
+	if v != nil {
+		_c.SetTestField(*v)
+	}
+	return _c
+}
+
 // SetAmtSku sets the "amt_sku" field.
 func (_c *HostResourceCreate) SetAmtSku(v hostresource.AmtSku) *HostResourceCreate {
 	_c.mutation.SetAmtSku(v)
@@ -1235,6 +1249,10 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 	if value, ok := _c.mutation.RegistrationStatusTimestamp(); ok {
 		_spec.SetField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64, value)
 		_node.RegistrationStatusTimestamp = value
+	}
+	if value, ok := _c.mutation.TestField(); ok {
+		_spec.SetField(hostresource.FieldTestField, field.TypeUint64, value)
+		_node.TestField = value
 	}
 	if value, ok := _c.mutation.AmtSku(); ok {
 		_spec.SetField(hostresource.FieldAmtSku, field.TypeEnum, value)

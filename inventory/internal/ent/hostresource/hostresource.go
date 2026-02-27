@@ -104,6 +104,8 @@ const (
 	FieldRegistrationStatusIndicator = "registration_status_indicator"
 	// FieldRegistrationStatusTimestamp holds the string denoting the registration_status_timestamp field in the database.
 	FieldRegistrationStatusTimestamp = "registration_status_timestamp"
+	// FieldTestField holds the string denoting the test_field field in the database.
+	FieldTestField = "test_field"
 	// FieldAmtSku holds the string denoting the amt_sku field in the database.
 	FieldAmtSku = "amt_sku"
 	// FieldDesiredAmtState holds the string denoting the desired_amt_state field in the database.
@@ -243,6 +245,7 @@ var Columns = []string{
 	FieldRegistrationStatus,
 	FieldRegistrationStatusIndicator,
 	FieldRegistrationStatusTimestamp,
+	FieldTestField,
 	FieldAmtSku,
 	FieldDesiredAmtState,
 	FieldCurrentAmtState,
@@ -894,6 +897,11 @@ func ByRegistrationStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
 // ByRegistrationStatusTimestamp orders the results by the registration_status_timestamp field.
 func ByRegistrationStatusTimestamp(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRegistrationStatusTimestamp, opts...).ToFunc()
+}
+
+// ByTestField orders the results by the test_field field.
+func ByTestField(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTestField, opts...).ToFunc()
 }
 
 // ByAmtSku orders the results by the amt_sku field.

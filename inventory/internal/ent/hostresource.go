@@ -109,6 +109,8 @@ type HostResource struct {
 	RegistrationStatusIndicator hostresource.RegistrationStatusIndicator `json:"registration_status_indicator,omitempty"`
 	// RegistrationStatusTimestamp holds the value of the "registration_status_timestamp" field.
 	RegistrationStatusTimestamp uint64 `json:"registration_status_timestamp,omitempty"`
+	// TestField holds the value of the "test_field" field.
+	TestField uint64 `json:"test_field,omitempty"`
 	// AmtSku holds the value of the "amt_sku" field.
 	AmtSku hostresource.AmtSku `json:"amt_sku,omitempty"`
 	// DesiredAmtState holds the value of the "desired_amt_state" field.
@@ -237,7 +239,7 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp, hostresource.FieldUserLvmSize:
+		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldTestField, hostresource.FieldAmtStatusTimestamp, hostresource.FieldUserLvmSize:
 			values[i] = new(sql.NullInt64)
 		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtControlMode, hostresource.FieldAmtDNSSuffix, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
@@ -538,6 +540,12 @@ func (_m *HostResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.RegistrationStatusTimestamp = uint64(value.Int64)
 			}
+		case hostresource.FieldTestField:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field test_field", values[i])
+			} else if value.Valid {
+				_m.TestField = uint64(value.Int64)
+			}
 		case hostresource.FieldAmtSku:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field amt_sku", values[i])
@@ -836,6 +844,9 @@ func (_m *HostResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("registration_status_timestamp=")
 	builder.WriteString(fmt.Sprintf("%v", _m.RegistrationStatusTimestamp))
+	builder.WriteString(", ")
+	builder.WriteString("test_field=")
+	builder.WriteString(fmt.Sprintf("%v", _m.TestField))
 	builder.WriteString(", ")
 	builder.WriteString("amt_sku=")
 	builder.WriteString(fmt.Sprintf("%v", _m.AmtSku))

@@ -991,6 +991,33 @@ func (_u *HostResourceUpdate) ClearRegistrationStatusTimestamp() *HostResourceUp
 	return _u
 }
 
+// SetTestField sets the "test_field" field.
+func (_u *HostResourceUpdate) SetTestField(v uint64) *HostResourceUpdate {
+	_u.mutation.ResetTestField()
+	_u.mutation.SetTestField(v)
+	return _u
+}
+
+// SetNillableTestField sets the "test_field" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableTestField(v *uint64) *HostResourceUpdate {
+	if v != nil {
+		_u.SetTestField(*v)
+	}
+	return _u
+}
+
+// AddTestField adds value to the "test_field" field.
+func (_u *HostResourceUpdate) AddTestField(v int64) *HostResourceUpdate {
+	_u.mutation.AddTestField(v)
+	return _u
+}
+
+// ClearTestField clears the value of the "test_field" field.
+func (_u *HostResourceUpdate) ClearTestField() *HostResourceUpdate {
+	_u.mutation.ClearTestField()
+	return _u
+}
+
 // SetAmtSku sets the "amt_sku" field.
 func (_u *HostResourceUpdate) SetAmtSku(v hostresource.AmtSku) *HostResourceUpdate {
 	_u.mutation.SetAmtSku(v)
@@ -1835,6 +1862,15 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 	}
 	if _u.mutation.RegistrationStatusTimestampCleared() {
 		_spec.ClearField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := _u.mutation.TestField(); ok {
+		_spec.SetField(hostresource.FieldTestField, field.TypeUint64, value)
+	}
+	if value, ok := _u.mutation.AddedTestField(); ok {
+		_spec.AddField(hostresource.FieldTestField, field.TypeUint64, value)
+	}
+	if _u.mutation.TestFieldCleared() {
+		_spec.ClearField(hostresource.FieldTestField, field.TypeUint64)
 	}
 	if value, ok := _u.mutation.AmtSku(); ok {
 		_spec.SetField(hostresource.FieldAmtSku, field.TypeEnum, value)
@@ -3143,6 +3179,33 @@ func (_u *HostResourceUpdateOne) ClearRegistrationStatusTimestamp() *HostResourc
 	return _u
 }
 
+// SetTestField sets the "test_field" field.
+func (_u *HostResourceUpdateOne) SetTestField(v uint64) *HostResourceUpdateOne {
+	_u.mutation.ResetTestField()
+	_u.mutation.SetTestField(v)
+	return _u
+}
+
+// SetNillableTestField sets the "test_field" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableTestField(v *uint64) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetTestField(*v)
+	}
+	return _u
+}
+
+// AddTestField adds value to the "test_field" field.
+func (_u *HostResourceUpdateOne) AddTestField(v int64) *HostResourceUpdateOne {
+	_u.mutation.AddTestField(v)
+	return _u
+}
+
+// ClearTestField clears the value of the "test_field" field.
+func (_u *HostResourceUpdateOne) ClearTestField() *HostResourceUpdateOne {
+	_u.mutation.ClearTestField()
+	return _u
+}
+
 // SetAmtSku sets the "amt_sku" field.
 func (_u *HostResourceUpdateOne) SetAmtSku(v hostresource.AmtSku) *HostResourceUpdateOne {
 	_u.mutation.SetAmtSku(v)
@@ -4017,6 +4080,15 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 	}
 	if _u.mutation.RegistrationStatusTimestampCleared() {
 		_spec.ClearField(hostresource.FieldRegistrationStatusTimestamp, field.TypeUint64)
+	}
+	if value, ok := _u.mutation.TestField(); ok {
+		_spec.SetField(hostresource.FieldTestField, field.TypeUint64, value)
+	}
+	if value, ok := _u.mutation.AddedTestField(); ok {
+		_spec.AddField(hostresource.FieldTestField, field.TypeUint64, value)
+	}
+	if _u.mutation.TestFieldCleared() {
+		_spec.ClearField(hostresource.FieldTestField, field.TypeUint64)
 	}
 	if value, ok := _u.mutation.AmtSku(); ok {
 		_spec.SetField(hostresource.FieldAmtSku, field.TypeEnum, value)

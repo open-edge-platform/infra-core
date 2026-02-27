@@ -1609,6 +1609,8 @@ type HostResourceMutation struct {
 	registration_status_indicator    *hostresource.RegistrationStatusIndicator
 	registration_status_timestamp    *uint64
 	addregistration_status_timestamp *int64
+	test_field                       *uint64
+	addtest_field                    *int64
 	amt_sku                          *hostresource.AmtSku
 	desired_amt_state                *hostresource.DesiredAmtState
 	current_amt_state                *hostresource.CurrentAmtState
@@ -4126,6 +4128,76 @@ func (m *HostResourceMutation) ResetRegistrationStatusTimestamp() {
 	delete(m.clearedFields, hostresource.FieldRegistrationStatusTimestamp)
 }
 
+// SetTestField sets the "test_field" field.
+func (m *HostResourceMutation) SetTestField(u uint64) {
+	m.test_field = &u
+	m.addtest_field = nil
+}
+
+// TestField returns the value of the "test_field" field in the mutation.
+func (m *HostResourceMutation) TestField() (r uint64, exists bool) {
+	v := m.test_field
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTestField returns the old "test_field" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldTestField(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTestField is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTestField requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTestField: %w", err)
+	}
+	return oldValue.TestField, nil
+}
+
+// AddTestField adds u to the "test_field" field.
+func (m *HostResourceMutation) AddTestField(u int64) {
+	if m.addtest_field != nil {
+		*m.addtest_field += u
+	} else {
+		m.addtest_field = &u
+	}
+}
+
+// AddedTestField returns the value that was added to the "test_field" field in this mutation.
+func (m *HostResourceMutation) AddedTestField() (r int64, exists bool) {
+	v := m.addtest_field
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearTestField clears the value of the "test_field" field.
+func (m *HostResourceMutation) ClearTestField() {
+	m.test_field = nil
+	m.addtest_field = nil
+	m.clearedFields[hostresource.FieldTestField] = struct{}{}
+}
+
+// TestFieldCleared returns if the "test_field" field was cleared in this mutation.
+func (m *HostResourceMutation) TestFieldCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldTestField]
+	return ok
+}
+
+// ResetTestField resets all changes to the "test_field" field.
+func (m *HostResourceMutation) ResetTestField() {
+	m.test_field = nil
+	m.addtest_field = nil
+	delete(m.clearedFields, hostresource.FieldTestField)
+}
+
 // SetAmtSku sets the "amt_sku" field.
 func (m *HostResourceMutation) SetAmtSku(hs hostresource.AmtSku) {
 	m.amt_sku = &hs
@@ -5084,7 +5156,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 57)
+	fields := make([]string, 0, 58)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -5220,6 +5292,9 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.registration_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldRegistrationStatusTimestamp)
 	}
+	if m.test_field != nil {
+		fields = append(fields, hostresource.FieldTestField)
+	}
 	if m.amt_sku != nil {
 		fields = append(fields, hostresource.FieldAmtSku)
 	}
@@ -5354,6 +5429,8 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.RegistrationStatusIndicator()
 	case hostresource.FieldRegistrationStatusTimestamp:
 		return m.RegistrationStatusTimestamp()
+	case hostresource.FieldTestField:
+		return m.TestField()
 	case hostresource.FieldAmtSku:
 		return m.AmtSku()
 	case hostresource.FieldDesiredAmtState:
@@ -5477,6 +5554,8 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldRegistrationStatusIndicator(ctx)
 	case hostresource.FieldRegistrationStatusTimestamp:
 		return m.OldRegistrationStatusTimestamp(ctx)
+	case hostresource.FieldTestField:
+		return m.OldTestField(ctx)
 	case hostresource.FieldAmtSku:
 		return m.OldAmtSku(ctx)
 	case hostresource.FieldDesiredAmtState:
@@ -5825,6 +5904,13 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetRegistrationStatusTimestamp(v)
 		return nil
+	case hostresource.FieldTestField:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTestField(v)
+		return nil
 	case hostresource.FieldAmtSku:
 		v, ok := value.(hostresource.AmtSku)
 		if !ok {
@@ -5944,6 +6030,9 @@ func (m *HostResourceMutation) AddedFields() []string {
 	if m.addregistration_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldRegistrationStatusTimestamp)
 	}
+	if m.addtest_field != nil {
+		fields = append(fields, hostresource.FieldTestField)
+	}
 	if m.addamt_status_timestamp != nil {
 		fields = append(fields, hostresource.FieldAmtStatusTimestamp)
 	}
@@ -5976,6 +6065,8 @@ func (m *HostResourceMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedOnboardingStatusTimestamp()
 	case hostresource.FieldRegistrationStatusTimestamp:
 		return m.AddedRegistrationStatusTimestamp()
+	case hostresource.FieldTestField:
+		return m.AddedTestField()
 	case hostresource.FieldAmtStatusTimestamp:
 		return m.AddedAmtStatusTimestamp()
 	case hostresource.FieldUserLvmSize:
@@ -6051,6 +6142,13 @@ func (m *HostResourceMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddRegistrationStatusTimestamp(v)
+		return nil
+	case hostresource.FieldTestField:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTestField(v)
 		return nil
 	case hostresource.FieldAmtStatusTimestamp:
 		v, ok := value.(int64)
@@ -6205,6 +6303,9 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(hostresource.FieldRegistrationStatusTimestamp) {
 		fields = append(fields, hostresource.FieldRegistrationStatusTimestamp)
+	}
+	if m.FieldCleared(hostresource.FieldTestField) {
+		fields = append(fields, hostresource.FieldTestField)
 	}
 	if m.FieldCleared(hostresource.FieldAmtSku) {
 		fields = append(fields, hostresource.FieldAmtSku)
@@ -6379,6 +6480,9 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldRegistrationStatusTimestamp:
 		m.ClearRegistrationStatusTimestamp()
 		return nil
+	case hostresource.FieldTestField:
+		m.ClearTestField()
+		return nil
 	case hostresource.FieldAmtSku:
 		m.ClearAmtSku()
 		return nil
@@ -6548,6 +6652,9 @@ func (m *HostResourceMutation) ResetField(name string) error {
 		return nil
 	case hostresource.FieldRegistrationStatusTimestamp:
 		m.ResetRegistrationStatusTimestamp()
+		return nil
+	case hostresource.FieldTestField:
+		m.ResetTestField()
 		return nil
 	case hostresource.FieldAmtSku:
 		m.ResetAmtSku()

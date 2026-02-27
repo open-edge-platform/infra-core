@@ -57,6 +57,7 @@ const (
 	HostResourceEdgeHostNics                     = "host_nics"
 	HostResourceEdgeHostUsbs                     = "host_usbs"
 	HostResourceEdgeHostGpus                     = "host_gpus"
+	HostResourceFieldTestField                   = "test_field"
 	HostResourceEdgeInstance                     = "instance"
 	HostResourceFieldAmtSku                      = "amt_sku"
 	HostResourceFieldDesiredAmtState             = "desired_amt_state"

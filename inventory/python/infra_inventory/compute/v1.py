@@ -214,6 +214,7 @@ class HostResource(betterproto.Message):
     host_nics: List["HostnicResource"] = betterproto.message_field(71)
     host_usbs: List["HostusbResource"] = betterproto.message_field(72)
     host_gpus: List["HostgpuResource"] = betterproto.message_field(73)
+    test_field: int = betterproto.uint64_field(74)
     instance: "InstanceResource" = betterproto.message_field(90)
     amt_sku: "AmtSku" = betterproto.enum_field(91)
     desired_amt_state: "AmtState" = betterproto.enum_field(92)

@@ -118,6 +118,7 @@ var (
 		{Name: "registration_status", Type: field.TypeString, Nullable: true},
 		{Name: "registration_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "registration_status_timestamp", Type: field.TypeUint64, Nullable: true},
+		{Name: "test_field", Type: field.TypeUint64, Nullable: true},
 		{Name: "amt_sku", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_SKU_UNSPECIFIED", "AMT_SKU_AMT", "AMT_SKU_ISM"}},
 		{Name: "desired_amt_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_STATE_UNSPECIFIED", "AMT_STATE_PROVISIONED", "AMT_STATE_UNPROVISIONED", "AMT_STATE_DISCONNECTED"}},
 		{Name: "current_amt_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_STATE_UNSPECIFIED", "AMT_STATE_PROVISIONED", "AMT_STATE_UNPROVISIONED", "AMT_STATE_DISCONNECTED"}},
@@ -142,19 +143,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "host_resources_site_resources_site",
-				Columns:    []*schema.Column{HostResourcesColumns[58]},
+				Columns:    []*schema.Column{HostResourcesColumns[59]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_provider_resources_provider",
-				Columns:    []*schema.Column{HostResourcesColumns[59]},
+				Columns:    []*schema.Column{HostResourcesColumns[60]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[60]},
+				Columns:    []*schema.Column{HostResourcesColumns[61]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -179,7 +180,7 @@ var (
 			{
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{HostResourcesColumns[55]},
+				Columns: []*schema.Column{HostResourcesColumns[56]},
 			},
 		},
 	}

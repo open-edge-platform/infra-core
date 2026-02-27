@@ -576,6 +576,7 @@ textual message that describes the onboarding status of Host. Set by RMs only. |
 | host_nics | [HostnicResource](#compute-v1-HostnicResource) | repeated | Back-reference to attached host NIC resources. This edge is read-only. |
 | host_usbs | [HostusbResource](#compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. This edge is read-only. |
 | host_gpus | [HostgpuResource](#compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. This edge is read-only. |
+| test_field | [uint64](#uint64) |  |  |
 | instance | [InstanceResource](#compute-v1-InstanceResource) |  | back-reference to baremetal Instance associated to this host |
 | amt_sku | [AmtSku](#compute-v1-AmtSku) |  | coming from device introspection |
 | desired_amt_state | [AmtState](#compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |

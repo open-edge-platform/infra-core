@@ -213,6 +213,8 @@ message HostResource {
   repeated HostnicResource host_nics = 71 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host NIC resources. This edge is read-only.
   repeated HostusbResource host_usbs = 72 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host USB resources. This edge is read-only.
   repeated HostgpuResource host_gpus = 73 [(ent.edge) = {ref: "host"}]; // Back-reference to attached host GPU resources. This edge is read-only.
+  
+  uint64 test_field = 74 [(ent.field) = {optional: true}];
 
   InstanceResource instance = 90 [(ent.edge) = {
     unique: true
