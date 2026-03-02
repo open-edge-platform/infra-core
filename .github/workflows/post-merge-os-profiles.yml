@@ -12,8 +12,7 @@ on:
     paths:
       - 'os-profiles/**'
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   post-merge-pipeline:
