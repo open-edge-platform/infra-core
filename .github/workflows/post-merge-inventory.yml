@@ -12,8 +12,7 @@ on:
     paths:
       - 'inventory/**'
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   post-merge-pipeline:
