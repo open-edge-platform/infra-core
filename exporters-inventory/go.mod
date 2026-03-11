@@ -9,14 +9,14 @@ require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
 	github.com/open-edge-platform/infra-core/apiv2/v2 v2.9.10
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4
-	github.com/open-edge-platform/infra-managers/host v1.25.3
+	github.com/open-edge-platform/infra-managers/host v1.25.4
 	github.com/open-edge-platform/infra-managers/maintenance v1.25.2
 	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.39.9
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2
 	github.com/prometheus/common v0.67.5
 	github.com/stretchr/testify v1.11.1
-	google.golang.org/grpc v1.80.0-dev
+	google.golang.org/grpc v1.81.0-dev
 )
 
 require (
@@ -142,7 +142,7 @@ require (
 	golang.org/x/crypto v0.48.0 // indirect
 	golang.org/x/exp v0.0.0-20250813145105-42675adae3e6 // indirect
 	golang.org/x/mod v0.33.0 // indirect
-	golang.org/x/net v0.50.0 // indirect
+	golang.org/x/net v0.51.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/sys v0.41.0 // indirect
 	golang.org/x/text v0.34.0 // indirect
