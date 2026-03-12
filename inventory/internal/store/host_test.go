@@ -1034,6 +1034,45 @@ func Test_UpdateHost(t *testing.T) {
 		},
 	}
 
+	// Dedicated sub-test: verify that resetting PowerCommandPolicy to
+	// UNSPECIFIED via an update results in POWER_COMMAND_POLICY_IMMEDIATE.
+	t.Run("UpdatePowerCommandPolicyResetsToImmediate", func(t *testing.T) {
+		// First, set a non-default power command policy.
+		setReq := &inv_v1.Resource{
+			Resource: &inv_v1.Resource_Host{Host: &computev1.HostResource{
+				PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+			}},
+		}
+		setMask := &fieldmaskpb.FieldMask{Paths: []string{hostresource.FieldPowerCommandPolicy}}
+		upRes, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostResID, setMask, setReq)
+		require.NoError(t, err, "failed to set PowerCommandPolicy to ORDERED")
+		assert.Equal(t,
+			computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_ORDERED,
+			upRes.GetHost().GetPowerCommandPolicy(),
+			"PowerCommandPolicy should be ORDERED after explicit set")
+
+		// Now reset PowerCommandPolicy to UNSPECIFIED; expect IMMEDIATE.
+		resetReq := &inv_v1.Resource{
+			Resource: &inv_v1.Resource_Host{Host: &computev1.HostResource{
+				PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_UNSPECIFIED,
+			}},
+		}
+		upRes, err = inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostResID, setMask, resetReq)
+		require.NoError(t, err, "failed to reset PowerCommandPolicy to UNSPECIFIED")
+		assert.Equal(t,
+			computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
+			upRes.GetHost().GetPowerCommandPolicy(),
+			"PowerCommandPolicy should default to IMMEDIATE when set to UNSPECIFIED")
+
+		// Verify via a Get as well.
+		getResp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, hostResID)
+		require.NoError(t, err, "GetHost() failed")
+		assert.Equal(t,
+			computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
+			getResp.GetResource().GetHost().GetPowerCommandPolicy(),
+			"GetHost: PowerCommandPolicy should be IMMEDIATE after reset")
+	})
+
 	for _, tc := range testcases {
 		t.Run(tc.name, func(t *testing.T) {
 			updateresreq := &inv_v1.Resource{
