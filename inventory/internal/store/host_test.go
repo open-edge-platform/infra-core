@@ -444,6 +444,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 
 				DesiredAmtState: computev1.AmtState_AMT_STATE_PROVISIONED,
 
+				PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
+
 				UserLvmSize: 80,
 
 				Metadata: "[{\"key\":\"cluster-name\",\"value\":\"\"},{\"key\":\"app-id\",\"value\":\"\"}]",
@@ -488,6 +490,8 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				BiosVendor:      "Dell Inc.",
 
 				DesiredPowerState: computev1.PowerState_POWER_STATE_ON,
+
+				PowerCommandPolicy: computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE,
 
 				UserLvmSize: 80,
 
@@ -606,6 +610,7 @@ func Test_Create_Get_Delete_Host(t *testing.T) {
 				tc.in.ResourceId = hostResID // Update with created resource ID.
 				tc.in.HostStatus = res_status.DefaultHostStatus
 				tc.in.OnboardingStatus = res_status.DefaultOnboardingStatus
+				tc.in.PowerCommandPolicy = computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
@@ -1303,6 +1308,7 @@ func Test_Register_Host(t *testing.T) {
 				tc.in.ResourceId = hostResID // Update with created resource ID.
 				tc.in.HostStatus = res_status.DefaultHostStatus
 				tc.in.OnboardingStatus = res_status.DefaultOnboardingStatus
+				tc.in.PowerCommandPolicy = computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_IMMEDIATE
 				tc.in.RegistrationStatus = res_status.DefaultRegistrationStatus
 				tc.in.CreatedAt = chostResp.GetHost().GetCreatedAt()
 				tc.in.UpdatedAt = chostResp.GetHost().GetUpdatedAt()
