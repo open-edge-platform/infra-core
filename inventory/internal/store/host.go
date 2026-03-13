@@ -227,6 +227,7 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 	fieldmask *fieldmaskpb.FieldMask,
 ) {
 	// Ensure the host state fields are never set to NULL in the DB.
+	// Test main for CI
 	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentState) &&
 		in.GetCurrentState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
 		mut.ResetCurrentState()
