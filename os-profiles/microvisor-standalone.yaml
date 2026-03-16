@@ -6,17 +6,17 @@ appVersion: apps/v1
 metadata:
   standalone-node: true
 spec:
-  name: Edge Microvisor Toolkit Standalone 3.0.20260310
+  name: Edge Microvisor Toolkit Standalone 3.0.20260225
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-standalone  # Name has to be identical to this file name
-  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20260310.2152.raw.gz
-  osImageVersion: 3.0.20260310.2152
-  osImageSha256: 833a0c4c8859c376ee9a2c744a34f06c719d82d3fb61e9c774504df021549974
-  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20260310.2152_pkg_manifest.json
-  osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_cve.json
-  osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_fixed_cves.json
-  securityFeature: SECURITY_FEATURE_NONE
+  osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20260225.0914-prod-signed.raw.gz
+  osImageVersion: 3.0.20260225.0914
+  osImageSha256: 0ee75380040211260565994bc5b4699af999eb6457ad16437f6554645d4557bf
+  osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20260225.0914_pkg_manifest.json
+  osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_cve.json
+  osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_fixed_cves.json
+  securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
   description: Edge Microvisor Toolkit Standalone for x86_64 architecture
   platformBundle:
