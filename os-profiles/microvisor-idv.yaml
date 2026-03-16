@@ -6,17 +6,17 @@ metadata:
   standalone-node: true
   version: 0.1.0
 spec:
-  name: Edge Microvisor Toolkit IDV 3.0.20251204
+  name: Edge Microvisor Toolkit IDV 3.0.20260225
   type: OS_TYPE_IMMUTABLE
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-idv  # Name has to be identical to this file name
-  osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20251204.0340-prod-signed.raw.gz
-  osImageVersion: 3.0.20251204.0340
-  osImageSha256: a46d0554f7166b30bf227bbafdb31bbf98f89592e48b6a0667f9b3e56c31f32d
-  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-image-desktop-virtualization-image-3.0.20251204.0340_pkg_manifest.json
-  osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_cve.json
-  osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-3.2_fixed_cves.json
-  securityFeature: SECURITY_FEATURE_NONE
+  osImageUrl: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20260225.2000-prod-signed.raw.gz
+  osImageVersion: 3.0.20260225.2000
+  osImageSha256: 5e5dbb853653a1a14f29d21c4b1dfb6e23bf6530fde1430e4f1d3189a645751f
+  osPackageManifestURL: files-edge-orch/repository/microvisor/dv/edge-readonly-dv-3.0.20260225.2000_pkg_manifest.json
+  osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_cve.json
+  osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_fixed_cves.json
+  securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
   description: Edge Microvisor Toolkit with Desktop Virtualization for x86_64 architecture
   platformBundle:
