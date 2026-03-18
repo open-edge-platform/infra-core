@@ -592,6 +592,55 @@ func (is *InventorygRPCServer) handleConsecutivePowerReset(
 		resourceID, invHost.DesiredPowerState)
 }
 
+// validateAmtControlModeChange validates that amtControlMode cannot be changed
+// when both desiredAmtState and currentAmtState are AMT_STATE_PROVISIONED.
+func (is *InventorygRPCServer) validateAmtControlModeChange(
+	ctx context.Context,
+	resourceID string,
+	fieldmask *fieldmaskpb.FieldMask,
+) error {
+	// Check if amtControlMode is in the field mask
+	amtControlModeInFieldMask := false
+	for _, path := range fieldmask.GetPaths() {
+		if path == inv_computev1.HostResourceFieldAmtControlMode {
+			amtControlModeInFieldMask = true
+			break
+		}
+	}
+
+	if !amtControlModeInFieldMask {
+		return nil
+	}
+
+	// Get the current host state to check AMT states
+	currentHostRes, err := is.InvClient.Get(ctx, resourceID)
+	if err != nil {
+		zlog.Warn().Err(err).Msgf("Could not retrieve current host state for %s", resourceID)
+		return errors.Wrap(err)
+	}
+
+	currentHost := currentHostRes.GetResource().GetHost()
+	if currentHost == nil {
+		return nil
+	}
+
+	desiredAmtState := currentHost.GetDesiredAmtState()
+	currentAmtState := currentHost.GetCurrentAmtState()
+
+	zlog.Debug().Msgf("Host %s AMT state check: desiredAmtState=%v, currentAmtState=%v",
+		resourceID, desiredAmtState, currentAmtState)
+
+	// Block amtControlMode change if both states are PROVISIONED
+	if desiredAmtState == inv_computev1.AmtState_AMT_STATE_PROVISIONED &&
+		currentAmtState == inv_computev1.AmtState_AMT_STATE_PROVISIONED {
+		return errors.Errorfc(codes.FailedPrecondition,
+			"cannot modify amtControlMode when host %s is already provisioned (desiredAmtState=%v, currentAmtState=%v)",
+			resourceID, desiredAmtState, currentAmtState)
+	}
+
+	return nil
+}
+
 // Update a host. (PUT).
 func (is *InventorygRPCServer) UpdateHost(
 	ctx context.Context,
@@ -652,6 +701,11 @@ func (is *InventorygRPCServer) PatchHost(
 	fieldmask, err := parseFielmask(invHost, req.GetFieldMask(), OpenAPIHostToProto)
 	if err != nil {
 		return nil, errors.Wrap(err)
+	}
+
+	// Validate amtControlMode changes - not allowed when already provisioned
+	if errValidate := is.validateAmtControlModeChange(ctx, req.GetResourceId(), fieldmask); errValidate != nil {
+		return nil, errValidate
 	}
 
 	invRes := &inventory.Resource{

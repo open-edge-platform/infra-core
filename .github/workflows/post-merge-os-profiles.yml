@@ -12,8 +12,7 @@ on:
     paths:
       - 'os-profiles/**'
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   post-merge-pipeline:
@@ -21,7 +20,8 @@ jobs:
       contents: read
       security-events: write
       id-token: write
-    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@467367d6f859a4654f2645ca78efd60035cf390c  # 2026.0.8
+      actions: read
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
     with:
       bootstrap_tools: "go,yq,aws,oras"
       run_version_check: true

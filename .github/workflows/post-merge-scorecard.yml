@@ -10,14 +10,15 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-  security-events: write
-  id-token: write
+permissions: {}
 
 jobs:
   call-scorecard:
-    uses: open-edge-platform/orch-ci/.github/workflows/post-merge-scorecard.yml@467367d6f859a4654f2645ca78efd60035cf390c  # 2026.0.8
+    permissions:
+      contents: read
+      security-events: write
+      id-token: write
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge-scorecard.yml@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
     with:
       project_folder: "."
     secrets:

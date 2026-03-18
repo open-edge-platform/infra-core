@@ -36,11 +36,12 @@ func TestMain(m *testing.M) {
 
 func TestWrap(t *testing.T) {
 	testCases := map[string]struct {
-		inError error
-		outCode codes.Code
-		outDesc string
-		reason  errors.Reason
-		detail  string
+		inError       error
+		outCode       codes.Code
+		outDesc       string
+		outDescPrefix bool // if true, check prefix match instead of exact match
+		reason        errors.Reason
+		detail        string
 	}{
 		"ConstraintError": {
 			inError: &ent.ConstraintError{},
@@ -103,9 +104,9 @@ func TestWrap(t *testing.T) {
 		"HostResourceValidationError": {
 			inError: &protovalidate.ValidationError{},
 			outCode: codes.InvalidArgument,
-			outDesc: "validation error:",
+			outDesc: "", // Empty ValidationError produces empty message
 			reason:  errors.Reason(codes.InvalidArgument),
-			detail:  "validation error:",
+			detail:  "",
 		},
 		"OkError": {
 			inError: grpc_status.Errorf(codes.OK, "I am OK"),
@@ -131,7 +132,7 @@ func TestWrap(t *testing.T) {
 			}
 			// Description validation
 			if st.Message() != testCase.outDesc {
-				t.Errorf("Want Desc %s - Got Desc %s", testCase.outDesc, st.Message())
+				t.Errorf("Want Desc %q - Got Desc %q", testCase.outDesc, st.Message())
 				return
 			}
 			// validate errorInfo

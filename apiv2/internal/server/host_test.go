@@ -1491,3 +1491,201 @@ func updateInstanceAttestationStatusIndicator(
 	_, err := inv_testing.TestClients[inv_testing.RMClient].Update(ctx, instanceID, fieldMask, updateRes)
 	require.NoError(t, err)
 }
+
+//nolint:funlen // Test functions are long but necessary to test all the cases.
+func TestHost_PatchAmtControlModeValidation(t *testing.T) {
+	mockedClient := newMockedInventoryTestClient()
+	server := inv_server.InventorygRPCServer{InvClient: mockedClient}
+
+	cases := []struct {
+		name        string
+		mocks       func() []*mock.Call
+		ctx         context.Context
+		req         *restv1.PatchHostRequest
+		wantErr     bool
+		description string
+	}{
+		{
+			name: "Block amtControlMode change when both states are PROVISIONED",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:      "host-12345678",
+					DesiredAmtState: inv_computev1.AmtState_AMT_STATE_PROVISIONED,
+					CurrentAmtState: inv_computev1.AmtState_AMT_STATE_PROVISIONED,
+					AmtControlMode:  inv_computev1.AmtControlMode_AMT_CONTROL_MODE_CCM,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					AmtControlMode: computev1.AmtControlMode_AMT_CONTROL_MODE_ACM,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{computev1.HostResourceFieldAmtControlMode},
+				},
+			},
+			wantErr:     true,
+			description: "Should reject amtControlMode change when host is fully provisioned",
+		},
+		{
+			name: "Allow amtControlMode change when desiredAmtState is not PROVISIONED",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:      "host-12345678",
+					DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISIONED,
+					CurrentAmtState: inv_computev1.AmtState_AMT_STATE_PROVISIONED,
+					AmtControlMode:  inv_computev1.AmtControlMode_AMT_CONTROL_MODE_CCM,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.Anything).
+						Return(&inventory.Resource{
+							Resource: &inventory.Resource_Host{Host: currentHost},
+						}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					AmtControlMode: computev1.AmtControlMode_AMT_CONTROL_MODE_ACM,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{computev1.HostResourceFieldAmtControlMode},
+				},
+			},
+			wantErr:     false,
+			description: "Should allow amtControlMode change when desiredAmtState is not PROVISIONED",
+		},
+		{
+			name: "Allow amtControlMode change when currentAmtState is not PROVISIONED",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:      "host-12345678",
+					DesiredAmtState: inv_computev1.AmtState_AMT_STATE_PROVISIONED,
+					CurrentAmtState: inv_computev1.AmtState_AMT_STATE_UNPROVISIONED,
+					AmtControlMode:  inv_computev1.AmtControlMode_AMT_CONTROL_MODE_CCM,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.Anything).
+						Return(&inventory.Resource{
+							Resource: &inventory.Resource_Host{Host: currentHost},
+						}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					AmtControlMode: computev1.AmtControlMode_AMT_CONTROL_MODE_ACM,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{computev1.HostResourceFieldAmtControlMode},
+				},
+			},
+			wantErr:     false,
+			description: "Should allow amtControlMode change when currentAmtState is not PROVISIONED",
+		},
+		{
+			name: "Allow patch without amtControlMode in field mask",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:      "host-12345678",
+					DesiredAmtState: inv_computev1.AmtState_AMT_STATE_PROVISIONED,
+					CurrentAmtState: inv_computev1.AmtState_AMT_STATE_PROVISIONED,
+					AmtControlMode:  inv_computev1.AmtControlMode_AMT_CONTROL_MODE_CCM,
+					Name:            "updated-host",
+				}
+				return []*mock.Call{
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.Anything).
+						Return(&inventory.Resource{
+							Resource: &inventory.Resource_Host{Host: currentHost},
+						}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					Name: "updated-host",
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{"name"},
+				},
+			},
+			wantErr:     false,
+			description: "Should allow patch when amtControlMode is not in field mask even if host is provisioned",
+		},
+		{
+			name: "Allow amtControlMode change when both states are UNSPECIFIED",
+			mocks: func() []*mock.Call {
+				currentHost := &inv_computev1.HostResource{
+					ResourceId:      "host-12345678",
+					DesiredAmtState: inv_computev1.AmtState_AMT_STATE_UNSPECIFIED,
+					CurrentAmtState: inv_computev1.AmtState_AMT_STATE_UNSPECIFIED,
+					AmtControlMode:  inv_computev1.AmtControlMode_AMT_CONTROL_MODE_UNSPECIFIED,
+				}
+				return []*mock.Call{
+					mockedClient.On("Get", mock.Anything, "host-12345678").
+						Return(&inventory.GetResourceResponse{
+							Resource: &inventory.Resource{
+								Resource: &inventory.Resource_Host{Host: currentHost},
+							},
+						}, nil).Once(),
+					mockedClient.On("Update", mock.Anything, "host-12345678", mock.Anything, mock.Anything).
+						Return(&inventory.Resource{
+							Resource: &inventory.Resource_Host{Host: currentHost},
+						}, nil).Once(),
+				}
+			},
+			ctx: context.Background(),
+			req: &restv1.PatchHostRequest{
+				ResourceId: "host-12345678",
+				Host: &computev1.HostResource{
+					AmtControlMode: computev1.AmtControlMode_AMT_CONTROL_MODE_ACM,
+				},
+				FieldMask: &fieldmaskpb.FieldMask{
+					Paths: []string{computev1.HostResourceFieldAmtControlMode},
+				},
+			},
+			wantErr:     false,
+			description: "Should allow amtControlMode change when both states are UNSPECIFIED",
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.mocks != nil {
+				tc.mocks()
+			}
+
+			reply, err := server.PatchHost(tc.ctx, tc.req)
+			if tc.wantErr {
+				assert.Error(t, err, tc.description)
+				return
+			}
+			assert.NoError(t, err, tc.description)
+			assert.NotNil(t, reply, tc.description)
+		})
+	}
+}
