@@ -88,7 +88,7 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 		mut.SetDesiredPowerState(hosts.DesiredPowerStatePOWER_STATE_UNSPECIFIED)
 	}
 	if in.GetPowerCommandPolicy() == computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_UNSPECIFIED {
-		mut.SetPowerCommandPolicy(hosts.PowerCommandPolicyPOWER_COMMAND_POLICY_UNSPECIFIED)
+		mut.SetPowerCommandPolicy(hosts.PowerCommandPolicyPOWER_COMMAND_POLICY_IMMEDIATE)
 	}
 	if in.GetDesiredAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
 		mut.SetDesiredAmtState(hosts.DesiredAmtStateAMT_STATE_UNSPECIFIED)
@@ -251,7 +251,7 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 	if slices.Contains(fieldmask.GetPaths(), hosts.FieldPowerCommandPolicy) &&
 		in.GetPowerCommandPolicy() == computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_UNSPECIFIED {
 		mut.ResetPowerCommandPolicy()
-		mut.SetPowerCommandPolicy(hosts.PowerCommandPolicyPOWER_COMMAND_POLICY_UNSPECIFIED)
+		mut.SetPowerCommandPolicy(hosts.PowerCommandPolicyPOWER_COMMAND_POLICY_IMMEDIATE)
 	}
 	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentAmtState) &&
 		in.GetCurrentAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {

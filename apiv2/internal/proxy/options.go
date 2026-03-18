@@ -5,6 +5,7 @@ package proxy
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -78,7 +79,7 @@ func (m *Manager) setCors(e *echo.Echo) {
 func (m *Manager) setEchoDebug(e *echo.Echo) {
 	if m.cfg.RestServer.EchoDebug {
 		zlog.InfraSec().Info().Msg("Echo logging is enabled")
-		e.Use(middleware.Logger())
+		e.Use(middleware.RequestLogger())
 	}
 }
 
@@ -186,12 +187,18 @@ func (m *Manager) setLimits(e *echo.Echo) {
 // setTimeout sets the timeout of a request.
 func (m *Manager) setTimeout(e *echo.Echo) {
 	zlog.InfraSec().Info().Msg("Timeout is enabled")
-	e.Use(middleware.TimeoutWithConfig(middleware.TimeoutConfig{
-		ErrorMessage: "request timeout",
-		Timeout:      serverDefaultTimeout * time.Second,
+	e.Use(middleware.ContextTimeoutWithConfig(middleware.ContextTimeoutConfig{
+		Timeout: serverDefaultTimeout * time.Second,
 		Skipper: func(c echo.Context) bool {
 			// Skip timeout for websockets
 			return c.IsWebSocket()
+		},
+		ErrorHandler: func(err error, _ echo.Context) error {
+			if err != nil && errors.Is(err, context.DeadlineExceeded) {
+				return echo.NewHTTPError(http.StatusServiceUnavailable, "request timeout")
+			}
+
+			return err
 		},
 	}))
 	e.Server.ReadTimeout = serverDefaultTimeout * time.Second

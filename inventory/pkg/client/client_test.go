@@ -811,6 +811,7 @@ func TestCacheUuidUpdate(t *testing.T) {
 	// Reset desired states, we are updating from RM
 	host.DesiredState = computev1.HostState_HOST_STATE_UNSPECIFIED
 	host.DesiredPowerState = computev1.PowerState_POWER_STATE_UNSPECIFIED
+	host.PowerCommandPolicy = computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_UNSPECIFIED
 	instance.DesiredState = computev1.InstanceState_INSTANCE_STATE_UNSPECIFIED
 
 	testcases := map[string]struct {
@@ -900,6 +901,7 @@ func TestCacheUuidInvalidateViaUpdateEvent(t *testing.T) {
 	// Reset desired states, we are updating from RM
 	host.DesiredState = computev1.HostState_HOST_STATE_UNSPECIFIED
 	host.DesiredPowerState = computev1.PowerState_POWER_STATE_UNSPECIFIED
+	host.PowerCommandPolicy = computev1.PowerCommandPolicy_POWER_COMMAND_POLICY_UNSPECIFIED
 	instance.DesiredState = computev1.InstanceState_INSTANCE_STATE_UNSPECIFIED
 
 	rmClient := inv_testing.GetClient(t, inv_testing.RMClient)

@@ -129,7 +129,7 @@ targets. The following is a list of makefile targets that support developer acti
 - `build` to build the project and generate executable files
 - `docker-build` to build the Inventory Docker container
 
-Automatically-generated documentation of the Inventory API can be found [here](docs/api) in the following:
+Automatically-generated documentation of the Inventory API can be found in the [Inventory API documentation](docs/api):
 
 - [Inventory API docs](docs/api/inventory.md)
 - [Errors API docs](docs/api/errors.md)

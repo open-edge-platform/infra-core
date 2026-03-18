@@ -10,15 +10,13 @@ on:
     tags:
       - '*/*'   # matches tags containing '/', e.g. "component/v1.2.3" or "component/1.2.3"
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      actions: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
