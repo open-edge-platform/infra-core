@@ -194,6 +194,8 @@ enum ResourceKind {
 
   RESOURCE_KIND_CUSTOMCONFIG = 190;
   RESOURCE_KIND_OSUPDATERUN = 200;
+
+  RESOURCE_KIND_HOSTDEVICE = 210;
 }
 
 message Resource {
@@ -237,6 +239,8 @@ message Resource {
 
     compute.v1.CustomConfigResource custom_config = 190;
     compute.v1.OSUpdateRunResource os_update_run = 200;
+
+    compute.v1.HostdeviceResource host_device = 210;
   }
 }
 
