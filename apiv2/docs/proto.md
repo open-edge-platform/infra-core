@@ -42,6 +42,7 @@
   
 - [resources/compute/v1/compute.proto](#resources_compute_v1_compute-proto)
     - [HostResource](#resources-compute-v1-HostResource)
+    - [HostdeviceResource](#resources-compute-v1-HostdeviceResource)
     - [HostgpuResource](#resources-compute-v1-HostgpuResource)
     - [HostnicResource](#resources-compute-v1-HostnicResource)
     - [HoststorageResource](#resources-compute-v1-HoststorageResource)
@@ -801,6 +802,7 @@ A Host resource.
 | host_nics | [HostnicResource](#resources-compute-v1-HostnicResource) | repeated | Back-reference to attached host NIC resources. |
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
 | host_gpus | [HostgpuResource](#resources-compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. |
+| host_device | [HostdeviceResource](#resources-compute-v1-HostdeviceResource) |  | Back-reference to attached host vPRO support resources. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance associated with the host. |
 | amt_sku | [AmtSku](#resources-compute-v1-AmtSku) |  | coming from device introspection |
 | desired_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
@@ -815,6 +817,33 @@ A Host resource.
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
 | timestamps | [resources.common.v1.Timestamps](#resources-common-v1-Timestamps) |  | Timestamps associated to the resource. |
+
+
+
+
+
+
+<a name="resources-compute-v1-HostdeviceResource"></a>
+
+### HostdeviceResource
+The vPRO support details of host.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| version | [string](#string) |  | Version number of AMT on the host. |
+| device_name | [string](#string) |  | Host name of the host. |
+| operational_state | [string](#string) |  | Operational state of AMT on the host, either enabled or disabled. |
+| build_number | [string](#string) |  | Build Number of AMT on the host. |
+| sku | [string](#string) |  | Integer number of the SKU of the host. |
+| features | [string](#string) |  | AMT features available on host. |
+| device_guid | [string](#string) |  | Unique device ID for host. |
+| control_mode | [string](#string) |  | Control mode selected for vPRO on host, either client or admin. |
+| dns_suffix | [string](#string) |  | DNS Suffix for the host. |
+| network_status | [string](#string) |  | Networking status for RAS on host. |
+| remote_status | [string](#string) |  | Remote connection status for RAS on host. |
+| remote_trigger | [string](#string) |  | Trigger for enabling remote connection for RAS on host. |
+| mps_hostname | [string](#string) |  | Host name for MPS instance remotely connected to host. |
 
 
 
