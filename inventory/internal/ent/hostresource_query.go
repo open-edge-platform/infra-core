@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostamtconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -26,18 +27,19 @@ import (
 // HostResourceQuery is the builder for querying HostResource entities.
 type HostResourceQuery struct {
 	config
-	ctx              *QueryContext
-	order            []hostresource.OrderOption
-	inters           []Interceptor
-	predicates       []predicate.HostResource
-	withSite         *SiteResourceQuery
-	withProvider     *ProviderResourceQuery
-	withHostStorages *HoststorageResourceQuery
-	withHostNics     *HostnicResourceQuery
-	withHostUsbs     *HostusbResourceQuery
-	withHostGpus     *HostgpuResourceQuery
-	withInstance     *InstanceResourceQuery
-	withFKs          bool
+	ctx               *QueryContext
+	order             []hostresource.OrderOption
+	inters            []Interceptor
+	predicates        []predicate.HostResource
+	withSite          *SiteResourceQuery
+	withProvider      *ProviderResourceQuery
+	withHostStorages  *HoststorageResourceQuery
+	withHostNics      *HostnicResourceQuery
+	withHostUsbs      *HostusbResourceQuery
+	withHostGpus      *HostgpuResourceQuery
+	withHostAmtconfig *HostamtconfigResourceQuery
+	withInstance      *InstanceResourceQuery
+	withFKs           bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -199,6 +201,28 @@ func (_q *HostResourceQuery) QueryHostGpus() *HostgpuResourceQuery {
 			sqlgraph.From(hostresource.Table, hostresource.FieldID, selector),
 			sqlgraph.To(hostgpuresource.Table, hostgpuresource.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostGpusTable, hostresource.HostGpusColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryHostAmtconfig chains the current query on the "host_amtconfig" edge.
+func (_q *HostResourceQuery) QueryHostAmtconfig() *HostamtconfigResourceQuery {
+	query := (&HostamtconfigResourceClient{config: _q.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := _q.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := _q.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(hostresource.Table, hostresource.FieldID, selector),
+			sqlgraph.To(hostamtconfigresource.Table, hostamtconfigresource.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostAmtconfigTable, hostresource.HostAmtconfigColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
@@ -415,18 +439,19 @@ func (_q *HostResourceQuery) Clone() *HostResourceQuery {
 		return nil
 	}
 	return &HostResourceQuery{
-		config:           _q.config,
-		ctx:              _q.ctx.Clone(),
-		order:            append([]hostresource.OrderOption{}, _q.order...),
-		inters:           append([]Interceptor{}, _q.inters...),
-		predicates:       append([]predicate.HostResource{}, _q.predicates...),
-		withSite:         _q.withSite.Clone(),
-		withProvider:     _q.withProvider.Clone(),
-		withHostStorages: _q.withHostStorages.Clone(),
-		withHostNics:     _q.withHostNics.Clone(),
-		withHostUsbs:     _q.withHostUsbs.Clone(),
-		withHostGpus:     _q.withHostGpus.Clone(),
-		withInstance:     _q.withInstance.Clone(),
+		config:            _q.config,
+		ctx:               _q.ctx.Clone(),
+		order:             append([]hostresource.OrderOption{}, _q.order...),
+		inters:            append([]Interceptor{}, _q.inters...),
+		predicates:        append([]predicate.HostResource{}, _q.predicates...),
+		withSite:          _q.withSite.Clone(),
+		withProvider:      _q.withProvider.Clone(),
+		withHostStorages:  _q.withHostStorages.Clone(),
+		withHostNics:      _q.withHostNics.Clone(),
+		withHostUsbs:      _q.withHostUsbs.Clone(),
+		withHostGpus:      _q.withHostGpus.Clone(),
+		withHostAmtconfig: _q.withHostAmtconfig.Clone(),
+		withInstance:      _q.withInstance.Clone(),
 		// clone intermediate query.
 		sql:  _q.sql.Clone(),
 		path: _q.path,
@@ -496,6 +521,17 @@ func (_q *HostResourceQuery) WithHostGpus(opts ...func(*HostgpuResourceQuery)) *
 		opt(query)
 	}
 	_q.withHostGpus = query
+	return _q
+}
+
+// WithHostAmtconfig tells the query-builder to eager-load the nodes that are connected to
+// the "host_amtconfig" edge. The optional arguments are used to configure the query builder of the edge.
+func (_q *HostResourceQuery) WithHostAmtconfig(opts ...func(*HostamtconfigResourceQuery)) *HostResourceQuery {
+	query := (&HostamtconfigResourceClient{config: _q.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	_q.withHostAmtconfig = query
 	return _q
 }
 
@@ -589,13 +625,14 @@ func (_q *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 		nodes       = []*HostResource{}
 		withFKs     = _q.withFKs
 		_spec       = _q.querySpec()
-		loadedTypes = [7]bool{
+		loadedTypes = [8]bool{
 			_q.withSite != nil,
 			_q.withProvider != nil,
 			_q.withHostStorages != nil,
 			_q.withHostNics != nil,
 			_q.withHostUsbs != nil,
 			_q.withHostGpus != nil,
+			_q.withHostAmtconfig != nil,
 			_q.withInstance != nil,
 		}
 	)
@@ -660,6 +697,15 @@ func (_q *HostResourceQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 		if err := _q.loadHostGpus(ctx, query, nodes,
 			func(n *HostResource) { n.Edges.HostGpus = []*HostgpuResource{} },
 			func(n *HostResource, e *HostgpuResource) { n.Edges.HostGpus = append(n.Edges.HostGpus, e) }); err != nil {
+			return nil, err
+		}
+	}
+	if query := _q.withHostAmtconfig; query != nil {
+		if err := _q.loadHostAmtconfig(ctx, query, nodes,
+			func(n *HostResource) { n.Edges.HostAmtconfig = []*HostamtconfigResource{} },
+			func(n *HostResource, e *HostamtconfigResource) {
+				n.Edges.HostAmtconfig = append(n.Edges.HostAmtconfig, e)
+			}); err != nil {
 			return nil, err
 		}
 	}
@@ -855,6 +901,37 @@ func (_q *HostResourceQuery) loadHostGpus(ctx context.Context, query *HostgpuRes
 		node, ok := nodeids[*fk]
 		if !ok {
 			return fmt.Errorf(`unexpected referenced foreign-key "hostgpu_resource_host" returned %v for node %v`, *fk, n.ID)
+		}
+		assign(node, n)
+	}
+	return nil
+}
+func (_q *HostResourceQuery) loadHostAmtconfig(ctx context.Context, query *HostamtconfigResourceQuery, nodes []*HostResource, init func(*HostResource), assign func(*HostResource, *HostamtconfigResource)) error {
+	fks := make([]driver.Value, 0, len(nodes))
+	nodeids := make(map[int]*HostResource)
+	for i := range nodes {
+		fks = append(fks, nodes[i].ID)
+		nodeids[nodes[i].ID] = nodes[i]
+		if init != nil {
+			init(nodes[i])
+		}
+	}
+	query.withFKs = true
+	query.Where(predicate.HostamtconfigResource(func(s *sql.Selector) {
+		s.Where(sql.InValues(s.C(hostresource.HostAmtconfigColumn), fks...))
+	}))
+	neighbors, err := query.All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		fk := n.hostamtconfig_resource_host
+		if fk == nil {
+			return fmt.Errorf(`foreign-key "hostamtconfig_resource_host" is nil for node %v`, n.ID)
+		}
+		node, ok := nodeids[*fk]
+		if !ok {
+			return fmt.Errorf(`unexpected referenced foreign-key "hostamtconfig_resource_host" returned %v for node %v`, *fk, n.ID)
 		}
 		assign(node, n)
 	}

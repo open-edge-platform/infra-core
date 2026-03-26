@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -291,6 +291,8 @@ func setEdgeHostIDForMut(ctx context.Context, client *ent.Client, mut ent.Mutati
 	case *ent.HostusbResourceMutation:
 		mut.SetHostID(hostID)
 	case *ent.HostgpuResourceMutation:
+		mut.SetHostID(hostID)
+	case *ent.HostamtconfigResourceMutation:
 		mut.SetHostID(hostID)
 	case *ent.RepeatedScheduleResourceMutation:
 		mut.SetTargetHostID(hostID)

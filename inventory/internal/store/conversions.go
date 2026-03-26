@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -457,6 +457,11 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 			protoHost.HostUsbs = append(protoHost.HostUsbs, entHostusbResourceToProtoHostusbResource(u))
 		}
 	}
+	if amtconfigs, qerr := host.Edges.HostAmtconfigOrErr(); qerr == nil {
+		for _, d := range amtconfigs {
+			protoHost.HostAmtconfig = entHostAmtconfigResourceToProtoHostAmtconfigResource(d)
+		}
+	}
 	if inst, qerr := host.Edges.InstanceOrErr(); qerr == nil {
 		protoHost.Instance = entInstanceResourceToProtoInstanceResource(inst)
 	}
@@ -585,6 +590,37 @@ func entHostStorageResourceToProtoHostStorageResource(hostStorage *ent.Hoststora
 	}
 
 	return protoHostStorage
+}
+
+func entHostAmtconfigResourceToProtoHostAmtconfigResource(hostAmtconfig *ent.HostamtconfigResource) *computev1.HostamtconfigResource {
+	if hostAmtconfig == nil {
+		return nil
+	}
+	// Convert the fields directly.
+	protoHostAmtconfig := &computev1.HostamtconfigResource{
+		ResourceId:       hostAmtconfig.ResourceID,
+		Version:          hostAmtconfig.Version,
+		DeviceName:       hostAmtconfig.DeviceName,
+		OperationalState: hostAmtconfig.OperationalState,
+		BuildNumber:      hostAmtconfig.BuildNumber,
+		Sku:              hostAmtconfig.Sku,
+		Features:         hostAmtconfig.Features,
+		DeviceGuid:       hostAmtconfig.DeviceGUID,
+		ControlMode:      hostAmtconfig.ControlMode,
+		DnsSuffix:        hostAmtconfig.DNSSuffix,
+		NetworkStatus:    hostAmtconfig.NetworkStatus,
+		RemoteStatus:     hostAmtconfig.RemoteStatus,
+		RemoteTrigger:    hostAmtconfig.RemoteTrigger,
+		MpsHostname:      hostAmtconfig.MpsHostname,
+		TenantId:         hostAmtconfig.TenantID,
+		CreatedAt:        hostAmtconfig.CreatedAt,
+		UpdatedAt:        hostAmtconfig.UpdatedAt,
+	}
+	if host, qerr := hostAmtconfig.Edges.HostOrErr(); qerr == nil {
+		protoHostAmtconfig.Host = entHostResourceToProtoHostResource(host)
+	}
+
+	return protoHostAmtconfig
 }
 
 func entRemoteAccessConfigurationToProto(entity *ent.RemoteAccessConfiguration) *remoteaccessv1.RemoteAccessConfiguration {

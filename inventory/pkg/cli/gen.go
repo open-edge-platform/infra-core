@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build ignore
@@ -180,6 +180,7 @@ func main() {
 
 	resources := []resource{
 		{msg: &computev1.HostResource{}, ShortName: "Host", ProtoPackageName: "computev1"},
+		{msg: &computev1.HostamtconfigResource{}, ShortName: "HostAmtconfig", ProtoPackageName: "computev1"},
 		{msg: &computev1.HostnicResource{}, ShortName: "HostNic", ProtoPackageName: "computev1"},
 		{msg: &computev1.HoststorageResource{}, ShortName: "HostStorage", ProtoPackageName: "computev1"},
 		{msg: &computev1.HostusbResource{}, ShortName: "HostUSB", ProtoPackageName: "computev1"},

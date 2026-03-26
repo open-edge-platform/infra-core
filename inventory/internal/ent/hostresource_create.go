@@ -9,6 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostamtconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -890,6 +891,21 @@ func (_c *HostResourceCreate) AddHostGpus(v ...*HostgpuResource) *HostResourceCr
 	return _c.AddHostGpuIDs(ids...)
 }
 
+// AddHostAmtconfigIDs adds the "host_amtconfig" edge to the HostamtconfigResource entity by IDs.
+func (_c *HostResourceCreate) AddHostAmtconfigIDs(ids ...int) *HostResourceCreate {
+	_c.mutation.AddHostAmtconfigIDs(ids...)
+	return _c
+}
+
+// AddHostAmtconfig adds the "host_amtconfig" edges to the HostamtconfigResource entity.
+func (_c *HostResourceCreate) AddHostAmtconfig(v ...*HostamtconfigResource) *HostResourceCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _c.AddHostAmtconfigIDs(ids...)
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
 func (_c *HostResourceCreate) SetInstanceID(id int) *HostResourceCreate {
 	_c.mutation.SetInstanceID(id)
@@ -1375,6 +1391,22 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := _c.mutation.HostAmtconfigIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostAmtconfigTable,
+			Columns: []string{hostresource.HostAmtconfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostamtconfigresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

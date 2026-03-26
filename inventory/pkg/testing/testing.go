@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package testing
@@ -273,6 +273,9 @@ func clearDB(ctx context.Context, dbURL string) error { //nolint:cyclop,funlen /
 		return err
 	}
 	if _, err := c.HostgpuResource.Delete().Exec(ctx); err != nil {
+		return err
+	}
+	if _, err := c.HostamtconfigResource.Delete().Exec(ctx); err != nil {
 		return err
 	}
 	if _, err := c.NetlinkResource.Delete().Exec(ctx); err != nil {

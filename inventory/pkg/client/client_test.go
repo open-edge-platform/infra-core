@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package client_test
@@ -795,6 +795,7 @@ func TestCacheUuidUpdate(t *testing.T) {
 	hostUsb := inv_testing.CreateHostusb(t, host)
 	hostStorage := inv_testing.CreateHostStorage(t, host)
 	hostNic := inv_testing.CreateHostNic(t, host)
+	hostAmtconfig := inv_testing.CreateHostamtconfig(t, host)
 	// TODO: create Host GPU as well
 	hostUUID := host.GetUuid()
 	host2UUID := host2.GetUuid()
@@ -853,6 +854,12 @@ func TestCacheUuidUpdate(t *testing.T) {
 				Resource: &inv_v1.Resource_Hostnic{Hostnic: hostNic},
 			},
 		},
+		"HostAmtconfig": {
+			resID: hostAmtconfig.GetResourceId(),
+			upRes: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_HostAmtconfig{HostAmtconfig: hostAmtconfig},
+			},
+		},
 	}
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
@@ -880,6 +887,7 @@ func TestCacheUuidInvalidateViaUpdateEvent(t *testing.T) {
 	hostUsb := inv_testing.CreateHostusb(t, host)
 	hostStorage := inv_testing.CreateHostStorage(t, host)
 	hostNic := inv_testing.CreateHostNic(t, host)
+	hostAmtconfig := inv_testing.CreateHostamtconfig(t, host)
 	hostUUID := host.GetUuid()
 	host2UUID := host2.GetUuid()
 
@@ -936,6 +944,12 @@ func TestCacheUuidInvalidateViaUpdateEvent(t *testing.T) {
 			resID: hostNic.GetResourceId(),
 			upRes: &inv_v1.Resource{
 				Resource: &inv_v1.Resource_Hostnic{Hostnic: hostNic},
+			},
+		},
+		"HostAmtconfig": {
+			resID: hostAmtconfig.GetResourceId(),
+			upRes: &inv_v1.Resource{
+				Resource: &inv_v1.Resource_HostAmtconfig{HostAmtconfig: hostAmtconfig},
 			},
 		},
 	}
@@ -1003,6 +1017,13 @@ func TestCacheUuidInvalidateViaCreateEvent(t *testing.T) {
 				}},
 			},
 		},
+		"HostAmtconfig": {
+			&inv_v1.Resource{
+				Resource: &inv_v1.Resource_HostAmtconfig{HostAmtconfig: &computev1.HostamtconfigResource{
+					Host: host,
+				}},
+			},
+		},
 	}
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
@@ -1041,6 +1062,7 @@ func TestCacheUuidInvalidateViaDeleteEvent(t *testing.T) {
 	hostUsb := inv_testing.CreateHostusbNoCleanup(t, host)
 	hostStorage := inv_testing.CreateHostStorageNoCleanup(t, host)
 	hostNic := inv_testing.CreateHostNicNoCleanup(t, host)
+	hostAmtconfig := inv_testing.CreateHostamtconfigNoCleanup(t, host)
 	hostUUID := host.GetUuid()
 	host2UUID := host2.GetUuid()
 
@@ -1072,6 +1094,9 @@ func TestCacheUuidInvalidateViaDeleteEvent(t *testing.T) {
 		},
 		"HostNic": {
 			resID: hostNic.GetResourceId(),
+		},
+		"HostAmtconfig": {
+			resID: hostAmtconfig.GetResourceId(),
 		},
 	}
 	for tcname, tc := range testcases {
@@ -1201,6 +1226,20 @@ func TestCacheUuidCreateWithWarmCache(t *testing.T) {
 		resp, err := clientCache.Create(ctx,
 			&inv_v1.Resource{
 				Resource: &inv_v1.Resource_Hostgpu{Hostgpu: &computev1.HostgpuResource{
+					Host: host,
+				}},
+			})
+		require.NoError(t, err)
+		t.Cleanup(func() { inv_testing.DeleteResource(t, inv_testing.GetResourceIDOrFail(t, resp)) })
+		assertUUIDNotInCache(t, hostUUID)
+		assertUUIDInCache(t, host2UUID)
+	})
+
+	t.Run("HostAmtconfig", func(t *testing.T) {
+		loadAndAssertUUIDInCache(t, hostUUID)
+		resp, err := clientCache.Create(ctx,
+			&inv_v1.Resource{
+				Resource: &inv_v1.Resource_HostAmtconfig{HostAmtconfig: &computev1.HostamtconfigResource{
 					Host: host,
 				}},
 			})

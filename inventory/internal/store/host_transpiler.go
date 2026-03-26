@@ -16,6 +16,11 @@ func (r *registry) RegisterHostResource() {
 			inv_v1.ResourceKind_RESOURCE_KIND_HOST,
 			hostresource.ValidColumn,
 			map[string]edgeHandler{
+				hostresource.EdgeHostAmtconfig: {
+					func(p sqlPredicate) sqlPredicate { return hostresource.HasHostAmtconfigWith(p) },
+					inv_v1.ResourceKind_RESOURCE_KIND_HOSTAMTCONFIG,
+				},
+
 				hostresource.EdgeHostGpus: {
 					func(p sqlPredicate) sqlPredicate { return hostresource.HasHostGpusWith(p) },
 					inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
@@ -52,13 +57,14 @@ func (r *registry) RegisterHostResource() {
 				},
 			},
 			map[string]sqlPredicate{
-				hostresource.EdgeHostGpus:     hostresource.HasHostGpus(),
-				hostresource.EdgeHostNics:     hostresource.HasHostNics(),
-				hostresource.EdgeHostStorages: hostresource.HasHostStorages(),
-				hostresource.EdgeHostUsbs:     hostresource.HasHostUsbs(),
-				hostresource.EdgeInstance:     hostresource.HasInstance(),
-				hostresource.EdgeProvider:     hostresource.HasProvider(),
-				hostresource.EdgeSite:         hostresource.HasSite(),
+				hostresource.EdgeHostAmtconfig: hostresource.HasHostAmtconfig(),
+				hostresource.EdgeHostGpus:      hostresource.HasHostGpus(),
+				hostresource.EdgeHostNics:      hostresource.HasHostNics(),
+				hostresource.EdgeHostStorages:  hostresource.HasHostStorages(),
+				hostresource.EdgeHostUsbs:      hostresource.HasHostUsbs(),
+				hostresource.EdgeInstance:      hostresource.HasInstance(),
+				hostresource.EdgeProvider:      hostresource.HasProvider(),
+				hostresource.EdgeSite:          hostresource.HasSite(),
 			},
 		))
 

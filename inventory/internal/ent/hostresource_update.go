@@ -10,6 +10,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostamtconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -1297,6 +1298,21 @@ func (_u *HostResourceUpdate) AddHostGpus(v ...*HostgpuResource) *HostResourceUp
 	return _u.AddHostGpuIDs(ids...)
 }
 
+// AddHostAmtconfigIDs adds the "host_amtconfig" edge to the HostamtconfigResource entity by IDs.
+func (_u *HostResourceUpdate) AddHostAmtconfigIDs(ids ...int) *HostResourceUpdate {
+	_u.mutation.AddHostAmtconfigIDs(ids...)
+	return _u
+}
+
+// AddHostAmtconfig adds the "host_amtconfig" edges to the HostamtconfigResource entity.
+func (_u *HostResourceUpdate) AddHostAmtconfig(v ...*HostamtconfigResource) *HostResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.AddHostAmtconfigIDs(ids...)
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
 func (_u *HostResourceUpdate) SetInstanceID(id int) *HostResourceUpdate {
 	_u.mutation.SetInstanceID(id)
@@ -1415,6 +1431,27 @@ func (_u *HostResourceUpdate) RemoveHostGpus(v ...*HostgpuResource) *HostResourc
 		ids[i] = v[i].ID
 	}
 	return _u.RemoveHostGpuIDs(ids...)
+}
+
+// ClearHostAmtconfig clears all "host_amtconfig" edges to the HostamtconfigResource entity.
+func (_u *HostResourceUpdate) ClearHostAmtconfig() *HostResourceUpdate {
+	_u.mutation.ClearHostAmtconfig()
+	return _u
+}
+
+// RemoveHostAmtconfigIDs removes the "host_amtconfig" edge to HostamtconfigResource entities by IDs.
+func (_u *HostResourceUpdate) RemoveHostAmtconfigIDs(ids ...int) *HostResourceUpdate {
+	_u.mutation.RemoveHostAmtconfigIDs(ids...)
+	return _u
+}
+
+// RemoveHostAmtconfig removes "host_amtconfig" edges to HostamtconfigResource entities.
+func (_u *HostResourceUpdate) RemoveHostAmtconfig(v ...*HostamtconfigResource) *HostResourceUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.RemoveHostAmtconfigIDs(ids...)
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
@@ -2130,6 +2167,51 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if _u.mutation.HostAmtconfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostAmtconfigTable,
+			Columns: []string{hostresource.HostAmtconfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostamtconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.RemovedHostAmtconfigIDs(); len(nodes) > 0 && !_u.mutation.HostAmtconfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostAmtconfigTable,
+			Columns: []string{hostresource.HostAmtconfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostamtconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.HostAmtconfigIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostAmtconfigTable,
+			Columns: []string{hostresource.HostAmtconfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostamtconfigresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -3449,6 +3531,21 @@ func (_u *HostResourceUpdateOne) AddHostGpus(v ...*HostgpuResource) *HostResourc
 	return _u.AddHostGpuIDs(ids...)
 }
 
+// AddHostAmtconfigIDs adds the "host_amtconfig" edge to the HostamtconfigResource entity by IDs.
+func (_u *HostResourceUpdateOne) AddHostAmtconfigIDs(ids ...int) *HostResourceUpdateOne {
+	_u.mutation.AddHostAmtconfigIDs(ids...)
+	return _u
+}
+
+// AddHostAmtconfig adds the "host_amtconfig" edges to the HostamtconfigResource entity.
+func (_u *HostResourceUpdateOne) AddHostAmtconfig(v ...*HostamtconfigResource) *HostResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.AddHostAmtconfigIDs(ids...)
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by ID.
 func (_u *HostResourceUpdateOne) SetInstanceID(id int) *HostResourceUpdateOne {
 	_u.mutation.SetInstanceID(id)
@@ -3567,6 +3664,27 @@ func (_u *HostResourceUpdateOne) RemoveHostGpus(v ...*HostgpuResource) *HostReso
 		ids[i] = v[i].ID
 	}
 	return _u.RemoveHostGpuIDs(ids...)
+}
+
+// ClearHostAmtconfig clears all "host_amtconfig" edges to the HostamtconfigResource entity.
+func (_u *HostResourceUpdateOne) ClearHostAmtconfig() *HostResourceUpdateOne {
+	_u.mutation.ClearHostAmtconfig()
+	return _u
+}
+
+// RemoveHostAmtconfigIDs removes the "host_amtconfig" edge to HostamtconfigResource entities by IDs.
+func (_u *HostResourceUpdateOne) RemoveHostAmtconfigIDs(ids ...int) *HostResourceUpdateOne {
+	_u.mutation.RemoveHostAmtconfigIDs(ids...)
+	return _u
+}
+
+// RemoveHostAmtconfig removes "host_amtconfig" edges to HostamtconfigResource entities.
+func (_u *HostResourceUpdateOne) RemoveHostAmtconfig(v ...*HostamtconfigResource) *HostResourceUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
+	}
+	return _u.RemoveHostAmtconfigIDs(ids...)
 }
 
 // ClearInstance clears the "instance" edge to the InstanceResource entity.
@@ -4312,6 +4430,51 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(hostgpuresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if _u.mutation.HostAmtconfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostAmtconfigTable,
+			Columns: []string{hostresource.HostAmtconfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostamtconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.RemovedHostAmtconfigIDs(); len(nodes) > 0 && !_u.mutation.HostAmtconfigCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostAmtconfigTable,
+			Columns: []string{hostresource.HostAmtconfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostamtconfigresource.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := _u.mutation.HostAmtconfigIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   hostresource.HostAmtconfigTable,
+			Columns: []string{hostresource.HostAmtconfigColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(hostamtconfigresource.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostamtconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -53,6 +54,7 @@ const (
 	TypeCustomConfigResource      = "CustomConfigResource"
 	TypeEndpointResource          = "EndpointResource"
 	TypeHostResource              = "HostResource"
+	TypeHostamtconfigResource     = "HostamtconfigResource"
 	TypeHostgpuResource           = "HostgpuResource"
 	TypeHostnicResource           = "HostnicResource"
 	TypeHoststorageResource       = "HoststorageResource"
@@ -1640,6 +1642,9 @@ type HostResourceMutation struct {
 	host_gpus                        map[int]struct{}
 	removedhost_gpus                 map[int]struct{}
 	clearedhost_gpus                 bool
+	host_amtconfig                   map[int]struct{}
+	removedhost_amtconfig            map[int]struct{}
+	clearedhost_amtconfig            bool
 	instance                         *int
 	clearedinstance                  bool
 	done                             bool
@@ -5011,6 +5016,60 @@ func (m *HostResourceMutation) ResetHostGpus() {
 	m.removedhost_gpus = nil
 }
 
+// AddHostAmtconfigIDs adds the "host_amtconfig" edge to the HostamtconfigResource entity by ids.
+func (m *HostResourceMutation) AddHostAmtconfigIDs(ids ...int) {
+	if m.host_amtconfig == nil {
+		m.host_amtconfig = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.host_amtconfig[ids[i]] = struct{}{}
+	}
+}
+
+// ClearHostAmtconfig clears the "host_amtconfig" edge to the HostamtconfigResource entity.
+func (m *HostResourceMutation) ClearHostAmtconfig() {
+	m.clearedhost_amtconfig = true
+}
+
+// HostAmtconfigCleared reports if the "host_amtconfig" edge to the HostamtconfigResource entity was cleared.
+func (m *HostResourceMutation) HostAmtconfigCleared() bool {
+	return m.clearedhost_amtconfig
+}
+
+// RemoveHostAmtconfigIDs removes the "host_amtconfig" edge to the HostamtconfigResource entity by IDs.
+func (m *HostResourceMutation) RemoveHostAmtconfigIDs(ids ...int) {
+	if m.removedhost_amtconfig == nil {
+		m.removedhost_amtconfig = make(map[int]struct{})
+	}
+	for i := range ids {
+		delete(m.host_amtconfig, ids[i])
+		m.removedhost_amtconfig[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedHostAmtconfig returns the removed IDs of the "host_amtconfig" edge to the HostamtconfigResource entity.
+func (m *HostResourceMutation) RemovedHostAmtconfigIDs() (ids []int) {
+	for id := range m.removedhost_amtconfig {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// HostAmtconfigIDs returns the "host_amtconfig" edge IDs in the mutation.
+func (m *HostResourceMutation) HostAmtconfigIDs() (ids []int) {
+	for id := range m.host_amtconfig {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetHostAmtconfig resets all changes to the "host_amtconfig" edge.
+func (m *HostResourceMutation) ResetHostAmtconfig() {
+	m.host_amtconfig = nil
+	m.clearedhost_amtconfig = false
+	m.removedhost_amtconfig = nil
+}
+
 // SetInstanceID sets the "instance" edge to the InstanceResource entity by id.
 func (m *HostResourceMutation) SetInstanceID(id int) {
 	m.instance = &id
@@ -6591,7 +6650,7 @@ func (m *HostResourceMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *HostResourceMutation) AddedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.site != nil {
 		edges = append(edges, hostresource.EdgeSite)
 	}
@@ -6609,6 +6668,9 @@ func (m *HostResourceMutation) AddedEdges() []string {
 	}
 	if m.host_gpus != nil {
 		edges = append(edges, hostresource.EdgeHostGpus)
+	}
+	if m.host_amtconfig != nil {
+		edges = append(edges, hostresource.EdgeHostAmtconfig)
 	}
 	if m.instance != nil {
 		edges = append(edges, hostresource.EdgeInstance)
@@ -6652,6 +6714,12 @@ func (m *HostResourceMutation) AddedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case hostresource.EdgeHostAmtconfig:
+		ids := make([]ent.Value, 0, len(m.host_amtconfig))
+		for id := range m.host_amtconfig {
+			ids = append(ids, id)
+		}
+		return ids
 	case hostresource.EdgeInstance:
 		if id := m.instance; id != nil {
 			return []ent.Value{*id}
@@ -6662,7 +6730,7 @@ func (m *HostResourceMutation) AddedIDs(name string) []ent.Value {
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *HostResourceMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.removedhost_storages != nil {
 		edges = append(edges, hostresource.EdgeHostStorages)
 	}
@@ -6674,6 +6742,9 @@ func (m *HostResourceMutation) RemovedEdges() []string {
 	}
 	if m.removedhost_gpus != nil {
 		edges = append(edges, hostresource.EdgeHostGpus)
+	}
+	if m.removedhost_amtconfig != nil {
+		edges = append(edges, hostresource.EdgeHostAmtconfig)
 	}
 	return edges
 }
@@ -6706,13 +6777,19 @@ func (m *HostResourceMutation) RemovedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case hostresource.EdgeHostAmtconfig:
+		ids := make([]ent.Value, 0, len(m.removedhost_amtconfig))
+		for id := range m.removedhost_amtconfig {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *HostResourceMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 8)
 	if m.clearedsite {
 		edges = append(edges, hostresource.EdgeSite)
 	}
@@ -6730,6 +6807,9 @@ func (m *HostResourceMutation) ClearedEdges() []string {
 	}
 	if m.clearedhost_gpus {
 		edges = append(edges, hostresource.EdgeHostGpus)
+	}
+	if m.clearedhost_amtconfig {
+		edges = append(edges, hostresource.EdgeHostAmtconfig)
 	}
 	if m.clearedinstance {
 		edges = append(edges, hostresource.EdgeInstance)
@@ -6753,6 +6833,8 @@ func (m *HostResourceMutation) EdgeCleared(name string) bool {
 		return m.clearedhost_usbs
 	case hostresource.EdgeHostGpus:
 		return m.clearedhost_gpus
+	case hostresource.EdgeHostAmtconfig:
+		return m.clearedhost_amtconfig
 	case hostresource.EdgeInstance:
 		return m.clearedinstance
 	}
@@ -6798,11 +6880,1594 @@ func (m *HostResourceMutation) ResetEdge(name string) error {
 	case hostresource.EdgeHostGpus:
 		m.ResetHostGpus()
 		return nil
+	case hostresource.EdgeHostAmtconfig:
+		m.ResetHostAmtconfig()
+		return nil
 	case hostresource.EdgeInstance:
 		m.ResetInstance()
 		return nil
 	}
 	return fmt.Errorf("unknown HostResource edge %s", name)
+}
+
+// HostamtconfigResourceMutation represents an operation that mutates the HostamtconfigResource nodes in the graph.
+type HostamtconfigResourceMutation struct {
+	config
+	op                Op
+	typ               string
+	id                *int
+	resource_id       *string
+	kind              *string
+	version           *string
+	device_name       *string
+	operational_state *string
+	build_number      *string
+	sku               *string
+	features          *string
+	device_guid       *string
+	control_mode      *string
+	dns_suffix        *string
+	network_status    *string
+	remote_status     *string
+	remote_trigger    *string
+	mps_hostname      *string
+	tenant_id         *string
+	created_at        *string
+	updated_at        *string
+	clearedFields     map[string]struct{}
+	host              *int
+	clearedhost       bool
+	done              bool
+	oldValue          func(context.Context) (*HostamtconfigResource, error)
+	predicates        []predicate.HostamtconfigResource
+}
+
+var _ ent.Mutation = (*HostamtconfigResourceMutation)(nil)
+
+// hostamtconfigresourceOption allows management of the mutation configuration using functional options.
+type hostamtconfigresourceOption func(*HostamtconfigResourceMutation)
+
+// newHostamtconfigResourceMutation creates new mutation for the HostamtconfigResource entity.
+func newHostamtconfigResourceMutation(c config, op Op, opts ...hostamtconfigresourceOption) *HostamtconfigResourceMutation {
+	m := &HostamtconfigResourceMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeHostamtconfigResource,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withHostamtconfigResourceID sets the ID field of the mutation.
+func withHostamtconfigResourceID(id int) hostamtconfigresourceOption {
+	return func(m *HostamtconfigResourceMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *HostamtconfigResource
+		)
+		m.oldValue = func(ctx context.Context) (*HostamtconfigResource, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().HostamtconfigResource.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withHostamtconfigResource sets the old HostamtconfigResource of the mutation.
+func withHostamtconfigResource(node *HostamtconfigResource) hostamtconfigresourceOption {
+	return func(m *HostamtconfigResourceMutation) {
+		m.oldValue = func(context.Context) (*HostamtconfigResource, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m HostamtconfigResourceMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m HostamtconfigResourceMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *HostamtconfigResourceMutation) ID() (id int, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *HostamtconfigResourceMutation) IDs(ctx context.Context) ([]int, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []int{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().HostamtconfigResource.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetResourceID sets the "resource_id" field.
+func (m *HostamtconfigResourceMutation) SetResourceID(s string) {
+	m.resource_id = &s
+}
+
+// ResourceID returns the value of the "resource_id" field in the mutation.
+func (m *HostamtconfigResourceMutation) ResourceID() (r string, exists bool) {
+	v := m.resource_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldResourceID returns the old "resource_id" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldResourceID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldResourceID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldResourceID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldResourceID: %w", err)
+	}
+	return oldValue.ResourceID, nil
+}
+
+// ResetResourceID resets all changes to the "resource_id" field.
+func (m *HostamtconfigResourceMutation) ResetResourceID() {
+	m.resource_id = nil
+}
+
+// SetKind sets the "kind" field.
+func (m *HostamtconfigResourceMutation) SetKind(s string) {
+	m.kind = &s
+}
+
+// Kind returns the value of the "kind" field in the mutation.
+func (m *HostamtconfigResourceMutation) Kind() (r string, exists bool) {
+	v := m.kind
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldKind returns the old "kind" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldKind(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldKind is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldKind requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldKind: %w", err)
+	}
+	return oldValue.Kind, nil
+}
+
+// ClearKind clears the value of the "kind" field.
+func (m *HostamtconfigResourceMutation) ClearKind() {
+	m.kind = nil
+	m.clearedFields[hostamtconfigresource.FieldKind] = struct{}{}
+}
+
+// KindCleared returns if the "kind" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) KindCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldKind]
+	return ok
+}
+
+// ResetKind resets all changes to the "kind" field.
+func (m *HostamtconfigResourceMutation) ResetKind() {
+	m.kind = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldKind)
+}
+
+// SetVersion sets the "version" field.
+func (m *HostamtconfigResourceMutation) SetVersion(s string) {
+	m.version = &s
+}
+
+// Version returns the value of the "version" field in the mutation.
+func (m *HostamtconfigResourceMutation) Version() (r string, exists bool) {
+	v := m.version
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldVersion returns the old "version" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldVersion(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldVersion is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldVersion requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldVersion: %w", err)
+	}
+	return oldValue.Version, nil
+}
+
+// ClearVersion clears the value of the "version" field.
+func (m *HostamtconfigResourceMutation) ClearVersion() {
+	m.version = nil
+	m.clearedFields[hostamtconfigresource.FieldVersion] = struct{}{}
+}
+
+// VersionCleared returns if the "version" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) VersionCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldVersion]
+	return ok
+}
+
+// ResetVersion resets all changes to the "version" field.
+func (m *HostamtconfigResourceMutation) ResetVersion() {
+	m.version = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldVersion)
+}
+
+// SetDeviceName sets the "device_name" field.
+func (m *HostamtconfigResourceMutation) SetDeviceName(s string) {
+	m.device_name = &s
+}
+
+// DeviceName returns the value of the "device_name" field in the mutation.
+func (m *HostamtconfigResourceMutation) DeviceName() (r string, exists bool) {
+	v := m.device_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeviceName returns the old "device_name" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldDeviceName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeviceName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeviceName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeviceName: %w", err)
+	}
+	return oldValue.DeviceName, nil
+}
+
+// ClearDeviceName clears the value of the "device_name" field.
+func (m *HostamtconfigResourceMutation) ClearDeviceName() {
+	m.device_name = nil
+	m.clearedFields[hostamtconfigresource.FieldDeviceName] = struct{}{}
+}
+
+// DeviceNameCleared returns if the "device_name" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) DeviceNameCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldDeviceName]
+	return ok
+}
+
+// ResetDeviceName resets all changes to the "device_name" field.
+func (m *HostamtconfigResourceMutation) ResetDeviceName() {
+	m.device_name = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldDeviceName)
+}
+
+// SetOperationalState sets the "operational_state" field.
+func (m *HostamtconfigResourceMutation) SetOperationalState(s string) {
+	m.operational_state = &s
+}
+
+// OperationalState returns the value of the "operational_state" field in the mutation.
+func (m *HostamtconfigResourceMutation) OperationalState() (r string, exists bool) {
+	v := m.operational_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldOperationalState returns the old "operational_state" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldOperationalState(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldOperationalState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldOperationalState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldOperationalState: %w", err)
+	}
+	return oldValue.OperationalState, nil
+}
+
+// ClearOperationalState clears the value of the "operational_state" field.
+func (m *HostamtconfigResourceMutation) ClearOperationalState() {
+	m.operational_state = nil
+	m.clearedFields[hostamtconfigresource.FieldOperationalState] = struct{}{}
+}
+
+// OperationalStateCleared returns if the "operational_state" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) OperationalStateCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldOperationalState]
+	return ok
+}
+
+// ResetOperationalState resets all changes to the "operational_state" field.
+func (m *HostamtconfigResourceMutation) ResetOperationalState() {
+	m.operational_state = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldOperationalState)
+}
+
+// SetBuildNumber sets the "build_number" field.
+func (m *HostamtconfigResourceMutation) SetBuildNumber(s string) {
+	m.build_number = &s
+}
+
+// BuildNumber returns the value of the "build_number" field in the mutation.
+func (m *HostamtconfigResourceMutation) BuildNumber() (r string, exists bool) {
+	v := m.build_number
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBuildNumber returns the old "build_number" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldBuildNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBuildNumber is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBuildNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBuildNumber: %w", err)
+	}
+	return oldValue.BuildNumber, nil
+}
+
+// ClearBuildNumber clears the value of the "build_number" field.
+func (m *HostamtconfigResourceMutation) ClearBuildNumber() {
+	m.build_number = nil
+	m.clearedFields[hostamtconfigresource.FieldBuildNumber] = struct{}{}
+}
+
+// BuildNumberCleared returns if the "build_number" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) BuildNumberCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldBuildNumber]
+	return ok
+}
+
+// ResetBuildNumber resets all changes to the "build_number" field.
+func (m *HostamtconfigResourceMutation) ResetBuildNumber() {
+	m.build_number = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldBuildNumber)
+}
+
+// SetSku sets the "sku" field.
+func (m *HostamtconfigResourceMutation) SetSku(s string) {
+	m.sku = &s
+}
+
+// Sku returns the value of the "sku" field in the mutation.
+func (m *HostamtconfigResourceMutation) Sku() (r string, exists bool) {
+	v := m.sku
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSku returns the old "sku" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldSku(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSku is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSku requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSku: %w", err)
+	}
+	return oldValue.Sku, nil
+}
+
+// ClearSku clears the value of the "sku" field.
+func (m *HostamtconfigResourceMutation) ClearSku() {
+	m.sku = nil
+	m.clearedFields[hostamtconfigresource.FieldSku] = struct{}{}
+}
+
+// SkuCleared returns if the "sku" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) SkuCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldSku]
+	return ok
+}
+
+// ResetSku resets all changes to the "sku" field.
+func (m *HostamtconfigResourceMutation) ResetSku() {
+	m.sku = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldSku)
+}
+
+// SetFeatures sets the "features" field.
+func (m *HostamtconfigResourceMutation) SetFeatures(s string) {
+	m.features = &s
+}
+
+// Features returns the value of the "features" field in the mutation.
+func (m *HostamtconfigResourceMutation) Features() (r string, exists bool) {
+	v := m.features
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFeatures returns the old "features" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldFeatures(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFeatures is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFeatures requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFeatures: %w", err)
+	}
+	return oldValue.Features, nil
+}
+
+// ClearFeatures clears the value of the "features" field.
+func (m *HostamtconfigResourceMutation) ClearFeatures() {
+	m.features = nil
+	m.clearedFields[hostamtconfigresource.FieldFeatures] = struct{}{}
+}
+
+// FeaturesCleared returns if the "features" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) FeaturesCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldFeatures]
+	return ok
+}
+
+// ResetFeatures resets all changes to the "features" field.
+func (m *HostamtconfigResourceMutation) ResetFeatures() {
+	m.features = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldFeatures)
+}
+
+// SetDeviceGUID sets the "device_guid" field.
+func (m *HostamtconfigResourceMutation) SetDeviceGUID(s string) {
+	m.device_guid = &s
+}
+
+// DeviceGUID returns the value of the "device_guid" field in the mutation.
+func (m *HostamtconfigResourceMutation) DeviceGUID() (r string, exists bool) {
+	v := m.device_guid
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeviceGUID returns the old "device_guid" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldDeviceGUID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeviceGUID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeviceGUID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeviceGUID: %w", err)
+	}
+	return oldValue.DeviceGUID, nil
+}
+
+// ClearDeviceGUID clears the value of the "device_guid" field.
+func (m *HostamtconfigResourceMutation) ClearDeviceGUID() {
+	m.device_guid = nil
+	m.clearedFields[hostamtconfigresource.FieldDeviceGUID] = struct{}{}
+}
+
+// DeviceGUIDCleared returns if the "device_guid" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) DeviceGUIDCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldDeviceGUID]
+	return ok
+}
+
+// ResetDeviceGUID resets all changes to the "device_guid" field.
+func (m *HostamtconfigResourceMutation) ResetDeviceGUID() {
+	m.device_guid = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldDeviceGUID)
+}
+
+// SetControlMode sets the "control_mode" field.
+func (m *HostamtconfigResourceMutation) SetControlMode(s string) {
+	m.control_mode = &s
+}
+
+// ControlMode returns the value of the "control_mode" field in the mutation.
+func (m *HostamtconfigResourceMutation) ControlMode() (r string, exists bool) {
+	v := m.control_mode
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldControlMode returns the old "control_mode" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldControlMode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldControlMode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldControlMode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldControlMode: %w", err)
+	}
+	return oldValue.ControlMode, nil
+}
+
+// ClearControlMode clears the value of the "control_mode" field.
+func (m *HostamtconfigResourceMutation) ClearControlMode() {
+	m.control_mode = nil
+	m.clearedFields[hostamtconfigresource.FieldControlMode] = struct{}{}
+}
+
+// ControlModeCleared returns if the "control_mode" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) ControlModeCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldControlMode]
+	return ok
+}
+
+// ResetControlMode resets all changes to the "control_mode" field.
+func (m *HostamtconfigResourceMutation) ResetControlMode() {
+	m.control_mode = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldControlMode)
+}
+
+// SetDNSSuffix sets the "dns_suffix" field.
+func (m *HostamtconfigResourceMutation) SetDNSSuffix(s string) {
+	m.dns_suffix = &s
+}
+
+// DNSSuffix returns the value of the "dns_suffix" field in the mutation.
+func (m *HostamtconfigResourceMutation) DNSSuffix() (r string, exists bool) {
+	v := m.dns_suffix
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDNSSuffix returns the old "dns_suffix" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldDNSSuffix(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDNSSuffix is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDNSSuffix requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDNSSuffix: %w", err)
+	}
+	return oldValue.DNSSuffix, nil
+}
+
+// ClearDNSSuffix clears the value of the "dns_suffix" field.
+func (m *HostamtconfigResourceMutation) ClearDNSSuffix() {
+	m.dns_suffix = nil
+	m.clearedFields[hostamtconfigresource.FieldDNSSuffix] = struct{}{}
+}
+
+// DNSSuffixCleared returns if the "dns_suffix" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) DNSSuffixCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldDNSSuffix]
+	return ok
+}
+
+// ResetDNSSuffix resets all changes to the "dns_suffix" field.
+func (m *HostamtconfigResourceMutation) ResetDNSSuffix() {
+	m.dns_suffix = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldDNSSuffix)
+}
+
+// SetNetworkStatus sets the "network_status" field.
+func (m *HostamtconfigResourceMutation) SetNetworkStatus(s string) {
+	m.network_status = &s
+}
+
+// NetworkStatus returns the value of the "network_status" field in the mutation.
+func (m *HostamtconfigResourceMutation) NetworkStatus() (r string, exists bool) {
+	v := m.network_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldNetworkStatus returns the old "network_status" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldNetworkStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldNetworkStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldNetworkStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldNetworkStatus: %w", err)
+	}
+	return oldValue.NetworkStatus, nil
+}
+
+// ClearNetworkStatus clears the value of the "network_status" field.
+func (m *HostamtconfigResourceMutation) ClearNetworkStatus() {
+	m.network_status = nil
+	m.clearedFields[hostamtconfigresource.FieldNetworkStatus] = struct{}{}
+}
+
+// NetworkStatusCleared returns if the "network_status" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) NetworkStatusCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldNetworkStatus]
+	return ok
+}
+
+// ResetNetworkStatus resets all changes to the "network_status" field.
+func (m *HostamtconfigResourceMutation) ResetNetworkStatus() {
+	m.network_status = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldNetworkStatus)
+}
+
+// SetRemoteStatus sets the "remote_status" field.
+func (m *HostamtconfigResourceMutation) SetRemoteStatus(s string) {
+	m.remote_status = &s
+}
+
+// RemoteStatus returns the value of the "remote_status" field in the mutation.
+func (m *HostamtconfigResourceMutation) RemoteStatus() (r string, exists bool) {
+	v := m.remote_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemoteStatus returns the old "remote_status" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldRemoteStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRemoteStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRemoteStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemoteStatus: %w", err)
+	}
+	return oldValue.RemoteStatus, nil
+}
+
+// ClearRemoteStatus clears the value of the "remote_status" field.
+func (m *HostamtconfigResourceMutation) ClearRemoteStatus() {
+	m.remote_status = nil
+	m.clearedFields[hostamtconfigresource.FieldRemoteStatus] = struct{}{}
+}
+
+// RemoteStatusCleared returns if the "remote_status" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) RemoteStatusCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldRemoteStatus]
+	return ok
+}
+
+// ResetRemoteStatus resets all changes to the "remote_status" field.
+func (m *HostamtconfigResourceMutation) ResetRemoteStatus() {
+	m.remote_status = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldRemoteStatus)
+}
+
+// SetRemoteTrigger sets the "remote_trigger" field.
+func (m *HostamtconfigResourceMutation) SetRemoteTrigger(s string) {
+	m.remote_trigger = &s
+}
+
+// RemoteTrigger returns the value of the "remote_trigger" field in the mutation.
+func (m *HostamtconfigResourceMutation) RemoteTrigger() (r string, exists bool) {
+	v := m.remote_trigger
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemoteTrigger returns the old "remote_trigger" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldRemoteTrigger(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRemoteTrigger is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRemoteTrigger requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemoteTrigger: %w", err)
+	}
+	return oldValue.RemoteTrigger, nil
+}
+
+// ClearRemoteTrigger clears the value of the "remote_trigger" field.
+func (m *HostamtconfigResourceMutation) ClearRemoteTrigger() {
+	m.remote_trigger = nil
+	m.clearedFields[hostamtconfigresource.FieldRemoteTrigger] = struct{}{}
+}
+
+// RemoteTriggerCleared returns if the "remote_trigger" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) RemoteTriggerCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldRemoteTrigger]
+	return ok
+}
+
+// ResetRemoteTrigger resets all changes to the "remote_trigger" field.
+func (m *HostamtconfigResourceMutation) ResetRemoteTrigger() {
+	m.remote_trigger = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldRemoteTrigger)
+}
+
+// SetMpsHostname sets the "mps_hostname" field.
+func (m *HostamtconfigResourceMutation) SetMpsHostname(s string) {
+	m.mps_hostname = &s
+}
+
+// MpsHostname returns the value of the "mps_hostname" field in the mutation.
+func (m *HostamtconfigResourceMutation) MpsHostname() (r string, exists bool) {
+	v := m.mps_hostname
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMpsHostname returns the old "mps_hostname" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldMpsHostname(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMpsHostname is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMpsHostname requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMpsHostname: %w", err)
+	}
+	return oldValue.MpsHostname, nil
+}
+
+// ClearMpsHostname clears the value of the "mps_hostname" field.
+func (m *HostamtconfigResourceMutation) ClearMpsHostname() {
+	m.mps_hostname = nil
+	m.clearedFields[hostamtconfigresource.FieldMpsHostname] = struct{}{}
+}
+
+// MpsHostnameCleared returns if the "mps_hostname" field was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) MpsHostnameCleared() bool {
+	_, ok := m.clearedFields[hostamtconfigresource.FieldMpsHostname]
+	return ok
+}
+
+// ResetMpsHostname resets all changes to the "mps_hostname" field.
+func (m *HostamtconfigResourceMutation) ResetMpsHostname() {
+	m.mps_hostname = nil
+	delete(m.clearedFields, hostamtconfigresource.FieldMpsHostname)
+}
+
+// SetTenantID sets the "tenant_id" field.
+func (m *HostamtconfigResourceMutation) SetTenantID(s string) {
+	m.tenant_id = &s
+}
+
+// TenantID returns the value of the "tenant_id" field in the mutation.
+func (m *HostamtconfigResourceMutation) TenantID() (r string, exists bool) {
+	v := m.tenant_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantID returns the old "tenant_id" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldTenantID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTenantID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTenantID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantID: %w", err)
+	}
+	return oldValue.TenantID, nil
+}
+
+// ResetTenantID resets all changes to the "tenant_id" field.
+func (m *HostamtconfigResourceMutation) ResetTenantID() {
+	m.tenant_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *HostamtconfigResourceMutation) SetCreatedAt(s string) {
+	m.created_at = &s
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *HostamtconfigResourceMutation) CreatedAt() (r string, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldCreatedAt(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *HostamtconfigResourceMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *HostamtconfigResourceMutation) SetUpdatedAt(s string) {
+	m.updated_at = &s
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *HostamtconfigResourceMutation) UpdatedAt() (r string, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the HostamtconfigResource entity.
+// If the HostamtconfigResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostamtconfigResourceMutation) OldUpdatedAt(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *HostamtconfigResourceMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+}
+
+// SetHostID sets the "host" edge to the HostResource entity by id.
+func (m *HostamtconfigResourceMutation) SetHostID(id int) {
+	m.host = &id
+}
+
+// ClearHost clears the "host" edge to the HostResource entity.
+func (m *HostamtconfigResourceMutation) ClearHost() {
+	m.clearedhost = true
+}
+
+// HostCleared reports if the "host" edge to the HostResource entity was cleared.
+func (m *HostamtconfigResourceMutation) HostCleared() bool {
+	return m.clearedhost
+}
+
+// HostID returns the "host" edge ID in the mutation.
+func (m *HostamtconfigResourceMutation) HostID() (id int, exists bool) {
+	if m.host != nil {
+		return *m.host, true
+	}
+	return
+}
+
+// HostIDs returns the "host" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// HostID instead. It exists only for internal usage by the builders.
+func (m *HostamtconfigResourceMutation) HostIDs() (ids []int) {
+	if id := m.host; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetHost resets all changes to the "host" edge.
+func (m *HostamtconfigResourceMutation) ResetHost() {
+	m.host = nil
+	m.clearedhost = false
+}
+
+// Where appends a list predicates to the HostamtconfigResourceMutation builder.
+func (m *HostamtconfigResourceMutation) Where(ps ...predicate.HostamtconfigResource) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the HostamtconfigResourceMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *HostamtconfigResourceMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.HostamtconfigResource, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *HostamtconfigResourceMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *HostamtconfigResourceMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (HostamtconfigResource).
+func (m *HostamtconfigResourceMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *HostamtconfigResourceMutation) Fields() []string {
+	fields := make([]string, 0, 18)
+	if m.resource_id != nil {
+		fields = append(fields, hostamtconfigresource.FieldResourceID)
+	}
+	if m.kind != nil {
+		fields = append(fields, hostamtconfigresource.FieldKind)
+	}
+	if m.version != nil {
+		fields = append(fields, hostamtconfigresource.FieldVersion)
+	}
+	if m.device_name != nil {
+		fields = append(fields, hostamtconfigresource.FieldDeviceName)
+	}
+	if m.operational_state != nil {
+		fields = append(fields, hostamtconfigresource.FieldOperationalState)
+	}
+	if m.build_number != nil {
+		fields = append(fields, hostamtconfigresource.FieldBuildNumber)
+	}
+	if m.sku != nil {
+		fields = append(fields, hostamtconfigresource.FieldSku)
+	}
+	if m.features != nil {
+		fields = append(fields, hostamtconfigresource.FieldFeatures)
+	}
+	if m.device_guid != nil {
+		fields = append(fields, hostamtconfigresource.FieldDeviceGUID)
+	}
+	if m.control_mode != nil {
+		fields = append(fields, hostamtconfigresource.FieldControlMode)
+	}
+	if m.dns_suffix != nil {
+		fields = append(fields, hostamtconfigresource.FieldDNSSuffix)
+	}
+	if m.network_status != nil {
+		fields = append(fields, hostamtconfigresource.FieldNetworkStatus)
+	}
+	if m.remote_status != nil {
+		fields = append(fields, hostamtconfigresource.FieldRemoteStatus)
+	}
+	if m.remote_trigger != nil {
+		fields = append(fields, hostamtconfigresource.FieldRemoteTrigger)
+	}
+	if m.mps_hostname != nil {
+		fields = append(fields, hostamtconfigresource.FieldMpsHostname)
+	}
+	if m.tenant_id != nil {
+		fields = append(fields, hostamtconfigresource.FieldTenantID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, hostamtconfigresource.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, hostamtconfigresource.FieldUpdatedAt)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *HostamtconfigResourceMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case hostamtconfigresource.FieldResourceID:
+		return m.ResourceID()
+	case hostamtconfigresource.FieldKind:
+		return m.Kind()
+	case hostamtconfigresource.FieldVersion:
+		return m.Version()
+	case hostamtconfigresource.FieldDeviceName:
+		return m.DeviceName()
+	case hostamtconfigresource.FieldOperationalState:
+		return m.OperationalState()
+	case hostamtconfigresource.FieldBuildNumber:
+		return m.BuildNumber()
+	case hostamtconfigresource.FieldSku:
+		return m.Sku()
+	case hostamtconfigresource.FieldFeatures:
+		return m.Features()
+	case hostamtconfigresource.FieldDeviceGUID:
+		return m.DeviceGUID()
+	case hostamtconfigresource.FieldControlMode:
+		return m.ControlMode()
+	case hostamtconfigresource.FieldDNSSuffix:
+		return m.DNSSuffix()
+	case hostamtconfigresource.FieldNetworkStatus:
+		return m.NetworkStatus()
+	case hostamtconfigresource.FieldRemoteStatus:
+		return m.RemoteStatus()
+	case hostamtconfigresource.FieldRemoteTrigger:
+		return m.RemoteTrigger()
+	case hostamtconfigresource.FieldMpsHostname:
+		return m.MpsHostname()
+	case hostamtconfigresource.FieldTenantID:
+		return m.TenantID()
+	case hostamtconfigresource.FieldCreatedAt:
+		return m.CreatedAt()
+	case hostamtconfigresource.FieldUpdatedAt:
+		return m.UpdatedAt()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *HostamtconfigResourceMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case hostamtconfigresource.FieldResourceID:
+		return m.OldResourceID(ctx)
+	case hostamtconfigresource.FieldKind:
+		return m.OldKind(ctx)
+	case hostamtconfigresource.FieldVersion:
+		return m.OldVersion(ctx)
+	case hostamtconfigresource.FieldDeviceName:
+		return m.OldDeviceName(ctx)
+	case hostamtconfigresource.FieldOperationalState:
+		return m.OldOperationalState(ctx)
+	case hostamtconfigresource.FieldBuildNumber:
+		return m.OldBuildNumber(ctx)
+	case hostamtconfigresource.FieldSku:
+		return m.OldSku(ctx)
+	case hostamtconfigresource.FieldFeatures:
+		return m.OldFeatures(ctx)
+	case hostamtconfigresource.FieldDeviceGUID:
+		return m.OldDeviceGUID(ctx)
+	case hostamtconfigresource.FieldControlMode:
+		return m.OldControlMode(ctx)
+	case hostamtconfigresource.FieldDNSSuffix:
+		return m.OldDNSSuffix(ctx)
+	case hostamtconfigresource.FieldNetworkStatus:
+		return m.OldNetworkStatus(ctx)
+	case hostamtconfigresource.FieldRemoteStatus:
+		return m.OldRemoteStatus(ctx)
+	case hostamtconfigresource.FieldRemoteTrigger:
+		return m.OldRemoteTrigger(ctx)
+	case hostamtconfigresource.FieldMpsHostname:
+		return m.OldMpsHostname(ctx)
+	case hostamtconfigresource.FieldTenantID:
+		return m.OldTenantID(ctx)
+	case hostamtconfigresource.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case hostamtconfigresource.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	}
+	return nil, fmt.Errorf("unknown HostamtconfigResource field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *HostamtconfigResourceMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case hostamtconfigresource.FieldResourceID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetResourceID(v)
+		return nil
+	case hostamtconfigresource.FieldKind:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetKind(v)
+		return nil
+	case hostamtconfigresource.FieldVersion:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetVersion(v)
+		return nil
+	case hostamtconfigresource.FieldDeviceName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeviceName(v)
+		return nil
+	case hostamtconfigresource.FieldOperationalState:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetOperationalState(v)
+		return nil
+	case hostamtconfigresource.FieldBuildNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBuildNumber(v)
+		return nil
+	case hostamtconfigresource.FieldSku:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSku(v)
+		return nil
+	case hostamtconfigresource.FieldFeatures:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFeatures(v)
+		return nil
+	case hostamtconfigresource.FieldDeviceGUID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeviceGUID(v)
+		return nil
+	case hostamtconfigresource.FieldControlMode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetControlMode(v)
+		return nil
+	case hostamtconfigresource.FieldDNSSuffix:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDNSSuffix(v)
+		return nil
+	case hostamtconfigresource.FieldNetworkStatus:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetNetworkStatus(v)
+		return nil
+	case hostamtconfigresource.FieldRemoteStatus:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemoteStatus(v)
+		return nil
+	case hostamtconfigresource.FieldRemoteTrigger:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemoteTrigger(v)
+		return nil
+	case hostamtconfigresource.FieldMpsHostname:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMpsHostname(v)
+		return nil
+	case hostamtconfigresource.FieldTenantID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantID(v)
+		return nil
+	case hostamtconfigresource.FieldCreatedAt:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case hostamtconfigresource.FieldUpdatedAt:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	}
+	return fmt.Errorf("unknown HostamtconfigResource field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *HostamtconfigResourceMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *HostamtconfigResourceMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *HostamtconfigResourceMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown HostamtconfigResource numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *HostamtconfigResourceMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(hostamtconfigresource.FieldKind) {
+		fields = append(fields, hostamtconfigresource.FieldKind)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldVersion) {
+		fields = append(fields, hostamtconfigresource.FieldVersion)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldDeviceName) {
+		fields = append(fields, hostamtconfigresource.FieldDeviceName)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldOperationalState) {
+		fields = append(fields, hostamtconfigresource.FieldOperationalState)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldBuildNumber) {
+		fields = append(fields, hostamtconfigresource.FieldBuildNumber)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldSku) {
+		fields = append(fields, hostamtconfigresource.FieldSku)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldFeatures) {
+		fields = append(fields, hostamtconfigresource.FieldFeatures)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldDeviceGUID) {
+		fields = append(fields, hostamtconfigresource.FieldDeviceGUID)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldControlMode) {
+		fields = append(fields, hostamtconfigresource.FieldControlMode)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldDNSSuffix) {
+		fields = append(fields, hostamtconfigresource.FieldDNSSuffix)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldNetworkStatus) {
+		fields = append(fields, hostamtconfigresource.FieldNetworkStatus)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldRemoteStatus) {
+		fields = append(fields, hostamtconfigresource.FieldRemoteStatus)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldRemoteTrigger) {
+		fields = append(fields, hostamtconfigresource.FieldRemoteTrigger)
+	}
+	if m.FieldCleared(hostamtconfigresource.FieldMpsHostname) {
+		fields = append(fields, hostamtconfigresource.FieldMpsHostname)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *HostamtconfigResourceMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *HostamtconfigResourceMutation) ClearField(name string) error {
+	switch name {
+	case hostamtconfigresource.FieldKind:
+		m.ClearKind()
+		return nil
+	case hostamtconfigresource.FieldVersion:
+		m.ClearVersion()
+		return nil
+	case hostamtconfigresource.FieldDeviceName:
+		m.ClearDeviceName()
+		return nil
+	case hostamtconfigresource.FieldOperationalState:
+		m.ClearOperationalState()
+		return nil
+	case hostamtconfigresource.FieldBuildNumber:
+		m.ClearBuildNumber()
+		return nil
+	case hostamtconfigresource.FieldSku:
+		m.ClearSku()
+		return nil
+	case hostamtconfigresource.FieldFeatures:
+		m.ClearFeatures()
+		return nil
+	case hostamtconfigresource.FieldDeviceGUID:
+		m.ClearDeviceGUID()
+		return nil
+	case hostamtconfigresource.FieldControlMode:
+		m.ClearControlMode()
+		return nil
+	case hostamtconfigresource.FieldDNSSuffix:
+		m.ClearDNSSuffix()
+		return nil
+	case hostamtconfigresource.FieldNetworkStatus:
+		m.ClearNetworkStatus()
+		return nil
+	case hostamtconfigresource.FieldRemoteStatus:
+		m.ClearRemoteStatus()
+		return nil
+	case hostamtconfigresource.FieldRemoteTrigger:
+		m.ClearRemoteTrigger()
+		return nil
+	case hostamtconfigresource.FieldMpsHostname:
+		m.ClearMpsHostname()
+		return nil
+	}
+	return fmt.Errorf("unknown HostamtconfigResource nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *HostamtconfigResourceMutation) ResetField(name string) error {
+	switch name {
+	case hostamtconfigresource.FieldResourceID:
+		m.ResetResourceID()
+		return nil
+	case hostamtconfigresource.FieldKind:
+		m.ResetKind()
+		return nil
+	case hostamtconfigresource.FieldVersion:
+		m.ResetVersion()
+		return nil
+	case hostamtconfigresource.FieldDeviceName:
+		m.ResetDeviceName()
+		return nil
+	case hostamtconfigresource.FieldOperationalState:
+		m.ResetOperationalState()
+		return nil
+	case hostamtconfigresource.FieldBuildNumber:
+		m.ResetBuildNumber()
+		return nil
+	case hostamtconfigresource.FieldSku:
+		m.ResetSku()
+		return nil
+	case hostamtconfigresource.FieldFeatures:
+		m.ResetFeatures()
+		return nil
+	case hostamtconfigresource.FieldDeviceGUID:
+		m.ResetDeviceGUID()
+		return nil
+	case hostamtconfigresource.FieldControlMode:
+		m.ResetControlMode()
+		return nil
+	case hostamtconfigresource.FieldDNSSuffix:
+		m.ResetDNSSuffix()
+		return nil
+	case hostamtconfigresource.FieldNetworkStatus:
+		m.ResetNetworkStatus()
+		return nil
+	case hostamtconfigresource.FieldRemoteStatus:
+		m.ResetRemoteStatus()
+		return nil
+	case hostamtconfigresource.FieldRemoteTrigger:
+		m.ResetRemoteTrigger()
+		return nil
+	case hostamtconfigresource.FieldMpsHostname:
+		m.ResetMpsHostname()
+		return nil
+	case hostamtconfigresource.FieldTenantID:
+		m.ResetTenantID()
+		return nil
+	case hostamtconfigresource.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case hostamtconfigresource.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	}
+	return fmt.Errorf("unknown HostamtconfigResource field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *HostamtconfigResourceMutation) AddedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.host != nil {
+		edges = append(edges, hostamtconfigresource.EdgeHost)
+	}
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *HostamtconfigResourceMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case hostamtconfigresource.EdgeHost:
+		if id := m.host; id != nil {
+			return []ent.Value{*id}
+		}
+	}
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *HostamtconfigResourceMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 1)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *HostamtconfigResourceMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *HostamtconfigResourceMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.clearedhost {
+		edges = append(edges, hostamtconfigresource.EdgeHost)
+	}
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *HostamtconfigResourceMutation) EdgeCleared(name string) bool {
+	switch name {
+	case hostamtconfigresource.EdgeHost:
+		return m.clearedhost
+	}
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *HostamtconfigResourceMutation) ClearEdge(name string) error {
+	switch name {
+	case hostamtconfigresource.EdgeHost:
+		m.ClearHost()
+		return nil
+	}
+	return fmt.Errorf("unknown HostamtconfigResource unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *HostamtconfigResourceMutation) ResetEdge(name string) error {
+	switch name {
+	case hostamtconfigresource.EdgeHost:
+		m.ResetHost()
+		return nil
+	}
+	return fmt.Errorf("unknown HostamtconfigResource edge %s", name)
 }
 
 // HostgpuResourceMutation represents an operation that mutates the HostgpuResource nodes in the graph.

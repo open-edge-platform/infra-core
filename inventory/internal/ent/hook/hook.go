@@ -45,6 +45,18 @@ func (f HostResourceFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.HostResourceMutation", m)
 }
 
+// The HostamtconfigResourceFunc type is an adapter to allow the use of ordinary
+// function as HostamtconfigResource mutator.
+type HostamtconfigResourceFunc func(context.Context, *ent.HostamtconfigResourceMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f HostamtconfigResourceFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.HostamtconfigResourceMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.HostamtconfigResourceMutation", m)
+}
+
 // The HostgpuResourceFunc type is an adapter to allow the use of ordinary
 // function as HostgpuResource mutator.
 type HostgpuResourceFunc func(context.Context, *ent.HostgpuResourceMutation) (ent.Value, error)
