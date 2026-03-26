@@ -19,6 +19,7 @@ type tenantIDBasedKey struct {
 }
 
 // StoreHostByUUID caches the given Host resource by the given UUID. Also stores backward mapping from resourceID to UUID.
+//
 //nolint:cyclop // Complexity is due to number of mappings in Host Resource
 func (c *InventoryCache) StoreHostByUUID(uuid string, host *computev1.HostResource) {
 	c.mu.Lock()

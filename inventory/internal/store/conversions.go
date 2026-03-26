@@ -592,7 +592,8 @@ func entHostStorageResourceToProtoHostStorageResource(hostStorage *ent.Hoststora
 	return protoHostStorage
 }
 
-func entHostAmtconfigResourceToProtoHostAmtconfigResource(hostAmtconfig *ent.HostamtconfigResource) *computev1.HostamtconfigResource {
+func entHostAmtconfigResourceToProtoHostAmtconfigResource(hostAmtconfig *ent.HostamtconfigResource,
+) *computev1.HostamtconfigResource {
 	if hostAmtconfig == nil {
 		return nil
 	}
