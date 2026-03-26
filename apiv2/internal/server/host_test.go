@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package server_test
@@ -111,7 +111,7 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 			Features:    "feature1,feature2",
 		},
 	},
-	HostDevice: &inv_computev1.HostdeviceResource{
+	HostAmtconfig: &inv_computev1.HostamtconfigResource{
 		Version:          "16.1.27",
 		DeviceName:       "testhost",
 		OperationalState: "enabled",
@@ -232,7 +232,7 @@ var exampleAPIHostResource = &computev1.HostResource{
 			Capabilities: []string{"feature1", "feature2"},
 		},
 	},
-	HostDevice: &computev1.HostdeviceResource{
+	HostAmtconfig: &computev1.HostamtconfigResource{
 		Version:          "16.1.27",
 		DeviceName:       "testhost",
 		OperationalState: "enabled",

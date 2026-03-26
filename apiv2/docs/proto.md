@@ -42,7 +42,7 @@
   
 - [resources/compute/v1/compute.proto](#resources_compute_v1_compute-proto)
     - [HostResource](#resources-compute-v1-HostResource)
-    - [HostdeviceResource](#resources-compute-v1-HostdeviceResource)
+    - [HostamtconfigResource](#resources-compute-v1-HostamtconfigResource)
     - [HostgpuResource](#resources-compute-v1-HostgpuResource)
     - [HostnicResource](#resources-compute-v1-HostnicResource)
     - [HoststorageResource](#resources-compute-v1-HoststorageResource)
@@ -802,7 +802,7 @@ A Host resource.
 | host_nics | [HostnicResource](#resources-compute-v1-HostnicResource) | repeated | Back-reference to attached host NIC resources. |
 | host_usbs | [HostusbResource](#resources-compute-v1-HostusbResource) | repeated | Back-reference to attached host USB resources. |
 | host_gpus | [HostgpuResource](#resources-compute-v1-HostgpuResource) | repeated | Back-reference to attached host GPU resources. |
-| host_device | [HostdeviceResource](#resources-compute-v1-HostdeviceResource) |  | Back-reference to attached host vPRO support resources. |
+| host_amtconfig | [HostamtconfigResource](#resources-compute-v1-HostamtconfigResource) |  | Back-reference to attached host vPRO support resources. |
 | instance | [InstanceResource](#resources-compute-v1-InstanceResource) |  | The instance associated with the host. |
 | amt_sku | [AmtSku](#resources-compute-v1-AmtSku) |  | coming from device introspection |
 | desired_amt_state | [AmtState](#resources-compute-v1-AmtState) |  | Desired AMT/vPRO state of the host |
@@ -823,9 +823,9 @@ A Host resource.
 
 
 
-<a name="resources-compute-v1-HostdeviceResource"></a>
+<a name="resources-compute-v1-HostamtconfigResource"></a>
 
-### HostdeviceResource
+### HostamtconfigResource
 The vPRO support details of host.
 
 

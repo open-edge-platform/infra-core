@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package server
@@ -301,7 +301,7 @@ func fromInvHost(
 		HostNics:           fromInvHostNics(invHost.GetHostNics(), nicToIPAdrresses),
 		HostUsbs:           fromInvHostUsbs(invHost.GetHostUsbs()),
 		HostGpus:           fromInvHostGpus(invHost.GetHostGpus()),
-		HostDevice:         fromInvHostDevice(invHost.GetHostDevice()),
+		HostAmtconfig:      fromInvHostAmtconfig(invHost.GetHostAmtconfig()),
 		AmtDnsSuffix:       invHost.GetAmtDnsSuffix(),
 		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
@@ -419,21 +419,21 @@ func fromInvHostGpus(gpus []*inv_computev1.HostgpuResource) []*computev1.Hostgpu
 	return hostGpus
 }
 
-func fromInvHostDevice(device *inv_computev1.HostdeviceResource) *computev1.HostdeviceResource {
-	return &computev1.HostdeviceResource{
-		Version:          device.GetVersion(),
-		DeviceName:       device.GetDeviceName(),
-		OperationalState: device.GetOperationalState(),
-		BuildNumber:      device.GetBuildNumber(),
-		Sku:              device.GetSku(),
-		Features:         device.GetFeatures(),
-		DeviceGuid:       device.GetDeviceGuid(),
-		ControlMode:      device.GetControlMode(),
-		DnsSuffix:        device.GetDnsSuffix(),
-		NetworkStatus:    device.GetNetworkStatus(),
-		RemoteStatus:     device.GetRemoteStatus(),
-		RemoteTrigger:    device.GetRemoteTrigger(),
-		MpsHostname:      device.GetMpsHostname(),
+func fromInvHostAmtconfig(amtconfig *inv_computev1.HostamtconfigResource) *computev1.HostamtconfigResource {
+	return &computev1.HostamtconfigResource{
+		Version:          amtconfig.GetVersion(),
+		DeviceName:       amtconfig.GetDeviceName(),
+		OperationalState: amtconfig.GetOperationalState(),
+		BuildNumber:      amtconfig.GetBuildNumber(),
+		Sku:              amtconfig.GetSku(),
+		Features:         amtconfig.GetFeatures(),
+		DeviceGuid:       amtconfig.GetDeviceGuid(),
+		ControlMode:      amtconfig.GetControlMode(),
+		DnsSuffix:        amtconfig.GetDnsSuffix(),
+		NetworkStatus:    amtconfig.GetNetworkStatus(),
+		RemoteStatus:     amtconfig.GetRemoteStatus(),
+		RemoteTrigger:    amtconfig.GetRemoteTrigger(),
+		MpsHostname:      amtconfig.GetMpsHostname(),
 	}
 }
 

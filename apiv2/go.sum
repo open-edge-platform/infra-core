@@ -1062,8 +1062,8 @@ github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 h1:bQx3WeLcUWy+RletI
 github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90/go.mod h1:y5+oSEHCPT/DGrS++Wc/479ERge0zTFxaF8PbGKcg2o=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4 h1:mgQ7gtO2W0t2eodLCtC1n3phD7Js7GqZWoq4AD4fH0s=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4/go.mod h1:f7wYe6ohljTw4NfP5+4P2WGIc+nogUK9d8gE44hToQ8=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.34.6-0.20260318154125-dc998e29d3fe h1:AR5awTmatVhnT7Uy6TTqO86OS0aaGKncx5Pajar+Dak=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.34.6-0.20260318154125-dc998e29d3fe/go.mod h1:U5EHGK/kUtXOVSmriHArXFKumwpTLfJRAR64XmsmaFs=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.34.6-0.20260326162113-bb5ec97644eb h1:ri3jUDbUjqpgCDeSpsd7W/WXHs3Cnp3Zip4jO+NGUo8=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.34.6-0.20260326162113-bb5ec97644eb/go.mod h1:U5EHGK/kUtXOVSmriHArXFKumwpTLfJRAR64XmsmaFs=
 github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d h1:xRow90Mk5U2h+R60TTL8lPXIFbdQWSnHyg09vh8NEPo=
 github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d/go.mod h1:mYhs/KbcXPQWM+2cHZXyzeIIzM7xKvnNgsnHlFkXH0g=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
@@ -1888,8 +1888,8 @@ google.golang.org/grpc v1.50.1/go.mod h1:ZgQEeidpAuNRZ8iRrlBKXZQP1ghovWIVhdJRyCD
 google.golang.org/grpc v1.51.0/go.mod h1:wgNDFcnuBGmxLKI/qn4T+m5BtEBYXJPvibbUPsAIPww=
 google.golang.org/grpc v1.53.0/go.mod h1:OnIrk0ipVdj4N5d9IUoFUx72/VlD7+jUsHwZgwSMQpw=
 google.golang.org/grpc v1.54.0/go.mod h1:PUSEXI6iWghWaB6lXM4knEgpJNu2qUcKfDtNci3EC2g=
-google.golang.org/grpc v1.79.1 h1:zGhSi45ODB9/p3VAawt9a+O/MULLl9dpizzNNpq7flY=
-google.golang.org/grpc v1.79.1/go.mod h1:KmT0Kjez+0dde/v2j9vzwoAScgEPx/Bw1CYChhHLrHQ=
+google.golang.org/grpc v1.79.3 h1:sybAEdRIEtvcD68Gx7dmnwjZKlyfuc61Dyo9pGXXkKE=
+google.golang.org/grpc v1.79.3/go.mod h1:KmT0Kjez+0dde/v2j9vzwoAScgEPx/Bw1CYChhHLrHQ=
 google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0/go.mod h1:6Kw0yEErY5E/yWrBtf03jp27GLLJujG4z/JK95pnjjw=
 google.golang.org/protobuf v0.0.0-20200109180630-ec00e32a8dfd/go.mod h1:DFci5gLYBciE7Vtevhsrf46CRTquxDuWsQurQQe4oz8=
 google.golang.org/protobuf v0.0.0-20200221191635-4d8936d0db64/go.mod h1:kwYJMbMJ01Woi6D6+Kah6886xMZcty6N08ah7+eCXa0=

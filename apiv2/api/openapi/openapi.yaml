@@ -16229,11 +16229,11 @@ components:
           title: host_gpus
           description: Back-reference to attached host GPU resources.
           readOnly: true
-        hostDevice:
-          title: host_device
+        hostAmtconfig:
+          title: host_amtconfig
           description: Back-reference to attached host vPRO support resources.
           readOnly: true
-          $ref: '#/components/schemas/HostdeviceResource'
+          $ref: '#/components/schemas/HostamtconfigResource'
         instance:
           title: instance
           description: The instance associated with the host.
@@ -16324,7 +16324,7 @@ components:
         - HOST_STATE_UNTRUSTED
         - HOST_STATE_REGISTERED
       description: States of the host.
-    HostdeviceResource:
+    HostamtconfigResource:
       type: object
       properties:
         version:
@@ -16392,7 +16392,7 @@ components:
           title: mps_hostname
           description: Host name for MPS instance remotely connected to host.
           readOnly: true
-      title: HostdeviceResource
+      title: HostamtconfigResource
       additionalProperties: false
       description: The vPRO support details of host.
     HostgpuResource:

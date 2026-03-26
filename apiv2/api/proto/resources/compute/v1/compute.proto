@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 syntax = "proto3";
@@ -216,7 +216,7 @@ message HostResource {
   // Back-reference to attached host GPU resources.
   repeated HostgpuResource host_gpus = 73 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Back-reference to attached host vPRO support resources.
-  HostdeviceResource host_device = 80 [(google.api.field_behavior) = OUTPUT_ONLY];
+  HostamtconfigResource host_amtconfig = 80 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The instance associated with the host.
   InstanceResource instance = 90 [(google.api.field_behavior) = OUTPUT_ONLY];
 
@@ -364,7 +364,7 @@ message HostgpuResource {
 }
 
 // The vPRO support details of host.
-message HostdeviceResource {
+message HostamtconfigResource {
   // Version number of AMT on the host.
   string version = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Host name of the host.

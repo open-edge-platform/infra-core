@@ -1135,8 +1135,8 @@ type HostResource struct {
 	// DesiredState States of the host.
 	DesiredState *HostState `json:"desiredState,omitempty"`
 
-	// HostDevice The vPRO support details of host.
-	HostDevice *HostdeviceResource `json:"hostDevice,omitempty"`
+	// HostAmtconfig The vPRO support details of host.
+	HostAmtconfig *HostamtconfigResource `json:"hostAmtconfig,omitempty"`
 
 	// HostGpus Back-reference to attached host GPU resources.
 	HostGpus *[]HostgpuResource `json:"hostGpus,omitempty"`
@@ -1243,8 +1243,8 @@ type HostResource struct {
 // HostState States of the host.
 type HostState string
 
-// HostdeviceResource The vPRO support details of host.
-type HostdeviceResource struct {
+// HostamtconfigResource The vPRO support details of host.
+type HostamtconfigResource struct {
 	// BuildNumber Build Number of AMT on the host.
 	BuildNumber *string `json:"buildNumber,omitempty"`
 
