@@ -71,7 +71,7 @@ jobs:
         with:
           python-version: '3.13'
       - name: Restore cached virtualenv
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306  # v5.0.3
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7  # v5.0.4
         with:
           key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
           path: venv_infra
@@ -91,6 +91,7 @@ jobs:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
     with:
+      orch_ci_repo_ref: b5930c48c1fcdb6b34ffbcd465cff96dabfbde70
       bootstrap_tools: "all,golangci-lint2"
       run_security_scans: true
       run_version_check: true
@@ -103,7 +104,7 @@ jobs:
       run_artifact: false
       prefix_tag_separator: "/"
       project_folder: ${{ matrix.project_folder }}
-      trivy_image_skip: "postgres:16.4"
+      trivy_image_skip: "postgres:16.4,ghcr.io/github/gh-aw-mcpg:latest,ghcr.io/github/gh-aw-firewall/squid:latest,ghcr.io/github/gh-aw-firewall/api-proxy:latest,ghcr.io/github/gh-aw-firewall/agent:latest,ghcr.io/github/github-mcp-server:latest"
       trivy_config_path: '${{ matrix.project_folder }}/trivy.yaml'
     secrets:
       NO_AUTH_ECR_PUSH_USERNAME: ${{ secrets.NO_AUTH_ECR_PUSH_USERNAME }}
@@ -202,7 +203,7 @@ jobs:
           aws-region: us-west-2
       - name: Login to Amazon ECR
         if: ${{ env.PUBLISH == 'true' }}
-        uses: aws-actions/amazon-ecr-login@c962da2960ed15f492addc26fffa274485265950  # v2.0.2
+        uses: aws-actions/amazon-ecr-login@183a1442edf41672e66566b7fc560e297a290896  # v2.1.1
         with:
           registries: "080137407410"
       - if: ${{ env.PUBLISH == 'true'}}
