@@ -23,6 +23,7 @@ jobs:
       actions: read
     uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
     with:
+      orch_ci_repo_ref: b5930c48c1fcdb6b34ffbcd465cff96dabfbde70
       bootstrap_tools: "all,golangci-lint2"
       run_version_check: true
       run_dep_version_check: true
