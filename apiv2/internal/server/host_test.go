@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package server_test
@@ -111,6 +111,21 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 			Features:    "feature1,feature2",
 		},
 	},
+	HostAmtconfig: &inv_computev1.HostamtconfigResource{
+		Version:          "16.1.27",
+		DeviceName:       "testhost",
+		OperationalState: "enabled",
+		BuildNumber:      "2176",
+		Sku:              "16392",
+		Features:         "AMT Pro Corporate",
+		DeviceGuid:       "1234abcd-ef56-7890-abcd-123456ef7890",
+		ControlMode:      "activated in client control mode",
+		DnsSuffix:        "test.com",
+		NetworkStatus:    "direct",
+		RemoteStatus:     "not connected",
+		RemoteTrigger:    "user initiated",
+		MpsHostname:      "testhostname",
+	},
 	Instance: &inv_computev1.InstanceResource{
 		ResourceId:                  "instance-12345678",
 		ProvisioningStatus:          "provisioned",
@@ -216,6 +231,21 @@ var exampleAPIHostResource = &computev1.HostResource{
 			DeviceName:   "gpu0",
 			Capabilities: []string{"feature1", "feature2"},
 		},
+	},
+	HostAmtconfig: &computev1.HostamtconfigResource{
+		Version:          "16.1.27",
+		DeviceName:       "testhost",
+		OperationalState: "enabled",
+		BuildNumber:      "2176",
+		Sku:              "16392",
+		Features:         "AMT Pro Corporate",
+		DeviceGuid:       "1234abcd-ef56-7890-abcd-123456ef7890",
+		ControlMode:      "activated in client control mode",
+		DnsSuffix:        "test.com",
+		NetworkStatus:    "direct",
+		RemoteStatus:     "not connected",
+		RemoteTrigger:    "user initiated",
+		MpsHostname:      "testhostname",
 	},
 	Instance: &computev1.InstanceResource{
 		ResourceId:                  "instance-12345678",
