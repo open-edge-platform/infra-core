@@ -933,6 +933,8 @@ func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (i
 }
 
 // Get hosts summary.
+//
+//nolint:cyclop // complexity due to coverage of all cases in count.
 func (is *InventorygRPCServer) GetHostsSummary(
 	ctx context.Context,
 	req *restv1.GetHostSummaryRequest,

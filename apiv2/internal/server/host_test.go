@@ -1065,7 +1065,7 @@ func TestHost_Summary_RunningWithHostLevelError(t *testing.T) {
 	hostHealthy := createTestHost(ctx, t, "Healthy-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostHealthy.GetResourceId()) })
 	instanceHealthy := inv_testing.CreateInstance(t, hostHealthy, os)
-	updateInstanceState(ctx, t, instanceHealthy.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instanceHealthy.GetResourceId())
 
 	resp, err := server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
 	require.NoError(t, err)
@@ -1076,7 +1076,7 @@ func TestHost_Summary_RunningWithHostLevelError(t *testing.T) {
 	hostHS := createTestHost(ctx, t, "HostStatus-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostHS.GetResourceId()) })
 	instanceHS := inv_testing.CreateInstance(t, hostHS, os)
-	updateInstanceState(ctx, t, instanceHS.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instanceHS.GetResourceId())
 	updateHostStatus(ctx, t, hostHS.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -1088,7 +1088,7 @@ func TestHost_Summary_RunningWithHostLevelError(t *testing.T) {
 	hostOB := createTestHost(ctx, t, "Onboarding-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostOB.GetResourceId()) })
 	instanceOB := inv_testing.CreateInstance(t, hostOB, os)
-	updateInstanceState(ctx, t, instanceOB.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instanceOB.GetResourceId())
 	updateHostOnboardingStatus(ctx, t, hostOB.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -1100,7 +1100,7 @@ func TestHost_Summary_RunningWithHostLevelError(t *testing.T) {
 	hostReg := createTestHost(ctx, t, "Registration-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostReg.GetResourceId()) })
 	instanceReg := inv_testing.CreateInstance(t, hostReg, os)
-	updateInstanceState(ctx, t, instanceReg.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instanceReg.GetResourceId())
 	updateHostRegistrationStatus(ctx, t, hostReg.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -1112,7 +1112,7 @@ func TestHost_Summary_RunningWithHostLevelError(t *testing.T) {
 	hostPow := createTestHost(ctx, t, "Power-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostPow.GetResourceId()) })
 	instancePow := inv_testing.CreateInstance(t, hostPow, os)
-	updateInstanceState(ctx, t, instancePow.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instancePow.GetResourceId())
 	updateHostPowerStatus(ctx, t, hostPow.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -1124,7 +1124,7 @@ func TestHost_Summary_RunningWithHostLevelError(t *testing.T) {
 	hostAMT := createTestHost(ctx, t, "AMT-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostAMT.GetResourceId()) })
 	instanceAMT := inv_testing.CreateInstance(t, hostAMT, os)
-	updateInstanceState(ctx, t, instanceAMT.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instanceAMT.GetResourceId())
 	updateHostAmtStatus(ctx, t, hostAMT.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
 
 	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -1162,7 +1162,7 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	instance1 := inv_testing.CreateInstance(t, host1, os)
 
 	// Update Instance status to Running
-	updateInstanceState(ctx, t, instance1.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instance1.GetResourceId())
 
 	// Host 2: Host with no site allocation
 	host2 := createTestHost(ctx, t, "Host2-Unallocated", nil, inv_computev1.HostState_HOST_STATE_REGISTERED)
@@ -1273,7 +1273,7 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	host10 := createTestHost(ctx, t, "Host10-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host10.GetResourceId()) })
 	instance10 := inv_testing.CreateInstance(t, host10, os)
-	updateInstanceState(ctx, t, instance10.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instance10.GetResourceId())
 
 	// VERIFICATION 8: Verify running count increases
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -1443,11 +1443,11 @@ func updateHostAmtStatus(ctx context.Context, t *testing.T, hostID string, statu
 	require.NoError(t, err)
 }
 
-func updateInstanceState(ctx context.Context, t *testing.T, instanceID string, state inv_computev1.InstanceState) {
+func updateInstanceState(ctx context.Context, t *testing.T, instanceID string) {
 	t.Helper()
 
 	updateInstance := &inv_computev1.InstanceResource{
-		CurrentState: state,
+		CurrentState: inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
 	}
 
 	fieldMask := &fieldmaskpb.FieldMask{
