@@ -15,6 +15,9 @@ type EndpointResource func(*sql.Selector)
 // HostResource is the predicate function for hostresource builders.
 type HostResource func(*sql.Selector)
 
+// HostamtconfigResource is the predicate function for hostamtconfigresource builders.
+type HostamtconfigResource func(*sql.Selector)
+
 // HostgpuResource is the predicate function for hostgpuresource builders.
 type HostgpuResource func(*sql.Selector)
 

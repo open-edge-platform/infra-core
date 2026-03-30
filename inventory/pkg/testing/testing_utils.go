@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package testing
@@ -1396,6 +1396,70 @@ func (c *InvResourceDAO) CreateHostUsbNoCleanup(
 	tb.Helper()
 
 	return c.createHostusb(tb, tenantID, host, false)
+}
+
+// Create host amtconfig. Note this helper is not really meant to be used for the
+// test of HostamtconfigResource but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by
+// the eager loading.
+func (c *InvResourceDAO) createHostAmtconfig(
+	tb testing.TB,
+	tenantID string,
+	host *computev1.HostResource,
+	doCleanup bool,
+) (amtconfig *computev1.HostamtconfigResource) {
+	tb.Helper()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	amtconfig = &computev1.HostamtconfigResource{
+		Host:       host,
+		Version:    "1.2.34",
+		DeviceName: "testhost",
+		TenantId:   tenantID,
+	}
+	resp, err := c.apiClient.Create(
+		ctx,
+		tenantID,
+		&inv_v1.Resource{
+			Resource: &inv_v1.Resource_HostAmtconfig{HostAmtconfig: amtconfig},
+		})
+	require.NoError(tb, err)
+	amtconfigResp := resp.GetHostAmtconfig()
+	if doCleanup {
+		tb.Cleanup(func() { c.DeleteResource(tb, tenantID, amtconfigResp.ResourceId) })
+	}
+	// When this test object is used in protobuf comparisons as part of another
+	// resource, we do not expect further embedded messages. This matches the
+	// structure of objects returned by ent queries, i.e. no two layers of
+	// embedded objects for edges.
+	amtconfigResp.Host = nil
+
+	return amtconfigResp
+}
+
+// Create host amtconfig. Note this helper is not really meant to be used for the
+// test of HostamtconfigResource but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by
+// the eager loading.
+func (c *InvResourceDAO) CreateHostAmtconfig(
+	tb testing.TB,
+	tenantID string,
+	host *computev1.HostResource,
+) (amtconfig *computev1.HostamtconfigResource) {
+	tb.Helper()
+
+	return c.createHostAmtconfig(tb, tenantID, host, true)
+}
+
+func (c *InvResourceDAO) CreateHostAmtconfigNoCleanup(
+	tb testing.TB,
+	tenantID string,
+	host *computev1.HostResource,
+) (amtconfig *computev1.HostamtconfigResource) {
+	tb.Helper()
+
+	return c.createHostAmtconfig(tb, tenantID, host, false)
 }
 
 // Create CustomConfig. Note this helper is not really meant to be used for the

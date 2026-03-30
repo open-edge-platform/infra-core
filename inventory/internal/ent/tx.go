@@ -20,6 +20,8 @@ type Tx struct {
 	EndpointResource *EndpointResourceClient
 	// HostResource is the client for interacting with the HostResource builders.
 	HostResource *HostResourceClient
+	// HostamtconfigResource is the client for interacting with the HostamtconfigResource builders.
+	HostamtconfigResource *HostamtconfigResourceClient
 	// HostgpuResource is the client for interacting with the HostgpuResource builders.
 	HostgpuResource *HostgpuResourceClient
 	// HostnicResource is the client for interacting with the HostnicResource builders.
@@ -204,6 +206,7 @@ func (tx *Tx) init() {
 	tx.CustomConfigResource = NewCustomConfigResourceClient(tx.config)
 	tx.EndpointResource = NewEndpointResourceClient(tx.config)
 	tx.HostResource = NewHostResourceClient(tx.config)
+	tx.HostamtconfigResource = NewHostamtconfigResourceClient(tx.config)
 	tx.HostgpuResource = NewHostgpuResourceClient(tx.config)
 	tx.HostnicResource = NewHostnicResourceClient(tx.config)
 	tx.HoststorageResource = NewHoststorageResourceClient(tx.config)

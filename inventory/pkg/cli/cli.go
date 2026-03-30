@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 // Package cli implements a simple prompt-based terminal UI to interact with
@@ -128,6 +128,7 @@ func (c *Cli) PromptRoot() (interface{}, error) {
 		{Name: "<Exit>", Next: parentPrompt},
 		{Name: "Create VM", Next: c.promptCreateVM},
 		{Name: "List Hosts", Next: c.PromptListHosts},
+		{Name: "List HostAmtconfigs", Next: c.PromptListHostAmtconfigs},
 		{Name: "List HostNics", Next: c.PromptListHostNics},
 		{Name: "List HostStorages", Next: c.PromptListHostStorages},
 		{Name: "List HostUSBs", Next: c.PromptListHostUSBs},

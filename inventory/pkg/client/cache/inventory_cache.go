@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package cache
@@ -28,6 +28,7 @@ var (
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTAMTCONFIG,
 		inv_v1.ResourceKind_RESOURCE_KIND_INSTANCE,
 		inv_v1.ResourceKind_RESOURCE_KIND_OS,
 	}
@@ -37,6 +38,7 @@ var (
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTAMTCONFIG,
 		inv_v1.ResourceKind_RESOURCE_KIND_INSTANCE,
 	}
 )

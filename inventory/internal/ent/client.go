@@ -17,6 +17,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostamtconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -58,6 +59,8 @@ type Client struct {
 	EndpointResource *EndpointResourceClient
 	// HostResource is the client for interacting with the HostResource builders.
 	HostResource *HostResourceClient
+	// HostamtconfigResource is the client for interacting with the HostamtconfigResource builders.
+	HostamtconfigResource *HostamtconfigResourceClient
 	// HostgpuResource is the client for interacting with the HostgpuResource builders.
 	HostgpuResource *HostgpuResourceClient
 	// HostnicResource is the client for interacting with the HostnicResource builders.
@@ -122,6 +125,7 @@ func (c *Client) init() {
 	c.CustomConfigResource = NewCustomConfigResourceClient(c.config)
 	c.EndpointResource = NewEndpointResourceClient(c.config)
 	c.HostResource = NewHostResourceClient(c.config)
+	c.HostamtconfigResource = NewHostamtconfigResourceClient(c.config)
 	c.HostgpuResource = NewHostgpuResourceClient(c.config)
 	c.HostnicResource = NewHostnicResourceClient(c.config)
 	c.HoststorageResource = NewHoststorageResourceClient(c.config)
@@ -242,6 +246,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		CustomConfigResource:      NewCustomConfigResourceClient(cfg),
 		EndpointResource:          NewEndpointResourceClient(cfg),
 		HostResource:              NewHostResourceClient(cfg),
+		HostamtconfigResource:     NewHostamtconfigResourceClient(cfg),
 		HostgpuResource:           NewHostgpuResourceClient(cfg),
 		HostnicResource:           NewHostnicResourceClient(cfg),
 		HoststorageResource:       NewHoststorageResourceClient(cfg),
@@ -289,6 +294,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		CustomConfigResource:      NewCustomConfigResourceClient(cfg),
 		EndpointResource:          NewEndpointResourceClient(cfg),
 		HostResource:              NewHostResourceClient(cfg),
+		HostamtconfigResource:     NewHostamtconfigResourceClient(cfg),
 		HostgpuResource:           NewHostgpuResourceClient(cfg),
 		HostnicResource:           NewHostnicResourceClient(cfg),
 		HoststorageResource:       NewHoststorageResourceClient(cfg),
@@ -343,15 +349,16 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.CustomConfigResource, c.EndpointResource, c.HostResource, c.HostgpuResource,
-		c.HostnicResource, c.HoststorageResource, c.HostusbResource,
-		c.IPAddressResource, c.InstanceResource, c.LocalAccountResource,
-		c.NetlinkResource, c.NetworkSegment, c.OSUpdatePolicy,
-		c.OSUpdatePolicyResource, c.OSUpdateRunResource, c.OperatingSystemResource,
-		c.OuResource, c.ProviderResource, c.RegionResource,
-		c.RemoteAccessConfiguration, c.RepeatedScheduleResource,
-		c.SingleScheduleResource, c.SiteResource, c.TelemetryGroupResource,
-		c.TelemetryProfile, c.Tenant, c.WorkloadMember, c.WorkloadResource,
+		c.CustomConfigResource, c.EndpointResource, c.HostResource,
+		c.HostamtconfigResource, c.HostgpuResource, c.HostnicResource,
+		c.HoststorageResource, c.HostusbResource, c.IPAddressResource,
+		c.InstanceResource, c.LocalAccountResource, c.NetlinkResource,
+		c.NetworkSegment, c.OSUpdatePolicy, c.OSUpdatePolicyResource,
+		c.OSUpdateRunResource, c.OperatingSystemResource, c.OuResource,
+		c.ProviderResource, c.RegionResource, c.RemoteAccessConfiguration,
+		c.RepeatedScheduleResource, c.SingleScheduleResource, c.SiteResource,
+		c.TelemetryGroupResource, c.TelemetryProfile, c.Tenant, c.WorkloadMember,
+		c.WorkloadResource,
 	} {
 		n.Use(hooks...)
 	}
@@ -361,15 +368,16 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.CustomConfigResource, c.EndpointResource, c.HostResource, c.HostgpuResource,
-		c.HostnicResource, c.HoststorageResource, c.HostusbResource,
-		c.IPAddressResource, c.InstanceResource, c.LocalAccountResource,
-		c.NetlinkResource, c.NetworkSegment, c.OSUpdatePolicy,
-		c.OSUpdatePolicyResource, c.OSUpdateRunResource, c.OperatingSystemResource,
-		c.OuResource, c.ProviderResource, c.RegionResource,
-		c.RemoteAccessConfiguration, c.RepeatedScheduleResource,
-		c.SingleScheduleResource, c.SiteResource, c.TelemetryGroupResource,
-		c.TelemetryProfile, c.Tenant, c.WorkloadMember, c.WorkloadResource,
+		c.CustomConfigResource, c.EndpointResource, c.HostResource,
+		c.HostamtconfigResource, c.HostgpuResource, c.HostnicResource,
+		c.HoststorageResource, c.HostusbResource, c.IPAddressResource,
+		c.InstanceResource, c.LocalAccountResource, c.NetlinkResource,
+		c.NetworkSegment, c.OSUpdatePolicy, c.OSUpdatePolicyResource,
+		c.OSUpdateRunResource, c.OperatingSystemResource, c.OuResource,
+		c.ProviderResource, c.RegionResource, c.RemoteAccessConfiguration,
+		c.RepeatedScheduleResource, c.SingleScheduleResource, c.SiteResource,
+		c.TelemetryGroupResource, c.TelemetryProfile, c.Tenant, c.WorkloadMember,
+		c.WorkloadResource,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -384,6 +392,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.EndpointResource.mutate(ctx, m)
 	case *HostResourceMutation:
 		return c.HostResource.mutate(ctx, m)
+	case *HostamtconfigResourceMutation:
+		return c.HostamtconfigResource.mutate(ctx, m)
 	case *HostgpuResourceMutation:
 		return c.HostgpuResource.mutate(ctx, m)
 	case *HostnicResourceMutation:
@@ -941,6 +951,22 @@ func (c *HostResourceClient) QueryHostGpus(_m *HostResource) *HostgpuResourceQue
 	return query
 }
 
+// QueryHostAmtconfig queries the host_amtconfig edge of a HostResource.
+func (c *HostResourceClient) QueryHostAmtconfig(_m *HostResource) *HostamtconfigResourceQuery {
+	query := (&HostamtconfigResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := _m.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(hostresource.Table, hostresource.FieldID, id),
+			sqlgraph.To(hostamtconfigresource.Table, hostamtconfigresource.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, true, hostresource.HostAmtconfigTable, hostresource.HostAmtconfigColumn),
+		)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
 // QueryInstance queries the instance edge of a HostResource.
 func (c *HostResourceClient) QueryInstance(_m *HostResource) *InstanceResourceQuery {
 	query := (&InstanceResourceClient{config: c.config}).Query()
@@ -979,6 +1005,155 @@ func (c *HostResourceClient) mutate(ctx context.Context, m *HostResourceMutation
 		return (&HostResourceDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown HostResource mutation op: %q", m.Op())
+	}
+}
+
+// HostamtconfigResourceClient is a client for the HostamtconfigResource schema.
+type HostamtconfigResourceClient struct {
+	config
+}
+
+// NewHostamtconfigResourceClient returns a client for the HostamtconfigResource from the given config.
+func NewHostamtconfigResourceClient(c config) *HostamtconfigResourceClient {
+	return &HostamtconfigResourceClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `hostamtconfigresource.Hooks(f(g(h())))`.
+func (c *HostamtconfigResourceClient) Use(hooks ...Hook) {
+	c.hooks.HostamtconfigResource = append(c.hooks.HostamtconfigResource, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `hostamtconfigresource.Intercept(f(g(h())))`.
+func (c *HostamtconfigResourceClient) Intercept(interceptors ...Interceptor) {
+	c.inters.HostamtconfigResource = append(c.inters.HostamtconfigResource, interceptors...)
+}
+
+// Create returns a builder for creating a HostamtconfigResource entity.
+func (c *HostamtconfigResourceClient) Create() *HostamtconfigResourceCreate {
+	mutation := newHostamtconfigResourceMutation(c.config, OpCreate)
+	return &HostamtconfigResourceCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of HostamtconfigResource entities.
+func (c *HostamtconfigResourceClient) CreateBulk(builders ...*HostamtconfigResourceCreate) *HostamtconfigResourceCreateBulk {
+	return &HostamtconfigResourceCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *HostamtconfigResourceClient) MapCreateBulk(slice any, setFunc func(*HostamtconfigResourceCreate, int)) *HostamtconfigResourceCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &HostamtconfigResourceCreateBulk{err: fmt.Errorf("calling to HostamtconfigResourceClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*HostamtconfigResourceCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &HostamtconfigResourceCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for HostamtconfigResource.
+func (c *HostamtconfigResourceClient) Update() *HostamtconfigResourceUpdate {
+	mutation := newHostamtconfigResourceMutation(c.config, OpUpdate)
+	return &HostamtconfigResourceUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *HostamtconfigResourceClient) UpdateOne(_m *HostamtconfigResource) *HostamtconfigResourceUpdateOne {
+	mutation := newHostamtconfigResourceMutation(c.config, OpUpdateOne, withHostamtconfigResource(_m))
+	return &HostamtconfigResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *HostamtconfigResourceClient) UpdateOneID(id int) *HostamtconfigResourceUpdateOne {
+	mutation := newHostamtconfigResourceMutation(c.config, OpUpdateOne, withHostamtconfigResourceID(id))
+	return &HostamtconfigResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for HostamtconfigResource.
+func (c *HostamtconfigResourceClient) Delete() *HostamtconfigResourceDelete {
+	mutation := newHostamtconfigResourceMutation(c.config, OpDelete)
+	return &HostamtconfigResourceDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *HostamtconfigResourceClient) DeleteOne(_m *HostamtconfigResource) *HostamtconfigResourceDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *HostamtconfigResourceClient) DeleteOneID(id int) *HostamtconfigResourceDeleteOne {
+	builder := c.Delete().Where(hostamtconfigresource.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &HostamtconfigResourceDeleteOne{builder}
+}
+
+// Query returns a query builder for HostamtconfigResource.
+func (c *HostamtconfigResourceClient) Query() *HostamtconfigResourceQuery {
+	return &HostamtconfigResourceQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeHostamtconfigResource},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a HostamtconfigResource entity by its id.
+func (c *HostamtconfigResourceClient) Get(ctx context.Context, id int) (*HostamtconfigResource, error) {
+	return c.Query().Where(hostamtconfigresource.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *HostamtconfigResourceClient) GetX(ctx context.Context, id int) *HostamtconfigResource {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryHost queries the host edge of a HostamtconfigResource.
+func (c *HostamtconfigResourceClient) QueryHost(_m *HostamtconfigResource) *HostResourceQuery {
+	query := (&HostResourceClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := _m.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(hostamtconfigresource.Table, hostamtconfigresource.FieldID, id),
+			sqlgraph.To(hostresource.Table, hostresource.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, hostamtconfigresource.HostTable, hostamtconfigresource.HostColumn),
+		)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *HostamtconfigResourceClient) Hooks() []Hook {
+	return c.hooks.HostamtconfigResource
+}
+
+// Interceptors returns the client interceptors.
+func (c *HostamtconfigResourceClient) Interceptors() []Interceptor {
+	return c.inters.HostamtconfigResource
+}
+
+func (c *HostamtconfigResourceClient) mutate(ctx context.Context, m *HostamtconfigResourceMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&HostamtconfigResourceCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&HostamtconfigResourceUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&HostamtconfigResourceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&HostamtconfigResourceDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown HostamtconfigResource mutation op: %q", m.Op())
 	}
 }
 
@@ -4998,20 +5173,20 @@ func (c *WorkloadResourceClient) mutate(ctx context.Context, m *WorkloadResource
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		CustomConfigResource, EndpointResource, HostResource, HostgpuResource,
-		HostnicResource, HoststorageResource, HostusbResource, IPAddressResource,
-		InstanceResource, LocalAccountResource, NetlinkResource, NetworkSegment,
-		OSUpdatePolicy, OSUpdatePolicyResource, OSUpdateRunResource,
+		CustomConfigResource, EndpointResource, HostResource, HostamtconfigResource,
+		HostgpuResource, HostnicResource, HoststorageResource, HostusbResource,
+		IPAddressResource, InstanceResource, LocalAccountResource, NetlinkResource,
+		NetworkSegment, OSUpdatePolicy, OSUpdatePolicyResource, OSUpdateRunResource,
 		OperatingSystemResource, OuResource, ProviderResource, RegionResource,
 		RemoteAccessConfiguration, RepeatedScheduleResource, SingleScheduleResource,
 		SiteResource, TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,
 		WorkloadResource []ent.Hook
 	}
 	inters struct {
-		CustomConfigResource, EndpointResource, HostResource, HostgpuResource,
-		HostnicResource, HoststorageResource, HostusbResource, IPAddressResource,
-		InstanceResource, LocalAccountResource, NetlinkResource, NetworkSegment,
-		OSUpdatePolicy, OSUpdatePolicyResource, OSUpdateRunResource,
+		CustomConfigResource, EndpointResource, HostResource, HostamtconfigResource,
+		HostgpuResource, HostnicResource, HoststorageResource, HostusbResource,
+		IPAddressResource, InstanceResource, LocalAccountResource, NetlinkResource,
+		NetworkSegment, OSUpdatePolicy, OSUpdatePolicyResource, OSUpdateRunResource,
 		OperatingSystemResource, OuResource, ProviderResource, RegionResource,
 		RemoteAccessConfiguration, RepeatedScheduleResource, SingleScheduleResource,
 		SiteResource, TelemetryGroupResource, TelemetryProfile, Tenant, WorkloadMember,

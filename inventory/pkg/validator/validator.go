@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package validator
@@ -59,6 +59,7 @@ var invMessages = []proto.Message{
 	&computev1.HoststorageResource{},
 	&computev1.HostgpuResource{},
 	&computev1.HostusbResource{},
+	&computev1.HostamtconfigResource{},
 	&computev1.WorkloadResource{},
 	&computev1.WorkloadMember{},
 	&locationv1.SiteResource{},

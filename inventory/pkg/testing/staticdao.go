@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package testing
@@ -478,6 +478,20 @@ func CreateHostusb(tb testing.TB, host *computev1.HostResource) *computev1.Hostu
 func CreateHostusbNoCleanup(tb testing.TB, host *computev1.HostResource) *computev1.HostusbResource {
 	tb.Helper()
 	return getInvResourceDAO().CreateHostUsbNoCleanup(tb, client.FakeTenantID, host)
+}
+
+// CreateHostamtconfig - creates host amtconfig. Note this helper is not really meant to be used for the
+// test of HostamtconfigResource, but they are typically leveraged in case of wider
+// tests involving long chain of relations that are not usually fulfilled by
+// the eager loading.
+func CreateHostamtconfig(tb testing.TB, host *computev1.HostResource) *computev1.HostamtconfigResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateHostAmtconfig(tb, client.FakeTenantID, host)
+}
+
+func CreateHostamtconfigNoCleanup(tb testing.TB, host *computev1.HostResource) *computev1.HostamtconfigResource {
+	tb.Helper()
+	return getInvResourceDAO().CreateHostAmtconfigNoCleanup(tb, client.FakeTenantID, host)
 }
 
 // CreateCustomConfig - creates custom config. Note this helper is not really meant to be used for the

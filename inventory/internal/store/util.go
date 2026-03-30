@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -16,6 +16,7 @@ import (
 	internal_ent "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/customconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/endpointresource"
+	hostamtconfig "github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostamtconfigresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -237,6 +238,7 @@ func getOffsetAndLimit(filter *inv_v1.ResourceFilter) (offset, limit int, err er
 
 type OrderOption interface {
 	endpointresource.OrderOption |
+		hostamtconfig.OrderOption |
 		hostgpuresource.OrderOption |
 		hostnicresource.OrderOption |
 		hostresource.OrderOption |
