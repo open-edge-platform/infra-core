@@ -90,15 +90,32 @@ var (
 		api.STATUSINDICATIONERROR,
 	)
 
-	// Modify running instance filter to only exclude instance-related errors
-	// and not host-related errors.
 	filterInstanceRunningExp = `has(%s) AND %s.%s = %s AND NOT (%s)`
-	filterInstanceRunning    = fmt.Sprintf(filterInstanceRunningExp,
+
+	// filterHostSummaryRunning is used by GetHostsSummary to count "running" hosts.
+	// It only negates instance-level error indicators. Host-level errors are handled
+	// separately via filterHostLevelErrors in GetHostsSummary with subtraction approach.
+	filterHostSummaryRunning = fmt.Sprintf(filterInstanceRunningExp,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldCurrentState,
 		inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		filterIsFailedInstanceStatus,
+	)
+
+	// filterHostLevelErrors covers the 5 host-level status indicator fields.
+	filterHostLevelErrorsExp = `%s = %s OR %s = %s OR %s = %s OR %s = %s OR %s = %s`
+	filterHostLevelErrors    = fmt.Sprintf(filterHostLevelErrorsExp,
+		inv_computev1.HostResourceFieldHostStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldPowerStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldAmtStatusIndicator,
+		api.STATUSINDICATIONERROR,
 	)
 
 	filterIsUnallocatedExp = `NOT has(%s)`
@@ -930,13 +947,18 @@ func (is *InventorygRPCServer) GetHostsSummary(
 
 	filterTotal := reqFilter
 	filterIsFailedHostStatusParsed := filterIsFailedHostStatus
-	filterInstanceRunningParsed := filterInstanceRunning
+	filterInstanceRunningParsed := filterHostSummaryRunning
 	filterIsUnallocatedParsed := filterIsUnallocated
+	// filterRunningWithHostErrorParsed selects "running" hosts that also carry a
+	// host-level error. Subtracting this count from the raw running count makes
+	// the running and error buckets mutually exclusive.
+	filterRunningWithHostErrorParsed := fmt.Sprintf("(%s) AND (%s)", filterHostSummaryRunning, filterHostLevelErrors)
 
 	if reqFilter != "" {
 		filterIsFailedHostStatusParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsFailedHostStatusParsed)
 		filterInstanceRunningParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterInstanceRunningParsed)
 		filterIsUnallocatedParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocatedParsed)
+		filterRunningWithHostErrorParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterRunningWithHostErrorParsed)
 	}
 
 	totalHosts, err := is.totalHosts(ctx, filterTotal)
@@ -955,6 +977,13 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	if err != nil {
 		return nil, err
 	}
+	// Subtract hosts that are "running" but also carry a host-level error so that
+	// error and running counts are mutually exclusive.
+	totalHostsRunningWithHostError, err := is.totalHosts(ctx, filterRunningWithHostErrorParsed)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsRunning -= totalHostsRunningWithHostError
 
 	total, err = SafeInt32ToUint32(totalHosts)
 	if err != nil {
