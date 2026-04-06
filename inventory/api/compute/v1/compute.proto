@@ -77,18 +77,18 @@ enum AmtControlMode {
 // KVM feature activation status on the AMT device.
 enum KvmStatus {
   KVM_STATUS_UNSPECIFIED = 0;
-  KVM_STATUS_ACTIVATED   = 1; // KVM feature is currently enabled on the AMT device.
+  KVM_STATUS_ACTIVATED = 1; // KVM feature is currently enabled on the AMT device.
   KVM_STATUS_DEACTIVATED = 2; // KVM feature is currently disabled on the AMT device.
 }
 
 // KVM session state — the desired and current lifecycle state of a KVM remote session.
 // Used for both desired_kvm_state (user-writable) and current_kvm_state (kvm-manager-set).
 enum KvmState {
-  KVM_STATE_UNSPECIFIED      = 0;
-  KVM_STATE_START            = 1; // Desired: operator requests session start. Current: session is active.
-  KVM_STATE_STOP             = 2; // Desired: operator requests session teardown. Current: terminated cleanly.
+  KVM_STATE_UNSPECIFIED = 0;
+  KVM_STATE_START = 1; // Desired: operator requests session start. Current: session is active.
+  KVM_STATE_STOP = 2; // Desired: operator requests session teardown. Current: terminated cleanly.
   KVM_STATE_AWAITING_CONSENT = 3; // Current only: waiting for operator to enter the on-screen 6-digit code.
-  KVM_STATE_ERROR            = 4; // Current only: kvm-manager encountered an error.
+  KVM_STATE_ERROR = 4; // Current only: kvm-manager encountered an error.
 }
 
 message HostResource {
