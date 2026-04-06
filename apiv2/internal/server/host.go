@@ -43,6 +43,8 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
 	computev1.HostResourceFieldAmtControlMode:     inv_computev1.HostResourceFieldAmtControlMode,
 	computev1.HostResourceFieldAmtDnsSuffix:       inv_computev1.HostResourceFieldAmtDnsSuffix,
+	computev1.HostResourceFieldDesiredKvmState:    inv_computev1.HostResourceFieldDesiredKvmState,
+	computev1.HostResourceFieldDesiredConsentCode: inv_computev1.HostResourceFieldDesiredConsentCode,
 }
 
 var (
@@ -184,6 +186,8 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		AmtControlMode:     inv_computev1.AmtControlMode(host.GetAmtControlMode()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
+		DesiredKvmState:    inv_computev1.KvmState(host.GetDesiredKvmState()),
+		DesiredConsentCode: host.GetDesiredConsentCode(),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -242,6 +246,13 @@ func fromInvHostStatus(
 	host.AmtStatusIndicator = amtStatusIndicator
 	host.AmtStatusTimestamp = amtStatusTimestamp
 	host.AmtDnsSuffix = amtDNSSuffix
+
+	host.KvmStatus = computev1.KvmStatus(invHost.GetKvmStatus())
+	host.CurrentKvmState = computev1.KvmState(invHost.GetCurrentKvmState())
+	host.DesiredKvmState = computev1.KvmState(invHost.GetDesiredKvmState())
+	host.KvmSessionUrl = invHost.GetKvmSessionUrl()
+	host.KvmSessionStatus = invHost.GetKvmSessionStatus()
+	host.KvmSessionStatusIndicator = statusv1.StatusIndication(invHost.GetKvmSessionStatusIndicator())
 }
 
 func fromInvHostEdges(
@@ -323,6 +334,7 @@ func fromInvHost(
 		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
+		DesiredKvmState:    computev1.KvmState(invHost.GetDesiredKvmState()),
 		Metadata:           metadata,
 		InheritedMetadata:  []*commonv1.MetadataItem{},
 		Timestamps:         GrpcToOpenAPITimestamps(invHost),
