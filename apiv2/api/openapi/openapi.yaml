@@ -15970,24 +15970,6 @@ components:
         - AMT_STATE_UNPROVISIONED
         - AMT_STATE_DISCONNECTED
       description: The state of the AMT (Active Management Technology) component.
-    KvmStatus:
-      type: string
-      title: KvmStatus
-      enum:
-        - KVM_STATUS_UNSPECIFIED
-        - KVM_STATUS_ACTIVATED
-        - KVM_STATUS_DEACTIVATED
-      description: KVM feature activation status on the AMT device.
-    KvmState:
-      type: string
-      title: KvmState
-      enum:
-        - KVM_STATE_UNSPECIFIED
-        - KVM_STATE_START
-        - KVM_STATE_STOP
-        - KVM_STATE_AWAITING_CONSENT
-        - KVM_STATE_ERROR
-      description: KVM session lifecycle state.
     BaremetalControllerKind:
       type: string
       title: BaremetalControllerKind
@@ -16303,7 +16285,7 @@ components:
           $ref: '#/components/schemas/KvmStatus'
         desiredKvmState:
           title: desired_kvm_state
-          description: "(OPTIONAL) Desired KVM session state. Valid values: KVM_STATE_START, KVM_STATE_STOP."
+          description: '(OPTIONAL) Desired KVM session state. Written by operator (orch-cli). Valid values: KVM_STATE_START, KVM_STATE_STOP.'
           $ref: '#/components/schemas/KvmState'
         currentKvmState:
           title: current_kvm_state
@@ -16331,7 +16313,6 @@ components:
           title: desired_consent_code
           pattern: ^[0-9]{6}$
           description: (OPTIONAL) Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
-          writeOnly: true
         siteId:
           type: string
           title: site_id
@@ -16798,6 +16779,24 @@ components:
         - INSTANCE_STATE_DELETED
         - INSTANCE_STATE_UNTRUSTED
       description: The Instance States.
+    KvmState:
+      type: string
+      title: KvmState
+      enum:
+        - KVM_STATE_UNSPECIFIED
+        - KVM_STATE_START
+        - KVM_STATE_STOP
+        - KVM_STATE_AWAITING_CONSENT
+        - KVM_STATE_ERROR
+      description: KVM session lifecycle state — used for both desired and current state.
+    KvmStatus:
+      type: string
+      title: KvmStatus
+      enum:
+        - KVM_STATUS_UNSPECIFIED
+        - KVM_STATUS_ACTIVATED
+        - KVM_STATUS_DEACTIVATED
+      description: KVM feature activation status on the AMT device.
     LinkState:
       type: string
       title: LinkState
