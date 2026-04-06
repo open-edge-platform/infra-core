@@ -70,6 +70,28 @@ class AmtControlMode(betterproto.Enum):
     AMT_CONTROL_MODE_CCM = 2
 
 
+class KvmStatus(betterproto.Enum):
+    """KVM feature activation status on the AMT device."""
+
+    KVM_STATUS_UNSPECIFIED = 0
+    KVM_STATUS_ACTIVATED = 1
+    KVM_STATUS_DEACTIVATED = 2
+
+
+class KvmState(betterproto.Enum):
+    """
+    KVM session state — the desired and current lifecycle state of a KVM remote
+    session. Used for both desired_kvm_state (user-writable) and
+    current_kvm_state (kvm-manager-set).
+    """
+
+    KVM_STATE_UNSPECIFIED = 0
+    KVM_STATE_START = 1
+    KVM_STATE_STOP = 2
+    KVM_STATE_AWAITING_CONSENT = 3
+    KVM_STATE_ERROR = 4
+
+
 class HostComponentState(betterproto.Enum):
     HOST_COMPONENT_STATE_UNSPECIFIED = 0
     HOST_COMPONENT_STATE_ERROR = 1
@@ -229,6 +251,29 @@ class HostResource(betterproto.Message):
     amt_control_mode: "AmtControlMode" = betterproto.enum_field(98)
     amt_dns_suffix: str = betterproto.string_field(99)
     tenant_id: str = betterproto.string_field(100)
+    # KVM feature activation status on the AMT device.
+    kvm_status: "KvmStatus" = betterproto.enum_field(88)
+    # Desired KVM session state. Written by operator via APIv2 (orch-cli --kvm
+    # start|stop). Valid write values: KVM_STATE_START, KVM_STATE_STOP. Consumed
+    # by kvm-manager RM to drive the session lifecycle.
+    desired_kvm_state: "KvmState" = betterproto.enum_field(101)
+    # Current KVM session state. Set by kvm-manager RM only. Lifecycle:
+    # UNSPECIFIED -> START -> [AWAITING_CONSENT -> START] | STOP | ERROR.
+    current_kvm_state: "KvmState" = betterproto.enum_field(102)
+    # WebSocket relay URL for the active KVM session. Populated by kvm-manager
+    # when current_kvm_state transitions to KVM_STATE_START. Cleared to empty
+    # string on session end. Internal signal only.
+    kvm_session_url: str = betterproto.string_field(103)
+    # Human-readable status message describing the current KVM session state. Set
+    # by kvm-manager RM only.
+    kvm_session_status: str = betterproto.string_field(104)
+    # Indicates the severity/dynamicity of kvm_session_status. Set by kvm-manager
+    # RM only.
+    kvm_session_status_indicator: v1.StatusIndication = betterproto.enum_field(105)
+    # Six-digit user-consent code entered by the operator from the device screen.
+    # Written by orch-cli via APIv2 when current_kvm_state =
+    # KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager.
+    desired_consent_code: str = betterproto.string_field(106)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
 

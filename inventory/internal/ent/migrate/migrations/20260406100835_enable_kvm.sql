@@ -1,0 +1,2 @@
+-- Modify "host_resources" table
+ALTER TABLE "host_resources" ADD COLUMN "kvm_status" character varying NULL, ADD COLUMN "desired_kvm_state" character varying NULL, ADD COLUMN "current_kvm_state" character varying NULL, ADD COLUMN "kvm_session_url" character varying NULL, ADD COLUMN "kvm_session_status" character varying NULL, ADD COLUMN "kvm_session_status_indicator" character varying NULL, ADD COLUMN "desired_consent_code" character varying NULL;

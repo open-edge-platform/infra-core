@@ -68,6 +68,13 @@ const (
 	HostResourceFieldAmtControlMode              = "amt_control_mode"
 	HostResourceFieldAmtDnsSuffix                = "amt_dns_suffix"
 	HostResourceFieldTenantId                    = "tenant_id"
+	HostResourceFieldKvmStatus                   = "kvm_status"
+	HostResourceFieldDesiredKvmState             = "desired_kvm_state"
+	HostResourceFieldCurrentKvmState             = "current_kvm_state"
+	HostResourceFieldKvmSessionUrl               = "kvm_session_url"
+	HostResourceFieldKvmSessionStatus            = "kvm_session_status"
+	HostResourceFieldKvmSessionStatusIndicator   = "kvm_session_status_indicator"
+	HostResourceFieldDesiredConsentCode          = "desired_consent_code"
 	HostResourceFieldCreatedAt                   = "created_at"
 	HostResourceFieldUpdatedAt                   = "updated_at"
 

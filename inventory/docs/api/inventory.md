@@ -50,6 +50,8 @@
     - [HostState](#compute-v1-HostState)
     - [InstanceKind](#compute-v1-InstanceKind)
     - [InstanceState](#compute-v1-InstanceState)
+    - [KvmState](#compute-v1-KvmState)
+    - [KvmStatus](#compute-v1-KvmStatus)
     - [NetworkInterfaceLinkState](#compute-v1-NetworkInterfaceLinkState)
     - [PowerCommandPolicy](#compute-v1-PowerCommandPolicy)
     - [PowerState](#compute-v1-PowerState)
@@ -589,6 +591,13 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | amt_control_mode | [AmtControlMode](#compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
+| kvm_status | [KvmStatus](#compute-v1-KvmStatus) |  | KVM feature activation status on the AMT device. |
+| desired_kvm_state | [KvmState](#compute-v1-KvmState) |  | Desired KVM session state. Written by operator via APIv2 (orch-cli --kvm start|stop). Valid write values: KVM_STATE_START, KVM_STATE_STOP. Consumed by kvm-manager RM to drive the session lifecycle. |
+| current_kvm_state | [KvmState](#compute-v1-KvmState) |  | Current KVM session state. Set by kvm-manager RM only. Lifecycle: UNSPECIFIED -&gt; START -&gt; [AWAITING_CONSENT -&gt; START] | STOP | ERROR. |
+| kvm_session_url | [string](#string) |  | WebSocket relay URL for the active KVM session. Populated by kvm-manager when current_kvm_state transitions to KVM_STATE_START. Cleared to empty string on session end. Internal signal only. |
+| kvm_session_status | [string](#string) |  | Human-readable status message describing the current KVM session state. Set by kvm-manager RM only. |
+| kvm_session_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates the severity/dynamicity of kvm_session_status. Set by kvm-manager RM only. |
+| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator from the device screen. Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager. |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
 
@@ -991,6 +1000,35 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | INSTANCE_STATE_RUNNING | 1 | OS is Running |
 | INSTANCE_STATE_DELETED | 2 | OS should be Deleted |
 | INSTANCE_STATE_UNTRUSTED | 3 | OS should not be trusted anymore |
+
+
+
+<a name="compute-v1-KvmState"></a>
+
+### KvmState
+KVM session state — the desired and current lifecycle state of a KVM remote session.
+Used for both desired_kvm_state (user-writable) and current_kvm_state (kvm-manager-set).
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATE_UNSPECIFIED | 0 |  |
+| KVM_STATE_START | 1 | Desired: operator requests session start. Current: session is active. |
+| KVM_STATE_STOP | 2 | Desired: operator requests session teardown. Current: terminated cleanly. |
+| KVM_STATE_AWAITING_CONSENT | 3 | Current only: waiting for operator to enter the on-screen 6-digit code. |
+| KVM_STATE_ERROR | 4 | Current only: kvm-manager encountered an error. |
+
+
+
+<a name="compute-v1-KvmStatus"></a>
+
+### KvmStatus
+KVM feature activation status on the AMT device.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATUS_UNSPECIFIED | 0 |  |
+| KVM_STATUS_ACTIVATED | 1 | KVM feature is currently enabled on the AMT device. |
+| KVM_STATUS_DEACTIVATED | 2 | KVM feature is currently disabled on the AMT device. |
 
 
 

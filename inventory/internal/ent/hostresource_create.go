@@ -780,6 +780,104 @@ func (_c *HostResourceCreate) SetTenantID(v string) *HostResourceCreate {
 	return _c
 }
 
+// SetKvmStatus sets the "kvm_status" field.
+func (_c *HostResourceCreate) SetKvmStatus(v hostresource.KvmStatus) *HostResourceCreate {
+	_c.mutation.SetKvmStatus(v)
+	return _c
+}
+
+// SetNillableKvmStatus sets the "kvm_status" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableKvmStatus(v *hostresource.KvmStatus) *HostResourceCreate {
+	if v != nil {
+		_c.SetKvmStatus(*v)
+	}
+	return _c
+}
+
+// SetDesiredKvmState sets the "desired_kvm_state" field.
+func (_c *HostResourceCreate) SetDesiredKvmState(v hostresource.DesiredKvmState) *HostResourceCreate {
+	_c.mutation.SetDesiredKvmState(v)
+	return _c
+}
+
+// SetNillableDesiredKvmState sets the "desired_kvm_state" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableDesiredKvmState(v *hostresource.DesiredKvmState) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredKvmState(*v)
+	}
+	return _c
+}
+
+// SetCurrentKvmState sets the "current_kvm_state" field.
+func (_c *HostResourceCreate) SetCurrentKvmState(v hostresource.CurrentKvmState) *HostResourceCreate {
+	_c.mutation.SetCurrentKvmState(v)
+	return _c
+}
+
+// SetNillableCurrentKvmState sets the "current_kvm_state" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableCurrentKvmState(v *hostresource.CurrentKvmState) *HostResourceCreate {
+	if v != nil {
+		_c.SetCurrentKvmState(*v)
+	}
+	return _c
+}
+
+// SetKvmSessionURL sets the "kvm_session_url" field.
+func (_c *HostResourceCreate) SetKvmSessionURL(v string) *HostResourceCreate {
+	_c.mutation.SetKvmSessionURL(v)
+	return _c
+}
+
+// SetNillableKvmSessionURL sets the "kvm_session_url" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableKvmSessionURL(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetKvmSessionURL(*v)
+	}
+	return _c
+}
+
+// SetKvmSessionStatus sets the "kvm_session_status" field.
+func (_c *HostResourceCreate) SetKvmSessionStatus(v string) *HostResourceCreate {
+	_c.mutation.SetKvmSessionStatus(v)
+	return _c
+}
+
+// SetNillableKvmSessionStatus sets the "kvm_session_status" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableKvmSessionStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetKvmSessionStatus(*v)
+	}
+	return _c
+}
+
+// SetKvmSessionStatusIndicator sets the "kvm_session_status_indicator" field.
+func (_c *HostResourceCreate) SetKvmSessionStatusIndicator(v hostresource.KvmSessionStatusIndicator) *HostResourceCreate {
+	_c.mutation.SetKvmSessionStatusIndicator(v)
+	return _c
+}
+
+// SetNillableKvmSessionStatusIndicator sets the "kvm_session_status_indicator" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableKvmSessionStatusIndicator(v *hostresource.KvmSessionStatusIndicator) *HostResourceCreate {
+	if v != nil {
+		_c.SetKvmSessionStatusIndicator(*v)
+	}
+	return _c
+}
+
+// SetDesiredConsentCode sets the "desired_consent_code" field.
+func (_c *HostResourceCreate) SetDesiredConsentCode(v string) *HostResourceCreate {
+	_c.mutation.SetDesiredConsentCode(v)
+	return _c
+}
+
+// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableDesiredConsentCode(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredConsentCode(*v)
+	}
+	return _c
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (_c *HostResourceCreate) SetCreatedAt(v string) *HostResourceCreate {
 	_c.mutation.SetCreatedAt(v)
@@ -1023,6 +1121,26 @@ func (_c *HostResourceCreate) check() error {
 	}
 	if _, ok := _c.mutation.TenantID(); !ok {
 		return &ValidationError{Name: "tenant_id", err: errors.New(`ent: missing required field "HostResource.tenant_id"`)}
+	}
+	if v, ok := _c.mutation.KvmStatus(); ok {
+		if err := hostresource.KvmStatusValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_status": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.DesiredKvmState(); ok {
+		if err := hostresource.DesiredKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.CurrentKvmState(); ok {
+		if err := hostresource.CurrentKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.KvmSessionStatusIndicator(); ok {
+		if err := hostresource.KvmSessionStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_session_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_session_status_indicator": %w`, err)}
+		}
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "HostResource.created_at"`)}
@@ -1275,6 +1393,34 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostresource.FieldTenantID, field.TypeString, value)
 		_node.TenantID = value
+	}
+	if value, ok := _c.mutation.KvmStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmStatus, field.TypeEnum, value)
+		_node.KvmStatus = value
+	}
+	if value, ok := _c.mutation.DesiredKvmState(); ok {
+		_spec.SetField(hostresource.FieldDesiredKvmState, field.TypeEnum, value)
+		_node.DesiredKvmState = value
+	}
+	if value, ok := _c.mutation.CurrentKvmState(); ok {
+		_spec.SetField(hostresource.FieldCurrentKvmState, field.TypeEnum, value)
+		_node.CurrentKvmState = value
+	}
+	if value, ok := _c.mutation.KvmSessionURL(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionURL, field.TypeString, value)
+		_node.KvmSessionURL = value
+	}
+	if value, ok := _c.mutation.KvmSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatus, field.TypeString, value)
+		_node.KvmSessionStatus = value
+	}
+	if value, ok := _c.mutation.KvmSessionStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatusIndicator, field.TypeEnum, value)
+		_node.KvmSessionStatusIndicator = value
+	}
+	if value, ok := _c.mutation.DesiredConsentCode(); ok {
+		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
+		_node.DesiredConsentCode = value
 	}
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(hostresource.FieldCreatedAt, field.TypeString, value)
