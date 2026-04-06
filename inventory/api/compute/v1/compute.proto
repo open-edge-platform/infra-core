@@ -80,6 +80,12 @@ enum SolStatus {
   SOL_STATUS_DEACTIVATED = 2; // SOL feature is currently disabled on the AMT device.
 }
 
+enum SolSessionStatus {
+  SOL_SESSION_UNSPECIFIED = 0;
+  SOL_SESSION_ACTIVATED   = 1; // SOL feature is currently enabled on the AMT device.
+  SOL_SESSION_DEACTIVATED = 2; // SOL feature is currently disabled on the AMT device.
+}
+
 // SOL session state — the desired and current lifecycle state of a SOL remote session.
 // Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
 enum SolState {
@@ -284,13 +290,9 @@ message HostResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
-  // Human-readable status message describing the current SOL session state.
-  // Set by sol-manager RM only. Updated atomically with sol_session_status_indicator
-  string sol_session_status = 112 [
-    (ent.field) = {optional: true},
-    (buf.validate.field).string = {max_bytes: 1024},
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
+  // SOL session status indicating whether the SOL session is active or inactive.
+  // Set by sol-manager RM only. Updated atomically with sol_session_status_indicator.
+  SolSessionStatus sol_session_status = 112 [(ent.field) = {optional: true}];
 
   // Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR).
   // Set by sol-manager RM only.
