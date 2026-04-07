@@ -103,6 +103,10 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 	if in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
 		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
 	}
+	setKvmStateFieldsOnCreate(in, mut)
+}
+
+func setKvmStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourceMutation) {
 	if in.GetDesiredKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
 		mut.SetDesiredKvmState(hosts.DesiredKvmStateKVM_STATE_UNSPECIFIED)
 	}
