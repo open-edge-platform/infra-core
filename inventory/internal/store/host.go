@@ -49,6 +49,10 @@ func HostEnumStateMap(fname string, eint int32) (ent.Value, error) {
 		hosts.FieldAmtControlMode:              hosts.AmtControlMode(computev1.AmtControlMode_name[eint]),
 		hosts.FieldPowerStatusIndicator:        hosts.PowerStatusIndicator(statusv1.StatusIndication_name[eint]),
 		hosts.FieldAmtStatusIndicator:          hosts.AmtStatusIndicator(statusv1.StatusIndication_name[eint]),
+		hosts.FieldKvmStatus:                   hosts.KvmStatus(computev1.KvmStatus_name[eint]),
+		hosts.FieldDesiredKvmState:             hosts.DesiredKvmState(computev1.KvmState_name[eint]),
+		hosts.FieldCurrentKvmState:             hosts.CurrentKvmState(computev1.KvmState_name[eint]),
+		hosts.FieldKvmSessionStatusIndicator:   hosts.KvmSessionStatusIndicator(statusv1.StatusIndication_name[eint]),
 	}
 
 	if v, ok := stateMap[fname]; ok {
@@ -98,6 +102,15 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 	}
 	if in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
 		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
+	}
+	if in.GetDesiredKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.SetDesiredKvmState(hosts.DesiredKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if in.GetCurrentKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.SetCurrentKvmState(hosts.CurrentKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if in.GetKvmStatus() == computev1.KvmStatus_KVM_STATUS_UNSPECIFIED {
+		mut.SetKvmStatus(hosts.KvmStatusKVM_STATUS_UNSPECIFIED)
 	}
 }
 
@@ -266,6 +279,21 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 		in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
 		mut.ResetAmtSku()
 		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredKvmState) &&
+		in.GetDesiredKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.ResetDesiredKvmState()
+		mut.SetDesiredKvmState(hosts.DesiredKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentKvmState) &&
+		in.GetCurrentKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.ResetCurrentKvmState()
+		mut.SetCurrentKvmState(hosts.CurrentKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldKvmStatus) &&
+		in.GetKvmStatus() == computev1.KvmStatus_KVM_STATUS_UNSPECIFIED {
+		mut.ResetKvmStatus()
+		mut.SetKvmStatus(hosts.KvmStatusKVM_STATUS_UNSPECIFIED)
 	}
 }
 
