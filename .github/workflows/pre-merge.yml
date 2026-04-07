@@ -34,10 +34,10 @@ jobs:
         with:
           persist-credentials: false
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@d40dfda9598df896aa20cb1dc2c950d6444e8fa7  # 2026.0.19
+        uses: open-edge-platform/orch-ci/verify-branch-name@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@d40dfda9598df896aa20cb1dc2c950d6444e8fa7  # 2026.0.19
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         env:
@@ -89,7 +89,7 @@ jobs:
       fail-fast: false
       matrix:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@d40dfda9598df896aa20cb1dc2c950d6444e8fa7  # 2026.0.19
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
     with:
       orch_ci_repo_ref: b5930c48c1fcdb6b34ffbcd465cff96dabfbde70
       bootstrap_tools: "all,golangci-lint2"
@@ -114,7 +114,7 @@ jobs:
       contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@d40dfda9598df896aa20cb1dc2c950d6444e8fa7  # 2026.0.19
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
     with:
       bootstrap_tools: "yq,nodejs"
       run_security_scans: true
@@ -144,7 +144,7 @@ jobs:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
           persist-credentials: false
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@d40dfda9598df896aa20cb1dc2c950d6444e8fa7  # 2026.0.19
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
