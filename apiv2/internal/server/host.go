@@ -249,7 +249,6 @@ func fromInvHostStatus(
 
 	host.KvmStatus = computev1.KvmStatus(invHost.GetKvmStatus())
 	host.CurrentKvmState = computev1.KvmState(invHost.GetCurrentKvmState())
-	host.DesiredKvmState = computev1.KvmState(invHost.GetDesiredKvmState())
 	host.KvmSessionUrl = invHost.GetKvmSessionUrl()
 	host.KvmSessionStatus = invHost.GetKvmSessionStatus()
 	host.KvmSessionStatusIndicator = statusv1.StatusIndication(invHost.GetKvmSessionStatusIndicator())
