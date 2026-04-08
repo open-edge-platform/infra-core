@@ -372,6 +372,8 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 	AmtControlMode := computev1.AmtControlMode_value[host.AmtControlMode.String()]
 	desiredAmtState := computev1.AmtState_value[host.DesiredAmtState.String()]
 	currentAmtState := computev1.AmtState_value[host.CurrentAmtState.String()]
+	desiredSolState := computev1.SolState_value[host.DesiredSolState.String()]
+	currentSolState := computev1.SolState_value[host.CurrentSolState.String()]
 	powerStatusIndicator := statusv1.StatusIndication_value[host.PowerStatusIndicator.String()]
 	amtStatusIndicator := statusv1.StatusIndication_value[host.AmtStatusIndicator.String()]
 
@@ -425,6 +427,8 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		AmtControlMode:              computev1.AmtControlMode(AmtControlMode),
 		DesiredAmtState:             computev1.AmtState(desiredAmtState),
 		CurrentAmtState:             computev1.AmtState(currentAmtState),
+		DesiredSolState:             computev1.SolState(desiredSolState),
+		CurrentSolState:             computev1.SolState(currentSolState),
 		AmtStatus:                   host.AmtStatus,
 		AmtDnsSuffix:                host.AmtDNSSuffix,
 		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),

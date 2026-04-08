@@ -77,9 +77,9 @@ class SolStatus(betterproto.Enum):
 
 
 class SolSessionStatus(betterproto.Enum):
-    SOL_SESSION_UNSPECIFIED = 0
-    SOL_SESSION_ACTIVATED = 1
-    SOL_SESSION_DEACTIVATED = 2
+    SOL_SESSION_STATUS_UNSPECIFIED = 0
+    SOL_SESSION_STATUS_ACTIVATED = 1
+    SOL_SESSION_STATUS_DEACTIVATED = 2
 
 
 class SolState(betterproto.Enum):

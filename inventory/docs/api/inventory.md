@@ -1055,9 +1055,9 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| SOL_SESSION_UNSPECIFIED | 0 |  |
-| SOL_SESSION_ACTIVATED | 1 | SOL session is currently active. |
-| SOL_SESSION_DEACTIVATED | 2 | SOL session is currently inactive. |
+| SOL_SESSION_STATUS_UNSPECIFIED | 0 |  |
+| SOL_SESSION_STATUS_ACTIVATED | 1 | SOL session is currently active. |
+| SOL_SESSION_STATUS_DEACTIVATED | 2 | SOL session is currently inactive. |
 
 
 

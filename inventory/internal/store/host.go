@@ -45,6 +45,8 @@ func HostEnumStateMap(fname string, eint int32) (ent.Value, error) {
 		hosts.FieldPowerCommandPolicy:          hosts.PowerCommandPolicy(computev1.PowerCommandPolicy_name[eint]),
 		hosts.FieldDesiredAmtState:             hosts.DesiredAmtState(computev1.AmtState_name[eint]),
 		hosts.FieldCurrentAmtState:             hosts.CurrentAmtState(computev1.AmtState_name[eint]),
+		hosts.FieldDesiredSolState:             hosts.DesiredSolState(computev1.SolState_name[eint]),
+		hosts.FieldCurrentSolState:             hosts.CurrentSolState(computev1.SolState_name[eint]),
 		hosts.FieldAmtSku:                      hosts.AmtSku(computev1.AmtSku_name[eint]),
 		hosts.FieldAmtControlMode:              hosts.AmtControlMode(computev1.AmtControlMode_name[eint]),
 		hosts.FieldPowerStatusIndicator:        hosts.PowerStatusIndicator(statusv1.StatusIndication_name[eint]),
@@ -95,6 +97,12 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 	}
 	if in.GetCurrentAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
 		mut.SetCurrentAmtState(hosts.CurrentAmtStateAMT_STATE_UNSPECIFIED)
+	}
+	if in.GetDesiredSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.SetDesiredSolState(hosts.DesiredSolStateSOL_STATE_UNSPECIFIED)
+	}
+	if in.GetCurrentSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.SetCurrentSolState(hosts.CurrentSolStateSOL_STATE_UNSPECIFIED)
 	}
 	if in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
 		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
@@ -261,6 +269,16 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 		in.GetDesiredAmtState() == computev1.AmtState_AMT_STATE_UNSPECIFIED {
 		mut.ResetDesiredAmtState()
 		mut.SetDesiredAmtState(hosts.DesiredAmtStateAMT_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentSolState) &&
+		in.GetCurrentSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.ResetCurrentSolState()
+		mut.SetCurrentSolState(hosts.CurrentSolStateSOL_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredSolState) &&
+		in.GetDesiredSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.ResetDesiredSolState()
+		mut.SetDesiredSolState(hosts.DesiredSolStateSOL_STATE_UNSPECIFIED)
 	}
 	if slices.Contains(fieldmask.GetPaths(), hosts.FieldAmtSku) &&
 		in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
