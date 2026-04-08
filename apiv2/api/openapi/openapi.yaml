@@ -16278,6 +16278,57 @@ components:
           title: amt_dns_suffix
           maxLength: 1024
           description: (OPTIONAL) textual message that describes dns_suffix for ACM mode.
+        solStatus:
+          title: sol_status
+          description: |-
+            SOL feature activation status on the AMT device.
+             Set by sol-manager RM after reading GET /api/v1/amt/features/{guid}.
+             Updated whenever sol-manager reconciles a SOL_STATE_START request.
+          readOnly: true
+          $ref: '#/components/schemas/SolStatus'
+        desiredSolState:
+          title: desired_sol_state
+          description: |-
+            (OPTIONAL) Desired SOL session state. Written by operator via APIv2 (orch-cli --sol start|stop).
+             Valid write values: SOL_STATE_START, SOL_STATE_STOP.
+             Consumed by sol-manager RM to drive the session lifecycle.
+          $ref: '#/components/schemas/SolState'
+        currentSolState:
+          title: current_sol_state
+          description: |-
+            Current SOL session state. Set by sol-manager RM only.
+             Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR.
+          readOnly: true
+          $ref: '#/components/schemas/SolState'
+        solSessionUrl:
+          type: string
+          title: sol_session_url
+          maxLength: 2048
+          description: |-
+            WebSocket URL for the active SOL session.
+             Format: ws://sol-manager:8080/ws/terminal/{session-id}
+             Populated by sol-manager when current_sol_state transitions to SOL_STATE_START.
+             Cleared to "" on session end. Used by orch-cli to connect the terminal WebSocket.
+          readOnly: true
+        solSessionStatus:
+          title: sol_session_status
+          description: |-
+            SOL session status indicating whether the SOL session is active or inactive.
+             Set by sol-manager RM only. Updated atomically with sol_session_status_indicator.
+          readOnly: true
+          $ref: '#/components/schemas/SolSessionStatus'
+        solSessionStatusIndicator:
+          title: sol_session_status_indicator
+          description: |-
+            Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR).
+             Set by sol-manager RM only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
+        desiredConsentCode:
+          type: string
+          title: desired_consent_code
+          pattern: ^[0-9]{6}$
+          description: (OPTIONAL) Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
         siteId:
           type: string
           title: site_id
@@ -16952,6 +17003,34 @@ components:
         - POWER_STATE_POWER_CYCLE
         - POWER_STATE_RESET_REPEAT
       description: The host power state.
+    SolSessionStatus:
+      type: string
+      title: SolSessionStatus
+      enum:
+        - SOL_SESSION_UNSPECIFIED
+        - SOL_SESSION_ACTIVATED
+        - SOL_SESSION_DEACTIVATED
+      description: SOL session status indicating whether the SOL session is active or inactive.
+    SolState:
+      type: string
+      title: SolState
+      enum:
+        - SOL_STATE_UNSPECIFIED
+        - SOL_STATE_START
+        - SOL_STATE_STOP
+        - SOL_STATE_AWAITING_CONSENT
+        - SOL_STATE_ERROR
+      description: |-
+        SOL session state — the desired and current lifecycle state of a SOL remote session.
+         Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+    SolStatus:
+      type: string
+      title: SolStatus
+      enum:
+        - SOL_STATUS_UNSPECIFIED
+        - SOL_STATUS_ACTIVATED
+        - SOL_STATUS_DEACTIVATED
+      description: SOL feature activation status on the AMT device.
     UpdatePolicy:
       type: string
       title: UpdatePolicy

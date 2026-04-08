@@ -181,6 +181,29 @@ const (
 	SEVERITYLEVELWARN        SeverityLevel = "SEVERITY_LEVEL_WARN"
 )
 
+// Defines values for SolSessionStatus.
+const (
+	SOLSESSIONACTIVATED   SolSessionStatus = "SOL_SESSION_ACTIVATED"
+	SOLSESSIONDEACTIVATED SolSessionStatus = "SOL_SESSION_DEACTIVATED"
+	SOLSESSIONUNSPECIFIED SolSessionStatus = "SOL_SESSION_UNSPECIFIED"
+)
+
+// Defines values for SolState.
+const (
+	SOLSTATEAWAITINGCONSENT SolState = "SOL_STATE_AWAITING_CONSENT"
+	SOLSTATEERROR           SolState = "SOL_STATE_ERROR"
+	SOLSTATESTART           SolState = "SOL_STATE_START"
+	SOLSTATESTOP            SolState = "SOL_STATE_STOP"
+	SOLSTATEUNSPECIFIED     SolState = "SOL_STATE_UNSPECIFIED"
+)
+
+// Defines values for SolStatus.
+const (
+	SOLSTATUSACTIVATED   SolStatus = "SOL_STATUS_ACTIVATED"
+	SOLSTATUSDEACTIVATED SolStatus = "SOL_STATUS_DEACTIVATED"
+	SOLSTATUSUNSPECIFIED SolStatus = "SOL_STATUS_UNSPECIFIED"
+)
+
 // Defines values for StatusIndication.
 const (
 	STATUSINDICATIONERROR       StatusIndication = "STATUS_INDICATION_ERROR"
@@ -1123,14 +1146,25 @@ type HostResource struct {
 	// CurrentPowerState The host power state.
 	CurrentPowerState *PowerState `json:"currentPowerState,omitempty"`
 
+	// CurrentSolState SOL session state — the desired and current lifecycle state of a SOL remote session.
+	//  Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+	CurrentSolState *SolState `json:"currentSolState,omitempty"`
+
 	// CurrentState States of the host.
 	CurrentState *HostState `json:"currentState,omitempty"`
 
 	// DesiredAmtState The state of the AMT (Active Management Technology) component.
 	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
+	// DesiredConsentCode (OPTIONAL) Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
+	DesiredConsentCode *string `json:"desiredConsentCode,omitempty"`
+
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
+
+	// DesiredSolState SOL session state — the desired and current lifecycle state of a SOL remote session.
+	//  Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+	DesiredSolState *SolState `json:"desiredSolState,omitempty"`
 
 	// DesiredState States of the host.
 	DesiredState *HostState `json:"desiredState,omitempty"`
@@ -1227,7 +1261,22 @@ type HostResource struct {
 	Site *SiteResource `json:"site,omitempty"`
 
 	// SiteId The site where the host is located.
-	SiteId     *string     `json:"siteId,omitempty"`
+	SiteId *string `json:"siteId,omitempty"`
+
+	// SolSessionStatus SOL session status indicating whether the SOL session is active or inactive.
+	SolSessionStatus *SolSessionStatus `json:"solSessionStatus,omitempty"`
+
+	// SolSessionStatusIndicator The status indicator.
+	SolSessionStatusIndicator *StatusIndication `json:"solSessionStatusIndicator,omitempty"`
+
+	// SolSessionUrl WebSocket URL for the active SOL session.
+	//  Format: ws://sol-manager:8080/ws/terminal/{session-id}
+	//  Populated by sol-manager when current_sol_state transitions to SOL_STATE_START.
+	//  Cleared to "" on session end. Used by orch-cli to connect the terminal WebSocket.
+	SolSessionUrl *string `json:"solSessionUrl,omitempty"`
+
+	// SolStatus SOL feature activation status on the AMT device.
+	SolStatus  *SolStatus  `json:"solStatus,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// UserLvmSize LVM size in GB.
@@ -4835,6 +4884,17 @@ type SiteResource struct {
 	SiteLng    *int32      `json:"siteLng,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
+
+// SolSessionStatus SOL session status indicating whether the SOL session is active or inactive.
+type SolSessionStatus string
+
+// SolState SOL session state — the desired and current lifecycle state of a SOL remote session.
+//
+//	Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+type SolState string
+
+// SolStatus SOL feature activation status on the AMT device.
+type SolStatus string
 
 // StatusIndication The status indicator.
 type StatusIndication string
