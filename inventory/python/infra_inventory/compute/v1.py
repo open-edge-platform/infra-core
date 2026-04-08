@@ -70,6 +70,35 @@ class AmtControlMode(betterproto.Enum):
     AMT_CONTROL_MODE_CCM = 2
 
 
+class SolStatus(betterproto.Enum):
+    SOL_STATUS_UNSPECIFIED = 0
+    SOL_STATUS_ACTIVATED = 1
+    SOL_STATUS_DEACTIVATED = 2
+
+
+class SolSessionStatus(betterproto.Enum):
+    SOL_SESSION_UNSPECIFIED = 0
+    SOL_SESSION_ACTIVATED = 1
+    SOL_SESSION_DEACTIVATED = 2
+
+
+class SolState(betterproto.Enum):
+    """
+    SOL session state — the desired and current lifecycle state of a SOL remote
+    session. Used for both desired_sol_state (user-writable) and
+    current_sol_state (sol-manager-set).
+    """
+
+    SOL_STATE_UNSPECIFIED = 0
+    SOL_STATE_START = 1
+    # Current: session is active, sol_session_url is valid.
+    SOL_STATE_STOP = 2
+    # Current: session has terminated cleanly.
+    SOL_STATE_AWAITING_CONSENT = 3
+    # waiting for operator to enter the on-screen 6-digit code.
+    SOL_STATE_ERROR = 4
+
+
 class HostComponentState(betterproto.Enum):
     HOST_COMPONENT_STATE_UNSPECIFIED = 0
     HOST_COMPONENT_STATE_ERROR = 1
@@ -228,6 +257,33 @@ class HostResource(betterproto.Message):
     user_lvm_size: int = betterproto.uint32_field(97)
     amt_control_mode: "AmtControlMode" = betterproto.enum_field(98)
     amt_dns_suffix: str = betterproto.string_field(99)
+    # SOL feature activation status on the AMT device. Set by sol-manager RM
+    # after reading GET /api/v1/amt/features/{guid}. Updated whenever sol-manager
+    # reconciles a SOL_STATE_START request.
+    sol_status: "SolStatus" = betterproto.enum_field(108)
+    # Desired SOL session state. Written by operator via APIv2 (orch-cli --sol
+    # start|stop). Valid write values: SOL_STATE_START, SOL_STATE_STOP. Consumed
+    # by sol-manager RM to drive the session lifecycle.
+    desired_sol_state: "SolState" = betterproto.enum_field(109)
+    # Current SOL session state. Set by sol-manager RM only. Lifecycle:
+    # UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR.
+    current_sol_state: "SolState" = betterproto.enum_field(110)
+    # WebSocket URL for the active SOL session. Format: ws://sol-
+    # manager:8080/ws/terminal/{session-id} Populated by sol-manager when
+    # current_sol_state transitions to SOL_STATE_START. Cleared to "" on session
+    # end. Used by orch-cli to connect the terminal WebSocket.
+    sol_session_url: str = betterproto.string_field(111)
+    # SOL session status indicating whether the SOL session is active or
+    # inactive. Set by sol-manager RM only. Updated atomically with
+    # sol_session_status_indicator.
+    sol_session_status: "SolSessionStatus" = betterproto.enum_field(112)
+    # Indicates the severity/dynamicity of sol_session_status (e.g. IDLE,
+    # IN_PROGRESS, ERROR). Set by sol-manager RM only.
+    sol_session_status_indicator: v1.StatusIndication = betterproto.enum_field(113)
+    # Six-digit user-consent code entered by the operator from the device screen.
+    # Written by orch-cli via APIv2 when current_kvm_state =
+    # KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager.
+    desired_consent_code: str = betterproto.string_field(106)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)

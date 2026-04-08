@@ -122,6 +122,20 @@ const (
 	FieldAmtControlMode = "amt_control_mode"
 	// FieldAmtDNSSuffix holds the string denoting the amt_dns_suffix field in the database.
 	FieldAmtDNSSuffix = "amt_dns_suffix"
+	// FieldSolStatus holds the string denoting the sol_status field in the database.
+	FieldSolStatus = "sol_status"
+	// FieldDesiredSolState holds the string denoting the desired_sol_state field in the database.
+	FieldDesiredSolState = "desired_sol_state"
+	// FieldCurrentSolState holds the string denoting the current_sol_state field in the database.
+	FieldCurrentSolState = "current_sol_state"
+	// FieldSolSessionURL holds the string denoting the sol_session_url field in the database.
+	FieldSolSessionURL = "sol_session_url"
+	// FieldSolSessionStatus holds the string denoting the sol_session_status field in the database.
+	FieldSolSessionStatus = "sol_session_status"
+	// FieldSolSessionStatusIndicator holds the string denoting the sol_session_status_indicator field in the database.
+	FieldSolSessionStatusIndicator = "sol_session_status_indicator"
+	// FieldDesiredConsentCode holds the string denoting the desired_consent_code field in the database.
+	FieldDesiredConsentCode = "desired_consent_code"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -252,6 +266,13 @@ var Columns = []string{
 	FieldUserLvmSize,
 	FieldAmtControlMode,
 	FieldAmtDNSSuffix,
+	FieldSolStatus,
+	FieldDesiredSolState,
+	FieldCurrentSolState,
+	FieldSolSessionURL,
+	FieldSolSessionStatus,
+	FieldSolSessionStatusIndicator,
+	FieldDesiredConsentCode,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -663,6 +684,131 @@ func AmtControlModeValidator(acm AmtControlMode) error {
 	}
 }
 
+// SolStatus defines the type for the "sol_status" enum field.
+type SolStatus string
+
+// SolStatus values.
+const (
+	SolStatusSOL_STATUS_UNSPECIFIED SolStatus = "SOL_STATUS_UNSPECIFIED"
+	SolStatusSOL_STATUS_ACTIVATED   SolStatus = "SOL_STATUS_ACTIVATED"
+	SolStatusSOL_STATUS_DEACTIVATED SolStatus = "SOL_STATUS_DEACTIVATED"
+)
+
+func (ss SolStatus) String() string {
+	return string(ss)
+}
+
+// SolStatusValidator is a validator for the "sol_status" field enum values. It is called by the builders before save.
+func SolStatusValidator(ss SolStatus) error {
+	switch ss {
+	case SolStatusSOL_STATUS_UNSPECIFIED, SolStatusSOL_STATUS_ACTIVATED, SolStatusSOL_STATUS_DEACTIVATED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for sol_status field: %q", ss)
+	}
+}
+
+// DesiredSolState defines the type for the "desired_sol_state" enum field.
+type DesiredSolState string
+
+// DesiredSolState values.
+const (
+	DesiredSolStateSOL_STATE_UNSPECIFIED      DesiredSolState = "SOL_STATE_UNSPECIFIED"
+	DesiredSolStateSOL_STATE_START            DesiredSolState = "SOL_STATE_START"
+	DesiredSolStateSOL_STATE_STOP             DesiredSolState = "SOL_STATE_STOP"
+	DesiredSolStateSOL_STATE_AWAITING_CONSENT DesiredSolState = "SOL_STATE_AWAITING_CONSENT"
+	DesiredSolStateSOL_STATE_ERROR            DesiredSolState = "SOL_STATE_ERROR"
+)
+
+func (dss DesiredSolState) String() string {
+	return string(dss)
+}
+
+// DesiredSolStateValidator is a validator for the "desired_sol_state" field enum values. It is called by the builders before save.
+func DesiredSolStateValidator(dss DesiredSolState) error {
+	switch dss {
+	case DesiredSolStateSOL_STATE_UNSPECIFIED, DesiredSolStateSOL_STATE_START, DesiredSolStateSOL_STATE_STOP, DesiredSolStateSOL_STATE_AWAITING_CONSENT, DesiredSolStateSOL_STATE_ERROR:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for desired_sol_state field: %q", dss)
+	}
+}
+
+// CurrentSolState defines the type for the "current_sol_state" enum field.
+type CurrentSolState string
+
+// CurrentSolState values.
+const (
+	CurrentSolStateSOL_STATE_UNSPECIFIED      CurrentSolState = "SOL_STATE_UNSPECIFIED"
+	CurrentSolStateSOL_STATE_START            CurrentSolState = "SOL_STATE_START"
+	CurrentSolStateSOL_STATE_STOP             CurrentSolState = "SOL_STATE_STOP"
+	CurrentSolStateSOL_STATE_AWAITING_CONSENT CurrentSolState = "SOL_STATE_AWAITING_CONSENT"
+	CurrentSolStateSOL_STATE_ERROR            CurrentSolState = "SOL_STATE_ERROR"
+)
+
+func (css CurrentSolState) String() string {
+	return string(css)
+}
+
+// CurrentSolStateValidator is a validator for the "current_sol_state" field enum values. It is called by the builders before save.
+func CurrentSolStateValidator(css CurrentSolState) error {
+	switch css {
+	case CurrentSolStateSOL_STATE_UNSPECIFIED, CurrentSolStateSOL_STATE_START, CurrentSolStateSOL_STATE_STOP, CurrentSolStateSOL_STATE_AWAITING_CONSENT, CurrentSolStateSOL_STATE_ERROR:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for current_sol_state field: %q", css)
+	}
+}
+
+// SolSessionStatus defines the type for the "sol_session_status" enum field.
+type SolSessionStatus string
+
+// SolSessionStatus values.
+const (
+	SolSessionStatusSOL_SESSION_UNSPECIFIED SolSessionStatus = "SOL_SESSION_UNSPECIFIED"
+	SolSessionStatusSOL_SESSION_ACTIVATED   SolSessionStatus = "SOL_SESSION_ACTIVATED"
+	SolSessionStatusSOL_SESSION_DEACTIVATED SolSessionStatus = "SOL_SESSION_DEACTIVATED"
+)
+
+func (sss SolSessionStatus) String() string {
+	return string(sss)
+}
+
+// SolSessionStatusValidator is a validator for the "sol_session_status" field enum values. It is called by the builders before save.
+func SolSessionStatusValidator(sss SolSessionStatus) error {
+	switch sss {
+	case SolSessionStatusSOL_SESSION_UNSPECIFIED, SolSessionStatusSOL_SESSION_ACTIVATED, SolSessionStatusSOL_SESSION_DEACTIVATED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for sol_session_status field: %q", sss)
+	}
+}
+
+// SolSessionStatusIndicator defines the type for the "sol_session_status_indicator" enum field.
+type SolSessionStatusIndicator string
+
+// SolSessionStatusIndicator values.
+const (
+	SolSessionStatusIndicatorSTATUS_INDICATION_UNSPECIFIED SolSessionStatusIndicator = "STATUS_INDICATION_UNSPECIFIED"
+	SolSessionStatusIndicatorSTATUS_INDICATION_ERROR       SolSessionStatusIndicator = "STATUS_INDICATION_ERROR"
+	SolSessionStatusIndicatorSTATUS_INDICATION_IN_PROGRESS SolSessionStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	SolSessionStatusIndicatorSTATUS_INDICATION_IDLE        SolSessionStatusIndicator = "STATUS_INDICATION_IDLE"
+)
+
+func (sssi SolSessionStatusIndicator) String() string {
+	return string(sssi)
+}
+
+// SolSessionStatusIndicatorValidator is a validator for the "sol_session_status_indicator" field enum values. It is called by the builders before save.
+func SolSessionStatusIndicatorValidator(sssi SolSessionStatusIndicator) error {
+	switch sssi {
+	case SolSessionStatusIndicatorSTATUS_INDICATION_UNSPECIFIED, SolSessionStatusIndicatorSTATUS_INDICATION_ERROR, SolSessionStatusIndicatorSTATUS_INDICATION_IN_PROGRESS, SolSessionStatusIndicatorSTATUS_INDICATION_IDLE:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for sol_session_status_indicator field: %q", sssi)
+	}
+}
+
 // OrderOption defines the ordering options for the HostResource queries.
 type OrderOption func(*sql.Selector)
 
@@ -939,6 +1085,41 @@ func ByAmtControlMode(opts ...sql.OrderTermOption) OrderOption {
 // ByAmtDNSSuffix orders the results by the amt_dns_suffix field.
 func ByAmtDNSSuffix(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAmtDNSSuffix, opts...).ToFunc()
+}
+
+// BySolStatus orders the results by the sol_status field.
+func BySolStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSolStatus, opts...).ToFunc()
+}
+
+// ByDesiredSolState orders the results by the desired_sol_state field.
+func ByDesiredSolState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredSolState, opts...).ToFunc()
+}
+
+// ByCurrentSolState orders the results by the current_sol_state field.
+func ByCurrentSolState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCurrentSolState, opts...).ToFunc()
+}
+
+// BySolSessionURL orders the results by the sol_session_url field.
+func BySolSessionURL(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSolSessionURL, opts...).ToFunc()
+}
+
+// BySolSessionStatus orders the results by the sol_session_status field.
+func BySolSessionStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSolSessionStatus, opts...).ToFunc()
+}
+
+// BySolSessionStatusIndicator orders the results by the sol_session_status_indicator field.
+func BySolSessionStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSolSessionStatusIndicator, opts...).ToFunc()
+}
+
+// ByDesiredConsentCode orders the results by the desired_consent_code field.
+func ByDesiredConsentCode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredConsentCode, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

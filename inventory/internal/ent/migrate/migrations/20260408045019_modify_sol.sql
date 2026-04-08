@@ -1,0 +1,2 @@
+-- Modify "host_resources" table
+ALTER TABLE "host_resources" ADD COLUMN "sol_status" character varying NULL, ADD COLUMN "desired_sol_state" character varying NULL, ADD COLUMN "current_sol_state" character varying NULL, ADD COLUMN "sol_session_url" character varying NULL, ADD COLUMN "sol_session_status" character varying NULL, ADD COLUMN "sol_session_status_indicator" character varying NULL, ADD COLUMN "desired_consent_code" character varying NULL;
