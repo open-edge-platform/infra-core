@@ -301,7 +301,7 @@ message HostResource {
   // Six-digit user-consent code entered by the operator from the device screen.
   // Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT.
   // Consumed (read then cleared) by kvm-manager.
-  string desired_consent_code = 106 [
+  string desired_consent_code = 114 [
     (ent.field) = {optional: true},
     (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
