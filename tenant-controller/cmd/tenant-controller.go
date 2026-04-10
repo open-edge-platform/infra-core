@@ -21,9 +21,9 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/configuration"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/controller"
-	"github.com/open-edge-platform/infra-core/tenant-controller/internal/datamodel"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/invclient"
-	"github.com/open-edge-platform/infra-core/tenant-controller/internal/nexus"
+	"github.com/open-edge-platform/infra-core/tenant-controller/internal/tenancyhandler"
+	"github.com/open-edge-platform/orch-library/go/pkg/tenancy"
 )
 
 // Configuration variables, mostly set by flags.
@@ -163,21 +163,33 @@ func main() {
 		zlog.InfraSec().Fatal().Err(err).Msgf("")
 	}
 
-	nxc, err := nexus.SetupClient()
-	if err != nil {
-		zlog.InfraSec().Fatal().Err(err).Msgf("Unable to setup Nexus Client")
-	}
-
 	tenantTerminationCtrl := controller.NewTerminationController(invClient)
 	tenantInitializationCtrl := controller.NewTenantInitializationController(
-		initialResourcesProviders, invClient, nxc, *skipOSProvisioning)
+		initialResourcesProviders, invClient, *skipOSProvisioning)
 
 	controller.NewEventDispatcher(invClient, tenantInitializationCtrl, tenantTerminationCtrl).Start(termChan)
 
-	dmc := datamodel.NewDataModelController(nxc, *enableTracing, tenantTerminationCtrl, tenantInitializationCtrl)
-	if err := dmc.Start(termChan); err != nil {
-		zlog.InfraSec().Fatal().Err(err).Msgf("Unable to start DataModel controller")
+	// Set up the tenancy Poller (replaces Nexus DataModel controller).
+	tenantManagerURL := os.Getenv("TENANT_MANAGER_URL")
+	if tenantManagerURL == "" {
+		tenantManagerURL = "http://tenant-manager.orch-iam:8080"
 	}
+
+	handler := tenancyhandler.NewHandler(tenantInitializationCtrl, tenantTerminationCtrl)
+	poller := tenancy.NewPoller(tenantManagerURL, "infra-tenant-controller", handler,
+		func(cfg *tenancy.PollerConfig) {
+			cfg.OnError = func(err error, msg string) {
+				zlog.Err(err).Msgf("tenancy poller: %s", msg)
+			}
+		},
+	)
+
+	pollerCtx, pollerCancel := context.WithCancel(context.Background())
+	go func() {
+		if err := poller.Run(pollerCtx); err != nil && pollerCtx.Err() == nil {
+			zlog.InfraSec().Fatal().Err(err).Msgf("tenancy poller stopped unexpectedly")
+		}
+	}()
 
 	// set up OAM (health check) server
 	SetupOamServerAndSetReady(*enableTracing, *oamServerAddress)
@@ -186,6 +198,8 @@ func main() {
 	signal.Notify(sigChan, syscall.SIGTERM, syscall.SIGINT)
 	go func() {
 		<-sigChan // block until signals received
+
+		pollerCancel() // stop tenancy poller
 
 		close(termChan) // closes the SBgRPC server, OAM Server
 
