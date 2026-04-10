@@ -134,8 +134,6 @@ const (
 	FieldSolSessionStatus = "sol_session_status"
 	// FieldSolSessionStatusIndicator holds the string denoting the sol_session_status_indicator field in the database.
 	FieldSolSessionStatusIndicator = "sol_session_status_indicator"
-	// FieldDesiredConsentCode holds the string denoting the desired_consent_code field in the database.
-	FieldDesiredConsentCode = "desired_consent_code"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -272,7 +270,6 @@ var Columns = []string{
 	FieldSolSessionURL,
 	FieldSolSessionStatus,
 	FieldSolSessionStatusIndicator,
-	FieldDesiredConsentCode,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -1115,11 +1112,6 @@ func BySolSessionStatus(opts ...sql.OrderTermOption) OrderOption {
 // BySolSessionStatusIndicator orders the results by the sol_session_status_indicator field.
 func BySolSessionStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldSolSessionStatusIndicator, opts...).ToFunc()
-}
-
-// ByDesiredConsentCode orders the results by the desired_consent_code field.
-func ByDesiredConsentCode(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDesiredConsentCode, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

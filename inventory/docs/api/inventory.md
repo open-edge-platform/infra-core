@@ -597,7 +597,6 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | sol_session_url | [string](#string) |  | WebSocket URL for the active SOL session. Format: ws://sol-manager:8080/ws/terminal/{session-id} Populated by sol-manager when current_sol_state transitions to SOL_STATE_START. Cleared to &#34;&#34; on session end. Used by orch-cli to connect the terminal WebSocket. |
 | sol_session_status | [SolSessionStatus](#compute-v1-SolSessionStatus) |  | SOL session status indicating whether the SOL session is active or inactive. Set by sol-manager RM only. Updated atomically with sol_session_status_indicator. |
 | sol_session_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR). Set by sol-manager RM only. |
-| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator from the device screen. Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |

@@ -1305,26 +1305,6 @@ func (_u *HostResourceUpdate) ClearSolSessionStatusIndicator() *HostResourceUpda
 	return _u
 }
 
-// SetDesiredConsentCode sets the "desired_consent_code" field.
-func (_u *HostResourceUpdate) SetDesiredConsentCode(v string) *HostResourceUpdate {
-	_u.mutation.SetDesiredConsentCode(v)
-	return _u
-}
-
-// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
-func (_u *HostResourceUpdate) SetNillableDesiredConsentCode(v *string) *HostResourceUpdate {
-	if v != nil {
-		_u.SetDesiredConsentCode(*v)
-	}
-	return _u
-}
-
-// ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
-func (_u *HostResourceUpdate) ClearDesiredConsentCode() *HostResourceUpdate {
-	_u.mutation.ClearDesiredConsentCode()
-	return _u
-}
-
 // SetUpdatedAt sets the "updated_at" field.
 func (_u *HostResourceUpdate) SetUpdatedAt(v string) *HostResourceUpdate {
 	_u.mutation.SetUpdatedAt(v)
@@ -2096,12 +2076,6 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 	}
 	if _u.mutation.SolSessionStatusIndicatorCleared() {
 		_spec.ClearField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum)
-	}
-	if value, ok := _u.mutation.DesiredConsentCode(); ok {
-		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
-	}
-	if _u.mutation.DesiredConsentCodeCleared() {
-		_spec.ClearField(hostresource.FieldDesiredConsentCode, field.TypeString)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
@@ -3664,26 +3638,6 @@ func (_u *HostResourceUpdateOne) ClearSolSessionStatusIndicator() *HostResourceU
 	return _u
 }
 
-// SetDesiredConsentCode sets the "desired_consent_code" field.
-func (_u *HostResourceUpdateOne) SetDesiredConsentCode(v string) *HostResourceUpdateOne {
-	_u.mutation.SetDesiredConsentCode(v)
-	return _u
-}
-
-// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
-func (_u *HostResourceUpdateOne) SetNillableDesiredConsentCode(v *string) *HostResourceUpdateOne {
-	if v != nil {
-		_u.SetDesiredConsentCode(*v)
-	}
-	return _u
-}
-
-// ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
-func (_u *HostResourceUpdateOne) ClearDesiredConsentCode() *HostResourceUpdateOne {
-	_u.mutation.ClearDesiredConsentCode()
-	return _u
-}
-
 // SetUpdatedAt sets the "updated_at" field.
 func (_u *HostResourceUpdateOne) SetUpdatedAt(v string) *HostResourceUpdateOne {
 	_u.mutation.SetUpdatedAt(v)
@@ -4485,12 +4439,6 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 	}
 	if _u.mutation.SolSessionStatusIndicatorCleared() {
 		_spec.ClearField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum)
-	}
-	if value, ok := _u.mutation.DesiredConsentCode(); ok {
-		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
-	}
-	if _u.mutation.DesiredConsentCodeCleared() {
-		_spec.ClearField(hostresource.FieldDesiredConsentCode, field.TypeString)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
