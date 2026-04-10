@@ -1156,9 +1156,6 @@ type HostResource struct {
 	// DesiredAmtState The state of the AMT (Active Management Technology) component.
 	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
-	// DesiredConsentCode (OPTIONAL) Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
-	DesiredConsentCode *string `json:"desiredConsentCode,omitempty"`
-
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
 

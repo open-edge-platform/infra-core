@@ -293,12 +293,6 @@ message HostResource {
   // Set by sol-manager RM only.
   status.v1.StatusIndication sol_session_status_indicator = 113 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
-  string desired_consent_code = 114 [
-    (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
 
   // The site where the host is located.
   string site_id = 5001 [

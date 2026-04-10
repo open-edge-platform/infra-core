@@ -66,7 +66,6 @@ const (
 	HostResourceFieldSolSessionUrl               = "sol_session_url"
 	HostResourceFieldSolSessionStatus            = "sol_session_status"
 	HostResourceFieldSolSessionStatusIndicator   = "sol_session_status_indicator"
-	HostResourceFieldDesiredConsentCode          = "desired_consent_code"
 	HostResourceFieldSiteId                      = "site_id"
 	HostResourceEdgeMetadata                     = "metadata"
 	HostResourceEdgeInheritedMetadata            = "inherited_metadata"

@@ -16324,11 +16324,6 @@ components:
              Set by sol-manager RM only.
           readOnly: true
           $ref: '#/components/schemas/StatusIndication'
-        desiredConsentCode:
-          type: string
-          title: desired_consent_code
-          pattern: ^[0-9]{6}$
-          description: (OPTIONAL) Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
         siteId:
           type: string
           title: site_id
