@@ -127,6 +127,18 @@ type HostResource struct {
 	AmtControlMode hostresource.AmtControlMode `json:"amt_control_mode,omitempty"`
 	// AmtDNSSuffix holds the value of the "amt_dns_suffix" field.
 	AmtDNSSuffix string `json:"amt_dns_suffix,omitempty"`
+	// SolStatus holds the value of the "sol_status" field.
+	SolStatus hostresource.SolStatus `json:"sol_status,omitempty"`
+	// DesiredSolState holds the value of the "desired_sol_state" field.
+	DesiredSolState hostresource.DesiredSolState `json:"desired_sol_state,omitempty"`
+	// CurrentSolState holds the value of the "current_sol_state" field.
+	CurrentSolState hostresource.CurrentSolState `json:"current_sol_state,omitempty"`
+	// SolSessionURL holds the value of the "sol_session_url" field.
+	SolSessionURL string `json:"sol_session_url,omitempty"`
+	// SolSessionStatus holds the value of the "sol_session_status" field.
+	SolSessionStatus hostresource.SolSessionStatus `json:"sol_session_status,omitempty"`
+	// SolSessionStatusIndicator holds the value of the "sol_session_status_indicator" field.
+	SolSessionStatusIndicator hostresource.SolSessionStatusIndicator `json:"sol_session_status_indicator,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -239,7 +251,7 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp, hostresource.FieldUserLvmSize:
 			values[i] = new(sql.NullInt64)
-		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtControlMode, hostresource.FieldAmtDNSSuffix, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
+		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtControlMode, hostresource.FieldAmtDNSSuffix, hostresource.FieldSolStatus, hostresource.FieldDesiredSolState, hostresource.FieldCurrentSolState, hostresource.FieldSolSessionURL, hostresource.FieldSolSessionStatus, hostresource.FieldSolSessionStatusIndicator, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case hostresource.ForeignKeys[0]: // host_resource_site
 			values[i] = new(sql.NullInt64)
@@ -592,6 +604,42 @@ func (_m *HostResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.AmtDNSSuffix = value.String
 			}
+		case hostresource.FieldSolStatus:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field sol_status", values[i])
+			} else if value.Valid {
+				_m.SolStatus = hostresource.SolStatus(value.String)
+			}
+		case hostresource.FieldDesiredSolState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field desired_sol_state", values[i])
+			} else if value.Valid {
+				_m.DesiredSolState = hostresource.DesiredSolState(value.String)
+			}
+		case hostresource.FieldCurrentSolState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field current_sol_state", values[i])
+			} else if value.Valid {
+				_m.CurrentSolState = hostresource.CurrentSolState(value.String)
+			}
+		case hostresource.FieldSolSessionURL:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field sol_session_url", values[i])
+			} else if value.Valid {
+				_m.SolSessionURL = value.String
+			}
+		case hostresource.FieldSolSessionStatus:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field sol_session_status", values[i])
+			} else if value.Valid {
+				_m.SolSessionStatus = hostresource.SolSessionStatus(value.String)
+			}
+		case hostresource.FieldSolSessionStatusIndicator:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field sol_session_status_indicator", values[i])
+			} else if value.Valid {
+				_m.SolSessionStatusIndicator = hostresource.SolSessionStatusIndicator(value.String)
+			}
 		case hostresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
@@ -863,6 +911,24 @@ func (_m *HostResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("amt_dns_suffix=")
 	builder.WriteString(_m.AmtDNSSuffix)
+	builder.WriteString(", ")
+	builder.WriteString("sol_status=")
+	builder.WriteString(fmt.Sprintf("%v", _m.SolStatus))
+	builder.WriteString(", ")
+	builder.WriteString("desired_sol_state=")
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredSolState))
+	builder.WriteString(", ")
+	builder.WriteString("current_sol_state=")
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentSolState))
+	builder.WriteString(", ")
+	builder.WriteString("sol_session_url=")
+	builder.WriteString(_m.SolSessionURL)
+	builder.WriteString(", ")
+	builder.WriteString("sol_session_status=")
+	builder.WriteString(fmt.Sprintf("%v", _m.SolSessionStatus))
+	builder.WriteString(", ")
+	builder.WriteString("sol_session_status_indicator=")
+	builder.WriteString(fmt.Sprintf("%v", _m.SolSessionStatusIndicator))
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(_m.TenantID)

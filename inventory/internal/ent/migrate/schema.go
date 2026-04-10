@@ -127,6 +127,12 @@ var (
 		{Name: "user_lvm_size", Type: field.TypeUint32, Nullable: true},
 		{Name: "amt_control_mode", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_CONTROL_MODE_UNSPECIFIED", "AMT_CONTROL_MODE_ACM", "AMT_CONTROL_MODE_CCM"}},
 		{Name: "amt_dns_suffix", Type: field.TypeString, Nullable: true},
+		{Name: "sol_status", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATUS_UNSPECIFIED", "SOL_STATUS_ACTIVATED", "SOL_STATUS_DEACTIVATED"}},
+		{Name: "desired_sol_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATE_UNSPECIFIED", "SOL_STATE_START", "SOL_STATE_STOP", "SOL_STATE_AWAITING_CONSENT", "SOL_STATE_ERROR"}},
+		{Name: "current_sol_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATE_UNSPECIFIED", "SOL_STATE_START", "SOL_STATE_STOP", "SOL_STATE_AWAITING_CONSENT", "SOL_STATE_ERROR"}},
+		{Name: "sol_session_url", Type: field.TypeString, Nullable: true},
+		{Name: "sol_session_status", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_SESSION_STATUS_UNSPECIFIED", "SOL_SESSION_STATUS_ACTIVATED", "SOL_SESSION_STATUS_DEACTIVATED"}},
+		{Name: "sol_session_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -142,19 +148,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "host_resources_site_resources_site",
-				Columns:    []*schema.Column{HostResourcesColumns[58]},
+				Columns:    []*schema.Column{HostResourcesColumns[64]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_provider_resources_provider",
-				Columns:    []*schema.Column{HostResourcesColumns[59]},
+				Columns:    []*schema.Column{HostResourcesColumns[65]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[60]},
+				Columns:    []*schema.Column{HostResourcesColumns[66]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -179,7 +185,7 @@ var (
 			{
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{HostResourcesColumns[55]},
+				Columns: []*schema.Column{HostResourcesColumns[61]},
 			},
 		},
 	}

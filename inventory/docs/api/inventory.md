@@ -53,6 +53,9 @@
     - [NetworkInterfaceLinkState](#compute-v1-NetworkInterfaceLinkState)
     - [PowerCommandPolicy](#compute-v1-PowerCommandPolicy)
     - [PowerState](#compute-v1-PowerState)
+    - [SolSessionStatus](#compute-v1-SolSessionStatus)
+    - [SolState](#compute-v1-SolState)
+    - [SolStatus](#compute-v1-SolStatus)
     - [UpdatePolicy](#compute-v1-UpdatePolicy)
     - [WorkloadKind](#compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#compute-v1-WorkloadMemberKind)
@@ -588,6 +591,12 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | amt_control_mode | [AmtControlMode](#compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
+| sol_status | [SolStatus](#compute-v1-SolStatus) |  | SOL feature activation status on the AMT device. Set by sol-manager RM after reading GET /api/v1/amt/features/{guid}. Updated whenever sol-manager reconciles a SOL_STATE_START request. |
+| desired_sol_state | [SolState](#compute-v1-SolState) |  | Desired SOL session state. Written by operator via APIv2 (orch-cli --sol start|stop). Valid write values: SOL_STATE_START, SOL_STATE_STOP. Consumed by sol-manager RM to drive the session lifecycle. |
+| current_sol_state | [SolState](#compute-v1-SolState) |  | Current SOL session state. Set by sol-manager RM only. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR. |
+| sol_session_url | [string](#string) |  | WebSocket URL for the active SOL session. Format: ws://sol-manager:8080/ws/terminal/{session-id} Populated by sol-manager when current_sol_state transitions to SOL_STATE_START. Cleared to &#34;&#34; on session end. Used by orch-cli to connect the terminal WebSocket. |
+| sol_session_status | [SolSessionStatus](#compute-v1-SolSessionStatus) |  | SOL session status indicating whether the SOL session is active or inactive. Set by sol-manager RM only. Updated atomically with sol_session_status_indicator. |
+| sol_session_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR). Set by sol-manager RM only. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -1035,6 +1044,54 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | POWER_STATE_RESET | 6 |  |
 | POWER_STATE_POWER_CYCLE | 7 |  |
 | POWER_STATE_RESET_REPEAT | 8 | For consecutive reset operations |
+
+
+
+<a name="compute-v1-SolSessionStatus"></a>
+
+### SolSessionStatus
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SOL_SESSION_STATUS_UNSPECIFIED | 0 |  |
+| SOL_SESSION_STATUS_ACTIVATED | 1 | SOL session is currently active. |
+| SOL_SESSION_STATUS_DEACTIVATED | 2 | SOL session is currently inactive. |
+
+
+
+<a name="compute-v1-SolState"></a>
+
+### SolState
+SOL session state — the desired and current lifecycle state of a SOL remote session.
+Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SOL_STATE_UNSPECIFIED | 0 |  |
+| SOL_STATE_START | 1 | Desired: operator requests session start. |
+| SOL_STATE_STOP | 2 | Current: session is active, sol_session_url is valid.
+
+Desired: operator requests session teardown. |
+| SOL_STATE_AWAITING_CONSENT | 3 | Current: session has terminated cleanly.
+
+Current only: sol-manager triggered consent on device; |
+| SOL_STATE_ERROR | 4 | waiting for operator to enter the on-screen 6-digit code.
+
+Current only: sol-manager encountered an error |
+
+
+
+<a name="compute-v1-SolStatus"></a>
+
+### SolStatus
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SOL_STATUS_UNSPECIFIED | 0 |  |
+| SOL_STATUS_ACTIVATED | 1 | SOL feature is currently enabled on the AMT device. |
+| SOL_STATUS_DEACTIVATED | 2 | SOL feature is currently disabled on the AMT device. |
 
 
 
