@@ -172,7 +172,7 @@ func main() {
 	// Set up the tenancy Poller (replaces Nexus DataModel controller).
 	tenantManagerURL := os.Getenv("TENANT_MANAGER_URL")
 	if tenantManagerURL == "" {
-		tenantManagerURL = "http://tenancy-manager.orch-iam.svc.cluster.local:8080"
+		tenantManagerURL = "http://tenancy-manager.orch-iam:8080"
 	}
 
 	handler := tenancyhandler.NewHandler(tenantInitializationCtrl, tenantTerminationCtrl)
