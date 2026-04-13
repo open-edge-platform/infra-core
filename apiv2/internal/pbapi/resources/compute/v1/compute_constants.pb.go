@@ -60,6 +60,7 @@ const (
 	HostResourceFieldUserLvmSize                 = "user_lvm_size"
 	HostResourceFieldAmtControlMode              = "amt_control_mode"
 	HostResourceFieldAmtDnsSuffix                = "amt_dns_suffix"
+	HostResourceFieldDesiredConsentCode          = "desired_consent_code"
 	HostResourceFieldSiteId                      = "site_id"
 	HostResourceEdgeMetadata                     = "metadata"
 	HostResourceEdgeInheritedMetadata            = "inherited_metadata"

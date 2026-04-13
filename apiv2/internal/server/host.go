@@ -184,6 +184,7 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		AmtControlMode:     inv_computev1.AmtControlMode(host.GetAmtControlMode()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
+		DesiredConsentCode: host.GetDesiredConsentCode(),
 	}
 
 	hostSiteID := host.GetSiteId()
