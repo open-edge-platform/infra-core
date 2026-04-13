@@ -43,6 +43,7 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
 	computev1.HostResourceFieldAmtControlMode:     inv_computev1.HostResourceFieldAmtControlMode,
 	computev1.HostResourceFieldAmtDnsSuffix:       inv_computev1.HostResourceFieldAmtDnsSuffix,
+	computev1.HostResourceFieldDesiredConsentCode: inv_computev1.HostResourceFieldDesiredConsentCode,
 }
 
 var (
