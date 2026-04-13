@@ -240,6 +240,12 @@ message HostResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // textual message that describes dns_suffix for ACM mode.
 
+  string desired_consent_code = 106 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true

@@ -228,6 +228,7 @@ class HostResource(betterproto.Message):
     user_lvm_size: int = betterproto.uint32_field(97)
     amt_control_mode: "AmtControlMode" = betterproto.enum_field(98)
     amt_dns_suffix: str = betterproto.string_field(99)
+    desired_consent_code: str = betterproto.string_field(106)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
