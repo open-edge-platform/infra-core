@@ -774,6 +774,20 @@ func (_c *HostResourceCreate) SetNillableAmtDNSSuffix(v *string) *HostResourceCr
 	return _c
 }
 
+// SetDesiredConsentCode sets the "desired_consent_code" field.
+func (_c *HostResourceCreate) SetDesiredConsentCode(v string) *HostResourceCreate {
+	_c.mutation.SetDesiredConsentCode(v)
+	return _c
+}
+
+// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableDesiredConsentCode(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredConsentCode(*v)
+	}
+	return _c
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (_c *HostResourceCreate) SetTenantID(v string) *HostResourceCreate {
 	_c.mutation.SetTenantID(v)
@@ -1271,6 +1285,10 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 	if value, ok := _c.mutation.AmtDNSSuffix(); ok {
 		_spec.SetField(hostresource.FieldAmtDNSSuffix, field.TypeString, value)
 		_node.AmtDNSSuffix = value
+	}
+	if value, ok := _c.mutation.DesiredConsentCode(); ok {
+		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
+		_node.DesiredConsentCode = value
 	}
 	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostresource.FieldTenantID, field.TypeString, value)

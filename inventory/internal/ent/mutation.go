@@ -1620,6 +1620,7 @@ type HostResourceMutation struct {
 	adduser_lvm_size                 *int32
 	amt_control_mode                 *hostresource.AmtControlMode
 	amt_dns_suffix                   *string
+	desired_consent_code             *string
 	tenant_id                        *string
 	created_at                       *string
 	updated_at                       *string
@@ -4609,6 +4610,55 @@ func (m *HostResourceMutation) ResetAmtDNSSuffix() {
 	delete(m.clearedFields, hostresource.FieldAmtDNSSuffix)
 }
 
+// SetDesiredConsentCode sets the "desired_consent_code" field.
+func (m *HostResourceMutation) SetDesiredConsentCode(s string) {
+	m.desired_consent_code = &s
+}
+
+// DesiredConsentCode returns the value of the "desired_consent_code" field in the mutation.
+func (m *HostResourceMutation) DesiredConsentCode() (r string, exists bool) {
+	v := m.desired_consent_code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDesiredConsentCode returns the old "desired_consent_code" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldDesiredConsentCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDesiredConsentCode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDesiredConsentCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDesiredConsentCode: %w", err)
+	}
+	return oldValue.DesiredConsentCode, nil
+}
+
+// ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
+func (m *HostResourceMutation) ClearDesiredConsentCode() {
+	m.desired_consent_code = nil
+	m.clearedFields[hostresource.FieldDesiredConsentCode] = struct{}{}
+}
+
+// DesiredConsentCodeCleared returns if the "desired_consent_code" field was cleared in this mutation.
+func (m *HostResourceMutation) DesiredConsentCodeCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldDesiredConsentCode]
+	return ok
+}
+
+// ResetDesiredConsentCode resets all changes to the "desired_consent_code" field.
+func (m *HostResourceMutation) ResetDesiredConsentCode() {
+	m.desired_consent_code = nil
+	delete(m.clearedFields, hostresource.FieldDesiredConsentCode)
+}
+
 // SetTenantID sets the "tenant_id" field.
 func (m *HostResourceMutation) SetTenantID(s string) {
 	m.tenant_id = &s
@@ -5084,7 +5134,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 57)
+	fields := make([]string, 0, 58)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -5247,6 +5297,9 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.amt_dns_suffix != nil {
 		fields = append(fields, hostresource.FieldAmtDNSSuffix)
 	}
+	if m.desired_consent_code != nil {
+		fields = append(fields, hostresource.FieldDesiredConsentCode)
+	}
 	if m.tenant_id != nil {
 		fields = append(fields, hostresource.FieldTenantID)
 	}
@@ -5372,6 +5425,8 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.AmtControlMode()
 	case hostresource.FieldAmtDNSSuffix:
 		return m.AmtDNSSuffix()
+	case hostresource.FieldDesiredConsentCode:
+		return m.DesiredConsentCode()
 	case hostresource.FieldTenantID:
 		return m.TenantID()
 	case hostresource.FieldCreatedAt:
@@ -5495,6 +5550,8 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldAmtControlMode(ctx)
 	case hostresource.FieldAmtDNSSuffix:
 		return m.OldAmtDNSSuffix(ctx)
+	case hostresource.FieldDesiredConsentCode:
+		return m.OldDesiredConsentCode(ctx)
 	case hostresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case hostresource.FieldCreatedAt:
@@ -5888,6 +5945,13 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetAmtDNSSuffix(v)
 		return nil
+	case hostresource.FieldDesiredConsentCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDesiredConsentCode(v)
+		return nil
 	case hostresource.FieldTenantID:
 		v, ok := value.(string)
 		if !ok {
@@ -6233,6 +6297,9 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(hostresource.FieldAmtDNSSuffix) {
 		fields = append(fields, hostresource.FieldAmtDNSSuffix)
 	}
+	if m.FieldCleared(hostresource.FieldDesiredConsentCode) {
+		fields = append(fields, hostresource.FieldDesiredConsentCode)
+	}
 	return fields
 }
 
@@ -6406,6 +6473,9 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldAmtDNSSuffix:
 		m.ClearAmtDNSSuffix()
 		return nil
+	case hostresource.FieldDesiredConsentCode:
+		m.ClearDesiredConsentCode()
+		return nil
 	}
 	return fmt.Errorf("unknown HostResource nullable field %s", name)
 }
@@ -6575,6 +6645,9 @@ func (m *HostResourceMutation) ResetField(name string) error {
 		return nil
 	case hostresource.FieldAmtDNSSuffix:
 		m.ResetAmtDNSSuffix()
+		return nil
+	case hostresource.FieldDesiredConsentCode:
+		m.ResetDesiredConsentCode()
 		return nil
 	case hostresource.FieldTenantID:
 		m.ResetTenantID()
