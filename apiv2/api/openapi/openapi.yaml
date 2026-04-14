@@ -16303,7 +16303,6 @@ components:
         solSessionUrl:
           type: string
           title: sol_session_url
-          maxLength: 2048
           description: |-
             WebSocket URL for the active SOL session.
              Format: ws://sol-manager:8080/ws/terminal/{session-id}

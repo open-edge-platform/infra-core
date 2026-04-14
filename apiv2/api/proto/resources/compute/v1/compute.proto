@@ -280,10 +280,7 @@ message HostResource {
   // Format: ws://sol-manager:8080/ws/terminal/{session-id}
   // Populated by sol-manager when current_sol_state transitions to SOL_STATE_START.
   // Cleared to "" on session end. Used by orch-cli to connect the terminal WebSocket.
-  string sol_session_url = 111 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (buf.validate.field).string = {max_len: 2048}
-  ];
+  string sol_session_url = 111 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   // SOL session status indicating whether the SOL session is active or inactive.
   // Set by sol-manager RM only. Updated atomically with sol_session_status_indicator.
