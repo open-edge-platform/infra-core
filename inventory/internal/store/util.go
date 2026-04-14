@@ -53,9 +53,9 @@ const (
 )
 
 const (
-	METADATA_KEY_NAME_MAX_LENGTH   = 63
-	METADATA_VALUE_MAX_LENGTH      = 4096
-	METADATA_KEY_PREFIX_MAX_LENGTH = 253
+	MetadataKeyNameMaxLength   = 63
+	MetadataValueMaxLength     = 4096
+	MetadataKeyPrefixMaxLength = 253
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
@@ -127,16 +127,16 @@ func validateKeyValue(meta []Metadata) error {
 			// max prefix len: 253  max name len:63
 			if strings.Contains(rmetadata.Key, `/`) {
 				prefixname := strings.Split(rmetadata.Key, "/")
-				if len(prefixname[0]) > METADATA_KEY_PREFIX_MAX_LENGTH ||
-					len(prefixname[1]) > METADATA_KEY_NAME_MAX_LENGTH {
+				if len(prefixname[0]) > MetadataKeyPrefixMaxLength ||
+					len(prefixname[1]) > MetadataKeyNameMaxLength {
 					return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 				}
-			} else if len(rmetadata.Key) > METADATA_KEY_NAME_MAX_LENGTH { // meta data key pattern with name
+			} else if len(rmetadata.Key) > MetadataKeyNameMaxLength { // meta data key pattern with name
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 			}
 		}
 		if rmetadata.Value != "" {
-			if len(rmetadata.Value) > METADATA_VALUE_MAX_LENGTH {
+			if len(rmetadata.Value) > MetadataValueMaxLength {
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata value")
 			}
 			if !MetadataPatternValue.MatchString(rmetadata.Value) {
