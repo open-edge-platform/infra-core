@@ -34,10 +34,10 @@ jobs:
         with:
           persist-credentials: false
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
+        uses: open-edge-platform/orch-ci/verify-branch-name@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         env:
@@ -71,7 +71,7 @@ jobs:
         with:
           python-version: '3.13'
       - name: Restore cached virtualenv
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7  # v5.0.4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae  # v5.0.5
         with:
           key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
           path: venv_infra
@@ -89,7 +89,7 @@ jobs:
       fail-fast: false
       matrix:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
     with:
       orch_ci_repo_ref: b5930c48c1fcdb6b34ffbcd465cff96dabfbde70
       bootstrap_tools: "all,golangci-lint2"
@@ -114,7 +114,7 @@ jobs:
       contents: read
     needs: pre-checks
     if: ${{ contains(needs.pre-checks.outputs.other_changed_projects, 'os-profiles') }}
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
     with:
       bootstrap_tools: "yq,nodejs"
       run_security_scans: true
@@ -144,11 +144,11 @@ jobs:
           # Checkout the branch that triggered the workflow to avoid detached HEAD
           ref: ${{ github.head_ref }}
           persist-credentials: false
-      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@b5930c48c1fcdb6b34ffbcd465cff96dabfbde70  # 2026.0.17
+      - uses: open-edge-platform/orch-ci/.github/actions/bootstrap@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
         with:
           bootstrap_tools: "yq,aws,oras"
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7  # v6.0.0
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37  # v6.1.0
         with:
           aws-access-key-id: ${{ secrets.NO_AUTH_S3_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_S3_PUSH_PASSWD }}
@@ -196,14 +196,14 @@ jobs:
           echo "PUBLISH=$PUBLISH" >> $GITHUB_ENV
       - name: Configure AWS credentials
         if: ${{ env.PUBLISH == 'true' }}
-        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7  # v6.0.0
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37  # v6.1.0
         with:
           aws-access-key-id: ${{ secrets.NO_AUTH_ECR_PUSH_USERNAME }}
           aws-secret-access-key: ${{ secrets.NO_AUTH_ECR_PUSH_PASSWD }}
           aws-region: us-west-2
       - name: Login to Amazon ECR
         if: ${{ env.PUBLISH == 'true' }}
-        uses: aws-actions/amazon-ecr-login@183a1442edf41672e66566b7fc560e297a290896  # v2.1.1
+        uses: aws-actions/amazon-ecr-login@f2e9fc6c2b355c1890b65e6f6f0e2ac3e6e22f78  # v2.1.2
         with:
           registries: "080137407410"
       - if: ${{ env.PUBLISH == 'true'}}
