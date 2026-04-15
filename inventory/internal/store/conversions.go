@@ -431,6 +431,7 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		CurrentSolState:             computev1.SolState(currentSolState),
 		AmtStatus:                   host.AmtStatus,
 		AmtDnsSuffix:                host.AmtDNSSuffix,
+		SolSessionUrl:               host.SolSessionURL,
 		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
 		AmtStatusTimestamp:          host.AmtStatusTimestamp,
 		UserLvmSize:                 host.UserLvmSize,

@@ -253,6 +253,11 @@ func SolSessionURL(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldSolSessionURL, v))
 }
 
+// SolSessionStatus applies equality check predicate on the "sol_session_status" field. It's identical to SolSessionStatusEQ.
+func SolSessionStatus(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldSolSessionStatus, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldTenantID, v))
@@ -3524,23 +3529,58 @@ func SolSessionURLContainsFold(v string) predicate.HostResource {
 }
 
 // SolSessionStatusEQ applies the EQ predicate on the "sol_session_status" field.
-func SolSessionStatusEQ(v SolSessionStatus) predicate.HostResource {
+func SolSessionStatusEQ(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldSolSessionStatus, v))
 }
 
 // SolSessionStatusNEQ applies the NEQ predicate on the "sol_session_status" field.
-func SolSessionStatusNEQ(v SolSessionStatus) predicate.HostResource {
+func SolSessionStatusNEQ(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldNEQ(FieldSolSessionStatus, v))
 }
 
 // SolSessionStatusIn applies the In predicate on the "sol_session_status" field.
-func SolSessionStatusIn(vs ...SolSessionStatus) predicate.HostResource {
+func SolSessionStatusIn(vs ...string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldIn(FieldSolSessionStatus, vs...))
 }
 
 // SolSessionStatusNotIn applies the NotIn predicate on the "sol_session_status" field.
-func SolSessionStatusNotIn(vs ...SolSessionStatus) predicate.HostResource {
+func SolSessionStatusNotIn(vs ...string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldNotIn(FieldSolSessionStatus, vs...))
+}
+
+// SolSessionStatusGT applies the GT predicate on the "sol_session_status" field.
+func SolSessionStatusGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusGTE applies the GTE predicate on the "sol_session_status" field.
+func SolSessionStatusGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusLT applies the LT predicate on the "sol_session_status" field.
+func SolSessionStatusLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusLTE applies the LTE predicate on the "sol_session_status" field.
+func SolSessionStatusLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusContains applies the Contains predicate on the "sol_session_status" field.
+func SolSessionStatusContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusHasPrefix applies the HasPrefix predicate on the "sol_session_status" field.
+func SolSessionStatusHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusHasSuffix applies the HasSuffix predicate on the "sol_session_status" field.
+func SolSessionStatusHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldSolSessionStatus, v))
 }
 
 // SolSessionStatusIsNil applies the IsNil predicate on the "sol_session_status" field.
@@ -3551,6 +3591,16 @@ func SolSessionStatusIsNil() predicate.HostResource {
 // SolSessionStatusNotNil applies the NotNil predicate on the "sol_session_status" field.
 func SolSessionStatusNotNil() predicate.HostResource {
 	return predicate.HostResource(sql.FieldNotNull(FieldSolSessionStatus))
+}
+
+// SolSessionStatusEqualFold applies the EqualFold predicate on the "sol_session_status" field.
+func SolSessionStatusEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusContainsFold applies the ContainsFold predicate on the "sol_session_status" field.
+func SolSessionStatusContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldSolSessionStatus, v))
 }
 
 // SolSessionStatusIndicatorEQ applies the EQ predicate on the "sol_session_status_indicator" field.

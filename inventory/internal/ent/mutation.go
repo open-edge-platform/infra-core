@@ -1624,7 +1624,7 @@ type HostResourceMutation struct {
 	desired_sol_state                *hostresource.DesiredSolState
 	current_sol_state                *hostresource.CurrentSolState
 	sol_session_url                  *string
-	sol_session_status               *hostresource.SolSessionStatus
+	sol_session_status               *string
 	sol_session_status_indicator     *hostresource.SolSessionStatusIndicator
 	tenant_id                        *string
 	created_at                       *string
@@ -4812,12 +4812,12 @@ func (m *HostResourceMutation) ResetSolSessionURL() {
 }
 
 // SetSolSessionStatus sets the "sol_session_status" field.
-func (m *HostResourceMutation) SetSolSessionStatus(hss hostresource.SolSessionStatus) {
-	m.sol_session_status = &hss
+func (m *HostResourceMutation) SetSolSessionStatus(s string) {
+	m.sol_session_status = &s
 }
 
 // SolSessionStatus returns the value of the "sol_session_status" field in the mutation.
-func (m *HostResourceMutation) SolSessionStatus() (r hostresource.SolSessionStatus, exists bool) {
+func (m *HostResourceMutation) SolSessionStatus() (r string, exists bool) {
 	v := m.sol_session_status
 	if v == nil {
 		return
@@ -4828,7 +4828,7 @@ func (m *HostResourceMutation) SolSessionStatus() (r hostresource.SolSessionStat
 // OldSolSessionStatus returns the old "sol_session_status" field's value of the HostResource entity.
 // If the HostResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *HostResourceMutation) OldSolSessionStatus(ctx context.Context) (v hostresource.SolSessionStatus, err error) {
+func (m *HostResourceMutation) OldSolSessionStatus(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldSolSessionStatus is only allowed on UpdateOne operations")
 	}
@@ -6259,7 +6259,7 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		m.SetSolSessionURL(v)
 		return nil
 	case hostresource.FieldSolSessionStatus:
-		v, ok := value.(hostresource.SolSessionStatus)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

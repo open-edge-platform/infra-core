@@ -1266,13 +1266,13 @@ func (_u *HostResourceUpdate) ClearSolSessionURL() *HostResourceUpdate {
 }
 
 // SetSolSessionStatus sets the "sol_session_status" field.
-func (_u *HostResourceUpdate) SetSolSessionStatus(v hostresource.SolSessionStatus) *HostResourceUpdate {
+func (_u *HostResourceUpdate) SetSolSessionStatus(v string) *HostResourceUpdate {
 	_u.mutation.SetSolSessionStatus(v)
 	return _u
 }
 
 // SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
-func (_u *HostResourceUpdate) SetNillableSolSessionStatus(v *hostresource.SolSessionStatus) *HostResourceUpdate {
+func (_u *HostResourceUpdate) SetNillableSolSessionStatus(v *string) *HostResourceUpdate {
 	if v != nil {
 		_u.SetSolSessionStatus(*v)
 	}
@@ -1660,11 +1660,6 @@ func (_u *HostResourceUpdate) check() error {
 	if v, ok := _u.mutation.CurrentSolState(); ok {
 		if err := hostresource.CurrentSolStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
-		}
-	}
-	if v, ok := _u.mutation.SolSessionStatus(); ok {
-		if err := hostresource.SolSessionStatusValidator(v); err != nil {
-			return &ValidationError{Name: "sol_session_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_session_status": %w`, err)}
 		}
 	}
 	if v, ok := _u.mutation.SolSessionStatusIndicator(); ok {
@@ -2066,10 +2061,10 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 		_spec.ClearField(hostresource.FieldSolSessionURL, field.TypeString)
 	}
 	if value, ok := _u.mutation.SolSessionStatus(); ok {
-		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeEnum, value)
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
 	}
 	if _u.mutation.SolSessionStatusCleared() {
-		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeEnum)
+		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeString)
 	}
 	if value, ok := _u.mutation.SolSessionStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum, value)
@@ -3599,13 +3594,13 @@ func (_u *HostResourceUpdateOne) ClearSolSessionURL() *HostResourceUpdateOne {
 }
 
 // SetSolSessionStatus sets the "sol_session_status" field.
-func (_u *HostResourceUpdateOne) SetSolSessionStatus(v hostresource.SolSessionStatus) *HostResourceUpdateOne {
+func (_u *HostResourceUpdateOne) SetSolSessionStatus(v string) *HostResourceUpdateOne {
 	_u.mutation.SetSolSessionStatus(v)
 	return _u
 }
 
 // SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
-func (_u *HostResourceUpdateOne) SetNillableSolSessionStatus(v *hostresource.SolSessionStatus) *HostResourceUpdateOne {
+func (_u *HostResourceUpdateOne) SetNillableSolSessionStatus(v *string) *HostResourceUpdateOne {
 	if v != nil {
 		_u.SetSolSessionStatus(*v)
 	}
@@ -4006,11 +4001,6 @@ func (_u *HostResourceUpdateOne) check() error {
 	if v, ok := _u.mutation.CurrentSolState(); ok {
 		if err := hostresource.CurrentSolStateValidator(v); err != nil {
 			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
-		}
-	}
-	if v, ok := _u.mutation.SolSessionStatus(); ok {
-		if err := hostresource.SolSessionStatusValidator(v); err != nil {
-			return &ValidationError{Name: "sol_session_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_session_status": %w`, err)}
 		}
 	}
 	if v, ok := _u.mutation.SolSessionStatusIndicator(); ok {
@@ -4429,10 +4419,10 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 		_spec.ClearField(hostresource.FieldSolSessionURL, field.TypeString)
 	}
 	if value, ok := _u.mutation.SolSessionStatus(); ok {
-		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeEnum, value)
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
 	}
 	if _u.mutation.SolSessionStatusCleared() {
-		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeEnum)
+		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeString)
 	}
 	if value, ok := _u.mutation.SolSessionStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum, value)

@@ -53,7 +53,6 @@
     - [NetworkInterfaceLinkState](#compute-v1-NetworkInterfaceLinkState)
     - [PowerCommandPolicy](#compute-v1-PowerCommandPolicy)
     - [PowerState](#compute-v1-PowerState)
-    - [SolSessionStatus](#compute-v1-SolSessionStatus)
     - [SolState](#compute-v1-SolState)
     - [SolStatus](#compute-v1-SolStatus)
     - [UpdatePolicy](#compute-v1-UpdatePolicy)
@@ -595,7 +594,7 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | desired_sol_state | [SolState](#compute-v1-SolState) |  | Desired SOL session state. Written by operator via APIv2 (orch-cli --sol start|stop). Valid write values: SOL_STATE_START, SOL_STATE_STOP. Consumed by sol-manager RM to drive the session lifecycle. |
 | current_sol_state | [SolState](#compute-v1-SolState) |  | Current SOL session state. Set by sol-manager RM only. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR. |
 | sol_session_url | [string](#string) |  | WebSocket URL for the active SOL session. Format: ws://sol-manager:8080/ws/terminal/{session-id} Populated by sol-manager when current_sol_state transitions to SOL_STATE_START. Cleared to &#34;&#34; on session end. Used by orch-cli to connect the terminal WebSocket. |
-| sol_session_status | [SolSessionStatus](#compute-v1-SolSessionStatus) |  | SOL session status indicating whether the SOL session is active or inactive. Set by sol-manager RM only. Updated atomically with sol_session_status_indicator. |
+| sol_session_status | [string](#string) |  | SOL session status indicating whether the SOL session is active or inactive. Set by sol-manager RM only. Updated atomically with sol_session_status_indicator. |
 | sol_session_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR). Set by sol-manager RM only. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
@@ -1044,19 +1043,6 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | POWER_STATE_RESET | 6 |  |
 | POWER_STATE_POWER_CYCLE | 7 |  |
 | POWER_STATE_RESET_REPEAT | 8 | For consecutive reset operations |
-
-
-
-<a name="compute-v1-SolSessionStatus"></a>
-
-### SolSessionStatus
-
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| SOL_SESSION_STATUS_UNSPECIFIED | 0 |  |
-| SOL_SESSION_STATUS_ACTIVATED | 1 | SOL session is currently active. |
-| SOL_SESSION_STATUS_DEACTIVATED | 2 | SOL session is currently inactive. |
 
 
 

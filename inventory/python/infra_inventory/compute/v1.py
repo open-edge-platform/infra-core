@@ -76,12 +76,6 @@ class SolStatus(betterproto.Enum):
     SOL_STATUS_DEACTIVATED = 2
 
 
-class SolSessionStatus(betterproto.Enum):
-    SOL_SESSION_STATUS_UNSPECIFIED = 0
-    SOL_SESSION_STATUS_ACTIVATED = 1
-    SOL_SESSION_STATUS_DEACTIVATED = 2
-
-
 class SolState(betterproto.Enum):
     """
     SOL session state — the desired and current lifecycle state of a SOL remote
@@ -276,7 +270,7 @@ class HostResource(betterproto.Message):
     # SOL session status indicating whether the SOL session is active or
     # inactive. Set by sol-manager RM only. Updated atomically with
     # sol_session_status_indicator.
-    sol_session_status: "SolSessionStatus" = betterproto.enum_field(105)
+    sol_session_status: str = betterproto.string_field(105)
     # Indicates the severity/dynamicity of sol_session_status (e.g. IDLE,
     # IN_PROGRESS, ERROR). Set by sol-manager RM only.
     sol_session_status_indicator: v1.StatusIndication = betterproto.enum_field(106)

@@ -831,13 +831,13 @@ func (_c *HostResourceCreate) SetNillableSolSessionURL(v *string) *HostResourceC
 }
 
 // SetSolSessionStatus sets the "sol_session_status" field.
-func (_c *HostResourceCreate) SetSolSessionStatus(v hostresource.SolSessionStatus) *HostResourceCreate {
+func (_c *HostResourceCreate) SetSolSessionStatus(v string) *HostResourceCreate {
 	_c.mutation.SetSolSessionStatus(v)
 	return _c
 }
 
 // SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
-func (_c *HostResourceCreate) SetNillableSolSessionStatus(v *hostresource.SolSessionStatus) *HostResourceCreate {
+func (_c *HostResourceCreate) SetNillableSolSessionStatus(v *string) *HostResourceCreate {
 	if v != nil {
 		_c.SetSolSessionStatus(*v)
 	}
@@ -1120,11 +1120,6 @@ func (_c *HostResourceCreate) check() error {
 			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
 		}
 	}
-	if v, ok := _c.mutation.SolSessionStatus(); ok {
-		if err := hostresource.SolSessionStatusValidator(v); err != nil {
-			return &ValidationError{Name: "sol_session_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_session_status": %w`, err)}
-		}
-	}
 	if v, ok := _c.mutation.SolSessionStatusIndicator(); ok {
 		if err := hostresource.SolSessionStatusIndicatorValidator(v); err != nil {
 			return &ValidationError{Name: "sol_session_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_session_status_indicator": %w`, err)}
@@ -1398,7 +1393,7 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 		_node.SolSessionURL = value
 	}
 	if value, ok := _c.mutation.SolSessionStatus(); ok {
-		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeEnum, value)
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
 		_node.SolSessionStatus = value
 	}
 	if value, ok := _c.mutation.SolSessionStatusIndicator(); ok {

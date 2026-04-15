@@ -131,7 +131,7 @@ var (
 		{Name: "desired_sol_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATE_UNSPECIFIED", "SOL_STATE_START", "SOL_STATE_STOP", "SOL_STATE_AWAITING_CONSENT", "SOL_STATE_ERROR"}},
 		{Name: "current_sol_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATE_UNSPECIFIED", "SOL_STATE_START", "SOL_STATE_STOP", "SOL_STATE_AWAITING_CONSENT", "SOL_STATE_ERROR"}},
 		{Name: "sol_session_url", Type: field.TypeString, Nullable: true},
-		{Name: "sol_session_status", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_SESSION_STATUS_UNSPECIFIED", "SOL_SESSION_STATUS_ACTIVATED", "SOL_SESSION_STATUS_DEACTIVATED"}},
+		{Name: "sol_session_status", Type: field.TypeString, Nullable: true},
 		{Name: "sol_session_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},

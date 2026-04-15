@@ -757,30 +757,6 @@ func CurrentSolStateValidator(css CurrentSolState) error {
 	}
 }
 
-// SolSessionStatus defines the type for the "sol_session_status" enum field.
-type SolSessionStatus string
-
-// SolSessionStatus values.
-const (
-	SolSessionStatusSOL_SESSION_STATUS_UNSPECIFIED SolSessionStatus = "SOL_SESSION_STATUS_UNSPECIFIED"
-	SolSessionStatusSOL_SESSION_STATUS_ACTIVATED   SolSessionStatus = "SOL_SESSION_STATUS_ACTIVATED"
-	SolSessionStatusSOL_SESSION_STATUS_DEACTIVATED SolSessionStatus = "SOL_SESSION_STATUS_DEACTIVATED"
-)
-
-func (sss SolSessionStatus) String() string {
-	return string(sss)
-}
-
-// SolSessionStatusValidator is a validator for the "sol_session_status" field enum values. It is called by the builders before save.
-func SolSessionStatusValidator(sss SolSessionStatus) error {
-	switch sss {
-	case SolSessionStatusSOL_SESSION_STATUS_UNSPECIFIED, SolSessionStatusSOL_SESSION_STATUS_ACTIVATED, SolSessionStatusSOL_SESSION_STATUS_DEACTIVATED:
-		return nil
-	default:
-		return fmt.Errorf("hostresource: invalid enum value for sol_session_status field: %q", sss)
-	}
-}
-
 // SolSessionStatusIndicator defines the type for the "sol_session_status_indicator" enum field.
 type SolSessionStatusIndicator string
 

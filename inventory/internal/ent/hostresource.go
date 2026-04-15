@@ -136,7 +136,7 @@ type HostResource struct {
 	// SolSessionURL holds the value of the "sol_session_url" field.
 	SolSessionURL string `json:"sol_session_url,omitempty"`
 	// SolSessionStatus holds the value of the "sol_session_status" field.
-	SolSessionStatus hostresource.SolSessionStatus `json:"sol_session_status,omitempty"`
+	SolSessionStatus string `json:"sol_session_status,omitempty"`
 	// SolSessionStatusIndicator holds the value of the "sol_session_status_indicator" field.
 	SolSessionStatusIndicator hostresource.SolSessionStatusIndicator `json:"sol_session_status_indicator,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
@@ -632,7 +632,7 @@ func (_m *HostResource) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sol_session_status", values[i])
 			} else if value.Valid {
-				_m.SolSessionStatus = hostresource.SolSessionStatus(value.String)
+				_m.SolSessionStatus = value.String
 			}
 		case hostresource.FieldSolSessionStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -925,7 +925,7 @@ func (_m *HostResource) String() string {
 	builder.WriteString(_m.SolSessionURL)
 	builder.WriteString(", ")
 	builder.WriteString("sol_session_status=")
-	builder.WriteString(fmt.Sprintf("%v", _m.SolSessionStatus))
+	builder.WriteString(_m.SolSessionStatus)
 	builder.WriteString(", ")
 	builder.WriteString("sol_session_status_indicator=")
 	builder.WriteString(fmt.Sprintf("%v", _m.SolSessionStatusIndicator))
