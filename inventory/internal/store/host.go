@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -177,7 +177,8 @@ func getHostQuery(ctx context.Context, tx *ent.Tx, tenantID, resourceID string, 
 		WithHostStorages().
 		WithHostNics().
 		WithHostUsbs().
-		WithHostGpus()
+		WithHostGpus().
+		WithHostAmtconfig()
 	if nestedLoad {
 		query.WithInstance(func(query *ent.InstanceResourceQuery) {
 			query.WithOs().
@@ -482,6 +483,7 @@ func filterHosts(ctx context.Context, client *ent.Client, filter *inv_v1.Resourc
 		WithHostNics().
 		WithHostUsbs().
 		WithHostGpus().
+		WithHostAmtconfig().
 		WithInstance(func(query *ent.InstanceResourceQuery) {
 			query.WithOs().
 				WithOsUpdatePolicy()

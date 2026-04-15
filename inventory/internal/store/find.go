@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -33,6 +33,7 @@ func (is *InvStore) ListResources(ctx context.Context, filter *inv_v1.ResourceFi
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:           is.ListHostnics,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:           is.ListHostusb,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU:           is.ListHostgpus,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTAMTCONFIG:     is.ListHostamtconfig,
 		inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT:    is.ListNetworkSegments,
 		inv_v1.ResourceKind_RESOURCE_KIND_NETLINK:           is.ListNetlinks,
 		inv_v1.ResourceKind_RESOURCE_KIND_ENDPOINT:          is.ListEndpoints,
@@ -81,6 +82,7 @@ func (is *InvStore) FindResources(ctx context.Context, filter *inv_v1.ResourceFi
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:           is.FilterHostnics,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTUSB:           is.FilterHostusb,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU:           is.FilterHostgpus,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTAMTCONFIG:     is.FilterHostamtconfig,
 		inv_v1.ResourceKind_RESOURCE_KIND_NETWORKSEGMENT:    is.FilterNetworkSegments,
 		inv_v1.ResourceKind_RESOURCE_KIND_NETLINK:           is.FilterNetlinks,
 		inv_v1.ResourceKind_RESOURCE_KIND_ENDPOINT:          is.FilterEndpoints,

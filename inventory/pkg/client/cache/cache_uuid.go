@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package cache
@@ -19,6 +19,8 @@ type tenantIDBasedKey struct {
 }
 
 // StoreHostByUUID caches the given Host resource by the given UUID. Also stores backward mapping from resourceID to UUID.
+//
+//nolint:cyclop // Complexity is due to number of mappings in Host Resource
 func (c *InventoryCache) StoreHostByUUID(uuid string, host *computev1.HostResource) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -36,6 +38,7 @@ func (c *InventoryCache) StoreHostByUUID(uuid string, host *computev1.HostResour
 	// - hostGpuID -> hostID
 	// - hostStorageId -> hostID
 	// - hostNic -> hostID
+	// - hostAmtconfig -> hostID
 	c.reverseMap.Store(tenantIDBasedKey{tenantID, uuid}, hostID)
 	if instanceID := host.GetInstance().GetResourceId(); instanceID != "" {
 		c.reverseMap.Store(tenantIDBasedKey{tenantID, instanceID}, hostID)
@@ -65,6 +68,10 @@ func (c *InventoryCache) StoreHostByUUID(uuid string, host *computev1.HostResour
 			storedIDs = append(storedIDs, nicID)
 			// TODO: Consider storing also IPs
 		}
+	}
+	if amtconfigID := host.GetHostAmtconfig().GetResourceId(); amtconfigID != "" {
+		c.reverseMap.Store(tenantIDBasedKey{tenantID, amtconfigID}, hostID)
+		storedIDs = append(storedIDs, amtconfigID)
 	}
 	zlog.Info().Msgf("UUIDCache: store, uuid=%v, tenantID=%v", uuid, tenantID)
 	zlog.Debug().Msgf("UUIDCache: reverse map stored (tenantID=%v) IDs=%v", tenantID, storedIDs)
@@ -132,6 +139,9 @@ func (c *InventoryCache) invalidateHostByHostID(tenantID, hostID string) {
 			// TODO: Consider deleting also IPs
 		}
 	}
+	if amtconfigID := host.GetHostAmtconfig().GetResourceId(); amtconfigID != "" {
+		c.reverseMap.Delete(tenantIDBasedKey{tenantID, amtconfigID})
+	}
 }
 
 func (c *InventoryCache) InvalidateCacheUUIDByResourceID(tenantID, resourceID string) {
@@ -149,6 +159,7 @@ func (c *InventoryCache) InvalidateCacheUUIDByResourceID(tenantID, resourceID st
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOST:
 		hostID = resourceID
 	case inv_v1.ResourceKind_RESOURCE_KIND_INSTANCE,
+		inv_v1.ResourceKind_RESOURCE_KIND_HOSTAMTCONFIG,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTGPU,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC,
 		inv_v1.ResourceKind_RESOURCE_KIND_HOSTSTORAGE,
@@ -217,6 +228,8 @@ func (c *InventoryCache) GetHostResourceIDFromSubRes(res *inv_v1.Resource) strin
 	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTNIC:
 		// TODO: how to manage IPs?
 		return res.GetHostnic().GetHost().GetResourceId()
+	case inv_v1.ResourceKind_RESOURCE_KIND_HOSTAMTCONFIG:
+		return res.GetHostAmtconfig().GetHost().GetResourceId()
 	default:
 		return ""
 	}

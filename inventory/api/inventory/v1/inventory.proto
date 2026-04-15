@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 syntax = "proto3";
@@ -194,6 +194,8 @@ enum ResourceKind {
 
   RESOURCE_KIND_CUSTOMCONFIG = 190;
   RESOURCE_KIND_OSUPDATERUN = 200;
+
+  RESOURCE_KIND_HOSTAMTCONFIG = 210;
 }
 
 message Resource {
@@ -237,6 +239,8 @@ message Resource {
 
     compute.v1.CustomConfigResource custom_config = 190;
     compute.v1.OSUpdateRunResource os_update_run = 200;
+
+    compute.v1.HostamtconfigResource host_amtconfig = 210;
   }
 }
 

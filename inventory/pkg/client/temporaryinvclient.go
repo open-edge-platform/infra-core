@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package client
@@ -215,6 +215,8 @@ func setTenantID(resource *inv_v1.Resource, tenantID string) error {
 		message = resource.GetHostusb()
 	case *inv_v1.Resource_Hostgpu:
 		message = resource.GetHostgpu()
+	case *inv_v1.Resource_HostAmtconfig:
+		message = resource.GetHostAmtconfig()
 	case *inv_v1.Resource_NetworkSegment:
 		message = resource.GetNetworkSegment()
 	case *inv_v1.Resource_Netlink:
