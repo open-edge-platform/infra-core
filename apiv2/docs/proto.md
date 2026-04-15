@@ -64,7 +64,6 @@
     - [LinkState](#resources-compute-v1-LinkState)
     - [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy)
     - [PowerState](#resources-compute-v1-PowerState)
-    - [SolSessionStatus](#resources-compute-v1-SolSessionStatus)
     - [SolState](#resources-compute-v1-SolState)
     - [SolStatus](#resources-compute-v1-SolStatus)
     - [UpdatePolicy](#resources-compute-v1-UpdatePolicy)
@@ -818,7 +817,7 @@ A Host resource.
 | desired_sol_state | [SolState](#resources-compute-v1-SolState) |  | Desired SOL session state. Written by operator via APIv2 (orch-cli --sol start|stop). Valid write values: SOL_STATE_START, SOL_STATE_STOP. Consumed by sol-manager RM to drive the session lifecycle. |
 | current_sol_state | [SolState](#resources-compute-v1-SolState) |  | Current SOL session state. Set by sol-manager RM only. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR. |
 | sol_session_url | [string](#string) |  | WebSocket URL for the active SOL session. Format: ws://sol-manager:8080/ws/terminal/{session-id} Populated by sol-manager when current_sol_state transitions to SOL_STATE_START. Cleared to &#34;&#34; on session end. Used by orch-cli to connect the terminal WebSocket. |
-| sol_session_status | [SolSessionStatus](#resources-compute-v1-SolSessionStatus) |  | SOL session status indicating whether the SOL session is active or inactive. Set by sol-manager RM only. Updated atomically with sol_session_status_indicator. |
+| sol_session_status | [string](#string) |  | SOL session status indicating whether the SOL session is active or inactive. Set by sol-manager RM only. Updated atomically with sol_session_status_indicator. |
 | sol_session_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR). Set by sol-manager RM only. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
@@ -1238,23 +1237,9 @@ The host power state.
 
 
 
-<a name="resources-compute-v1-SolSessionStatus"></a>
-
-### SolSessionStatus
-SOL session status indicating whether the SOL session is active or inactive.
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| SOL_SESSION_UNSPECIFIED | 0 |  |
-| SOL_SESSION_ACTIVATED | 1 | SOL session is currently active. |
-| SOL_SESSION_DEACTIVATED | 2 | SOL session is currently inactive. |
-
-
-
 <a name="resources-compute-v1-SolState"></a>
 
 ### SolState
-SOL session state — the desired and current lifecycle state of a SOL remote session.
 Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
 
 | Name | Number | Description |

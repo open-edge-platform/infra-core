@@ -84,14 +84,7 @@ enum SolStatus {
   SOL_STATUS_DEACTIVATED = 2; // SOL feature is currently disabled on the AMT device.
 }
 
-// SOL session status indicating whether the SOL session is active or inactive.
-enum SolSessionStatus {
-  SOL_SESSION_UNSPECIFIED = 0;
-  SOL_SESSION_ACTIVATED   = 1; // SOL session is currently active.
-  SOL_SESSION_DEACTIVATED = 2; // SOL session is currently inactive.
-}
 
-// SOL session state — the desired and current lifecycle state of a SOL remote session.
 // Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
 enum SolState {
   SOL_STATE_UNSPECIFIED      = 0;
@@ -280,11 +273,14 @@ message HostResource {
   // Format: ws://sol-manager:8080/ws/terminal/{session-id}
   // Populated by sol-manager when current_sol_state transitions to SOL_STATE_START.
   // Cleared to "" on session end. Used by orch-cli to connect the terminal WebSocket.
-  string sol_session_url = 111 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string sol_session_url = 111 [(google.api.field_behavior) = OPTIONAL];
 
   // SOL session status indicating whether the SOL session is active or inactive.
   // Set by sol-manager RM only. Updated atomically with sol_session_status_indicator.
-  SolSessionStatus sol_session_status = 112 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string sol_session_status = 112 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {max_len: 1024}
+  ];
 
   // Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR).
   // Set by sol-manager RM only.

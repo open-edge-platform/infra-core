@@ -181,13 +181,6 @@ const (
 	SEVERITYLEVELWARN        SeverityLevel = "SEVERITY_LEVEL_WARN"
 )
 
-// Defines values for SolSessionStatus.
-const (
-	SOLSESSIONACTIVATED   SolSessionStatus = "SOL_SESSION_ACTIVATED"
-	SOLSESSIONDEACTIVATED SolSessionStatus = "SOL_SESSION_DEACTIVATED"
-	SOLSESSIONUNSPECIFIED SolSessionStatus = "SOL_SESSION_UNSPECIFIED"
-)
-
 // Defines values for SolState.
 const (
 	SOLSTATEAWAITINGCONSENT SolState = "SOL_STATE_AWAITING_CONSENT"
@@ -1146,8 +1139,7 @@ type HostResource struct {
 	// CurrentPowerState The host power state.
 	CurrentPowerState *PowerState `json:"currentPowerState,omitempty"`
 
-	// CurrentSolState SOL session state — the desired and current lifecycle state of a SOL remote session.
-	//  Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+	// CurrentSolState Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
 	CurrentSolState *SolState `json:"currentSolState,omitempty"`
 
 	// CurrentState States of the host.
@@ -1159,8 +1151,7 @@ type HostResource struct {
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
 
-	// DesiredSolState SOL session state — the desired and current lifecycle state of a SOL remote session.
-	//  Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+	// DesiredSolState Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
 	DesiredSolState *SolState `json:"desiredSolState,omitempty"`
 
 	// DesiredState States of the host.
@@ -1261,12 +1252,13 @@ type HostResource struct {
 	SiteId *string `json:"siteId,omitempty"`
 
 	// SolSessionStatus SOL session status indicating whether the SOL session is active or inactive.
-	SolSessionStatus *SolSessionStatus `json:"solSessionStatus,omitempty"`
+	//  Set by sol-manager RM only. Updated atomically with sol_session_status_indicator.
+	SolSessionStatus *string `json:"solSessionStatus,omitempty"`
 
 	// SolSessionStatusIndicator The status indicator.
 	SolSessionStatusIndicator *StatusIndication `json:"solSessionStatusIndicator,omitempty"`
 
-	// SolSessionUrl WebSocket URL for the active SOL session.
+	// SolSessionUrl (OPTIONAL) WebSocket URL for the active SOL session.
 	//  Format: ws://sol-manager:8080/ws/terminal/{session-id}
 	//  Populated by sol-manager when current_sol_state transitions to SOL_STATE_START.
 	//  Cleared to "" on session end. Used by orch-cli to connect the terminal WebSocket.
@@ -4882,12 +4874,7 @@ type SiteResource struct {
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
 
-// SolSessionStatus SOL session status indicating whether the SOL session is active or inactive.
-type SolSessionStatus string
-
-// SolState SOL session state — the desired and current lifecycle state of a SOL remote session.
-//
-//	Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+// SolState Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
 type SolState string
 
 // SolStatus SOL feature activation status on the AMT device.

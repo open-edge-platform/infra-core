@@ -16304,18 +16304,18 @@ components:
           type: string
           title: sol_session_url
           description: |-
-            WebSocket URL for the active SOL session.
+            (OPTIONAL) WebSocket URL for the active SOL session.
              Format: ws://sol-manager:8080/ws/terminal/{session-id}
              Populated by sol-manager when current_sol_state transitions to SOL_STATE_START.
              Cleared to "" on session end. Used by orch-cli to connect the terminal WebSocket.
-          readOnly: true
         solSessionStatus:
+          type: string
           title: sol_session_status
+          maxLength: 1024
           description: |-
             SOL session status indicating whether the SOL session is active or inactive.
              Set by sol-manager RM only. Updated atomically with sol_session_status_indicator.
           readOnly: true
-          $ref: '#/components/schemas/SolSessionStatus'
         solSessionStatusIndicator:
           title: sol_session_status_indicator
           description: |-
@@ -16997,14 +16997,6 @@ components:
         - POWER_STATE_POWER_CYCLE
         - POWER_STATE_RESET_REPEAT
       description: The host power state.
-    SolSessionStatus:
-      type: string
-      title: SolSessionStatus
-      enum:
-        - SOL_SESSION_UNSPECIFIED
-        - SOL_SESSION_ACTIVATED
-        - SOL_SESSION_DEACTIVATED
-      description: SOL session status indicating whether the SOL session is active or inactive.
     SolState:
       type: string
       title: SolState
@@ -17014,9 +17006,7 @@ components:
         - SOL_STATE_STOP
         - SOL_STATE_AWAITING_CONSENT
         - SOL_STATE_ERROR
-      description: |-
-        SOL session state — the desired and current lifecycle state of a SOL remote session.
-         Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+      description: Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
     SolStatus:
       type: string
       title: SolStatus
