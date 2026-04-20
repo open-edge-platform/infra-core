@@ -65,6 +65,9 @@ var MetadataPatternKey = regexp.MustCompile(
 // MetadataPatternValue representing the metadata pattern for value.
 var MetadataPatternValue = regexp.MustCompile("^$|^[a-zA-Z0-9]$|^[a-zA-Z0-9][a-zA-Z0-9+._-]*[a-zA-Z0-9]$")
 
+// Base64MedatadaPatternValue representing the metadata pattern for value when the value is expected to be a base64 encoded string.
+var Base64MedatadaPatternValue = regexp.MustCompile("^[A-Za-z0-9+/]*={0,2}$")
+
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
 	Key   string `json:"key"`
@@ -139,7 +142,10 @@ func validateKeyValue(meta []Metadata) error {
 			if len(rmetadata.Value) > MetadataValueMaxLength {
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata value")
 			}
-			if !MetadataPatternValue.MatchString(rmetadata.Value) {
+
+			// check if string matches MetadataPatternValue or a base64 encoded string that matches Base64MedatadaPatternValue,
+			// as some of the metadata values can be base64 encoded, we want to allow those as well.
+			if !(MetadataPatternValue.MatchString(rmetadata.Value) || Base64MedatadaPatternValue.MatchString(rmetadata.Value)) {
 				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
 			}
 		}
