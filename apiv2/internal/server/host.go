@@ -233,7 +233,7 @@ func fromInvHostStatus(
 	amtStatusIndicator := statusv1.StatusIndication(invHost.GetPowerStatusIndicator())
 	amtStatusTimestamp := TruncateUint64ToUint32(invHost.GetAmtStatusTimestamp())
 	solSessionStatusIndicator := statusv1.StatusIndication(invHost.GetSolSessionStatusIndicator())
-	solSessionUrl := invHost.GetSolSessionUrl()
+	solSessionURL := invHost.GetSolSessionUrl()
 	solSessionStatus := invHost.GetSolSessionStatus()
 
 	host.HostStatus = hostStatus
@@ -253,7 +253,7 @@ func fromInvHostStatus(
 	host.AmtStatusTimestamp = amtStatusTimestamp
 	host.AmtDnsSuffix = amtDNSSuffix
 	host.SolSessionStatusIndicator = solSessionStatusIndicator
-	host.SolSessionUrl = solSessionUrl
+	host.SolSessionUrl = solSessionURL
 	host.SolSessionStatus = solSessionStatus
 }
 
