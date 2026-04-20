@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -51,12 +52,18 @@ const (
 	PutString   = "PUT"
 )
 
+const (
+	METADATA_KEY_NAME_MAX_LENGTH   = 63
+	METADATA_VALUE_MAX_LENGTH      = 4096
+	METADATA_KEY_PREFIX_MAX_LENGTH = 253
+)
+
 // MetadataPatternKey representing the metadata pattern for key.
 var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
 // MetadataPatternValue representing the metadata pattern for value.
-var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
+var MetadataPatternValue = regexp.MustCompile("^$|^[a-zA-Z0-9]$|^[a-zA-Z0-9][a-zA-Z0-9+._-]*[a-zA-Z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
@@ -111,8 +118,6 @@ func ParseMetadata(metadata string) (map[string]string, error) {
 
 //nolint:cyclop // calculated cyclomatic complexity for func is 11, max is 10
 func validateKeyValue(meta []Metadata) error {
-	maxMetaKeyNameLen, maxMetaValueLen, maxMetaKeyPrefixLen := 63, 63, 253
-
 	for _, rmetadata := range meta {
 		if rmetadata.Key != "" {
 			if !MetadataPatternKey.MatchString(rmetadata.Key) {
@@ -122,16 +127,16 @@ func validateKeyValue(meta []Metadata) error {
 			// max prefix len: 253  max name len:63
 			if strings.Contains(rmetadata.Key, `/`) {
 				prefixname := strings.Split(rmetadata.Key, "/")
-				if len(prefixname[0]) > maxMetaKeyPrefixLen ||
-					len(prefixname[1]) > maxMetaKeyNameLen {
+				if len(prefixname[0]) > METADATA_KEY_PREFIX_MAX_LENGTH ||
+					len(prefixname[1]) > METADATA_KEY_NAME_MAX_LENGTH {
 					return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 				}
-			} else if len(rmetadata.Key) > maxMetaKeyNameLen { // meta data key pattern with name
+			} else if len(rmetadata.Key) > METADATA_KEY_NAME_MAX_LENGTH { // meta data key pattern with name
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 			}
 		}
 		if rmetadata.Value != "" {
-			if len(rmetadata.Value) > maxMetaValueLen {
+			if len(rmetadata.Value) > METADATA_VALUE_MAX_LENGTH {
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata value")
 			}
 			if !MetadataPatternValue.MatchString(rmetadata.Value) {
