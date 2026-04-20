@@ -296,7 +296,6 @@ message HostResource {
   // Set by sol-manager RM only.
   status.v1.StatusIndication sol_session_status_indicator = 106 [(ent.field) = {optional: true}];
 
-
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true
