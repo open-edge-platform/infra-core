@@ -67,6 +67,7 @@ const (
 	HostResourceFieldUserLvmSize                 = "user_lvm_size"
 	HostResourceFieldAmtControlMode              = "amt_control_mode"
 	HostResourceFieldAmtDnsSuffix                = "amt_dns_suffix"
+	HostResourceFieldDesiredConsentCode          = "desired_consent_code"
 	HostResourceFieldTenantId                    = "tenant_id"
 	HostResourceFieldCreatedAt                   = "created_at"
 	HostResourceFieldUpdatedAt                   = "updated_at"
