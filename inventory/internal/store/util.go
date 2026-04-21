@@ -54,24 +54,30 @@ const (
 
 const (
 	MetadataKeyNameMaxLength   = 63
-	MetadataValueMaxLength     = 4096
 	MetadataKeyPrefixMaxLength = 253
+
+	// MetadataValueMaxLength was previously set to 63 when the Metadata field was
+	// associated with a Label and could not be distinguished from an Annotation.
+	// That field has been renamed to MetadataLabelMaxLength.
+	MetadataLabelMaxLength = 63
+
+	// MetadataAnnotationMaxLength is set to 4096 to allow for longer free-form text in annotations,
+	// while still enforcing a reasonable limit to prevent abuse.
+	MetadataAnnotationMaxLength = 4096
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
 var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
-// MetadataPatternValue representing the metadata pattern for value.
-var MetadataPatternValue = regexp.MustCompile("^$|^[a-zA-Z0-9]$|^[a-zA-Z0-9][a-zA-Z0-9+._-]*[a-zA-Z0-9]$")
-
-// Base64MedatadaPatternValue representing the metadata pattern for value when the value is expected to be a base64 encoded string.
-var Base64MedatadaPatternValue = regexp.MustCompile("^[A-Za-z0-9+/]*={0,2}$")
+// MetadataPatternLabel representing the metadata pattern for label.
+var MetadataPatternLabel = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
+	Type  string `json:"type,omitempty"` // "label" or "annotation", default to "" which means it's not specified.
 }
 
 // BuildResourceMeta builds the ResourceMetadata from the given map of physical and logical metadata.
@@ -139,14 +145,22 @@ func validateKeyValue(meta []Metadata) error {
 			}
 		}
 		if rmetadata.Value != "" {
-			if len(rmetadata.Value) > MetadataValueMaxLength {
-				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata value")
-			}
 
-			// check if string matches MetadataPatternValue or a base64 encoded string that matches Base64MedatadaPatternValue,
-			// as some of the metadata values can be base64 encoded, we want to allow those as well.
-			if !(MetadataPatternValue.MatchString(rmetadata.Value) || Base64MedatadaPatternValue.MatchString(rmetadata.Value)) {
-				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
+			switch rmetadata.Type {
+
+			case "label", "": // Default to label for backward compatibility
+				if len(rmetadata.Value) > MetadataLabelMaxLength {
+					return errors.Errorfc(codes.InvalidArgument, "Label value too long")
+				}
+				if !MetadataPatternLabel.MatchString(rmetadata.Value) {
+					return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
+				}
+			case "annotation":
+				if len(rmetadata.Value) > MetadataAnnotationMaxLength {
+					return errors.Errorfc(codes.InvalidArgument, "Annotation value too long")
+				}
+			default:
+				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata type")
 			}
 		}
 	}
