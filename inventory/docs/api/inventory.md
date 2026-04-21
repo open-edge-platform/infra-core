@@ -588,7 +588,7 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | amt_control_mode | [AmtControlMode](#compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
-| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator from the device screen. Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager. |
+| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator from the device screen. Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager. TODO: Remove persist desired_consent_code in the inventory DB in a future release. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
