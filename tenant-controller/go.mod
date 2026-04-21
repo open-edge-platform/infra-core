@@ -5,6 +5,8 @@ module github.com/open-edge-platform/infra-core/tenant-controller
 
 go 1.25.7
 
+replace github.com/open-edge-platform/orch-library/go => ../../orch-library/go
+
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0
 	github.com/golang/mock v1.6.0
@@ -13,14 +15,11 @@ require (
 	github.com/mitchellh/hashstructure/v2 v2.0.2
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.34.5
 	github.com/open-edge-platform/orch-library/go v0.6.3
-	github.com/open-edge-platform/orch-utils/tenancy-datamodel v1.2.2
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20250813145105-42675adae3e6
 	google.golang.org/grpc v1.80.0
 	google.golang.org/protobuf v1.36.11
-	k8s.io/apimachinery v0.35.2
-	k8s.io/client-go v0.35.2
 )
 
 require (
