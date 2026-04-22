@@ -20,7 +20,7 @@ import (
 // compareProtoMessages compares two proto.Message parameters and checks if all the fields set in the first
 // have the same value as in the second one.
 //
-//nolint:gocritic,errcheck // This function is used only for testing purposes.
+//nolint:gocritic,errcheck,cyclop // This function is used only for testing purposes.
 func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 	t.Helper()
 	v1 := reflect.ValueOf(msg1).Elem()
