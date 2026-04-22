@@ -1185,6 +1185,106 @@ func (_u *HostResourceUpdate) ClearAmtDNSSuffix() *HostResourceUpdate {
 	return _u
 }
 
+// SetSolStatus sets the "sol_status" field.
+func (_u *HostResourceUpdate) SetSolStatus(v hostresource.SolStatus) *HostResourceUpdate {
+	_u.mutation.SetSolStatus(v)
+	return _u
+}
+
+// SetNillableSolStatus sets the "sol_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableSolStatus(v *hostresource.SolStatus) *HostResourceUpdate {
+	if v != nil {
+		_u.SetSolStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolStatus clears the value of the "sol_status" field.
+func (_u *HostResourceUpdate) ClearSolStatus() *HostResourceUpdate {
+	_u.mutation.ClearSolStatus()
+	return _u
+}
+
+// SetDesiredSolState sets the "desired_sol_state" field.
+func (_u *HostResourceUpdate) SetDesiredSolState(v hostresource.DesiredSolState) *HostResourceUpdate {
+	_u.mutation.SetDesiredSolState(v)
+	return _u
+}
+
+// SetNillableDesiredSolState sets the "desired_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableDesiredSolState(v *hostresource.DesiredSolState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetDesiredSolState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredSolState clears the value of the "desired_sol_state" field.
+func (_u *HostResourceUpdate) ClearDesiredSolState() *HostResourceUpdate {
+	_u.mutation.ClearDesiredSolState()
+	return _u
+}
+
+// SetCurrentSolState sets the "current_sol_state" field.
+func (_u *HostResourceUpdate) SetCurrentSolState(v hostresource.CurrentSolState) *HostResourceUpdate {
+	_u.mutation.SetCurrentSolState(v)
+	return _u
+}
+
+// SetNillableCurrentSolState sets the "current_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableCurrentSolState(v *hostresource.CurrentSolState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetCurrentSolState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentSolState clears the value of the "current_sol_state" field.
+func (_u *HostResourceUpdate) ClearCurrentSolState() *HostResourceUpdate {
+	_u.mutation.ClearCurrentSolState()
+	return _u
+}
+
+// SetSolSessionURL sets the "sol_session_url" field.
+func (_u *HostResourceUpdate) SetSolSessionURL(v string) *HostResourceUpdate {
+	_u.mutation.SetSolSessionURL(v)
+	return _u
+}
+
+// SetNillableSolSessionURL sets the "sol_session_url" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableSolSessionURL(v *string) *HostResourceUpdate {
+	if v != nil {
+		_u.SetSolSessionURL(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionURL clears the value of the "sol_session_url" field.
+func (_u *HostResourceUpdate) ClearSolSessionURL() *HostResourceUpdate {
+	_u.mutation.ClearSolSessionURL()
+	return _u
+}
+
+// SetSolSessionStatus sets the "sol_session_status" field.
+func (_u *HostResourceUpdate) SetSolSessionStatus(v string) *HostResourceUpdate {
+	_u.mutation.SetSolSessionStatus(v)
+	return _u
+}
+
+// SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableSolSessionStatus(v *string) *HostResourceUpdate {
+	if v != nil {
+		_u.SetSolSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionStatus clears the value of the "sol_session_status" field.
+func (_u *HostResourceUpdate) ClearSolSessionStatus() *HostResourceUpdate {
+	_u.mutation.ClearSolSessionStatus()
+	return _u
+}
+
 // SetDesiredConsentCode sets the "desired_consent_code" field.
 func (_u *HostResourceUpdate) SetDesiredConsentCode(v string) *HostResourceUpdate {
 	_u.mutation.SetDesiredConsentCode(v)
@@ -1202,6 +1302,26 @@ func (_u *HostResourceUpdate) SetNillableDesiredConsentCode(v *string) *HostReso
 // ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
 func (_u *HostResourceUpdate) ClearDesiredConsentCode() *HostResourceUpdate {
 	_u.mutation.ClearDesiredConsentCode()
+	return _u
+}
+
+// SetSolSessionStatusIndicator sets the "sol_session_status_indicator" field.
+func (_u *HostResourceUpdate) SetSolSessionStatusIndicator(v hostresource.SolSessionStatusIndicator) *HostResourceUpdate {
+	_u.mutation.SetSolSessionStatusIndicator(v)
+	return _u
+}
+
+// SetNillableSolSessionStatusIndicator sets the "sol_session_status_indicator" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableSolSessionStatusIndicator(v *hostresource.SolSessionStatusIndicator) *HostResourceUpdate {
+	if v != nil {
+		_u.SetSolSessionStatusIndicator(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionStatusIndicator clears the value of the "sol_session_status_indicator" field.
+func (_u *HostResourceUpdate) ClearSolSessionStatusIndicator() *HostResourceUpdate {
+	_u.mutation.ClearSolSessionStatusIndicator()
 	return _u
 }
 
@@ -1545,6 +1665,26 @@ func (_u *HostResourceUpdate) check() error {
 	if v, ok := _u.mutation.AmtControlMode(); ok {
 		if err := hostresource.AmtControlModeValidator(v); err != nil {
 			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.SolStatus(); ok {
+		if err := hostresource.SolStatusValidator(v); err != nil {
+			return &ValidationError{Name: "sol_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredSolState(); ok {
+		if err := hostresource.DesiredSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_sol_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentSolState(); ok {
+		if err := hostresource.CurrentSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.SolSessionStatusIndicator(); ok {
+		if err := hostresource.SolSessionStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "sol_session_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_session_status_indicator": %w`, err)}
 		}
 	}
 	return nil
@@ -1916,11 +2056,47 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 	if _u.mutation.AmtDNSSuffixCleared() {
 		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
 	}
+	if value, ok := _u.mutation.SolStatus(); ok {
+		_spec.SetField(hostresource.FieldSolStatus, field.TypeEnum, value)
+	}
+	if _u.mutation.SolStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredSolState(); ok {
+		_spec.SetField(hostresource.FieldDesiredSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredSolStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentSolState(); ok {
+		_spec.SetField(hostresource.FieldCurrentSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentSolStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.SolSessionURL(); ok {
+		_spec.SetField(hostresource.FieldSolSessionURL, field.TypeString, value)
+	}
+	if _u.mutation.SolSessionURLCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionURL, field.TypeString)
+	}
+	if value, ok := _u.mutation.SolSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.SolSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeString)
+	}
 	if value, ok := _u.mutation.DesiredConsentCode(); ok {
 		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
 	}
 	if _u.mutation.DesiredConsentCodeCleared() {
 		_spec.ClearField(hostresource.FieldDesiredConsentCode, field.TypeString)
+	}
+	if value, ok := _u.mutation.SolSessionStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum, value)
+	}
+	if _u.mutation.SolSessionStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
@@ -3363,6 +3539,106 @@ func (_u *HostResourceUpdateOne) ClearAmtDNSSuffix() *HostResourceUpdateOne {
 	return _u
 }
 
+// SetSolStatus sets the "sol_status" field.
+func (_u *HostResourceUpdateOne) SetSolStatus(v hostresource.SolStatus) *HostResourceUpdateOne {
+	_u.mutation.SetSolStatus(v)
+	return _u
+}
+
+// SetNillableSolStatus sets the "sol_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableSolStatus(v *hostresource.SolStatus) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetSolStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolStatus clears the value of the "sol_status" field.
+func (_u *HostResourceUpdateOne) ClearSolStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearSolStatus()
+	return _u
+}
+
+// SetDesiredSolState sets the "desired_sol_state" field.
+func (_u *HostResourceUpdateOne) SetDesiredSolState(v hostresource.DesiredSolState) *HostResourceUpdateOne {
+	_u.mutation.SetDesiredSolState(v)
+	return _u
+}
+
+// SetNillableDesiredSolState sets the "desired_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableDesiredSolState(v *hostresource.DesiredSolState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredSolState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredSolState clears the value of the "desired_sol_state" field.
+func (_u *HostResourceUpdateOne) ClearDesiredSolState() *HostResourceUpdateOne {
+	_u.mutation.ClearDesiredSolState()
+	return _u
+}
+
+// SetCurrentSolState sets the "current_sol_state" field.
+func (_u *HostResourceUpdateOne) SetCurrentSolState(v hostresource.CurrentSolState) *HostResourceUpdateOne {
+	_u.mutation.SetCurrentSolState(v)
+	return _u
+}
+
+// SetNillableCurrentSolState sets the "current_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableCurrentSolState(v *hostresource.CurrentSolState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentSolState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentSolState clears the value of the "current_sol_state" field.
+func (_u *HostResourceUpdateOne) ClearCurrentSolState() *HostResourceUpdateOne {
+	_u.mutation.ClearCurrentSolState()
+	return _u
+}
+
+// SetSolSessionURL sets the "sol_session_url" field.
+func (_u *HostResourceUpdateOne) SetSolSessionURL(v string) *HostResourceUpdateOne {
+	_u.mutation.SetSolSessionURL(v)
+	return _u
+}
+
+// SetNillableSolSessionURL sets the "sol_session_url" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableSolSessionURL(v *string) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetSolSessionURL(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionURL clears the value of the "sol_session_url" field.
+func (_u *HostResourceUpdateOne) ClearSolSessionURL() *HostResourceUpdateOne {
+	_u.mutation.ClearSolSessionURL()
+	return _u
+}
+
+// SetSolSessionStatus sets the "sol_session_status" field.
+func (_u *HostResourceUpdateOne) SetSolSessionStatus(v string) *HostResourceUpdateOne {
+	_u.mutation.SetSolSessionStatus(v)
+	return _u
+}
+
+// SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableSolSessionStatus(v *string) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetSolSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionStatus clears the value of the "sol_session_status" field.
+func (_u *HostResourceUpdateOne) ClearSolSessionStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearSolSessionStatus()
+	return _u
+}
+
 // SetDesiredConsentCode sets the "desired_consent_code" field.
 func (_u *HostResourceUpdateOne) SetDesiredConsentCode(v string) *HostResourceUpdateOne {
 	_u.mutation.SetDesiredConsentCode(v)
@@ -3380,6 +3656,26 @@ func (_u *HostResourceUpdateOne) SetNillableDesiredConsentCode(v *string) *HostR
 // ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
 func (_u *HostResourceUpdateOne) ClearDesiredConsentCode() *HostResourceUpdateOne {
 	_u.mutation.ClearDesiredConsentCode()
+	return _u
+}
+
+// SetSolSessionStatusIndicator sets the "sol_session_status_indicator" field.
+func (_u *HostResourceUpdateOne) SetSolSessionStatusIndicator(v hostresource.SolSessionStatusIndicator) *HostResourceUpdateOne {
+	_u.mutation.SetSolSessionStatusIndicator(v)
+	return _u
+}
+
+// SetNillableSolSessionStatusIndicator sets the "sol_session_status_indicator" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableSolSessionStatusIndicator(v *hostresource.SolSessionStatusIndicator) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetSolSessionStatusIndicator(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionStatusIndicator clears the value of the "sol_session_status_indicator" field.
+func (_u *HostResourceUpdateOne) ClearSolSessionStatusIndicator() *HostResourceUpdateOne {
+	_u.mutation.ClearSolSessionStatusIndicator()
 	return _u
 }
 
@@ -3736,6 +4032,26 @@ func (_u *HostResourceUpdateOne) check() error {
 	if v, ok := _u.mutation.AmtControlMode(); ok {
 		if err := hostresource.AmtControlModeValidator(v); err != nil {
 			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.SolStatus(); ok {
+		if err := hostresource.SolStatusValidator(v); err != nil {
+			return &ValidationError{Name: "sol_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredSolState(); ok {
+		if err := hostresource.DesiredSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_sol_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentSolState(); ok {
+		if err := hostresource.CurrentSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.SolSessionStatusIndicator(); ok {
+		if err := hostresource.SolSessionStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "sol_session_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_session_status_indicator": %w`, err)}
 		}
 	}
 	return nil
@@ -4124,11 +4440,47 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 	if _u.mutation.AmtDNSSuffixCleared() {
 		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
 	}
+	if value, ok := _u.mutation.SolStatus(); ok {
+		_spec.SetField(hostresource.FieldSolStatus, field.TypeEnum, value)
+	}
+	if _u.mutation.SolStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredSolState(); ok {
+		_spec.SetField(hostresource.FieldDesiredSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredSolStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentSolState(); ok {
+		_spec.SetField(hostresource.FieldCurrentSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentSolStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.SolSessionURL(); ok {
+		_spec.SetField(hostresource.FieldSolSessionURL, field.TypeString, value)
+	}
+	if _u.mutation.SolSessionURLCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionURL, field.TypeString)
+	}
+	if value, ok := _u.mutation.SolSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.SolSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeString)
+	}
 	if value, ok := _u.mutation.DesiredConsentCode(); ok {
 		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
 	}
 	if _u.mutation.DesiredConsentCodeCleared() {
 		_spec.ClearField(hostresource.FieldDesiredConsentCode, field.TypeString)
+	}
+	if value, ok := _u.mutation.SolSessionStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum, value)
+	}
+	if _u.mutation.SolSessionStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)

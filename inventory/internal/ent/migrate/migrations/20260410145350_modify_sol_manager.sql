@@ -1,0 +1,2 @@
+-- Modify "host_resources" table
+ALTER TABLE "host_resources" ADD COLUMN IF NOT EXISTS "sol_status" character varying NULL, ADD COLUMN IF NOT EXISTS "desired_sol_state" character varying NULL, ADD COLUMN IF NOT EXISTS "current_sol_state" character varying NULL, ADD COLUMN IF NOT EXISTS "sol_session_url" character varying NULL, ADD COLUMN IF NOT EXISTS "sol_session_status" character varying NULL, ADD COLUMN IF NOT EXISTS "sol_session_status_indicator" character varying NULL;
