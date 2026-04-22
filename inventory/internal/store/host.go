@@ -79,6 +79,7 @@ func (is *InvStore) CreateHost(ctx context.Context, in *computev1.HostResource) 
 	return res, nil
 }
 
+//nolint:cyclop // high cyclomatic complexity due to multiple state fields requiring non-NULL DB defaults
 func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourceMutation) {
 	// Ensure the host state fields are never set to NULL in the DB.
 	if in.GetCurrentState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
