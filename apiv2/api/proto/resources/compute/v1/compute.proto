@@ -282,8 +282,10 @@ message HostResource {
     (buf.validate.field).string = {max_len: 1024}
   ];
 
+  reserved 106; reserved "desired_consent_code";
+
   // SOL session activation status. Set by sol-manager only.
-  SolStatus sol_status = 106 [(google.api.field_behavior) = OUTPUT_ONLY];
+  SolStatus sol_status = 108 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Desired SOL session state. Written by operator. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED.
   SolState desired_sol_state = 109 [(google.api.field_behavior) = OPTIONAL];
   // Current SOL session state. Set by sol-manager only.
