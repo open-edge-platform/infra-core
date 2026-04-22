@@ -249,6 +249,13 @@ message HostResource {
     (google.api.field_behavior) = OPTIONAL,
     (buf.validate.field).string = {max_len: 1024}
   ]; // textual message that describes dns_suffix for ACM mode.
+  
+  string desired_consent_code = 106 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
 
   // KVM feature activation status on the AMT device. Set by kvm-manager only.
   KvmStatus kvm_status = 88 [(google.api.field_behavior) = OUTPUT_ONLY];

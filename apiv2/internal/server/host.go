@@ -331,6 +331,7 @@ func fromInvHost(
 		AmtDnsSuffix:       invHost.GetAmtDnsSuffix(),
 		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
+		DesiredConsentCode: invHost.GetDesiredConsentCode(),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
 		DesiredKvmState:    computev1.KvmState(invHost.GetDesiredKvmState()),
