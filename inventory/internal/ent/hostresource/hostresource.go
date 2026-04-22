@@ -122,6 +122,8 @@ const (
 	FieldAmtControlMode = "amt_control_mode"
 	// FieldAmtDNSSuffix holds the string denoting the amt_dns_suffix field in the database.
 	FieldAmtDNSSuffix = "amt_dns_suffix"
+	// FieldDesiredConsentCode holds the string denoting the desired_consent_code field in the database.
+	FieldDesiredConsentCode = "desired_consent_code"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -252,6 +254,7 @@ var Columns = []string{
 	FieldUserLvmSize,
 	FieldAmtControlMode,
 	FieldAmtDNSSuffix,
+	FieldDesiredConsentCode,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -939,6 +942,11 @@ func ByAmtControlMode(opts ...sql.OrderTermOption) OrderOption {
 // ByAmtDNSSuffix orders the results by the amt_dns_suffix field.
 func ByAmtDNSSuffix(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAmtDNSSuffix, opts...).ToFunc()
+}
+
+// ByDesiredConsentCode orders the results by the desired_consent_code field.
+func ByDesiredConsentCode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredConsentCode, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.
