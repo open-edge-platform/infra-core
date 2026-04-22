@@ -1129,6 +1129,9 @@ type HostResource struct {
 	// DesiredAmtState The state of the AMT (Active Management Technology) component.
 	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
+	// DesiredConsentCode (OPTIONAL)
+	DesiredConsentCode *string `json:"desiredConsentCode,omitempty"`
+
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
 
