@@ -813,6 +813,7 @@ A Host resource.
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | amt_control_mode | [AmtControlMode](#resources-compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
+| desired_consent_code | [string](#string) |  |  |
 | sol_status | [SolStatus](#resources-compute-v1-SolStatus) |  | SOL feature activation status on the AMT device. Set by sol-manager RM after reading GET /api/v1/amt/features/{guid}. Updated whenever sol-manager reconciles a SOL_STATE_START request. |
 | desired_sol_state | [SolState](#resources-compute-v1-SolState) |  | Desired SOL session state. Written by operator via APIv2 (orch-cli --sol start|stop). Valid write values: SOL_STATE_START, SOL_STATE_STOP. Consumed by sol-manager RM to drive the session lifecycle. |
 | current_sol_state | [SolState](#resources-compute-v1-SolState) |  | Current SOL session state. Set by sol-manager RM only. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR. |

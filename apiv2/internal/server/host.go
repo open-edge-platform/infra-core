@@ -46,6 +46,7 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldSolSessionUrl:      inv_computev1.HostResourceFieldSolSessionUrl,
 	computev1.HostResourceFieldDesiredSolState:    inv_computev1.HostResourceFieldDesiredSolState,
 	computev1.HostResourceFieldSolSessionStatus:   inv_computev1.HostResourceFieldSolSessionStatus,
+	computev1.HostResourceFieldDesiredConsentCode: inv_computev1.HostResourceFieldDesiredConsentCode,
 }
 
 var (
@@ -191,6 +192,7 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		DesiredSolState:    inv_computev1.SolState(host.GetDesiredSolState()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
 		SolSessionUrl:      host.GetSolSessionUrl(),
+		DesiredConsentCode: host.GetDesiredConsentCode(),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -335,6 +337,7 @@ func fromInvHost(
 		SolSessionUrl:      invHost.GetSolSessionUrl(),
 		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
+		DesiredConsentCode: invHost.GetDesiredConsentCode(),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
 		DesiredSolState:    computev1.SolState(invHost.GetDesiredSolState()),
