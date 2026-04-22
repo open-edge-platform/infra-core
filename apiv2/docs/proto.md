@@ -61,9 +61,13 @@
     - [HostState](#resources-compute-v1-HostState)
     - [InstanceKind](#resources-compute-v1-InstanceKind)
     - [InstanceState](#resources-compute-v1-InstanceState)
+    - [KvmState](#resources-compute-v1-KvmState)
+    - [KvmStatus](#resources-compute-v1-KvmStatus)
     - [LinkState](#resources-compute-v1-LinkState)
     - [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy)
     - [PowerState](#resources-compute-v1-PowerState)
+    - [SolState](#resources-compute-v1-SolState)
+    - [SolStatus](#resources-compute-v1-SolStatus)
     - [UpdatePolicy](#resources-compute-v1-UpdatePolicy)
     - [WorkloadKind](#resources-compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#resources-compute-v1-WorkloadMemberKind)
@@ -811,7 +815,14 @@ A Host resource.
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | amt_control_mode | [AmtControlMode](#resources-compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
-| desired_consent_code | [string](#string) |  |  |
+| kvm_status | [KvmStatus](#resources-compute-v1-KvmStatus) |  | KVM session activation status. Set by kvm-manager only. |
+| desired_kvm_state | [KvmState](#resources-compute-v1-KvmState) |  | Desired KVM session state. Written by operator. Valid values: KVM_STATE_START, KVM_STATE_STOP, KVM_CONSENT_RECEIVED, KVM_REDIRECTION_RECEIVED. |
+| current_kvm_state | [KvmState](#resources-compute-v1-KvmState) |  | Current KVM session state. Set by kvm-manager only. |
+| kvm_session_status | [string](#string) |  | Human-readable KVM session status message. Set by kvm-manager only. |
+| sol_status | [SolStatus](#resources-compute-v1-SolStatus) |  | SOL session activation status. Set by sol-manager only. |
+| desired_sol_state | [SolState](#resources-compute-v1-SolState) |  | Desired SOL session state. Written by operator. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED. |
+| current_sol_state | [SolState](#resources-compute-v1-SolState) |  | Current SOL session state. Set by sol-manager only. |
+| sol_session_status | [string](#string) |  | Human-readable SOL session status message. Set by sol-manager only. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
@@ -1186,6 +1197,36 @@ The Instance States.
 
 
 
+<a name="resources-compute-v1-KvmState"></a>
+
+### KvmState
+KVM session lifecycle state; KVM_CONSENT_RECEIVED and KVM_REDIRECTION_RECEIVED are desired-only values.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATE_UNSPECIFIED | 0 |  |
+| KVM_STATE_START | 1 |  |
+| KVM_STATE_STOP | 2 |  |
+| KVM_STATE_AWAITING_CONSENT | 3 |  |
+| KVM_STATE_ERROR | 4 |  |
+| KVM_CONSENT_RECEIVED | 5 |  |
+| KVM_REDIRECTION_RECEIVED | 6 |  |
+
+
+
+<a name="resources-compute-v1-KvmStatus"></a>
+
+### KvmStatus
+KvmStatus reflects whether a KVM remote session is currently active on the host.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATUS_UNSPECIFIED | 0 |  |
+| KVM_STATUS_ACTIVATED | 1 |  |
+| KVM_STATUS_DEACTIVATED | 2 |  |
+
+
+
 <a name="resources-compute-v1-LinkState"></a>
 
 ### LinkState
@@ -1227,6 +1268,36 @@ The host power state.
 | POWER_STATE_RESET | 6 |  |
 | POWER_STATE_POWER_CYCLE | 7 |  |
 | POWER_STATE_RESET_REPEAT | 8 | For consecutive reset operations |
+
+
+
+<a name="resources-compute-v1-SolState"></a>
+
+### SolState
+SOL session lifecycle state; SOL_STATE_CONSENT_RECEIVED and SOL_STATE_REDIRECTION_RECEIVED are desired-only values.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SOL_STATE_UNSPECIFIED | 0 |  |
+| SOL_STATE_START | 1 |  |
+| SOL_STATE_STOP | 2 |  |
+| SOL_STATE_AWAITING_CONSENT | 3 |  |
+| SOL_STATE_ERROR | 4 |  |
+| SOL_STATE_CONSENT_RECEIVED | 5 |  |
+| SOL_STATE_REDIRECTION_RECEIVED | 6 |  |
+
+
+
+<a name="resources-compute-v1-SolStatus"></a>
+
+### SolStatus
+SolStatus reflects whether a SOL remote session is currently active on the host.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SOL_STATUS_UNSPECIFIED | 0 |  |
+| SOL_STATUS_ACTIVATED | 1 |  |
+| SOL_STATUS_DEACTIVATED | 2 |  |
 
 
 

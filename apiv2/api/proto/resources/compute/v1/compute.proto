@@ -77,6 +77,42 @@ enum AmtControlMode {
   AMT_CONTROL_MODE_CCM = 2;
 }
 
+// KvmStatus reflects whether a KVM remote session is currently active on the host.
+enum KvmStatus {
+  KVM_STATUS_UNSPECIFIED = 0;
+  KVM_STATUS_ACTIVATED = 1;
+  KVM_STATUS_DEACTIVATED = 2;
+}
+
+// KVM session lifecycle state; KVM_CONSENT_RECEIVED and KVM_REDIRECTION_RECEIVED are desired-only values.
+enum KvmState {
+  KVM_STATE_UNSPECIFIED = 0;
+  KVM_STATE_START = 1;
+  KVM_STATE_STOP = 2;
+  KVM_STATE_AWAITING_CONSENT = 3;
+  KVM_STATE_ERROR = 4;
+  KVM_CONSENT_RECEIVED = 5;
+  KVM_REDIRECTION_RECEIVED = 6;
+}
+
+// SolStatus reflects whether a SOL remote session is currently active on the host.
+enum SolStatus {
+  SOL_STATUS_UNSPECIFIED = 0;
+  SOL_STATUS_ACTIVATED = 1;
+  SOL_STATUS_DEACTIVATED = 2;
+}
+
+// SOL session lifecycle state; SOL_STATE_CONSENT_RECEIVED and SOL_STATE_REDIRECTION_RECEIVED are desired-only values.
+enum SolState {
+  SOL_STATE_UNSPECIFIED = 0;
+  SOL_STATE_START = 1;
+  SOL_STATE_STOP = 2;
+  SOL_STATE_AWAITING_CONSENT = 3;
+  SOL_STATE_ERROR = 4;
+  SOL_STATE_CONSENT_RECEIVED = 5;
+  SOL_STATE_REDIRECTION_RECEIVED = 6;
+}
+
 // A Host resource.
 message HostResource {
   // Resource ID, generated on Create.
@@ -234,12 +270,29 @@ message HostResource {
     (buf.validate.field).string = {max_len: 1024}
   ]; // textual message that describes dns_suffix for ACM mode.
   
-  string desired_consent_code = 106 [
-    (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  // KVM session activation status. Set by kvm-manager only.
+  KvmStatus kvm_status = 88 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Desired KVM session state. Written by operator. Valid values: KVM_STATE_START, KVM_STATE_STOP, KVM_CONSENT_RECEIVED, KVM_REDIRECTION_RECEIVED.
+  KvmState desired_kvm_state = 101 [(google.api.field_behavior) = OPTIONAL];
+  // Current KVM session state. Set by kvm-manager only.
+  KvmState current_kvm_state = 102 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Human-readable KVM session status message. Set by kvm-manager only.
+  string kvm_session_status = 104 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {max_len: 1024}
   ];
 
+  // SOL session activation status. Set by sol-manager only.
+  SolStatus sol_status = 106 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Desired SOL session state. Written by operator. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED.
+  SolState desired_sol_state = 109 [(google.api.field_behavior) = OPTIONAL];
+  // Current SOL session state. Set by sol-manager only.
+  SolState current_sol_state = 110 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Human-readable SOL session status message. Set by sol-manager only.
+  string sol_session_status = 112 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {max_len: 1024}
+  ];
 
   // The site where the host is located.
   string site_id = 5001 [

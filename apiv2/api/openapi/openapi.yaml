@@ -16278,11 +16278,46 @@ components:
           title: amt_dns_suffix
           maxLength: 1024
           description: (OPTIONAL) textual message that describes dns_suffix for ACM mode.
-        desiredConsentCode:
+        kvmStatus:
+          title: kvm_status
+          description: KVM session activation status. Set by kvm-manager only.
+          readOnly: true
+          $ref: '#/components/schemas/KvmStatus'
+        desiredKvmState:
+          title: desired_kvm_state
+          description: '(OPTIONAL) Desired KVM session state. Written by operator. Valid values: KVM_STATE_START, KVM_STATE_STOP, KVM_CONSENT_RECEIVED, KVM_REDIRECTION_RECEIVED.'
+          $ref: '#/components/schemas/KvmState'
+        currentKvmState:
+          title: current_kvm_state
+          description: Current KVM session state. Set by kvm-manager only.
+          readOnly: true
+          $ref: '#/components/schemas/KvmState'
+        kvmSessionStatus:
           type: string
-          title: desired_consent_code
-          pattern: ^[0-9]{6}$
-          description: '(OPTIONAL) '
+          title: kvm_session_status
+          maxLength: 1024
+          description: Human-readable KVM session status message. Set by kvm-manager only.
+          readOnly: true
+        solStatus:
+          title: sol_status
+          description: SOL session activation status. Set by sol-manager only.
+          readOnly: true
+          $ref: '#/components/schemas/SolStatus'
+        desiredSolState:
+          title: desired_sol_state
+          description: '(OPTIONAL) Desired SOL session state. Written by operator. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED.'
+          $ref: '#/components/schemas/SolState'
+        currentSolState:
+          title: current_sol_state
+          description: Current SOL session state. Set by sol-manager only.
+          readOnly: true
+          $ref: '#/components/schemas/SolState'
+        solSessionStatus:
+          type: string
+          title: sol_session_status
+          maxLength: 1024
+          description: Human-readable SOL session status message. Set by sol-manager only.
+          readOnly: true
         siteId:
           type: string
           title: site_id
@@ -16749,6 +16784,26 @@ components:
         - INSTANCE_STATE_DELETED
         - INSTANCE_STATE_UNTRUSTED
       description: The Instance States.
+    KvmState:
+      type: string
+      title: KvmState
+      enum:
+        - KVM_STATE_UNSPECIFIED
+        - KVM_STATE_START
+        - KVM_STATE_STOP
+        - KVM_STATE_AWAITING_CONSENT
+        - KVM_STATE_ERROR
+        - KVM_CONSENT_RECEIVED
+        - KVM_REDIRECTION_RECEIVED
+      description: KVM session lifecycle state; KVM_CONSENT_RECEIVED and KVM_REDIRECTION_RECEIVED are desired-only values.
+    KvmStatus:
+      type: string
+      title: KvmStatus
+      enum:
+        - KVM_STATUS_UNSPECIFIED
+        - KVM_STATUS_ACTIVATED
+        - KVM_STATUS_DEACTIVATED
+      description: KvmStatus reflects whether a KVM remote session is currently active on the host.
     LinkState:
       type: string
       title: LinkState
@@ -16957,6 +17012,26 @@ components:
         - POWER_STATE_POWER_CYCLE
         - POWER_STATE_RESET_REPEAT
       description: The host power state.
+    SolState:
+      type: string
+      title: SolState
+      enum:
+        - SOL_STATE_UNSPECIFIED
+        - SOL_STATE_START
+        - SOL_STATE_STOP
+        - SOL_STATE_AWAITING_CONSENT
+        - SOL_STATE_ERROR
+        - SOL_STATE_CONSENT_RECEIVED
+        - SOL_STATE_REDIRECTION_RECEIVED
+      description: SOL session lifecycle state; SOL_STATE_CONSENT_RECEIVED and SOL_STATE_REDIRECTION_RECEIVED are desired-only values.
+    SolStatus:
+      type: string
+      title: SolStatus
+      enum:
+        - SOL_STATUS_UNSPECIFIED
+        - SOL_STATUS_ACTIVATED
+        - SOL_STATUS_DEACTIVATED
+      description: SolStatus reflects whether a SOL remote session is currently active on the host.
     UpdatePolicy:
       type: string
       title: UpdatePolicy
