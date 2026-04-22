@@ -64,6 +64,7 @@ const (
 	HostResourceFieldDesiredKvmState             = "desired_kvm_state"
 	HostResourceFieldCurrentKvmState             = "current_kvm_state"
 	HostResourceFieldKvmSessionStatus            = "kvm_session_status"
+	HostResourceFieldDesiredConsentCode          = "desired_consent_code"
 	HostResourceFieldSolStatus                   = "sol_status"
 	HostResourceFieldDesiredSolState             = "desired_sol_state"
 	HostResourceFieldCurrentSolState             = "current_sol_state"

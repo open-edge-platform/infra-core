@@ -16298,6 +16298,12 @@ components:
           maxLength: 1024
           description: Human-readable KVM session status message. Set by kvm-manager only.
           readOnly: true
+        desiredConsentCode:
+          type: string
+          title: desired_consent_code
+          pattern: ^[0-9]{6}$
+          description: '(OPTIONAL) Deprecated: consent handling moved to direct orch-cli↔MPS communication. Field retained for wire compatibility only.'
+          deprecated: true
         solStatus:
           title: sol_status
           description: SOL session activation status. Set by sol-manager only.

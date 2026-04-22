@@ -819,6 +819,7 @@ A Host resource.
 | desired_kvm_state | [KvmState](#resources-compute-v1-KvmState) |  | Desired KVM session state. Written by operator. Valid values: KVM_STATE_START, KVM_STATE_STOP, KVM_CONSENT_RECEIVED, KVM_REDIRECTION_RECEIVED. |
 | current_kvm_state | [KvmState](#resources-compute-v1-KvmState) |  | Current KVM session state. Set by kvm-manager only. |
 | kvm_session_status | [string](#string) |  | Human-readable KVM session status message. Set by kvm-manager only. |
+| desired_consent_code | [string](#string) |  | **Deprecated.** Deprecated: consent handling moved to direct orch-cli↔MPS communication. Field retained for wire compatibility only. |
 | sol_status | [SolStatus](#resources-compute-v1-SolStatus) |  | SOL session activation status. Set by sol-manager only. |
 | desired_sol_state | [SolState](#resources-compute-v1-SolState) |  | Desired SOL session state. Written by operator. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED. |
 | current_sol_state | [SolState](#resources-compute-v1-SolState) |  | Current SOL session state. Set by sol-manager only. |

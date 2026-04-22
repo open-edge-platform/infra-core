@@ -1171,6 +1171,10 @@ type HostResource struct {
 	// DesiredAmtState The state of the AMT (Active Management Technology) component.
 	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
+	// DesiredConsentCode (OPTIONAL) Deprecated: consent handling moved to direct orch-cli↔MPS communication. Field retained for wire compatibility only.
+	// Deprecated:
+	DesiredConsentCode *string `json:"desiredConsentCode,omitempty"`
+
 	// DesiredKvmState KVM session lifecycle state; KVM_CONSENT_RECEIVED and KVM_REDIRECTION_RECEIVED are desired-only values.
 	DesiredKvmState *KvmState `json:"desiredKvmState,omitempty"`
 
