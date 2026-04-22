@@ -239,7 +239,15 @@ message HostResource {
     (buf.validate.field).string = {max_bytes: 1024},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // textual message that describes dns_suffix for ACM mode.
-
+  // Six-digit user-consent code entered by the operator from the device screen.
+  // Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT.
+  // Consumed (read then cleared) by kvm-manager.
+  // TODO: Remove persist desired_consent_code in the inventory DB in a future release.
+  string desired_consent_code = 106 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true
