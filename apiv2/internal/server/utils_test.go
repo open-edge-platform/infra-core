@@ -7,7 +7,6 @@ package server_test
 import (
 	"fmt"
 	"reflect"
-	"strings"
 	"testing"
 	"time"
 
@@ -34,7 +33,17 @@ func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 			continue
 		}
 
-		if field1.Kind() == reflect.Ptr &&
+		if field1.Kind() == reflect.Struct {
+			// Handle embedded structs by comparing their fields recursively
+			if field1.CanInterface() && field2.CanInterface() {
+				// Try to convert to proto.Message first
+				if msg1, ok := field1.Interface().(proto.Message); ok {
+					if msg2, ok := field2.Interface().(proto.Message); ok {
+						compareProtoMessages(t, msg1, msg2)
+					}
+				}
+			}
+		} else if field1.Kind() == reflect.Ptr &&
 			field1.Type().Implements(reflect.TypeOf((*proto.Message)(nil)).Elem()) {
 			// Compare messages recursively.
 			compareProtoMessages(t, field1.Interface().(proto.Message), field2.Interface().(proto.Message))
@@ -53,45 +62,6 @@ func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 			for j := range field1.Len() {
 				compareProtoMessages(t, field1.Index(j).Interface().(proto.Message),
 					field2.Index(j).Interface().(proto.Message))
-			}
-		} else if field1.Kind() == reflect.Interface &&
-			strings.Contains(field1.Type().String(), "is") &&
-			strings.Contains(field1.Type().String(), "_") {
-			// Special case for protobuf oneof fields
-
-			// Get the concrete values from the interface
-			concrete1 := reflect.ValueOf(field1.Interface())
-			concrete2 := reflect.ValueOf(field2.Interface())
-
-			// Check if they're the same concrete type
-			if concrete1.Type() != concrete2.Type() {
-				t.Errorf("Field %s: oneof type mismatch - got %T, want %T",
-					v1.Type().Field(i).Name, field2.Interface(), field1.Interface())
-				continue
-			}
-
-			// Extract the actual message from the wrapper
-			// The actual message is typically in a field of the wrapper
-			if concrete1.Kind() == reflect.Ptr && concrete1.Elem().Kind() == reflect.Struct {
-				wrapperStruct1 := concrete1.Elem()
-				wrapperStruct2 := concrete2.Elem()
-
-				// Find the field that contains the actual message (usually the first non-interface field)
-				for j := 0; j < wrapperStruct1.NumField(); j++ {
-					wrapperField1 := wrapperStruct1.Field(j)
-					wrapperField2 := wrapperStruct2.Field(j)
-
-					// Check if this field implements proto.Message
-					if wrapperField1.Kind() == reflect.Ptr &&
-						wrapperField1.Type().Implements(reflect.TypeOf((*proto.Message)(nil)).Elem()) {
-						// Compare the actual proto messages
-						if !proto.Equal(wrapperField1.Interface().(proto.Message),
-							wrapperField2.Interface().(proto.Message)) {
-							t.Errorf("Field %s: oneof message mismatch", v1.Type().Field(i).Name)
-						}
-						break
-					}
-				}
 			}
 		} else if !reflect.DeepEqual(field1.Interface(), field2.Interface()) {
 			// Compare fields in the message.
