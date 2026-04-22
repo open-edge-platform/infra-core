@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-SUBPROJECTS := api apiv2 bulk-import-tools tenant-controller exporters-inventory inventory
+SUBPROJECTS := apiv2 tenant-controller exporters-inventory inventory
 
 .DEFAULT_GOAL := help
 .PHONY: all build clean clean-all help lint test
@@ -41,7 +41,7 @@ license: $(VENV_DIR) ## Check licensing with the reuse tool
 build: ## build in all subprojects
 	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir build; done
 
-DOCKER_PROJECTS := api apiv2 exporters-inventory inventory tenant-controller
+DOCKER_PROJECTS := apiv2 exporters-inventory inventory tenant-controller
 docker-build: ## build all docker containers
 	for dir in $(DOCKER_PROJECTS); do $(MAKE) -C $$dir $@; done
 
@@ -61,12 +61,6 @@ clean: ## clean in all subprojects
 clean-all: ## clean-all in all subprojects
 	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean-all; done
 	rm -rf $(VENV_DIR)
-
-api-%: ## Run api subproject's tasks, e.g. api-test
-	$(MAKE) -C api $*
-
-bit-%: ## Run bulk-import-tools subproject's tasks, e.g. bit-test
-	$(MAKE) -C bulk-import-tools $*
 
 einv-%: ## Run exporters-inventory subproject's tasks, e.g. einv-test
 	$(MAKE) -C exporters-inventory $*
