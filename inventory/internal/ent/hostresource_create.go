@@ -844,6 +844,20 @@ func (_c *HostResourceCreate) SetNillableSolSessionStatus(v *string) *HostResour
 	return _c
 }
 
+// SetDesiredConsentCode sets the "desired_consent_code" field.
+func (_c *HostResourceCreate) SetDesiredConsentCode(v string) *HostResourceCreate {
+	_c.mutation.SetDesiredConsentCode(v)
+	return _c
+}
+
+// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableDesiredConsentCode(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredConsentCode(*v)
+	}
+	return _c
+}
+
 // SetSolSessionStatusIndicator sets the "sol_session_status_indicator" field.
 func (_c *HostResourceCreate) SetSolSessionStatusIndicator(v hostresource.SolSessionStatusIndicator) *HostResourceCreate {
 	_c.mutation.SetSolSessionStatusIndicator(v)
@@ -1395,6 +1409,10 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 	if value, ok := _c.mutation.SolSessionStatus(); ok {
 		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
 		_node.SolSessionStatus = value
+	}
+	if value, ok := _c.mutation.DesiredConsentCode(); ok {
+		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
+		_node.DesiredConsentCode = value
 	}
 	if value, ok := _c.mutation.SolSessionStatusIndicator(); ok {
 		_spec.SetField(hostresource.FieldSolSessionStatusIndicator, field.TypeEnum, value)

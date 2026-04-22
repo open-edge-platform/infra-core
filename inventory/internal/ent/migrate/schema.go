@@ -132,6 +132,7 @@ var (
 		{Name: "current_sol_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATE_UNSPECIFIED", "SOL_STATE_START", "SOL_STATE_STOP", "SOL_STATE_AWAITING_CONSENT", "SOL_STATE_ERROR"}},
 		{Name: "sol_session_url", Type: field.TypeString, Nullable: true},
 		{Name: "sol_session_status", Type: field.TypeString, Nullable: true},
+		{Name: "desired_consent_code", Type: field.TypeString, Nullable: true},
 		{Name: "sol_session_status_indicator", Type: field.TypeEnum, Nullable: true, Enums: []string{"STATUS_INDICATION_UNSPECIFIED", "STATUS_INDICATION_ERROR", "STATUS_INDICATION_IN_PROGRESS", "STATUS_INDICATION_IDLE"}},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -148,19 +149,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "host_resources_site_resources_site",
-				Columns:    []*schema.Column{HostResourcesColumns[64]},
+				Columns:    []*schema.Column{HostResourcesColumns[65]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_provider_resources_provider",
-				Columns:    []*schema.Column{HostResourcesColumns[65]},
+				Columns:    []*schema.Column{HostResourcesColumns[66]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[66]},
+				Columns:    []*schema.Column{HostResourcesColumns[67]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -185,7 +186,7 @@ var (
 			{
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{HostResourcesColumns[61]},
+				Columns: []*schema.Column{HostResourcesColumns[62]},
 			},
 		},
 	}

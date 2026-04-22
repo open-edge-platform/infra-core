@@ -292,10 +292,21 @@ message HostResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
-  // Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR).
-  // Set by sol-manager RM only.
-  status.v1.StatusIndication sol_session_status_indicator = 106 [(ent.field) = {optional: true}];
 
+  // Six-digit user-consent code entered by the operator from the device screen.
+  // Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT.
+  // Consumed (read then cleared) by kvm-manager.
+  // TODO: Remove persist desired_consent_code in the inventory DB in a future release.
+  string desired_consent_code = 106 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+    // Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR).
+  // Set by sol-manager RM only.
+  status.v1.StatusIndication sol_session_status_indicator = 107 [(ent.field) = {optional: true}];
+  
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true

@@ -137,6 +137,8 @@ type HostResource struct {
 	SolSessionURL string `json:"sol_session_url,omitempty"`
 	// SolSessionStatus holds the value of the "sol_session_status" field.
 	SolSessionStatus string `json:"sol_session_status,omitempty"`
+	// DesiredConsentCode holds the value of the "desired_consent_code" field.
+	DesiredConsentCode string `json:"desired_consent_code,omitempty"`
 	// SolSessionStatusIndicator holds the value of the "sol_session_status_indicator" field.
 	SolSessionStatusIndicator hostresource.SolSessionStatusIndicator `json:"sol_session_status_indicator,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
@@ -251,7 +253,7 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp, hostresource.FieldUserLvmSize:
 			values[i] = new(sql.NullInt64)
-		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtControlMode, hostresource.FieldAmtDNSSuffix, hostresource.FieldSolStatus, hostresource.FieldDesiredSolState, hostresource.FieldCurrentSolState, hostresource.FieldSolSessionURL, hostresource.FieldSolSessionStatus, hostresource.FieldSolSessionStatusIndicator, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
+		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtControlMode, hostresource.FieldAmtDNSSuffix, hostresource.FieldSolStatus, hostresource.FieldDesiredSolState, hostresource.FieldCurrentSolState, hostresource.FieldSolSessionURL, hostresource.FieldSolSessionStatus, hostresource.FieldDesiredConsentCode, hostresource.FieldSolSessionStatusIndicator, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case hostresource.ForeignKeys[0]: // host_resource_site
 			values[i] = new(sql.NullInt64)
@@ -634,6 +636,12 @@ func (_m *HostResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.SolSessionStatus = value.String
 			}
+		case hostresource.FieldDesiredConsentCode:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field desired_consent_code", values[i])
+			} else if value.Valid {
+				_m.DesiredConsentCode = value.String
+			}
 		case hostresource.FieldSolSessionStatusIndicator:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sol_session_status_indicator", values[i])
@@ -926,6 +934,9 @@ func (_m *HostResource) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("sol_session_status=")
 	builder.WriteString(_m.SolSessionStatus)
+	builder.WriteString(", ")
+	builder.WriteString("desired_consent_code=")
+	builder.WriteString(_m.DesiredConsentCode)
 	builder.WriteString(", ")
 	builder.WriteString("sol_session_status_indicator=")
 	builder.WriteString(fmt.Sprintf("%v", _m.SolSessionStatusIndicator))

@@ -258,6 +258,11 @@ func SolSessionStatus(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldSolSessionStatus, v))
 }
 
+// DesiredConsentCode applies equality check predicate on the "desired_consent_code" field. It's identical to DesiredConsentCodeEQ.
+func DesiredConsentCode(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldDesiredConsentCode, v))
+}
+
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
 func TenantID(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldTenantID, v))
@@ -3601,6 +3606,81 @@ func SolSessionStatusEqualFold(v string) predicate.HostResource {
 // SolSessionStatusContainsFold applies the ContainsFold predicate on the "sol_session_status" field.
 func SolSessionStatusContainsFold(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldContainsFold(FieldSolSessionStatus, v))
+}
+
+// DesiredConsentCodeEQ applies the EQ predicate on the "desired_consent_code" field.
+func DesiredConsentCodeEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeNEQ applies the NEQ predicate on the "desired_consent_code" field.
+func DesiredConsentCodeNEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeIn applies the In predicate on the "desired_consent_code" field.
+func DesiredConsentCodeIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldDesiredConsentCode, vs...))
+}
+
+// DesiredConsentCodeNotIn applies the NotIn predicate on the "desired_consent_code" field.
+func DesiredConsentCodeNotIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldDesiredConsentCode, vs...))
+}
+
+// DesiredConsentCodeGT applies the GT predicate on the "desired_consent_code" field.
+func DesiredConsentCodeGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeGTE applies the GTE predicate on the "desired_consent_code" field.
+func DesiredConsentCodeGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeLT applies the LT predicate on the "desired_consent_code" field.
+func DesiredConsentCodeLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeLTE applies the LTE predicate on the "desired_consent_code" field.
+func DesiredConsentCodeLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeContains applies the Contains predicate on the "desired_consent_code" field.
+func DesiredConsentCodeContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeHasPrefix applies the HasPrefix predicate on the "desired_consent_code" field.
+func DesiredConsentCodeHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeHasSuffix applies the HasSuffix predicate on the "desired_consent_code" field.
+func DesiredConsentCodeHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeIsNil applies the IsNil predicate on the "desired_consent_code" field.
+func DesiredConsentCodeIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldDesiredConsentCode))
+}
+
+// DesiredConsentCodeNotNil applies the NotNil predicate on the "desired_consent_code" field.
+func DesiredConsentCodeNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldDesiredConsentCode))
+}
+
+// DesiredConsentCodeEqualFold applies the EqualFold predicate on the "desired_consent_code" field.
+func DesiredConsentCodeEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldDesiredConsentCode, v))
+}
+
+// DesiredConsentCodeContainsFold applies the ContainsFold predicate on the "desired_consent_code" field.
+func DesiredConsentCodeContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldDesiredConsentCode, v))
 }
 
 // SolSessionStatusIndicatorEQ applies the EQ predicate on the "sol_session_status_indicator" field.

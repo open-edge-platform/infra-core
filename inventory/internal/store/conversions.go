@@ -435,6 +435,7 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
 		AmtStatusTimestamp:          host.AmtStatusTimestamp,
 		UserLvmSize:                 host.UserLvmSize,
+		DesiredConsentCode:          host.DesiredConsentCode,
 		TenantId:                    host.TenantID,
 		CreatedAt:                   host.CreatedAt,
 		UpdatedAt:                   host.UpdatedAt,

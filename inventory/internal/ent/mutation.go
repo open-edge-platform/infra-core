@@ -1625,6 +1625,7 @@ type HostResourceMutation struct {
 	current_sol_state                *hostresource.CurrentSolState
 	sol_session_url                  *string
 	sol_session_status               *string
+	desired_consent_code             *string
 	sol_session_status_indicator     *hostresource.SolSessionStatusIndicator
 	tenant_id                        *string
 	created_at                       *string
@@ -4860,6 +4861,55 @@ func (m *HostResourceMutation) ResetSolSessionStatus() {
 	delete(m.clearedFields, hostresource.FieldSolSessionStatus)
 }
 
+// SetDesiredConsentCode sets the "desired_consent_code" field.
+func (m *HostResourceMutation) SetDesiredConsentCode(s string) {
+	m.desired_consent_code = &s
+}
+
+// DesiredConsentCode returns the value of the "desired_consent_code" field in the mutation.
+func (m *HostResourceMutation) DesiredConsentCode() (r string, exists bool) {
+	v := m.desired_consent_code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDesiredConsentCode returns the old "desired_consent_code" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldDesiredConsentCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDesiredConsentCode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDesiredConsentCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDesiredConsentCode: %w", err)
+	}
+	return oldValue.DesiredConsentCode, nil
+}
+
+// ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
+func (m *HostResourceMutation) ClearDesiredConsentCode() {
+	m.desired_consent_code = nil
+	m.clearedFields[hostresource.FieldDesiredConsentCode] = struct{}{}
+}
+
+// DesiredConsentCodeCleared returns if the "desired_consent_code" field was cleared in this mutation.
+func (m *HostResourceMutation) DesiredConsentCodeCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldDesiredConsentCode]
+	return ok
+}
+
+// ResetDesiredConsentCode resets all changes to the "desired_consent_code" field.
+func (m *HostResourceMutation) ResetDesiredConsentCode() {
+	m.desired_consent_code = nil
+	delete(m.clearedFields, hostresource.FieldDesiredConsentCode)
+}
+
 // SetSolSessionStatusIndicator sets the "sol_session_status_indicator" field.
 func (m *HostResourceMutation) SetSolSessionStatusIndicator(hssi hostresource.SolSessionStatusIndicator) {
 	m.sol_session_status_indicator = &hssi
@@ -5384,7 +5434,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 63)
+	fields := make([]string, 0, 64)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -5562,6 +5612,9 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.sol_session_status != nil {
 		fields = append(fields, hostresource.FieldSolSessionStatus)
 	}
+	if m.desired_consent_code != nil {
+		fields = append(fields, hostresource.FieldDesiredConsentCode)
+	}
 	if m.sol_session_status_indicator != nil {
 		fields = append(fields, hostresource.FieldSolSessionStatusIndicator)
 	}
@@ -5700,6 +5753,8 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.SolSessionURL()
 	case hostresource.FieldSolSessionStatus:
 		return m.SolSessionStatus()
+	case hostresource.FieldDesiredConsentCode:
+		return m.DesiredConsentCode()
 	case hostresource.FieldSolSessionStatusIndicator:
 		return m.SolSessionStatusIndicator()
 	case hostresource.FieldTenantID:
@@ -5835,6 +5890,8 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldSolSessionURL(ctx)
 	case hostresource.FieldSolSessionStatus:
 		return m.OldSolSessionStatus(ctx)
+	case hostresource.FieldDesiredConsentCode:
+		return m.OldDesiredConsentCode(ctx)
 	case hostresource.FieldSolSessionStatusIndicator:
 		return m.OldSolSessionStatusIndicator(ctx)
 	case hostresource.FieldTenantID:
@@ -6265,6 +6322,13 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetSolSessionStatus(v)
 		return nil
+	case hostresource.FieldDesiredConsentCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDesiredConsentCode(v)
+		return nil
 	case hostresource.FieldSolSessionStatusIndicator:
 		v, ok := value.(hostresource.SolSessionStatusIndicator)
 		if !ok {
@@ -6632,6 +6696,9 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(hostresource.FieldSolSessionStatus) {
 		fields = append(fields, hostresource.FieldSolSessionStatus)
 	}
+	if m.FieldCleared(hostresource.FieldDesiredConsentCode) {
+		fields = append(fields, hostresource.FieldDesiredConsentCode)
+	}
 	if m.FieldCleared(hostresource.FieldSolSessionStatusIndicator) {
 		fields = append(fields, hostresource.FieldSolSessionStatusIndicator)
 	}
@@ -6823,6 +6890,9 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldSolSessionStatus:
 		m.ClearSolSessionStatus()
 		return nil
+	case hostresource.FieldDesiredConsentCode:
+		m.ClearDesiredConsentCode()
+		return nil
 	case hostresource.FieldSolSessionStatusIndicator:
 		m.ClearSolSessionStatusIndicator()
 		return nil
@@ -7010,6 +7080,9 @@ func (m *HostResourceMutation) ResetField(name string) error {
 		return nil
 	case hostresource.FieldSolSessionStatus:
 		m.ResetSolSessionStatus()
+		return nil
+	case hostresource.FieldDesiredConsentCode:
+		m.ResetDesiredConsentCode()
 		return nil
 	case hostresource.FieldSolSessionStatusIndicator:
 		m.ResetSolSessionStatusIndicator()

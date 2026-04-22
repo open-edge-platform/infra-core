@@ -72,6 +72,7 @@ const (
 	HostResourceFieldCurrentSolState             = "current_sol_state"
 	HostResourceFieldSolSessionUrl               = "sol_session_url"
 	HostResourceFieldSolSessionStatus            = "sol_session_status"
+	HostResourceFieldDesiredConsentCode          = "desired_consent_code"
 	HostResourceFieldSolSessionStatusIndicator   = "sol_session_status_indicator"
 	HostResourceFieldTenantId                    = "tenant_id"
 	HostResourceFieldCreatedAt                   = "created_at"
