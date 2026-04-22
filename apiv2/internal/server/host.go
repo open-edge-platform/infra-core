@@ -247,13 +247,13 @@ func fromInvHostStatus(
 	host.AmtStatusTimestamp = amtStatusTimestamp
 	host.AmtDnsSuffix = amtDNSSuffix
 
-	host.KvmStatus = ptr(computev1.KvmStatus(invHost.GetKvmStatus().String()))
-	host.CurrentKvmState = ptr(computev1.KvmState(invHost.GetCurrentKvmState().String()))
-	host.KvmSessionStatus = ptr(invHost.GetKvmSessionStatus())
+	host.KvmStatus = computev1.KvmStatus(invHost.GetKvmStatus())
+	host.CurrentKvmState = computev1.KvmState(invHost.GetCurrentKvmState())
+	host.KvmSessionStatus = invHost.GetKvmSessionStatus()
 
-	host.SolStatus = ptr(computev1.SolStatus(invHost.GetSolStatus().String()))
-	host.CurrentSolState = ptr(computev1.SolState(invHost.GetCurrentSolState().String()))
-	host.SolSessionStatus = ptr(invHost.GetSolSessionStatus())
+	host.SolStatus = computev1.SolStatus(invHost.GetSolStatus())
+	host.CurrentSolState = computev1.SolState(invHost.GetCurrentSolState())
+	host.SolSessionStatus = invHost.GetSolSessionStatus()
 }
 
 func fromInvHostEdges(
