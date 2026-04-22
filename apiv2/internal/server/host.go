@@ -43,6 +43,7 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
 	computev1.HostResourceFieldAmtControlMode:     inv_computev1.HostResourceFieldAmtControlMode,
 	computev1.HostResourceFieldAmtDnsSuffix:       inv_computev1.HostResourceFieldAmtDnsSuffix,
+	computev1.HostResourceFieldDesiredConsentCode: inv_computev1.HostResourceFieldDesiredConsentCode,
 }
 
 var (
@@ -184,6 +185,7 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		AmtControlMode:     inv_computev1.AmtControlMode(host.GetAmtControlMode()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
+		DesiredConsentCode: host.GetDesiredConsentCode(),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -321,6 +323,7 @@ func fromInvHost(
 		AmtDnsSuffix:       invHost.GetAmtDnsSuffix(),
 		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
+		DesiredConsentCode: invHost.GetDesiredConsentCode(),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
 		Metadata:           metadata,

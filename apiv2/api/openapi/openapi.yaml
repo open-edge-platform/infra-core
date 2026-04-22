@@ -16278,6 +16278,11 @@ components:
           title: amt_dns_suffix
           maxLength: 1024
           description: (OPTIONAL) textual message that describes dns_suffix for ACM mode.
+        desiredConsentCode:
+          type: string
+          title: desired_consent_code
+          pattern: ^[0-9]{6}$
+          description: '(OPTIONAL) '
         siteId:
           type: string
           title: site_id
