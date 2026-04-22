@@ -103,7 +103,7 @@ enum SolState {
   SOL_STATE_AWAITING_CONSENT = 3; // Current only: sol-manager triggered consent; waiting for operator to enter 6-digit code.
   SOL_STATE_ERROR = 4; // Current only: sol-manager encountered an error.
   SOL_STATE_CONSENT_RECEIVED = 5; // Desired only: orch-cli has submitted the consent code directly to MPS; sol-manager proceeds to token acquisition.
-  SOL_STATE_REDIRECTION_RECEIVED = 6; // Desired only: orch-cli has obtained the redirect token directly from MPS; kvm-manager updates current state to SOL_STATE_START.
+  SOL_STATE_REDIRECTION_RECEIVED = 6; // Desired only: orch-cli has obtained the redirect token directly from MPS; sol-manager updates current state to SOL_STATE_START.
 }
 
 // SolStatus reflects whether a SOL remote session is currently active on the host.
@@ -299,7 +299,7 @@ message HostResource {
   // SOL remote session activation status. Transitions to ACTIVATED on SOL_STATE_START; DEACTIVATED on SOL_STATE_STOP or SOL_STATE_ERROR.
   SolStatus sol_status = 106 [(ent.field) = {optional: true}];
 
-  // Desired SOL session state. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED.
+  // Desired SOL session state. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED.
   SolState desired_sol_state = 109 [(ent.field) = {optional: true}];
 
   // Current SOL session state. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR.

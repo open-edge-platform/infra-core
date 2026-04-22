@@ -774,16 +774,114 @@ func (_c *HostResourceCreate) SetNillableAmtDNSSuffix(v *string) *HostResourceCr
 	return _c
 }
 
-// SetDesiredConsentCode sets the "desired_consent_code" field.
-func (_c *HostResourceCreate) SetDesiredConsentCode(v string) *HostResourceCreate {
-	_c.mutation.SetDesiredConsentCode(v)
+// SetKvmStatus sets the "kvm_status" field.
+func (_c *HostResourceCreate) SetKvmStatus(v hostresource.KvmStatus) *HostResourceCreate {
+	_c.mutation.SetKvmStatus(v)
 	return _c
 }
 
-// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
-func (_c *HostResourceCreate) SetNillableDesiredConsentCode(v *string) *HostResourceCreate {
+// SetNillableKvmStatus sets the "kvm_status" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableKvmStatus(v *hostresource.KvmStatus) *HostResourceCreate {
 	if v != nil {
-		_c.SetDesiredConsentCode(*v)
+		_c.SetKvmStatus(*v)
+	}
+	return _c
+}
+
+// SetDesiredKvmState sets the "desired_kvm_state" field.
+func (_c *HostResourceCreate) SetDesiredKvmState(v hostresource.DesiredKvmState) *HostResourceCreate {
+	_c.mutation.SetDesiredKvmState(v)
+	return _c
+}
+
+// SetNillableDesiredKvmState sets the "desired_kvm_state" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableDesiredKvmState(v *hostresource.DesiredKvmState) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredKvmState(*v)
+	}
+	return _c
+}
+
+// SetCurrentKvmState sets the "current_kvm_state" field.
+func (_c *HostResourceCreate) SetCurrentKvmState(v hostresource.CurrentKvmState) *HostResourceCreate {
+	_c.mutation.SetCurrentKvmState(v)
+	return _c
+}
+
+// SetNillableCurrentKvmState sets the "current_kvm_state" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableCurrentKvmState(v *hostresource.CurrentKvmState) *HostResourceCreate {
+	if v != nil {
+		_c.SetCurrentKvmState(*v)
+	}
+	return _c
+}
+
+// SetKvmSessionStatus sets the "kvm_session_status" field.
+func (_c *HostResourceCreate) SetKvmSessionStatus(v string) *HostResourceCreate {
+	_c.mutation.SetKvmSessionStatus(v)
+	return _c
+}
+
+// SetNillableKvmSessionStatus sets the "kvm_session_status" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableKvmSessionStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetKvmSessionStatus(*v)
+	}
+	return _c
+}
+
+// SetSolStatus sets the "sol_status" field.
+func (_c *HostResourceCreate) SetSolStatus(v hostresource.SolStatus) *HostResourceCreate {
+	_c.mutation.SetSolStatus(v)
+	return _c
+}
+
+// SetNillableSolStatus sets the "sol_status" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableSolStatus(v *hostresource.SolStatus) *HostResourceCreate {
+	if v != nil {
+		_c.SetSolStatus(*v)
+	}
+	return _c
+}
+
+// SetDesiredSolState sets the "desired_sol_state" field.
+func (_c *HostResourceCreate) SetDesiredSolState(v hostresource.DesiredSolState) *HostResourceCreate {
+	_c.mutation.SetDesiredSolState(v)
+	return _c
+}
+
+// SetNillableDesiredSolState sets the "desired_sol_state" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableDesiredSolState(v *hostresource.DesiredSolState) *HostResourceCreate {
+	if v != nil {
+		_c.SetDesiredSolState(*v)
+	}
+	return _c
+}
+
+// SetCurrentSolState sets the "current_sol_state" field.
+func (_c *HostResourceCreate) SetCurrentSolState(v hostresource.CurrentSolState) *HostResourceCreate {
+	_c.mutation.SetCurrentSolState(v)
+	return _c
+}
+
+// SetNillableCurrentSolState sets the "current_sol_state" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableCurrentSolState(v *hostresource.CurrentSolState) *HostResourceCreate {
+	if v != nil {
+		_c.SetCurrentSolState(*v)
+	}
+	return _c
+}
+
+// SetSolSessionStatus sets the "sol_session_status" field.
+func (_c *HostResourceCreate) SetSolSessionStatus(v string) *HostResourceCreate {
+	_c.mutation.SetSolSessionStatus(v)
+	return _c
+}
+
+// SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
+func (_c *HostResourceCreate) SetNillableSolSessionStatus(v *string) *HostResourceCreate {
+	if v != nil {
+		_c.SetSolSessionStatus(*v)
 	}
 	return _c
 }
@@ -1033,6 +1131,36 @@ func (_c *HostResourceCreate) check() error {
 	if v, ok := _c.mutation.AmtControlMode(); ok {
 		if err := hostresource.AmtControlModeValidator(v); err != nil {
 			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.KvmStatus(); ok {
+		if err := hostresource.KvmStatusValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_status": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.DesiredKvmState(); ok {
+		if err := hostresource.DesiredKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.CurrentKvmState(); ok {
+		if err := hostresource.CurrentKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.SolStatus(); ok {
+		if err := hostresource.SolStatusValidator(v); err != nil {
+			return &ValidationError{Name: "sol_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_status": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.DesiredSolState(); ok {
+		if err := hostresource.DesiredSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_sol_state": %w`, err)}
+		}
+	}
+	if v, ok := _c.mutation.CurrentSolState(); ok {
+		if err := hostresource.CurrentSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
 		}
 	}
 	if _, ok := _c.mutation.TenantID(); !ok {
@@ -1286,9 +1414,37 @@ func (_c *HostResourceCreate) createSpec() (*HostResource, *sqlgraph.CreateSpec)
 		_spec.SetField(hostresource.FieldAmtDNSSuffix, field.TypeString, value)
 		_node.AmtDNSSuffix = value
 	}
-	if value, ok := _c.mutation.DesiredConsentCode(); ok {
-		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
-		_node.DesiredConsentCode = value
+	if value, ok := _c.mutation.KvmStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmStatus, field.TypeEnum, value)
+		_node.KvmStatus = value
+	}
+	if value, ok := _c.mutation.DesiredKvmState(); ok {
+		_spec.SetField(hostresource.FieldDesiredKvmState, field.TypeEnum, value)
+		_node.DesiredKvmState = value
+	}
+	if value, ok := _c.mutation.CurrentKvmState(); ok {
+		_spec.SetField(hostresource.FieldCurrentKvmState, field.TypeEnum, value)
+		_node.CurrentKvmState = value
+	}
+	if value, ok := _c.mutation.KvmSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatus, field.TypeString, value)
+		_node.KvmSessionStatus = value
+	}
+	if value, ok := _c.mutation.SolStatus(); ok {
+		_spec.SetField(hostresource.FieldSolStatus, field.TypeEnum, value)
+		_node.SolStatus = value
+	}
+	if value, ok := _c.mutation.DesiredSolState(); ok {
+		_spec.SetField(hostresource.FieldDesiredSolState, field.TypeEnum, value)
+		_node.DesiredSolState = value
+	}
+	if value, ok := _c.mutation.CurrentSolState(); ok {
+		_spec.SetField(hostresource.FieldCurrentSolState, field.TypeEnum, value)
+		_node.CurrentSolState = value
+	}
+	if value, ok := _c.mutation.SolSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
+		_node.SolSessionStatus = value
 	}
 	if value, ok := _c.mutation.TenantID(); ok {
 		_spec.SetField(hostresource.FieldTenantID, field.TypeString, value)

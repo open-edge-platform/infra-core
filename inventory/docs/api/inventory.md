@@ -50,9 +50,13 @@
     - [HostState](#compute-v1-HostState)
     - [InstanceKind](#compute-v1-InstanceKind)
     - [InstanceState](#compute-v1-InstanceState)
+    - [KvmState](#compute-v1-KvmState)
+    - [KvmStatus](#compute-v1-KvmStatus)
     - [NetworkInterfaceLinkState](#compute-v1-NetworkInterfaceLinkState)
     - [PowerCommandPolicy](#compute-v1-PowerCommandPolicy)
     - [PowerState](#compute-v1-PowerState)
+    - [SolState](#compute-v1-SolState)
+    - [SolStatus](#compute-v1-SolStatus)
     - [UpdatePolicy](#compute-v1-UpdatePolicy)
     - [WorkloadKind](#compute-v1-WorkloadKind)
     - [WorkloadMemberKind](#compute-v1-WorkloadMemberKind)
@@ -588,7 +592,14 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | amt_control_mode | [AmtControlMode](#compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
-| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator from the device screen. Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager. TODO: Remove persist desired_consent_code in the inventory DB in a future release. |
+| kvm_status | [KvmStatus](#compute-v1-KvmStatus) |  | KVM remote session activation status. Transitions to ACTIVATED on KVM_STATE_START; DEACTIVATED on KVM_STATE_STOP or KVM_STATE_ERROR. |
+| desired_kvm_state | [KvmState](#compute-v1-KvmState) |  | Desired KVM session state. Valid values: KVM_STATE_START, KVM_STATE_STOP, KVM_CONSENT_RECEIVED, KVM_REDIRECTION_RECEIVED. |
+| current_kvm_state | [KvmState](#compute-v1-KvmState) |  | Current KVM session state. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR. |
+| kvm_session_status | [string](#string) |  | Human-readable status message describing the current KVM session state. |
+| sol_status | [SolStatus](#compute-v1-SolStatus) |  | SOL remote session activation status. Transitions to ACTIVATED on SOL_STATE_START; DEACTIVATED on SOL_STATE_STOP or SOL_STATE_ERROR. |
+| desired_sol_state | [SolState](#compute-v1-SolState) |  | Desired SOL session state. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED. |
+| current_sol_state | [SolState](#compute-v1-SolState) |  | Current SOL session state. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR. |
+| sol_session_status | [string](#string) |  | Human-readable status message describing the current SOL session state. |
 | tenant_id | [string](#string) |  | Tenant Identifier |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
@@ -995,6 +1006,38 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 
 
 
+<a name="compute-v1-KvmState"></a>
+
+### KvmState
+KVM session state — the desired and current lifecycle state of a KVM remote session.
+Used for both desired_kvm_state (user-writable) and current_kvm_state (kvm-manager-set).
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATE_UNSPECIFIED | 0 |  |
+| KVM_STATE_START | 1 | Desired: operator requests session start. Current: session is active. |
+| KVM_STATE_STOP | 2 | Desired: operator requests session teardown. Current: terminated cleanly. |
+| KVM_STATE_AWAITING_CONSENT | 3 | Current only: kvm-manager triggered consent; waiting for operator to enter 6-digit code. |
+| KVM_STATE_ERROR | 4 | Current only: kvm-manager encountered an error. |
+| KVM_STATE_CONSENT_RECEIVED | 5 | Desired only: orch-cli has submitted the consent code directly to MPS; kvm-manager proceeds to token acquisition. |
+| KVM_STATE_REDIRECTION_RECEIVED | 6 | Desired only: orch-cli has obtained the redirect token directly from MPS; kvm-manager updates current state to KVM_STATE_START. |
+
+
+
+<a name="compute-v1-KvmStatus"></a>
+
+### KvmStatus
+KvmStatus reflects whether a KVM remote session is currently active on the host.
+Set by kvm-manager when transitioning session states: ACTIVATED on KVM_STATE_START, DEACTIVATED on KVM_STATE_STOP or KVM_STATE_ERROR.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATUS_UNSPECIFIED | 0 |  |
+| KVM_STATUS_ACTIVATED | 1 | A KVM remote session is currently active. |
+| KVM_STATUS_DEACTIVATED | 2 | No KVM remote session is active. |
+
+
+
 <a name="compute-v1-NetworkInterfaceLinkState"></a>
 
 ### NetworkInterfaceLinkState
@@ -1036,6 +1079,38 @@ Represents a generic way to group compute resources (e.g., cluster, DHCP...).
 | POWER_STATE_RESET | 6 |  |
 | POWER_STATE_POWER_CYCLE | 7 |  |
 | POWER_STATE_RESET_REPEAT | 8 | For consecutive reset operations |
+
+
+
+<a name="compute-v1-SolState"></a>
+
+### SolState
+SOL session state — the desired and current lifecycle state of a SOL remote session.
+Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SOL_STATE_UNSPECIFIED | 0 |  |
+| SOL_STATE_START | 1 | Desired: operator requests session start. Current: session is active. |
+| SOL_STATE_STOP | 2 | Desired: operator requests session teardown. Current: terminated cleanly. |
+| SOL_STATE_AWAITING_CONSENT | 3 | Current only: sol-manager triggered consent; waiting for operator to enter 6-digit code. |
+| SOL_STATE_ERROR | 4 | Current only: sol-manager encountered an error. |
+| SOL_STATE_CONSENT_RECEIVED | 5 | Desired only: orch-cli has submitted the consent code directly to MPS; sol-manager proceeds to token acquisition. |
+| SOL_STATE_REDIRECTION_RECEIVED | 6 | Desired only: orch-cli has obtained the redirect token directly from MPS; sol-manager updates current state to SOL_STATE_START. |
+
+
+
+<a name="compute-v1-SolStatus"></a>
+
+### SolStatus
+SolStatus reflects whether a SOL remote session is currently active on the host.
+Transitions to ACTIVATED on SOL_STATE_START; DEACTIVATED on SOL_STATE_STOP or SOL_STATE_ERROR.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SOL_STATUS_UNSPECIFIED | 0 |  |
+| SOL_STATUS_ACTIVATED | 1 | A SOL remote session is currently active. |
+| SOL_STATUS_DEACTIVATED | 2 | No SOL remote session is active. |
 
 
 

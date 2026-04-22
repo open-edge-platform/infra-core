@@ -1620,7 +1620,14 @@ type HostResourceMutation struct {
 	adduser_lvm_size                 *int32
 	amt_control_mode                 *hostresource.AmtControlMode
 	amt_dns_suffix                   *string
-	desired_consent_code             *string
+	kvm_status                       *hostresource.KvmStatus
+	desired_kvm_state                *hostresource.DesiredKvmState
+	current_kvm_state                *hostresource.CurrentKvmState
+	kvm_session_status               *string
+	sol_status                       *hostresource.SolStatus
+	desired_sol_state                *hostresource.DesiredSolState
+	current_sol_state                *hostresource.CurrentSolState
+	sol_session_status               *string
 	tenant_id                        *string
 	created_at                       *string
 	updated_at                       *string
@@ -4610,53 +4617,396 @@ func (m *HostResourceMutation) ResetAmtDNSSuffix() {
 	delete(m.clearedFields, hostresource.FieldAmtDNSSuffix)
 }
 
-// SetDesiredConsentCode sets the "desired_consent_code" field.
-func (m *HostResourceMutation) SetDesiredConsentCode(s string) {
-	m.desired_consent_code = &s
+// SetKvmStatus sets the "kvm_status" field.
+func (m *HostResourceMutation) SetKvmStatus(hs hostresource.KvmStatus) {
+	m.kvm_status = &hs
 }
 
-// DesiredConsentCode returns the value of the "desired_consent_code" field in the mutation.
-func (m *HostResourceMutation) DesiredConsentCode() (r string, exists bool) {
-	v := m.desired_consent_code
+// KvmStatus returns the value of the "kvm_status" field in the mutation.
+func (m *HostResourceMutation) KvmStatus() (r hostresource.KvmStatus, exists bool) {
+	v := m.kvm_status
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldDesiredConsentCode returns the old "desired_consent_code" field's value of the HostResource entity.
+// OldKvmStatus returns the old "kvm_status" field's value of the HostResource entity.
 // If the HostResource object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *HostResourceMutation) OldDesiredConsentCode(ctx context.Context) (v string, err error) {
+func (m *HostResourceMutation) OldKvmStatus(ctx context.Context) (v hostresource.KvmStatus, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldDesiredConsentCode is only allowed on UpdateOne operations")
+		return v, errors.New("OldKvmStatus is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldDesiredConsentCode requires an ID field in the mutation")
+		return v, errors.New("OldKvmStatus requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldDesiredConsentCode: %w", err)
+		return v, fmt.Errorf("querying old value for OldKvmStatus: %w", err)
 	}
-	return oldValue.DesiredConsentCode, nil
+	return oldValue.KvmStatus, nil
 }
 
-// ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
-func (m *HostResourceMutation) ClearDesiredConsentCode() {
-	m.desired_consent_code = nil
-	m.clearedFields[hostresource.FieldDesiredConsentCode] = struct{}{}
+// ClearKvmStatus clears the value of the "kvm_status" field.
+func (m *HostResourceMutation) ClearKvmStatus() {
+	m.kvm_status = nil
+	m.clearedFields[hostresource.FieldKvmStatus] = struct{}{}
 }
 
-// DesiredConsentCodeCleared returns if the "desired_consent_code" field was cleared in this mutation.
-func (m *HostResourceMutation) DesiredConsentCodeCleared() bool {
-	_, ok := m.clearedFields[hostresource.FieldDesiredConsentCode]
+// KvmStatusCleared returns if the "kvm_status" field was cleared in this mutation.
+func (m *HostResourceMutation) KvmStatusCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldKvmStatus]
 	return ok
 }
 
-// ResetDesiredConsentCode resets all changes to the "desired_consent_code" field.
-func (m *HostResourceMutation) ResetDesiredConsentCode() {
-	m.desired_consent_code = nil
-	delete(m.clearedFields, hostresource.FieldDesiredConsentCode)
+// ResetKvmStatus resets all changes to the "kvm_status" field.
+func (m *HostResourceMutation) ResetKvmStatus() {
+	m.kvm_status = nil
+	delete(m.clearedFields, hostresource.FieldKvmStatus)
+}
+
+// SetDesiredKvmState sets the "desired_kvm_state" field.
+func (m *HostResourceMutation) SetDesiredKvmState(hks hostresource.DesiredKvmState) {
+	m.desired_kvm_state = &hks
+}
+
+// DesiredKvmState returns the value of the "desired_kvm_state" field in the mutation.
+func (m *HostResourceMutation) DesiredKvmState() (r hostresource.DesiredKvmState, exists bool) {
+	v := m.desired_kvm_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDesiredKvmState returns the old "desired_kvm_state" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldDesiredKvmState(ctx context.Context) (v hostresource.DesiredKvmState, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDesiredKvmState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDesiredKvmState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDesiredKvmState: %w", err)
+	}
+	return oldValue.DesiredKvmState, nil
+}
+
+// ClearDesiredKvmState clears the value of the "desired_kvm_state" field.
+func (m *HostResourceMutation) ClearDesiredKvmState() {
+	m.desired_kvm_state = nil
+	m.clearedFields[hostresource.FieldDesiredKvmState] = struct{}{}
+}
+
+// DesiredKvmStateCleared returns if the "desired_kvm_state" field was cleared in this mutation.
+func (m *HostResourceMutation) DesiredKvmStateCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldDesiredKvmState]
+	return ok
+}
+
+// ResetDesiredKvmState resets all changes to the "desired_kvm_state" field.
+func (m *HostResourceMutation) ResetDesiredKvmState() {
+	m.desired_kvm_state = nil
+	delete(m.clearedFields, hostresource.FieldDesiredKvmState)
+}
+
+// SetCurrentKvmState sets the "current_kvm_state" field.
+func (m *HostResourceMutation) SetCurrentKvmState(hks hostresource.CurrentKvmState) {
+	m.current_kvm_state = &hks
+}
+
+// CurrentKvmState returns the value of the "current_kvm_state" field in the mutation.
+func (m *HostResourceMutation) CurrentKvmState() (r hostresource.CurrentKvmState, exists bool) {
+	v := m.current_kvm_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCurrentKvmState returns the old "current_kvm_state" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldCurrentKvmState(ctx context.Context) (v hostresource.CurrentKvmState, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCurrentKvmState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCurrentKvmState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCurrentKvmState: %w", err)
+	}
+	return oldValue.CurrentKvmState, nil
+}
+
+// ClearCurrentKvmState clears the value of the "current_kvm_state" field.
+func (m *HostResourceMutation) ClearCurrentKvmState() {
+	m.current_kvm_state = nil
+	m.clearedFields[hostresource.FieldCurrentKvmState] = struct{}{}
+}
+
+// CurrentKvmStateCleared returns if the "current_kvm_state" field was cleared in this mutation.
+func (m *HostResourceMutation) CurrentKvmStateCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldCurrentKvmState]
+	return ok
+}
+
+// ResetCurrentKvmState resets all changes to the "current_kvm_state" field.
+func (m *HostResourceMutation) ResetCurrentKvmState() {
+	m.current_kvm_state = nil
+	delete(m.clearedFields, hostresource.FieldCurrentKvmState)
+}
+
+// SetKvmSessionStatus sets the "kvm_session_status" field.
+func (m *HostResourceMutation) SetKvmSessionStatus(s string) {
+	m.kvm_session_status = &s
+}
+
+// KvmSessionStatus returns the value of the "kvm_session_status" field in the mutation.
+func (m *HostResourceMutation) KvmSessionStatus() (r string, exists bool) {
+	v := m.kvm_session_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldKvmSessionStatus returns the old "kvm_session_status" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldKvmSessionStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldKvmSessionStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldKvmSessionStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldKvmSessionStatus: %w", err)
+	}
+	return oldValue.KvmSessionStatus, nil
+}
+
+// ClearKvmSessionStatus clears the value of the "kvm_session_status" field.
+func (m *HostResourceMutation) ClearKvmSessionStatus() {
+	m.kvm_session_status = nil
+	m.clearedFields[hostresource.FieldKvmSessionStatus] = struct{}{}
+}
+
+// KvmSessionStatusCleared returns if the "kvm_session_status" field was cleared in this mutation.
+func (m *HostResourceMutation) KvmSessionStatusCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldKvmSessionStatus]
+	return ok
+}
+
+// ResetKvmSessionStatus resets all changes to the "kvm_session_status" field.
+func (m *HostResourceMutation) ResetKvmSessionStatus() {
+	m.kvm_session_status = nil
+	delete(m.clearedFields, hostresource.FieldKvmSessionStatus)
+}
+
+// SetSolStatus sets the "sol_status" field.
+func (m *HostResourceMutation) SetSolStatus(hs hostresource.SolStatus) {
+	m.sol_status = &hs
+}
+
+// SolStatus returns the value of the "sol_status" field in the mutation.
+func (m *HostResourceMutation) SolStatus() (r hostresource.SolStatus, exists bool) {
+	v := m.sol_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSolStatus returns the old "sol_status" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldSolStatus(ctx context.Context) (v hostresource.SolStatus, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSolStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSolStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSolStatus: %w", err)
+	}
+	return oldValue.SolStatus, nil
+}
+
+// ClearSolStatus clears the value of the "sol_status" field.
+func (m *HostResourceMutation) ClearSolStatus() {
+	m.sol_status = nil
+	m.clearedFields[hostresource.FieldSolStatus] = struct{}{}
+}
+
+// SolStatusCleared returns if the "sol_status" field was cleared in this mutation.
+func (m *HostResourceMutation) SolStatusCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldSolStatus]
+	return ok
+}
+
+// ResetSolStatus resets all changes to the "sol_status" field.
+func (m *HostResourceMutation) ResetSolStatus() {
+	m.sol_status = nil
+	delete(m.clearedFields, hostresource.FieldSolStatus)
+}
+
+// SetDesiredSolState sets the "desired_sol_state" field.
+func (m *HostResourceMutation) SetDesiredSolState(hss hostresource.DesiredSolState) {
+	m.desired_sol_state = &hss
+}
+
+// DesiredSolState returns the value of the "desired_sol_state" field in the mutation.
+func (m *HostResourceMutation) DesiredSolState() (r hostresource.DesiredSolState, exists bool) {
+	v := m.desired_sol_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDesiredSolState returns the old "desired_sol_state" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldDesiredSolState(ctx context.Context) (v hostresource.DesiredSolState, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDesiredSolState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDesiredSolState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDesiredSolState: %w", err)
+	}
+	return oldValue.DesiredSolState, nil
+}
+
+// ClearDesiredSolState clears the value of the "desired_sol_state" field.
+func (m *HostResourceMutation) ClearDesiredSolState() {
+	m.desired_sol_state = nil
+	m.clearedFields[hostresource.FieldDesiredSolState] = struct{}{}
+}
+
+// DesiredSolStateCleared returns if the "desired_sol_state" field was cleared in this mutation.
+func (m *HostResourceMutation) DesiredSolStateCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldDesiredSolState]
+	return ok
+}
+
+// ResetDesiredSolState resets all changes to the "desired_sol_state" field.
+func (m *HostResourceMutation) ResetDesiredSolState() {
+	m.desired_sol_state = nil
+	delete(m.clearedFields, hostresource.FieldDesiredSolState)
+}
+
+// SetCurrentSolState sets the "current_sol_state" field.
+func (m *HostResourceMutation) SetCurrentSolState(hss hostresource.CurrentSolState) {
+	m.current_sol_state = &hss
+}
+
+// CurrentSolState returns the value of the "current_sol_state" field in the mutation.
+func (m *HostResourceMutation) CurrentSolState() (r hostresource.CurrentSolState, exists bool) {
+	v := m.current_sol_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCurrentSolState returns the old "current_sol_state" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldCurrentSolState(ctx context.Context) (v hostresource.CurrentSolState, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCurrentSolState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCurrentSolState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCurrentSolState: %w", err)
+	}
+	return oldValue.CurrentSolState, nil
+}
+
+// ClearCurrentSolState clears the value of the "current_sol_state" field.
+func (m *HostResourceMutation) ClearCurrentSolState() {
+	m.current_sol_state = nil
+	m.clearedFields[hostresource.FieldCurrentSolState] = struct{}{}
+}
+
+// CurrentSolStateCleared returns if the "current_sol_state" field was cleared in this mutation.
+func (m *HostResourceMutation) CurrentSolStateCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldCurrentSolState]
+	return ok
+}
+
+// ResetCurrentSolState resets all changes to the "current_sol_state" field.
+func (m *HostResourceMutation) ResetCurrentSolState() {
+	m.current_sol_state = nil
+	delete(m.clearedFields, hostresource.FieldCurrentSolState)
+}
+
+// SetSolSessionStatus sets the "sol_session_status" field.
+func (m *HostResourceMutation) SetSolSessionStatus(s string) {
+	m.sol_session_status = &s
+}
+
+// SolSessionStatus returns the value of the "sol_session_status" field in the mutation.
+func (m *HostResourceMutation) SolSessionStatus() (r string, exists bool) {
+	v := m.sol_session_status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSolSessionStatus returns the old "sol_session_status" field's value of the HostResource entity.
+// If the HostResource object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *HostResourceMutation) OldSolSessionStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSolSessionStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSolSessionStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSolSessionStatus: %w", err)
+	}
+	return oldValue.SolSessionStatus, nil
+}
+
+// ClearSolSessionStatus clears the value of the "sol_session_status" field.
+func (m *HostResourceMutation) ClearSolSessionStatus() {
+	m.sol_session_status = nil
+	m.clearedFields[hostresource.FieldSolSessionStatus] = struct{}{}
+}
+
+// SolSessionStatusCleared returns if the "sol_session_status" field was cleared in this mutation.
+func (m *HostResourceMutation) SolSessionStatusCleared() bool {
+	_, ok := m.clearedFields[hostresource.FieldSolSessionStatus]
+	return ok
+}
+
+// ResetSolSessionStatus resets all changes to the "sol_session_status" field.
+func (m *HostResourceMutation) ResetSolSessionStatus() {
+	m.sol_session_status = nil
+	delete(m.clearedFields, hostresource.FieldSolSessionStatus)
 }
 
 // SetTenantID sets the "tenant_id" field.
@@ -5134,7 +5484,7 @@ func (m *HostResourceMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *HostResourceMutation) Fields() []string {
-	fields := make([]string, 0, 58)
+	fields := make([]string, 0, 65)
 	if m.resource_id != nil {
 		fields = append(fields, hostresource.FieldResourceID)
 	}
@@ -5297,8 +5647,29 @@ func (m *HostResourceMutation) Fields() []string {
 	if m.amt_dns_suffix != nil {
 		fields = append(fields, hostresource.FieldAmtDNSSuffix)
 	}
-	if m.desired_consent_code != nil {
-		fields = append(fields, hostresource.FieldDesiredConsentCode)
+	if m.kvm_status != nil {
+		fields = append(fields, hostresource.FieldKvmStatus)
+	}
+	if m.desired_kvm_state != nil {
+		fields = append(fields, hostresource.FieldDesiredKvmState)
+	}
+	if m.current_kvm_state != nil {
+		fields = append(fields, hostresource.FieldCurrentKvmState)
+	}
+	if m.kvm_session_status != nil {
+		fields = append(fields, hostresource.FieldKvmSessionStatus)
+	}
+	if m.sol_status != nil {
+		fields = append(fields, hostresource.FieldSolStatus)
+	}
+	if m.desired_sol_state != nil {
+		fields = append(fields, hostresource.FieldDesiredSolState)
+	}
+	if m.current_sol_state != nil {
+		fields = append(fields, hostresource.FieldCurrentSolState)
+	}
+	if m.sol_session_status != nil {
+		fields = append(fields, hostresource.FieldSolSessionStatus)
 	}
 	if m.tenant_id != nil {
 		fields = append(fields, hostresource.FieldTenantID)
@@ -5425,8 +5796,22 @@ func (m *HostResourceMutation) Field(name string) (ent.Value, bool) {
 		return m.AmtControlMode()
 	case hostresource.FieldAmtDNSSuffix:
 		return m.AmtDNSSuffix()
-	case hostresource.FieldDesiredConsentCode:
-		return m.DesiredConsentCode()
+	case hostresource.FieldKvmStatus:
+		return m.KvmStatus()
+	case hostresource.FieldDesiredKvmState:
+		return m.DesiredKvmState()
+	case hostresource.FieldCurrentKvmState:
+		return m.CurrentKvmState()
+	case hostresource.FieldKvmSessionStatus:
+		return m.KvmSessionStatus()
+	case hostresource.FieldSolStatus:
+		return m.SolStatus()
+	case hostresource.FieldDesiredSolState:
+		return m.DesiredSolState()
+	case hostresource.FieldCurrentSolState:
+		return m.CurrentSolState()
+	case hostresource.FieldSolSessionStatus:
+		return m.SolSessionStatus()
 	case hostresource.FieldTenantID:
 		return m.TenantID()
 	case hostresource.FieldCreatedAt:
@@ -5550,8 +5935,22 @@ func (m *HostResourceMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldAmtControlMode(ctx)
 	case hostresource.FieldAmtDNSSuffix:
 		return m.OldAmtDNSSuffix(ctx)
-	case hostresource.FieldDesiredConsentCode:
-		return m.OldDesiredConsentCode(ctx)
+	case hostresource.FieldKvmStatus:
+		return m.OldKvmStatus(ctx)
+	case hostresource.FieldDesiredKvmState:
+		return m.OldDesiredKvmState(ctx)
+	case hostresource.FieldCurrentKvmState:
+		return m.OldCurrentKvmState(ctx)
+	case hostresource.FieldKvmSessionStatus:
+		return m.OldKvmSessionStatus(ctx)
+	case hostresource.FieldSolStatus:
+		return m.OldSolStatus(ctx)
+	case hostresource.FieldDesiredSolState:
+		return m.OldDesiredSolState(ctx)
+	case hostresource.FieldCurrentSolState:
+		return m.OldCurrentSolState(ctx)
+	case hostresource.FieldSolSessionStatus:
+		return m.OldSolSessionStatus(ctx)
 	case hostresource.FieldTenantID:
 		return m.OldTenantID(ctx)
 	case hostresource.FieldCreatedAt:
@@ -5945,12 +6344,61 @@ func (m *HostResourceMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetAmtDNSSuffix(v)
 		return nil
-	case hostresource.FieldDesiredConsentCode:
+	case hostresource.FieldKvmStatus:
+		v, ok := value.(hostresource.KvmStatus)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetKvmStatus(v)
+		return nil
+	case hostresource.FieldDesiredKvmState:
+		v, ok := value.(hostresource.DesiredKvmState)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDesiredKvmState(v)
+		return nil
+	case hostresource.FieldCurrentKvmState:
+		v, ok := value.(hostresource.CurrentKvmState)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCurrentKvmState(v)
+		return nil
+	case hostresource.FieldKvmSessionStatus:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetDesiredConsentCode(v)
+		m.SetKvmSessionStatus(v)
+		return nil
+	case hostresource.FieldSolStatus:
+		v, ok := value.(hostresource.SolStatus)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSolStatus(v)
+		return nil
+	case hostresource.FieldDesiredSolState:
+		v, ok := value.(hostresource.DesiredSolState)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDesiredSolState(v)
+		return nil
+	case hostresource.FieldCurrentSolState:
+		v, ok := value.(hostresource.CurrentSolState)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCurrentSolState(v)
+		return nil
+	case hostresource.FieldSolSessionStatus:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSolSessionStatus(v)
 		return nil
 	case hostresource.FieldTenantID:
 		v, ok := value.(string)
@@ -6297,8 +6745,29 @@ func (m *HostResourceMutation) ClearedFields() []string {
 	if m.FieldCleared(hostresource.FieldAmtDNSSuffix) {
 		fields = append(fields, hostresource.FieldAmtDNSSuffix)
 	}
-	if m.FieldCleared(hostresource.FieldDesiredConsentCode) {
-		fields = append(fields, hostresource.FieldDesiredConsentCode)
+	if m.FieldCleared(hostresource.FieldKvmStatus) {
+		fields = append(fields, hostresource.FieldKvmStatus)
+	}
+	if m.FieldCleared(hostresource.FieldDesiredKvmState) {
+		fields = append(fields, hostresource.FieldDesiredKvmState)
+	}
+	if m.FieldCleared(hostresource.FieldCurrentKvmState) {
+		fields = append(fields, hostresource.FieldCurrentKvmState)
+	}
+	if m.FieldCleared(hostresource.FieldKvmSessionStatus) {
+		fields = append(fields, hostresource.FieldKvmSessionStatus)
+	}
+	if m.FieldCleared(hostresource.FieldSolStatus) {
+		fields = append(fields, hostresource.FieldSolStatus)
+	}
+	if m.FieldCleared(hostresource.FieldDesiredSolState) {
+		fields = append(fields, hostresource.FieldDesiredSolState)
+	}
+	if m.FieldCleared(hostresource.FieldCurrentSolState) {
+		fields = append(fields, hostresource.FieldCurrentSolState)
+	}
+	if m.FieldCleared(hostresource.FieldSolSessionStatus) {
+		fields = append(fields, hostresource.FieldSolSessionStatus)
 	}
 	return fields
 }
@@ -6473,8 +6942,29 @@ func (m *HostResourceMutation) ClearField(name string) error {
 	case hostresource.FieldAmtDNSSuffix:
 		m.ClearAmtDNSSuffix()
 		return nil
-	case hostresource.FieldDesiredConsentCode:
-		m.ClearDesiredConsentCode()
+	case hostresource.FieldKvmStatus:
+		m.ClearKvmStatus()
+		return nil
+	case hostresource.FieldDesiredKvmState:
+		m.ClearDesiredKvmState()
+		return nil
+	case hostresource.FieldCurrentKvmState:
+		m.ClearCurrentKvmState()
+		return nil
+	case hostresource.FieldKvmSessionStatus:
+		m.ClearKvmSessionStatus()
+		return nil
+	case hostresource.FieldSolStatus:
+		m.ClearSolStatus()
+		return nil
+	case hostresource.FieldDesiredSolState:
+		m.ClearDesiredSolState()
+		return nil
+	case hostresource.FieldCurrentSolState:
+		m.ClearCurrentSolState()
+		return nil
+	case hostresource.FieldSolSessionStatus:
+		m.ClearSolSessionStatus()
 		return nil
 	}
 	return fmt.Errorf("unknown HostResource nullable field %s", name)
@@ -6646,8 +7136,29 @@ func (m *HostResourceMutation) ResetField(name string) error {
 	case hostresource.FieldAmtDNSSuffix:
 		m.ResetAmtDNSSuffix()
 		return nil
-	case hostresource.FieldDesiredConsentCode:
-		m.ResetDesiredConsentCode()
+	case hostresource.FieldKvmStatus:
+		m.ResetKvmStatus()
+		return nil
+	case hostresource.FieldDesiredKvmState:
+		m.ResetDesiredKvmState()
+		return nil
+	case hostresource.FieldCurrentKvmState:
+		m.ResetCurrentKvmState()
+		return nil
+	case hostresource.FieldKvmSessionStatus:
+		m.ResetKvmSessionStatus()
+		return nil
+	case hostresource.FieldSolStatus:
+		m.ResetSolStatus()
+		return nil
+	case hostresource.FieldDesiredSolState:
+		m.ResetDesiredSolState()
+		return nil
+	case hostresource.FieldCurrentSolState:
+		m.ResetCurrentSolState()
+		return nil
+	case hostresource.FieldSolSessionStatus:
+		m.ResetSolSessionStatus()
 		return nil
 	case hostresource.FieldTenantID:
 		m.ResetTenantID()
