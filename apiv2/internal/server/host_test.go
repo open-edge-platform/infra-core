@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package server_test
@@ -123,7 +124,7 @@ var exampleInvHostResource = &inv_computev1.HostResource{
 		InstanceStatusIndicator:     inv_statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 		InstanceStatusTimestamp:     1234567890,
 	},
-	Metadata:                    `[{"key":"key1","value":"value1"}]`,
+	Metadata:                    `[{"label":{"key":"key1","value":"value1"}}]`,
 	OnboardingStatus:            "onboarding",
 	OnboardingStatusIndicator:   inv_statusv1.StatusIndication_STATUS_INDICATION_IDLE,
 	OnboardingStatusTimestamp:   1234567890,

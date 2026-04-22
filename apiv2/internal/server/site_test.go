@@ -44,7 +44,7 @@ var (
 		Name:       "example-site",
 		SiteLat:    377749,
 		SiteLng:    -1224194,
-		Metadata:   `[{"key":"environment","value":"production"},{"key":"location","value":"datacenter-1"}]`,
+		Metadata:   `[{"label":{"key":"environment","value":"production"}},{"label":{"key":"location","value":"datacenter-1"}}]`,
 		Region:     exampleInvRegion, // Using the region from region_test.go
 		TenantId:   "tenant-987654",
 		CreatedAt:  "2025-04-22T10:00:00Z",

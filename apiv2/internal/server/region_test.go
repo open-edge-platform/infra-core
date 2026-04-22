@@ -54,7 +54,7 @@ var (
 	exampleInvRegion = &inv_locationv1.RegionResource{
 		ResourceId:   "region-12345678",
 		Name:         "example-region",
-		Metadata:     `[{"key":"env","value":"test"}]`,
+		Metadata:     `[{"label":{"key":"env","value":"test"}}]`,
 		ParentRegion: exampleParentInvRegion,
 		TenantId:     "tenant-987654",
 		CreatedAt:    "2025-04-22T10:00:00Z",
@@ -158,7 +158,7 @@ func TestRegion_Get(t *testing.T) {
 								},
 							},
 							RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-								PhyMetadata: `[{"key":"org","value":"engineering"}]`,
+								PhyMetadata: `[{"label":{"key":"org","value":"engineering"}}]`,
 							},
 						}, nil).Once(),
 				}
@@ -235,7 +235,7 @@ func TestRegion_List(t *testing.T) {
 										},
 									},
 									RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-										PhyMetadata: `[{"key":"org","value":"engineering"}]`,
+										PhyMetadata: `[{"label":{"key":"org","value":"engineering"}}]`,
 									},
 								},
 							},
