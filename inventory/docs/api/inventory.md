@@ -597,7 +597,7 @@ textual message that describes the AMT status of Host. Set by DM RM only. |
 | kvm_session_url | [string](#string) |  | WebSocket relay URL for the active KVM session. Populated by kvm-manager when current_kvm_state transitions to KVM_STATE_START. Cleared to empty string on session end. Internal signal only. |
 | kvm_session_status | [string](#string) |  | Human-readable status message describing the current KVM session state. Set by kvm-manager RM only. |
 | kvm_session_status_indicator | [status.v1.StatusIndication](#status-v1-StatusIndication) |  | Indicates the severity/dynamicity of kvm_session_status. Set by kvm-manager RM only. |
-| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator from the device screen. Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager. |
+| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator from the device screen. Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager. TODO: Remove persist desired_consent_code in the inventory DB in a future release. |
 | created_at | [string](#string) |  | Creation timestamp |
 | updated_at | [string](#string) |  | Update timestamp |
 

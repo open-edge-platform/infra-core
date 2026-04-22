@@ -1029,6 +1029,7 @@ type HostResource struct {
 	// Six-digit user-consent code entered by the operator from the device screen.
 	// Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT.
 	// Consumed (read then cleared) by kvm-manager.
+	// TODO: Remove persist desired_consent_code in the inventory DB in a future release.
 	DesiredConsentCode string `protobuf:"bytes,106,opt,name=desired_consent_code,json=desiredConsentCode,proto3" json:"desired_consent_code,omitempty"`
 	CreatedAt          string `protobuf:"bytes,200,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"` // Creation timestamp
 	UpdatedAt          string `protobuf:"bytes,201,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"` // Update timestamp

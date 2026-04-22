@@ -1,4 +1,4 @@
-h1:iMb0AJXxSml7UwV4VIc2IxHCa6KDB4qm9wlLBG4wMUI=
+h1:UVlEbvZVgRua6eIug+K1M3OORJlFdNnmdLHOHq9a/sc=
 20230600000000_empty.sql h1:WTkYlwWwrdJjax+pXqrJYBNu1BIdqqnF9WoasjlGLUk=
 20250324165719_all.sql h1:YEGDRbDPwxh5fBkoaGAwXpPu3nDCsCDdrvTt2EzBekk=
 20250520125803_add_osprof_desc.sql h1:RQBqrgNfdTJlElMRdsizeMIRLsfw2Dq1LzzdiIV/JmE=
@@ -22,4 +22,4 @@ h1:iMb0AJXxSml7UwV4VIc2IxHCa6KDB4qm9wlLBG4wMUI=
 20251127155123_modify_OSUpdateRun_applied_policy_field.sql h1:HIrAbHZFtLI2j2pyiOVBbMj6BjQtnvYxAaAkl6PbRdw=
 20260127052128_modify_acm-ccm.sql h1:hl3kEP5gTAE8CBGSEMEs/3JKPL4PgM0JbejCLJTBnCM=
 20260202082730_modify_os_profile_name_image_id_unique_key.sql h1:iD5/FsBn19r+PNxGGzwAd93cBI+CIbcYCIyD/raMXWA=
-20260406100835_enable_kvm.sql h1:6H/NbYAYKBO4MP0d/rUTOH0wvlOj0uCcEXe2Ue2fEyk=
+20260422060735_enable_kvm_support.sql h1:qHGUrTB6yl62qzcBKzMtxiAWV1JzuIOPQzbn9iLcXPI=

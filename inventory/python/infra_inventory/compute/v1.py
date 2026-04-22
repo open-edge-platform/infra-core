@@ -273,6 +273,8 @@ class HostResource(betterproto.Message):
     # Six-digit user-consent code entered by the operator from the device screen.
     # Written by orch-cli via APIv2 when current_kvm_state =
     # KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager.
+    # TODO: Remove persist desired_consent_code in the inventory DB in a future
+    # release.
     desired_consent_code: str = betterproto.string_field(106)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
