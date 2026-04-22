@@ -90,8 +90,8 @@ enum KvmState {
   KVM_STATE_STOP = 2; // Desired: operator requests session teardown. Current: terminated cleanly.
   KVM_STATE_AWAITING_CONSENT = 3; // Current only: kvm-manager triggered consent; waiting for operator to enter 6-digit code.
   KVM_STATE_ERROR = 4; // Current only: kvm-manager encountered an error.
-  KVM_CONSENT_RECEIVED = 5; // Desired only: orch-cli has submitted the consent code directly to MPS; kvm-manager proceeds to token acquisition.
-  KVM_REDIRECTION_RECEIVED = 6; // Desired only: orch-cli has obtained the redirect token directly from MPS; kvm-manager updates current state to KVM_STATE_START.
+  KVM_STATE_CONSENT_RECEIVED = 5; // Desired only: orch-cli has submitted the consent code directly to MPS; kvm-manager proceeds to token acquisition.
+  KVM_STATE_REDIRECTION_RECEIVED = 6; // Desired only: orch-cli has obtained the redirect token directly from MPS; kvm-manager updates current state to KVM_STATE_START.
 }
 
 // SOL session state — the desired and current lifecycle state of a SOL remote session.
@@ -103,6 +103,7 @@ enum SolState {
   SOL_STATE_AWAITING_CONSENT = 3; // Current only: sol-manager triggered consent; waiting for operator to enter 6-digit code.
   SOL_STATE_ERROR = 4; // Current only: sol-manager encountered an error.
   SOL_STATE_CONSENT_RECEIVED = 5; // Desired only: orch-cli has submitted the consent code directly to MPS; sol-manager proceeds to token acquisition.
+  SOL_STATE_REDIRECTION_RECEIVED = 6; // Desired only: orch-cli has obtained the redirect token directly from MPS; kvm-manager updates current state to SOL_STATE_START.
 }
 
 // SolStatus reflects whether a SOL remote session is currently active on the host.
