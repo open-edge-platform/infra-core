@@ -228,6 +228,12 @@ class HostResource(betterproto.Message):
     user_lvm_size: int = betterproto.uint32_field(97)
     amt_control_mode: "AmtControlMode" = betterproto.enum_field(98)
     amt_dns_suffix: str = betterproto.string_field(99)
+    # Six-digit user-consent code entered by the operator from the device screen.
+    # Written by orch-cli via APIv2 when current_kvm_state =
+    # KVM_STATE_AWAITING_CONSENT. Consumed (read then cleared) by kvm-manager.
+    # TODO: Remove persist desired_consent_code in the inventory DB in a future
+    # release.
+    desired_consent_code: str = betterproto.string_field(106)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
