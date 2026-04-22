@@ -5,8 +5,6 @@ module github.com/open-edge-platform/infra-core/apiv2/v2
 
 go 1.25.7
 
-replace github.com/open-edge-platform/orch-library/go => ../../orch-library/go
-
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.11-20260209202127-80ab13bee0bf.1
 	github.com/getkin/kin-openapi v0.132.0
@@ -19,7 +17,7 @@ require (
 	github.com/labstack/echo/v4 v4.15.1
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.34.4
-	github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d
+	github.com/open-edge-platform/orch-library/go v0.6.4-0.20260420133059-5326600099ac
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.65.0
@@ -88,7 +86,7 @@ require (
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
-	github.com/jackc/pgx/v5 v5.8.0 // indirect
+	github.com/jackc/pgx/v5 v5.9.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
