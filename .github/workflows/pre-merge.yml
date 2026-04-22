@@ -91,7 +91,6 @@ jobs:
         project_folder: ${{ fromJson(needs.pre-checks.outputs.filtered_projects) }}
     uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@bf82f7924caaac6ba2f388b6ec6ac4edd65f48ee  # 2026.1.1
     with:
-      orch_ci_repo_ref: b5930c48c1fcdb6b34ffbcd465cff96dabfbde70
       bootstrap_tools: "all,golangci-lint2"
       run_security_scans: true
       run_version_check: true
