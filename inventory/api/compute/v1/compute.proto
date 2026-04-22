@@ -74,6 +74,45 @@ enum AmtControlMode {
   AMT_CONTROL_MODE_CCM = 2;
 }
 
+// KvmStatus reflects whether a KVM remote session is currently active on the host.
+// Set by kvm-manager when transitioning session states: ACTIVATED on KVM_STATE_START, DEACTIVATED on KVM_STATE_STOP or KVM_STATE_ERROR.
+enum KvmStatus {
+  KVM_STATUS_UNSPECIFIED = 0;
+  KVM_STATUS_ACTIVATED = 1; // A KVM remote session is currently active.
+  KVM_STATUS_DEACTIVATED = 2; // No KVM remote session is active.
+}
+
+// KVM session state — the desired and current lifecycle state of a KVM remote session.
+// Used for both desired_kvm_state (user-writable) and current_kvm_state (kvm-manager-set).
+enum KvmState {
+  KVM_STATE_UNSPECIFIED = 0;
+  KVM_STATE_START = 1; // Desired: operator requests session start. Current: session is active.
+  KVM_STATE_STOP = 2; // Desired: operator requests session teardown. Current: terminated cleanly.
+  KVM_STATE_AWAITING_CONSENT = 3; // Current only: kvm-manager triggered consent; waiting for operator to enter 6-digit code.
+  KVM_STATE_ERROR = 4; // Current only: kvm-manager encountered an error.
+  KVM_CONSENT_RECEIVED = 5; // Desired only: orch-cli has submitted the consent code directly to MPS; kvm-manager proceeds to token acquisition.
+  KVM_REDIRECTION_RECEIVED = 6; // Desired only: orch-cli has obtained the redirect token directly from MPS; kvm-manager updates current state to KVM_STATE_START.
+}
+
+// SOL session state — the desired and current lifecycle state of a SOL remote session.
+// Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+enum SolState {
+  SOL_STATE_UNSPECIFIED = 0;
+  SOL_STATE_START = 1; // Desired: operator requests session start. Current: session is active.
+  SOL_STATE_STOP = 2; // Desired: operator requests session teardown. Current: terminated cleanly.
+  SOL_STATE_AWAITING_CONSENT = 3; // Current only: sol-manager triggered consent; waiting for operator to enter 6-digit code.
+  SOL_STATE_ERROR = 4; // Current only: sol-manager encountered an error.
+  SOL_STATE_CONSENT_RECEIVED = 5; // Desired only: orch-cli has submitted the consent code directly to MPS; sol-manager proceeds to token acquisition.
+}
+
+// SolStatus reflects whether a SOL remote session is currently active on the host.
+// Transitions to ACTIVATED on SOL_STATE_START; DEACTIVATED on SOL_STATE_STOP or SOL_STATE_ERROR.
+enum SolStatus {
+  SOL_STATUS_UNSPECIFIED = 0;
+  SOL_STATUS_ACTIVATED = 1; // A SOL remote session is currently active.
+  SOL_STATUS_DEACTIVATED = 2; // No SOL remote session is active.
+}
+
 message HostResource {
   option (ent.schema) = {gen: true};
   option (infrainv.schemaExtension) = {
@@ -239,15 +278,39 @@ message HostResource {
     (buf.validate.field).string = {max_bytes: 1024},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // textual message that describes dns_suffix for ACM mode.
-  // Six-digit user-consent code entered by the operator from the device screen.
-  // Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT.
-  // Consumed (read then cleared) by kvm-manager.
-  // TODO: Remove persist desired_consent_code in the inventory DB in a future release.
-  string desired_consent_code = 106 [
+
+  // KVM remote session activation status. Transitions to ACTIVATED on KVM_STATE_START; DEACTIVATED on KVM_STATE_STOP or KVM_STATE_ERROR.
+  KvmStatus kvm_status = 88 [(ent.field) = {optional: true}];
+
+  // Desired KVM session state. Valid values: KVM_STATE_START, KVM_STATE_STOP, KVM_CONSENT_RECEIVED, KVM_REDIRECTION_RECEIVED.
+  KvmState desired_kvm_state = 101 [(ent.field) = {optional: true}];
+
+  // Current KVM session state. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR.
+  KvmState current_kvm_state = 102 [(ent.field) = {optional: true}];
+
+  // Human-readable status message describing the current KVM session state.
+  string kvm_session_status = 104 [
     (ent.field) = {optional: true},
-    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
+    (buf.validate.field).string = {max_bytes: 1024},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
+
+  // SOL remote session activation status. Transitions to ACTIVATED on SOL_STATE_START; DEACTIVATED on SOL_STATE_STOP or SOL_STATE_ERROR.
+  SolStatus sol_status = 106 [(ent.field) = {optional: true}];
+
+  // Desired SOL session state. Valid values: SOL_STATE_START, SOL_STATE_STOP, SOL_STATE_CONSENT_RECEIVED.
+  SolState desired_sol_state = 109 [(ent.field) = {optional: true}];
+
+  // Current SOL session state. Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR.
+  SolState current_sol_state = 110 [(ent.field) = {optional: true}];
+
+  // Human-readable status message describing the current SOL session state.
+  string sol_session_status = 112 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {max_bytes: 1024},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true
