@@ -37,14 +37,18 @@ var (
 
 	// Example region resources.
 	exampleAPIRegion = &locationv1.RegionResource{
-		ResourceId:        "region-12345678",
-		RegionID:          "region-12345678", // Alias of ResourceId
-		Name:              "example-region",
-		ParentRegion:      exampleParentAPIRegion,
-		ParentId:          "region-12345679",
-		Metadata:          []*commonv1.MetadataItem{{Key: "env", Value: "test"}},
-		InheritedMetadata: []*commonv1.MetadataItem{{Key: "org", Value: "engineering"}},
-		TotalSites:        0,
+		ResourceId:   "region-12345678",
+		RegionID:     "region-12345678", // Alias of ResourceId
+		Name:         "example-region",
+		ParentRegion: exampleParentAPIRegion,
+		ParentId:     "region-12345679",
+		Metadata: []*commonv1.MetadataItem{
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "env", Value: "test"}}},
+		},
+		InheritedMetadata: []*commonv1.MetadataItem{
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "org", Value: "engineering"}}},
+		},
+		TotalSites: 0,
 	}
 
 	exampleInvRegion = &inv_locationv1.RegionResource{

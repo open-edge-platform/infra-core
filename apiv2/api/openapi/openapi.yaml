@@ -15911,7 +15911,7 @@ components:
          the Joda Time's [`ISODateTimeFormat.dateTime()`](
          http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
          ) to obtain a formatter capable of generating timestamps in this format.
-    MetadataItem:
+    AnnotationItem:
       type: object
       properties:
         key:
@@ -15919,19 +15919,61 @@ components:
           title: key
           maxLength: 316
           pattern: ^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$
-          description: The metadata key.
+          description: The annotation key.
+        value:
+          type: string
+          title: value
+          maxLength: 4096
+          description: The annotation value.
+      title: AnnotationItem
+      required:
+        - key
+        - value
+      additionalProperties: false
+      description: An annotation item for larger configuration data.
+    LabelItem:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+          maxLength: 316
+          pattern: ^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$
+          description: The label key.
         value:
           type: string
           title: value
           maxLength: 63
           pattern: ^$|^[a-z0-9]$|^[a-z0-9][a-z0-9._-]*[a-z0-9]$
-          description: The metadata value.
-      title: MetadataItem
+          description: The label value.
+      title: LabelItem
       required:
         - key
         - value
       additionalProperties: false
-      description: A metadata item, represented by a key:value pair.
+      description: A label item for small key-value pairs used for selection and filtering.
+    MetadataItem:
+      type: object
+      oneOf:
+        - properties:
+            annotation:
+              title: annotation
+              description: An annotation for larger configuration data like kubeconfig.
+              $ref: '#/components/schemas/AnnotationItem'
+          title: annotation
+          required:
+            - annotation
+        - properties:
+            label:
+              title: label
+              description: A label for small key-value pairs used for selection and filtering.
+              $ref: '#/components/schemas/LabelItem'
+          title: label
+          required:
+            - label
+      title: MetadataItem
+      additionalProperties: false
+      description: A metadata item, represented by either a label or annotation.
     Timestamps:
       type: object
       properties:

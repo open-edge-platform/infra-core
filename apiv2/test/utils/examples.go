@@ -123,77 +123,105 @@ var (
 	updatePolicyLatest         = api.UPDATEPOLICYLATEST
 
 	MetadataR1 = []api.MetadataItem{
-		{
-			Key:   "examplekey",
-			Value: "r1",
-		}, {
-			Key:   "examplekey2",
-			Value: "r1",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "r1"}})
+			return item
+		}(),
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "r1"}})
+			return item
+		}(),
 	}
 	MetadataR2 = []api.MetadataItem{
-		{
-			Key:   "examplekey",
-			Value: "r2",
-		}, {
-			Key:   "examplekey2",
-			Value: "r2",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "r2"}})
+			return item
+		}(),
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "r2"}})
+			return item
+		}(),
 	}
 	MetadataR3 = []api.MetadataItem{
-		{
-			Key:   "examplekey",
-			Value: "r3",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "r3"}})
+			return item
+		}(),
 	}
 	MetadataR3Inherited = []api.MetadataItem{
-		{
-			Key:   "examplekey2",
-			Value: "r2",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "r2"}})
+			return item
+		}(),
 	}
 
 	MetadataSite2 = []api.MetadataItem{
-		{
-			Key:   "examplekey2",
-			Value: "site1",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "site1"}})
+			return item
+		}(),
 	}
 
 	MetadataHost1 = []api.MetadataItem{
-		{
-			Key:   "examplekey1",
-			Value: "host1",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey1", Value: "host1"}})
+			return item
+		}(),
 	}
 
 	MetadataHost2 = []api.MetadataItem{
-		{
-			Key:   "examplekey1",
-			Value: "host2",
-		},
-		{
-			Key:   "examplekey3",
-			Value: "host2",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey1", Value: "host2"}})
+			return item
+		}(),
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey3", Value: "host2"}})
+			return item
+		}(),
 	}
 
 	MetadataRightPattern = []api.MetadataItem{
-		{
-			Key:   "asd/ad.123",
-			Value: "site1-.ad",
-		},
-		{
-			Key:   "city",
-			Value: "test-region",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "asd/ad.123", Value: "site1-.ad"}})
+			return item
+		}(),
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "city", Value: "test-region"}})
+			return item
+		}(),
 	}
 
 	MetadataWrongPattern = []api.MetadataItem{
-		{
-			Key:   "/examplekey2",
-			Value: "-site1",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "/examplekey2", Value: "-site1"}})
+			return item
+		}(),
 	}
 
 	Host1UUID1       = "BFD3B398-9A4B-480D-AB53-4050ED108F5C"
@@ -269,33 +297,50 @@ var (
 	}
 
 	metadata = []api.MetadataItem{
-		{
-			Key:   "examplekey",
-			Value: "examplevalue",
-		}, {
-			Key:   "examplekey2",
-			Value: "examplevalue2",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+			return item
+		}(),
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+			return item
+		}(),
 	}
 
 	metadata1 = []api.MetadataItem{
-		{
-			Key:   "filtermetakey1",
-			Value: "filtermetavalue1",
-		}, {
-			Key:   "filtermetakey2",
-			Value: "filtermetavalue2",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "filtermetakey1", Value: "filtermetavalue1"}})
+			return item
+		}(),
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "filtermetakey2", Value: "filtermetavalue2"}})
+			return item
+		}(),
 	}
 
 	metadata2 = []api.MetadataItem{
-		{
-			Key:   "filtermetakey1",
-			Value: "filtermetavalue1",
-		}, {
-			Key:   "filtermetakey2",
-			Value: "filtermetavalue2_mod",
-		},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "filtermetakey1", Value: "filtermetavalue1"}})
+			return item
+		}(),
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{
+				Label: api.LabelItem{Key: "filtermetakey2", Value: "filtermetavalue2_mod"},
+			})
+			return item
+		}(),
 	}
 	AutoOnboardTrue  = true
 	AutoOnboardFalse = false
@@ -324,13 +369,18 @@ var (
 
 	Host1RequestUpdate = api.HostResource{
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Name:   Host2Name,
 		SiteId: &Site2Name,
@@ -339,13 +389,18 @@ var (
 
 	Host1RequestPatch = api.HostResource{
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Name: Host3Name,
 	}
@@ -367,13 +422,18 @@ var (
 
 	Host3Request = api.HostResource{
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Name:   Host1Name,
 		SiteId: &Site1Name,
@@ -387,13 +447,18 @@ var (
 
 	Host4RequestPut = api.HostResource{
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Name:   Host4Name,
 		SiteId: &Site1Name,
@@ -402,13 +467,18 @@ var (
 
 	Host4RequestPutMissingField = api.HostResource{
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Name:   Host4Name,
 		SiteId: &Site1Name,
@@ -417,13 +487,18 @@ var (
 
 	Host4RequestPatch = api.HostResource{
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Name:   Host4Name,
 		SiteId: &Site1Name,
@@ -431,13 +506,18 @@ var (
 
 	HostNonPrintable = api.HostResource{
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Name:   HostNameNonPrintable,
 		SiteId: &Site1Name,

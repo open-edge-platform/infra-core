@@ -638,7 +638,12 @@ func TestHostListFilterUUID(t *testing.T) {
 	CreateHost(ctx, t, apiClient, utils.Host2Request)
 
 	metadata := []api.MetadataItem{
-		{Key: "k", Value: "v"},
+		func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "k", Value: "v"}})
+			return item
+		}(),
 	}
 	// creating host #3
 	CreateHost(ctx, t, apiClient, api.HostResource{

@@ -1,5 +1,6 @@
 ---
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+#
 # SPDX-License-Identifier: Apache-2.0
 
 version: v1
@@ -10,6 +11,12 @@ deps:
 breaking:
   use:
     - FILE
+  except:
+    - FIELD_SAME_CARDINALITY
+    - FIELD_SAME_JSON_NAME
+    - FIELD_SAME_ONEOF
+    - FIELD_SAME_TYPE
+    - FIELD_SAME_NAME
 lint:
   use:
     - STANDARD

@@ -30,11 +30,11 @@ var (
 		SiteLat:    377749,
 		SiteLng:    -1224194,
 		Metadata: []*commonv1.MetadataItem{
-			{Key: "environment", Value: "production"},
-			{Key: "location", Value: "datacenter-1"},
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "environment", Value: "production"}}},
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "location", Value: "datacenter-1"}}},
 		},
 		InheritedMetadata: []*commonv1.MetadataItem{
-			{Key: "org", Value: "engineering"},
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "org", Value: "engineering"}}},
 		},
 	}
 

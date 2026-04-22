@@ -119,8 +119,17 @@ func GetAPIClient() (*api.ClientWithResponses, error) {
 
 func ListMetadataContains(lst []api.MetadataItem, key, value string) bool {
 	for _, v := range lst {
-		if v.Key == key && v.Value == value {
-			return true
+		// Try as label first
+		if labelItem, err := v.AsMetadataItem1(); err == nil {
+			if labelItem.Label.Key == key && labelItem.Label.Value == value {
+				return true
+			}
+		}
+		// Try as annotation
+		if annotationItem, err := v.AsMetadataItem0(); err == nil {
+			if annotationItem.Annotation.Key == key && annotationItem.Annotation.Value == value {
+				return true
+			}
 		}
 	}
 
