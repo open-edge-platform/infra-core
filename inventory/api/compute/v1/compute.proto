@@ -74,6 +74,23 @@ enum AmtControlMode {
   AMT_CONTROL_MODE_CCM = 2;
 }
 
+// KVM feature activation status on the AMT device.
+enum KvmStatus {
+  KVM_STATUS_UNSPECIFIED = 0;
+  KVM_STATUS_ACTIVATED = 1; // KVM feature is currently enabled on the AMT device.
+  KVM_STATUS_DEACTIVATED = 2; // KVM feature is currently disabled on the AMT device.
+}
+
+// KVM session state — the desired and current lifecycle state of a KVM remote session.
+// Used for both desired_kvm_state (user-writable) and current_kvm_state (kvm-manager-set).
+enum KvmState {
+  KVM_STATE_UNSPECIFIED = 0;
+  KVM_STATE_START = 1; // Desired: operator requests session start. Current: session is active.
+  KVM_STATE_STOP = 2; // Desired: operator requests session teardown. Current: terminated cleanly.
+  KVM_STATE_AWAITING_CONSENT = 3; // Current only: waiting for operator to enter the on-screen 6-digit code.
+  KVM_STATE_ERROR = 4; // Current only: kvm-manager encountered an error.
+}
+
 message HostResource {
   option (ent.schema) = {gen: true};
   option (infrainv.schemaExtension) = {
@@ -239,15 +256,6 @@ message HostResource {
     (buf.validate.field).string = {max_bytes: 1024},
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // textual message that describes dns_suffix for ACM mode.
-  // Six-digit user-consent code entered by the operator from the device screen.
-  // Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT.
-  // Consumed (read then cleared) by kvm-manager.
-  // TODO: Remove persist desired_consent_code in the inventory DB in a future release.
-  string desired_consent_code = 106 [
-    (ent.field) = {optional: true},
-    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
-    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
-  ];
   string tenant_id = 100 [
     (ent.field) = {
       immutable: true
@@ -259,6 +267,49 @@ message HostResource {
     },
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ]; // Tenant Identifier
+
+  // KVM feature activation status on the AMT device.
+  KvmStatus kvm_status = 88 [(ent.field) = {optional: true}];
+
+  // Desired KVM session state. Written by operator via APIv2 (orch-cli --kvm start|stop).
+  // Valid write values: KVM_STATE_START, KVM_STATE_STOP.
+  // Consumed by kvm-manager RM to drive the session lifecycle.
+  KvmState desired_kvm_state = 101 [(ent.field) = {optional: true}];
+
+  // Current KVM session state. Set by kvm-manager RM only.
+  // Lifecycle: UNSPECIFIED -> START -> [AWAITING_CONSENT -> START] | STOP | ERROR.
+  KvmState current_kvm_state = 102 [(ent.field) = {optional: true}];
+
+  // WebSocket relay URL for the active KVM session.
+  // Populated by kvm-manager when current_kvm_state transitions to KVM_STATE_START.
+  // Cleared to empty string on session end. Internal signal only.
+  string kvm_session_url = 103 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {max_bytes: 2048},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Human-readable status message describing the current KVM session state.
+  // Set by kvm-manager RM only.
+  string kvm_session_status = 104 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {max_bytes: 1024},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
+
+  // Indicates the severity/dynamicity of kvm_session_status.
+  // Set by kvm-manager RM only.
+  status.v1.StatusIndication kvm_session_status_indicator = 105 [(ent.field) = {optional: true}];
+
+  // Six-digit user-consent code entered by the operator from the device screen.
+  // Written by orch-cli via APIv2 when current_kvm_state = KVM_STATE_AWAITING_CONSENT.
+  // Consumed (read then cleared) by kvm-manager.
+  // TODO: Remove persist desired_consent_code in the inventory DB in a future release.
+  string desired_consent_code = 106 [
+    (ent.field) = {optional: true},
+    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
 
   string created_at = 200 [(ent.field) = {
     immutable: true

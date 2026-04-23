@@ -122,10 +122,22 @@ const (
 	FieldAmtControlMode = "amt_control_mode"
 	// FieldAmtDNSSuffix holds the string denoting the amt_dns_suffix field in the database.
 	FieldAmtDNSSuffix = "amt_dns_suffix"
-	// FieldDesiredConsentCode holds the string denoting the desired_consent_code field in the database.
-	FieldDesiredConsentCode = "desired_consent_code"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
+	// FieldKvmStatus holds the string denoting the kvm_status field in the database.
+	FieldKvmStatus = "kvm_status"
+	// FieldDesiredKvmState holds the string denoting the desired_kvm_state field in the database.
+	FieldDesiredKvmState = "desired_kvm_state"
+	// FieldCurrentKvmState holds the string denoting the current_kvm_state field in the database.
+	FieldCurrentKvmState = "current_kvm_state"
+	// FieldKvmSessionURL holds the string denoting the kvm_session_url field in the database.
+	FieldKvmSessionURL = "kvm_session_url"
+	// FieldKvmSessionStatus holds the string denoting the kvm_session_status field in the database.
+	FieldKvmSessionStatus = "kvm_session_status"
+	// FieldKvmSessionStatusIndicator holds the string denoting the kvm_session_status_indicator field in the database.
+	FieldKvmSessionStatusIndicator = "kvm_session_status_indicator"
+	// FieldDesiredConsentCode holds the string denoting the desired_consent_code field in the database.
+	FieldDesiredConsentCode = "desired_consent_code"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
@@ -254,8 +266,14 @@ var Columns = []string{
 	FieldUserLvmSize,
 	FieldAmtControlMode,
 	FieldAmtDNSSuffix,
-	FieldDesiredConsentCode,
 	FieldTenantID,
+	FieldKvmStatus,
+	FieldDesiredKvmState,
+	FieldCurrentKvmState,
+	FieldKvmSessionURL,
+	FieldKvmSessionStatus,
+	FieldKvmSessionStatusIndicator,
+	FieldDesiredConsentCode,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 }
@@ -666,6 +684,107 @@ func AmtControlModeValidator(acm AmtControlMode) error {
 	}
 }
 
+// KvmStatus defines the type for the "kvm_status" enum field.
+type KvmStatus string
+
+// KvmStatus values.
+const (
+	KvmStatusKVM_STATUS_UNSPECIFIED KvmStatus = "KVM_STATUS_UNSPECIFIED"
+	KvmStatusKVM_STATUS_ACTIVATED   KvmStatus = "KVM_STATUS_ACTIVATED"
+	KvmStatusKVM_STATUS_DEACTIVATED KvmStatus = "KVM_STATUS_DEACTIVATED"
+)
+
+func (ks KvmStatus) String() string {
+	return string(ks)
+}
+
+// KvmStatusValidator is a validator for the "kvm_status" field enum values. It is called by the builders before save.
+func KvmStatusValidator(ks KvmStatus) error {
+	switch ks {
+	case KvmStatusKVM_STATUS_UNSPECIFIED, KvmStatusKVM_STATUS_ACTIVATED, KvmStatusKVM_STATUS_DEACTIVATED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for kvm_status field: %q", ks)
+	}
+}
+
+// DesiredKvmState defines the type for the "desired_kvm_state" enum field.
+type DesiredKvmState string
+
+// DesiredKvmState values.
+const (
+	DesiredKvmStateKVM_STATE_UNSPECIFIED      DesiredKvmState = "KVM_STATE_UNSPECIFIED"
+	DesiredKvmStateKVM_STATE_START            DesiredKvmState = "KVM_STATE_START"
+	DesiredKvmStateKVM_STATE_STOP             DesiredKvmState = "KVM_STATE_STOP"
+	DesiredKvmStateKVM_STATE_AWAITING_CONSENT DesiredKvmState = "KVM_STATE_AWAITING_CONSENT"
+	DesiredKvmStateKVM_STATE_ERROR            DesiredKvmState = "KVM_STATE_ERROR"
+)
+
+func (dks DesiredKvmState) String() string {
+	return string(dks)
+}
+
+// DesiredKvmStateValidator is a validator for the "desired_kvm_state" field enum values. It is called by the builders before save.
+func DesiredKvmStateValidator(dks DesiredKvmState) error {
+	switch dks {
+	case DesiredKvmStateKVM_STATE_UNSPECIFIED, DesiredKvmStateKVM_STATE_START, DesiredKvmStateKVM_STATE_STOP, DesiredKvmStateKVM_STATE_AWAITING_CONSENT, DesiredKvmStateKVM_STATE_ERROR:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for desired_kvm_state field: %q", dks)
+	}
+}
+
+// CurrentKvmState defines the type for the "current_kvm_state" enum field.
+type CurrentKvmState string
+
+// CurrentKvmState values.
+const (
+	CurrentKvmStateKVM_STATE_UNSPECIFIED      CurrentKvmState = "KVM_STATE_UNSPECIFIED"
+	CurrentKvmStateKVM_STATE_START            CurrentKvmState = "KVM_STATE_START"
+	CurrentKvmStateKVM_STATE_STOP             CurrentKvmState = "KVM_STATE_STOP"
+	CurrentKvmStateKVM_STATE_AWAITING_CONSENT CurrentKvmState = "KVM_STATE_AWAITING_CONSENT"
+	CurrentKvmStateKVM_STATE_ERROR            CurrentKvmState = "KVM_STATE_ERROR"
+)
+
+func (cks CurrentKvmState) String() string {
+	return string(cks)
+}
+
+// CurrentKvmStateValidator is a validator for the "current_kvm_state" field enum values. It is called by the builders before save.
+func CurrentKvmStateValidator(cks CurrentKvmState) error {
+	switch cks {
+	case CurrentKvmStateKVM_STATE_UNSPECIFIED, CurrentKvmStateKVM_STATE_START, CurrentKvmStateKVM_STATE_STOP, CurrentKvmStateKVM_STATE_AWAITING_CONSENT, CurrentKvmStateKVM_STATE_ERROR:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for current_kvm_state field: %q", cks)
+	}
+}
+
+// KvmSessionStatusIndicator defines the type for the "kvm_session_status_indicator" enum field.
+type KvmSessionStatusIndicator string
+
+// KvmSessionStatusIndicator values.
+const (
+	KvmSessionStatusIndicatorSTATUS_INDICATION_UNSPECIFIED KvmSessionStatusIndicator = "STATUS_INDICATION_UNSPECIFIED"
+	KvmSessionStatusIndicatorSTATUS_INDICATION_ERROR       KvmSessionStatusIndicator = "STATUS_INDICATION_ERROR"
+	KvmSessionStatusIndicatorSTATUS_INDICATION_IN_PROGRESS KvmSessionStatusIndicator = "STATUS_INDICATION_IN_PROGRESS"
+	KvmSessionStatusIndicatorSTATUS_INDICATION_IDLE        KvmSessionStatusIndicator = "STATUS_INDICATION_IDLE"
+)
+
+func (kssi KvmSessionStatusIndicator) String() string {
+	return string(kssi)
+}
+
+// KvmSessionStatusIndicatorValidator is a validator for the "kvm_session_status_indicator" field enum values. It is called by the builders before save.
+func KvmSessionStatusIndicatorValidator(kssi KvmSessionStatusIndicator) error {
+	switch kssi {
+	case KvmSessionStatusIndicatorSTATUS_INDICATION_UNSPECIFIED, KvmSessionStatusIndicatorSTATUS_INDICATION_ERROR, KvmSessionStatusIndicatorSTATUS_INDICATION_IN_PROGRESS, KvmSessionStatusIndicatorSTATUS_INDICATION_IDLE:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for kvm_session_status_indicator field: %q", kssi)
+	}
+}
+
 // OrderOption defines the ordering options for the HostResource queries.
 type OrderOption func(*sql.Selector)
 
@@ -944,14 +1063,44 @@ func ByAmtDNSSuffix(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAmtDNSSuffix, opts...).ToFunc()
 }
 
-// ByDesiredConsentCode orders the results by the desired_consent_code field.
-func ByDesiredConsentCode(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDesiredConsentCode, opts...).ToFunc()
-}
-
 // ByTenantID orders the results by the tenant_id field.
 func ByTenantID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTenantID, opts...).ToFunc()
+}
+
+// ByKvmStatus orders the results by the kvm_status field.
+func ByKvmStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldKvmStatus, opts...).ToFunc()
+}
+
+// ByDesiredKvmState orders the results by the desired_kvm_state field.
+func ByDesiredKvmState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredKvmState, opts...).ToFunc()
+}
+
+// ByCurrentKvmState orders the results by the current_kvm_state field.
+func ByCurrentKvmState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCurrentKvmState, opts...).ToFunc()
+}
+
+// ByKvmSessionURL orders the results by the kvm_session_url field.
+func ByKvmSessionURL(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldKvmSessionURL, opts...).ToFunc()
+}
+
+// ByKvmSessionStatus orders the results by the kvm_session_status field.
+func ByKvmSessionStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldKvmSessionStatus, opts...).ToFunc()
+}
+
+// ByKvmSessionStatusIndicator orders the results by the kvm_session_status_indicator field.
+func ByKvmSessionStatusIndicator(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldKvmSessionStatusIndicator, opts...).ToFunc()
+}
+
+// ByDesiredConsentCode orders the results by the desired_consent_code field.
+func ByDesiredConsentCode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredConsentCode, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

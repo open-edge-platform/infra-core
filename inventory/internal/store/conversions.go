@@ -430,10 +430,18 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
 		AmtStatusTimestamp:          host.AmtStatusTimestamp,
 		UserLvmSize:                 host.UserLvmSize,
-		DesiredConsentCode:          host.DesiredConsentCode,
-		TenantId:                    host.TenantID,
-		CreatedAt:                   host.CreatedAt,
-		UpdatedAt:                   host.UpdatedAt,
+		KvmStatus:                   computev1.KvmStatus(computev1.KvmStatus_value[host.KvmStatus.String()]),
+		DesiredKvmState:             computev1.KvmState(computev1.KvmState_value[host.DesiredKvmState.String()]),
+		CurrentKvmState:             computev1.KvmState(computev1.KvmState_value[host.CurrentKvmState.String()]),
+		KvmSessionUrl:               host.KvmSessionURL,
+		KvmSessionStatus:            host.KvmSessionStatus,
+		KvmSessionStatusIndicator: statusv1.StatusIndication(
+			statusv1.StatusIndication_value[host.KvmSessionStatusIndicator.String()]),
+
+		DesiredConsentCode: host.DesiredConsentCode,
+		TenantId:           host.TenantID,
+		CreatedAt:          host.CreatedAt,
+		UpdatedAt:          host.UpdatedAt,
 	}
 	// Convert the edges recursively.
 	if site, qerr := host.Edges.SiteOrErr(); qerr == nil {

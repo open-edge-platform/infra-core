@@ -1185,6 +1185,126 @@ func (_u *HostResourceUpdate) ClearAmtDNSSuffix() *HostResourceUpdate {
 	return _u
 }
 
+// SetKvmStatus sets the "kvm_status" field.
+func (_u *HostResourceUpdate) SetKvmStatus(v hostresource.KvmStatus) *HostResourceUpdate {
+	_u.mutation.SetKvmStatus(v)
+	return _u
+}
+
+// SetNillableKvmStatus sets the "kvm_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableKvmStatus(v *hostresource.KvmStatus) *HostResourceUpdate {
+	if v != nil {
+		_u.SetKvmStatus(*v)
+	}
+	return _u
+}
+
+// ClearKvmStatus clears the value of the "kvm_status" field.
+func (_u *HostResourceUpdate) ClearKvmStatus() *HostResourceUpdate {
+	_u.mutation.ClearKvmStatus()
+	return _u
+}
+
+// SetDesiredKvmState sets the "desired_kvm_state" field.
+func (_u *HostResourceUpdate) SetDesiredKvmState(v hostresource.DesiredKvmState) *HostResourceUpdate {
+	_u.mutation.SetDesiredKvmState(v)
+	return _u
+}
+
+// SetNillableDesiredKvmState sets the "desired_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableDesiredKvmState(v *hostresource.DesiredKvmState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetDesiredKvmState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredKvmState clears the value of the "desired_kvm_state" field.
+func (_u *HostResourceUpdate) ClearDesiredKvmState() *HostResourceUpdate {
+	_u.mutation.ClearDesiredKvmState()
+	return _u
+}
+
+// SetCurrentKvmState sets the "current_kvm_state" field.
+func (_u *HostResourceUpdate) SetCurrentKvmState(v hostresource.CurrentKvmState) *HostResourceUpdate {
+	_u.mutation.SetCurrentKvmState(v)
+	return _u
+}
+
+// SetNillableCurrentKvmState sets the "current_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableCurrentKvmState(v *hostresource.CurrentKvmState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetCurrentKvmState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentKvmState clears the value of the "current_kvm_state" field.
+func (_u *HostResourceUpdate) ClearCurrentKvmState() *HostResourceUpdate {
+	_u.mutation.ClearCurrentKvmState()
+	return _u
+}
+
+// SetKvmSessionURL sets the "kvm_session_url" field.
+func (_u *HostResourceUpdate) SetKvmSessionURL(v string) *HostResourceUpdate {
+	_u.mutation.SetKvmSessionURL(v)
+	return _u
+}
+
+// SetNillableKvmSessionURL sets the "kvm_session_url" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableKvmSessionURL(v *string) *HostResourceUpdate {
+	if v != nil {
+		_u.SetKvmSessionURL(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionURL clears the value of the "kvm_session_url" field.
+func (_u *HostResourceUpdate) ClearKvmSessionURL() *HostResourceUpdate {
+	_u.mutation.ClearKvmSessionURL()
+	return _u
+}
+
+// SetKvmSessionStatus sets the "kvm_session_status" field.
+func (_u *HostResourceUpdate) SetKvmSessionStatus(v string) *HostResourceUpdate {
+	_u.mutation.SetKvmSessionStatus(v)
+	return _u
+}
+
+// SetNillableKvmSessionStatus sets the "kvm_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableKvmSessionStatus(v *string) *HostResourceUpdate {
+	if v != nil {
+		_u.SetKvmSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionStatus clears the value of the "kvm_session_status" field.
+func (_u *HostResourceUpdate) ClearKvmSessionStatus() *HostResourceUpdate {
+	_u.mutation.ClearKvmSessionStatus()
+	return _u
+}
+
+// SetKvmSessionStatusIndicator sets the "kvm_session_status_indicator" field.
+func (_u *HostResourceUpdate) SetKvmSessionStatusIndicator(v hostresource.KvmSessionStatusIndicator) *HostResourceUpdate {
+	_u.mutation.SetKvmSessionStatusIndicator(v)
+	return _u
+}
+
+// SetNillableKvmSessionStatusIndicator sets the "kvm_session_status_indicator" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableKvmSessionStatusIndicator(v *hostresource.KvmSessionStatusIndicator) *HostResourceUpdate {
+	if v != nil {
+		_u.SetKvmSessionStatusIndicator(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionStatusIndicator clears the value of the "kvm_session_status_indicator" field.
+func (_u *HostResourceUpdate) ClearKvmSessionStatusIndicator() *HostResourceUpdate {
+	_u.mutation.ClearKvmSessionStatusIndicator()
+	return _u
+}
+
 // SetDesiredConsentCode sets the "desired_consent_code" field.
 func (_u *HostResourceUpdate) SetDesiredConsentCode(v string) *HostResourceUpdate {
 	_u.mutation.SetDesiredConsentCode(v)
@@ -1545,6 +1665,26 @@ func (_u *HostResourceUpdate) check() error {
 	if v, ok := _u.mutation.AmtControlMode(); ok {
 		if err := hostresource.AmtControlModeValidator(v); err != nil {
 			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.KvmStatus(); ok {
+		if err := hostresource.KvmStatusValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredKvmState(); ok {
+		if err := hostresource.DesiredKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentKvmState(); ok {
+		if err := hostresource.CurrentKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.KvmSessionStatusIndicator(); ok {
+		if err := hostresource.KvmSessionStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_session_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_session_status_indicator": %w`, err)}
 		}
 	}
 	return nil
@@ -1915,6 +2055,42 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 	}
 	if _u.mutation.AmtDNSSuffixCleared() {
 		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
+	}
+	if value, ok := _u.mutation.KvmStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmStatus, field.TypeEnum, value)
+	}
+	if _u.mutation.KvmStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredKvmState(); ok {
+		_spec.SetField(hostresource.FieldDesiredKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentKvmState(); ok {
+		_spec.SetField(hostresource.FieldCurrentKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.KvmSessionURL(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionURL, field.TypeString, value)
+	}
+	if _u.mutation.KvmSessionURLCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionURL, field.TypeString)
+	}
+	if value, ok := _u.mutation.KvmSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.KvmSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionStatus, field.TypeString)
+	}
+	if value, ok := _u.mutation.KvmSessionStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatusIndicator, field.TypeEnum, value)
+	}
+	if _u.mutation.KvmSessionStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionStatusIndicator, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.DesiredConsentCode(); ok {
 		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
@@ -3363,6 +3539,126 @@ func (_u *HostResourceUpdateOne) ClearAmtDNSSuffix() *HostResourceUpdateOne {
 	return _u
 }
 
+// SetKvmStatus sets the "kvm_status" field.
+func (_u *HostResourceUpdateOne) SetKvmStatus(v hostresource.KvmStatus) *HostResourceUpdateOne {
+	_u.mutation.SetKvmStatus(v)
+	return _u
+}
+
+// SetNillableKvmStatus sets the "kvm_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableKvmStatus(v *hostresource.KvmStatus) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetKvmStatus(*v)
+	}
+	return _u
+}
+
+// ClearKvmStatus clears the value of the "kvm_status" field.
+func (_u *HostResourceUpdateOne) ClearKvmStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearKvmStatus()
+	return _u
+}
+
+// SetDesiredKvmState sets the "desired_kvm_state" field.
+func (_u *HostResourceUpdateOne) SetDesiredKvmState(v hostresource.DesiredKvmState) *HostResourceUpdateOne {
+	_u.mutation.SetDesiredKvmState(v)
+	return _u
+}
+
+// SetNillableDesiredKvmState sets the "desired_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableDesiredKvmState(v *hostresource.DesiredKvmState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredKvmState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredKvmState clears the value of the "desired_kvm_state" field.
+func (_u *HostResourceUpdateOne) ClearDesiredKvmState() *HostResourceUpdateOne {
+	_u.mutation.ClearDesiredKvmState()
+	return _u
+}
+
+// SetCurrentKvmState sets the "current_kvm_state" field.
+func (_u *HostResourceUpdateOne) SetCurrentKvmState(v hostresource.CurrentKvmState) *HostResourceUpdateOne {
+	_u.mutation.SetCurrentKvmState(v)
+	return _u
+}
+
+// SetNillableCurrentKvmState sets the "current_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableCurrentKvmState(v *hostresource.CurrentKvmState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentKvmState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentKvmState clears the value of the "current_kvm_state" field.
+func (_u *HostResourceUpdateOne) ClearCurrentKvmState() *HostResourceUpdateOne {
+	_u.mutation.ClearCurrentKvmState()
+	return _u
+}
+
+// SetKvmSessionURL sets the "kvm_session_url" field.
+func (_u *HostResourceUpdateOne) SetKvmSessionURL(v string) *HostResourceUpdateOne {
+	_u.mutation.SetKvmSessionURL(v)
+	return _u
+}
+
+// SetNillableKvmSessionURL sets the "kvm_session_url" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableKvmSessionURL(v *string) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetKvmSessionURL(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionURL clears the value of the "kvm_session_url" field.
+func (_u *HostResourceUpdateOne) ClearKvmSessionURL() *HostResourceUpdateOne {
+	_u.mutation.ClearKvmSessionURL()
+	return _u
+}
+
+// SetKvmSessionStatus sets the "kvm_session_status" field.
+func (_u *HostResourceUpdateOne) SetKvmSessionStatus(v string) *HostResourceUpdateOne {
+	_u.mutation.SetKvmSessionStatus(v)
+	return _u
+}
+
+// SetNillableKvmSessionStatus sets the "kvm_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableKvmSessionStatus(v *string) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetKvmSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionStatus clears the value of the "kvm_session_status" field.
+func (_u *HostResourceUpdateOne) ClearKvmSessionStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearKvmSessionStatus()
+	return _u
+}
+
+// SetKvmSessionStatusIndicator sets the "kvm_session_status_indicator" field.
+func (_u *HostResourceUpdateOne) SetKvmSessionStatusIndicator(v hostresource.KvmSessionStatusIndicator) *HostResourceUpdateOne {
+	_u.mutation.SetKvmSessionStatusIndicator(v)
+	return _u
+}
+
+// SetNillableKvmSessionStatusIndicator sets the "kvm_session_status_indicator" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableKvmSessionStatusIndicator(v *hostresource.KvmSessionStatusIndicator) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetKvmSessionStatusIndicator(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionStatusIndicator clears the value of the "kvm_session_status_indicator" field.
+func (_u *HostResourceUpdateOne) ClearKvmSessionStatusIndicator() *HostResourceUpdateOne {
+	_u.mutation.ClearKvmSessionStatusIndicator()
+	return _u
+}
+
 // SetDesiredConsentCode sets the "desired_consent_code" field.
 func (_u *HostResourceUpdateOne) SetDesiredConsentCode(v string) *HostResourceUpdateOne {
 	_u.mutation.SetDesiredConsentCode(v)
@@ -3736,6 +4032,26 @@ func (_u *HostResourceUpdateOne) check() error {
 	if v, ok := _u.mutation.AmtControlMode(); ok {
 		if err := hostresource.AmtControlModeValidator(v); err != nil {
 			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.KvmStatus(); ok {
+		if err := hostresource.KvmStatusValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredKvmState(); ok {
+		if err := hostresource.DesiredKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentKvmState(); ok {
+		if err := hostresource.CurrentKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.KvmSessionStatusIndicator(); ok {
+		if err := hostresource.KvmSessionStatusIndicatorValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_session_status_indicator", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_session_status_indicator": %w`, err)}
 		}
 	}
 	return nil
@@ -4123,6 +4439,42 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 	}
 	if _u.mutation.AmtDNSSuffixCleared() {
 		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
+	}
+	if value, ok := _u.mutation.KvmStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmStatus, field.TypeEnum, value)
+	}
+	if _u.mutation.KvmStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredKvmState(); ok {
+		_spec.SetField(hostresource.FieldDesiredKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentKvmState(); ok {
+		_spec.SetField(hostresource.FieldCurrentKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.KvmSessionURL(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionURL, field.TypeString, value)
+	}
+	if _u.mutation.KvmSessionURLCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionURL, field.TypeString)
+	}
+	if value, ok := _u.mutation.KvmSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.KvmSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionStatus, field.TypeString)
+	}
+	if value, ok := _u.mutation.KvmSessionStatusIndicator(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatusIndicator, field.TypeEnum, value)
+	}
+	if _u.mutation.KvmSessionStatusIndicatorCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionStatusIndicator, field.TypeEnum)
 	}
 	if value, ok := _u.mutation.DesiredConsentCode(); ok {
 		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
