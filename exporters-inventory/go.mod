@@ -7,8 +7,8 @@ go 1.25.7
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
-	github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.0
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.34.5
+	github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.1
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.35.0
 	github.com/open-edge-platform/infra-managers/host v1.25.4
 	github.com/open-edge-platform/infra-managers/maintenance v1.25.2
 	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.39.10
@@ -16,7 +16,7 @@ require (
 	github.com/prometheus/client_model v0.6.2
 	github.com/prometheus/common v0.67.5
 	github.com/stretchr/testify v1.11.1
-	google.golang.org/grpc v1.81.0-dev
+	google.golang.org/grpc v1.82.0-dev
 )
 
 require (
@@ -73,7 +73,7 @@ require (
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
-	github.com/jackc/pgx/v5 v5.9.0 // indirect
+	github.com/jackc/pgx/v5 v5.9.2 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
