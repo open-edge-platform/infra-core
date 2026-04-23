@@ -156,7 +156,8 @@ func TestSite_Get(t *testing.T) {
 								},
 							},
 							RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-								PhyMetadata: `[{"label":{"key":"environment","value":"production"}},{"label":{"key":"location","value":"datacenter-1"}}]`,
+								PhyMetadata: `[{"label":{"key":"environment","value":"production"}},` +
+									`{"label":{"key":"location","value":"datacenter-1"}}]`,
 							},
 						}, nil).Once(),
 				}
@@ -233,7 +234,8 @@ func TestSite_List(t *testing.T) {
 										},
 									},
 									RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-										PhyMetadata: `[{"label":{"key":"environment","value":"production"}},{"label":{"key":"location","value":"datacenter-1"}}]`,
+										PhyMetadata: `[{"label":{"key":"environment","value":"production"}},` +
+											`{"label":{"key":"location","value":"datacenter-1"}}]`,
 									},
 								},
 							},
