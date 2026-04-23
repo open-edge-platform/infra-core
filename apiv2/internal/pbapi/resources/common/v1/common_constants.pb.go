@@ -5,9 +5,17 @@
 package commonv1
 
 const (
+	// Fields and Edges constants for "LabelItem"
+	LabelItemFieldKey   = "key"
+	LabelItemFieldValue = "value"
+
+	// Fields and Edges constants for "AnnotationItem"
+	AnnotationItemFieldKey   = "key"
+	AnnotationItemFieldValue = "value"
+
 	// Fields and Edges constants for "MetadataItem"
-	MetadataItemFieldKey   = "key"
-	MetadataItemFieldValue = "value"
+	MetadataItemEdgeLabel      = "label"
+	MetadataItemEdgeAnnotation = "annotation"
 
 	// Fields and Edges constants for "Timestamps"
 	TimestampsEdgeCreatedAt = "created_at"

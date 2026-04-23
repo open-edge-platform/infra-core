@@ -37,20 +37,24 @@ var (
 
 	// Example region resources.
 	exampleAPIRegion = &locationv1.RegionResource{
-		ResourceId:        "region-12345678",
-		RegionID:          "region-12345678", // Alias of ResourceId
-		Name:              "example-region",
-		ParentRegion:      exampleParentAPIRegion,
-		ParentId:          "region-12345679",
-		Metadata:          []*commonv1.MetadataItem{{Key: "env", Value: "test"}},
-		InheritedMetadata: []*commonv1.MetadataItem{{Key: "org", Value: "engineering"}},
-		TotalSites:        0,
+		ResourceId:   "region-12345678",
+		RegionID:     "region-12345678", // Alias of ResourceId
+		Name:         "example-region",
+		ParentRegion: exampleParentAPIRegion,
+		ParentId:     "region-12345679",
+		Metadata: []*commonv1.MetadataItem{
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "env", Value: "test"}}},
+		},
+		InheritedMetadata: []*commonv1.MetadataItem{
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "org", Value: "engineering"}}},
+		},
+		TotalSites: 0,
 	}
 
 	exampleInvRegion = &inv_locationv1.RegionResource{
 		ResourceId:   "region-12345678",
 		Name:         "example-region",
-		Metadata:     `[{"key":"env","value":"test"}]`,
+		Metadata:     `[{"label":{"key":"env","value":"test"}}]`,
 		ParentRegion: exampleParentInvRegion,
 		TenantId:     "tenant-987654",
 		CreatedAt:    "2025-04-22T10:00:00Z",
@@ -154,7 +158,7 @@ func TestRegion_Get(t *testing.T) {
 								},
 							},
 							RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-								PhyMetadata: `[{"key":"org","value":"engineering"}]`,
+								PhyMetadata: `[{"label":{"key":"org","value":"engineering"}}]`,
 							},
 						}, nil).Once(),
 				}
@@ -231,7 +235,7 @@ func TestRegion_List(t *testing.T) {
 										},
 									},
 									RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-										PhyMetadata: `[{"key":"org","value":"engineering"}]`,
+										PhyMetadata: `[{"label":{"key":"org","value":"engineering"}}]`,
 									},
 								},
 							},

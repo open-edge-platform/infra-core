@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package server_test
@@ -18,7 +19,7 @@ import (
 // compareProtoMessages compares two proto.Message parameters and checks if all the fields set in the first
 // have the same value as in the second one.
 //
-//nolint:gocritic,errcheck // This function is used only for testing purposes.
+//nolint:gocritic,errcheck,cyclop // This function is used only for testing purposes.
 func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 	t.Helper()
 	v1 := reflect.ValueOf(msg1).Elem()
@@ -32,7 +33,19 @@ func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 			continue
 		}
 
-		if field1.Kind() == reflect.Ptr &&
+		// Handle embedded structs and interfaces by comparing their fields recursively.
+		// Special case of oneof fields in protobuf messages
+		if field1.Kind() == reflect.Struct || field1.Kind() == reflect.Interface {
+			// Handle embedded structs by comparing their fields recursively
+			if field1.CanInterface() && field2.CanInterface() {
+				// Try to convert to proto.Message first
+				if msg1, ok := field1.Interface().(proto.Message); ok {
+					if msg2, ok := field2.Interface().(proto.Message); ok {
+						compareProtoMessages(t, msg1, msg2)
+					}
+				}
+			}
+		} else if field1.Kind() == reflect.Ptr &&
 			field1.Type().Implements(reflect.TypeOf((*proto.Message)(nil)).Elem()) {
 			// Compare messages recursively.
 			compareProtoMessages(t, field1.Interface().(proto.Message), field2.Interface().(proto.Message))

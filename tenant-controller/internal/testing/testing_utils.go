@@ -1,7 +1,8 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
-package testing
+package testing //nolint:revive,nolintlint // this package is used for testing and should not be imported by other packages
 
 import (
 	"os"

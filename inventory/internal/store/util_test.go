@@ -1,9 +1,11 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/goccy/go-json"
@@ -14,14 +16,9 @@ import (
 	telemetry_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 )
 
-type Metadata struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
-}
-
 var (
 	// valid metadata key and value.
-	Metadata1 = []Metadata{
+	Metadata1 = []store.Metadata{
 		{
 			Key:   "cluster.orchestration.io/cluster-id",
 			Value: "clusterid-1234",
@@ -75,28 +72,28 @@ var (
 		`"example.com/2-test_9":"123test-other.symbol_123","example.com/8":"12","example.com/a":"v",` +
 		`"example.com/a9_9":"12","k":"v","test.com/test-123_name.test":"123test-other.symbol_123"}`
 	// invalid metadata key with upper case char.
-	Metadata2 = []Metadata{
+	Metadata2 = []store.Metadata{
 		{
 			Key:   "Cluster-id",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid metadata key no prefix.
-	Metadata3 = []Metadata{
+	Metadata3 = []store.Metadata{
 		{
 			Key:   "/cluster-id",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid metadata key with upper case char at end.
-	Metadata4 = []Metadata{
+	Metadata4 = []store.Metadata{
 		{
 			Key:   "cluster-ID",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid metadata value with upper case char at begin.
-	Metadata5 = []Metadata{
+	Metadata5 = []store.Metadata{
 		{
 			Key:   "cluster-id",
 			Value: "Clusterid-test",
@@ -104,21 +101,21 @@ var (
 	}
 
 	// invalid meatadata value length > 63.
-	Metadata6 = []Metadata{
+	Metadata6 = []store.Metadata{
 		{
 			Key:   "cluster-id",
 			Value: "invalidvaluelengthinvalidvaluelengthinvalidvaluelengthinvalidval",
 		},
 	}
 	// invalid metadata key( name )length > 63.
-	Metadata7 = []Metadata{
+	Metadata7 = []store.Metadata{
 		{
 			Key:   "cluster.com/invalidkeylengthinvalidkeylengthinvalidkeylengthinvalidkeylength",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid prefix length > 253.
-	Metadata8 = []Metadata{
+	Metadata8 = []store.Metadata{
 		{
 			Key: `invalidprefixlengthinvalidprefixlengthinvalidprefixlengthinvalidprefix
 			lengthinvalidprefixlengthinvalidprefixlengthinvalidprefixlengthinvalidprefix
@@ -128,51 +125,68 @@ var (
 		},
 	}
 	// invalid metadata key with prefix upper case char.
-	Metadata9 = []Metadata{
+	Metadata9 = []store.Metadata{
 		{
 			Key:   "Test.com/id",
 			Value: "test",
 		},
 	}
 	// invalid metadata key with other symbol at last.
-	Metadata10 = []Metadata{
+	Metadata10 = []store.Metadata{
 		{
 			Key:   "test1234-",
 			Value: "test",
 		},
 	}
 	// invalid metadata key with other symbol at begin.
-	Metadata11 = []Metadata{
+	Metadata11 = []store.Metadata{
 		{
 			Key:   "_test1234",
 			Value: "test",
 		},
 	}
 	// invalid metadata key name with other symbol at begin.
-	Metadata12 = []Metadata{
+	Metadata12 = []store.Metadata{
 		{
 			Key:   "test.com/-",
 			Value: "test",
 		},
 	}
 	// invalid metadata key name othersymbol at last.
-	Metadata13 = []Metadata{
+	Metadata13 = []store.Metadata{
 		{
 			Key:   "test.com/1a_",
 			Value: "0123456789",
 		},
-	} // invalid metadata key name upper case.
-	Metadata14 = []Metadata{
+	}
+	// invalid metadata key name upper case.
+	Metadata14 = []store.Metadata{
 		{
 			Key:   "test.com/A",
 			Value: "0123456789",
+		},
+	}
+	// valid metadata value with annotation type with max value length.
+	Metadata15 = []store.Metadata{
+		{
+			Key:   "cluster-id",
+			Value: strings.Repeat("x", 4096),
+			Type:  "annotation",
+		},
+	}
+	// invalid metadata value length > 4096.
+	Metadata16 = []store.Metadata{
+		{
+			Key:   "cluster-id",
+			Value: strings.Repeat("x", 4097),
+			Type:  "annotation",
 		},
 	}
 )
 
 func Test_ValidateMetadata(t *testing.T) {
 	testcases := map[string]struct {
-		in    []Metadata
+		in    []store.Metadata
 		valid bool
 	}{
 		"ValidMetadatakeyAndValue":                         {in: Metadata1, valid: true},
@@ -189,6 +203,8 @@ func Test_ValidateMetadata(t *testing.T) {
 		"InValidMetadataKeyNameOtherSymbolBeginwithPrefix": {in: Metadata12, valid: false},
 		"InValidMetadataKeyNameOtherSymbolLastwithPrefix":  {in: Metadata13, valid: false},
 		"InValidMetadataKeyNameUpperCasewithPrefix":        {in: Metadata14, valid: false},
+		"ValidMetadataValueLengthAnnotation":               {in: Metadata15, valid: true},
+		"InValidMetadataValueLengthAnnotationExceed":       {in: Metadata16, valid: false},
 	}
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
@@ -259,7 +275,7 @@ func Test_ValidateOSMetadata(t *testing.T) {
 	}
 }
 
-func helperMetadataToJSONPlain(t *testing.T, metadata []Metadata) string {
+func helperMetadataToJSONPlain(t *testing.T, metadata []store.Metadata) string {
 	t.Helper()
 
 	result := make(map[string]string)

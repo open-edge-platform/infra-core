@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package client
@@ -255,13 +256,18 @@ func TestInstanceList(t *testing.T) {
 	hostCreated3 := CreateHost(ctx, t, apiClient, api.HostResource{
 		Name: host3Name,
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Uuid: &utils.Host3UUID,
 	})
@@ -269,13 +275,18 @@ func TestInstanceList(t *testing.T) {
 	hostCreated4 := CreateHost(ctx, t, apiClient, api.HostResource{
 		Name: host4Name,
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Uuid: &utils.Host4UUID1,
 	})
@@ -283,13 +294,18 @@ func TestInstanceList(t *testing.T) {
 	hostCreated5 := CreateHost(ctx, t, apiClient, api.HostResource{
 		Name: host5Name,
 		Metadata: &[]api.MetadataItem{
-			{
-				Key:   "examplekey",
-				Value: "examplevalue",
-			}, {
-				Key:   "examplekey2",
-				Value: "examplevalue2",
-			},
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "examplevalue"}})
+				return item
+			}(),
+			func() api.MetadataItem {
+				var item api.MetadataItem
+				//nolint:errcheck // test data construction
+				_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey2", Value: "examplevalue2"}})
+				return item
+			}(),
 		},
 		Uuid: &utils.Host5UUID,
 	})

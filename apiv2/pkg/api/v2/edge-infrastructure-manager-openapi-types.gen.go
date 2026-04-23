@@ -4,7 +4,10 @@
 package api
 
 import (
+	"encoding/json"
 	"time"
+
+	"github.com/oapi-codegen/runtime"
 )
 
 // Defines values for AmtControlMode.
@@ -239,6 +242,15 @@ type AmtSku string
 
 // AmtState The state of the AMT (Active Management Technology) component.
 type AmtState string
+
+// AnnotationItem An annotation item for larger configuration data.
+type AnnotationItem struct {
+	// Key The annotation key.
+	Key string `json:"key"`
+
+	// Value The annotation value.
+	Value string `json:"value"`
+}
 
 // BaremetalControllerKind The type of BMC.
 type BaremetalControllerKind string
@@ -1505,6 +1517,15 @@ type InvalidateInstanceRequest struct {
 // InvalidateInstanceResponse Response message for Invalidate Instance.
 type InvalidateInstanceResponse = map[string]interface{}
 
+// LabelItem A label item for small key-value pairs used for selection and filtering.
+type LabelItem struct {
+	// Key The label key.
+	Key string `json:"key"`
+
+	// Value The label value.
+	Value string `json:"value"`
+}
+
 // LinkState The state of the network interface.
 type LinkState string
 
@@ -2276,13 +2297,21 @@ type LocalAccountResource struct {
 	Username string `json:"username"`
 }
 
-// MetadataItem A metadata item, represented by a key:value pair.
+// MetadataItem A metadata item, represented by either a label or annotation.
 type MetadataItem struct {
-	// Key The metadata key.
-	Key string `json:"key"`
+	union json.RawMessage
+}
 
-	// Value The metadata value.
-	Value string `json:"value"`
+// MetadataItem0 defines model for .
+type MetadataItem0 struct {
+	// Annotation An annotation item for larger configuration data.
+	Annotation AnnotationItem `json:"annotation"`
+}
+
+// MetadataItem1 defines model for .
+type MetadataItem1 struct {
+	// Label A label item for small key-value pairs used for selection and filtering.
+	Label LabelItem `json:"label"`
 }
 
 // NetworkInterfaceLinkState defines model for NetworkInterfaceLinkState.
@@ -7682,3 +7711,65 @@ type WorkloadServicePatchWorkload3JSONRequestBody = WorkloadResource
 
 // WorkloadServiceUpdateWorkload3JSONRequestBody defines body for WorkloadServiceUpdateWorkload3 for application/json ContentType.
 type WorkloadServiceUpdateWorkload3JSONRequestBody = WorkloadResource
+
+// AsMetadataItem0 returns the union data inside the MetadataItem as a MetadataItem0
+func (t MetadataItem) AsMetadataItem0() (MetadataItem0, error) {
+	var body MetadataItem0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromMetadataItem0 overwrites any union data inside the MetadataItem as the provided MetadataItem0
+func (t *MetadataItem) FromMetadataItem0(v MetadataItem0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeMetadataItem0 performs a merge with any union data inside the MetadataItem, using the provided MetadataItem0
+func (t *MetadataItem) MergeMetadataItem0(v MetadataItem0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsMetadataItem1 returns the union data inside the MetadataItem as a MetadataItem1
+func (t MetadataItem) AsMetadataItem1() (MetadataItem1, error) {
+	var body MetadataItem1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromMetadataItem1 overwrites any union data inside the MetadataItem as the provided MetadataItem1
+func (t *MetadataItem) FromMetadataItem1(v MetadataItem1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeMetadataItem1 performs a merge with any union data inside the MetadataItem, using the provided MetadataItem1
+func (t *MetadataItem) MergeMetadataItem1(v MetadataItem1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t MetadataItem) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *MetadataItem) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}

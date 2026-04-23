@@ -30,11 +30,11 @@ var (
 		SiteLat:    377749,
 		SiteLng:    -1224194,
 		Metadata: []*commonv1.MetadataItem{
-			{Key: "environment", Value: "production"},
-			{Key: "location", Value: "datacenter-1"},
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "environment", Value: "production"}}},
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "location", Value: "datacenter-1"}}},
 		},
 		InheritedMetadata: []*commonv1.MetadataItem{
-			{Key: "org", Value: "engineering"},
+			{Item: &commonv1.MetadataItem_Label{Label: &commonv1.LabelItem{Key: "org", Value: "engineering"}}},
 		},
 	}
 
@@ -44,7 +44,7 @@ var (
 		Name:       "example-site",
 		SiteLat:    377749,
 		SiteLng:    -1224194,
-		Metadata:   `[{"key":"environment","value":"production"},{"key":"location","value":"datacenter-1"}]`,
+		Metadata:   `[{"label":{"key":"environment","value":"production"}},{"label":{"key":"location","value":"datacenter-1"}}]`,
 		Region:     exampleInvRegion, // Using the region from region_test.go
 		TenantId:   "tenant-987654",
 		CreatedAt:  "2025-04-22T10:00:00Z",
@@ -156,8 +156,8 @@ func TestSite_Get(t *testing.T) {
 								},
 							},
 							RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-								PhyMetadata: `[{"key":"environment","value":"production"},
-									{"key":"location","value":"datacenter-1"}]`,
+								PhyMetadata: `[{"label":{"key":"environment","value":"production"}},` +
+									`{"label":{"key":"location","value":"datacenter-1"}}]`,
 							},
 						}, nil).Once(),
 				}
@@ -234,8 +234,8 @@ func TestSite_List(t *testing.T) {
 										},
 									},
 									RenderedMetadata: &inventory.GetResourceResponse_ResourceMetadata{
-										PhyMetadata: `[{"key":"environment","value":"production"},
-											{"key":"location","value":"datacenter-1"}]`,
+										PhyMetadata: `[{"label":{"key":"environment","value":"production"}},` +
+											`{"label":{"key":"location","value":"datacenter-1"}}]`,
 									},
 								},
 							},

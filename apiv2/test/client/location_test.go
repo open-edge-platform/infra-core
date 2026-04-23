@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package client
@@ -129,7 +130,12 @@ func TestLocation_MetadataInheritance(t *testing.T) {
 	assert.Equal(t, *r2.ResourceId, *gets2.JSON200.Region.ResourceId)
 	assert.Equal(
 		t,
-		[]api.MetadataItem{{Key: "examplekey", Value: "r2"}},
+		[]api.MetadataItem{func() api.MetadataItem {
+			var item api.MetadataItem
+			//nolint:errcheck // test data construction
+			_ = item.FromMetadataItem1(api.MetadataItem1{Label: api.LabelItem{Key: "examplekey", Value: "r2"}})
+			return item
+		}()},
 		*gets2.JSON200.InheritedMetadata,
 	)
 }

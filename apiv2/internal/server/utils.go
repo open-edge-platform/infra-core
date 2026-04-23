@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc/codes"
+	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -23,10 +24,21 @@ const ISO8601TimeFormat = "2006-01-02T15:04:05.999Z"
 func fromInvMetadata(metadata string) ([]*commonv1.MetadataItem, error) {
 	var apiMetadata []*commonv1.MetadataItem
 	if metadata != "" {
-		err := json.Unmarshal([]byte(metadata), &apiMetadata)
-		if err != nil {
-			zlog.InfraErr(err).Msgf("failed to unmarshal metadata: %s", metadata)
+		// Parse as JSON array of MetadataItems using protojson
+		// The metadata should be stored as: [{"label":{"key":"k","value":"v"}}, ...]
+		var items []json.RawMessage
+		if err := json.Unmarshal([]byte(metadata), &items); err != nil {
+			zlog.InfraErr(err).Msgf("failed to unmarshal metadata array: %s", metadata)
 			return nil, err
+		}
+
+		for _, itemRaw := range items {
+			item := &commonv1.MetadataItem{}
+			if err := protojson.Unmarshal(itemRaw, item); err != nil {
+				zlog.InfraErr(err).Msgf("failed to unmarshal metadata item: %s", string(itemRaw))
+				return nil, err
+			}
+			apiMetadata = append(apiMetadata, item)
 		}
 	}
 	return apiMetadata, nil
@@ -35,9 +47,20 @@ func fromInvMetadata(metadata string) ([]*commonv1.MetadataItem, error) {
 func toInvMetadata(apiMetadata []*commonv1.MetadataItem) (string, error) {
 	var invMetadata string
 	if apiMetadata != nil {
-		invMetadataBytes, err := json.Marshal(apiMetadata)
+		// Marshal each item separately then combine into JSON array
+		var jsonItems []json.RawMessage
+		for _, item := range apiMetadata {
+			itemBytes, err := protojson.Marshal(item)
+			if err != nil {
+				zlog.InfraErr(err).Msgf("failed to marshal metadata item: %v", item)
+				return "", err
+			}
+			jsonItems = append(jsonItems, itemBytes)
+		}
+
+		invMetadataBytes, err := json.Marshal(jsonItems)
 		if err != nil {
-			zlog.InfraErr(err).Msgf("failed to marshal metadata: %v", apiMetadata)
+			zlog.InfraErr(err).Msgf("failed to marshal metadata array: %v", apiMetadata)
 			return "", err
 		}
 		invMetadata = string(invMetadataBytes)

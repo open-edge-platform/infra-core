@@ -4,6 +4,8 @@
 ## Table of Contents
 
 - [resources/common/v1/common.proto](#resources_common_v1_common-proto)
+    - [AnnotationItem](#resources-common-v1-AnnotationItem)
+    - [LabelItem](#resources-common-v1-LabelItem)
     - [MetadataItem](#resources-common-v1-MetadataItem)
     - [Timestamps](#resources-common-v1-Timestamps)
   
@@ -298,16 +300,48 @@
 
 
 
-<a name="resources-common-v1-MetadataItem"></a>
+<a name="resources-common-v1-AnnotationItem"></a>
 
-### MetadataItem
-A metadata item, represented by a key:value pair.
+### AnnotationItem
+An annotation item for larger configuration data.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [string](#string) |  | The metadata key. |
-| value | [string](#string) |  | The metadata value. |
+| key | [string](#string) |  | The annotation key. |
+| value | [string](#string) |  | The annotation value. |
+
+
+
+
+
+
+<a name="resources-common-v1-LabelItem"></a>
+
+### LabelItem
+A label item for small key-value pairs used for selection and filtering.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  | The label key. |
+| value | [string](#string) |  | The label value. |
+
+
+
+
+
+
+<a name="resources-common-v1-MetadataItem"></a>
+
+### MetadataItem
+A metadata item, represented by either a label or annotation.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| label | [LabelItem](#resources-common-v1-LabelItem) |  | A label for small key-value pairs used for selection and filtering. |
+| annotation | [AnnotationItem](#resources-common-v1-AnnotationItem) |  | An annotation for larger configuration data like kubeconfig. |
 
 
 

@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -51,17 +52,32 @@ const (
 	PutString   = "PUT"
 )
 
+const (
+
+	// For now this is used for both metadata types, label and annotation,
+	// but we can differentiate them in the future if needed.
+	MetadataKeyNameMaxLength   = 63
+	MetadataKeyPrefixMaxLength = 253
+
+	// MetadataValueMaxLength was previously set to 63 when the Metadata field was
+	// associated with a Label and could not be distinguished from an Annotation.
+	// That field has been renamed to MetadataLabelMaxLength.
+	MetadataLabelMaxLength      = 63
+	MetadataAnnotationMaxLength = 4096
+)
+
 // MetadataPatternKey representing the metadata pattern for key.
 var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
-// MetadataPatternValue representing the metadata pattern for value.
-var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
+// MetadataPatternLabel representing the metadata pattern for label.
+var MetadataPatternLabel = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
+	Type  string `json:"type,omitempty"` // "label" or "annotation", default to "" which means it's not specified.
 }
 
 // BuildResourceMeta builds the ResourceMetadata from the given map of physical and logical metadata.
@@ -111,8 +127,6 @@ func ParseMetadata(metadata string) (map[string]string, error) {
 
 //nolint:cyclop // calculated cyclomatic complexity for func is 11, max is 10
 func validateKeyValue(meta []Metadata) error {
-	maxMetaKeyNameLen, maxMetaValueLen, maxMetaKeyPrefixLen := 63, 63, 253
-
 	for _, rmetadata := range meta {
 		if rmetadata.Key != "" {
 			if !MetadataPatternKey.MatchString(rmetadata.Key) {
@@ -122,20 +136,29 @@ func validateKeyValue(meta []Metadata) error {
 			// max prefix len: 253  max name len:63
 			if strings.Contains(rmetadata.Key, `/`) {
 				prefixname := strings.Split(rmetadata.Key, "/")
-				if len(prefixname[0]) > maxMetaKeyPrefixLen ||
-					len(prefixname[1]) > maxMetaKeyNameLen {
+				if len(prefixname[0]) > MetadataKeyPrefixMaxLength ||
+					len(prefixname[1]) > MetadataKeyNameMaxLength {
 					return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 				}
-			} else if len(rmetadata.Key) > maxMetaKeyNameLen { // meta data key pattern with name
+			} else if len(rmetadata.Key) > MetadataKeyNameMaxLength { // meta data key pattern with name
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 			}
 		}
 		if rmetadata.Value != "" {
-			if len(rmetadata.Value) > maxMetaValueLen {
-				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata value")
-			}
-			if !MetadataPatternValue.MatchString(rmetadata.Value) {
-				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
+			switch rmetadata.Type {
+			case "label", "": // Default to label for backward compatibility
+				if len(rmetadata.Value) > MetadataLabelMaxLength {
+					return errors.Errorfc(codes.InvalidArgument, "Label value too long")
+				}
+				if !MetadataPatternLabel.MatchString(rmetadata.Value) {
+					return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
+				}
+			case "annotation":
+				if len(rmetadata.Value) > MetadataAnnotationMaxLength {
+					return errors.Errorfc(codes.InvalidArgument, "Annotation value too long")
+				}
+			default:
+				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata type")
 			}
 		}
 	}

@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package client
@@ -38,8 +39,21 @@ func TestComputeSummary(t *testing.T) {
 	baselineTotalHost := *res.JSON200.Total
 	baselineUnallocatedHost := *res.JSON200.Unallocated
 
+	// Extract key/value from MetadataItem union
+	var key1, value1, value2 string
+	if labelItem, labelErr := utils.MetadataHost2[0].AsMetadataItem1(); labelErr == nil {
+		key1, value1 = labelItem.Label.Key, labelItem.Label.Value
+	} else if annotationItem, annotationErr := utils.MetadataHost2[0].AsMetadataItem0(); annotationErr == nil {
+		key1, value1 = annotationItem.Annotation.Key, annotationItem.Annotation.Value
+	}
+	if labelItem, labelErr := utils.MetadataHost1[0].AsMetadataItem1(); labelErr == nil {
+		_, value2 = labelItem.Label.Key, labelItem.Label.Value
+	} else if annotationItem, annotationErr := utils.MetadataHost1[0].AsMetadataItem0(); annotationErr == nil {
+		_, value2 = annotationItem.Annotation.Key, annotationItem.Annotation.Value
+	}
+
 	filterMetaInherited := fmt.Sprintf("metadata='{"+"\""+"key"+"\""+":%q,"+"\""+"value"+"\""+":%q}'",
-		utils.MetadataHost2[0].Key, utils.MetadataHost2[0].Value)
+		key1, value1)
 	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host2"}'`, filterMetaInherited)
 	resMetaInherited, err := apiClient.HostServiceGetHostsSummaryWithResponse(
 		ctx, projectName,
@@ -53,7 +67,7 @@ func TestComputeSummary(t *testing.T) {
 	baselineMetaInheritedRunning := *resMetaInherited.JSON200.Running
 
 	filterMetaStandalone := fmt.Sprintf("metadata='{"+"\""+"key"+"\""+":%q,"+"\""+"value"+"\""+":%q}'",
-		utils.MetadataHost2[0].Key, utils.MetadataHost1[0].Value)
+		key1, value2)
 	assert.Equal(t, `metadata='{"key":"examplekey1","value":"host1"}'`, filterMetaStandalone)
 	resMetaStandalone, err := apiClient.HostServiceGetHostsSummaryWithResponse(
 		ctx, projectName,

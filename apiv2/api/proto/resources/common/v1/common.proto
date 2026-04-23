@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 syntax = "proto3";
@@ -11,9 +12,9 @@ import "buf/validate/validate.proto";
 
 option go_package = "github.com/open-edge-platform/infra-core/apiv2/v2/internal/pbapi/resources/common/v1;commonv1";
 
-// A metadata item, represented by a key:value pair.
-message MetadataItem {
-  // The metadata key.
+// A label item for small key-value pairs used for selection and filtering.
+message LabelItem {
+  // The label key.
   string key = 1 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
@@ -22,7 +23,7 @@ message MetadataItem {
       max_len: 316
     }
   ];
-  // The metadata value.
+  // The label value.
   string value = 2 [
     (google.api.field_behavior) = REQUIRED,
     (buf.validate.field).string = {
@@ -31,6 +32,37 @@ message MetadataItem {
       max_len: 63
     }
   ];
+}
+
+// An annotation item for larger configuration data.
+message AnnotationItem {
+  // The annotation key.
+  string key = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      pattern: "^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$"
+      min_len: 0
+      max_len: 316
+    }
+  ];
+  // The annotation value.
+  string value = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+      min_len: 0
+      max_len: 4096
+    }
+  ];
+}
+
+// A metadata item, represented by either a label or annotation.
+message MetadataItem {
+  oneof item {
+    // A label for small key-value pairs used for selection and filtering.
+    LabelItem label = 1;
+    // An annotation for larger configuration data like kubeconfig.
+    AnnotationItem annotation = 2;
+  }
 }
 
 message Timestamps {
