@@ -27,6 +27,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -40,6 +41,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -53,6 +55,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -64,6 +67,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -189,6 +193,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -202,6 +207,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -215,6 +221,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -226,6 +233,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -805,6 +813,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -843,6 +852,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -856,6 +866,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -869,6 +880,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -880,6 +892,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -1334,6 +1347,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -1347,6 +1361,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -1360,6 +1375,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -1371,6 +1387,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -1494,6 +1511,7 @@ paths:
         - name: name
           in: query
           description: Filter locations by name
+          required: false
           schema:
             type: string
             title: name
@@ -1503,6 +1521,7 @@ paths:
         - name: showSites
           in: query
           description: Return site locations
+          required: false
           schema:
             type: boolean
             title: show_sites
@@ -1510,6 +1529,7 @@ paths:
         - name: showRegions
           in: query
           description: Return region locations
+          required: false
           schema:
             type: boolean
             title: show_regions
@@ -1542,6 +1562,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -1555,6 +1576,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -1568,6 +1590,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -1579,6 +1602,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -1985,6 +2009,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -1998,6 +2023,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -2011,6 +2037,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -2022,6 +2049,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -2147,6 +2175,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -2160,6 +2189,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -2173,6 +2203,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -2184,6 +2215,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -2279,6 +2311,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -2292,6 +2325,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -2305,6 +2339,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -2316,6 +2351,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -2441,6 +2477,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -2454,6 +2491,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -2467,6 +2505,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -2478,6 +2517,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -2487,6 +2527,7 @@ paths:
         - name: showTotalSites
           in: query
           description: Flag to signal if the total amount of site in a region should be returned.
+          required: false
           schema:
             type: boolean
             title: show_total_sites
@@ -2891,6 +2932,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -2902,6 +2944,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -2915,6 +2958,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -2932,6 +2976,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -2950,6 +2995,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -2964,6 +3010,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -2997,6 +3044,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -3008,6 +3056,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -3021,6 +3070,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -3038,6 +3088,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -3056,6 +3107,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -3070,6 +3122,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -3475,6 +3528,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -3486,6 +3540,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -3499,6 +3554,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -3516,6 +3572,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -3534,6 +3591,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -3548,6 +3606,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -3953,6 +4012,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -3966,6 +4026,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -3979,6 +4040,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -3990,6 +4052,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -4007,6 +4070,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -4036,6 +4100,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -4082,6 +4147,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -4119,6 +4185,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -4164,6 +4231,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -4398,6 +4466,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -4438,6 +4507,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -4449,6 +4519,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -4460,6 +4531,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -4587,6 +4659,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -4598,6 +4671,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -4609,6 +4683,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -4736,6 +4811,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -4747,6 +4823,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -4758,6 +4835,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -4769,6 +4847,7 @@ paths:
         - name: instanceId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given instance identifier.
+          required: false
           schema:
             type: string
             title: instance_id
@@ -4779,6 +4858,7 @@ paths:
         - name: siteId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given siteID.
+          required: false
           schema:
             type: string
             title: site_id
@@ -4789,6 +4869,7 @@ paths:
         - name: regionId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given regionID.
+          required: false
           schema:
             type: string
             title: region_id
@@ -4803,6 +4884,7 @@ paths:
              profiles rendered from hierarchy. This flag is only used along with one
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
+          required: false
           schema:
             type: boolean
             title: show_inherited
@@ -5211,6 +5293,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -5222,6 +5305,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -5233,6 +5317,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -5244,6 +5329,7 @@ paths:
         - name: instanceId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given instance identifier.
+          required: false
           schema:
             type: string
             title: instance_id
@@ -5254,6 +5340,7 @@ paths:
         - name: siteId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given siteID.
+          required: false
           schema:
             type: string
             title: site_id
@@ -5264,6 +5351,7 @@ paths:
         - name: regionId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given regionID.
+          required: false
           schema:
             type: string
             title: region_id
@@ -5278,6 +5366,7 @@ paths:
              profiles rendered from hierarchy. This flag is only used along with one
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
+          required: false
           schema:
             type: boolean
             title: show_inherited
@@ -5686,6 +5775,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -5699,6 +5789,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -5712,6 +5803,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -5723,6 +5815,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -5848,6 +5941,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -5861,6 +5955,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -5874,6 +5969,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -5885,6 +5981,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -6301,6 +6398,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -6314,6 +6412,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -6327,6 +6426,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -6338,6 +6438,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -6445,6 +6546,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -6955,6 +7057,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -6993,6 +7096,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -7006,6 +7110,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -7019,6 +7124,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -7030,6 +7136,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -7482,6 +7589,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -7495,6 +7603,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -7508,6 +7617,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -7519,6 +7629,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -7925,6 +8036,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -7938,6 +8050,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -7951,6 +8064,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -7962,6 +8076,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -8368,6 +8483,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -8379,6 +8495,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -8392,6 +8509,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -8409,6 +8527,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -8427,6 +8546,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -8441,6 +8561,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -8474,6 +8595,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -8485,6 +8607,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -8498,6 +8621,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -8515,6 +8639,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -8533,6 +8658,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -8547,6 +8673,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -8952,6 +9079,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -8963,6 +9091,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -8976,6 +9105,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -8993,6 +9123,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -9011,6 +9142,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -9025,6 +9157,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -9430,6 +9563,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -9443,6 +9577,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -9456,6 +9591,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -9467,6 +9603,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -9873,6 +10010,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -9886,6 +10024,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -9899,6 +10038,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -9910,6 +10050,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -10035,6 +10176,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -10048,6 +10190,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -10061,6 +10204,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -10072,6 +10216,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -10195,6 +10340,7 @@ paths:
         - name: name
           in: query
           description: Filter locations by name
+          required: false
           schema:
             type: string
             title: name
@@ -10204,6 +10350,7 @@ paths:
         - name: showSites
           in: query
           description: Return site locations
+          required: false
           schema:
             type: boolean
             title: show_sites
@@ -10211,6 +10358,7 @@ paths:
         - name: showRegions
           in: query
           description: Return region locations
+          required: false
           schema:
             type: boolean
             title: show_regions
@@ -10243,6 +10391,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -10256,6 +10405,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -10269,6 +10419,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -10280,6 +10431,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -10405,6 +10557,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -10418,6 +10571,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -10431,6 +10585,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -10442,6 +10597,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -10537,6 +10693,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -10550,6 +10707,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -10563,6 +10721,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -10574,6 +10733,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -10699,6 +10859,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -10712,6 +10873,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -10725,6 +10887,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -10736,6 +10899,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -10831,6 +10995,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -10844,6 +11009,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -10857,6 +11023,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -10868,6 +11035,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -10993,6 +11161,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -11006,6 +11175,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -11019,6 +11189,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -11030,6 +11201,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -11039,6 +11211,7 @@ paths:
         - name: showTotalSites
           in: query
           description: Flag to signal if the total amount of site in a region should be returned.
+          required: false
           schema:
             type: boolean
             title: show_total_sites
@@ -11109,6 +11282,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -11122,6 +11296,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -11135,6 +11310,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -11146,6 +11322,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -11934,6 +12111,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -11945,6 +12123,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -11958,6 +12137,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -11975,6 +12155,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -11993,6 +12174,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -12007,6 +12189,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -12040,6 +12223,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -12051,6 +12235,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -12064,6 +12249,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -12081,6 +12267,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -12099,6 +12286,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -12113,6 +12301,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -12518,6 +12707,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -12529,6 +12719,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -12542,6 +12733,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified host ID applied to them, i.e., target including the inherited ones
              (parent site if not null). If null, returns all the schedules without a host ID as target.
+          required: false
           schema:
             type: string
             title: host_id
@@ -12559,6 +12751,7 @@ paths:
              (given the other query params). If specified, returns the schedules that have
              the specified site ID applied to them, i.e., target including the inherited ones.
              If null, returns all the schedules without a site ID as target
+          required: false
           schema:
             type: string
             title: site_id
@@ -12577,6 +12770,7 @@ paths:
              If specified, returns the schedules that have the specified region ID applied to them,
              i.e., target including the inherited ones (parent region if not null).
              If null, returns all the schedules without a region ID as target.
+          required: false
           schema:
             type: string
             title: region_id
@@ -12591,6 +12785,7 @@ paths:
         - name: unixEpoch
           in: query
           description: Filter based on the timestamp, expected to be UNIX epoch UTC timestamp in seconds.
+          required: false
           schema:
             type: string
             title: unix_epoch
@@ -12996,6 +13191,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -13009,6 +13205,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -13022,6 +13219,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -13033,6 +13231,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -13042,6 +13241,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -13071,6 +13271,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -13117,6 +13318,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -13154,6 +13356,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -13199,6 +13402,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -13441,6 +13645,7 @@ paths:
         - name: regionId
           in: query
           description: Optional region ID for hierarchical path support
+          required: false
           schema:
             type: string
             title: regionId
@@ -13481,6 +13686,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -13492,6 +13698,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -13503,6 +13710,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -13630,6 +13838,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -13641,6 +13850,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -13652,6 +13862,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -13779,6 +13990,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -13790,6 +14002,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -13801,6 +14014,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -13928,6 +14142,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -13939,6 +14154,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -13950,6 +14166,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -14077,6 +14294,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -14088,6 +14306,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -14099,6 +14318,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -14110,6 +14330,7 @@ paths:
         - name: instanceId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given instance identifier.
+          required: false
           schema:
             type: string
             title: instance_id
@@ -14120,6 +14341,7 @@ paths:
         - name: siteId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given siteID.
+          required: false
           schema:
             type: string
             title: site_id
@@ -14130,6 +14352,7 @@ paths:
         - name: regionId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given regionID.
+          required: false
           schema:
             type: string
             title: region_id
@@ -14144,6 +14367,7 @@ paths:
              profiles rendered from hierarchy. This flag is only used along with one
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
+          required: false
           schema:
             type: boolean
             title: show_inherited
@@ -14552,6 +14776,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -14563,6 +14788,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -14574,6 +14800,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -14585,6 +14812,7 @@ paths:
         - name: instanceId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given instance identifier.
+          required: false
           schema:
             type: string
             title: instance_id
@@ -14595,6 +14823,7 @@ paths:
         - name: siteId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given siteID.
+          required: false
           schema:
             type: string
             title: site_id
@@ -14605,6 +14834,7 @@ paths:
         - name: regionId
           in: query
           description: Returns only the telemetry profiles that are assigned with the given regionID.
+          required: false
           schema:
             type: string
             title: region_id
@@ -14619,6 +14849,7 @@ paths:
              profiles rendered from hierarchy. This flag is only used along with one
              of siteId, regionId or instanceId. If siteId, regionId or instanceId are
              not set, this flag is ignored.
+          required: false
           schema:
             type: boolean
             title: show_inherited
@@ -15027,6 +15258,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -15040,6 +15272,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -15053,6 +15286,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -15064,6 +15298,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -15189,6 +15424,7 @@ paths:
           description: |-
             Optional comma separated list of fields to specify a sorting order.
              See https://google.aip.dev/132 for details.
+          required: false
           schema:
             type: string
             title: order_by
@@ -15202,6 +15438,7 @@ paths:
           description: |-
             Optional filter to return only item of interest.
              See https://google.aip.dev/160 for details.
+          required: false
           schema:
             type: string
             title: filter
@@ -15215,6 +15452,7 @@ paths:
           description: |-
             Defines the amount of items to be contained in a single page.
              Default of 20.
+          required: false
           schema:
             type: integer
             title: page_size
@@ -15226,6 +15464,7 @@ paths:
         - name: offset
           in: query
           description: Index of the first item to return. This allows skipping items.
+          required: false
           schema:
             type: integer
             title: offset
@@ -16283,6 +16522,51 @@ components:
           title: desired_consent_code
           pattern: ^[0-9]{6}$
           description: '(OPTIONAL) '
+        solStatus:
+          title: sol_status
+          description: |-
+            SOL feature activation status on the AMT device.
+             Set by sol-manager RM after reading GET /api/v1/amt/features/{guid}.
+             Updated whenever sol-manager reconciles a SOL_STATE_START request.
+          readOnly: true
+          $ref: '#/components/schemas/SolStatus'
+        desiredSolState:
+          title: desired_sol_state
+          description: |-
+            (OPTIONAL) Desired SOL session state. Written by operator via APIv2 (orch-cli --sol start|stop).
+             Valid write values: SOL_STATE_START, SOL_STATE_STOP.
+             Consumed by sol-manager RM to drive the session lifecycle.
+          $ref: '#/components/schemas/SolState'
+        currentSolState:
+          title: current_sol_state
+          description: |-
+            Current SOL session state. Set by sol-manager RM only.
+             Lifecycle: UNSPECIFIED → START → [AWAITING_CONSENT → START] | STOP | ERROR.
+          readOnly: true
+          $ref: '#/components/schemas/SolState'
+        solSessionUrl:
+          type: string
+          title: sol_session_url
+          description: |-
+            (OPTIONAL) WebSocket URL for the active SOL session.
+             Format: ws://sol-manager:8080/ws/terminal/{session-id}
+             Populated by sol-manager when current_sol_state transitions to SOL_STATE_START.
+             Cleared to "" on session end. Used by orch-cli to connect the terminal WebSocket.
+        solSessionStatus:
+          type: string
+          title: sol_session_status
+          maxLength: 1024
+          description: |-
+            SOL session status indicating whether the SOL session is active or inactive.
+             Set by sol-manager RM only. Updated atomically with sol_session_status_indicator.
+          readOnly: true
+        solSessionStatusIndicator:
+          title: sol_session_status_indicator
+          description: |-
+            Indicates the severity/dynamicity of sol_session_status (e.g. IDLE, IN_PROGRESS, ERROR).
+             Set by sol-manager RM only.
+          readOnly: true
+          $ref: '#/components/schemas/StatusIndication'
         siteId:
           type: string
           title: site_id
@@ -16957,6 +17241,24 @@ components:
         - POWER_STATE_POWER_CYCLE
         - POWER_STATE_RESET_REPEAT
       description: The host power state.
+    SolState:
+      type: string
+      title: SolState
+      enum:
+        - SOL_STATE_UNSPECIFIED
+        - SOL_STATE_START
+        - SOL_STATE_STOP
+        - SOL_STATE_AWAITING_CONSENT
+        - SOL_STATE_ERROR
+      description: Used for both desired_sol_state (user-writable) and current_sol_state (sol-manager-set).
+    SolStatus:
+      type: string
+      title: SolStatus
+      enum:
+        - SOL_STATUS_UNSPECIFIED
+        - SOL_STATUS_ACTIVATED
+        - SOL_STATUS_DEACTIVATED
+      description: SOL feature activation status on the AMT device.
     UpdatePolicy:
       type: string
       title: UpdatePolicy
