@@ -97,6 +97,22 @@ const (
 	INSTANCESTATEUNTRUSTED   InstanceState = "INSTANCE_STATE_UNTRUSTED"
 )
 
+// Defines values for KvmState.
+const (
+	KVMSTATEAWAITINGCONSENT KvmState = "KVM_STATE_AWAITING_CONSENT"
+	KVMSTATEERROR           KvmState = "KVM_STATE_ERROR"
+	KVMSTATESTART           KvmState = "KVM_STATE_START"
+	KVMSTATESTOP            KvmState = "KVM_STATE_STOP"
+	KVMSTATEUNSPECIFIED     KvmState = "KVM_STATE_UNSPECIFIED"
+)
+
+// Defines values for KvmStatus.
+const (
+	KVMSTATUSACTIVATED   KvmStatus = "KVM_STATUS_ACTIVATED"
+	KVMSTATUSDEACTIVATED KvmStatus = "KVM_STATUS_DEACTIVATED"
+	KVMSTATUSUNSPECIFIED KvmStatus = "KVM_STATUS_UNSPECIFIED"
+)
+
 // Defines values for LinkState.
 const (
 	NETWORKINTERFACELINKSTATEDOWN        LinkState = "NETWORK_INTERFACE_LINK_STATE_DOWN"
@@ -1120,6 +1136,9 @@ type HostResource struct {
 	// CurrentAmtState The state of the AMT (Active Management Technology) component.
 	CurrentAmtState *AmtState `json:"currentAmtState,omitempty"`
 
+	// CurrentKvmState KVM session lifecycle state — used for both desired and current state.
+	CurrentKvmState *KvmState `json:"currentKvmState,omitempty"`
+
 	// CurrentPowerState The host power state.
 	CurrentPowerState *PowerState `json:"currentPowerState,omitempty"`
 
@@ -1129,8 +1148,11 @@ type HostResource struct {
 	// DesiredAmtState The state of the AMT (Active Management Technology) component.
 	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
-	// DesiredConsentCode (OPTIONAL)
+	// DesiredConsentCode (OPTIONAL) Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
 	DesiredConsentCode *string `json:"desiredConsentCode,omitempty"`
+
+	// DesiredKvmState KVM session lifecycle state — used for both desired and current state.
+	DesiredKvmState *KvmState `json:"desiredKvmState,omitempty"`
 
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
@@ -1168,6 +1190,18 @@ type HostResource struct {
 	// Instance InstanceResource describes an instantiated OS install, running on either a
 	//  host or hypervisor.
 	Instance *InstanceResource `json:"instance,omitempty"`
+
+	// KvmSessionStatus Human-readable status message describing the current KVM session state. Set by kvm-manager only.
+	KvmSessionStatus *string `json:"kvmSessionStatus,omitempty"`
+
+	// KvmSessionStatusIndicator The status indicator.
+	KvmSessionStatusIndicator *StatusIndication `json:"kvmSessionStatusIndicator,omitempty"`
+
+	// KvmSessionUrl WebSocket relay URL for the active KVM session. Set by kvm-manager only.
+	KvmSessionUrl *string `json:"kvmSessionUrl,omitempty"`
+
+	// KvmStatus KVM feature activation status on the AMT device.
+	KvmStatus *KvmStatus `json:"kvmStatus,omitempty"`
 
 	// MemoryBytes Quantity of memory (RAM) in the system in bytes.
 	MemoryBytes *string `json:"memoryBytes,omitempty"`
@@ -1504,6 +1538,12 @@ type InvalidateInstanceRequest struct {
 
 // InvalidateInstanceResponse Response message for Invalidate Instance.
 type InvalidateInstanceResponse = map[string]interface{}
+
+// KvmState KVM session lifecycle state — used for both desired and current state.
+type KvmState string
+
+// KvmStatus KVM feature activation status on the AMT device.
+type KvmStatus string
 
 // LinkState The state of the network interface.
 type LinkState string

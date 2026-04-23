@@ -15,8 +15,8 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0
 	github.com/labstack/echo-contrib v0.50.1
 	github.com/labstack/echo/v4 v4.15.1
-	github.com/oapi-codegen/runtime v1.1.1
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.35.0
+	github.com/oapi-codegen/runtime v1.3.1
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.34.6-0.20260406110825-1c4cad75c1dc
 	github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1

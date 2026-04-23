@@ -77,6 +77,22 @@ enum AmtControlMode {
   AMT_CONTROL_MODE_CCM = 2;
 }
 
+// KVM feature activation status on the AMT device.
+enum KvmStatus {
+  KVM_STATUS_UNSPECIFIED = 0;
+  KVM_STATUS_ACTIVATED = 1;
+  KVM_STATUS_DEACTIVATED = 2;
+}
+
+// KVM session lifecycle state — used for both desired and current state.
+enum KvmState {
+  KVM_STATE_UNSPECIFIED = 0;
+  KVM_STATE_START = 1;
+  KVM_STATE_STOP = 2;
+  KVM_STATE_AWAITING_CONSENT = 3;
+  KVM_STATE_ERROR = 4;
+}
+
 // A Host resource.
 message HostResource {
   // Resource ID, generated on Create.
@@ -240,6 +256,28 @@ message HostResource {
     (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
   ];
 
+
+  // KVM feature activation status on the AMT device. Set by kvm-manager only.
+  KvmStatus kvm_status = 88 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Desired KVM session state. Written by operator (orch-cli). Valid values: KVM_STATE_START, KVM_STATE_STOP.
+  KvmState desired_kvm_state = 101 [(google.api.field_behavior) = OPTIONAL];
+  // Current KVM session state. Set by kvm-manager only.
+  KvmState current_kvm_state = 102 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // WebSocket relay URL for the active KVM session. Set by kvm-manager only.
+  string kvm_session_url = 103 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Human-readable status message describing the current KVM session state. Set by kvm-manager only.
+  string kvm_session_status = 104 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (buf.validate.field).string = {max_len: 1024}
+  ];
+  // Indicates the severity/dynamicity of kvm_session_status. Set by kvm-manager only.
+  status.v1.StatusIndication kvm_session_status_indicator = 105 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager.
+  string desired_consent_code = 106 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).string = {pattern: "^[0-9]{6}$"},
+    (buf.validate.field).ignore = IGNORE_IF_UNPOPULATED
+  ];
 
   // The site where the host is located.
   string site_id = 5001 [

@@ -61,6 +61,8 @@
     - [HostState](#resources-compute-v1-HostState)
     - [InstanceKind](#resources-compute-v1-InstanceKind)
     - [InstanceState](#resources-compute-v1-InstanceState)
+    - [KvmState](#resources-compute-v1-KvmState)
+    - [KvmStatus](#resources-compute-v1-KvmStatus)
     - [LinkState](#resources-compute-v1-LinkState)
     - [PowerCommandPolicy](#resources-compute-v1-PowerCommandPolicy)
     - [PowerState](#resources-compute-v1-PowerState)
@@ -811,7 +813,13 @@ A Host resource.
 | user_lvm_size | [uint32](#uint32) |  | LVM size in GB. |
 | amt_control_mode | [AmtControlMode](#resources-compute-v1-AmtControlMode) |  | coming from user selection |
 | amt_dns_suffix | [string](#string) |  | textual message that describes dns_suffix for ACM mode. |
-| desired_consent_code | [string](#string) |  |  |
+| kvm_status | [KvmStatus](#resources-compute-v1-KvmStatus) |  | KVM feature activation status on the AMT device. Set by kvm-manager only. |
+| desired_kvm_state | [KvmState](#resources-compute-v1-KvmState) |  | Desired KVM session state. Written by operator (orch-cli). Valid values: KVM_STATE_START, KVM_STATE_STOP. |
+| current_kvm_state | [KvmState](#resources-compute-v1-KvmState) |  | Current KVM session state. Set by kvm-manager only. |
+| kvm_session_url | [string](#string) |  | WebSocket relay URL for the active KVM session. Set by kvm-manager only. |
+| kvm_session_status | [string](#string) |  | Human-readable status message describing the current KVM session state. Set by kvm-manager only. |
+| kvm_session_status_indicator | [resources.status.v1.StatusIndication](#resources-status-v1-StatusIndication) |  | Indicates the severity/dynamicity of kvm_session_status. Set by kvm-manager only. |
+| desired_consent_code | [string](#string) |  | Six-digit user-consent code entered by the operator. Write-only; consumed by kvm-manager. |
 | site_id | [string](#string) |  | The site where the host is located. |
 | metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata associated with the host, represented by a list of key:value pairs. |
 | inherited_metadata | [resources.common.v1.MetadataItem](#resources-common-v1-MetadataItem) | repeated | The metadata inherited by the host, represented by a list of key:value pairs, rendered by location and logical structures. |
@@ -1183,6 +1191,34 @@ The Instance States.
 | INSTANCE_STATE_RUNNING | 1 | OS is Running |
 | INSTANCE_STATE_DELETED | 2 | OS should be Deleted |
 | INSTANCE_STATE_UNTRUSTED | 3 | OS should not be trusted anymore |
+
+
+
+<a name="resources-compute-v1-KvmState"></a>
+
+### KvmState
+KVM session lifecycle state — used for both desired and current state.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATE_UNSPECIFIED | 0 |  |
+| KVM_STATE_START | 1 |  |
+| KVM_STATE_STOP | 2 |  |
+| KVM_STATE_AWAITING_CONSENT | 3 |  |
+| KVM_STATE_ERROR | 4 |  |
+
+
+
+<a name="resources-compute-v1-KvmStatus"></a>
+
+### KvmStatus
+KVM feature activation status on the AMT device.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| KVM_STATUS_UNSPECIFIED | 0 |  |
+| KVM_STATUS_ACTIVATED | 1 |  |
+| KVM_STATUS_DEACTIVATED | 2 |  |
 
 
 
