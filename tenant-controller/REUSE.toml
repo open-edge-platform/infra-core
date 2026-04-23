@@ -9,6 +9,7 @@ path = [
     "go.sum",
     "VERSION",
     "configuration/**.json",
+    "tenant-controller",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "(C) 2025 Intel Corporation"

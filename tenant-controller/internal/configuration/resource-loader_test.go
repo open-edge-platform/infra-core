@@ -263,5 +263,5 @@ func saveLOCAConfigs(path string, locaConfigs []configuration.LOCAConfig) error 
 
 	enc := json.NewEncoder(targetFile)
 	enc.SetIndent("", "  ")
-	return enc.Encode(locaConfigs)
+	return enc.Encode(locaConfigs) //nolint:gosec // test data, not a secret
 }

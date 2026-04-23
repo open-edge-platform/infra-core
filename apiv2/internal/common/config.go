@@ -21,8 +21,8 @@ const (
 	DefaultTimeout                      = 10
 	BaseRESTURL                         = "baseRESTURL"
 	BaseRESTURLDescription              = "The REST server base URL"
-	TenantManagerURL            = "tenantManagerURL"
-	TenantManagerURLDescription = "The Tenant Manager base URL for project resolution"
+	TenantManagerURL                    = "tenantManagerURL"
+	TenantManagerURLDescription         = "The Tenant Manager base URL for project resolution"
 	RestTimeout                         = "restTimeout"
 	RestTimeoutDescription              = "Timeout for a REST API call (in seconds)"
 	EnableRateLimiter                   = "enableRateLimiter"

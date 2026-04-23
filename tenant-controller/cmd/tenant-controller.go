@@ -168,7 +168,7 @@ func main() {
 
 	controller.NewEventDispatcher(invClient, tenantInitializationCtrl, tenantTerminationCtrl).Start(termChan)
 
-	hook := tenancy.NewTenancyHook()
+	hook := tenancy.NewHook()
 	if err := hook.Subscribe(tenantInitializationCtrl, tenantTerminationCtrl); err != nil {
 		zlog.InfraSec().Fatal().Err(err).Msgf("Unable to subscribe to Tenant Manager events")
 	}
@@ -181,9 +181,9 @@ func main() {
 	go func() {
 		<-sigChan // block until signals received
 
-		hook.Unsubscribe()    // stop tenancy poller
-		close(termChan)       // closes the SBgRPC server, OAM Server
-		invClient.Close()     // stop inventory client
+		hook.Unsubscribe() // stop tenancy poller
+		close(termChan)    // closes the SBgRPC server, OAM Server
+		invClient.Close()  // stop inventory client
 	}()
 
 	// wait for Inventory API and SB gRPC API to be ready, then set OAM ready

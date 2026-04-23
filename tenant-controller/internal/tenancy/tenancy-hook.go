@@ -35,20 +35,20 @@ type tenantTerminationHandler interface {
 	TerminateTenant(ctx context.Context, tenantID string) error
 }
 
-// TenancyHook replaces the former Nexus-based DataModelController.
+// Hook replaces the former Nexus-based DataModelController.
 // It subscribes to project lifecycle events from the Tenant Manager REST API
 // via the shared orch-library tenancy poller.
-type TenancyHook struct {
+type Hook struct {
 	cancel context.CancelFunc
 }
 
-// NewTenancyHook creates a TenancyHook.
-func NewTenancyHook() *TenancyHook {
-	return &TenancyHook{}
+// NewHook creates a Hook.
+func NewHook() *Hook {
+	return &Hook{}
 }
 
 // Subscribe starts the tenancy poller in a background goroutine.
-func (h *TenancyHook) Subscribe(
+func (h *Hook) Subscribe(
 	initializer tenantInitializationHandler,
 	terminator tenantTerminationHandler,
 ) error {
@@ -87,7 +87,7 @@ func (h *TenancyHook) Subscribe(
 }
 
 // Unsubscribe cancels the background poller.
-func (h *TenancyHook) Unsubscribe() {
+func (h *Hook) Unsubscribe() {
 	if h.cancel != nil {
 		h.cancel()
 	}
