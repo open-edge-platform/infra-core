@@ -33,7 +33,9 @@ func compareProtoMessages(t *testing.T, msg1, msg2 proto.Message) {
 			continue
 		}
 
-		if field1.Kind() == reflect.Struct {
+		// Handle embedded structs and interfaces by comparing their fields recursively.
+		// Special case of oneof fields in protobuf messages
+		if field1.Kind() == reflect.Struct || field1.Kind() == reflect.Interface {
 			// Handle embedded structs by comparing their fields recursively
 			if field1.CanInterface() && field2.CanInterface() {
 				// Try to convert to proto.Message first

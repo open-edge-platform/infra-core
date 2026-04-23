@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package testing //nolint:revive // this package is used for testing and should not be imported by other packages
+package testing //nolint:revive,nolintlint // this package is used for testing and should not be imported by other packages
 
 import (
 	"os"
