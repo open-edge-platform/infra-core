@@ -1185,23 +1185,163 @@ func (_u *HostResourceUpdate) ClearAmtDNSSuffix() *HostResourceUpdate {
 	return _u
 }
 
-// SetDesiredConsentCode sets the "desired_consent_code" field.
-func (_u *HostResourceUpdate) SetDesiredConsentCode(v string) *HostResourceUpdate {
-	_u.mutation.SetDesiredConsentCode(v)
+// SetKvmStatus sets the "kvm_status" field.
+func (_u *HostResourceUpdate) SetKvmStatus(v hostresource.KvmStatus) *HostResourceUpdate {
+	_u.mutation.SetKvmStatus(v)
 	return _u
 }
 
-// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
-func (_u *HostResourceUpdate) SetNillableDesiredConsentCode(v *string) *HostResourceUpdate {
+// SetNillableKvmStatus sets the "kvm_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableKvmStatus(v *hostresource.KvmStatus) *HostResourceUpdate {
 	if v != nil {
-		_u.SetDesiredConsentCode(*v)
+		_u.SetKvmStatus(*v)
 	}
 	return _u
 }
 
-// ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
-func (_u *HostResourceUpdate) ClearDesiredConsentCode() *HostResourceUpdate {
-	_u.mutation.ClearDesiredConsentCode()
+// ClearKvmStatus clears the value of the "kvm_status" field.
+func (_u *HostResourceUpdate) ClearKvmStatus() *HostResourceUpdate {
+	_u.mutation.ClearKvmStatus()
+	return _u
+}
+
+// SetDesiredKvmState sets the "desired_kvm_state" field.
+func (_u *HostResourceUpdate) SetDesiredKvmState(v hostresource.DesiredKvmState) *HostResourceUpdate {
+	_u.mutation.SetDesiredKvmState(v)
+	return _u
+}
+
+// SetNillableDesiredKvmState sets the "desired_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableDesiredKvmState(v *hostresource.DesiredKvmState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetDesiredKvmState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredKvmState clears the value of the "desired_kvm_state" field.
+func (_u *HostResourceUpdate) ClearDesiredKvmState() *HostResourceUpdate {
+	_u.mutation.ClearDesiredKvmState()
+	return _u
+}
+
+// SetCurrentKvmState sets the "current_kvm_state" field.
+func (_u *HostResourceUpdate) SetCurrentKvmState(v hostresource.CurrentKvmState) *HostResourceUpdate {
+	_u.mutation.SetCurrentKvmState(v)
+	return _u
+}
+
+// SetNillableCurrentKvmState sets the "current_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableCurrentKvmState(v *hostresource.CurrentKvmState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetCurrentKvmState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentKvmState clears the value of the "current_kvm_state" field.
+func (_u *HostResourceUpdate) ClearCurrentKvmState() *HostResourceUpdate {
+	_u.mutation.ClearCurrentKvmState()
+	return _u
+}
+
+// SetKvmSessionStatus sets the "kvm_session_status" field.
+func (_u *HostResourceUpdate) SetKvmSessionStatus(v string) *HostResourceUpdate {
+	_u.mutation.SetKvmSessionStatus(v)
+	return _u
+}
+
+// SetNillableKvmSessionStatus sets the "kvm_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableKvmSessionStatus(v *string) *HostResourceUpdate {
+	if v != nil {
+		_u.SetKvmSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionStatus clears the value of the "kvm_session_status" field.
+func (_u *HostResourceUpdate) ClearKvmSessionStatus() *HostResourceUpdate {
+	_u.mutation.ClearKvmSessionStatus()
+	return _u
+}
+
+// SetSolStatus sets the "sol_status" field.
+func (_u *HostResourceUpdate) SetSolStatus(v hostresource.SolStatus) *HostResourceUpdate {
+	_u.mutation.SetSolStatus(v)
+	return _u
+}
+
+// SetNillableSolStatus sets the "sol_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableSolStatus(v *hostresource.SolStatus) *HostResourceUpdate {
+	if v != nil {
+		_u.SetSolStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolStatus clears the value of the "sol_status" field.
+func (_u *HostResourceUpdate) ClearSolStatus() *HostResourceUpdate {
+	_u.mutation.ClearSolStatus()
+	return _u
+}
+
+// SetDesiredSolState sets the "desired_sol_state" field.
+func (_u *HostResourceUpdate) SetDesiredSolState(v hostresource.DesiredSolState) *HostResourceUpdate {
+	_u.mutation.SetDesiredSolState(v)
+	return _u
+}
+
+// SetNillableDesiredSolState sets the "desired_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableDesiredSolState(v *hostresource.DesiredSolState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetDesiredSolState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredSolState clears the value of the "desired_sol_state" field.
+func (_u *HostResourceUpdate) ClearDesiredSolState() *HostResourceUpdate {
+	_u.mutation.ClearDesiredSolState()
+	return _u
+}
+
+// SetCurrentSolState sets the "current_sol_state" field.
+func (_u *HostResourceUpdate) SetCurrentSolState(v hostresource.CurrentSolState) *HostResourceUpdate {
+	_u.mutation.SetCurrentSolState(v)
+	return _u
+}
+
+// SetNillableCurrentSolState sets the "current_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableCurrentSolState(v *hostresource.CurrentSolState) *HostResourceUpdate {
+	if v != nil {
+		_u.SetCurrentSolState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentSolState clears the value of the "current_sol_state" field.
+func (_u *HostResourceUpdate) ClearCurrentSolState() *HostResourceUpdate {
+	_u.mutation.ClearCurrentSolState()
+	return _u
+}
+
+// SetSolSessionStatus sets the "sol_session_status" field.
+func (_u *HostResourceUpdate) SetSolSessionStatus(v string) *HostResourceUpdate {
+	_u.mutation.SetSolSessionStatus(v)
+	return _u
+}
+
+// SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdate) SetNillableSolSessionStatus(v *string) *HostResourceUpdate {
+	if v != nil {
+		_u.SetSolSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionStatus clears the value of the "sol_session_status" field.
+func (_u *HostResourceUpdate) ClearSolSessionStatus() *HostResourceUpdate {
+	_u.mutation.ClearSolSessionStatus()
 	return _u
 }
 
@@ -1545,6 +1685,36 @@ func (_u *HostResourceUpdate) check() error {
 	if v, ok := _u.mutation.AmtControlMode(); ok {
 		if err := hostresource.AmtControlModeValidator(v); err != nil {
 			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.KvmStatus(); ok {
+		if err := hostresource.KvmStatusValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredKvmState(); ok {
+		if err := hostresource.DesiredKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentKvmState(); ok {
+		if err := hostresource.CurrentKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.SolStatus(); ok {
+		if err := hostresource.SolStatusValidator(v); err != nil {
+			return &ValidationError{Name: "sol_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredSolState(); ok {
+		if err := hostresource.DesiredSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_sol_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentSolState(); ok {
+		if err := hostresource.CurrentSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
 		}
 	}
 	return nil
@@ -1916,11 +2086,53 @@ func (_u *HostResourceUpdate) sqlSave(ctx context.Context) (_node int, err error
 	if _u.mutation.AmtDNSSuffixCleared() {
 		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
 	}
-	if value, ok := _u.mutation.DesiredConsentCode(); ok {
-		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
+	if value, ok := _u.mutation.KvmStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmStatus, field.TypeEnum, value)
 	}
-	if _u.mutation.DesiredConsentCodeCleared() {
-		_spec.ClearField(hostresource.FieldDesiredConsentCode, field.TypeString)
+	if _u.mutation.KvmStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredKvmState(); ok {
+		_spec.SetField(hostresource.FieldDesiredKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentKvmState(); ok {
+		_spec.SetField(hostresource.FieldCurrentKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.KvmSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.KvmSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionStatus, field.TypeString)
+	}
+	if value, ok := _u.mutation.SolStatus(); ok {
+		_spec.SetField(hostresource.FieldSolStatus, field.TypeEnum, value)
+	}
+	if _u.mutation.SolStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredSolState(); ok {
+		_spec.SetField(hostresource.FieldDesiredSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredSolStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentSolState(); ok {
+		_spec.SetField(hostresource.FieldCurrentSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentSolStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.SolSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.SolSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeString)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
@@ -3363,23 +3575,163 @@ func (_u *HostResourceUpdateOne) ClearAmtDNSSuffix() *HostResourceUpdateOne {
 	return _u
 }
 
-// SetDesiredConsentCode sets the "desired_consent_code" field.
-func (_u *HostResourceUpdateOne) SetDesiredConsentCode(v string) *HostResourceUpdateOne {
-	_u.mutation.SetDesiredConsentCode(v)
+// SetKvmStatus sets the "kvm_status" field.
+func (_u *HostResourceUpdateOne) SetKvmStatus(v hostresource.KvmStatus) *HostResourceUpdateOne {
+	_u.mutation.SetKvmStatus(v)
 	return _u
 }
 
-// SetNillableDesiredConsentCode sets the "desired_consent_code" field if the given value is not nil.
-func (_u *HostResourceUpdateOne) SetNillableDesiredConsentCode(v *string) *HostResourceUpdateOne {
+// SetNillableKvmStatus sets the "kvm_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableKvmStatus(v *hostresource.KvmStatus) *HostResourceUpdateOne {
 	if v != nil {
-		_u.SetDesiredConsentCode(*v)
+		_u.SetKvmStatus(*v)
 	}
 	return _u
 }
 
-// ClearDesiredConsentCode clears the value of the "desired_consent_code" field.
-func (_u *HostResourceUpdateOne) ClearDesiredConsentCode() *HostResourceUpdateOne {
-	_u.mutation.ClearDesiredConsentCode()
+// ClearKvmStatus clears the value of the "kvm_status" field.
+func (_u *HostResourceUpdateOne) ClearKvmStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearKvmStatus()
+	return _u
+}
+
+// SetDesiredKvmState sets the "desired_kvm_state" field.
+func (_u *HostResourceUpdateOne) SetDesiredKvmState(v hostresource.DesiredKvmState) *HostResourceUpdateOne {
+	_u.mutation.SetDesiredKvmState(v)
+	return _u
+}
+
+// SetNillableDesiredKvmState sets the "desired_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableDesiredKvmState(v *hostresource.DesiredKvmState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredKvmState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredKvmState clears the value of the "desired_kvm_state" field.
+func (_u *HostResourceUpdateOne) ClearDesiredKvmState() *HostResourceUpdateOne {
+	_u.mutation.ClearDesiredKvmState()
+	return _u
+}
+
+// SetCurrentKvmState sets the "current_kvm_state" field.
+func (_u *HostResourceUpdateOne) SetCurrentKvmState(v hostresource.CurrentKvmState) *HostResourceUpdateOne {
+	_u.mutation.SetCurrentKvmState(v)
+	return _u
+}
+
+// SetNillableCurrentKvmState sets the "current_kvm_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableCurrentKvmState(v *hostresource.CurrentKvmState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentKvmState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentKvmState clears the value of the "current_kvm_state" field.
+func (_u *HostResourceUpdateOne) ClearCurrentKvmState() *HostResourceUpdateOne {
+	_u.mutation.ClearCurrentKvmState()
+	return _u
+}
+
+// SetKvmSessionStatus sets the "kvm_session_status" field.
+func (_u *HostResourceUpdateOne) SetKvmSessionStatus(v string) *HostResourceUpdateOne {
+	_u.mutation.SetKvmSessionStatus(v)
+	return _u
+}
+
+// SetNillableKvmSessionStatus sets the "kvm_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableKvmSessionStatus(v *string) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetKvmSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearKvmSessionStatus clears the value of the "kvm_session_status" field.
+func (_u *HostResourceUpdateOne) ClearKvmSessionStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearKvmSessionStatus()
+	return _u
+}
+
+// SetSolStatus sets the "sol_status" field.
+func (_u *HostResourceUpdateOne) SetSolStatus(v hostresource.SolStatus) *HostResourceUpdateOne {
+	_u.mutation.SetSolStatus(v)
+	return _u
+}
+
+// SetNillableSolStatus sets the "sol_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableSolStatus(v *hostresource.SolStatus) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetSolStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolStatus clears the value of the "sol_status" field.
+func (_u *HostResourceUpdateOne) ClearSolStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearSolStatus()
+	return _u
+}
+
+// SetDesiredSolState sets the "desired_sol_state" field.
+func (_u *HostResourceUpdateOne) SetDesiredSolState(v hostresource.DesiredSolState) *HostResourceUpdateOne {
+	_u.mutation.SetDesiredSolState(v)
+	return _u
+}
+
+// SetNillableDesiredSolState sets the "desired_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableDesiredSolState(v *hostresource.DesiredSolState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetDesiredSolState(*v)
+	}
+	return _u
+}
+
+// ClearDesiredSolState clears the value of the "desired_sol_state" field.
+func (_u *HostResourceUpdateOne) ClearDesiredSolState() *HostResourceUpdateOne {
+	_u.mutation.ClearDesiredSolState()
+	return _u
+}
+
+// SetCurrentSolState sets the "current_sol_state" field.
+func (_u *HostResourceUpdateOne) SetCurrentSolState(v hostresource.CurrentSolState) *HostResourceUpdateOne {
+	_u.mutation.SetCurrentSolState(v)
+	return _u
+}
+
+// SetNillableCurrentSolState sets the "current_sol_state" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableCurrentSolState(v *hostresource.CurrentSolState) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetCurrentSolState(*v)
+	}
+	return _u
+}
+
+// ClearCurrentSolState clears the value of the "current_sol_state" field.
+func (_u *HostResourceUpdateOne) ClearCurrentSolState() *HostResourceUpdateOne {
+	_u.mutation.ClearCurrentSolState()
+	return _u
+}
+
+// SetSolSessionStatus sets the "sol_session_status" field.
+func (_u *HostResourceUpdateOne) SetSolSessionStatus(v string) *HostResourceUpdateOne {
+	_u.mutation.SetSolSessionStatus(v)
+	return _u
+}
+
+// SetNillableSolSessionStatus sets the "sol_session_status" field if the given value is not nil.
+func (_u *HostResourceUpdateOne) SetNillableSolSessionStatus(v *string) *HostResourceUpdateOne {
+	if v != nil {
+		_u.SetSolSessionStatus(*v)
+	}
+	return _u
+}
+
+// ClearSolSessionStatus clears the value of the "sol_session_status" field.
+func (_u *HostResourceUpdateOne) ClearSolSessionStatus() *HostResourceUpdateOne {
+	_u.mutation.ClearSolSessionStatus()
 	return _u
 }
 
@@ -3736,6 +4088,36 @@ func (_u *HostResourceUpdateOne) check() error {
 	if v, ok := _u.mutation.AmtControlMode(); ok {
 		if err := hostresource.AmtControlModeValidator(v); err != nil {
 			return &ValidationError{Name: "amt_control_mode", err: fmt.Errorf(`ent: validator failed for field "HostResource.amt_control_mode": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.KvmStatus(); ok {
+		if err := hostresource.KvmStatusValidator(v); err != nil {
+			return &ValidationError{Name: "kvm_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.kvm_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredKvmState(); ok {
+		if err := hostresource.DesiredKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentKvmState(); ok {
+		if err := hostresource.CurrentKvmStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_kvm_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_kvm_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.SolStatus(); ok {
+		if err := hostresource.SolStatusValidator(v); err != nil {
+			return &ValidationError{Name: "sol_status", err: fmt.Errorf(`ent: validator failed for field "HostResource.sol_status": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.DesiredSolState(); ok {
+		if err := hostresource.DesiredSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "desired_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.desired_sol_state": %w`, err)}
+		}
+	}
+	if v, ok := _u.mutation.CurrentSolState(); ok {
+		if err := hostresource.CurrentSolStateValidator(v); err != nil {
+			return &ValidationError{Name: "current_sol_state", err: fmt.Errorf(`ent: validator failed for field "HostResource.current_sol_state": %w`, err)}
 		}
 	}
 	return nil
@@ -4124,11 +4506,53 @@ func (_u *HostResourceUpdateOne) sqlSave(ctx context.Context) (_node *HostResour
 	if _u.mutation.AmtDNSSuffixCleared() {
 		_spec.ClearField(hostresource.FieldAmtDNSSuffix, field.TypeString)
 	}
-	if value, ok := _u.mutation.DesiredConsentCode(); ok {
-		_spec.SetField(hostresource.FieldDesiredConsentCode, field.TypeString, value)
+	if value, ok := _u.mutation.KvmStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmStatus, field.TypeEnum, value)
 	}
-	if _u.mutation.DesiredConsentCodeCleared() {
-		_spec.ClearField(hostresource.FieldDesiredConsentCode, field.TypeString)
+	if _u.mutation.KvmStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredKvmState(); ok {
+		_spec.SetField(hostresource.FieldDesiredKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentKvmState(); ok {
+		_spec.SetField(hostresource.FieldCurrentKvmState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentKvmStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentKvmState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.KvmSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldKvmSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.KvmSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldKvmSessionStatus, field.TypeString)
+	}
+	if value, ok := _u.mutation.SolStatus(); ok {
+		_spec.SetField(hostresource.FieldSolStatus, field.TypeEnum, value)
+	}
+	if _u.mutation.SolStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolStatus, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.DesiredSolState(); ok {
+		_spec.SetField(hostresource.FieldDesiredSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.DesiredSolStateCleared() {
+		_spec.ClearField(hostresource.FieldDesiredSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.CurrentSolState(); ok {
+		_spec.SetField(hostresource.FieldCurrentSolState, field.TypeEnum, value)
+	}
+	if _u.mutation.CurrentSolStateCleared() {
+		_spec.ClearField(hostresource.FieldCurrentSolState, field.TypeEnum)
+	}
+	if value, ok := _u.mutation.SolSessionStatus(); ok {
+		_spec.SetField(hostresource.FieldSolSessionStatus, field.TypeString, value)
+	}
+	if _u.mutation.SolSessionStatusCleared() {
+		_spec.ClearField(hostresource.FieldSolSessionStatus, field.TypeString)
 	}
 	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(hostresource.FieldUpdatedAt, field.TypeString, value)
