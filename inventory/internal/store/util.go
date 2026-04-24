@@ -56,19 +56,14 @@ const (
 	MetadataKeyNameMaxLength   = 63
 	MetadataKeyPrefixMaxLength = 253
 
-	// MetadataValueMaxLength was previously set to 63, but it was increased to
-	// 4096 to allow for additional use cases such as kubeconfig data
-	// This should be broken down into separate label and annotation value length limits in the future,
-	// but for now we want to be conservative in allowing existing metadata to continue working without hitting length limits.
-	MetadataValueMaxLength = 63
+	// MetadataValueMaxLength was previously set to 63, but it was increased to 4096 to allow for
+	// additional use cases such as kubeconfig data in the value of the metadata.
+	MetadataValueMaxLength = 4096
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
 var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
-
-// MetadataPatternLabel representing the metadata pattern for label.
-// var MetadataPatternLabel = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
@@ -145,11 +140,6 @@ func validateKeyValue(meta []Metadata) error {
 			if len(rmetadata.Value) > MetadataValueMaxLength {
 				return errors.Errorfc(codes.InvalidArgument, "Label value too long")
 			}
-
-			// To be added back once a difference between label and annotation value validation is implemented.
-			// if !MetadataPatternLabel.MatchString(rmetadata.Value) {
-			// 	return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
-			// }
 		}
 	}
 	return nil
