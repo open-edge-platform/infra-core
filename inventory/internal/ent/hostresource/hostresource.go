@@ -122,8 +122,22 @@ const (
 	FieldAmtControlMode = "amt_control_mode"
 	// FieldAmtDNSSuffix holds the string denoting the amt_dns_suffix field in the database.
 	FieldAmtDNSSuffix = "amt_dns_suffix"
-	// FieldDesiredConsentCode holds the string denoting the desired_consent_code field in the database.
-	FieldDesiredConsentCode = "desired_consent_code"
+	// FieldKvmStatus holds the string denoting the kvm_status field in the database.
+	FieldKvmStatus = "kvm_status"
+	// FieldDesiredKvmState holds the string denoting the desired_kvm_state field in the database.
+	FieldDesiredKvmState = "desired_kvm_state"
+	// FieldCurrentKvmState holds the string denoting the current_kvm_state field in the database.
+	FieldCurrentKvmState = "current_kvm_state"
+	// FieldKvmSessionStatus holds the string denoting the kvm_session_status field in the database.
+	FieldKvmSessionStatus = "kvm_session_status"
+	// FieldSolStatus holds the string denoting the sol_status field in the database.
+	FieldSolStatus = "sol_status"
+	// FieldDesiredSolState holds the string denoting the desired_sol_state field in the database.
+	FieldDesiredSolState = "desired_sol_state"
+	// FieldCurrentSolState holds the string denoting the current_sol_state field in the database.
+	FieldCurrentSolState = "current_sol_state"
+	// FieldSolSessionStatus holds the string denoting the sol_session_status field in the database.
+	FieldSolSessionStatus = "sol_session_status"
 	// FieldTenantID holds the string denoting the tenant_id field in the database.
 	FieldTenantID = "tenant_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -254,7 +268,14 @@ var Columns = []string{
 	FieldUserLvmSize,
 	FieldAmtControlMode,
 	FieldAmtDNSSuffix,
-	FieldDesiredConsentCode,
+	FieldKvmStatus,
+	FieldDesiredKvmState,
+	FieldCurrentKvmState,
+	FieldKvmSessionStatus,
+	FieldSolStatus,
+	FieldDesiredSolState,
+	FieldCurrentSolState,
+	FieldSolSessionStatus,
 	FieldTenantID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -666,6 +687,166 @@ func AmtControlModeValidator(acm AmtControlMode) error {
 	}
 }
 
+// KvmStatus defines the type for the "kvm_status" enum field.
+type KvmStatus string
+
+// KvmStatus values.
+const (
+	KvmStatusKVM_STATUS_UNSPECIFIED KvmStatus = "KVM_STATUS_UNSPECIFIED"
+	KvmStatusKVM_STATUS_ACTIVATED   KvmStatus = "KVM_STATUS_ACTIVATED"
+	KvmStatusKVM_STATUS_DEACTIVATED KvmStatus = "KVM_STATUS_DEACTIVATED"
+)
+
+func (ks KvmStatus) String() string {
+	return string(ks)
+}
+
+// KvmStatusValidator is a validator for the "kvm_status" field enum values. It is called by the builders before save.
+func KvmStatusValidator(ks KvmStatus) error {
+	switch ks {
+	case KvmStatusKVM_STATUS_UNSPECIFIED, KvmStatusKVM_STATUS_ACTIVATED, KvmStatusKVM_STATUS_DEACTIVATED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for kvm_status field: %q", ks)
+	}
+}
+
+// DesiredKvmState defines the type for the "desired_kvm_state" enum field.
+type DesiredKvmState string
+
+// DesiredKvmState values.
+const (
+	DesiredKvmStateKVM_STATE_UNSPECIFIED          DesiredKvmState = "KVM_STATE_UNSPECIFIED"
+	DesiredKvmStateKVM_STATE_START                DesiredKvmState = "KVM_STATE_START"
+	DesiredKvmStateKVM_STATE_STOP                 DesiredKvmState = "KVM_STATE_STOP"
+	DesiredKvmStateKVM_STATE_AWAITING_CONSENT     DesiredKvmState = "KVM_STATE_AWAITING_CONSENT"
+	DesiredKvmStateKVM_STATE_ERROR                DesiredKvmState = "KVM_STATE_ERROR"
+	DesiredKvmStateKVM_STATE_CONSENT_RECEIVED     DesiredKvmState = "KVM_STATE_CONSENT_RECEIVED"
+	DesiredKvmStateKVM_STATE_REDIRECTION_RECEIVED DesiredKvmState = "KVM_STATE_REDIRECTION_RECEIVED"
+)
+
+func (dks DesiredKvmState) String() string {
+	return string(dks)
+}
+
+// DesiredKvmStateValidator is a validator for the "desired_kvm_state" field enum values. It is called by the builders before save.
+func DesiredKvmStateValidator(dks DesiredKvmState) error {
+	switch dks {
+	case DesiredKvmStateKVM_STATE_UNSPECIFIED, DesiredKvmStateKVM_STATE_START, DesiredKvmStateKVM_STATE_STOP, DesiredKvmStateKVM_STATE_AWAITING_CONSENT, DesiredKvmStateKVM_STATE_ERROR, DesiredKvmStateKVM_STATE_CONSENT_RECEIVED, DesiredKvmStateKVM_STATE_REDIRECTION_RECEIVED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for desired_kvm_state field: %q", dks)
+	}
+}
+
+// CurrentKvmState defines the type for the "current_kvm_state" enum field.
+type CurrentKvmState string
+
+// CurrentKvmState values.
+const (
+	CurrentKvmStateKVM_STATE_UNSPECIFIED          CurrentKvmState = "KVM_STATE_UNSPECIFIED"
+	CurrentKvmStateKVM_STATE_START                CurrentKvmState = "KVM_STATE_START"
+	CurrentKvmStateKVM_STATE_STOP                 CurrentKvmState = "KVM_STATE_STOP"
+	CurrentKvmStateKVM_STATE_AWAITING_CONSENT     CurrentKvmState = "KVM_STATE_AWAITING_CONSENT"
+	CurrentKvmStateKVM_STATE_ERROR                CurrentKvmState = "KVM_STATE_ERROR"
+	CurrentKvmStateKVM_STATE_CONSENT_RECEIVED     CurrentKvmState = "KVM_STATE_CONSENT_RECEIVED"
+	CurrentKvmStateKVM_STATE_REDIRECTION_RECEIVED CurrentKvmState = "KVM_STATE_REDIRECTION_RECEIVED"
+)
+
+func (cks CurrentKvmState) String() string {
+	return string(cks)
+}
+
+// CurrentKvmStateValidator is a validator for the "current_kvm_state" field enum values. It is called by the builders before save.
+func CurrentKvmStateValidator(cks CurrentKvmState) error {
+	switch cks {
+	case CurrentKvmStateKVM_STATE_UNSPECIFIED, CurrentKvmStateKVM_STATE_START, CurrentKvmStateKVM_STATE_STOP, CurrentKvmStateKVM_STATE_AWAITING_CONSENT, CurrentKvmStateKVM_STATE_ERROR, CurrentKvmStateKVM_STATE_CONSENT_RECEIVED, CurrentKvmStateKVM_STATE_REDIRECTION_RECEIVED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for current_kvm_state field: %q", cks)
+	}
+}
+
+// SolStatus defines the type for the "sol_status" enum field.
+type SolStatus string
+
+// SolStatus values.
+const (
+	SolStatusSOL_STATUS_UNSPECIFIED SolStatus = "SOL_STATUS_UNSPECIFIED"
+	SolStatusSOL_STATUS_ACTIVATED   SolStatus = "SOL_STATUS_ACTIVATED"
+	SolStatusSOL_STATUS_DEACTIVATED SolStatus = "SOL_STATUS_DEACTIVATED"
+)
+
+func (ss SolStatus) String() string {
+	return string(ss)
+}
+
+// SolStatusValidator is a validator for the "sol_status" field enum values. It is called by the builders before save.
+func SolStatusValidator(ss SolStatus) error {
+	switch ss {
+	case SolStatusSOL_STATUS_UNSPECIFIED, SolStatusSOL_STATUS_ACTIVATED, SolStatusSOL_STATUS_DEACTIVATED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for sol_status field: %q", ss)
+	}
+}
+
+// DesiredSolState defines the type for the "desired_sol_state" enum field.
+type DesiredSolState string
+
+// DesiredSolState values.
+const (
+	DesiredSolStateSOL_STATE_UNSPECIFIED          DesiredSolState = "SOL_STATE_UNSPECIFIED"
+	DesiredSolStateSOL_STATE_START                DesiredSolState = "SOL_STATE_START"
+	DesiredSolStateSOL_STATE_STOP                 DesiredSolState = "SOL_STATE_STOP"
+	DesiredSolStateSOL_STATE_AWAITING_CONSENT     DesiredSolState = "SOL_STATE_AWAITING_CONSENT"
+	DesiredSolStateSOL_STATE_ERROR                DesiredSolState = "SOL_STATE_ERROR"
+	DesiredSolStateSOL_STATE_CONSENT_RECEIVED     DesiredSolState = "SOL_STATE_CONSENT_RECEIVED"
+	DesiredSolStateSOL_STATE_REDIRECTION_RECEIVED DesiredSolState = "SOL_STATE_REDIRECTION_RECEIVED"
+)
+
+func (dss DesiredSolState) String() string {
+	return string(dss)
+}
+
+// DesiredSolStateValidator is a validator for the "desired_sol_state" field enum values. It is called by the builders before save.
+func DesiredSolStateValidator(dss DesiredSolState) error {
+	switch dss {
+	case DesiredSolStateSOL_STATE_UNSPECIFIED, DesiredSolStateSOL_STATE_START, DesiredSolStateSOL_STATE_STOP, DesiredSolStateSOL_STATE_AWAITING_CONSENT, DesiredSolStateSOL_STATE_ERROR, DesiredSolStateSOL_STATE_CONSENT_RECEIVED, DesiredSolStateSOL_STATE_REDIRECTION_RECEIVED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for desired_sol_state field: %q", dss)
+	}
+}
+
+// CurrentSolState defines the type for the "current_sol_state" enum field.
+type CurrentSolState string
+
+// CurrentSolState values.
+const (
+	CurrentSolStateSOL_STATE_UNSPECIFIED          CurrentSolState = "SOL_STATE_UNSPECIFIED"
+	CurrentSolStateSOL_STATE_START                CurrentSolState = "SOL_STATE_START"
+	CurrentSolStateSOL_STATE_STOP                 CurrentSolState = "SOL_STATE_STOP"
+	CurrentSolStateSOL_STATE_AWAITING_CONSENT     CurrentSolState = "SOL_STATE_AWAITING_CONSENT"
+	CurrentSolStateSOL_STATE_ERROR                CurrentSolState = "SOL_STATE_ERROR"
+	CurrentSolStateSOL_STATE_CONSENT_RECEIVED     CurrentSolState = "SOL_STATE_CONSENT_RECEIVED"
+	CurrentSolStateSOL_STATE_REDIRECTION_RECEIVED CurrentSolState = "SOL_STATE_REDIRECTION_RECEIVED"
+)
+
+func (css CurrentSolState) String() string {
+	return string(css)
+}
+
+// CurrentSolStateValidator is a validator for the "current_sol_state" field enum values. It is called by the builders before save.
+func CurrentSolStateValidator(css CurrentSolState) error {
+	switch css {
+	case CurrentSolStateSOL_STATE_UNSPECIFIED, CurrentSolStateSOL_STATE_START, CurrentSolStateSOL_STATE_STOP, CurrentSolStateSOL_STATE_AWAITING_CONSENT, CurrentSolStateSOL_STATE_ERROR, CurrentSolStateSOL_STATE_CONSENT_RECEIVED, CurrentSolStateSOL_STATE_REDIRECTION_RECEIVED:
+		return nil
+	default:
+		return fmt.Errorf("hostresource: invalid enum value for current_sol_state field: %q", css)
+	}
+}
+
 // OrderOption defines the ordering options for the HostResource queries.
 type OrderOption func(*sql.Selector)
 
@@ -944,9 +1125,44 @@ func ByAmtDNSSuffix(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAmtDNSSuffix, opts...).ToFunc()
 }
 
-// ByDesiredConsentCode orders the results by the desired_consent_code field.
-func ByDesiredConsentCode(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDesiredConsentCode, opts...).ToFunc()
+// ByKvmStatus orders the results by the kvm_status field.
+func ByKvmStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldKvmStatus, opts...).ToFunc()
+}
+
+// ByDesiredKvmState orders the results by the desired_kvm_state field.
+func ByDesiredKvmState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredKvmState, opts...).ToFunc()
+}
+
+// ByCurrentKvmState orders the results by the current_kvm_state field.
+func ByCurrentKvmState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCurrentKvmState, opts...).ToFunc()
+}
+
+// ByKvmSessionStatus orders the results by the kvm_session_status field.
+func ByKvmSessionStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldKvmSessionStatus, opts...).ToFunc()
+}
+
+// BySolStatus orders the results by the sol_status field.
+func BySolStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSolStatus, opts...).ToFunc()
+}
+
+// ByDesiredSolState orders the results by the desired_sol_state field.
+func ByDesiredSolState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDesiredSolState, opts...).ToFunc()
+}
+
+// ByCurrentSolState orders the results by the current_sol_state field.
+func ByCurrentSolState(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCurrentSolState, opts...).ToFunc()
+}
+
+// BySolSessionStatus orders the results by the sol_session_status field.
+func BySolSessionStatus(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSolSessionStatus, opts...).ToFunc()
 }
 
 // ByTenantID orders the results by the tenant_id field.

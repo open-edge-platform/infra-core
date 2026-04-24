@@ -127,8 +127,22 @@ type HostResource struct {
 	AmtControlMode hostresource.AmtControlMode `json:"amt_control_mode,omitempty"`
 	// AmtDNSSuffix holds the value of the "amt_dns_suffix" field.
 	AmtDNSSuffix string `json:"amt_dns_suffix,omitempty"`
-	// DesiredConsentCode holds the value of the "desired_consent_code" field.
-	DesiredConsentCode string `json:"desired_consent_code,omitempty"`
+	// KvmStatus holds the value of the "kvm_status" field.
+	KvmStatus hostresource.KvmStatus `json:"kvm_status,omitempty"`
+	// DesiredKvmState holds the value of the "desired_kvm_state" field.
+	DesiredKvmState hostresource.DesiredKvmState `json:"desired_kvm_state,omitempty"`
+	// CurrentKvmState holds the value of the "current_kvm_state" field.
+	CurrentKvmState hostresource.CurrentKvmState `json:"current_kvm_state,omitempty"`
+	// KvmSessionStatus holds the value of the "kvm_session_status" field.
+	KvmSessionStatus string `json:"kvm_session_status,omitempty"`
+	// SolStatus holds the value of the "sol_status" field.
+	SolStatus hostresource.SolStatus `json:"sol_status,omitempty"`
+	// DesiredSolState holds the value of the "desired_sol_state" field.
+	DesiredSolState hostresource.DesiredSolState `json:"desired_sol_state,omitempty"`
+	// CurrentSolState holds the value of the "current_sol_state" field.
+	CurrentSolState hostresource.CurrentSolState `json:"current_sol_state,omitempty"`
+	// SolSessionStatus holds the value of the "sol_session_status" field.
+	SolSessionStatus string `json:"sol_session_status,omitempty"`
 	// TenantID holds the value of the "tenant_id" field.
 	TenantID string `json:"tenant_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -241,7 +255,7 @@ func (*HostResource) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case hostresource.FieldID, hostresource.FieldMemoryBytes, hostresource.FieldCPUSockets, hostresource.FieldCPUCores, hostresource.FieldCPUThreads, hostresource.FieldPowerStatusTimestamp, hostresource.FieldPowerOnTime, hostresource.FieldHostStatusTimestamp, hostresource.FieldOnboardingStatusTimestamp, hostresource.FieldRegistrationStatusTimestamp, hostresource.FieldAmtStatusTimestamp, hostresource.FieldUserLvmSize:
 			values[i] = new(sql.NullInt64)
-		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtControlMode, hostresource.FieldAmtDNSSuffix, hostresource.FieldDesiredConsentCode, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
+		case hostresource.FieldResourceID, hostresource.FieldKind, hostresource.FieldName, hostresource.FieldDesiredState, hostresource.FieldCurrentState, hostresource.FieldNote, hostresource.FieldHardwareKind, hostresource.FieldSerialNumber, hostresource.FieldUUID, hostresource.FieldCPUModel, hostresource.FieldCPUCapabilities, hostresource.FieldCPUArchitecture, hostresource.FieldCPUTopology, hostresource.FieldMgmtIP, hostresource.FieldBmcKind, hostresource.FieldBmcIP, hostresource.FieldBmcUsername, hostresource.FieldBmcPassword, hostresource.FieldPxeMAC, hostresource.FieldHostname, hostresource.FieldProductName, hostresource.FieldBiosVersion, hostresource.FieldBiosReleaseDate, hostresource.FieldBiosVendor, hostresource.FieldMetadata, hostresource.FieldDesiredPowerState, hostresource.FieldCurrentPowerState, hostresource.FieldPowerStatus, hostresource.FieldPowerStatusIndicator, hostresource.FieldPowerCommandPolicy, hostresource.FieldHostStatus, hostresource.FieldHostStatusIndicator, hostresource.FieldOnboardingStatus, hostresource.FieldOnboardingStatusIndicator, hostresource.FieldRegistrationStatus, hostresource.FieldRegistrationStatusIndicator, hostresource.FieldAmtSku, hostresource.FieldDesiredAmtState, hostresource.FieldCurrentAmtState, hostresource.FieldAmtStatus, hostresource.FieldAmtStatusIndicator, hostresource.FieldAmtControlMode, hostresource.FieldAmtDNSSuffix, hostresource.FieldKvmStatus, hostresource.FieldDesiredKvmState, hostresource.FieldCurrentKvmState, hostresource.FieldKvmSessionStatus, hostresource.FieldSolStatus, hostresource.FieldDesiredSolState, hostresource.FieldCurrentSolState, hostresource.FieldSolSessionStatus, hostresource.FieldTenantID, hostresource.FieldCreatedAt, hostresource.FieldUpdatedAt:
 			values[i] = new(sql.NullString)
 		case hostresource.ForeignKeys[0]: // host_resource_site
 			values[i] = new(sql.NullInt64)
@@ -594,11 +608,53 @@ func (_m *HostResource) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.AmtDNSSuffix = value.String
 			}
-		case hostresource.FieldDesiredConsentCode:
+		case hostresource.FieldKvmStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field desired_consent_code", values[i])
+				return fmt.Errorf("unexpected type %T for field kvm_status", values[i])
 			} else if value.Valid {
-				_m.DesiredConsentCode = value.String
+				_m.KvmStatus = hostresource.KvmStatus(value.String)
+			}
+		case hostresource.FieldDesiredKvmState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field desired_kvm_state", values[i])
+			} else if value.Valid {
+				_m.DesiredKvmState = hostresource.DesiredKvmState(value.String)
+			}
+		case hostresource.FieldCurrentKvmState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field current_kvm_state", values[i])
+			} else if value.Valid {
+				_m.CurrentKvmState = hostresource.CurrentKvmState(value.String)
+			}
+		case hostresource.FieldKvmSessionStatus:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field kvm_session_status", values[i])
+			} else if value.Valid {
+				_m.KvmSessionStatus = value.String
+			}
+		case hostresource.FieldSolStatus:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field sol_status", values[i])
+			} else if value.Valid {
+				_m.SolStatus = hostresource.SolStatus(value.String)
+			}
+		case hostresource.FieldDesiredSolState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field desired_sol_state", values[i])
+			} else if value.Valid {
+				_m.DesiredSolState = hostresource.DesiredSolState(value.String)
+			}
+		case hostresource.FieldCurrentSolState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field current_sol_state", values[i])
+			} else if value.Valid {
+				_m.CurrentSolState = hostresource.CurrentSolState(value.String)
+			}
+		case hostresource.FieldSolSessionStatus:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field sol_session_status", values[i])
+			} else if value.Valid {
+				_m.SolSessionStatus = value.String
 			}
 		case hostresource.FieldTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -872,8 +928,29 @@ func (_m *HostResource) String() string {
 	builder.WriteString("amt_dns_suffix=")
 	builder.WriteString(_m.AmtDNSSuffix)
 	builder.WriteString(", ")
-	builder.WriteString("desired_consent_code=")
-	builder.WriteString(_m.DesiredConsentCode)
+	builder.WriteString("kvm_status=")
+	builder.WriteString(fmt.Sprintf("%v", _m.KvmStatus))
+	builder.WriteString(", ")
+	builder.WriteString("desired_kvm_state=")
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredKvmState))
+	builder.WriteString(", ")
+	builder.WriteString("current_kvm_state=")
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentKvmState))
+	builder.WriteString(", ")
+	builder.WriteString("kvm_session_status=")
+	builder.WriteString(_m.KvmSessionStatus)
+	builder.WriteString(", ")
+	builder.WriteString("sol_status=")
+	builder.WriteString(fmt.Sprintf("%v", _m.SolStatus))
+	builder.WriteString(", ")
+	builder.WriteString("desired_sol_state=")
+	builder.WriteString(fmt.Sprintf("%v", _m.DesiredSolState))
+	builder.WriteString(", ")
+	builder.WriteString("current_sol_state=")
+	builder.WriteString(fmt.Sprintf("%v", _m.CurrentSolState))
+	builder.WriteString(", ")
+	builder.WriteString("sol_session_status=")
+	builder.WriteString(_m.SolSessionStatus)
 	builder.WriteString(", ")
 	builder.WriteString("tenant_id=")
 	builder.WriteString(_m.TenantID)

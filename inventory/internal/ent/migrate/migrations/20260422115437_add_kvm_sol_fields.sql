@@ -1,0 +1,2 @@
+-- Modify "host_resources" table
+ALTER TABLE "host_resources" ADD COLUMN "kvm_status" character varying NULL, ADD COLUMN "desired_kvm_state" character varying NULL, ADD COLUMN "current_kvm_state" character varying NULL, ADD COLUMN "kvm_session_status" character varying NULL, ADD COLUMN "sol_status" character varying NULL, ADD COLUMN "desired_sol_state" character varying NULL, ADD COLUMN "current_sol_state" character varying NULL, ADD COLUMN "sol_session_status" character varying NULL;
