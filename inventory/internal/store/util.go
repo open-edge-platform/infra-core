@@ -65,6 +65,10 @@ const (
 var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
+// MetadataPatternValue representing the metadata pattern for value.
+// Relaxed pattern to allow for base64 strings, which can be used for encoding kubeconfigs in metadata values.
+var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$|^[A-Za-z0-9+/]*={0,2}$")
+
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
 	Key   string `json:"key"`
@@ -138,6 +142,9 @@ func validateKeyValue(meta []Metadata) error {
 		if rmetadata.Value != "" {
 			if len(rmetadata.Value) > MetadataValueMaxLength {
 				return errors.Errorfc(codes.InvalidArgument, "Label value too long")
+			}
+			if !MetadataPatternValue.MatchString(rmetadata.Value) {
+				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
 			}
 		}
 	}
