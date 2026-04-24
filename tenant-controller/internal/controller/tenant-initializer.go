@@ -22,7 +22,6 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/filters"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/configuration"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/invclient"
-	"github.com/open-edge-platform/infra-core/tenant-controller/internal/nexus"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/util"
 )
 
@@ -48,13 +47,11 @@ type ProjectConfig struct{ TenantID string }
 func NewTenantInitializationController(
 	rdl []configuration.InitResourcesProvider,
 	ic InventoryClient,
-	nxc *nexus.Client,
 	skipOSProvisioning bool,
 ) *TenantInitializationController {
 	cmpOpts := createResourceComparisonOptions(supportedResources)
 	return &TenantInitializationController{
 		ic:                        ic,
-		nxc:                       nxc,
 		resourceDefinitionLoader:  rdl,
 		resourceComparisonOptions: cmpOpts,
 		skipOSProvisioning:        skipOSProvisioning,
@@ -65,7 +62,6 @@ type TenantInitializationController struct {
 	ic                        InventoryClient
 	resourceDefinitionLoader  []configuration.InitResourcesProvider
 	resourceComparisonOptions []cmp.Option
-	nxc                       *nexus.Client
 	skipOSProvisioning        bool
 }
 
@@ -209,13 +205,7 @@ func (tc *TenantInitializationController) handleTenantDesiredStateCreated(tenant
 	}
 
 	if tenant.CurrentState == tenantv1.TenantState_TENANT_STATE_CREATED {
-		log.Info().Msgf("[ACK-SEND] Sending ACK via TryToSetActiveWatcherStatusIdle for tenant=%s",
-			tenant.GetTenantId())
-		if err := tc.nxc.TryToSetActiveWatcherStatusIdle(tenant.GetTenantId()); err != nil {
-			log.Error().Err(err).Msgf("[ACK-SEND] TryToSetActiveWatcherStatusIdle FAILED for tenant=%s", tenant.GetTenantId())
-			return err
-		}
-		log.Info().Msgf("[ACK-SEND] Successfully sent ACK for tenant=%s", tenant.GetTenantId())
+		log.Info().Msgf("[ACK-SEND] Tenant(%s) already in CREATED state, nothing to do", tenant.GetTenantId())
 	}
 
 	return nil

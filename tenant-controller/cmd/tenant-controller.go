@@ -21,9 +21,8 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/configuration"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/controller"
-	"github.com/open-edge-platform/infra-core/tenant-controller/internal/datamodel"
 	"github.com/open-edge-platform/infra-core/tenant-controller/internal/invclient"
-	"github.com/open-edge-platform/infra-core/tenant-controller/internal/nexus"
+	"github.com/open-edge-platform/infra-core/tenant-controller/internal/tenancy"
 )
 
 // Configuration variables, mostly set by flags.
@@ -163,20 +162,15 @@ func main() {
 		zlog.InfraSec().Fatal().Err(err).Msgf("")
 	}
 
-	nxc, err := nexus.SetupClient()
-	if err != nil {
-		zlog.InfraSec().Fatal().Err(err).Msgf("Unable to setup Nexus Client")
-	}
-
 	tenantTerminationCtrl := controller.NewTerminationController(invClient)
 	tenantInitializationCtrl := controller.NewTenantInitializationController(
-		initialResourcesProviders, invClient, nxc, *skipOSProvisioning)
+		initialResourcesProviders, invClient, *skipOSProvisioning)
 
 	controller.NewEventDispatcher(invClient, tenantInitializationCtrl, tenantTerminationCtrl).Start(termChan)
 
-	dmc := datamodel.NewDataModelController(nxc, *enableTracing, tenantTerminationCtrl, tenantInitializationCtrl)
-	if err := dmc.Start(termChan); err != nil {
-		zlog.InfraSec().Fatal().Err(err).Msgf("Unable to start DataModel controller")
+	hook := tenancy.NewHook()
+	if err := hook.Subscribe(tenantInitializationCtrl, tenantTerminationCtrl); err != nil {
+		zlog.InfraSec().Fatal().Err(err).Msgf("Unable to subscribe to Tenant Manager events")
 	}
 
 	// set up OAM (health check) server
@@ -187,9 +181,9 @@ func main() {
 	go func() {
 		<-sigChan // block until signals received
 
-		close(termChan) // closes the SBgRPC server, OAM Server
-
-		invClient.Close() // stop inventory client
+		hook.Unsubscribe() // stop tenancy poller
+		close(termChan)    // closes the SBgRPC server, OAM Server
+		invClient.Close()  // stop inventory client
 	}()
 
 	// wait for Inventory API and SB gRPC API to be ready, then set OAM ready
