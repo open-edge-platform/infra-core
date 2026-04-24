@@ -10,6 +10,9 @@ deps:
 breaking:
   use:
     - FILE
+  ignore_only:
+    FIELD_NO_DELETE:
+      - resources/compute/v1/compute.proto
 lint:
   use:
     - STANDARD

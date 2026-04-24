@@ -43,7 +43,8 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
 	computev1.HostResourceFieldAmtControlMode:     inv_computev1.HostResourceFieldAmtControlMode,
 	computev1.HostResourceFieldAmtDnsSuffix:       inv_computev1.HostResourceFieldAmtDnsSuffix,
-	computev1.HostResourceFieldDesiredConsentCode: inv_computev1.HostResourceFieldDesiredConsentCode,
+	computev1.HostResourceFieldDesiredKvmState:    inv_computev1.HostResourceFieldDesiredKvmState,
+	computev1.HostResourceFieldDesiredSolState:    inv_computev1.HostResourceFieldDesiredSolState,
 }
 
 var (
@@ -185,7 +186,8 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		AmtControlMode:     inv_computev1.AmtControlMode(host.GetAmtControlMode()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
-		DesiredConsentCode: host.GetDesiredConsentCode(),
+		DesiredKvmState:    inv_computev1.KvmState(host.GetDesiredKvmState()),
+		DesiredSolState:    inv_computev1.SolState(host.GetDesiredSolState()),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -244,6 +246,14 @@ func fromInvHostStatus(
 	host.AmtStatusIndicator = amtStatusIndicator
 	host.AmtStatusTimestamp = amtStatusTimestamp
 	host.AmtDnsSuffix = amtDNSSuffix
+
+	host.KvmStatus = computev1.KvmStatus(invHost.GetKvmStatus())
+	host.CurrentKvmState = computev1.KvmState(invHost.GetCurrentKvmState())
+	host.KvmSessionStatus = invHost.GetKvmSessionStatus()
+
+	host.SolStatus = computev1.SolStatus(invHost.GetSolStatus())
+	host.CurrentSolState = computev1.SolState(invHost.GetCurrentSolState())
+	host.SolSessionStatus = invHost.GetSolSessionStatus()
 }
 
 func fromInvHostEdges(
@@ -323,9 +333,12 @@ func fromInvHost(
 		AmtDnsSuffix:       invHost.GetAmtDnsSuffix(),
 		AmtSku:             computev1.AmtSku(invHost.GetAmtSku()),
 		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
-		DesiredConsentCode: invHost.GetDesiredConsentCode(),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
+		DesiredKvmState:    computev1.KvmState(invHost.GetDesiredKvmState()),
+		CurrentKvmState:    computev1.KvmState(invHost.GetCurrentKvmState()),
+		DesiredSolState:    computev1.SolState(invHost.GetDesiredSolState()),
+		CurrentSolState:    computev1.SolState(invHost.GetCurrentSolState()),
 		Metadata:           metadata,
 		InheritedMetadata:  []*commonv1.MetadataItem{},
 		Timestamps:         GrpcToOpenAPITimestamps(invHost),
