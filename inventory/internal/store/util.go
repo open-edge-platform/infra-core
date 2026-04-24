@@ -116,7 +116,7 @@ func ParseMetadata(metadata string) (map[string]string, error) {
 	return metaMap, nil
 }
 
-//nolint:cyclop // calculated cyclomatic complexity for func is 11, max is 10
+//nolint:cyclop,nolintlint // calculated cyclomatic complexity for func is 11, max is 10
 func validateKeyValue(meta []Metadata) error {
 	for _, rmetadata := range meta {
 		if rmetadata.Key != "" {
