@@ -136,7 +136,6 @@ func validateKeyValue(meta []Metadata) error {
 			}
 		}
 		if rmetadata.Value != "" {
-
 			if len(rmetadata.Value) > MetadataValueMaxLength {
 				return errors.Errorfc(codes.InvalidArgument, "Label value too long")
 			}
