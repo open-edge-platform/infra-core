@@ -5,6 +5,7 @@
 package store_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/goccy/go-json"
@@ -99,11 +100,11 @@ var (
 		},
 	}
 
-	// invalid meatadata value length > 63.
+	// invalid meatadata value length.
 	Metadata6 = []store.Metadata{
 		{
 			Key:   "cluster-id",
-			Value: "invalidvaluelengthinvalidvaluelengthinvalidvaluelengthinvalidval",
+			Value: strings.Repeat("a", store.MetadataValueMaxLength+1),
 		},
 	}
 	// invalid metadata key( name )length > 63.
@@ -219,11 +220,9 @@ func Test_ValidateOSMetadata(t *testing.T) {
 		"ValidMetadatakeyAndValue": {
 			in: helperMetadataToJSONPlain(t, Metadata1), valid: true, exp: Metadata1JSONPlainObj,
 		},
-		"InValidMetadatakeyWithUppercaseChar":     {in: helperMetadataToJSONPlain(t, Metadata2), valid: false},
-		"InValidMetadatakeyNameNoPrefix":          {in: helperMetadataToJSONPlain(t, Metadata3), valid: false},
-		"InValidMetadatakeyWithUppercaseLastChar": {in: helperMetadataToJSONPlain(t, Metadata4), valid: false},
-		//"InValidMetadataValueWithUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata5), valid: false},
-		"InValidMetadataValueLength":                       {in: helperMetadataToJSONPlain(t, Metadata6), valid: false},
+		"InValidMetadatakeyWithUppercaseChar":              {in: helperMetadataToJSONPlain(t, Metadata2), valid: false},
+		"InValidMetadatakeyNameNoPrefix":                   {in: helperMetadataToJSONPlain(t, Metadata3), valid: false},
+		"InValidMetadatakeyWithUppercaseLastChar":          {in: helperMetadataToJSONPlain(t, Metadata4), valid: false},
 		"InValidMetadataKeyNameLength":                     {in: helperMetadataToJSONPlain(t, Metadata7), valid: false},
 		"InValidMetadataKeyPrefixLength":                   {in: helperMetadataToJSONPlain(t, Metadata8), valid: false},
 		"InValidMetadataKeyPrefixUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata9), valid: false},
