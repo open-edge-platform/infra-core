@@ -34,7 +34,7 @@ func (t *Promise[T]) Cancel() {
 }
 
 func Run[T any](ctx context.Context, f Task[T]) *Promise[T] {
-	ctx, cancel := context.WithCancel(ctx)  //nolint:gosec // cancel is stored in Promise struct and called via Cancel()
+	ctx, cancel := context.WithCancel(ctx)
 	responses := make(chan response[T], 16) //nolint:mnd // default size of buffer
 	go func() {
 		v, e := f(ctx)
