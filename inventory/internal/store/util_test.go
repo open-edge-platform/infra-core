@@ -5,7 +5,6 @@
 package store_test
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/goccy/go-json"
@@ -166,22 +165,6 @@ var (
 			Value: "0123456789",
 		},
 	}
-	// valid metadata value with annotation type with max value length.
-	Metadata15 = []store.Metadata{
-		{
-			Key:   "cluster-id",
-			Value: strings.Repeat("x", 4096),
-			Type:  "annotation",
-		},
-	}
-	// invalid metadata value length > 4096.
-	Metadata16 = []store.Metadata{
-		{
-			Key:   "cluster-id",
-			Value: strings.Repeat("x", 4097),
-			Type:  "annotation",
-		},
-	}
 )
 
 func Test_ValidateMetadata(t *testing.T) {
@@ -203,8 +186,6 @@ func Test_ValidateMetadata(t *testing.T) {
 		"InValidMetadataKeyNameOtherSymbolBeginwithPrefix": {in: Metadata12, valid: false},
 		"InValidMetadataKeyNameOtherSymbolLastwithPrefix":  {in: Metadata13, valid: false},
 		"InValidMetadataKeyNameUpperCasewithPrefix":        {in: Metadata14, valid: false},
-		"ValidMetadataValueLengthAnnotation":               {in: Metadata15, valid: true},
-		"InValidMetadataValueLengthAnnotationExceed":       {in: Metadata16, valid: false},
 	}
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
@@ -238,10 +219,10 @@ func Test_ValidateOSMetadata(t *testing.T) {
 		"ValidMetadatakeyAndValue": {
 			in: helperMetadataToJSONPlain(t, Metadata1), valid: true, exp: Metadata1JSONPlainObj,
 		},
-		"InValidMetadatakeyWithUppercaseChar":              {in: helperMetadataToJSONPlain(t, Metadata2), valid: false},
-		"InValidMetadatakeyNameNoPrefix":                   {in: helperMetadataToJSONPlain(t, Metadata3), valid: false},
-		"InValidMetadatakeyWithUppercaseLastChar":          {in: helperMetadataToJSONPlain(t, Metadata4), valid: false},
-		"InValidMetadataValueWithUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata5), valid: false},
+		"InValidMetadatakeyWithUppercaseChar":     {in: helperMetadataToJSONPlain(t, Metadata2), valid: false},
+		"InValidMetadatakeyNameNoPrefix":          {in: helperMetadataToJSONPlain(t, Metadata3), valid: false},
+		"InValidMetadatakeyWithUppercaseLastChar": {in: helperMetadataToJSONPlain(t, Metadata4), valid: false},
+		//"InValidMetadataValueWithUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata5), valid: false},
 		"InValidMetadataValueLength":                       {in: helperMetadataToJSONPlain(t, Metadata6), valid: false},
 		"InValidMetadataKeyNameLength":                     {in: helperMetadataToJSONPlain(t, Metadata7), valid: false},
 		"InValidMetadataKeyPrefixLength":                   {in: helperMetadataToJSONPlain(t, Metadata8), valid: false},

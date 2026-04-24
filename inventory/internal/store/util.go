@@ -56,14 +56,11 @@ const (
 	MetadataKeyNameMaxLength   = 63
 	MetadataKeyPrefixMaxLength = 253
 
-	// MetadataValueMaxLength was previously set to 63 when the Metadata field was
-	// associated with a Label and could not be distinguished from an Annotation.
-	// That field has been renamed to MetadataLabelMaxLength.
-	MetadataLabelMaxLength = 63
-
-	// MetadataAnnotationMaxLength is set to 4096 to allow for longer free-form text in annotations,
-	// while still enforcing a reasonable limit to prevent abuse.
-	MetadataAnnotationMaxLength = 4096
+	// MetadataValueMaxLength was previously set to 63, but it was increased to
+	// 4096 to allow for additional use cases such as kubeconfig data
+	// This should be broken down into separate label and annotation value length limits in the future,
+	// but for now we want to be conservative in allowing existing metadata to continue working without hitting length limits.
+	MetadataValueMaxLength = 63
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
@@ -71,13 +68,12 @@ var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
 // MetadataPatternLabel representing the metadata pattern for label.
-var MetadataPatternLabel = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
+// var MetadataPatternLabel = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
-	Type  string `json:"type,omitempty"` // "label" or "annotation", default to "" which means it's not specified.
 }
 
 // BuildResourceMeta builds the ResourceMetadata from the given map of physical and logical metadata.
@@ -146,22 +142,14 @@ func validateKeyValue(meta []Metadata) error {
 		}
 		if rmetadata.Value != "" {
 
-			switch rmetadata.Type {
-
-			case "label", "": // Default to label for backward compatibility
-				if len(rmetadata.Value) > MetadataLabelMaxLength {
-					return errors.Errorfc(codes.InvalidArgument, "Label value too long")
-				}
-				if !MetadataPatternLabel.MatchString(rmetadata.Value) {
-					return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
-				}
-			case "annotation":
-				if len(rmetadata.Value) > MetadataAnnotationMaxLength {
-					return errors.Errorfc(codes.InvalidArgument, "Annotation value too long")
-				}
-			default:
-				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata type")
+			if len(rmetadata.Value) > MetadataValueMaxLength {
+				return errors.Errorfc(codes.InvalidArgument, "Label value too long")
 			}
+
+			// To be added back once a difference between label and annotation value validation is implemented.
+			// if !MetadataPatternLabel.MatchString(rmetadata.Value) {
+			// 	return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
+			// }
 		}
 	}
 	return nil

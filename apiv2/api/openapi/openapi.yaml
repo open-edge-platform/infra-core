@@ -15911,7 +15911,7 @@ components:
          the Joda Time's [`ISODateTimeFormat.dateTime()`](
          http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
          ) to obtain a formatter capable of generating timestamps in this format.
-    LabelItem:
+    MetadataItem:
       type: object
       properties:
         key:
@@ -15925,31 +15925,13 @@ components:
           title: value
           maxLength: 63
           pattern: ^$|^[a-z0-9]$|^[a-z0-9][a-z0-9._-]*[a-z0-9]$
-          description: The metadata label value.
-        type:
-          type: string
-          enum: ["label"]
-    AnnotationItem:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-          maxLength: 316
-          pattern: ^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$
-          description: The metadata key.
-        value:
-          type: string
-          maxLength: 4096
-          description: The metadata annotation value.
-        type:
-          type: string
-          enum: ["annotation"]
-    MetadataItem:
-      oneOf:
-        - $ref: '#/components/schemas/LabelItem'
-        - $ref: '#/components/schemas/AnnotationItem'
-      description: A metadata item, represented by a key:value pair with optional type classification for labels vs annotations.
+          description: The metadata value.
+      title: MetadataItem
+      required:
+        - key
+        - value
+      additionalProperties: false
+      description: A metadata item, represented by a key:value pair.
     Timestamps:
       type: object
       properties:
