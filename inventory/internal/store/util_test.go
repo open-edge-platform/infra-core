@@ -1,9 +1,11 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/goccy/go-json"
@@ -14,14 +16,9 @@ import (
 	telemetry_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/telemetry/v1"
 )
 
-type Metadata struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
-}
-
 var (
 	// valid metadata key and value.
-	Metadata1 = []Metadata{
+	Metadata1 = []store.Metadata{
 		{
 			Key:   "cluster.orchestration.io/cluster-id",
 			Value: "clusterid-1234",
@@ -75,50 +72,50 @@ var (
 		`"example.com/2-test_9":"123test-other.symbol_123","example.com/8":"12","example.com/a":"v",` +
 		`"example.com/a9_9":"12","k":"v","test.com/test-123_name.test":"123test-other.symbol_123"}`
 	// invalid metadata key with upper case char.
-	Metadata2 = []Metadata{
+	Metadata2 = []store.Metadata{
 		{
 			Key:   "Cluster-id",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid metadata key no prefix.
-	Metadata3 = []Metadata{
+	Metadata3 = []store.Metadata{
 		{
 			Key:   "/cluster-id",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid metadata key with upper case char at end.
-	Metadata4 = []Metadata{
+	Metadata4 = []store.Metadata{
 		{
 			Key:   "cluster-ID",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid metadata value with upper case char at begin.
-	Metadata5 = []Metadata{
+	Metadata5 = []store.Metadata{
 		{
 			Key:   "cluster-id",
 			Value: "Clusterid-test",
 		},
 	}
 
-	// invalid meatadata value length > 63.
-	Metadata6 = []Metadata{
+	// invalid meatadata value length.
+	Metadata6 = []store.Metadata{
 		{
 			Key:   "cluster-id",
-			Value: "invalidvaluelengthinvalidvaluelengthinvalidvaluelengthinvalidval",
+			Value: strings.Repeat("a", store.MetadataValueMaxLength+1),
 		},
 	}
 	// invalid metadata key( name )length > 63.
-	Metadata7 = []Metadata{
+	Metadata7 = []store.Metadata{
 		{
 			Key:   "cluster.com/invalidkeylengthinvalidkeylengthinvalidkeylengthinvalidkeylength",
 			Value: "clusterid-1234",
 		},
 	}
 	// invalid prefix length > 253.
-	Metadata8 = []Metadata{
+	Metadata8 = []store.Metadata{
 		{
 			Key: `invalidprefixlengthinvalidprefixlengthinvalidprefixlengthinvalidprefix
 			lengthinvalidprefixlengthinvalidprefixlengthinvalidprefixlengthinvalidprefix
@@ -128,51 +125,90 @@ var (
 		},
 	}
 	// invalid metadata key with prefix upper case char.
-	Metadata9 = []Metadata{
+	Metadata9 = []store.Metadata{
 		{
 			Key:   "Test.com/id",
 			Value: "test",
 		},
 	}
 	// invalid metadata key with other symbol at last.
-	Metadata10 = []Metadata{
+	Metadata10 = []store.Metadata{
 		{
 			Key:   "test1234-",
 			Value: "test",
 		},
 	}
 	// invalid metadata key with other symbol at begin.
-	Metadata11 = []Metadata{
+	Metadata11 = []store.Metadata{
 		{
 			Key:   "_test1234",
 			Value: "test",
 		},
 	}
 	// invalid metadata key name with other symbol at begin.
-	Metadata12 = []Metadata{
+	Metadata12 = []store.Metadata{
 		{
 			Key:   "test.com/-",
 			Value: "test",
 		},
 	}
 	// invalid metadata key name othersymbol at last.
-	Metadata13 = []Metadata{
+	Metadata13 = []store.Metadata{
 		{
 			Key:   "test.com/1a_",
 			Value: "0123456789",
 		},
-	} // invalid metadata key name upper case.
-	Metadata14 = []Metadata{
+	}
+	// invalid metadata key name upper case.
+	Metadata14 = []store.Metadata{
 		{
 			Key:   "test.com/A",
 			Value: "0123456789",
+		},
+	}
+	// valid base64 metadata value.
+	Metadata15 = []store.Metadata{
+		{
+			Key:   "kubeconfig",
+			Value: "Y29uZmlnOiBjb250ZW50Cg==", // base64 for "config: content"
+		},
+	}
+	// invalid base64 metadata value with invalid chars.
+	Metadata16 = []store.Metadata{
+		{
+			Key:   "kubeconfig",
+			Value: "Y29uZmlnOiBjb250ZW50Cg==@", // invalid base64 string with '@' char.
+		},
+	}
+
+	// Valid kubeconfig vault key metadata
+	Metadata17 = []store.Metadata{
+		{
+			Key:   "kubeconfig-vault-key",
+			Value: "test-resource-123-abcd1234",
+		},
+	}
+
+	// Invalid kubeconfig vault key with special characters
+	Metadata18 = []store.Metadata{
+		{
+			Key:   "kubeconfig-vault-key",
+			Value: "test-resource-123-@invalid",
+		},
+	}
+
+	// Invalid kubeconfig vault key starting with hyphen
+	Metadata19 = []store.Metadata{
+		{
+			Key:   "kubeconfig-vault-key",
+			Value: "-test-resource-123",
 		},
 	}
 )
 
 func Test_ValidateMetadata(t *testing.T) {
 	testcases := map[string]struct {
-		in    []Metadata
+		in    []store.Metadata
 		valid bool
 	}{
 		"ValidMetadatakeyAndValue":                         {in: Metadata1, valid: true},
@@ -189,6 +225,11 @@ func Test_ValidateMetadata(t *testing.T) {
 		"InValidMetadataKeyNameOtherSymbolBeginwithPrefix": {in: Metadata12, valid: false},
 		"InValidMetadataKeyNameOtherSymbolLastwithPrefix":  {in: Metadata13, valid: false},
 		"InValidMetadataKeyNameUpperCasewithPrefix":        {in: Metadata14, valid: false},
+		"ValidBase64MetadataValue":                         {in: Metadata15, valid: true},
+		"InValidBase64MetadataValue":                       {in: Metadata16, valid: false},
+		"ValidKubeconfigVaultKey":                          {in: Metadata17, valid: true},
+		"InValidKubeconfigVaultKeyWithSpecialChars":        {in: Metadata18, valid: false},
+		"InValidKubeconfigVaultKeyStartingWithHyphen":      {in: Metadata19, valid: false},
 	}
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
@@ -225,8 +266,6 @@ func Test_ValidateOSMetadata(t *testing.T) {
 		"InValidMetadatakeyWithUppercaseChar":              {in: helperMetadataToJSONPlain(t, Metadata2), valid: false},
 		"InValidMetadatakeyNameNoPrefix":                   {in: helperMetadataToJSONPlain(t, Metadata3), valid: false},
 		"InValidMetadatakeyWithUppercaseLastChar":          {in: helperMetadataToJSONPlain(t, Metadata4), valid: false},
-		"InValidMetadataValueWithUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata5), valid: false},
-		"InValidMetadataValueLength":                       {in: helperMetadataToJSONPlain(t, Metadata6), valid: false},
 		"InValidMetadataKeyNameLength":                     {in: helperMetadataToJSONPlain(t, Metadata7), valid: false},
 		"InValidMetadataKeyPrefixLength":                   {in: helperMetadataToJSONPlain(t, Metadata8), valid: false},
 		"InValidMetadataKeyPrefixUppercaseChar":            {in: helperMetadataToJSONPlain(t, Metadata9), valid: false},
@@ -259,7 +298,7 @@ func Test_ValidateOSMetadata(t *testing.T) {
 	}
 }
 
-func helperMetadataToJSONPlain(t *testing.T, metadata []Metadata) string {
+func helperMetadataToJSONPlain(t *testing.T, metadata []store.Metadata) string {
 	t.Helper()
 
 	result := make(map[string]string)
@@ -269,4 +308,148 @@ func helperMetadataToJSONPlain(t *testing.T, metadata []Metadata) string {
 	val, err := json.Marshal(result)
 	require.NoError(t, err, "Failed to marshal metadata to JSON")
 	return string(val)
+}
+
+func Test_IsKubeconfigVaultKey(t *testing.T) {
+	tests := []struct {
+		key      string
+		expected bool
+	}{
+		{"kubeconfig-vault-key", true},
+		{"kubeconfig", false},
+		{"cluster-id", false},
+		{"", false},
+	}
+
+	for _, test := range tests {
+		t.Run(test.key, func(t *testing.T) {
+			result := store.IsKubeconfigVaultKey(test.key)
+			assert.Equal(t, test.expected, result)
+		})
+	}
+}
+
+func Test_HasKubeconfigVaultKey(t *testing.T) {
+	tests := []struct {
+		name          string
+		metadata      []store.Metadata
+		expectedKey   string
+		expectedFound bool
+	}{
+		{
+			name: "has kubeconfig vault key",
+			metadata: []store.Metadata{
+				{Key: "cluster-id", Value: "cluster-123"},
+				{Key: "kubeconfig-vault-key", Value: "vault-key-123"},
+			},
+			expectedKey:   "vault-key-123",
+			expectedFound: true,
+		},
+		{
+			name: "no kubeconfig vault key",
+			metadata: []store.Metadata{
+				{Key: "cluster-id", Value: "cluster-123"},
+				{Key: "kubeconfig", Value: "base64content"},
+			},
+			expectedKey:   "",
+			expectedFound: false,
+		},
+		{
+			name:          "empty metadata",
+			metadata:      []store.Metadata{},
+			expectedKey:   "",
+			expectedFound: false,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			key, found := store.HasKubeconfigVaultKey(test.metadata)
+			assert.Equal(t, test.expectedFound, found)
+			assert.Equal(t, test.expectedKey, key)
+		})
+	}
+}
+
+func Test_AddKubeconfigVaultKey(t *testing.T) {
+	tests := []struct {
+		name        string
+		metadata    []store.Metadata
+		vaultKey    string
+		expectedLen int
+	}{
+		{
+			name:        "add to empty metadata",
+			metadata:    []store.Metadata{},
+			vaultKey:    "vault-key-123",
+			expectedLen: 1,
+		},
+		{
+			name: "add to existing metadata",
+			metadata: []store.Metadata{
+				{Key: "cluster-id", Value: "cluster-123"},
+			},
+			vaultKey:    "vault-key-123",
+			expectedLen: 2,
+		},
+		{
+			name: "replace existing kubeconfig vault key",
+			metadata: []store.Metadata{
+				{Key: "cluster-id", Value: "cluster-123"},
+				{Key: "kubeconfig-vault-key", Value: "old-key"},
+			},
+			vaultKey:    "new-vault-key",
+			expectedLen: 2,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := store.AddKubeconfigVaultKey(test.metadata, test.vaultKey)
+			assert.Len(t, result, test.expectedLen)
+
+			key, found := store.HasKubeconfigVaultKey(result)
+			assert.True(t, found)
+			assert.Equal(t, test.vaultKey, key)
+		})
+	}
+}
+
+func Test_RemoveKubeconfigVaultKey(t *testing.T) {
+	tests := []struct {
+		name        string
+		metadata    []store.Metadata
+		expectedLen int
+	}{
+		{
+			name: "remove from metadata with vault key",
+			metadata: []store.Metadata{
+				{Key: "cluster-id", Value: "cluster-123"},
+				{Key: "kubeconfig-vault-key", Value: "vault-key-123"},
+			},
+			expectedLen: 1,
+		},
+		{
+			name: "remove from metadata without vault key",
+			metadata: []store.Metadata{
+				{Key: "cluster-id", Value: "cluster-123"},
+			},
+			expectedLen: 1,
+		},
+		{
+			name:        "remove from empty metadata",
+			metadata:    []store.Metadata{},
+			expectedLen: 0,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := store.RemoveKubeconfigVaultKey(test.metadata)
+			assert.Len(t, result, test.expectedLen)
+
+			_, found := store.HasKubeconfigVaultKey(result)
+			assert.False(t, found)
+		})
+	}
 }
