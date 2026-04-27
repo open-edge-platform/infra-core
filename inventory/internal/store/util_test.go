@@ -166,6 +166,20 @@ var (
 			Value: "0123456789",
 		},
 	}
+	// valid base64 metadata value.
+	Metadata15 = []store.Metadata{
+		{
+			Key:   "kubeconfig",
+			Value: "Y29uZmlnOiBjb250ZW50Cg==", // base64 for "config: content"
+		},
+	}
+	// invalid base64 metadata value with invalid chars.
+	Metadata16 = []store.Metadata{
+		{
+			Key:   "kubeconfig",
+			Value: "Y29uZmlnOiBjb250ZW50Cg==@", // invalid base64 string with '@' char.
+		},
+	}
 )
 
 func Test_ValidateMetadata(t *testing.T) {
@@ -187,6 +201,7 @@ func Test_ValidateMetadata(t *testing.T) {
 		"InValidMetadataKeyNameOtherSymbolBeginwithPrefix": {in: Metadata12, valid: false},
 		"InValidMetadataKeyNameOtherSymbolLastwithPrefix":  {in: Metadata13, valid: false},
 		"InValidMetadataKeyNameUpperCasewithPrefix":        {in: Metadata14, valid: false},
+		"ValidBase64MetadataValue":                         {in: Metadata15, valid: true},
 	}
 	for tcname, tc := range testcases {
 		t.Run(tcname, func(t *testing.T) {
