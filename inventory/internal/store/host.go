@@ -7,6 +7,9 @@ package store
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
+	"fmt"
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -21,9 +24,15 @@ import (
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	cl "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/secrets"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
+)
+
+const (
+	// KubeconfigVaultKeyPrefix is the prefix for kubeconfig vault key metadata
+	KubeconfigVaultKeyPrefix = "kubeconfig-vault-key"
 )
 
 var hostResourceCreationValidators = []resourceValidator[*computev1.HostResource]{
@@ -244,7 +253,81 @@ func (is *InvStore) UpdateHost(
 		return nil, false, err
 	}
 
+	metadata, err := ParseMetadata(in.GetMetadata())
+	if err != nil {
+		return nil, false, errors.Wrap(err)
+	}
+
+	if metadata[KubeconfigVaultKeyPrefix] != "" {
+		// If kubeconfig vault key is being updated, update the vault entry with the new kubeconfig content.
+		err = is.updateKubeconfigInVault(ctx, in.GetResourceId(), metadata[KubeconfigVaultKeyPrefix])
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Msgf("Failed to update kubeconfig in vault for host %s", in.GetResourceId())
+			// Don't return the error here to avoid breaking the host update if vault operation fails
+		}
+	}
+
 	return res, *hardDelete, err
+}
+
+// updateKubeconfigInVault updates kubeconfig content in vault using the provided vault key or kubeconfig content
+func (is *InvStore) updateKubeconfigInVault(ctx context.Context, resourceID, kubeconfigData string) error {
+	// Initialize secrets service
+	secretsService, err := secrets.SecretServiceFactory(ctx)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("Failed to initialize secrets service")
+		return errors.Wrap(err)
+	}
+	defer secretsService.Logout(ctx)
+
+	// Constants for kubeconfig vault paths (duplicated to avoid import cycle)
+	const (
+		kubeconfigVaultBasePath = "kubeconfig"
+		kubeconfigContentKey    = "content"
+	)
+
+	// The kubeconfigData could be either a vault key or kubeconfig content
+	// Try to retrieve it first (assuming it's a vault key)
+	secretPath := fmt.Sprintf("%s/%s", kubeconfigVaultBasePath, kubeconfigData)
+	_, err = secretsService.ReadSecret(ctx, secretPath)
+	if err == nil {
+		// It's a valid vault key, assume no update needed
+		zlog.Debug().Str("vault_key", kubeconfigData).Str("resource_id", resourceID).
+			Msg("Kubeconfig vault key is valid, no update needed")
+		return nil
+	}
+
+	// If retrieve failed, treat kubeconfigData as kubeconfig content and store it
+	// Generate a unique vault key
+	vaultKey := fmt.Sprintf("%s-%s", resourceID, generateRandomSuffix())
+	secretPath = fmt.Sprintf("%s/%s", kubeconfigVaultBasePath, vaultKey)
+	secretData := map[string]interface{}{
+		"data": map[string]interface{}{
+			kubeconfigContentKey: kubeconfigData,
+			"resource_id":        resourceID,
+		},
+	}
+
+	_, err = secretsService.WriteSecret(ctx, secretPath, secretData)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Str("resource_id", resourceID).Msg("Failed to store kubeconfig in vault")
+		return errors.Wrap(err)
+	}
+
+	zlog.Info().Str("resource_id", resourceID).Str("vault_key", vaultKey).
+		Msg("Successfully updated kubeconfig in vault")
+	return nil
+}
+
+// generateRandomSuffix generates a random hex string for vault key uniqueness
+func generateRandomSuffix() string {
+	randomBytes := make([]byte, 8)
+	_, err := rand.Read(randomBytes)
+	if err != nil {
+		// Fallback to a simple timestamp-based suffix if random generation fails
+		return "fallback"
+	}
+	return hex.EncodeToString(randomBytes)
 }
 
 //nolint:cyclop // high cyclomatic complexity due to multiple fieldmask checks and state fields
