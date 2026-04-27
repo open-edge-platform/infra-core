@@ -58,6 +58,7 @@ const (
 
 	// MetadataValueMaxLength was previously set to 63, but it was increased to 4096 to allow for
 	// additional use cases such as kubeconfig data in the value of the metadata.
+	// With vault integration, kubeconfig content is stored in vault and only vault keys are in metadata.
 	MetadataValueMaxLength = 4096
 )
 
@@ -395,4 +396,49 @@ func skipValue(dec *json.Decoder) error {
 	// Just decode the next value into empty interface to move the cursor forward
 	var v interface{}
 	return dec.Decode(&v)
+}
+
+// IsKubeconfigVaultKey checks if a metadata key is a kubeconfig vault key
+func IsKubeconfigVaultKey(key string) bool {
+	return key == KubeconfigVaultKeyPrefix
+}
+
+// HasKubeconfigVaultKey checks if metadata contains a kubeconfig vault key
+func HasKubeconfigVaultKey(metadata []Metadata) (string, bool) {
+	for _, meta := range metadata {
+		if IsKubeconfigVaultKey(meta.Key) {
+			return meta.Value, true
+		}
+	}
+	return "", false
+}
+
+// AddKubeconfigVaultKey adds or updates kubeconfig vault key in metadata
+func AddKubeconfigVaultKey(metadata []Metadata, vaultKey string) []Metadata {
+	// Remove existing kubeconfig vault key if present
+	result := make([]Metadata, 0, len(metadata)+1)
+	for _, meta := range metadata {
+		if !IsKubeconfigVaultKey(meta.Key) {
+			result = append(result, meta)
+		}
+	}
+
+	// Add new kubeconfig vault key
+	result = append(result, Metadata{
+		Key:   KubeconfigVaultKeyPrefix,
+		Value: vaultKey,
+	})
+
+	return result
+}
+
+// RemoveKubeconfigVaultKey removes kubeconfig vault key from metadata
+func RemoveKubeconfigVaultKey(metadata []Metadata) []Metadata {
+	result := make([]Metadata, 0, len(metadata))
+	for _, meta := range metadata {
+		if !IsKubeconfigVaultKey(meta.Key) {
+			result = append(result, meta)
+		}
+	}
+	return result
 }
