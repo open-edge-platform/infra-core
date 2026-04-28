@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.25.7-bookworm@sha256:38342f3e7a504bf1efad858c18e771f84b66dc0b363add7a57c9a0bbb6cf7b12 AS build
+FROM golang:1.26.1-bookworm AS build
 ARG OPA_VERSION
 ARG OPA_SHA
 ARG ATLAS_VERSION

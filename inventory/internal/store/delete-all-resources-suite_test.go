@@ -11,19 +11,19 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
+	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 	inv_util "github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/filters"
 )
 
 type hardDeleteAllResourcesSuite struct {
 	suite.Suite
-	createModel  func(*testing.InvResourceDAO) (tenantId string, noOfResources int)
+	createModel  func(*inv_testing.InvResourceDAO) (tenantId string, noOfResources int)
 	resourceKind inv_v1.ResourceKind
 }
 
 func (ts *hardDeleteAllResourcesSuite) Test() {
-	dao := testing.NewInvResourceDAOOrFail(ts.T())
+	dao := inv_testing.NewInvResourceDAOOrFail(ts.T())
 	t1, noOfResources := ts.createModel(dao)
 	t2, _ := ts.createModel(dao)
 
@@ -78,14 +78,14 @@ func (ts *hardDeleteAllResourcesSuite) Test() {
 
 type softDeleteAllResourcesSuite struct {
 	suite.Suite
-	createModel      func(*testing.InvResourceDAO) (tenantId string, noOfResources int)
+	createModel      func(*inv_testing.InvResourceDAO) (tenantId string, noOfResources int)
 	resourceKind     inv_v1.ResourceKind
 	deletedClause    filters.Clause
 	notDeletedClause filters.Clause
 }
 
 func (ts *softDeleteAllResourcesSuite) Test() {
-	dao := testing.NewInvResourceDAOOrFail(ts.T())
+	dao := inv_testing.NewInvResourceDAOOrFail(ts.T())
 	t1, noOfResources := ts.createModel(dao)
 	t2, _ := ts.createModel(dao)
 

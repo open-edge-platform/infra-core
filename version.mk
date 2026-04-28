@@ -4,12 +4,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 GOLINTVERSION_HAVE          := $(shell golangci-lint version | sed 's/.*version //' | sed 's/ .*//')
-GOLINTVERSION_REQ           := 2.8.0
+GOLINTVERSION_REQ           := 2.9.0
 GOJUNITREPORTVERSION_HAVE   := $(shell go-junit-report -version | sed s/.*" v"// | sed 's/ .*//')
 GOJUNITREPORTVERSION_REQ    := 2.1.0
 OPAVERSION_HAVE             := $(shell opa version | grep "Version:" | grep -v "Go" | sed 's/.*Version: //')
 OPAVERSION_REQ              := 1.5.0
-GOVERSION_REQ               := 1.25.7
+GOVERSION_REQ               := 1.26.1
 GOVERSION_HAVE              := $(shell go version | sed 's/.*version go//' | sed 's/ .*//')
 MOCKGENVERSION_HAVE         := $(shell mockgen -version | sed s/.*"v"// | sed 's/ .*//')
 MOCKGENVERSION_REQ          := 1.6.0

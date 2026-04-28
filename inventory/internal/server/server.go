@@ -20,7 +20,7 @@ import (
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/cert"
 	inv_errors "github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/logging"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
+	metrics "github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 	"github.com/open-edge-platform/orch-library/go/pkg/grpc/auth"
 )
 
