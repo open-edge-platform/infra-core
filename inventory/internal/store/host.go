@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -9,6 +10,7 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 
 	"golang.org/x/exp/maps"
@@ -32,7 +34,7 @@ import (
 
 const (
 	// KubeconfigVaultKeyPrefix is the prefix for kubeconfig vault key metadata
-	KubeconfigVaultKeyPrefix = "kubeconfig-vault-key"
+	KubeconfigVaultKeyPrefix = "kubeconfig"
 )
 
 var hostResourceCreationValidators = []resourceValidator[*computev1.HostResource]{
@@ -196,6 +198,43 @@ func (is *InvStore) GetHost(
 		return nil, nil, errors.Wrap(err)
 	}
 
+	// Print the metadata keys and values for debugging
+	zlog.Info().Msgf("Metadata for Host %s: %s", id, apiResource.Metadata)
+
+	// Similar to UpdateHost, we need to retrieve the kubeconfig from vault
+	secretsService, err := secrets.SecretServiceFactory(ctx)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
+		// Don't fail the entire operation if vault connection fails
+	} else {
+		defer secretsService.Logout(ctx)
+
+		// Parse metadata to get kubeconfig vault key
+		metadataMap, err := ParseMetadata(apiResource.GetMetadata())
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata")
+		} else if vaultKey, exists := metadataMap[KubeconfigVaultKeyPrefix]; exists && vaultKey != "" {
+			// Retrieve kubeconfig from vault
+			secretPath := fmt.Sprintf("kubeconfig/%s", vaultKey)
+			secretData, err := secretsService.ReadSecret(ctx, secretPath)
+			if err != nil {
+				zlog.InfraSec().InfraErr(err).Str("vault_path", secretPath).Msg("Failed to retrieve kubeconfig from vault")
+			} else if secretData != nil {
+				// Attach kubeconfig content to the resource metadata
+				if content, ok := secretData["content"]; ok {
+					metadataMap[KubeconfigVaultKeyPrefix] = fmt.Sprintf("%v", content)
+					// Serialize metadata back to string
+					metadataBytes, err := json.Marshal(metadataMap)
+					if err != nil {
+						zlog.InfraSec().InfraErr(err).Msg("Failed to encode metadata")
+					} else {
+						apiResource.Metadata = string(metadataBytes)
+					}
+				}
+			}
+		}
+	}
+
 	return &inv_v1.Resource{Resource: &inv_v1.Resource_Host{Host: apiResource}}, resMeta, nil
 }
 
@@ -258,6 +297,7 @@ func (is *InvStore) UpdateHost(
 		return nil, false, errors.Wrap(err)
 	}
 
+	// Check if we need to update the metadata.
 	if metadata[KubeconfigVaultKeyPrefix] != "" {
 		// If kubeconfig vault key is being updated, update the vault entry with the new kubeconfig content.
 		err = is.updateKubeconfigInVault(ctx, in.GetResourceId(), metadata[KubeconfigVaultKeyPrefix])
@@ -291,9 +331,21 @@ func (is *InvStore) updateKubeconfigInVault(ctx context.Context, resourceID, kub
 	secretPath := fmt.Sprintf("%s/%s", kubeconfigVaultBasePath, kubeconfigData)
 	_, err = secretsService.ReadSecret(ctx, secretPath)
 	if err == nil {
-		// It's a valid vault key, assume no update needed
-		zlog.Debug().Str("vault_key", kubeconfigData).Str("resource_id", resourceID).
-			Msg("Kubeconfig vault key is valid, no update needed")
+		// It's a valid vault key, update the kubeconfig content
+		vaultKey := kubeconfigData
+		secretPath = fmt.Sprintf("%s/%s", kubeconfigVaultBasePath, vaultKey)
+		secretData := map[string]any{
+			"data": map[string]any{
+				kubeconfigContentKey: kubeconfigData,
+				"resource_id":        resourceID,
+			},
+		}
+
+		_, err = secretsService.WriteSecret(ctx, secretPath, secretData)
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Str("resource_id", resourceID).Msg("Failed to update kubeconfig in vault")
+			return errors.Wrap(err)
+		}
 		return nil
 	}
 
@@ -301,8 +353,8 @@ func (is *InvStore) updateKubeconfigInVault(ctx context.Context, resourceID, kub
 	// Generate a unique vault key
 	vaultKey := fmt.Sprintf("%s-%s", resourceID, generateRandomSuffix())
 	secretPath = fmt.Sprintf("%s/%s", kubeconfigVaultBasePath, vaultKey)
-	secretData := map[string]interface{}{
-		"data": map[string]interface{}{
+	secretData := map[string]any{
+		"data": map[string]any{
 			kubeconfigContentKey: kubeconfigData,
 			"resource_id":        resourceID,
 		},

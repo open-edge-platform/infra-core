@@ -171,6 +171,15 @@ func ValidateMetadata(metadata string) (string, error) {
 		return "", err
 	}
 
+	// Remove restricted metadata keys.
+	tmp = util.FilterSlice(tmp, func(m Metadata) bool {
+		if IsKubeconfigVaultKey(m.Key) {
+			zlog.InfraSec().Info().Msgf("Removing restricted metadata key: %s", m.Key)
+			return false
+		}
+		return true
+	})
+
 	// validate the actual key and value fields in metadata
 	metaerr := validateKeyValue(tmp)
 	if metaerr != nil {
