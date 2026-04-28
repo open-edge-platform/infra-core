@@ -55,11 +55,7 @@ const (
 const (
 	MetadataKeyNameMaxLength   = 63
 	MetadataKeyPrefixMaxLength = 253
-
-	// MetadataValueMaxLength was previously set to 63, but it was increased to 4096 to allow for
-	// additional use cases such as kubeconfig data in the value of the metadata.
-	// With vault integration, kubeconfig content is stored in vault and only vault keys are in metadata.
-	MetadataValueMaxLength = 4096
+	MetadataValueMaxLength     = 63
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
@@ -67,8 +63,7 @@ var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
 // MetadataPatternValue representing the metadata pattern for value.
-// Relaxed pattern to allow for base64 strings, which can be used for encoding kubeconfigs in metadata values.
-var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$|^[A-Za-z0-9+/]*={0,2}$")
+var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
@@ -171,14 +166,18 @@ func ValidateMetadata(metadata string) (string, error) {
 		return "", err
 	}
 
+	zlog.InfraSec().Info().Msgf("ValidateMetadata")
+
 	// Remove restricted metadata keys.
-	tmp = util.FilterSlice(tmp, func(m Metadata) bool {
+	filteredTmp := make([]Metadata, 0, len(tmp))
+	for _, m := range tmp {
 		if IsKubeconfigVaultKey(m.Key) {
 			zlog.InfraSec().Info().Msgf("Removing restricted metadata key: %s", m.Key)
-			return false
+			continue
 		}
-		return true
-	})
+		filteredTmp = append(filteredTmp, m)
+	}
+	tmp = filteredTmp
 
 	// validate the actual key and value fields in metadata
 	metaerr := validateKeyValue(tmp)
