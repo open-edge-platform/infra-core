@@ -19,8 +19,10 @@ var log = logging.GetLogger("tc-tenancy")
 
 const (
 	// appName is the canonical controller ID registered in the Tenant Manager.
-	// Must match the name in the registered-controller config.
-	appName = "tenant-controller"
+	// Must match the name in the registered-controller config (see
+	// edge-manageability-framework `argocd/applications/custom/tenancy-manager.tpl`
+	// and the Nexus Replacement design proposal §3 "Canonical Controller IDs").
+	appName = "infra-tenant-controller"
 
 	defaultTenantManagerURL = "http://tenancy-manager.orch-iam:8080"
 )
