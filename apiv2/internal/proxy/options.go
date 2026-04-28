@@ -22,7 +22,7 @@ import (
 
 	api "github.com/open-edge-platform/infra-core/apiv2/v2/pkg/api/v2"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/auditing"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
+	metrics "github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tenant"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/tracing"
 	"github.com/open-edge-platform/orch-library/go/pkg/middleware/projectcontext"

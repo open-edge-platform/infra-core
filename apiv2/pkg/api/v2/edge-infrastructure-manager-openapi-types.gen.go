@@ -97,6 +97,24 @@ const (
 	INSTANCESTATEUNTRUSTED   InstanceState = "INSTANCE_STATE_UNTRUSTED"
 )
 
+// Defines values for KvmState.
+const (
+	KVMCONSENTRECEIVED      KvmState = "KVM_CONSENT_RECEIVED"
+	KVMREDIRECTIONRECEIVED  KvmState = "KVM_REDIRECTION_RECEIVED"
+	KVMSTATEAWAITINGCONSENT KvmState = "KVM_STATE_AWAITING_CONSENT"
+	KVMSTATEERROR           KvmState = "KVM_STATE_ERROR"
+	KVMSTATESTART           KvmState = "KVM_STATE_START"
+	KVMSTATESTOP            KvmState = "KVM_STATE_STOP"
+	KVMSTATEUNSPECIFIED     KvmState = "KVM_STATE_UNSPECIFIED"
+)
+
+// Defines values for KvmStatus.
+const (
+	KVMSTATUSACTIVATED   KvmStatus = "KVM_STATUS_ACTIVATED"
+	KVMSTATUSDEACTIVATED KvmStatus = "KVM_STATUS_DEACTIVATED"
+	KVMSTATUSUNSPECIFIED KvmStatus = "KVM_STATUS_UNSPECIFIED"
+)
+
 // Defines values for LinkState.
 const (
 	NETWORKINTERFACELINKSTATEDOWN        LinkState = "NETWORK_INTERFACE_LINK_STATE_DOWN"
@@ -179,6 +197,24 @@ const (
 	SEVERITYLEVELINFO        SeverityLevel = "SEVERITY_LEVEL_INFO"
 	SEVERITYLEVELUNSPECIFIED SeverityLevel = "SEVERITY_LEVEL_UNSPECIFIED"
 	SEVERITYLEVELWARN        SeverityLevel = "SEVERITY_LEVEL_WARN"
+)
+
+// Defines values for SolState.
+const (
+	SOLSTATEAWAITINGCONSENT     SolState = "SOL_STATE_AWAITING_CONSENT"
+	SOLSTATECONSENTRECEIVED     SolState = "SOL_STATE_CONSENT_RECEIVED"
+	SOLSTATEERROR               SolState = "SOL_STATE_ERROR"
+	SOLSTATEREDIRECTIONRECEIVED SolState = "SOL_STATE_REDIRECTION_RECEIVED"
+	SOLSTATESTART               SolState = "SOL_STATE_START"
+	SOLSTATESTOP                SolState = "SOL_STATE_STOP"
+	SOLSTATEUNSPECIFIED         SolState = "SOL_STATE_UNSPECIFIED"
+)
+
+// Defines values for SolStatus.
+const (
+	SOLSTATUSACTIVATED   SolStatus = "SOL_STATUS_ACTIVATED"
+	SOLSTATUSDEACTIVATED SolStatus = "SOL_STATUS_DEACTIVATED"
+	SOLSTATUSUNSPECIFIED SolStatus = "SOL_STATUS_UNSPECIFIED"
 )
 
 // Defines values for StatusIndication.
@@ -1120,8 +1156,14 @@ type HostResource struct {
 	// CurrentAmtState The state of the AMT (Active Management Technology) component.
 	CurrentAmtState *AmtState `json:"currentAmtState,omitempty"`
 
+	// CurrentKvmState KVM session lifecycle state; KVM_CONSENT_RECEIVED and KVM_REDIRECTION_RECEIVED are desired-only values.
+	CurrentKvmState *KvmState `json:"currentKvmState,omitempty"`
+
 	// CurrentPowerState The host power state.
 	CurrentPowerState *PowerState `json:"currentPowerState,omitempty"`
+
+	// CurrentSolState SOL session lifecycle state; SOL_STATE_CONSENT_RECEIVED and SOL_STATE_REDIRECTION_RECEIVED are desired-only values.
+	CurrentSolState *SolState `json:"currentSolState,omitempty"`
 
 	// CurrentState States of the host.
 	CurrentState *HostState `json:"currentState,omitempty"`
@@ -1129,11 +1171,14 @@ type HostResource struct {
 	// DesiredAmtState The state of the AMT (Active Management Technology) component.
 	DesiredAmtState *AmtState `json:"desiredAmtState,omitempty"`
 
-	// DesiredConsentCode (OPTIONAL)
-	DesiredConsentCode *string `json:"desiredConsentCode,omitempty"`
+	// DesiredKvmState KVM session lifecycle state; KVM_CONSENT_RECEIVED and KVM_REDIRECTION_RECEIVED are desired-only values.
+	DesiredKvmState *KvmState `json:"desiredKvmState,omitempty"`
 
 	// DesiredPowerState The host power state.
 	DesiredPowerState *PowerState `json:"desiredPowerState,omitempty"`
+
+	// DesiredSolState SOL session lifecycle state; SOL_STATE_CONSENT_RECEIVED and SOL_STATE_REDIRECTION_RECEIVED are desired-only values.
+	DesiredSolState *SolState `json:"desiredSolState,omitempty"`
 
 	// DesiredState States of the host.
 	DesiredState *HostState `json:"desiredState,omitempty"`
@@ -1168,6 +1213,12 @@ type HostResource struct {
 	// Instance InstanceResource describes an instantiated OS install, running on either a
 	//  host or hypervisor.
 	Instance *InstanceResource `json:"instance,omitempty"`
+
+	// KvmSessionStatus Human-readable KVM session status message. Set by kvm-manager only.
+	KvmSessionStatus *string `json:"kvmSessionStatus,omitempty"`
+
+	// KvmStatus KvmStatus reflects whether a KVM remote session is currently active on the host.
+	KvmStatus *KvmStatus `json:"kvmStatus,omitempty"`
 
 	// MemoryBytes Quantity of memory (RAM) in the system in bytes.
 	MemoryBytes *string `json:"memoryBytes,omitempty"`
@@ -1230,7 +1281,13 @@ type HostResource struct {
 	Site *SiteResource `json:"site,omitempty"`
 
 	// SiteId The site where the host is located.
-	SiteId     *string     `json:"siteId,omitempty"`
+	SiteId *string `json:"siteId,omitempty"`
+
+	// SolSessionStatus Human-readable SOL session status message. Set by sol-manager only.
+	SolSessionStatus *string `json:"solSessionStatus,omitempty"`
+
+	// SolStatus SolStatus reflects whether a SOL remote session is currently active on the host.
+	SolStatus  *SolStatus  `json:"solStatus,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 
 	// UserLvmSize LVM size in GB.
@@ -1504,6 +1561,12 @@ type InvalidateInstanceRequest struct {
 
 // InvalidateInstanceResponse Response message for Invalidate Instance.
 type InvalidateInstanceResponse = map[string]interface{}
+
+// KvmState KVM session lifecycle state; KVM_CONSENT_RECEIVED and KVM_REDIRECTION_RECEIVED are desired-only values.
+type KvmState string
+
+// KvmStatus KvmStatus reflects whether a KVM remote session is currently active on the host.
+type KvmStatus string
 
 // LinkState The state of the network interface.
 type LinkState string
@@ -4838,6 +4901,12 @@ type SiteResource struct {
 	SiteLng    *int32      `json:"siteLng,omitempty"`
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 }
+
+// SolState SOL session lifecycle state; SOL_STATE_CONSENT_RECEIVED and SOL_STATE_REDIRECTION_RECEIVED are desired-only values.
+type SolState string
+
+// SolStatus SolStatus reflects whether a SOL remote session is currently active on the host.
+type SolStatus string
 
 // StatusIndication The status indicator.
 type StatusIndication string

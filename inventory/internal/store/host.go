@@ -49,6 +49,12 @@ func HostEnumStateMap(fname string, eint int32) (ent.Value, error) {
 		hosts.FieldAmtControlMode:              hosts.AmtControlMode(computev1.AmtControlMode_name[eint]),
 		hosts.FieldPowerStatusIndicator:        hosts.PowerStatusIndicator(statusv1.StatusIndication_name[eint]),
 		hosts.FieldAmtStatusIndicator:          hosts.AmtStatusIndicator(statusv1.StatusIndication_name[eint]),
+		hosts.FieldKvmStatus:                   hosts.KvmStatus(computev1.KvmStatus_name[eint]),
+		hosts.FieldDesiredKvmState:             hosts.DesiredKvmState(computev1.KvmState_name[eint]),
+		hosts.FieldCurrentKvmState:             hosts.CurrentKvmState(computev1.KvmState_name[eint]),
+		hosts.FieldSolStatus:                   hosts.SolStatus(computev1.SolStatus_name[eint]),
+		hosts.FieldDesiredSolState:             hosts.DesiredSolState(computev1.SolState_name[eint]),
+		hosts.FieldCurrentSolState:             hosts.CurrentSolState(computev1.SolState_name[eint]),
 	}
 
 	if v, ok := stateMap[fname]; ok {
@@ -73,6 +79,7 @@ func (is *InvStore) CreateHost(ctx context.Context, in *computev1.HostResource) 
 	return res, nil
 }
 
+//nolint:cyclop // high cyclomatic complexity due to multiple state fields requiring non-NULL DB defaults
 func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourceMutation) {
 	// Ensure the host state fields are never set to NULL in the DB.
 	if in.GetCurrentState() == computev1.HostState_HOST_STATE_UNSPECIFIED {
@@ -98,6 +105,24 @@ func setHostStateFieldsOnCreate(in *computev1.HostResource, mut *ent.HostResourc
 	}
 	if in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
 		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
+	}
+	if in.GetKvmStatus() == computev1.KvmStatus_KVM_STATUS_UNSPECIFIED {
+		mut.SetKvmStatus(hosts.KvmStatusKVM_STATUS_UNSPECIFIED)
+	}
+	if in.GetDesiredKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.SetDesiredKvmState(hosts.DesiredKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if in.GetCurrentKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.SetCurrentKvmState(hosts.CurrentKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if in.GetSolStatus() == computev1.SolStatus_SOL_STATUS_UNSPECIFIED {
+		mut.SetSolStatus(hosts.SolStatusSOL_STATUS_UNSPECIFIED)
+	}
+	if in.GetDesiredSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.SetDesiredSolState(hosts.DesiredSolStateSOL_STATE_UNSPECIFIED)
+	}
+	if in.GetCurrentSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.SetCurrentSolState(hosts.CurrentSolStateSOL_STATE_UNSPECIFIED)
 	}
 }
 
@@ -266,6 +291,36 @@ func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourc
 		in.GetAmtSku() == computev1.AmtSku_AMT_SKU_UNSPECIFIED {
 		mut.ResetAmtSku()
 		mut.SetAmtSku(hosts.AmtSkuAMT_SKU_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldKvmStatus) &&
+		in.GetKvmStatus() == computev1.KvmStatus_KVM_STATUS_UNSPECIFIED {
+		mut.ResetKvmStatus()
+		mut.SetKvmStatus(hosts.KvmStatusKVM_STATUS_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredKvmState) &&
+		in.GetDesiredKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.ResetDesiredKvmState()
+		mut.SetDesiredKvmState(hosts.DesiredKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentKvmState) &&
+		in.GetCurrentKvmState() == computev1.KvmState_KVM_STATE_UNSPECIFIED {
+		mut.ResetCurrentKvmState()
+		mut.SetCurrentKvmState(hosts.CurrentKvmStateKVM_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldSolStatus) &&
+		in.GetSolStatus() == computev1.SolStatus_SOL_STATUS_UNSPECIFIED {
+		mut.ResetSolStatus()
+		mut.SetSolStatus(hosts.SolStatusSOL_STATUS_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredSolState) &&
+		in.GetDesiredSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.ResetDesiredSolState()
+		mut.SetDesiredSolState(hosts.DesiredSolStateSOL_STATE_UNSPECIFIED)
+	}
+	if slices.Contains(fieldmask.GetPaths(), hosts.FieldCurrentSolState) &&
+		in.GetCurrentSolState() == computev1.SolState_SOL_STATE_UNSPECIFIED {
+		mut.ResetCurrentSolState()
+		mut.SetCurrentSolState(hosts.CurrentSolStateSOL_STATE_UNSPECIFIED)
 	}
 }
 

@@ -248,9 +248,14 @@ func AmtDNSSuffix(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldEQ(FieldAmtDNSSuffix, v))
 }
 
-// DesiredConsentCode applies equality check predicate on the "desired_consent_code" field. It's identical to DesiredConsentCodeEQ.
-func DesiredConsentCode(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldEQ(FieldDesiredConsentCode, v))
+// KvmSessionStatus applies equality check predicate on the "kvm_session_status" field. It's identical to KvmSessionStatusEQ.
+func KvmSessionStatus(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldKvmSessionStatus, v))
+}
+
+// SolSessionStatus applies equality check predicate on the "sol_session_status" field. It's identical to SolSessionStatusEQ.
+func SolSessionStatus(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldSolSessionStatus, v))
 }
 
 // TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
@@ -3358,79 +3363,334 @@ func AmtDNSSuffixContainsFold(v string) predicate.HostResource {
 	return predicate.HostResource(sql.FieldContainsFold(FieldAmtDNSSuffix, v))
 }
 
-// DesiredConsentCodeEQ applies the EQ predicate on the "desired_consent_code" field.
-func DesiredConsentCodeEQ(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldEQ(FieldDesiredConsentCode, v))
+// KvmStatusEQ applies the EQ predicate on the "kvm_status" field.
+func KvmStatusEQ(v KvmStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldKvmStatus, v))
 }
 
-// DesiredConsentCodeNEQ applies the NEQ predicate on the "desired_consent_code" field.
-func DesiredConsentCodeNEQ(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldNEQ(FieldDesiredConsentCode, v))
+// KvmStatusNEQ applies the NEQ predicate on the "kvm_status" field.
+func KvmStatusNEQ(v KvmStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldKvmStatus, v))
 }
 
-// DesiredConsentCodeIn applies the In predicate on the "desired_consent_code" field.
-func DesiredConsentCodeIn(vs ...string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldIn(FieldDesiredConsentCode, vs...))
+// KvmStatusIn applies the In predicate on the "kvm_status" field.
+func KvmStatusIn(vs ...KvmStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldKvmStatus, vs...))
 }
 
-// DesiredConsentCodeNotIn applies the NotIn predicate on the "desired_consent_code" field.
-func DesiredConsentCodeNotIn(vs ...string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldNotIn(FieldDesiredConsentCode, vs...))
+// KvmStatusNotIn applies the NotIn predicate on the "kvm_status" field.
+func KvmStatusNotIn(vs ...KvmStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldKvmStatus, vs...))
 }
 
-// DesiredConsentCodeGT applies the GT predicate on the "desired_consent_code" field.
-func DesiredConsentCodeGT(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldGT(FieldDesiredConsentCode, v))
+// KvmStatusIsNil applies the IsNil predicate on the "kvm_status" field.
+func KvmStatusIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldKvmStatus))
 }
 
-// DesiredConsentCodeGTE applies the GTE predicate on the "desired_consent_code" field.
-func DesiredConsentCodeGTE(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldGTE(FieldDesiredConsentCode, v))
+// KvmStatusNotNil applies the NotNil predicate on the "kvm_status" field.
+func KvmStatusNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldKvmStatus))
 }
 
-// DesiredConsentCodeLT applies the LT predicate on the "desired_consent_code" field.
-func DesiredConsentCodeLT(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldLT(FieldDesiredConsentCode, v))
+// DesiredKvmStateEQ applies the EQ predicate on the "desired_kvm_state" field.
+func DesiredKvmStateEQ(v DesiredKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldDesiredKvmState, v))
 }
 
-// DesiredConsentCodeLTE applies the LTE predicate on the "desired_consent_code" field.
-func DesiredConsentCodeLTE(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldLTE(FieldDesiredConsentCode, v))
+// DesiredKvmStateNEQ applies the NEQ predicate on the "desired_kvm_state" field.
+func DesiredKvmStateNEQ(v DesiredKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldDesiredKvmState, v))
 }
 
-// DesiredConsentCodeContains applies the Contains predicate on the "desired_consent_code" field.
-func DesiredConsentCodeContains(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldContains(FieldDesiredConsentCode, v))
+// DesiredKvmStateIn applies the In predicate on the "desired_kvm_state" field.
+func DesiredKvmStateIn(vs ...DesiredKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldDesiredKvmState, vs...))
 }
 
-// DesiredConsentCodeHasPrefix applies the HasPrefix predicate on the "desired_consent_code" field.
-func DesiredConsentCodeHasPrefix(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldHasPrefix(FieldDesiredConsentCode, v))
+// DesiredKvmStateNotIn applies the NotIn predicate on the "desired_kvm_state" field.
+func DesiredKvmStateNotIn(vs ...DesiredKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldDesiredKvmState, vs...))
 }
 
-// DesiredConsentCodeHasSuffix applies the HasSuffix predicate on the "desired_consent_code" field.
-func DesiredConsentCodeHasSuffix(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldHasSuffix(FieldDesiredConsentCode, v))
+// DesiredKvmStateIsNil applies the IsNil predicate on the "desired_kvm_state" field.
+func DesiredKvmStateIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldDesiredKvmState))
 }
 
-// DesiredConsentCodeIsNil applies the IsNil predicate on the "desired_consent_code" field.
-func DesiredConsentCodeIsNil() predicate.HostResource {
-	return predicate.HostResource(sql.FieldIsNull(FieldDesiredConsentCode))
+// DesiredKvmStateNotNil applies the NotNil predicate on the "desired_kvm_state" field.
+func DesiredKvmStateNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldDesiredKvmState))
 }
 
-// DesiredConsentCodeNotNil applies the NotNil predicate on the "desired_consent_code" field.
-func DesiredConsentCodeNotNil() predicate.HostResource {
-	return predicate.HostResource(sql.FieldNotNull(FieldDesiredConsentCode))
+// CurrentKvmStateEQ applies the EQ predicate on the "current_kvm_state" field.
+func CurrentKvmStateEQ(v CurrentKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldCurrentKvmState, v))
 }
 
-// DesiredConsentCodeEqualFold applies the EqualFold predicate on the "desired_consent_code" field.
-func DesiredConsentCodeEqualFold(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldEqualFold(FieldDesiredConsentCode, v))
+// CurrentKvmStateNEQ applies the NEQ predicate on the "current_kvm_state" field.
+func CurrentKvmStateNEQ(v CurrentKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldCurrentKvmState, v))
 }
 
-// DesiredConsentCodeContainsFold applies the ContainsFold predicate on the "desired_consent_code" field.
-func DesiredConsentCodeContainsFold(v string) predicate.HostResource {
-	return predicate.HostResource(sql.FieldContainsFold(FieldDesiredConsentCode, v))
+// CurrentKvmStateIn applies the In predicate on the "current_kvm_state" field.
+func CurrentKvmStateIn(vs ...CurrentKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldCurrentKvmState, vs...))
+}
+
+// CurrentKvmStateNotIn applies the NotIn predicate on the "current_kvm_state" field.
+func CurrentKvmStateNotIn(vs ...CurrentKvmState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldCurrentKvmState, vs...))
+}
+
+// CurrentKvmStateIsNil applies the IsNil predicate on the "current_kvm_state" field.
+func CurrentKvmStateIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldCurrentKvmState))
+}
+
+// CurrentKvmStateNotNil applies the NotNil predicate on the "current_kvm_state" field.
+func CurrentKvmStateNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldCurrentKvmState))
+}
+
+// KvmSessionStatusEQ applies the EQ predicate on the "kvm_session_status" field.
+func KvmSessionStatusEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusNEQ applies the NEQ predicate on the "kvm_session_status" field.
+func KvmSessionStatusNEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusIn applies the In predicate on the "kvm_session_status" field.
+func KvmSessionStatusIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldKvmSessionStatus, vs...))
+}
+
+// KvmSessionStatusNotIn applies the NotIn predicate on the "kvm_session_status" field.
+func KvmSessionStatusNotIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldKvmSessionStatus, vs...))
+}
+
+// KvmSessionStatusGT applies the GT predicate on the "kvm_session_status" field.
+func KvmSessionStatusGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusGTE applies the GTE predicate on the "kvm_session_status" field.
+func KvmSessionStatusGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusLT applies the LT predicate on the "kvm_session_status" field.
+func KvmSessionStatusLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusLTE applies the LTE predicate on the "kvm_session_status" field.
+func KvmSessionStatusLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusContains applies the Contains predicate on the "kvm_session_status" field.
+func KvmSessionStatusContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusHasPrefix applies the HasPrefix predicate on the "kvm_session_status" field.
+func KvmSessionStatusHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusHasSuffix applies the HasSuffix predicate on the "kvm_session_status" field.
+func KvmSessionStatusHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusIsNil applies the IsNil predicate on the "kvm_session_status" field.
+func KvmSessionStatusIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldKvmSessionStatus))
+}
+
+// KvmSessionStatusNotNil applies the NotNil predicate on the "kvm_session_status" field.
+func KvmSessionStatusNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldKvmSessionStatus))
+}
+
+// KvmSessionStatusEqualFold applies the EqualFold predicate on the "kvm_session_status" field.
+func KvmSessionStatusEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldKvmSessionStatus, v))
+}
+
+// KvmSessionStatusContainsFold applies the ContainsFold predicate on the "kvm_session_status" field.
+func KvmSessionStatusContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldKvmSessionStatus, v))
+}
+
+// SolStatusEQ applies the EQ predicate on the "sol_status" field.
+func SolStatusEQ(v SolStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldSolStatus, v))
+}
+
+// SolStatusNEQ applies the NEQ predicate on the "sol_status" field.
+func SolStatusNEQ(v SolStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldSolStatus, v))
+}
+
+// SolStatusIn applies the In predicate on the "sol_status" field.
+func SolStatusIn(vs ...SolStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldSolStatus, vs...))
+}
+
+// SolStatusNotIn applies the NotIn predicate on the "sol_status" field.
+func SolStatusNotIn(vs ...SolStatus) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldSolStatus, vs...))
+}
+
+// SolStatusIsNil applies the IsNil predicate on the "sol_status" field.
+func SolStatusIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldSolStatus))
+}
+
+// SolStatusNotNil applies the NotNil predicate on the "sol_status" field.
+func SolStatusNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldSolStatus))
+}
+
+// DesiredSolStateEQ applies the EQ predicate on the "desired_sol_state" field.
+func DesiredSolStateEQ(v DesiredSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldDesiredSolState, v))
+}
+
+// DesiredSolStateNEQ applies the NEQ predicate on the "desired_sol_state" field.
+func DesiredSolStateNEQ(v DesiredSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldDesiredSolState, v))
+}
+
+// DesiredSolStateIn applies the In predicate on the "desired_sol_state" field.
+func DesiredSolStateIn(vs ...DesiredSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldDesiredSolState, vs...))
+}
+
+// DesiredSolStateNotIn applies the NotIn predicate on the "desired_sol_state" field.
+func DesiredSolStateNotIn(vs ...DesiredSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldDesiredSolState, vs...))
+}
+
+// DesiredSolStateIsNil applies the IsNil predicate on the "desired_sol_state" field.
+func DesiredSolStateIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldDesiredSolState))
+}
+
+// DesiredSolStateNotNil applies the NotNil predicate on the "desired_sol_state" field.
+func DesiredSolStateNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldDesiredSolState))
+}
+
+// CurrentSolStateEQ applies the EQ predicate on the "current_sol_state" field.
+func CurrentSolStateEQ(v CurrentSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldCurrentSolState, v))
+}
+
+// CurrentSolStateNEQ applies the NEQ predicate on the "current_sol_state" field.
+func CurrentSolStateNEQ(v CurrentSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldCurrentSolState, v))
+}
+
+// CurrentSolStateIn applies the In predicate on the "current_sol_state" field.
+func CurrentSolStateIn(vs ...CurrentSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldCurrentSolState, vs...))
+}
+
+// CurrentSolStateNotIn applies the NotIn predicate on the "current_sol_state" field.
+func CurrentSolStateNotIn(vs ...CurrentSolState) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldCurrentSolState, vs...))
+}
+
+// CurrentSolStateIsNil applies the IsNil predicate on the "current_sol_state" field.
+func CurrentSolStateIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldCurrentSolState))
+}
+
+// CurrentSolStateNotNil applies the NotNil predicate on the "current_sol_state" field.
+func CurrentSolStateNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldCurrentSolState))
+}
+
+// SolSessionStatusEQ applies the EQ predicate on the "sol_session_status" field.
+func SolSessionStatusEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEQ(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusNEQ applies the NEQ predicate on the "sol_session_status" field.
+func SolSessionStatusNEQ(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNEQ(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusIn applies the In predicate on the "sol_session_status" field.
+func SolSessionStatusIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldIn(FieldSolSessionStatus, vs...))
+}
+
+// SolSessionStatusNotIn applies the NotIn predicate on the "sol_session_status" field.
+func SolSessionStatusNotIn(vs ...string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotIn(FieldSolSessionStatus, vs...))
+}
+
+// SolSessionStatusGT applies the GT predicate on the "sol_session_status" field.
+func SolSessionStatusGT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGT(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusGTE applies the GTE predicate on the "sol_session_status" field.
+func SolSessionStatusGTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldGTE(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusLT applies the LT predicate on the "sol_session_status" field.
+func SolSessionStatusLT(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLT(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusLTE applies the LTE predicate on the "sol_session_status" field.
+func SolSessionStatusLTE(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldLTE(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusContains applies the Contains predicate on the "sol_session_status" field.
+func SolSessionStatusContains(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContains(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusHasPrefix applies the HasPrefix predicate on the "sol_session_status" field.
+func SolSessionStatusHasPrefix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasPrefix(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusHasSuffix applies the HasSuffix predicate on the "sol_session_status" field.
+func SolSessionStatusHasSuffix(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldHasSuffix(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusIsNil applies the IsNil predicate on the "sol_session_status" field.
+func SolSessionStatusIsNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldIsNull(FieldSolSessionStatus))
+}
+
+// SolSessionStatusNotNil applies the NotNil predicate on the "sol_session_status" field.
+func SolSessionStatusNotNil() predicate.HostResource {
+	return predicate.HostResource(sql.FieldNotNull(FieldSolSessionStatus))
+}
+
+// SolSessionStatusEqualFold applies the EqualFold predicate on the "sol_session_status" field.
+func SolSessionStatusEqualFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldEqualFold(FieldSolSessionStatus, v))
+}
+
+// SolSessionStatusContainsFold applies the ContainsFold predicate on the "sol_session_status" field.
+func SolSessionStatusContainsFold(v string) predicate.HostResource {
+	return predicate.HostResource(sql.FieldContainsFold(FieldSolSessionStatus, v))
 }
 
 // TenantIDEQ applies the EQ predicate on the "tenant_id" field.

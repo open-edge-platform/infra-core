@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
-package metrics
+package invmetrics
 
 import (
 	"errors"
@@ -19,7 +19,7 @@ import (
 var zlog = logging.GetLogger("Metrics")
 
 const (
-	defaultEndpoint = "/metrics"
+	DefaultEndpoint = "/metrics"
 
 	EnableMetrics             = "enableMetrics"
 	EnableMetricsDescription  = "Enable Prometheus metric exporter"
@@ -35,28 +35,28 @@ var (
 
 func WithEndpoint(endpoint string) Option {
 	return func(o *Options) {
-		o.endpoint = endpoint
+		o.Endpoint = endpoint
 	}
 }
 
 func WithListenAddress(listenAddress string) Option {
 	return func(o *Options) {
-		o.listenAddress = listenAddress
+		o.ListenAddress = listenAddress
 	}
 }
 
 type Options struct {
-	listenAddress string
-	endpoint      string
+	ListenAddress string
+	Endpoint      string
 }
 
 type Option func(*Options)
 
-// parseOptions parses the given list of Option into an Options.
-func parseOptions(options ...Option) *Options {
+// ParseOptions parses the given list of Option into an Options.
+func ParseOptions(options ...Option) *Options {
 	opts := &Options{
-		endpoint:      defaultEndpoint,
-		listenAddress: MetricsAddressDefault,
+		Endpoint:      DefaultEndpoint,
+		ListenAddress: MetricsAddressDefault,
 	}
 	for _, option := range options {
 		option(opts)
@@ -65,17 +65,17 @@ func parseOptions(options ...Option) *Options {
 }
 
 // StartMetricsExporter start a metrics exporter server given the options and with the given metrics server definition.
-func StartMetricsExporter(metrics []prometheus.Collector, options ...Option) {
-	opts := parseOptions(options...)
+func StartMetricsExporter(collectors []prometheus.Collector, options ...Option) {
+	opts := ParseOptions(options...)
 	go func() {
-		zlog.Info().Msgf("Start metrics exporter server on: %s", opts.listenAddress)
+		zlog.Info().Msgf("Start metrics exporter server on: %s", opts.ListenAddress)
 		reg := prometheus.NewRegistry()
-		for _, collector := range metrics {
+		for _, collector := range collectors {
 			reg.MustRegister(collector)
 		}
-		metrics := echo.New()
-		metrics.GET(opts.endpoint, echoprometheus.NewHandlerWithConfig(echoprometheus.HandlerConfig{Gatherer: reg}))
-		if metricsErr := metrics.Start(opts.listenAddress); metricsErr != nil &&
+		metricsServer := echo.New()
+		metricsServer.GET(opts.Endpoint, echoprometheus.NewHandlerWithConfig(echoprometheus.HandlerConfig{Gatherer: reg}))
+		if metricsErr := metricsServer.Start(opts.ListenAddress); metricsErr != nil &&
 			!errors.Is(metricsErr, http.ErrServerClosed) {
 			zlog.Fatal().Err(metricsErr).Msg("failed to start metrics server")
 		}
