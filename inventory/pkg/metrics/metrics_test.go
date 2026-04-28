@@ -1,8 +1,7 @@
 // SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
-//nolint:testpackage // use the same pkg to test unexported functions
-package metrics
+package metrics_test
 
 import (
 	"context"
@@ -16,6 +15,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 )
 
 func TestMain(m *testing.M) {
@@ -33,27 +34,27 @@ func TestMain(m *testing.M) {
 
 func TestParseOptions(t *testing.T) {
 	t.Run("OnlyEndpoint", func(t *testing.T) {
-		opts := parseOptions(WithEndpoint("testEndpoint"))
-		assert.Equal(t, "testEndpoint", opts.endpoint)
-		assert.Equal(t, MetricsAddressDefault, opts.listenAddress)
+		opts := metrics.ParseOptions(metrics.WithEndpoint("testEndpoint"))
+		assert.Equal(t, "testEndpoint", opts.Endpoint)
+		assert.Equal(t, metrics.MetricsAddressDefault, opts.ListenAddress)
 	})
 
 	t.Run("OnlyAddress", func(t *testing.T) {
-		opts := parseOptions(WithListenAddress("testListenAddress"))
-		assert.Equal(t, defaultEndpoint, opts.endpoint)
-		assert.Equal(t, "testListenAddress", opts.listenAddress)
+		opts := metrics.ParseOptions(metrics.WithListenAddress("testListenAddress"))
+		assert.Equal(t, metrics.DefaultEndpoint, opts.Endpoint)
+		assert.Equal(t, "testListenAddress", opts.ListenAddress)
 	})
 
 	t.Run("BothEndpointAndAddress", func(t *testing.T) {
-		opts := parseOptions(WithEndpoint("testEndpoint"), WithListenAddress("testListenAddress"))
-		assert.Equal(t, "testEndpoint", opts.endpoint)
-		assert.Equal(t, "testListenAddress", opts.listenAddress)
+		opts := metrics.ParseOptions(metrics.WithEndpoint("testEndpoint"), metrics.WithListenAddress("testListenAddress"))
+		assert.Equal(t, "testEndpoint", opts.Endpoint)
+		assert.Equal(t, "testListenAddress", opts.ListenAddress)
 	})
 }
 
 func TestStartMetricsExporter(t *testing.T) {
 	srvMetrics := grpc_prom.NewServerMetrics()
-	go StartMetricsExporter([]prometheus.Collector{srvMetrics})
+	go metrics.StartMetricsExporter([]prometheus.Collector{srvMetrics})
 	// Wait for the server to start
 	time.Sleep(1 * time.Second)
 
@@ -68,6 +69,6 @@ func TestStartMetricsExporter(t *testing.T) {
 }
 
 func TestGetServerMetricsWithLatency(t *testing.T) {
-	metrics := GetServerMetricsWithLatency()
-	assert.NotNil(t, metrics)
+	srvMetrics := metrics.GetServerMetricsWithLatency()
+	assert.NotNil(t, srvMetrics)
 }
