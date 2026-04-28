@@ -1050,6 +1050,97 @@ func TestHost_Delete(t *testing.T) {
 	}
 }
 
+//nolint:funlen // Each sub-scenario tests one of the 5 host-level error indicator fields.
+func TestHost_Summary_RunningWithHostLevelError(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	t.Cleanup(cancel)
+
+	region := inv_testing.CreateRegion(t, nil)
+	site := inv_testing.CreateSiteWithArgs(t, "SiteA", 100, 100, "", region, nil, nil)
+	os := inv_testing.CreateOs(t)
+
+	server := inv_server.InventorygRPCServer{InvClient: inv_testing.TestClients[inv_testing.APIClient]}
+
+	// Healthy host: instance RUNNING, no errors → counted in running
+	hostHealthy := createTestHost(ctx, t, "Healthy-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostHealthy.GetResourceId()) })
+	instanceHealthy := inv_testing.CreateInstance(t, hostHealthy, os)
+	updateInstanceState(ctx, t, instanceHealthy.GetResourceId())
+
+	resp, err := server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	require.NoError(t, err)
+	assert.Equal(t, uint32(1), resp.Running, "healthy RUNNING host should be counted in running")
+	assert.Equal(t, uint32(0), resp.Error, "healthy RUNNING host should not be in error")
+
+	// SCENARIO 1: hostStatusIndicator=ERROR + instance RUNNING → error only, not running
+	hostHS := createTestHost(ctx, t, "HostStatus-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostHS.GetResourceId()) })
+	instanceHS := inv_testing.CreateInstance(t, hostHS, os)
+	updateInstanceState(ctx, t, instanceHS.GetResourceId())
+	updateHostStatus(ctx, t, hostHS.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	require.NoError(t, err)
+	assert.Equal(t, uint32(1), resp.Running, "host with hostStatusIndicator=ERROR should not be in running")
+	assert.Equal(t, uint32(1), resp.Error, "host with hostStatusIndicator=ERROR should be in error")
+
+	// SCENARIO 2: onboardingStatusIndicator=ERROR + instance RUNNING → error only, not running
+	hostOB := createTestHost(ctx, t, "Onboarding-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostOB.GetResourceId()) })
+	instanceOB := inv_testing.CreateInstance(t, hostOB, os)
+	updateInstanceState(ctx, t, instanceOB.GetResourceId())
+	updateHostOnboardingStatus(ctx, t, hostOB.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	require.NoError(t, err)
+	assert.Equal(t, uint32(1), resp.Running, "host with onboardingStatusIndicator=ERROR should not be in running")
+	assert.Equal(t, uint32(2), resp.Error, "host with onboardingStatusIndicator=ERROR should be in error")
+
+	// SCENARIO 3: registrationStatusIndicator=ERROR + instance RUNNING → error only, not running
+	hostReg := createTestHost(ctx, t, "Registration-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostReg.GetResourceId()) })
+	instanceReg := inv_testing.CreateInstance(t, hostReg, os)
+	updateInstanceState(ctx, t, instanceReg.GetResourceId())
+	updateHostRegistrationStatus(ctx, t, hostReg.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	require.NoError(t, err)
+	assert.Equal(t, uint32(1), resp.Running, "host with registrationStatusIndicator=ERROR should not be in running")
+	assert.Equal(t, uint32(3), resp.Error, "host with registrationStatusIndicator=ERROR should be in error")
+
+	// SCENARIO 4: powerStatusIndicator=ERROR + instance RUNNING → error only, not running
+	hostPow := createTestHost(ctx, t, "Power-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostPow.GetResourceId()) })
+	instancePow := inv_testing.CreateInstance(t, hostPow, os)
+	updateInstanceState(ctx, t, instancePow.GetResourceId())
+	updateHostPowerStatus(ctx, t, hostPow.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	require.NoError(t, err)
+	assert.Equal(t, uint32(1), resp.Running, "host with powerStatusIndicator=ERROR should not be in running")
+	assert.Equal(t, uint32(4), resp.Error, "host with powerStatusIndicator=ERROR should be in error")
+
+	// SCENARIO 5: amtStatusIndicator=ERROR + instance RUNNING → error only, not running
+	hostAMT := createTestHost(ctx, t, "AMT-Error-Running", site, inv_computev1.HostState_HOST_STATE_ONBOARDED)
+	t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostAMT.GetResourceId()) })
+	instanceAMT := inv_testing.CreateInstance(t, hostAMT, os)
+	updateInstanceState(ctx, t, instanceAMT.GetResourceId())
+	updateHostAmtStatus(ctx, t, hostAMT.GetResourceId(), inv_statusv1.StatusIndication_STATUS_INDICATION_ERROR)
+
+	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	require.NoError(t, err)
+	assert.Equal(t, uint32(1), resp.Running, "host with amtStatusIndicator=ERROR should not be in running")
+	assert.Equal(t, uint32(5), resp.Error, "host with amtStatusIndicator=ERROR should be in error")
+
+	// Sanity check: total and running are consistent across all scenarios
+	resp, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
+	require.NoError(t, err)
+	assert.Equal(t, uint32(6), resp.Total, "should have 6 total hosts")
+	assert.Equal(t, uint32(5), resp.Error, "should have 5 hosts in error")
+	assert.Equal(t, uint32(1), resp.Running, "should have exactly 1 running host (the healthy one)")
+	assert.Equal(t, uint32(0), resp.Unallocated, "should have 0 unallocated hosts")
+}
+
 //nolint:funlen // Test functions are long but necessary to test all the cases.
 func TestHost_Summary_Comprehensive(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -1071,7 +1162,7 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	instance1 := inv_testing.CreateInstance(t, host1, os)
 
 	// Update Instance status to Running
-	updateInstanceState(ctx, t, instance1.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instance1.GetResourceId())
 
 	// Host 2: Host with no site allocation
 	host2 := createTestHost(ctx, t, "Host2-Unallocated", nil, inv_computev1.HostState_HOST_STATE_REGISTERED)
@@ -1182,7 +1273,7 @@ func TestHost_Summary_Comprehensive(t *testing.T) {
 	host10 := createTestHost(ctx, t, "Host10-Running", site1, inv_computev1.HostState_HOST_STATE_ONBOARDED)
 	t.Cleanup(func() { inv_testing.HardDeleteHost(t, host10.GetResourceId()) })
 	instance10 := inv_testing.CreateInstance(t, host10, os)
-	updateInstanceState(ctx, t, instance10.GetResourceId(), inv_computev1.InstanceState_INSTANCE_STATE_RUNNING)
+	updateInstanceState(ctx, t, instance10.GetResourceId())
 
 	// VERIFICATION 8: Verify running count increases
 	response, err = server.GetHostsSummary(ctx, &restv1.GetHostSummaryRequest{})
@@ -1352,11 +1443,11 @@ func updateHostAmtStatus(ctx context.Context, t *testing.T, hostID string, statu
 	require.NoError(t, err)
 }
 
-func updateInstanceState(ctx context.Context, t *testing.T, instanceID string, state inv_computev1.InstanceState) {
+func updateInstanceState(ctx context.Context, t *testing.T, instanceID string) {
 	t.Helper()
 
 	updateInstance := &inv_computev1.InstanceResource{
-		CurrentState: state,
+		CurrentState: inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
 	}
 
 	fieldMask := &fieldmaskpb.FieldMask{

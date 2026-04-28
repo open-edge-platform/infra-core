@@ -43,6 +43,8 @@ var OpenAPIHostToProto = map[string]string{
 	computev1.HostResourceFieldPowerCommandPolicy: inv_computev1.HostResourceFieldPowerCommandPolicy,
 	computev1.HostResourceFieldAmtControlMode:     inv_computev1.HostResourceFieldAmtControlMode,
 	computev1.HostResourceFieldAmtDnsSuffix:       inv_computev1.HostResourceFieldAmtDnsSuffix,
+	computev1.HostResourceFieldDesiredKvmState:    inv_computev1.HostResourceFieldDesiredKvmState,
+	computev1.HostResourceFieldDesiredSolState:    inv_computev1.HostResourceFieldDesiredSolState,
 }
 
 var (
@@ -90,15 +92,32 @@ var (
 		api.STATUSINDICATIONERROR,
 	)
 
-	// Modify running instance filter to only exclude instance-related errors
-	// and not host-related errors.
 	filterInstanceRunningExp = `has(%s) AND %s.%s = %s AND NOT (%s)`
-	filterInstanceRunning    = fmt.Sprintf(filterInstanceRunningExp,
+
+	// filterHostSummaryRunning is used by GetHostsSummary to count "running" hosts.
+	// It only negates instance-level error indicators. Host-level errors are handled
+	// separately via filterHostLevelErrors in GetHostsSummary with subtraction approach.
+	filterHostSummaryRunning = fmt.Sprintf(filterInstanceRunningExp,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.HostResourceEdgeInstance,
 		inv_computev1.InstanceResourceFieldCurrentState,
 		inv_computev1.InstanceState_INSTANCE_STATE_RUNNING,
 		filterIsFailedInstanceStatus,
+	)
+
+	// filterHostLevelErrors covers the 5 host-level status indicator fields.
+	filterHostLevelErrorsExp = `%s = %s OR %s = %s OR %s = %s OR %s = %s OR %s = %s`
+	filterHostLevelErrors    = fmt.Sprintf(filterHostLevelErrorsExp,
+		inv_computev1.HostResourceFieldHostStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldOnboardingStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldRegistrationStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldPowerStatusIndicator,
+		api.STATUSINDICATIONERROR,
+		inv_computev1.HostResourceFieldAmtStatusIndicator,
+		api.STATUSINDICATIONERROR,
 	)
 
 	filterIsUnallocatedExp = `NOT has(%s)`
@@ -167,6 +186,8 @@ func toInvHostUpdate(host *computev1.HostResource) (*inv_computev1.HostResource,
 		AmtSku:             inv_computev1.AmtSku(host.GetAmtSku()),
 		AmtControlMode:     inv_computev1.AmtControlMode(host.GetAmtControlMode()),
 		PowerCommandPolicy: inv_computev1.PowerCommandPolicy(host.GetPowerCommandPolicy()),
+		DesiredKvmState:    inv_computev1.KvmState(host.GetDesiredKvmState()),
+		DesiredSolState:    inv_computev1.SolState(host.GetDesiredSolState()),
 	}
 
 	hostSiteID := host.GetSiteId()
@@ -225,6 +246,14 @@ func fromInvHostStatus(
 	host.AmtStatusIndicator = amtStatusIndicator
 	host.AmtStatusTimestamp = amtStatusTimestamp
 	host.AmtDnsSuffix = amtDNSSuffix
+
+	host.KvmStatus = computev1.KvmStatus(invHost.GetKvmStatus())
+	host.CurrentKvmState = computev1.KvmState(invHost.GetCurrentKvmState())
+	host.KvmSessionStatus = invHost.GetKvmSessionStatus()
+
+	host.SolStatus = computev1.SolStatus(invHost.GetSolStatus())
+	host.CurrentSolState = computev1.SolState(invHost.GetCurrentSolState())
+	host.SolSessionStatus = invHost.GetSolSessionStatus()
 }
 
 func fromInvHostEdges(
@@ -306,6 +335,10 @@ func fromInvHost(
 		AmtControlMode:     computev1.AmtControlMode(invHost.GetAmtControlMode()),
 		DesiredAmtState:    computev1.AmtState(invHost.GetDesiredAmtState()),
 		CurrentAmtState:    computev1.AmtState(invHost.GetCurrentAmtState()),
+		DesiredKvmState:    computev1.KvmState(invHost.GetDesiredKvmState()),
+		CurrentKvmState:    computev1.KvmState(invHost.GetCurrentKvmState()),
+		DesiredSolState:    computev1.SolState(invHost.GetDesiredSolState()),
+		CurrentSolState:    computev1.SolState(invHost.GetCurrentSolState()),
 		Metadata:           metadata,
 		InheritedMetadata:  []*commonv1.MetadataItem{},
 		Timestamps:         GrpcToOpenAPITimestamps(invHost),
@@ -916,6 +949,8 @@ func (is *InventorygRPCServer) totalHosts(ctx context.Context, filter string) (i
 }
 
 // Get hosts summary.
+//
+//nolint:cyclop // complexity due to coverage of all cases in count.
 func (is *InventorygRPCServer) GetHostsSummary(
 	ctx context.Context,
 	req *restv1.GetHostSummaryRequest,
@@ -930,13 +965,18 @@ func (is *InventorygRPCServer) GetHostsSummary(
 
 	filterTotal := reqFilter
 	filterIsFailedHostStatusParsed := filterIsFailedHostStatus
-	filterInstanceRunningParsed := filterInstanceRunning
+	filterInstanceRunningParsed := filterHostSummaryRunning
 	filterIsUnallocatedParsed := filterIsUnallocated
+	// filterRunningWithHostErrorParsed selects "running" hosts that also carry a
+	// host-level error. Subtracting this count from the raw running count makes
+	// the running and error buckets mutually exclusive.
+	filterRunningWithHostErrorParsed := fmt.Sprintf("(%s) AND (%s)", filterHostSummaryRunning, filterHostLevelErrors)
 
 	if reqFilter != "" {
 		filterIsFailedHostStatusParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsFailedHostStatusParsed)
 		filterInstanceRunningParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterInstanceRunningParsed)
 		filterIsUnallocatedParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterIsUnallocatedParsed)
+		filterRunningWithHostErrorParsed = fmt.Sprintf("%s AND (%s)", reqFilter, filterRunningWithHostErrorParsed)
 	}
 
 	totalHosts, err := is.totalHosts(ctx, filterTotal)
@@ -955,6 +995,13 @@ func (is *InventorygRPCServer) GetHostsSummary(
 	if err != nil {
 		return nil, err
 	}
+	// Subtract hosts that are "running" but also carry a host-level error so that
+	// error and running counts are mutually exclusive.
+	totalHostsRunningWithHostError, err := is.totalHosts(ctx, filterRunningWithHostErrorParsed)
+	if err != nil {
+		return nil, err
+	}
+	totalHostsRunning -= totalHostsRunningWithHostError
 
 	total, err = SafeInt32ToUint32(totalHosts)
 	if err != nil {

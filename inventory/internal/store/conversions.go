@@ -374,6 +374,12 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 	currentAmtState := computev1.AmtState_value[host.CurrentAmtState.String()]
 	powerStatusIndicator := statusv1.StatusIndication_value[host.PowerStatusIndicator.String()]
 	amtStatusIndicator := statusv1.StatusIndication_value[host.AmtStatusIndicator.String()]
+	kvmStatus := computev1.KvmStatus_value[host.KvmStatus.String()]
+	desiredKvmState := computev1.KvmState_value[host.DesiredKvmState.String()]
+	currentKvmState := computev1.KvmState_value[host.CurrentKvmState.String()]
+	solStatus := computev1.SolStatus_value[host.SolStatus.String()]
+	desiredSolState := computev1.SolState_value[host.DesiredSolState.String()]
+	currentSolState := computev1.SolState_value[host.CurrentSolState.String()]
 
 	protoHost := &computev1.HostResource{
 		ResourceId:                  host.ResourceID,
@@ -430,6 +436,14 @@ func entHostResourceToProtoHostResource(host *ent.HostResource) *computev1.HostR
 		AmtStatusIndicator:          statusv1.StatusIndication(amtStatusIndicator),
 		AmtStatusTimestamp:          host.AmtStatusTimestamp,
 		UserLvmSize:                 host.UserLvmSize,
+		KvmStatus:                   computev1.KvmStatus(kvmStatus),
+		DesiredKvmState:             computev1.KvmState(desiredKvmState),
+		CurrentKvmState:             computev1.KvmState(currentKvmState),
+		KvmSessionStatus:            host.KvmSessionStatus,
+		SolStatus:                   computev1.SolStatus(solStatus),
+		DesiredSolState:             computev1.SolState(desiredSolState),
+		CurrentSolState:             computev1.SolState(currentSolState),
+		SolSessionStatus:            host.SolSessionStatus,
 		TenantId:                    host.TenantID,
 		CreatedAt:                   host.CreatedAt,
 		UpdatedAt:                   host.UpdatedAt,

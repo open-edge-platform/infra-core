@@ -127,6 +127,14 @@ var (
 		{Name: "user_lvm_size", Type: field.TypeUint32, Nullable: true},
 		{Name: "amt_control_mode", Type: field.TypeEnum, Nullable: true, Enums: []string{"AMT_CONTROL_MODE_UNSPECIFIED", "AMT_CONTROL_MODE_ACM", "AMT_CONTROL_MODE_CCM"}},
 		{Name: "amt_dns_suffix", Type: field.TypeString, Nullable: true},
+		{Name: "kvm_status", Type: field.TypeEnum, Nullable: true, Enums: []string{"KVM_STATUS_UNSPECIFIED", "KVM_STATUS_ACTIVATED", "KVM_STATUS_DEACTIVATED"}},
+		{Name: "desired_kvm_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"KVM_STATE_UNSPECIFIED", "KVM_STATE_START", "KVM_STATE_STOP", "KVM_STATE_AWAITING_CONSENT", "KVM_STATE_ERROR", "KVM_STATE_CONSENT_RECEIVED", "KVM_STATE_REDIRECTION_RECEIVED"}},
+		{Name: "current_kvm_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"KVM_STATE_UNSPECIFIED", "KVM_STATE_START", "KVM_STATE_STOP", "KVM_STATE_AWAITING_CONSENT", "KVM_STATE_ERROR", "KVM_STATE_CONSENT_RECEIVED", "KVM_STATE_REDIRECTION_RECEIVED"}},
+		{Name: "kvm_session_status", Type: field.TypeString, Nullable: true},
+		{Name: "sol_status", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATUS_UNSPECIFIED", "SOL_STATUS_ACTIVATED", "SOL_STATUS_DEACTIVATED"}},
+		{Name: "desired_sol_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATE_UNSPECIFIED", "SOL_STATE_START", "SOL_STATE_STOP", "SOL_STATE_AWAITING_CONSENT", "SOL_STATE_ERROR", "SOL_STATE_CONSENT_RECEIVED", "SOL_STATE_REDIRECTION_RECEIVED"}},
+		{Name: "current_sol_state", Type: field.TypeEnum, Nullable: true, Enums: []string{"SOL_STATE_UNSPECIFIED", "SOL_STATE_START", "SOL_STATE_STOP", "SOL_STATE_AWAITING_CONSENT", "SOL_STATE_ERROR", "SOL_STATE_CONSENT_RECEIVED", "SOL_STATE_REDIRECTION_RECEIVED"}},
+		{Name: "sol_session_status", Type: field.TypeString, Nullable: true},
 		{Name: "tenant_id", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
 		{Name: "updated_at", Type: field.TypeString, SchemaType: map[string]string{"postgres": "TIMESTAMP"}},
@@ -142,19 +150,19 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "host_resources_site_resources_site",
-				Columns:    []*schema.Column{HostResourcesColumns[58]},
+				Columns:    []*schema.Column{HostResourcesColumns[66]},
 				RefColumns: []*schema.Column{SiteResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_provider_resources_provider",
-				Columns:    []*schema.Column{HostResourcesColumns[59]},
+				Columns:    []*schema.Column{HostResourcesColumns[67]},
 				RefColumns: []*schema.Column{ProviderResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:     "host_resources_instance_resources_host",
-				Columns:    []*schema.Column{HostResourcesColumns[60]},
+				Columns:    []*schema.Column{HostResourcesColumns[68]},
 				RefColumns: []*schema.Column{InstanceResourcesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -179,7 +187,7 @@ var (
 			{
 				Name:    "hostresource_tenant_id",
 				Unique:  false,
-				Columns: []*schema.Column{HostResourcesColumns[55]},
+				Columns: []*schema.Column{HostResourcesColumns[63]},
 			},
 		},
 	}

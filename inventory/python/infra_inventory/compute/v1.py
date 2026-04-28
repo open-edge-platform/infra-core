@@ -70,6 +70,62 @@ class AmtControlMode(betterproto.Enum):
     AMT_CONTROL_MODE_CCM = 2
 
 
+class KvmStatus(betterproto.Enum):
+    """
+    KvmStatus reflects whether a KVM remote session is currently active on the
+    host. Set by kvm-manager when transitioning session states: ACTIVATED on
+    KVM_STATE_START, DEACTIVATED on KVM_STATE_STOP or KVM_STATE_ERROR.
+    """
+
+    KVM_STATUS_UNSPECIFIED = 0
+    KVM_STATUS_ACTIVATED = 1
+    KVM_STATUS_DEACTIVATED = 2
+
+
+class KvmState(betterproto.Enum):
+    """
+    KVM session state — the desired and current lifecycle state of a KVM remote
+    session. Used for both desired_kvm_state (user-writable) and
+    current_kvm_state (kvm-manager-set).
+    """
+
+    KVM_STATE_UNSPECIFIED = 0
+    KVM_STATE_START = 1
+    KVM_STATE_STOP = 2
+    KVM_STATE_AWAITING_CONSENT = 3
+    KVM_STATE_ERROR = 4
+    KVM_STATE_CONSENT_RECEIVED = 5
+    KVM_STATE_REDIRECTION_RECEIVED = 6
+
+
+class SolState(betterproto.Enum):
+    """
+    SOL session state — the desired and current lifecycle state of a SOL remote
+    session. Used for both desired_sol_state (user-writable) and
+    current_sol_state (sol-manager-set).
+    """
+
+    SOL_STATE_UNSPECIFIED = 0
+    SOL_STATE_START = 1
+    SOL_STATE_STOP = 2
+    SOL_STATE_AWAITING_CONSENT = 3
+    SOL_STATE_ERROR = 4
+    SOL_STATE_CONSENT_RECEIVED = 5
+    SOL_STATE_REDIRECTION_RECEIVED = 6
+
+
+class SolStatus(betterproto.Enum):
+    """
+    SolStatus reflects whether a SOL remote session is currently active on the
+    host. Transitions to ACTIVATED on SOL_STATE_START; DEACTIVATED on
+    SOL_STATE_STOP or SOL_STATE_ERROR.
+    """
+
+    SOL_STATUS_UNSPECIFIED = 0
+    SOL_STATUS_ACTIVATED = 1
+    SOL_STATUS_DEACTIVATED = 2
+
+
 class HostComponentState(betterproto.Enum):
     HOST_COMPONENT_STATE_UNSPECIFIED = 0
     HOST_COMPONENT_STATE_ERROR = 1
@@ -228,6 +284,28 @@ class HostResource(betterproto.Message):
     user_lvm_size: int = betterproto.uint32_field(97)
     amt_control_mode: "AmtControlMode" = betterproto.enum_field(98)
     amt_dns_suffix: str = betterproto.string_field(99)
+    # KVM remote session activation status. Transitions to ACTIVATED on
+    # KVM_STATE_START; DEACTIVATED on KVM_STATE_STOP or KVM_STATE_ERROR.
+    kvm_status: "KvmStatus" = betterproto.enum_field(88)
+    # Desired KVM session state. Valid values: KVM_STATE_START, KVM_STATE_STOP,
+    # KVM_CONSENT_RECEIVED, KVM_REDIRECTION_RECEIVED.
+    desired_kvm_state: "KvmState" = betterproto.enum_field(101)
+    # Current KVM session state. Lifecycle: UNSPECIFIED → START →
+    # [AWAITING_CONSENT → START] | STOP | ERROR.
+    current_kvm_state: "KvmState" = betterproto.enum_field(102)
+    # Human-readable status message describing the current KVM session state.
+    kvm_session_status: str = betterproto.string_field(104)
+    # SOL remote session activation status. Transitions to ACTIVATED on
+    # SOL_STATE_START; DEACTIVATED on SOL_STATE_STOP or SOL_STATE_ERROR.
+    sol_status: "SolStatus" = betterproto.enum_field(106)
+    # Desired SOL session state. Valid values: SOL_STATE_START, SOL_STATE_STOP,
+    # SOL_STATE_CONSENT_RECEIVED, SOL_STATE_REDIRECTION_RECEIVED.
+    desired_sol_state: "SolState" = betterproto.enum_field(109)
+    # Current SOL session state. Lifecycle: UNSPECIFIED → START →
+    # [AWAITING_CONSENT → START] | STOP | ERROR.
+    current_sol_state: "SolState" = betterproto.enum_field(110)
+    # Human-readable status message describing the current SOL session state.
+    sol_session_status: str = betterproto.string_field(112)
     tenant_id: str = betterproto.string_field(100)
     created_at: str = betterproto.string_field(200)
     updated_at: str = betterproto.string_field(201)
