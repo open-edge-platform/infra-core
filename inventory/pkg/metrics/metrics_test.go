@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
-package metrics_test
+package invmetrics_test
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
+	metrics "github.com/open-edge-platform/infra-core/inventory/v2/pkg/metrics"
 )
 
 func TestMain(m *testing.M) {
