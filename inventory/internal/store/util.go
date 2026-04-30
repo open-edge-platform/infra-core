@@ -55,9 +55,7 @@ const (
 const (
 	MetadataKeyNameMaxLength   = 63
 	MetadataKeyPrefixMaxLength = 253
-
-	// Increased from 63 to 4096 as some of the metadata values can be long.
-	MetadataValueMaxLength = 4096
+	MetadataValueMaxLength     = 63
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
@@ -65,9 +63,7 @@ var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
 // MetadataPatternValue representing the metadata pattern for value.
-// We have relaxed the pattern for value as it can be any string with max length of 4096,
-// we will enforce the length in code and not regex to avoid performance issue.
-// var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
+var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
@@ -141,13 +137,11 @@ func validateKeyValue(meta []Metadata) error {
 		}
 		if rmetadata.Value != "" {
 			if len(rmetadata.Value) > MetadataValueMaxLength {
-				return errors.Errorfc(codes.InvalidArgument, "Label value too long")
+				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata value")
 			}
-			// Disabling the regex pattern check for metadata value as it can be any string with max length of 4096,
-			// we will enforce the length in code and not regex to avoid performance issue.
-			// if !MetadataPatternValue.MatchString(rmetadata.Value) {
-			// 	return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
-			// }
+			if !MetadataPatternValue.MatchString(rmetadata.Value) {
+				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
+			}
 		}
 	}
 	return nil
@@ -171,18 +165,6 @@ func ValidateMetadata(metadata string) (string, error) {
 		zlog.InfraSec().InfraErr(err).Msgf("Error while validating the metadata")
 		return "", err
 	}
-
-	// zlog.InfraSec().Info().Msgf("ValidateMetadata")
-	// // Remove restricted metadata keys.
-	// filteredTmp := make([]Metadata, 0, len(tmp))
-	// for _, m := range tmp {
-	// 	if IsKubeconfigVaultKey(m.Key) {
-	// 		zlog.InfraSec().Info().Msgf("Removing restricted metadata key: %s", m.Key)
-	// 		continue
-	// 	}
-	// 	filteredTmp = append(filteredTmp, m)
-	// }
-	// tmp = filteredTmp
 
 	// validate the actual key and value fields in metadata
 	metaerr := validateKeyValue(tmp)
@@ -409,49 +391,4 @@ func skipValue(dec *json.Decoder) error {
 	// Just decode the next value into empty interface to move the cursor forward
 	var v interface{}
 	return dec.Decode(&v)
-}
-
-// IsKubeconfigVaultKey checks if a metadata key is a kubeconfig vault key
-func IsKubeconfigVaultKey(key string) bool {
-	return key == KubeconfigVaultKeyPrefix
-}
-
-// HasKubeconfigVaultKey checks if metadata contains a kubeconfig vault key
-func HasKubeconfigVaultKey(metadata []Metadata) (string, bool) {
-	for _, meta := range metadata {
-		if IsKubeconfigVaultKey(meta.Key) {
-			return meta.Value, true
-		}
-	}
-	return "", false
-}
-
-// AddKubeconfigVaultKey adds or updates kubeconfig vault key in metadata
-func AddKubeconfigVaultKey(metadata []Metadata, vaultKey string) []Metadata {
-	// Remove existing kubeconfig vault key if present
-	result := make([]Metadata, 0, len(metadata)+1)
-	for _, meta := range metadata {
-		if !IsKubeconfigVaultKey(meta.Key) {
-			result = append(result, meta)
-		}
-	}
-
-	// Add new kubeconfig vault key
-	result = append(result, Metadata{
-		Key:   KubeconfigVaultKeyPrefix,
-		Value: vaultKey,
-	})
-
-	return result
-}
-
-// RemoveKubeconfigVaultKey removes kubeconfig vault key from metadata
-func RemoveKubeconfigVaultKey(metadata []Metadata) []Metadata {
-	result := make([]Metadata, 0, len(metadata))
-	for _, meta := range metadata {
-		if !IsKubeconfigVaultKey(meta.Key) {
-			result = append(result, meta)
-		}
-	}
-	return result
 }
