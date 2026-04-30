@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.26.1-bookworm AS build
+FROM golang:1.26.1-bookworm@sha256:ab3d6955bbc813a0f3fdf220c1d817dd89c0b3f283777db8ece4a32fe7858edd AS build
 ARG OPA_VERSION
 ARG OPA_SHA
 ARG ATLAS_VERSION
@@ -47,7 +47,7 @@ RUN curl -Lo /tmp/atlas "https://release.ariga.io/atlas/atlas-community-linux-am
     && echo "$ATLAS_SHA  /tmp/atlas" | sha256sum -c - \
     && install -o root -g root -m 0755 /tmp/atlas /usr/local/bin/atlas
 
-FROM gcr.io/distroless/static-debian12:nonroot
+FROM gcr.io/distroless/static-debian12:nonroot@sha256:a9329520abc449e3b14d5bc3a6ffae065bdde0f02667fa10880c49b35c109fd1
 # Run as non-privileged user
 USER nobody
 
