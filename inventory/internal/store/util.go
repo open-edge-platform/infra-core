@@ -55,7 +55,9 @@ const (
 const (
 	MetadataKeyNameMaxLength   = 63
 	MetadataKeyPrefixMaxLength = 253
-	MetadataValueMaxLength     = 63
+
+	// Increased from 63 to 4096 as some of the metadata values can be long.
+	MetadataValueMaxLength = 4096
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
@@ -63,7 +65,9 @@ var MetadataPatternKey = regexp.MustCompile(
 	"^$|^[a-z.]+/$|^[a-z.]+/[a-z0-9][a-z0-9-_.]*[a-z0-9]$|^[a-z.]+/[a-z0-9]$|^[a-z]$|^[a-z0-9][a-z0-9-_.]*[a-z0-9]$")
 
 // MetadataPatternValue representing the metadata pattern for value.
-var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
+// We have relaxed the pattern for value as it can be any string with max length of 4096,
+// we will enforce the length in code and not regex to avoid performance issue.
+// var MetadataPatternValue = regexp.MustCompile("^$|^[a-z0-9]$|^[a-z0-9][a-z0-9+._-]*[a-z0-9]$")
 
 // Metadata struct representing the JSON metadata.
 type Metadata struct {
@@ -139,9 +143,11 @@ func validateKeyValue(meta []Metadata) error {
 			if len(rmetadata.Value) > MetadataValueMaxLength {
 				return errors.Errorfc(codes.InvalidArgument, "Label value too long")
 			}
-			if !MetadataPatternValue.MatchString(rmetadata.Value) {
-				return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
-			}
+			// Disabling the regex pattern check for metadata value as it can be any string with max length of 4096,
+			// we will enforce the length in code and not regex to avoid performance issue.
+			// if !MetadataPatternValue.MatchString(rmetadata.Value) {
+			// 	return errors.Errorfc(codes.InvalidArgument, "Invalid metadata value")
+			// }
 		}
 	}
 	return nil
@@ -166,18 +172,17 @@ func ValidateMetadata(metadata string) (string, error) {
 		return "", err
 	}
 
-	zlog.InfraSec().Info().Msgf("ValidateMetadata")
-
-	// Remove restricted metadata keys.
-	filteredTmp := make([]Metadata, 0, len(tmp))
-	for _, m := range tmp {
-		if IsKubeconfigVaultKey(m.Key) {
-			zlog.InfraSec().Info().Msgf("Removing restricted metadata key: %s", m.Key)
-			continue
-		}
-		filteredTmp = append(filteredTmp, m)
-	}
-	tmp = filteredTmp
+	// zlog.InfraSec().Info().Msgf("ValidateMetadata")
+	// // Remove restricted metadata keys.
+	// filteredTmp := make([]Metadata, 0, len(tmp))
+	// for _, m := range tmp {
+	// 	if IsKubeconfigVaultKey(m.Key) {
+	// 		zlog.InfraSec().Info().Msgf("Removing restricted metadata key: %s", m.Key)
+	// 		continue
+	// 	}
+	// 	filteredTmp = append(filteredTmp, m)
+	// }
+	// tmp = filteredTmp
 
 	// validate the actual key and value fields in metadata
 	metaerr := validateKeyValue(tmp)

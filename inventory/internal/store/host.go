@@ -8,8 +8,6 @@ package store
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -24,7 +22,6 @@ import (
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	cl "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/secrets"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
@@ -196,42 +193,44 @@ func (is *InvStore) GetHost(
 		return nil, nil, errors.Wrap(err)
 	}
 
-	// Similar to UpdateHost, we need to retrieve the kubeconfig from vault
-	// TODO: refactor to generalize
-	secretsService, err := secrets.SecretServiceFactory(ctx)
-	if err != nil {
-		zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
-		// Don't fail the entire operation if vault connection fails
-	} else {
-		defer secretsService.Logout(ctx)
+	zlog.InfraSec().Info().Msgf("GetHost tenantID %s", tenantID)
 
-		// Parse metadata to get kubeconfig vault key
-		metadataMap, err := ParseMetadata(apiResource.GetMetadata())
-		if err != nil {
-			zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata")
-		}
+	// // Similar to UpdateHost, we need to retrieve the kubeconfig from vault
+	// // TODO: refactor to generalize
+	// secretsService, err := secrets.SecretServiceFactory(ctx)
+	// if err != nil {
+	// 	zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
+	// 	// Don't fail the entire operation if vault connection fails
+	// } else {
+	// 	defer secretsService.Logout(ctx)
 
-		// Using host id as a vault key to retrieve kubeconfig content from vault
-		secretPath := fmt.Sprintf("kubeconfig/%s", id)
-		zlog.InfraSec().Info().Msgf("GetHost, secretPath %s", secretPath)
+	// 	// Parse metadata to get kubeconfig vault key
+	// 	metadataMap, err := ParseMetadata(apiResource.GetMetadata())
+	// 	if err != nil {
+	// 		zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata")
+	// 	}
 
-		secretData, err := secretsService.ReadSecret(ctx, secretPath)
-		if err != nil {
-			zlog.InfraSec().InfraErr(err).Str("vault_path", secretPath).Msg("Failed to retrieve kubeconfig from vault")
-		} else if secretData != nil {
-			// Attach kubeconfig content to the resource metadata
-			if content, ok := secretData["data"]; ok {
-				metadataMap[KubeconfigVaultKeyPrefix] = fmt.Sprintf("%v", content)
-				// Serialize metadata back to string
-				metadataBytes, err := json.Marshal(metadataMap)
-				if err != nil {
-					zlog.InfraSec().InfraErr(err).Msg("Failed to encode metadata")
-				} else {
-					apiResource.Metadata = string(metadataBytes)
-				}
-			}
-		}
-	}
+	// 	// Using host id as a vault key to retrieve kubeconfig content from vault
+	// 	secretPath := fmt.Sprintf("kubeconfig/%s", id)
+	// 	zlog.InfraSec().Info().Msgf("GetHost, secretPath %s", secretPath)
+
+	// 	secretData, err := secretsService.ReadSecret(ctx, secretPath)
+	// 	if err != nil {
+	// 		zlog.InfraSec().InfraErr(err).Str("vault_path", secretPath).Msg("Failed to retrieve kubeconfig from vault")
+	// 	} else if secretData != nil {
+	// 		// Attach kubeconfig content to the resource metadata
+	// 		if content, ok := secretData["data"]; ok {
+	// 			metadataMap[KubeconfigVaultKeyPrefix] = fmt.Sprintf("%v", content)
+	// 			// Serialize metadata back to string
+	// 			metadataBytes, err := json.Marshal(metadataMap)
+	// 			if err != nil {
+	// 				zlog.InfraSec().InfraErr(err).Msg("Failed to encode metadata")
+	// 			} else {
+	// 				apiResource.Metadata = string(metadataBytes)
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	return &inv_v1.Resource{Resource: &inv_v1.Resource_Host{Host: apiResource}}, resMeta, nil
 }
@@ -284,10 +283,12 @@ func (is *InvStore) UpdateHost(
 ) (*inv_v1.Resource, bool, error) {
 	zlog.Debug().Msgf("UpdateHost (%s): %v, fm: %v", id, in, fieldmask)
 
-	metadata, err := ParseMetadata(in.GetMetadata())
-	if err != nil {
-		return nil, false, errors.Wrap(err)
-	}
+	zlog.InfraSec().Info().Msgf("UpdateHost tenantID %s", tenantID)
+
+	// metadata, err := ParseMetadata(in.GetMetadata())
+	// if err != nil {
+	// 	return nil, false, errors.Wrap(err)
+	// }
 
 	res, hardDelete, err := ExecuteInTxAndReturnDouble[inv_v1.Resource, bool](is)(
 		ctx, hostResourceUpdater(id, in, fieldmask, tenantID))
@@ -295,49 +296,49 @@ func (is *InvStore) UpdateHost(
 		return nil, false, err
 	}
 
-	// Check if we need to update the metadata.
-	if metadata[KubeconfigVaultKeyPrefix] != "" {
-		// If kubeconfig vault key is being updated, update the vault entry with the new kubeconfig content.
-		err = is.updateKubeconfigInVault(ctx, id, metadata[KubeconfigVaultKeyPrefix])
-		if err != nil {
-			zlog.InfraSec().InfraErr(err).Msgf("Failed to update kubeconfig in vault for host %s", in.GetResourceId())
-			// Don't return the error here to avoid breaking the host update if vault operation fails
-		}
-	}
+	// // Check if we need to update the metadata.
+	// if metadata[KubeconfigVaultKeyPrefix] != "" {
+	// 	// If kubeconfig vault key is being updated, update the vault entry with the new kubeconfig content.
+	// 	err = is.updateKubeconfigInVault(ctx, id, metadata[KubeconfigVaultKeyPrefix])
+	// 	if err != nil {
+	// 		zlog.InfraSec().InfraErr(err).Msgf("Failed to update kubeconfig in vault for host %s", in.GetResourceId())
+	// 		// Don't return the error here to avoid breaking the host update if vault operation fails
+	// 	}
+	// }
 
 	return res, *hardDelete, err
 }
 
 // updateKubeconfigInVault updates kubeconfig content in vault using the provided vault key or kubeconfig content
-func (is *InvStore) updateKubeconfigInVault(ctx context.Context, hostID, kubeconfigData string) error {
-	// Initialize secrets service
-	secretsService, err := secrets.SecretServiceFactory(ctx)
-	if err != nil {
-		zlog.InfraSec().InfraErr(err).Msg("Failed to initialize secrets service")
-		return errors.Wrap(err)
-	}
-	defer secretsService.Logout(ctx)
+// func (is *InvStore) updateKubeconfigInVault(ctx context.Context, hostID, kubeconfigData string) error {
+// 	// Initialize secrets service
+// 	secretsService, err := secrets.SecretServiceFactory(ctx)
+// 	if err != nil {
+// 		zlog.InfraSec().InfraErr(err).Msg("Failed to initialize secrets service")
+// 		return errors.Wrap(err)
+// 	}
+// 	defer secretsService.Logout(ctx)
 
-	// The kubeconfigData could be either a vault key or kubeconfig content
-	// Try to retrieve it first (assuming it's a vault key)
-	secretPath := fmt.Sprintf("%s/%s", KubeconfigVaultKeyPrefix, hostID)
-	secretData := map[string]any{
-		"data": map[string]any{
-			KubeconfigVaultKeyPrefix: kubeconfigData,
-		},
-	}
+// 	// The kubeconfigData could be either a vault key or kubeconfig content
+// 	// Try to retrieve it first (assuming it's a vault key)
+// 	secretPath := fmt.Sprintf("%s/%s", KubeconfigVaultKeyPrefix, hostID)
+// 	secretData := map[string]any{
+// 		"data": map[string]any{
+// 			KubeconfigVaultKeyPrefix: kubeconfigData,
+// 		},
+// 	}
 
-	_, err = secretsService.WriteSecret(ctx, secretPath, secretData)
-	if err != nil {
-		zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
-		return errors.Wrap(err)
-	} else {
-		zlog.InfraSec().Info().Msgf("Successfully stored/updated kubeconfig in vault for host %s", hostID)
-	}
+// 	_, err = secretsService.WriteSecret(ctx, secretPath, secretData)
+// 	if err != nil {
+// 		zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
+// 		return errors.Wrap(err)
+// 	} else {
+// 		zlog.InfraSec().Info().Msgf("Successfully stored/updated kubeconfig in vault for host %s", hostID)
+// 	}
 
-	zlog.Info().Msg("Successfully updated kubeconfig in vault")
-	return nil
-}
+// 	zlog.Info().Msg("Successfully updated kubeconfig in vault")
+// 	return nil
+// }
 
 //nolint:cyclop // high cyclomatic complexity due to multiple fieldmask checks and state fields
 func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourceMutation,
