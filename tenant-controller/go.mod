@@ -12,7 +12,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2
 	github.com/open-edge-platform/infra-core/inventory/v2 v2.35.0
-	github.com/open-edge-platform/orch-library/go v0.6.4-0.20260420133059-5326600099ac
+	github.com/open-edge-platform/orch-library/go v0.6.4-0.20260504141454-171fffc735ae
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20250813145105-42675adae3e6
