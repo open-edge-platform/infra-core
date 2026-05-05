@@ -9,7 +9,6 @@ package store
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -31,8 +30,8 @@ import (
 )
 
 const (
-	// KubeconfigVaultKeyPrefix is the prefix for kubeconfig vault key metadata
-	KubeconfigVaultKeyPrefix = "kubeconfig"
+	// KubeconfigVaultKey is the prefix for kubeconfig vault key metadata
+	KubeconfigVaultKey = "kubeconfig"
 )
 
 var hostResourceCreationValidators = []resourceValidator[*computev1.HostResource]{
@@ -220,12 +219,17 @@ func (is *InvStore) GetHost(
 		} else if secretData != nil {
 			// Attach kubeconfig content to the resource metadata
 			if content, ok := secretData["data"]; ok {
-				metadataMap[KubeconfigVaultKeyPrefix] = fmt.Sprintf("%v", content)
+				// Convert content to map[string]interface{} to extract the kubeconfig value
+				if contentMap, ok := content.(map[string]interface{}); ok {
+					if kubeconfigValue, exists := contentMap[KubeconfigVaultKey]; exists {
+						metadataMap[KubeconfigVaultKey] = fmt.Sprintf("%v", kubeconfigValue)
 
-				// Serialize metadata back to string and set it to the Host resource, so it can be stored in DB.
-				apiResource.Metadata, err = SerializeMetadata(metadataMap)
-				if err != nil {
-					zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
+						// Serialize metadata back to string and set it to the Host resource, so it can be stored in DB.
+						apiResource.Metadata, err = SerializeMetadata(metadataMap)
+						if err != nil {
+							zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
+						}
+					}
 				}
 			}
 		}
@@ -292,12 +296,11 @@ func (is *InvStore) UpdateHost(
 		}
 
 		// Proceed only if kubeconfig is present in metadata.
-		if _, ok := metadataMap[KubeconfigVaultKeyPrefix]; ok {
+		if _, ok := metadataMap[KubeconfigVaultKey]; ok {
 			vaultPath := fmt.Sprintf("kubeconfig/%s", id)
 			kubeconfigData := map[string]interface{}{
 				"data": map[string]interface{}{
-					"kubeconfig": metadataMap[KubeconfigVaultKeyPrefix],
-					"timestamp":  time.Now().Unix(),
+					KubeconfigVaultKey: metadataMap[KubeconfigVaultKey],
 				},
 			}
 
@@ -318,7 +321,7 @@ func (is *InvStore) UpdateHost(
 
 			// Remove the kubeconfig from metadata to avoid storing it in the Host's metadata in DB,
 			// since we want to store it securely in vault.
-			delete(metadataMap, KubeconfigVaultKeyPrefix)
+			delete(metadataMap, KubeconfigVaultKey)
 
 			// Serialize metadata back to string and set it to the Host resource, so it can be stored in DB.
 			in.Metadata, err = SerializeMetadata(metadataMap)
