@@ -268,7 +268,7 @@ func (is *InvStore) UpdateHost(
 
 	// Special handling for kubeconfig in metadata on UpdateHost
 	// It will be stored securely in vault, rather than being stored in the Host metadata in DB.
-	if len(in.GetMetadata()) > 0 {
+	if in.GetMetadata() != "" {
 		if err := storeKubeconfigInVault(ctx, id, in); err != nil {
 			zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
 		}
@@ -771,7 +771,7 @@ func isInValidHostTransition(fieldmask *fieldmaskpb.FieldMask, hostq *ent.HostRe
 		!slices.Contains(currentToDesiredStateTransitionTable[hostq.CurrentState], in.DesiredState)
 }
 
-// attachKubeconfigFromVault retrieves kubeconfig from vault and attaches it to the metadata map
+// attachKubeconfigFromVault retrieves kubeconfig from vault and attaches it to the metadata map.
 func attachKubeconfigFromVault(ctx context.Context, hostID string, metadataMap map[string]string) error {
 	secretsService, err := secrets.SecretServiceFactory(ctx)
 	if err != nil {
@@ -786,7 +786,7 @@ func attachKubeconfigFromVault(ctx context.Context, hostID string, metadataMap m
 	}
 
 	if secretData == nil {
-		return nil // No secret found, not an error
+		return nil // No secret found, not an error.
 	}
 
 	kubeconfigValue, err := extractKubeconfigFromSecretData(secretData)
@@ -801,7 +801,7 @@ func attachKubeconfigFromVault(ctx context.Context, hostID string, metadataMap m
 	return nil
 }
 
-// storeKubeconfigInVault extracts kubeconfig from host metadata and stores it in vault
+// storeKubeconfigInVault extracts kubeconfig from host metadata and stores it in vault.
 func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *computev1.HostResource) error {
 	metadataMap, err := ParseMetadata(hostResource.GetMetadata())
 	if err != nil {
@@ -810,7 +810,7 @@ func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *co
 
 	kubeconfigValue, hasKubeconfig := metadataMap[KubeconfigVaultKey]
 	if !hasKubeconfig {
-		return nil // No kubeconfig to store, not an error
+		return nil // No kubeconfig to store, not an error.
 	}
 
 	secretsService, err := secrets.SecretServiceFactory(ctx)
@@ -827,10 +827,10 @@ func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *co
 		return fmt.Errorf("failed to write secret to vault path %s: %w", vaultPath, err)
 	}
 
-	// Remove kubeconfig from metadata to avoid storing it in DB
+	// Remove kubeconfig from metadata to avoid storing it in DB.
 	delete(metadataMap, KubeconfigVaultKey)
 
-	// Update the host resource metadata
+	// Update the host resource metadata.
 	hostResource.Metadata, err = SerializeMetadata(metadataMap)
 	if err != nil {
 		return fmt.Errorf("failed to serialize metadata: %w", err)
@@ -839,12 +839,12 @@ func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *co
 	return nil
 }
 
-// buildKubeconfigVaultPath constructs the vault path for a host's kubeconfig
+// buildKubeconfigVaultPath constructs the vault path for a host's kubeconfig.
 func buildKubeconfigVaultPath(hostID string) string {
 	return fmt.Sprintf("%s/%s", KubeconfigVaultKey, hostID)
 }
 
-// buildKubeconfigSecretData constructs the secret data structure for vault storage
+// buildKubeconfigSecretData constructs the secret data structure for vault storage.
 func buildKubeconfigSecretData(kubeconfigValue string) map[string]interface{} {
 	return map[string]interface{}{
 		"data": map[string]interface{}{
@@ -853,7 +853,7 @@ func buildKubeconfigSecretData(kubeconfigValue string) map[string]interface{} {
 	}
 }
 
-// extractKubeconfigFromSecretData extracts the kubeconfig value from vault secret data
+// extractKubeconfigFromSecretData extracts the kubeconfig value from vault secret data.
 func extractKubeconfigFromSecretData(secretData map[string]interface{}) (string, error) {
 	content, ok := secretData["data"]
 	if !ok {
@@ -867,7 +867,7 @@ func extractKubeconfigFromSecretData(secretData map[string]interface{}) (string,
 
 	kubeconfigValue, exists := contentMap[KubeconfigVaultKey]
 	if !exists {
-		return "", nil // No kubeconfig in data, not an error
+		return "", nil // No kubeconfig in data, not an error.
 	}
 
 	return fmt.Sprintf("%v", kubeconfigValue), nil
