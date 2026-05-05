@@ -3,6 +3,7 @@
 package proxy_test
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/http"
@@ -39,7 +40,7 @@ var (
 
 // To create a request with an authorization header.
 func createRequestWithAuthHeader(authScheme, authToken, method string) *http.Request {
-	req := httptest.NewRequest(method, "/", http.NoBody)
+	req := httptest.NewRequestWithContext(context.Background(), method, "/", http.NoBody)
 	req.Header.Set("Authorization", fmt.Sprintf("%s %s", authScheme, authToken))
 	return req
 }
@@ -110,7 +111,7 @@ func TestAuthenticationAuthorizationInterceptor(t *testing.T) {
 	}{
 		{
 			name:               "No Authorization header and no allowed missing auth client",
-			request:            httptest.NewRequest(http.MethodGet, "/", http.NoBody),
+			request:            httptest.NewRequestWithContext(context.Background(), http.MethodGet, "/", http.NoBody),
 			expectedStatus:     http.StatusUnauthorized,
 			expectedError:      "missing Authorization header",
 			addTenantToContext: true,
