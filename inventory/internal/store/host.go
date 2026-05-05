@@ -198,42 +198,38 @@ func (is *InvStore) GetHost(
 
 	zlog.InfraSec().Info().Msgf("GetHost tenantID %s", tenantID)
 
-	// // Similar to UpdateHost, we need to retrieve the kubeconfig from vault
-	// // TODO: refactor to generalize
-	// secretsService, err := secrets.SecretServiceFactory(ctx)
-	// if err != nil {
-	// 	zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
-	// 	// Don't fail the entire operation if vault connection fails
-	// } else {
-	// 	defer secretsService.Logout(ctx)
+	// Kubeconfig will be retrieved from vault and attached to the Host resource metadata on Get,
+	// rather than being stored in the Host metadata in DB.
+	metadataMap, err := ParseMetadata(apiResource.GetMetadata())
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata in GetHost")
+	}
 
-	// 	// Parse metadata to get kubeconfig vault key
-	// 	metadataMap, err := ParseMetadata(apiResource.GetMetadata())
-	// 	if err != nil {
-	// 		zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata")
-	// 	}
+	// Get the vault service
+	secretsService, err := secrets.SecretServiceFactory(ctx)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
+		// Don't fail the entire operation if vault connection fails
+	} else {
+		defer secretsService.Logout(ctx)
 
-	// 	// Using host id as a vault key to retrieve kubeconfig content from vault
-	// 	secretPath := fmt.Sprintf("kubeconfig/%s", id)
-	// 	zlog.InfraSec().Info().Msgf("GetHost, secretPath %s", secretPath)
+		vaultPath := fmt.Sprintf("kubeconfig/%s", id)
+		secretData, err := secretsService.ReadSecret(ctx, vaultPath)
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Str("vault_path", vaultPath).Msg("Failed to retrieve kubeconfig from vault")
+		} else if secretData != nil {
+			// Attach kubeconfig content to the resource metadata
+			if content, ok := secretData["data"]; ok {
+				metadataMap[KubeconfigVaultKeyPrefix] = fmt.Sprintf("%v", content)
 
-	// 	secretData, err := secretsService.ReadSecret(ctx, secretPath)
-	// 	if err != nil {
-	// 		zlog.InfraSec().InfraErr(err).Str("vault_path", secretPath).Msg("Failed to retrieve kubeconfig from vault")
-	// 	} else if secretData != nil {
-	// 		// Attach kubeconfig content to the resource metadata
-	// 		if content, ok := secretData["data"]; ok {
-	// 			metadataMap[KubeconfigVaultKeyPrefix] = fmt.Sprintf("%v", content)
-	// 			// Serialize metadata back to string
-	// 			metadataBytes, err := json.Marshal(metadataMap)
-	// 			if err != nil {
-	// 				zlog.InfraSec().InfraErr(err).Msg("Failed to encode metadata")
-	// 			} else {
-	// 				apiResource.Metadata = string(metadataBytes)
-	// 			}
-	// 		}
-	// 	}
-	// }
+				// Serialize metadata back to string and set it to the Host resource, so it can be stored in DB.
+				apiResource.Metadata, err = SerializeMetadata(metadataMap)
+				if err != nil {
+					zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
+				}
+			}
+		}
+	}
 
 	return &inv_v1.Resource{Resource: &inv_v1.Resource_Host{Host: apiResource}}, resMeta, nil
 }
@@ -286,52 +282,49 @@ func (is *InvStore) UpdateHost(
 ) (*inv_v1.Resource, bool, error) {
 	zlog.Debug().Msgf("UpdateHost (%s): %v, fm: %v", id, in, fieldmask)
 
-	zlog.InfraSec().Info().Msgf("UpdateHost tenantID %s", tenantID)
-
-	// Extract metadata and handle kubeconfig
-	metadata := in.GetMetadata()
-	if len(metadata) > 0 {
+	// Special handling for kubeconfig in metadata on UpdateHost
+	// It will be stored securely in vault, rather than being stored in the Host metadata in DB.
+	if len(in.GetMetadata()) > 0 {
+		// Extract metadata and handle kubeconfig
 		metadataMap, err := ParseMetadata(in.GetMetadata())
 		if err != nil {
 			zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata in UpdateHost")
-			return nil, false, errors.Wrap(err)
 		}
 
-		vaultPath := fmt.Sprintf("kubeconfig/%s", id)
-		kubeconfigData := map[string]interface{}{
-			"data": map[string]interface{}{
-				"kubeconfig": metadataMap[KubeconfigVaultKeyPrefix],
-				"timestamp":  time.Now().Unix(),
-			},
-		}
-
-		// Get the vault service
-		secretsService, err := secrets.SecretServiceFactory(ctx)
-		if err != nil {
-			zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
-			// Don't fail the entire operation if vault connection fails
-		} else {
-			defer secretsService.Logout(ctx)
-
-			zlog.InfraSec().Info().Msgf("UpdateHost, vaultPath %s", vaultPath)
-			zlog.InfraSec().Info().Msgf("UpdateHost, kubeconfigData %v", kubeconfigData)
-
-			// Store in vault
-			_, err := secretsService.WriteSecret(ctx, vaultPath, kubeconfigData)
-			if err != nil {
-				zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
-				return nil, false, errors.Errorfc(codes.Internal, "failed to store kubeconfig in vault: %v", err)
+		// Proceed only if kubeconfig is present in metadata.
+		if _, ok := metadataMap[KubeconfigVaultKeyPrefix]; ok {
+			vaultPath := fmt.Sprintf("kubeconfig/%s", id)
+			kubeconfigData := map[string]interface{}{
+				"data": map[string]interface{}{
+					"kubeconfig": metadataMap[KubeconfigVaultKeyPrefix],
+					"timestamp":  time.Now().Unix(),
+				},
 			}
-		}
 
-		// Remove the kubeconfig from metadata to avoid storing it in the Host's metadata in DB,
-		// since we want to store it securely in vault.
-		delete(metadataMap, KubeconfigVaultKeyPrefix)
+			// Get the vault service
+			secretsService, err := secrets.SecretServiceFactory(ctx)
+			if err != nil {
+				zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
+				// Don't fail the entire operation if vault connection fails
+			} else {
+				defer secretsService.Logout(ctx)
 
-		in.Metadata, err = SerializeMetadata(metadataMap)
-		if err != nil {
-			zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in UpdateHost")
-			return nil, false, errors.Wrap(err)
+				// Store in vault
+				_, err := secretsService.WriteSecret(ctx, vaultPath, kubeconfigData)
+				if err != nil {
+					zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
+				}
+			}
+
+			// Remove the kubeconfig from metadata to avoid storing it in the Host's metadata in DB,
+			// since we want to store it securely in vault.
+			delete(metadataMap, KubeconfigVaultKeyPrefix)
+
+			// Serialize metadata back to string and set it to the Host resource, so it can be stored in DB.
+			in.Metadata, err = SerializeMetadata(metadataMap)
+			if err != nil {
+				zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in UpdateHost")
+			}
 		}
 	}
 
