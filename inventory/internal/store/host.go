@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -7,6 +8,7 @@ package store
 
 import (
 	"context"
+	"fmt"
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -21,9 +23,14 @@ import (
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	cl "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/secrets"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
+)
+
+const (
+	KubeconfigVaultKey = "kubeconfig"
 )
 
 var hostResourceCreationValidators = []resourceValidator[*computev1.HostResource]{
@@ -187,6 +194,27 @@ func (is *InvStore) GetHost(
 		return nil, nil, errors.Wrap(err)
 	}
 
+	zlog.InfraSec().Info().Msgf("GetHost tenantID %s", tenantID)
+
+	// Kubeconfig will be retrieved from vault and attached to the Host resource metadata on Get,
+	// rather than being stored in the Host metadata in DB.
+	metadataMap, err := ParseMetadata(apiResource.GetMetadata())
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata in GetHost")
+		return &inv_v1.Resource{Resource: &inv_v1.Resource_Host{Host: apiResource}}, resMeta, nil
+	}
+
+	// Attach kubeconfig from vault to metadata
+	if err := attachKubeconfigFromVault(ctx, id, metadataMap); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("Failed to attach kubeconfig from vault")
+	} else {
+		// Serialize updated metadata back to the Host resource
+		apiResource.Metadata, err = SerializeMetadata(metadataMap)
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
+		}
+	}
+
 	return &inv_v1.Resource{Resource: &inv_v1.Resource_Host{Host: apiResource}}, resMeta, nil
 }
 
@@ -237,6 +265,14 @@ func (is *InvStore) UpdateHost(
 	ctx context.Context, id string, in *computev1.HostResource, fieldmask *fieldmaskpb.FieldMask, tenantID string,
 ) (*inv_v1.Resource, bool, error) {
 	zlog.Debug().Msgf("UpdateHost (%s): %v, fm: %v", id, in, fieldmask)
+
+	// Special handling for kubeconfig in metadata on UpdateHost
+	// It will be stored securely in vault, rather than being stored in the Host metadata in DB.
+	if in.GetMetadata() != "" {
+		if err := storeKubeconfigInVault(ctx, id, in); err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
+		}
+	}
 
 	res, hardDelete, err := ExecuteInTxAndReturnDouble[inv_v1.Resource, bool](is)(
 		ctx, hostResourceUpdater(id, in, fieldmask, tenantID))
@@ -733,4 +769,106 @@ func isInValidHostTransition(fieldmask *fieldmaskpb.FieldMask, hostq *ent.HostRe
 	}
 	return slices.Contains(fieldmask.GetPaths(), hosts.FieldDesiredState) &&
 		!slices.Contains(currentToDesiredStateTransitionTable[hostq.CurrentState], in.DesiredState)
+}
+
+// attachKubeconfigFromVault retrieves kubeconfig from vault and attaches it to the metadata map.
+func attachKubeconfigFromVault(ctx context.Context, hostID string, metadataMap map[string]string) error {
+	secretsService, err := secrets.SecretServiceFactory(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to create secrets service: %w", err)
+	}
+	defer secretsService.Logout(ctx)
+
+	vaultPath := buildKubeconfigVaultPath(hostID)
+	secretData, err := secretsService.ReadSecret(ctx, vaultPath)
+	if err != nil {
+		return fmt.Errorf("failed to read secret from vault path %s: %w", vaultPath, err)
+	}
+
+	if secretData == nil {
+		return nil // No secret found, not an error.
+	}
+
+	kubeconfigValue, err := extractKubeconfigFromSecretData(secretData)
+	if err != nil {
+		return fmt.Errorf("failed to extract kubeconfig from secret data: %w", err)
+	}
+
+	if kubeconfigValue != "" {
+		metadataMap[KubeconfigVaultKey] = kubeconfigValue
+	}
+
+	return nil
+}
+
+// storeKubeconfigInVault extracts kubeconfig from host metadata and stores it in vault.
+func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *computev1.HostResource) error {
+	metadataMap, err := ParseMetadata(hostResource.GetMetadata())
+	if err != nil {
+		return fmt.Errorf("failed to parse metadata: %w", err)
+	}
+
+	kubeconfigValue, hasKubeconfig := metadataMap[KubeconfigVaultKey]
+	if !hasKubeconfig {
+		return nil // No kubeconfig to store, not an error.
+	}
+
+	secretsService, err := secrets.SecretServiceFactory(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to create secrets service: %w", err)
+	}
+	defer secretsService.Logout(ctx)
+
+	vaultPath := buildKubeconfigVaultPath(hostID)
+	kubeconfigData := buildKubeconfigSecretData(kubeconfigValue)
+
+	_, err = secretsService.WriteSecret(ctx, vaultPath, kubeconfigData)
+	if err != nil {
+		return fmt.Errorf("failed to write secret to vault path %s: %w", vaultPath, err)
+	}
+
+	// Remove kubeconfig from metadata to avoid storing it in DB.
+	delete(metadataMap, KubeconfigVaultKey)
+
+	// Update the host resource metadata.
+	hostResource.Metadata, err = SerializeMetadata(metadataMap)
+	if err != nil {
+		return fmt.Errorf("failed to serialize metadata: %w", err)
+	}
+
+	return nil
+}
+
+// buildKubeconfigVaultPath constructs the vault path for a host's kubeconfig.
+func buildKubeconfigVaultPath(hostID string) string {
+	return fmt.Sprintf("%s/%s", KubeconfigVaultKey, hostID)
+}
+
+// buildKubeconfigSecretData constructs the secret data structure for vault storage.
+func buildKubeconfigSecretData(kubeconfigValue string) map[string]interface{} {
+	return map[string]interface{}{
+		"data": map[string]interface{}{
+			KubeconfigVaultKey: kubeconfigValue,
+		},
+	}
+}
+
+// extractKubeconfigFromSecretData extracts the kubeconfig value from vault secret data.
+func extractKubeconfigFromSecretData(secretData map[string]interface{}) (string, error) {
+	content, ok := secretData["data"]
+	if !ok {
+		return "", nil // No data field, not an error
+	}
+
+	contentMap, ok := content.(map[string]interface{})
+	if !ok {
+		return "", fmt.Errorf("unexpected data structure: data field is not a map")
+	}
+
+	kubeconfigValue, exists := contentMap[KubeconfigVaultKey]
+	if !exists {
+		return "", nil // No kubeconfig in data, not an error.
+	}
+
+	return fmt.Sprintf("%v", kubeconfigValue), nil
 }

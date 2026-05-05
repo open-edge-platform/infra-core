@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store_test
@@ -7,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -20,6 +22,7 @@ import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/regionresource"
+	"github.com/open-edge-platform/infra-core/inventory/v2/internal/store"
 	inv_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/inventory/v1"
 	location_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/location/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
@@ -170,7 +173,7 @@ func Test_Create_Get_Delete_Update_Region(t *testing.T) {
 			in: &location_v1.RegionResource{
 				Name: "Test Region 1",
 				Metadata: `[
-					{"key":"cluster-name","value":"invalidvaluelengthinvalidvaluelengthinvalidvaluelengthinvalidval"}
+					{"key":"cluster-name","value":"` + strings.Repeat("a", store.MetadataValueMaxLength+1) + `"}'"}
 					]`,
 			},
 			valid: false,

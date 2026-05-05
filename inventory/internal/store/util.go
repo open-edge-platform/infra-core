@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
+//
 // SPDX-License-Identifier: Apache-2.0
 
 package store
@@ -49,6 +50,12 @@ import (
 const (
 	PatchString = "PATCH"
 	PutString   = "PUT"
+)
+
+const (
+	MetadataKeyNameMaxLength   = 63
+	MetadataKeyPrefixMaxLength = 253
+	MetadataValueMaxLength     = 63
 )
 
 // MetadataPatternKey representing the metadata pattern for key.
@@ -109,10 +116,34 @@ func ParseMetadata(metadata string) (map[string]string, error) {
 	return metaMap, nil
 }
 
-//nolint:cyclop // calculated cyclomatic complexity for func is 11, max is 10
-func validateKeyValue(meta []Metadata) error {
-	maxMetaKeyNameLen, maxMetaValueLen, maxMetaKeyPrefixLen := 63, 63, 253
+// SerializeMetadata takes a map of metadata and serializes it into a JSON string.
+// It returns an error if the serialization fails.
+func SerializeMetadata(metaMap map[string]string) (string, error) {
+	if len(metaMap) == 0 {
+		return "", nil
+	}
 
+	// Pre-allocate the slice
+	meta := make([]Metadata, len(metaMap))
+	i := 0
+	for k, v := range metaMap {
+		meta[i] = Metadata{
+			Key:   k,
+			Value: v,
+		}
+		i++
+	}
+
+	metaString, err := json.Marshal(meta)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msgf("Error while marshaling the metadata")
+		return "", errors.Wrap(err)
+	}
+	return string(metaString), nil
+}
+
+//nolint:cyclop,nolintlint // calculated cyclomatic complexity for func is 11, max is 10
+func validateKeyValue(meta []Metadata) error {
 	for _, rmetadata := range meta {
 		if rmetadata.Key != "" {
 			if !MetadataPatternKey.MatchString(rmetadata.Key) {
@@ -122,16 +153,16 @@ func validateKeyValue(meta []Metadata) error {
 			// max prefix len: 253  max name len:63
 			if strings.Contains(rmetadata.Key, `/`) {
 				prefixname := strings.Split(rmetadata.Key, "/")
-				if len(prefixname[0]) > maxMetaKeyPrefixLen ||
-					len(prefixname[1]) > maxMetaKeyNameLen {
+				if len(prefixname[0]) > MetadataKeyPrefixMaxLength ||
+					len(prefixname[1]) > MetadataKeyNameMaxLength {
 					return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 				}
-			} else if len(rmetadata.Key) > maxMetaKeyNameLen { // meta data key pattern with name
+			} else if len(rmetadata.Key) > MetadataKeyNameMaxLength { // meta data key pattern with name
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata key")
 			}
 		}
 		if rmetadata.Value != "" {
-			if len(rmetadata.Value) > maxMetaValueLen {
+			if len(rmetadata.Value) > MetadataValueMaxLength {
 				return errors.Errorfc(codes.InvalidArgument, "Invalid length of metadata value")
 			}
 			if !MetadataPatternValue.MatchString(rmetadata.Value) {
