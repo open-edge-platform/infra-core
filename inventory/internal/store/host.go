@@ -8,6 +8,8 @@ package store
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
@@ -22,6 +24,7 @@ import (
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	cl "github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/secrets"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util/collections"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/validator"
@@ -285,10 +288,52 @@ func (is *InvStore) UpdateHost(
 
 	zlog.InfraSec().Info().Msgf("UpdateHost tenantID %s", tenantID)
 
-	// metadata, err := ParseMetadata(in.GetMetadata())
-	// if err != nil {
-	// 	return nil, false, errors.Wrap(err)
-	// }
+	// Extract metadata and handle kubeconfig
+	metadata := in.GetMetadata()
+	if len(metadata) > 0 {
+		metadataMap, err := ParseMetadata(in.GetMetadata())
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata in UpdateHost")
+			return nil, false, errors.Wrap(err)
+		}
+
+		vaultPath := fmt.Sprintf("kubeconfig/%s", id)
+		kubeconfigData := map[string]interface{}{
+			"data": map[string]interface{}{
+				"kubeconfig": metadataMap[KubeconfigVaultKeyPrefix],
+				"timestamp":  time.Now().Unix(),
+			},
+		}
+
+		// Get the vault service
+		secretsService, err := secrets.SecretServiceFactory(ctx)
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to retrieve additional metadata from vault for host")
+			// Don't fail the entire operation if vault connection fails
+		} else {
+			defer secretsService.Logout(ctx)
+
+			zlog.InfraSec().Info().Msgf("UpdateHost, vaultPath %s", vaultPath)
+			zlog.InfraSec().Info().Msgf("UpdateHost, kubeconfigData %v", kubeconfigData)
+
+			// Store in vault
+			_, err := secretsService.WriteSecret(ctx, vaultPath, kubeconfigData)
+			if err != nil {
+				zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
+				return nil, false, errors.Errorfc(codes.Internal, "failed to store kubeconfig in vault: %v", err)
+			}
+		}
+
+		// Remove the kubeconfig from metadata to avoid storing it in the Host's metadata in DB,
+		// since we want to store it securely in vault.
+		delete(metadataMap, KubeconfigVaultKeyPrefix)
+
+		in.Metadata, err = SerializeMetadata(metadataMap)
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in UpdateHost")
+			return nil, false, errors.Wrap(err)
+		}
+	}
 
 	res, hardDelete, err := ExecuteInTxAndReturnDouble[inv_v1.Resource, bool](is)(
 		ctx, hostResourceUpdater(id, in, fieldmask, tenantID))
@@ -296,49 +341,8 @@ func (is *InvStore) UpdateHost(
 		return nil, false, err
 	}
 
-	// // Check if we need to update the metadata.
-	// if metadata[KubeconfigVaultKeyPrefix] != "" {
-	// 	// If kubeconfig vault key is being updated, update the vault entry with the new kubeconfig content.
-	// 	err = is.updateKubeconfigInVault(ctx, id, metadata[KubeconfigVaultKeyPrefix])
-	// 	if err != nil {
-	// 		zlog.InfraSec().InfraErr(err).Msgf("Failed to update kubeconfig in vault for host %s", in.GetResourceId())
-	// 		// Don't return the error here to avoid breaking the host update if vault operation fails
-	// 	}
-	// }
-
 	return res, *hardDelete, err
 }
-
-// updateKubeconfigInVault updates kubeconfig content in vault using the provided vault key or kubeconfig content
-// func (is *InvStore) updateKubeconfigInVault(ctx context.Context, hostID, kubeconfigData string) error {
-// 	// Initialize secrets service
-// 	secretsService, err := secrets.SecretServiceFactory(ctx)
-// 	if err != nil {
-// 		zlog.InfraSec().InfraErr(err).Msg("Failed to initialize secrets service")
-// 		return errors.Wrap(err)
-// 	}
-// 	defer secretsService.Logout(ctx)
-
-// 	// The kubeconfigData could be either a vault key or kubeconfig content
-// 	// Try to retrieve it first (assuming it's a vault key)
-// 	secretPath := fmt.Sprintf("%s/%s", KubeconfigVaultKeyPrefix, hostID)
-// 	secretData := map[string]any{
-// 		"data": map[string]any{
-// 			KubeconfigVaultKeyPrefix: kubeconfigData,
-// 		},
-// 	}
-
-// 	_, err = secretsService.WriteSecret(ctx, secretPath, secretData)
-// 	if err != nil {
-// 		zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
-// 		return errors.Wrap(err)
-// 	} else {
-// 		zlog.InfraSec().Info().Msgf("Successfully stored/updated kubeconfig in vault for host %s", hostID)
-// 	}
-
-// 	zlog.Info().Msg("Successfully updated kubeconfig in vault")
-// 	return nil
-// }
 
 //nolint:cyclop // high cyclomatic complexity due to multiple fieldmask checks and state fields
 func setHostStateFieldsOnUpdate(in *computev1.HostResource, mut *ent.HostResourceMutation,

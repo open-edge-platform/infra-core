@@ -116,6 +116,32 @@ func ParseMetadata(metadata string) (map[string]string, error) {
 	return metaMap, nil
 }
 
+// SerializeMetadata takes a map of metadata and serializes it into a JSON string.
+// It returns an error if the serialization fails.
+func SerializeMetadata(metaMap map[string]string) (string, error) {
+	if len(metaMap) == 0 {
+		return "", nil
+	}
+
+	// Pre-allocate the slice
+	meta := make([]Metadata, len(metaMap))
+	i := 0
+	for k, v := range metaMap {
+		meta[i] = Metadata{
+			Key:   k,
+			Value: v,
+		}
+		i++
+	}
+
+	metaString, err := json.Marshal(meta)
+	if err != nil {
+		zlog.InfraSec().InfraErr(err).Msgf("Error while marshaling the metadata")
+		return "", errors.Wrap(err)
+	}
+	return string(metaString), nil
+}
+
 //nolint:cyclop,nolintlint // calculated cyclomatic complexity for func is 11, max is 10
 func validateKeyValue(meta []Metadata) error {
 	for _, rmetadata := range meta {
