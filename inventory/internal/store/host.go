@@ -204,16 +204,14 @@ func (is *InvStore) GetHost(
 		return &inv_v1.Resource{Resource: &inv_v1.Resource_Host{Host: apiResource}}, resMeta, nil
 	}
 
-	if metadataMap[KubeconfigVaultKey] != "" {
-		// Attach kubeconfig from vault to metadata
-		if err := attachKubeconfigFromVault(ctx, id, metadataMap); err != nil {
-			zlog.InfraSec().InfraErr(err).Msg("Failed to attach kubeconfig from vault")
-		} else {
-			// Serialize updated metadata back to the Host resource
-			apiResource.Metadata, err = SerializeMetadata(metadataMap)
-			if err != nil {
-				zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
-			}
+	// Attach kubeconfig from vault to metadata
+	if err := attachKubeconfigFromVault(ctx, id, metadataMap); err != nil {
+		zlog.InfraSec().InfraErr(err).Msg("Failed to attach kubeconfig from vault")
+	} else {
+		// Serialize updated metadata back to the Host resource
+		apiResource.Metadata, err = SerializeMetadata(metadataMap)
+		if err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
 		}
 	}
 
