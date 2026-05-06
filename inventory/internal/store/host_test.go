@@ -13,6 +13,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/golang/mock/gomock"
 	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/assert"
@@ -22,7 +23,6 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 
-	"github.com/golang/mock/gomock"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostgpuresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostnicresource"
 	"github.com/open-edge-platform/infra-core/inventory/v2/internal/ent/hostresource"
@@ -3366,7 +3366,7 @@ func Test_GetHost_KubeconfigVaultIntegration(t *testing.T) {
 	// Override the SecretServiceFactory to return our mock
 	originalFactory := secrets.SecretServiceFactory
 	defer func() { secrets.SecretServiceFactory = originalFactory }()
-	secrets.SecretServiceFactory = func(ctx context.Context) (secrets.SecretsService, error) {
+	secrets.SecretServiceFactory = func(_ context.Context) (secrets.SecretsService, error) {
 		return mockSecretsService, nil
 	}
 
@@ -3403,12 +3403,14 @@ func Test_GetHost_KubeconfigVaultIntegration(t *testing.T) {
 			expectedVaultCall: true,
 			vaultResponse: map[string]interface{}{
 				"data": map[string]interface{}{
-					"kubeconfig": "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    server: https://k8s.example.com\n  name: example-cluster\n",
+					"kubeconfig": "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    " +
+						"server: https://k8s.example.com\n  name: example-cluster\n",
 				},
 			},
-			vaultError:               nil,
-			expectedKubeconfigInMeta: "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    server: https://k8s.example.com\n  name: example-cluster\n",
-			description:              "Host has valid kubeconfig vault path, should retrieve kubeconfig from vault",
+			vaultError: nil,
+			expectedKubeconfigInMeta: "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    " +
+				"server: https://k8s.example.com\n  name: example-cluster\n",
+			description: "Host has valid kubeconfig vault path, should retrieve kubeconfig from vault",
 		},
 		{
 			name:                     "VaultErrorReturnsOriginalMetadata",
@@ -3507,7 +3509,8 @@ func Test_GetHost_KubeconfigVaultIntegration(t *testing.T) {
 					// Check that kubeconfig has the expected value
 					kubeconfigValue, exists := metadataMap["kubeconfig"]
 					require.True(t, exists, "Kubeconfig key should exist in metadata for test: %s", tc.description)
-					assert.Equal(t, tc.expectedKubeconfigInMeta, kubeconfigValue, "Kubeconfig value mismatch for test: %s", tc.description)
+					assert.Equal(t, tc.expectedKubeconfigInMeta, kubeconfigValue,
+						"Kubeconfig value mismatch for test: %s", tc.description)
 				}
 			}
 		})
@@ -3528,7 +3531,7 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 	// Override the SecretServiceFactory to return our mock
 	originalFactory := secrets.SecretServiceFactory
 	defer func() { secrets.SecretServiceFactory = originalFactory }()
-	secrets.SecretServiceFactory = func(ctx context.Context) (secrets.SecretsService, error) {
+	secrets.SecretServiceFactory = func(_ context.Context) (secrets.SecretsService, error) {
 		return mockSecretsService, nil
 	}
 
@@ -3573,13 +3576,15 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 			description:          "Host update has empty kubeconfig, should not store in vault",
 		},
 		{
-			name:              "ValidKubeconfigStoreInVault",
-			initialMetadata:   "",
-			updateMetadata:    `[{"key":"kubeconfig","value":"apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    server: https://k8s.example.com\n  name: example-cluster\n"}]`,
+			name:            "ValidKubeconfigStoreInVault",
+			initialMetadata: "",
+			updateMetadata: `[{"key":"kubeconfig","value":"apiVersion: v1\nkind: Config\n` +
+				`clusters:\n- cluster:\n    server: https://k8s.example.com\n  name: example-cluster\n"}]`,
 			expectedVaultCall: true,
 			expectedWriteData: map[string]interface{}{
 				"data": map[string]interface{}{
-					"kubeconfig": "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    server: https://k8s.example.com\n  name: example-cluster\n",
+					"kubeconfig": "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    " +
+						"server: https://k8s.example.com\n  name: example-cluster\n",
 				},
 			},
 			vaultWriteError:      nil,
@@ -3598,12 +3603,14 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 			},
 			vaultWriteError:      errors.New("vault write failed"),
 			expectedMetadataInDB: "",
-			description:          "Vault write error should not fail the update, kubeconfig should still be removed from metadata",
+			description: "Vault write error should not fail the update, " +
+				"kubeconfig should still be removed from metadata",
 		},
 		{
-			name:              "KubeconfigWithOtherMetadata",
-			initialMetadata:   `[{"key":"other","value":"data"}]`,
-			updateMetadata:    `[{"key":"kubeconfig","value":"test-config"},{"key":"other","value":"updated"},{"key":"more","value":"data"}]`,
+			name:            "KubeconfigWithOtherMetadata",
+			initialMetadata: `[{"key":"other","value":"data"}]`,
+			updateMetadata: `[{"key":"kubeconfig","value":"test-config"},` +
+				`{"key":"other","value":"updated"},{"key":"more","value":"data"}]`,
 			expectedVaultCall: true,
 			expectedWriteData: map[string]interface{}{
 				"data": map[string]interface{}{
@@ -3612,7 +3619,8 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 			},
 			vaultWriteError:      nil,
 			expectedMetadataInDB: `[{"key":"other","value":"updated"},{"key":"more","value":"data"}]`,
-			description:          "Update with kubeconfig and other metadata should store kubeconfig in vault and keep other metadata",
+			description: "Update with kubeconfig and other metadata should store " +
+				"kubeconfig in vault and keep other metadata",
 		},
 	}
 
@@ -3667,7 +3675,8 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 			}
 
 			// Perform the update
-			updateResp, err := inv_testing.TestClients[inv_testing.APIClient].Update(ctx, hostResourceID, fieldMask, updateRequest)
+			updateResp, err := inv_testing.TestClients[inv_testing.APIClient].Update(
+				ctx, hostResourceID, fieldMask, updateRequest)
 			require.NoError(t, err, "Failed to update host for test: %s", tc.description)
 			require.NotNil(t, updateResp, "Update response should not be nil")
 
@@ -3679,11 +3688,11 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 				assert.Empty(t, updatedHost.GetMetadata(), "Metadata should be empty for test: %s", tc.description)
 			} else {
 				// Parse both expected and actual metadata to compare structure
-				expectedMetadataMap, err := store.ParseMetadata(tc.expectedMetadataInDB)
-				require.NoError(t, err, "Failed to parse expected metadata")
+				expectedMetadataMap, parseErr := store.ParseMetadata(tc.expectedMetadataInDB)
+				require.NoError(t, parseErr, "Failed to parse expected metadata")
 
-				actualMetadataMap, err := store.ParseMetadata(updatedHost.GetMetadata())
-				require.NoError(t, err, "Failed to parse actual metadata")
+				actualMetadataMap, parseErr := store.ParseMetadata(updatedHost.GetMetadata())
+				require.NoError(t, parseErr, "Failed to parse actual metadata")
 
 				assert.Equal(t, expectedMetadataMap, actualMetadataMap, "Metadata content mismatch for test: %s", tc.description)
 
@@ -3699,7 +3708,8 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 			require.NoError(t, err, "Failed to get host after update for test: %s", tc.description)
 
 			retrievedHost := getResp.GetResource().GetHost()
-			assert.Equal(t, updatedHost.GetMetadata(), retrievedHost.GetMetadata(), "Get and Update should return same metadata for test: %s", tc.description)
+			assert.Equal(t, updatedHost.GetMetadata(), retrievedHost.GetMetadata(),
+				"Get and Update should return same metadata for test: %s", tc.description)
 		})
 	}
 }
