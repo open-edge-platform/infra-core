@@ -3382,20 +3382,20 @@ func Test_GetHost_KubeconfigVaultIntegration(t *testing.T) {
 		{
 			name:                     "NoMetadata",
 			hostMetadata:             "",
-			expectedVaultCall:        false,
+			expectedVaultCall:        true,
 			vaultResponse:            nil,
 			vaultError:               nil,
 			expectedKubeconfigInMeta: "",
-			description:              "Host has no metadata, vault should not be called",
+			description:              "Host has no metadata, vault should still be called but return no data",
 		},
 		{
 			name:                     "KubeconfigEmptyString",
 			hostMetadata:             `[{"key":"kubeconfig","value":""}]`,
-			expectedVaultCall:        false,
+			expectedVaultCall:        true,
 			vaultResponse:            nil,
 			vaultError:               nil,
 			expectedKubeconfigInMeta: "",
-			description:              "Host has kubeconfig with empty string, vault should not be called",
+			description:              "Host has kubeconfig with empty string, vault should be called but return no data",
 		},
 		{
 			name:              "ValidKubeconfigVaultPath",
@@ -3648,7 +3648,8 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 			// Clean up the host
 			t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostResourceID) })
 
-			// Set up vault mock expectations
+			// Set up vault mock expectations for Update operation
+			expectedLogoutCalls := 1 // Default: 1 Get operation = 1 logout call
 			if tc.expectedVaultCall {
 				expectedVaultPath := fmt.Sprintf("kubeconfig/%s", hostResourceID)
 				mockSecretsService.EXPECT().
@@ -3656,10 +3657,20 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 					Return(nil, tc.vaultWriteError).
 					Times(1)
 
-				mockSecretsService.EXPECT().
-					Logout(gomock.Any()).
-					Times(1)
+				expectedLogoutCalls = 2 // 1 Write + 1 Get = 2 logout calls
 			}
+
+			// Set up vault mock expectations for Get operations (GetHost always calls ReadSecret)
+			expectedVaultPath := fmt.Sprintf("kubeconfig/%s", hostResourceID)
+			// For the "Additional verification" Get call
+			mockSecretsService.EXPECT().
+				ReadSecret(gomock.Any(), expectedVaultPath).
+				Return(nil, nil). // No vault data expected for these test cases
+				Times(1)
+			// Set up all Logout expectations at once
+			mockSecretsService.EXPECT().
+				Logout(gomock.Any()).
+				Times(expectedLogoutCalls)
 
 			// Update the host with new metadata
 			updateRequest := &inv_v1.Resource{
