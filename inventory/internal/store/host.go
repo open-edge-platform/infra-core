@@ -204,14 +204,16 @@ func (is *InvStore) GetHost(
 		return &inv_v1.Resource{Resource: &inv_v1.Resource_Host{Host: apiResource}}, resMeta, nil
 	}
 
-	// Attach kubeconfig from vault to metadata
-	if err := attachKubeconfigFromVault(ctx, id, metadataMap); err != nil {
-		zlog.InfraSec().InfraErr(err).Msg("Failed to attach kubeconfig from vault")
-	} else {
-		// Serialize updated metadata back to the Host resource
-		apiResource.Metadata, err = SerializeMetadata(metadataMap)
-		if err != nil {
-			zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
+	if metadataMap[KubeconfigVaultKey] != "" {
+		// Attach kubeconfig from vault to metadata
+		if err := attachKubeconfigFromVault(ctx, id, metadataMap); err != nil {
+			zlog.InfraSec().InfraErr(err).Msg("Failed to attach kubeconfig from vault")
+		} else {
+			// Serialize updated metadata back to the Host resource
+			apiResource.Metadata, err = SerializeMetadata(metadataMap)
+			if err != nil {
+				zlog.InfraSec().InfraErr(err).Msg("Failed to serialize metadata in GetHost")
+			}
 		}
 	}
 
@@ -809,8 +811,8 @@ func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *co
 	}
 
 	kubeconfigValue, hasKubeconfig := metadataMap[KubeconfigVaultKey]
-	if !hasKubeconfig {
-		return nil // No kubeconfig to store, not an error.
+	if !hasKubeconfig || kubeconfigValue == "" {
+		return nil // No kubeconfig to store or empty kubeconfig, not an error.
 	}
 
 	secretsService, err := secrets.SecretServiceFactory(ctx)
@@ -824,10 +826,11 @@ func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *co
 
 	_, err = secretsService.WriteSecret(ctx, vaultPath, kubeconfigData)
 	if err != nil {
-		return fmt.Errorf("failed to write secret to vault path %s: %w", vaultPath, err)
+		// Log error but don't fail the operation - we still want to remove kubeconfig from metadata
+		fmt.Printf("Warning: failed to write secret to vault path %s: %v\n", vaultPath, err)
 	}
 
-	// Remove kubeconfig from metadata to avoid storing it in DB.
+	// Remove kubeconfig from metadata to avoid storing it in DB, regardless of vault write success
 	delete(metadataMap, KubeconfigVaultKey)
 
 	// Update the host resource metadata.
