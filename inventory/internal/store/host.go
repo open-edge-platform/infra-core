@@ -196,8 +196,9 @@ func (is *InvStore) GetHost(
 
 	zlog.InfraSec().Info().Msgf("GetHost tenantID %s", tenantID)
 
-	// Kubeconfig will be retrieved from vault and attached to the Host resource metadata on Get,
-	// rather than being stored in the Host metadata in DB.
+	// Special handling for kubeconfig in metadata on GetHost:
+	// If exists, the kubeconfig will be retrieved from vault and attached to the Host resource metadata
+	// before returning the response, rather than being retrieved from the Host metadata in DB.
 	metadataMap, err := ParseMetadata(apiResource.GetMetadata())
 	if err != nil {
 		zlog.InfraSec().InfraErr(err).Msg("Failed to parse metadata in GetHost")
@@ -266,8 +267,10 @@ func (is *InvStore) UpdateHost(
 ) (*inv_v1.Resource, bool, error) {
 	zlog.Debug().Msgf("UpdateHost (%s): %v, fm: %v", id, in, fieldmask)
 
-	// Special handling for kubeconfig in metadata on UpdateHost
+	// Special handling for kubeconfig in metadata on UpdateHost:
 	// It will be stored securely in vault, rather than being stored in the Host metadata in DB.
+	// Also the kubeconfig is removed from the Host metadata to avoid storing it in DB,
+	// regardless of vault write success.
 	if in.GetMetadata() != "" {
 		if err := storeKubeconfigInVault(ctx, id, in); err != nil {
 			zlog.InfraSec().InfraErr(err).Msg("Failed to store kubeconfig in vault")
@@ -802,6 +805,7 @@ func attachKubeconfigFromVault(ctx context.Context, hostID string, metadataMap m
 }
 
 // storeKubeconfigInVault extracts kubeconfig from host metadata and stores it in vault.
+// The kubeconfig is removed from metadata to avoid storing it in DB, regardless of vault write success.
 func storeKubeconfigInVault(ctx context.Context, hostID string, hostResource *computev1.HostResource) error {
 	metadataMap, err := ParseMetadata(hostResource.GetMetadata())
 	if err != nil {
