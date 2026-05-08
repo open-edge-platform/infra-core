@@ -18,6 +18,8 @@ github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6/go.mod h
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/DATA-DOG/go-sqlmock v1.5.0 h1:Shsta01QNfFxHCfpW6YH2STWB0MudeXXEWMr20OEh60=
 github.com/DATA-DOG/go-sqlmock v1.5.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
+github.com/Nerzal/gocloak/v13 v13.9.0 h1:YWsJsdM5b0yhM2Ba3MLydiOlujkBry4TtdzfIzSVZhw=
+github.com/Nerzal/gocloak/v13 v13.9.0/go.mod h1:YYuDcXZ7K2zKECyVP7pPqjKxx2AzYSpKDj8d6GuyM10=
 github.com/RaveNoX/go-jsoncommentstrip v1.0.0/go.mod h1:78ihd09MekBnJnxpICcwzCMzGrKSKYe4AqU6PDYYpjk=
 github.com/adhocore/gronx v1.19.6 h1:5KNVcoR9ACgL9HhEqCm5QXsab/gI4QDIybTAWcXDKDc=
 github.com/adhocore/gronx v1.19.6/go.mod h1:7oUY1WAU8rEJWmAxXR2DN0JaO4gi9khSgKjiRypqteg=
@@ -100,6 +102,8 @@ github.com/go-openapi/jsonpointer v0.21.1 h1:whnzv/pNXtK2FbX/W9yJfRmE2gsmkfahjMK
 github.com/go-openapi/jsonpointer v0.21.1/go.mod h1:50I1STOfbY1ycR8jGz8DaMeLCdXiI6aDteEdRNNzpdk=
 github.com/go-openapi/swag v0.23.1 h1:lpsStH0n2ittzTnbaSloVZLuB5+fvSY/+hnagBjSNZU=
 github.com/go-openapi/swag v0.23.1/go.mod h1:STZs8TbRvEQQKUA+JZNAm3EWlgaOBGpyFDqQnDHMef0=
+github.com/go-resty/resty/v2 v2.16.5 h1:hBKqmWrr7uRc3euHVqmh1HTHcKn99Smr7o5spptdhTM=
+github.com/go-resty/resty/v2 v2.16.5/go.mod h1:hkJtXbA2iKHzJheXYvQ8snQES5ZLGKMwQ07xAwp/fiA=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
 github.com/go-test/deep v1.1.1 h1:0r/53hagsehfO4bzD2Pgr/+RgHqhmf+k1Bpse2cTu1U=
 github.com/go-test/deep v1.1.1/go.mod h1:5C2ZWiW0ErCdrYzpqxLbTX7MG14M9iiw8DgHncVwcsE=
@@ -164,6 +168,8 @@ github.com/hashicorp/hcl/v2 v2.23.0 h1:Fphj1/gCylPxHutVSEOf2fBOh1VE4AuLV7+kbJf3q
 github.com/hashicorp/hcl/v2 v2.23.0/go.mod h1:62ZYHrXgPoX8xBnzl8QzbWq4dyDsDtfCRgIq1rbJEvA=
 github.com/hashicorp/vault/api v1.22.0 h1:+HYFquE35/B74fHoIeXlZIP2YADVboaPjaSicHEZiH0=
 github.com/hashicorp/vault/api v1.22.0/go.mod h1:IUZA2cDvr4Ok3+NtK2Oq/r+lJeXkeCrHRmqdyWfpmGM=
+github.com/hashicorp/vault/api/auth/kubernetes v0.10.0 h1:5rqWmUFxnu3S7XYq9dafURwBgabYDFzo2Wv+AMopPHs=
+github.com/hashicorp/vault/api/auth/kubernetes v0.10.0/go.mod h1:cZZmhF6xboMDmDbMY52oj2DKW6gS0cQ9g0pJ5XIXQ5U=
 github.com/iancoleman/strcase v0.3.0 h1:nTXanmYxhfFAMjZL34Ov6gkzEsSJZ5DbhxWjvSASxEI=
 github.com/iancoleman/strcase v0.3.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
 github.com/jackc/pgpassfile v1.0.0 h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=
@@ -258,14 +264,14 @@ github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 h1:bQx3WeLcUWy+RletI
 github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90/go.mod h1:y5+oSEHCPT/DGrS++Wc/479ERge0zTFxaF8PbGKcg2o=
 github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f h1:/uKCsLU8qn5/41xH0/UW8zwNVNpdj5oRhSmVBiHUUKU=
 github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f/go.mod h1:O2ov3sou5onYt+PmLFDkv46z7lEubpUXssBQF3gZOJg=
-github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.2 h1:C7hbM51l+3M6fHp6xgIYGeavrSCvjePjPxJabQcLLwA=
-github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.2/go.mod h1:0z8lkvI2rp7iExFOG7sOjn9SlDFp9ERmLFAz8dPk9y0=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.35.1 h1:jBLsuc9+7FVW212d10cnaR+2p4XrTlgK3uWeJUMkwjY=
-github.com/open-edge-platform/infra-core/inventory/v2 v2.35.1/go.mod h1:wiWvyzTr13rOplddY7Mikmd46z5JR6sKDFdl2woEm1c=
-github.com/open-edge-platform/infra-managers/host v1.26.0 h1:oe5ZTJMYcoGZuaWBFWANyC5i6+yXziC4vYEKoPpJUwY=
-github.com/open-edge-platform/infra-managers/host v1.26.0/go.mod h1:3M3S0kCktvprfnkADMYsrGK0OwzLp1ifaasS08l0EXk=
-github.com/open-edge-platform/infra-managers/maintenance v1.25.2 h1:AhUYSDXFELkj2v6XxIfj+GhP9u73a/QSiKErcpc3gNc=
-github.com/open-edge-platform/infra-managers/maintenance v1.25.2/go.mod h1:Vdsq4hD3a8+uLsoFD2VDW+XWDJOe/uHUXBw8WxCTfio=
+github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.3 h1:TYjKOk5bqq6PkrVtqtbfrK1ZYMBDKXSrRRpe3a2gsFg=
+github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.3/go.mod h1:fOBHjFBXl8anS1J2AmRZ3BxsQjK7F2t07eY4+mt4VLY=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.35.3 h1:C/iv3xGJy+8CdTbrNArhnuhq68CSJ2lQFBh2MokLRak=
+github.com/open-edge-platform/infra-core/inventory/v2 v2.35.3/go.mod h1:vYmnzN2h7vOKsUgi4t3n8jgwYjpKnciX11Ie1HALb30=
+github.com/open-edge-platform/infra-managers/host v1.26.1 h1:4cQo+AHjMN32yq5XsWvzTWbtwpvM5bNZeXXGdy9N4p8=
+github.com/open-edge-platform/infra-managers/host v1.26.1/go.mod h1:OqYecX1Y8Evzy9WGll+Z7S16CWMJ5TOBLPPkIUwBg3U=
+github.com/open-edge-platform/infra-managers/maintenance v1.26.0 h1:z3Auky1LupGA1DrmruQCyilUmTPIoGI0rACVobdBaSQ=
+github.com/open-edge-platform/infra-managers/maintenance v1.26.0/go.mod h1:YGOfjMOQEYJfdS3LmvrCq/ejKQTL6FJG8JHz+rDdFIg=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.40.0 h1:EscYJLSVtDWxLJ1n1ewCGIJk6r/RPX0IoU5lBj04xSY=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.40.0/go.mod h1:mcT4cppV9ojMj0DTjn0OK3w+r3aYl8Moxbantegs2OU=
 github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d h1:xRow90Mk5U2h+R60TTL8lPXIFbdQWSnHyg09vh8NEPo=
@@ -275,6 +281,8 @@ github.com/open-edge-platform/orch-library/go/dazl v0.5.4/go.mod h1:UiO3TOEqEuRT
 github.com/open-policy-agent/opa v1.14.0 h1:sdG94h9GrZQQcTaH70fJhOuU+/C2FAeeAo8mSPssV/U=
 github.com/open-policy-agent/opa v1.14.0/go.mod h1:e+JSg7BVV9/vRcD5HYTUeyKIrvigPxYX6T1KcVUaHaM=
 github.com/opentracing/opentracing-go v1.1.0/go.mod h1:UkNAQd3GIcIGf0SeVgPpRdFStlNbqXla1AfSYxPUl2o=
+github.com/opentracing/opentracing-go v1.2.0 h1:uEJPy/1a5RIPAJ0Ov+OIO8OxWu77jEv+1B0VhjKrZUs=
+github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
 github.com/perimeterx/marshmallow v1.1.5 h1:a2LALqQ1BlHM8PZblsDdidgv1mWi1DgC2UmX50IvK2s=
 github.com/perimeterx/marshmallow v1.1.5/go.mod h1:dsXbUu8CRzfYP5a87xpp0xq9S3u0Vchtcl8we9tYaXw=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
@@ -305,6 +313,8 @@ github.com/ryanuber/go-glob v1.0.0 h1:iQh3xXAumdQ+4Ufa5b25cRpC5TYKlno6hsv6Cb3pkB
 github.com/ryanuber/go-glob v1.0.0/go.mod h1:807d1WSdnB0XRJzKNil9Om6lcp/3a0v4qIHxIXzX/Yc=
 github.com/segmentio/asm v1.2.1 h1:DTNbBqs57ioxAD4PrArqftgypG4/qNpXoJx8TVXxPR0=
 github.com/segmentio/asm v1.2.1/go.mod h1:BqMnlJP91P8d+4ibuonYZw9mfnzI9HfxselHZr5aAcs=
+github.com/segmentio/ksuid v1.0.4 h1:sBo2BdShXjmcugAMwjugoGUdUV0pcxY5mW4xKRn3v4c=
+github.com/segmentio/ksuid v1.0.4/go.mod h1:/XUiZBD3kVx5SmUOl55voK5yeAbBNNIed+2O73XgrPE=
 github.com/sergi/go-diff v1.4.0 h1:n/SP9D5ad1fORl+llWyN+D6qoUETXNZARKjyY2/KVCw=
 github.com/sergi/go-diff v1.4.0/go.mod h1:A0bzQcvG0E7Rwjx0REVgAGH58e96+X0MeOfepqsbeW4=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
