@@ -3719,7 +3719,15 @@ func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
 			require.NoError(t, err, "Failed to get host after update for test: %s", tc.description)
 
 			retrievedHost := getResp.GetResource().GetHost()
-			assert.Equal(t, updatedHost.GetMetadata(), retrievedHost.GetMetadata(),
+			
+			// Parse metadata to compare structure instead of string order
+			updatedMetadataMap, parseErr := store.ParseMetadata(updatedHost.GetMetadata())
+			require.NoError(t, parseErr, "Failed to parse updated host metadata")
+			
+			retrievedMetadataMap, parseErr := store.ParseMetadata(retrievedHost.GetMetadata())
+			require.NoError(t, parseErr, "Failed to parse retrieved host metadata")
+			
+			assert.Equal(t, updatedMetadataMap, retrievedMetadataMap,
 				"Get and Update should return same metadata for test: %s", tc.description)
 		})
 	}
