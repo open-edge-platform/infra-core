@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.26.1-bookworm AS build
+FROM golang:1.26.3-bookworm@sha256:b09e568dcf2a1ff3ce09a230ea234193fc014dc195472fe63316e50238453d96 AS build
 
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
@@ -30,7 +30,7 @@ RUN CGO_ENABLED=0 TOOL_VERSION_CHECK=0 \
   make ${MAKE_TARGET}
 
 # From: https://github.com/GoogleContainerTools/distroless
-FROM gcr.io/distroless/static-debian12:nonroot
+FROM gcr.io/distroless/static-debian12:nonroot@sha256:a9329520abc449e3b14d5bc3a6ffae065bdde0f02667fa10880c49b35c109fd1
 
 # Run as non-privileged user
 USER nobody

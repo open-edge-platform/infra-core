@@ -5,6 +5,7 @@ package store_test
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math/rand"
 	"reflect"
@@ -12,6 +13,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/golang/mock/gomock"
 	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/assert"
@@ -41,7 +43,9 @@ import (
 	provider_v1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/provider/v1"
 	statusv1 "github.com/open-edge-platform/infra-core/inventory/v2/pkg/api/status/v1"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/client"
-	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	invErrors "github.com/open-edge-platform/infra-core/inventory/v2/pkg/errors"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/mocks"
+	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/secrets"
 	res_status "github.com/open-edge-platform/infra-core/inventory/v2/pkg/status"
 	inv_testing "github.com/open-edge-platform/infra-core/inventory/v2/pkg/testing"
 	"github.com/open-edge-platform/infra-core/inventory/v2/pkg/util"
@@ -2492,7 +2496,7 @@ func Test_FilterHosts(t *testing.T) {
 
 			if err != nil {
 				if tc.valid {
-					t.Errorf("FilterHosts() failed: %s", errors.ErrorToStringWithDetails(err))
+					t.Errorf("FilterHosts() failed: %s", invErrors.ErrorToStringWithDetails(err))
 				}
 			} else {
 				if !tc.valid {
@@ -3346,4 +3350,385 @@ func Test_GetHost_WithRegionData(t *testing.T) {
 	regionMetadata := regionData.GetMetadata()
 	assert.NotEmpty(t, regionMetadata, "Region metadata should not be empty")
 	assert.Contains(t, regionMetadata, "region-key", "Region metadata should contain expected key")
+}
+
+func Test_GetHost_KubeconfigVaultIntegration(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	// Create a mock controller
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	// Create a mock secrets service
+	mockSecretsService := mocks.NewMockSecretsService(ctrl)
+
+	// Override the SecretServiceFactory to return our mock
+	originalFactory := secrets.SecretServiceFactory
+	defer func() { secrets.SecretServiceFactory = originalFactory }()
+	secrets.SecretServiceFactory = func(_ context.Context) (secrets.SecretsService, error) {
+		return mockSecretsService, nil
+	}
+
+	testCases := []struct {
+		name                     string
+		hostMetadata             string
+		expectedVaultCall        bool
+		vaultResponse            map[string]interface{}
+		vaultError               error
+		expectedKubeconfigInMeta string
+		description              string
+	}{
+		{
+			name:                     "NoMetadata",
+			hostMetadata:             "",
+			expectedVaultCall:        true,
+			vaultResponse:            nil,
+			vaultError:               nil,
+			expectedKubeconfigInMeta: "",
+			description:              "Host has no metadata, vault should still be called but return no data",
+		},
+		{
+			name:                     "KubeconfigEmptyString",
+			hostMetadata:             `[{"key":"kubeconfig","value":""}]`,
+			expectedVaultCall:        true,
+			vaultResponse:            nil,
+			vaultError:               nil,
+			expectedKubeconfigInMeta: "",
+			description:              "Host has kubeconfig with empty string, vault should be called but return no data",
+		},
+		{
+			name:              "ValidKubeconfigVaultPath",
+			hostMetadata:      `[{"key":"kubeconfig","value":"vault-path-placeholder"}]`,
+			expectedVaultCall: true,
+			vaultResponse: map[string]interface{}{
+				"data": map[string]interface{}{
+					"kubeconfig": "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    " +
+						"server: https://k8s.example.com\n  name: example-cluster\n",
+				},
+			},
+			vaultError: nil,
+			expectedKubeconfigInMeta: "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    " +
+				"server: https://k8s.example.com\n  name: example-cluster\n",
+			description: "Host has valid kubeconfig vault path, should retrieve kubeconfig from vault",
+		},
+		{
+			name:                     "VaultErrorReturnsOriginalMetadata",
+			hostMetadata:             `[{"key":"kubeconfig","value":"invalid-vault-path"}]`,
+			expectedVaultCall:        true,
+			vaultResponse:            nil,
+			vaultError:               errors.New("vault read error"),
+			expectedKubeconfigInMeta: "invalid-vault-path",
+			description:              "Vault returns error, should return original metadata",
+		},
+		{
+			name:                     "VaultReturnsNoData",
+			hostMetadata:             `[{"key":"kubeconfig","value":"vault-path-placeholder"}]`,
+			expectedVaultCall:        true,
+			vaultResponse:            nil,
+			vaultError:               nil,
+			expectedKubeconfigInMeta: "vault-path-placeholder",
+			description:              "Vault returns nil data, should return original metadata",
+		},
+		{
+			name:              "VaultReturnsDataWithoutKubeconfig",
+			hostMetadata:      `[{"key":"kubeconfig","value":"vault-path-placeholder"}]`,
+			expectedVaultCall: true,
+			vaultResponse: map[string]interface{}{
+				"data": map[string]interface{}{
+					"other-key": "other-value",
+				},
+			},
+			vaultError:               nil,
+			expectedKubeconfigInMeta: "vault-path-placeholder",
+			description:              "Vault returns data but no kubeconfig key, should return original metadata",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			// Create host with the specified metadata
+			hostRequest := &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:     "Test Host " + tc.name,
+						Uuid:     uuid.NewString(),
+						Metadata: tc.hostMetadata,
+					},
+				},
+			}
+
+			// Create the host
+			createResp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, hostRequest)
+			require.NoError(t, err, "Failed to create host for test: %s", tc.description)
+			require.NotNil(t, createResp, "Create response should not be nil")
+
+			hostResourceID := createResp.GetHost().GetResourceId()
+			require.NotEmpty(t, hostResourceID, "Host resource ID should not be empty")
+
+			// Clean up the host
+			t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostResourceID) })
+
+			// Set up vault mock expectations
+			if tc.expectedVaultCall {
+				expectedVaultPath := fmt.Sprintf("kubeconfig/%s", hostResourceID)
+				mockSecretsService.EXPECT().
+					ReadSecret(gomock.Any(), expectedVaultPath).
+					Return(tc.vaultResponse, tc.vaultError).
+					Times(1)
+
+				mockSecretsService.EXPECT().
+					Logout(gomock.Any()).
+					Times(1)
+			}
+
+			// Get the host
+			getResp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, hostResourceID)
+			require.NoError(t, err, "Failed to get host for test: %s", tc.description)
+			require.NotNil(t, getResp, "Get response should not be nil")
+
+			hostResource := getResp.GetResource().GetHost()
+			require.NotNil(t, hostResource, "Host resource should not be nil")
+
+			// Parse the returned metadata
+			if tc.expectedKubeconfigInMeta == "" && tc.hostMetadata == "" {
+				// For no metadata case, metadata should be empty
+				assert.Empty(t, hostResource.GetMetadata(), "Metadata should be empty when no metadata provided")
+			} else {
+				// Parse metadata to check kubeconfig value
+				metadataMap, err := store.ParseMetadata(hostResource.GetMetadata())
+				require.NoError(t, err, "Failed to parse returned metadata")
+
+				if tc.expectedKubeconfigInMeta == "" {
+					// Either no kubeconfig key should exist, or it should be empty
+					kubeconfigValue, exists := metadataMap["kubeconfig"]
+					if exists {
+						assert.Empty(t, kubeconfigValue, "Kubeconfig should be empty for test: %s", tc.description)
+					}
+				} else {
+					// Check that kubeconfig has the expected value
+					kubeconfigValue, exists := metadataMap["kubeconfig"]
+					require.True(t, exists, "Kubeconfig key should exist in metadata for test: %s", tc.description)
+					assert.Equal(t, tc.expectedKubeconfigInMeta, kubeconfigValue,
+						"Kubeconfig value mismatch for test: %s", tc.description)
+				}
+			}
+		})
+	}
+}
+
+func Test_UpdateHost_KubeconfigVaultIntegration(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	// Create a mock controller
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	// Create a mock secrets service
+	mockSecretsService := mocks.NewMockSecretsService(ctrl)
+
+	// Override the SecretServiceFactory to return our mock
+	originalFactory := secrets.SecretServiceFactory
+	defer func() { secrets.SecretServiceFactory = originalFactory }()
+	secrets.SecretServiceFactory = func(_ context.Context) (secrets.SecretsService, error) {
+		return mockSecretsService, nil
+	}
+
+	testCases := []struct {
+		name                 string
+		initialMetadata      string
+		updateMetadata       string
+		expectedVaultCall    bool
+		expectedWriteData    map[string]interface{}
+		vaultWriteError      error
+		expectedMetadataInDB string
+		description          string
+	}{
+		{
+			name:                 "NoMetadata",
+			initialMetadata:      "",
+			updateMetadata:       "",
+			expectedVaultCall:    false,
+			expectedWriteData:    nil,
+			vaultWriteError:      nil,
+			expectedMetadataInDB: "",
+			description:          "Host update has no metadata, vault should not be called",
+		},
+		{
+			name:                 "MetadataWithoutKubeconfig",
+			initialMetadata:      `[{"key":"other","value":"data"}]`,
+			updateMetadata:       `[{"key":"other","value":"updated"}]`,
+			expectedVaultCall:    false,
+			expectedWriteData:    nil,
+			vaultWriteError:      nil,
+			expectedMetadataInDB: `[{"key":"other","value":"updated"}]`,
+			description:          "Host update has metadata but no kubeconfig, vault should not be called",
+		},
+		{
+			name:                 "KubeconfigEmptyString",
+			initialMetadata:      "",
+			updateMetadata:       `[{"key":"kubeconfig","value":""}]`,
+			expectedVaultCall:    false,
+			expectedWriteData:    nil,
+			vaultWriteError:      nil,
+			expectedMetadataInDB: `[{"key":"kubeconfig","value":""}]`,
+			description:          "Host update has empty kubeconfig, should not store in vault",
+		},
+		{
+			name:            "ValidKubeconfigStoreInVault",
+			initialMetadata: "",
+			updateMetadata: `[{"key":"kubeconfig","value":"apiVersion: v1\nkind: Config\n` +
+				`clusters:\n- cluster:\n    server: https://k8s.example.com\n  name: example-cluster\n"}]`,
+			expectedVaultCall: true,
+			expectedWriteData: map[string]interface{}{
+				"data": map[string]interface{}{
+					"kubeconfig": "apiVersion: v1\nkind: Config\nclusters:\n- cluster:\n    " +
+						"server: https://k8s.example.com\n  name: example-cluster\n",
+				},
+			},
+			vaultWriteError:      nil,
+			expectedMetadataInDB: "",
+			description:          "Host update with valid kubeconfig should store in vault and remove from metadata",
+		},
+		{
+			name:              "VaultWriteError",
+			initialMetadata:   "",
+			updateMetadata:    `[{"key":"kubeconfig","value":"test-config"}]`,
+			expectedVaultCall: true,
+			expectedWriteData: map[string]interface{}{
+				"data": map[string]interface{}{
+					"kubeconfig": "test-config",
+				},
+			},
+			vaultWriteError:      errors.New("vault write failed"),
+			expectedMetadataInDB: "",
+			description: "Vault write error should not fail the update, " +
+				"kubeconfig should still be removed from metadata",
+		},
+		{
+			name:            "KubeconfigWithOtherMetadata",
+			initialMetadata: `[{"key":"other","value":"data"}]`,
+			updateMetadata: `[{"key":"kubeconfig","value":"test-config"},` +
+				`{"key":"other","value":"updated"},{"key":"more","value":"data"}]`,
+			expectedVaultCall: true,
+			expectedWriteData: map[string]interface{}{
+				"data": map[string]interface{}{
+					"kubeconfig": "test-config",
+				},
+			},
+			vaultWriteError:      nil,
+			expectedMetadataInDB: `[{"key":"other","value":"updated"},{"key":"more","value":"data"}]`,
+			description: "Update with kubeconfig and other metadata should store " +
+				"kubeconfig in vault and keep other metadata",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			// Create initial host with the specified metadata
+			hostRequest := &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Name:     "Test Host " + tc.name,
+						Uuid:     uuid.NewString(),
+						Metadata: tc.initialMetadata,
+					},
+				},
+			}
+
+			// Create the host
+			createResp, err := inv_testing.TestClients[inv_testing.APIClient].Create(ctx, hostRequest)
+			require.NoError(t, err, "Failed to create host for test: %s", tc.description)
+			require.NotNil(t, createResp, "Create response should not be nil")
+
+			hostResourceID := createResp.GetHost().GetResourceId()
+			require.NotEmpty(t, hostResourceID, "Host resource ID should not be empty")
+
+			// Clean up the host
+			t.Cleanup(func() { inv_testing.HardDeleteHost(t, hostResourceID) })
+
+			// Set up vault mock expectations for Update operation
+			expectedLogoutCalls := 1 // Default: 1 Get operation = 1 logout call
+			if tc.expectedVaultCall {
+				expectedVaultPath := fmt.Sprintf("kubeconfig/%s", hostResourceID)
+				mockSecretsService.EXPECT().
+					WriteSecret(gomock.Any(), expectedVaultPath, tc.expectedWriteData).
+					Return(nil, tc.vaultWriteError).
+					Times(1)
+
+				expectedLogoutCalls = 2 // 1 Write + 1 Get = 2 logout calls
+			}
+
+			// Set up vault mock expectations for Get operations (GetHost always calls ReadSecret)
+			expectedVaultPath := fmt.Sprintf("kubeconfig/%s", hostResourceID)
+			// For the "Additional verification" Get call
+			mockSecretsService.EXPECT().
+				ReadSecret(gomock.Any(), expectedVaultPath).
+				Return(nil, nil). // No vault data expected for these test cases
+				Times(1)
+			// Set up all Logout expectations at once
+			mockSecretsService.EXPECT().
+				Logout(gomock.Any()).
+				Times(expectedLogoutCalls)
+
+			// Update the host with new metadata
+			updateRequest := &inv_v1.Resource{
+				Resource: &inv_v1.Resource_Host{
+					Host: &computev1.HostResource{
+						Metadata: tc.updateMetadata,
+					},
+				},
+			}
+
+			fieldMask := &fieldmaskpb.FieldMask{
+				Paths: []string{"metadata"},
+			}
+
+			// Perform the update
+			updateResp, err := inv_testing.TestClients[inv_testing.APIClient].Update(
+				ctx, hostResourceID, fieldMask, updateRequest)
+			require.NoError(t, err, "Failed to update host for test: %s", tc.description)
+			require.NotNil(t, updateResp, "Update response should not be nil")
+
+			// Verify the metadata in the DB (should have kubeconfig removed if it was present)
+			updatedHost := updateResp.GetHost()
+			require.NotNil(t, updatedHost, "Updated host should not be nil")
+
+			if tc.expectedMetadataInDB == "" {
+				assert.Empty(t, updatedHost.GetMetadata(), "Metadata should be empty for test: %s", tc.description)
+			} else {
+				// Parse both expected and actual metadata to compare structure
+				expectedMetadataMap, parseErr := store.ParseMetadata(tc.expectedMetadataInDB)
+				require.NoError(t, parseErr, "Failed to parse expected metadata")
+
+				actualMetadataMap, parseErr := store.ParseMetadata(updatedHost.GetMetadata())
+				require.NoError(t, parseErr, "Failed to parse actual metadata")
+
+				assert.Equal(t, expectedMetadataMap, actualMetadataMap, "Metadata content mismatch for test: %s", tc.description)
+
+				// Ensure kubeconfig is not in DB metadata
+				_, hasKubeconfig := actualMetadataMap["kubeconfig"]
+				if tc.expectedVaultCall {
+					assert.False(t, hasKubeconfig, "Kubeconfig should not be stored in DB metadata for test: %s", tc.description)
+				}
+			}
+
+			// Additional verification: get the host to ensure consistency
+			getResp, err := inv_testing.TestClients[inv_testing.APIClient].Get(ctx, hostResourceID)
+			require.NoError(t, err, "Failed to get host after update for test: %s", tc.description)
+
+			retrievedHost := getResp.GetResource().GetHost()
+
+			// Parse metadata to compare structure instead of string order
+			updatedMetadataMap, parseErr := store.ParseMetadata(updatedHost.GetMetadata())
+			require.NoError(t, parseErr, "Failed to parse updated host metadata")
+
+			retrievedMetadataMap, parseErr := store.ParseMetadata(retrievedHost.GetMetadata())
+			require.NoError(t, parseErr, "Failed to parse retrieved host metadata")
+
+			assert.Equal(t, updatedMetadataMap, retrievedMetadataMap,
+				"Get and Update should return same metadata for test: %s", tc.description)
+		})
+	}
 }
