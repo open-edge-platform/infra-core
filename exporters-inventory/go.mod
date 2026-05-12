@@ -7,11 +7,11 @@ go 1.26.3
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
-	github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.2
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.35.1
-	github.com/open-edge-platform/infra-managers/host v1.26.0
-	github.com/open-edge-platform/infra-managers/maintenance v1.25.2
-	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.40.0
+	github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.5
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.35.5
+	github.com/open-edge-platform/infra-managers/host v1.26.3
+	github.com/open-edge-platform/infra-managers/maintenance v1.26.0
+	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.40.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2
 	github.com/prometheus/common v0.67.5
@@ -70,6 +70,7 @@ require (
 	github.com/hashicorp/hcl v1.0.1-vault-7 // indirect
 	github.com/hashicorp/hcl/v2 v2.23.0 // indirect
 	github.com/hashicorp/vault/api v1.22.0 // indirect
+	github.com/hashicorp/vault/api/auth/kubernetes v0.10.0 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
