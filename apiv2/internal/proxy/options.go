@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package proxy
@@ -108,7 +108,7 @@ func (m *Manager) setAuthentication(e *echo.Echo) {
 func (m *Manager) setTenant(e *echo.Echo) {
 	// Use middleware via Echo wrapper to inject active project ID into request context
 	e.Use(echo.WrapMiddleware(
-		projectcontext.InjectActiveProjectID(m.cfg.RestServer.NexusAPIURL, true),
+		projectcontext.InjectActiveProjectID(m.cfg.RestServer.TenantManagerURL, true),
 	))
 
 	e.Use(tenant.TenantInterceptor)

@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+// SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 // SPDX-License-Identifier: Apache-2.0
 
 package proxy_test
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"net/http/httptest"
@@ -21,7 +22,7 @@ import (
 
 // To create a request with an authorization header.
 func createRequestWithMethodPathParams(method, path string) *http.Request {
-	req := httptest.NewRequest(method, path, http.NoBody)
+	req := httptest.NewRequestWithContext(context.Background(), method, path, http.NoBody)
 	return req
 }
 
@@ -87,7 +88,7 @@ func TestOapiValidatorInterceptor(t *testing.T) {
 	}{
 		{
 			name:           "Wrong requested path",
-			request:        httptest.NewRequest(http.MethodGet, "/", http.NoBody),
+			request:        httptest.NewRequestWithContext(context.Background(), http.MethodGet, "/", http.NoBody),
 			expectedStatus: http.StatusNotFound,
 		},
 		{
