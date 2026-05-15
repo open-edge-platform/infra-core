@@ -268,8 +268,8 @@ github.com/open-edge-platform/infra-managers/maintenance v1.25.2 h1:AhUYSDXFELkj
 github.com/open-edge-platform/infra-managers/maintenance v1.25.2/go.mod h1:Vdsq4hD3a8+uLsoFD2VDW+XWDJOe/uHUXBw8WxCTfio=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.40.0 h1:EscYJLSVtDWxLJ1n1ewCGIJk6r/RPX0IoU5lBj04xSY=
 github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.40.0/go.mod h1:mcT4cppV9ojMj0DTjn0OK3w+r3aYl8Moxbantegs2OU=
-github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d h1:xRow90Mk5U2h+R60TTL8lPXIFbdQWSnHyg09vh8NEPo=
-github.com/open-edge-platform/orch-library/go v0.6.4-0.20260211092341-cfad67ad247d/go.mod h1:mYhs/KbcXPQWM+2cHZXyzeIIzM7xKvnNgsnHlFkXH0g=
+github.com/open-edge-platform/orch-library/go v0.6.4 h1:LRK01REF9S+M+Rowm7OLln9iOIMO/zAfzXCQVsP+awE=
+github.com/open-edge-platform/orch-library/go v0.6.4/go.mod h1:m8uUv9rr3vuJ69rVBvn9FWfe8K4m6zS9XGMxnEOBT7M=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.14.0 h1:sdG94h9GrZQQcTaH70fJhOuU+/C2FAeeAo8mSPssV/U=

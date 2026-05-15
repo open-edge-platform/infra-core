@@ -228,8 +228,8 @@ github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 h1:C3w9PqII01/Oq
 github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822/go.mod h1:+n7T8mK8HuQTcFwEeznm/DIxMOiR9yIdICNftLE1DvQ=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.35.0 h1:NlKK7Kh3x9JUB+dLwtSYfbyvG2nE+zy1FhNP/2Frh1c=
 github.com/open-edge-platform/infra-core/inventory/v2 v2.35.0/go.mod h1:WNM18zJ5iCFR9LgESM4RT/jgo+oicNrfdwtaOh19EHA=
-github.com/open-edge-platform/orch-library/go v0.6.4-0.20260504141454-171fffc735ae h1:YsH51Zef6stIwlbbMLLmzDve1N2CfR1KzUhRTml1nfo=
-github.com/open-edge-platform/orch-library/go v0.6.4-0.20260504141454-171fffc735ae/go.mod h1:4JmwDbbry87tUoQf2VQUUe6ecZA9uOnQU0nzScBOxjU=
+github.com/open-edge-platform/orch-library/go v0.6.4 h1:LRK01REF9S+M+Rowm7OLln9iOIMO/zAfzXCQVsP+awE=
+github.com/open-edge-platform/orch-library/go v0.6.4/go.mod h1:m8uUv9rr3vuJ69rVBvn9FWfe8K4m6zS9XGMxnEOBT7M=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
 github.com/open-policy-agent/opa v1.14.0 h1:sdG94h9GrZQQcTaH70fJhOuU+/C2FAeeAo8mSPssV/U=
