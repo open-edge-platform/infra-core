@@ -11,6 +11,8 @@ on:
       - release-*
     paths:
       - 'os-profiles/**'
+    tags:
+      - '*'
 
 permissions: {}
 
