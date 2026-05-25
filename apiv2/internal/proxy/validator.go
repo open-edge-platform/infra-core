@@ -164,7 +164,18 @@ func ValidateRequestFromContext(ctx echo.Context, router routers.Router, options
 	}
 
 	err = openapi3filter.ValidateRequest(requestContext, validationInput)
-	return parseValidateErr(err, options)
+	if parsedErr := parseValidateErr(err, options); parsedErr != nil {
+		return parsedErr
+	}
+
+	// Keep host list behavior strict: if filter is present, it must not be empty.
+	if req.Method == http.MethodGet && route.Path == "/v1/projects/{projectName}/compute/hosts" {
+		if filters, exists := req.URL.Query()["filter"]; exists && len(filters) > 0 && strings.TrimSpace(filters[0]) == "" {
+			return echo.NewHTTPError(http.StatusBadRequest, "query parameter filter must not be empty")
+		}
+	}
+
+	return nil
 }
 
 // attempt to get the skipper from the options whether it is set or not.
