@@ -11,6 +11,8 @@ on:
       - release-*
     paths:
       - 'inventory/**'
+    tags:
+      - '*'
 
 permissions: {}
 
