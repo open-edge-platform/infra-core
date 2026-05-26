@@ -11,8 +11,6 @@ on:
       - release-*
     paths:
       - 'apiv2/**'
-    tags:
-      - '*'
 
 permissions: {}
 
