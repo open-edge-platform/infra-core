@@ -11,8 +11,6 @@ on:
       - release-*
     paths:
       - 'tenant-controller/**'
-    tags:
-      - '*'
 
 permissions: {}
 

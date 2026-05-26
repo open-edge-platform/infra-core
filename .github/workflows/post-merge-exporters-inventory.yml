@@ -11,8 +11,6 @@ on:
       - release-*
     paths:
       - 'exporters-inventory/**'
-    tags:
-      - '*'
 
 permissions: {}
 
