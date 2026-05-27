@@ -87,7 +87,7 @@ func Test_Create_Get_Delete_Update_WorkloadMember(t *testing.T) {
 				s := status.Convert(err)
 				require.NotNil(t, s)
 				assert.Equal(t, codes.InvalidArgument, s.Code())
-				assert.Contains(t, s.Message(), "value does not match regex pattern `^workloadmember-[0-9a-f]{8}$`")
+				assert.Contains(t, s.Message(), "does not match regex pattern `^workloadmember-[0-9a-f]{8}$`")
 			},
 		},
 		"CreateBadWorkloadMemberWithTooLongResourceIdSet": {
@@ -102,7 +102,7 @@ func Test_Create_Get_Delete_Update_WorkloadMember(t *testing.T) {
 				s := status.Convert(err)
 				require.NotNil(t, s)
 				assert.Equal(t, codes.InvalidArgument, s.Code())
-				assert.Contains(t, s.Message(), "value length must be at most 23 bytes")
+				assert.Contains(t, s.Message(), "must be at most 23 bytes")
 			},
 		},
 		"CreateBadWorkloadMemberWithNonExistingWorkload": {
