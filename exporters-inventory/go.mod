@@ -7,10 +7,10 @@ go 1.26.3
 
 require (
 	github.com/onosproject/onos-lib-go v0.10.29-0.20241209125119-55579ffad35f
-	github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.6
-	github.com/open-edge-platform/infra-core/inventory/v2 v2.35.6
-	github.com/open-edge-platform/infra-managers/host v1.26.4
-	github.com/open-edge-platform/infra-managers/maintenance v1.26.0
+	github.com/open-edge-platform/infra-core/apiv2/v2 v2.10.7
+	github.com/open-edge-platform/infra-core/inventory/v2 v2.35.7
+	github.com/open-edge-platform/infra-managers/host v1.26.5
+	github.com/open-edge-platform/infra-managers/maintenance v1.26.3
 	github.com/open-edge-platform/infra-onboarding/onboarding-manager v1.40.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2
@@ -103,7 +103,7 @@ require (
 	github.com/oapi-codegen/runtime v1.1.2 // indirect
 	github.com/oasdiff/yaml v0.0.0-20250309154309-f31be36b4037 // indirect
 	github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 // indirect
-	github.com/open-edge-platform/orch-library/go v0.6.4 // indirect
+	github.com/open-edge-platform/orch-library/go v0.6.5 // indirect
 	github.com/open-edge-platform/orch-library/go/dazl v0.5.4 // indirect
 	github.com/open-policy-agent/opa v1.14.0 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
@@ -129,7 +129,7 @@ require (
 	go.einride.tech/aip v0.81.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho v0.66.0 // indirect
-	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.66.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.68.0 // indirect
 	go.opentelemetry.io/otel v1.43.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.43.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.41.0 // indirect
@@ -150,7 +150,7 @@ require (
 	golang.org/x/time v0.14.0 // indirect
 	golang.org/x/tools v0.43.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260401024825-9d38bb4040a9 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260401024825-9d38bb4040a9 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260406210006-6f92a3bedf2d // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
