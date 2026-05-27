@@ -35,7 +35,7 @@ require (
 	github.com/mennanov/fmutils v0.3.6
 	github.com/mitchellh/mapstructure v1.5.1-0.20231216201459-8508981c8b6c
 	github.com/olekukonko/tablewriter v1.1.0
-	github.com/open-edge-platform/orch-library/go v0.6.3
+	github.com/open-edge-platform/orch-library/go v0.6.5
 	github.com/open-policy-agent/opa v1.14.0
 	github.com/opencontainers/image-spec v1.1.1
 	github.com/patrickmn/go-cache v2.1.0+incompatible
@@ -57,7 +57,7 @@ require (
 	golang.org/x/term v0.41.0
 	golang.org/x/tools v0.42.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20260401024825-9d38bb4040a9
-	google.golang.org/grpc v1.80.0
+	google.golang.org/grpc v1.81.1
 	google.golang.org/protobuf v1.36.11
 	oras.land/oras-go/v2 v2.6.0
 )

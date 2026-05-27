@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
 *.swp
@@ -22,3 +22,10 @@ go.work
 
 # Useful when developing with coder vms
 .tool-versions
+
+# Stray top-level component binaries (built outputs belong in out/)
+/tenant-controller/tenant-controller
+/apiv2/apiv2
+/inventory/inventory
+/exporters-inventory/exporters-inventory
+/os-profiles/os-profiles
