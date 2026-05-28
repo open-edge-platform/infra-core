@@ -147,6 +147,10 @@ func ValidateRequestFromContext(ctx echo.Context, router routers.Router, options
 		}
 	}
 
+	if err := rejectEmptyQueryValues(req, route); err != nil {
+		return err
+	}
+
 	validationInput := &openapi3filter.RequestValidationInput{
 		Request:    req,
 		PathParams: pathParams,
@@ -165,6 +169,38 @@ func ValidateRequestFromContext(ctx echo.Context, router routers.Router, options
 
 	err = openapi3filter.ValidateRequest(requestContext, validationInput)
 	return parseValidateErr(err, options)
+}
+
+func rejectEmptyQueryValues(req *http.Request, route *routers.Route) *echo.HTTPError {
+	queryValues := req.URL.Query()
+
+	checkParams := func(params openapi3.Parameters, skipOverrides openapi3.Parameters) *echo.HTTPError {
+		for _, parameterRef := range params {
+			parameter := parameterRef.Value
+			if parameter.In != openapi3.ParameterInQuery {
+				continue
+			}
+			if skipOverrides != nil && skipOverrides.GetByInAndName(parameter.In, parameter.Name) != nil {
+				continue
+			}
+			values, found := queryValues[parameter.Name]
+			if !found {
+				continue
+			}
+			for _, value := range values {
+				if value == "" {
+					return echo.NewHTTPError(http.StatusBadRequest, openapi3filter.ErrInvalidEmptyValue.Error())
+				}
+			}
+		}
+		return nil
+	}
+
+	if err := checkParams(route.PathItem.Parameters, route.Operation.Parameters); err != nil {
+		return err
+	}
+
+	return checkParams(route.Operation.Parameters, nil)
 }
 
 // attempt to get the skipper from the options whether it is set or not.
