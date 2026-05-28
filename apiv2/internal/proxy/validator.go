@@ -171,6 +171,12 @@ func ValidateRequestFromContext(ctx echo.Context, router routers.Router, options
 	return parseValidateErr(err, options)
 }
 
+// check the query parameters of the request against the OpenAPI spec and return
+// an error if any required query parameter is present with an empty value.
+// This is necessary because starting with version v0.134.0 kin-openapi,
+// by default, treats empty query parameter values as valid
+// and there is no built-in option to change this behavior
+// https://github.com/getkin/kin-openapi/pull/1096
 func rejectEmptyQueryValues(req *http.Request, route *routers.Route) *echo.HTTPError {
 	queryValues := req.URL.Query()
 
@@ -196,10 +202,13 @@ func rejectEmptyQueryValues(req *http.Request, route *routers.Route) *echo.HTTPE
 		return nil
 	}
 
+	// Check the path-level parameters first, then the operation-level parameters,
+	// skipping any query parameters that are overridden at the operation level.
 	if err := checkParams(route.PathItem.Parameters, route.Operation.Parameters); err != nil {
 		return err
 	}
 
+	// Check the operation-level parameters, with no overrides.
 	return checkParams(route.Operation.Parameters, nil)
 }
 
