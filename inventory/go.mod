@@ -6,11 +6,11 @@ module github.com/open-edge-platform/infra-core/inventory/v2
 go 1.26.3
 
 require (
-	ariga.io/atlas v1.1.0
+	ariga.io/atlas v1.2.1
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.11-20260415201107-50325440f8f2.1
 	buf.build/go/protovalidate v1.2.0
 	entgo.io/contrib v0.7.0
-	entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4
+	entgo.io/ent v0.14.6
 	github.com/Nerzal/gocloak/v13 v13.9.0
 	github.com/adhocore/gronx v1.20.0
 	github.com/cenkalti/backoff v2.2.1+incompatible

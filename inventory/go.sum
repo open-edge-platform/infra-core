@@ -1,5 +1,5 @@
-ariga.io/atlas v1.1.0 h1:Dk9Xemh6pr5RogNCsFylf/9ozhSPWDqzHb8EkR2rA78=
-ariga.io/atlas v1.1.0/go.mod h1:esBbk3F+pi/mM2PvbCymDm+kWhaOk4PaaiegQdNELk8=
+ariga.io/atlas v1.2.1 h1:xLIs6vThJ2J9Bl8gXFZhXbNyMf4yFuBeJ7AYlZ+Tn6M=
+ariga.io/atlas v1.2.1/go.mod h1:vg7qWSatkNqs04Y4Lheg7vR4bGX0wy51Wz4FIMFVr3U=
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.11-20260415201107-50325440f8f2.1 h1:s6hzCXtND/ICdGPTMGk7C+/BFlr2Jg5GyH0NKf4XGXg=
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.11-20260415201107-50325440f8f2.1/go.mod h1:tvtbpgaVXZX4g6Pn+AnzFycuRK3MOz5HJfEGeEllXYM=
 buf.build/go/protovalidate v1.2.0 h1:DQVrUWkmGTBij+kOYv/x2LLxwcLaGKMdzShj1/6/3H0=
@@ -13,8 +13,8 @@ cloud.google.com/go/compute/metadata v0.9.0 h1:pDUj4QMoPejqq20dK0Pg2N4yG9zIkYGdB
 cloud.google.com/go/compute/metadata v0.9.0/go.mod h1:E0bWwX5wTnLPedCKqk3pJmVgCBSM6qQI1yTBdEb3C10=
 entgo.io/contrib v0.7.0 h1:4Ghx8O0rqSMmca3FIJ6QyZbQAoLvdzWqLMl1MbHFEEw=
 entgo.io/contrib v0.7.0/go.mod h1:zbPSUrbn+6dfyv8S9HWEvn1MyGpO95ik2lUNgaqWTt4=
-entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4 h1:H7esUcrshCE1CC9dQn0MY7J029LrFt5xU2muJD4OVh0=
-entgo.io/ent v0.14.6-0.20251106044941-a777c08cdda4/go.mod h1:lzIEU+g4/iK78Txz6EgLmA/kkkK/k73MwaRH7xMJacs=
+entgo.io/ent v0.14.6 h1:/f2696BpwuWAEEG6PVGWflg6+Inrpq4pRWuNlWz/Skk=
+entgo.io/ent v0.14.6/go.mod h1:z46QBUdGC+BATwsedbDuREfSS0oSCV+csdEYlL4p73s=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6 h1:He8afgbRMd7mFxO99hRNu+6tazq8nFF9lIwo9JFroBk=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6/go.mod h1:8o94RPi1/7XTJvwPpRSzSUedZrtlirdB3r9Z20bi2f8=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
