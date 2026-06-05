@@ -12,12 +12,12 @@ spec:
   provider: OS_PROVIDER_KIND_INFRA
   architecture: x86_64
   profileName: microvisor-rt  # Name has to be identical to this file name
-  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20260602.2100.raw.gz
+  osImageUrl: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20260602.2100-prod-signed.raw.gz
   osImageVersion: 3.0.20260602.2100
-  osImageSha256: 9639af72328e1ac301a72ecc1a491b52ab25c96f6ea6a050b8015d03d70cba66
+  osImageSha256: 159ed2aba767e8ed5c31fcc06f9006eab8219533e3b394709099286c30540715
   osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20260602.2100_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_cve.json
   osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_fixed_cves.json
-  securityFeature: SECURITY_FEATURE_NONE
+  securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
   description: Edge Microvisor Toolkit Real Time for x86_64 architecture
   platformBundle:
