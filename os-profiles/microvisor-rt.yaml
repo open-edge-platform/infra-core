@@ -18,6 +18,6 @@ spec:
   osPackageManifestURL: files-edge-orch/repository/microvisor/rt/edge-readonly-rt-3.0.20260602.2100_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_cve.json
   osFixedCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_fixed_cves.json
-  securityFeature: SECURITY_FEATURE_NONE
+  securityFeature: SECURITY_FEATURE_SECURE_BOOT_AND_FULL_DISK_ENCRYPTION
   description: Edge Microvisor Toolkit Real Time for x86_64 architecture
   platformBundle:
