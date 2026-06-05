@@ -13,7 +13,7 @@ spec:
   architecture: x86_64
   profileName: microvisor-nonrt  # Name has to be identical to this file name
   osImageUrl: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20260602.2200.raw.gz
-  osImageVersion:  3.0.20260602.2200
+  osImageVersion: 3.0.20260602.2200
   osImageSha256: fcc21fc68291afcb8191bc14a540c135c5f4cd0f6b3f104582445c07353b6caa
   osPackageManifestURL: files-edge-orch/repository/microvisor/non_rt/edge-readonly-3.0.20260602.2200_pkg_manifest.json
   osExistingCvesURL: files-edge-orch/microvisor/iso/EdgeMicrovisorToolkit-25.06.2_cve.json
