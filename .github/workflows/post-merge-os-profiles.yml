@@ -10,8 +10,7 @@ on:
       - main
       - release-*
       - force-push
-    paths:
-      - 'os-profiles/**'
+  workflow_dispatch:
 
 permissions: {}
 
