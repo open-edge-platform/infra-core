@@ -147,6 +147,10 @@ func ValidateRequestFromContext(ctx echo.Context, router routers.Router, options
 		}
 	}
 
+	if err := rejectEmptyQueryValues(req, route); err != nil {
+		return err
+	}
+
 	validationInput := &openapi3filter.RequestValidationInput{
 		Request:    req,
 		PathParams: pathParams,
@@ -165,6 +169,47 @@ func ValidateRequestFromContext(ctx echo.Context, router routers.Router, options
 
 	err = openapi3filter.ValidateRequest(requestContext, validationInput)
 	return parseValidateErr(err, options)
+}
+
+// check the query parameters of the request against the OpenAPI spec and return
+// an error if any required query parameter is present with an empty value.
+// This is necessary because starting with version v0.134.0 kin-openapi,
+// by default, treats empty query parameter values as valid
+// and there is no built-in option to change this behavior
+// https://github.com/getkin/kin-openapi/pull/1096
+func rejectEmptyQueryValues(req *http.Request, route *routers.Route) *echo.HTTPError {
+	queryValues := req.URL.Query()
+
+	checkParams := func(params openapi3.Parameters, skipOverrides openapi3.Parameters) *echo.HTTPError {
+		for _, parameterRef := range params {
+			parameter := parameterRef.Value
+			if parameter.In != openapi3.ParameterInQuery {
+				continue
+			}
+			if skipOverrides != nil && skipOverrides.GetByInAndName(parameter.In, parameter.Name) != nil {
+				continue
+			}
+			values, found := queryValues[parameter.Name]
+			if !found {
+				continue
+			}
+			for _, value := range values {
+				if value == "" {
+					return echo.NewHTTPError(http.StatusBadRequest, openapi3filter.ErrInvalidEmptyValue.Error())
+				}
+			}
+		}
+		return nil
+	}
+
+	// Check the path-level parameters first, then the operation-level parameters,
+	// skipping any query parameters that are overridden at the operation level.
+	if err := checkParams(route.PathItem.Parameters, route.Operation.Parameters); err != nil {
+		return err
+	}
+
+	// Check the operation-level parameters, with no overrides.
+	return checkParams(route.Operation.Parameters, nil)
 }
 
 // attempt to get the skipper from the options whether it is set or not.
