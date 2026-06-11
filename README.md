@@ -5,7 +5,7 @@
 
 ## Overview
 
-The repository includes the core micro-services of the Edge Infrastructure Manager of the Edge Manageability Framework.
+The repository includes the micro-services of the Edge Infrastructure Manager of the Edge Manageability Framework.
 
 ## Get Started
 
